@@ -70,13 +70,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: url,
       type: 'article',
       siteName: 'EduLens',
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      url: url,
-      type: 'article',
-      siteName: 'EduLens',
       images: [
         `${url}/Xcard.png`,
         'https://edulens.jp/logo.png'
