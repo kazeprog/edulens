@@ -119,7 +119,7 @@ export default async function PrefectureSelectPage() {
                 </h2>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {prefs.map((pref) => (
+                  {prefs.map((pref: any) => (
                     <Link
                       key={pref.id}
                       href={`/countdown/highschool/${pref.slug}/${targetYear}`}
