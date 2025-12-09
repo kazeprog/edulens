@@ -12,12 +12,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
+/* ダークモードの自動切替を無効化しました。常にライト（白背景）を使用します。 */
 
 body {
   background: var(--background);
