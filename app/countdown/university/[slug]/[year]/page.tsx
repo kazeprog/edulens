@@ -242,22 +242,16 @@ export default async function UniversityExamPage({ params }: { params: Params })
         </div>
         {/* ▲▲▲ SEO用の解説セクションここまで ▲▲▲ */}
 
-        {/* シェア・フッターエリア */}
-        <div className="max-w-3xl mx-auto mt-8 pt-6 border-t text-left text-slate-500">
-          <div className="mt-8 pt-6 border-t border-slate-100">
-            <p className="text-xs font-bold text-slate-400 mb-3 text-center">このカウントダウンをシェアする</p>
-            <div className="flex justify-center gap-4">
-              <a 
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${event.name}まで、あと${diffDays}日！ #大学入試 #共通テスト #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/university/${slug}/${year}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-                X (Twitter) でシェア
-              </a>
-            </div>
-          </div>
+        <div className="mt-12 text-center">
+          <a 
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${event.name}まで、あと${diffDays}日！ #大学入試 #共通テスト #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/university/${slug}/${year}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            Xで共有
+          </a>
         </div>
 
         <div className="mt-12 text-center">
