@@ -3,9 +3,29 @@ import { notFound } from 'next/navigation';
 import CountdownTimer from './CountdownTimer';
 import ExamSchedule from './ExamSchedule';
 import AddToHomeButton from './AddToHomeButton';
+import type { Metadata } from 'next';
 
 // Next.js 15 (最新) では params が Promise になりました
 type Params = Promise<{ prefecture: string; year: string }>;
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { prefecture, year } = await params;
+  
+  // DBから県名を取得
+  const { data: prefData } = await supabase
+    .from('prefectures')
+    .select('name')
+    .eq('slug', prefecture)
+    .single();
+
+  const prefName = prefData?.name || prefecture;
+  
+  return {
+    title: `${prefName} ${year}年度 入試カウントダウン | EduLens`,
+    description: `${prefName}の${year}年度公立高校入試までのカウントダウン。試験日程と残り日数を確認できます。`,
+    manifest: `/countdown/${prefecture}/${year}/manifest.json`,
+  };
+}
 
 export default async function CountdownPage({ params }: { params: Params }) {
   // 1. URLからパラメータを取り出す (例: hyogo, 2026)
