@@ -24,23 +24,47 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    // ▼▼▼ 追加: 大学入試トップ ▼▼▼
+    {
+      url: `${BASE_URL}/countdown/university`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ];
 
+  // 高校入試の都道府県別ページ
   const { data: prefectures } = await supabase
     .from('prefectures')
     .select('slug');
 
+  // 大学入試イベントページ
+  const { data: universityEvents } = await supabase
+    .from('university_events')
+    .select('slug, year')
+    .eq('year', 2026);
+
+  const dynamicRoutes: MetadataRoute.Sitemap = [];
+
   if (prefectures) {
-    const dynamicRoutes = prefectures.map((pref) => ({
-      // ▼▼▼ 修正: URLに /highschool を追加 ▼▼▼
+    const highschoolRoutes = prefectures.map((pref) => ({
       url: `${BASE_URL}/countdown/highschool/${pref.slug}/2026`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.9,
     }));
-
-    return [...routes, ...dynamicRoutes];
+    dynamicRoutes.push(...highschoolRoutes);
   }
 
-  return routes;
+  if (universityEvents) {
+    const universityRoutes = universityEvents.map((event) => ({
+      url: `${BASE_URL}/countdown/university/${event.slug}/${event.year}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.9,
+    }));
+    dynamicRoutes.push(...universityRoutes);
+  }
+
+  return [...routes, ...dynamicRoutes];
 }
