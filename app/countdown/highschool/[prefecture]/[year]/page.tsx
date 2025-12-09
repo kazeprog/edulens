@@ -71,10 +71,25 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       type: 'article',
       siteName: 'EduLens',
     },
+    openGraph: {
+      title: title,
+      description: description,
+      url: url,
+      type: 'article',
+      siteName: 'EduLens',
+      images: [
+        `${url}/og.png`,
+        'https://edulens.jp/logo.png'
+      ],
+    },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
+      images: [
+        `${url}/og.png`,
+        'https://edulens.jp/logo.png'
+      ]
     },
     manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };
