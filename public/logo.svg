@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80" role="img" aria-label="EduLens logo">
+  <rect width="100%" height="100%" fill="none" />
+  <g fill="none" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="700">
+    <text x="10" y="52" font-size="40" fill="#0ea5e9">Edu</text>
+    <text x="110" y="52" font-size="40" fill="#0f172a">Lens</text>
+  </g>
+</svg>
