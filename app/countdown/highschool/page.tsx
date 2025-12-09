@@ -2,12 +2,11 @@ import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
-// ▼▼▼ 年度を自動計算するロジック ▼▼▼
+// 年度自動計算
 function getTargetExamYear() {
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
   const currentMonth = now.getMonth() + 1;
   const currentYear = now.getFullYear();
-  // 4月以降は翌年の入試を表示
   return currentMonth >= 4 ? currentYear + 1 : currentYear;
 }
 
@@ -79,8 +78,14 @@ export default async function PrefectureSelectPage() {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "全国公立高校入試一覧",
+        "name": "入試選択",
         "item": "https://edulens.jp/countdown"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "高校入試一覧",
+        "item": "https://edulens.jp/countdown/highschool"
       }
     ]
   };
@@ -92,7 +97,6 @@ export default async function PrefectureSelectPage() {
         <div className="text-center mb-12">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">
             全国公立高校入試カウントダウン
-            {/* ▼▼▼ blockを指定して、常に改行させます ▼▼▼ */}
             <span className="block text-blue-600 mt-2 text-3xl sm:text-4xl">
               {targetYear} (令和{reiwaYear}年度)
             </span>
@@ -115,7 +119,7 @@ export default async function PrefectureSelectPage() {
                 </h2>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {prefs.map((pref: any) => (
+                  {prefs.map((pref) => (
                     <Link
                       key={pref.id}
                       href={`/countdown/highschool/${pref.slug}/${targetYear}`}
@@ -129,7 +133,14 @@ export default async function PrefectureSelectPage() {
             );
           })}
         </div>
-        
+
+        {/* ▼▼▼ 追加: カテゴリ選択に戻るリンク ▼▼▼ */}
+        <div className="mt-12 text-center">
+           <Link href="/countdown" className="text-blue-600 hover:text-blue-800 font-medium hover:underline">
+             ← カテゴリ選択に戻る
+           </Link>
+        </div>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
