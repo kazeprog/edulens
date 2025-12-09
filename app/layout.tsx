@@ -38,7 +38,7 @@ export default function RootLayout({
       >
         <header className="w-full py-4 px-0 flex items-center justify-start sticky top-0 bg-white/80 backdrop-blur-sm z-50">
           {/* ロゴを画像の縦横サイズに合わせて表示（Next/Image を使わず <img> を利用） */}
-          <Link href="/" className="w-48 h-12 block hover:opacity-80 transition-opacity">
+          <Link href="/countdown" className="w-48 h-12 block hover:opacity-80 transition-opacity">
             <img src="/logo.png" alt="EduLens" decoding="async" className="w-full h-full object-contain" />
           </Link>
         </header>
