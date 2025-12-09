@@ -1,101 +1,188 @@
 import { supabase } from '@/utils/supabase/client';
 import { notFound } from 'next/navigation';
+import Link from 'next/link'; // ★追加
 import CountdownTimer from './CountdownTimer';
 import ExamSchedule from './ExamSchedule';
 import AddToHomeButton from './AddToHomeButton';
 import type { Metadata } from 'next';
 
-// Next.js 15 (最新) では params が Promise になりました
 type Params = Promise<{ prefecture: string; year: string }>;
 
+// ★追加: 地域名の定義（近隣県リンクの見出し用）
+const REGION_NAMES: Record<string, string> = {
+  hokkaido: "北海道",
+  tohoku: "東北",
+  kanto: "関東",
+  chubu: "中部",
+  kinki: "近畿",
+  chugoku: "中国",
+  shikoku: "四国",
+  kyushu: "九州",
+  okinawa: "沖縄",
+};
+
+// ▼▼▼ SEO強化: メタデータ生成関数 ▼▼▼
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { prefecture, year } = await params;
   
-  // DBから県名を取得
+  let prefName = prefecture.toUpperCase();
+  let examDateText = "";
+
   const { data: prefData } = await supabase
     .from('prefectures')
-    .select('name')
+    .select('id, name')
     .eq('slug', prefecture)
     .single();
 
-  const prefName = prefData?.name || prefecture;
-  
+  if (prefData?.name) {
+    prefName = prefData.name;
+    const { data: examData } = await supabase
+      .from('official_exams')
+      .select('date')
+      .eq('prefecture_id', prefData.id)
+      .eq('year', parseInt(year))
+      .eq('category', 'public_general')
+      .single();
+    
+    if (examData?.date) {
+      const d = new Date(examData.date);
+      examDateText = `${d.getMonth() + 1}月${d.getDate()}日`;
+    }
+  }
+
+  const title = `${prefName}公立高校入試カウントダウン${year} - 試験日まであと何日？ | EduLens`;
+  const description = `${year}年度（令和${parseInt(year) - 2018}年度）${prefName}公立高校入試の試験日はいつ？${examDateText ? `一般選抜は${examDateText}です。` : ""}試験当日まで「あと何日」かリアルタイムでカウントダウン表示します。`;
+  const url = `https://edulens.jp/countdown/${prefecture}/${year}`;
+
   return {
-    title: `${prefName} ${year}年度 入試カウントダウン | EduLens`,
-    description: `${prefName}の${year}年度公立高校入試までのカウントダウン。試験日程と残り日数を確認できます。`,
+    title: title,
+    description: description,
+    keywords: [
+      `${prefName} 公立高校入試`,
+      `${prefName} 高校入試 日程`,
+      "高校入試 カウントダウン",
+      "高校入試 あと何日",
+      `${year} 高校入試`,
+      "EduLens"
+    ],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: url,
+      type: 'article',
+      siteName: 'EduLens',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+    },
     manifest: `/countdown/${prefecture}/${year}/manifest.json`,
   };
 }
 
 export default async function CountdownPage({ params }: { params: Params }) {
-  // 1. URLからパラメータを取り出す (例: hyogo, 2026)
   const { prefecture, year } = await params;
 
-  // 2. Supabaseから「県の情報」と「入試日程」を同時に取得する
-  // (SQLを実行していない場合はエラーになるので、まずはダミーデータを表示させる仕組みも入れています)
-  
-  // A. 県データの取得
+  // 1. 県データの取得
   const { data: prefData } = await supabase
     .from('prefectures')
     .select('*')
     .eq('slug', prefecture)
     .single();
 
-  // B. 入試日程の取得（県データが取れたら実行）
-  let exams: any[] = [];
-  if (prefData) {
-    const { data } = await supabase
-      .from('official_exams')
-      .select('*')
-      .eq('prefecture_id', prefData.id)
-      .eq('year', parseInt(year))
-      .order('date', { ascending: true });
-    exams = data || [];
+  if (!prefData) {
+    return notFound();
   }
 
-  // メイン試験の特定 (public_general または 最初の要素)
-  const mainExam = exams.find((e) => e.category === 'public_general') || exams[0] || null;
+  // 2. 入試日程の取得
+  let exams: any[] = [];
+  const { data: examData } = await supabase
+    .from('official_exams')
+    .select('*')
+    .eq('prefecture_id', prefData.id)
+    .eq('year', parseInt(year))
+    .order('date', { ascending: true });
+  exams = examData || [];
 
-  // --- もしDBにデータがなくても動くように、一時的なダミーデータを用意 ---
-  // (SQLを実行済みの場合はDBデータが優先されます)
-  const displayPrefName = prefData?.name || prefecture.toUpperCase(); // DBになければ英語のまま表示
-  const displayExamDate = mainExam?.date || `${year}-03-12`; // DBになければ仮の日付
+  // メイン試験の特定
+  const mainExam = exams.find((e: any) => e.category === 'public_general') || exams[0] || null;
+  const displayPrefName = prefData.name;
+  const displayExamDate = mainExam?.date || `${year}-03-12`;
   const displayExamName = mainExam?.name || "公立高校入試 (仮)";
-  // -------------------------------------------------------------
 
-  // 3. 残り日数の計算 (サーバーサイドでの初期計算用 - 必要であれば使用)
-  const today = new Date();
-  // 日本時間 (JST) の00:00:00をターゲットにする
-  const examDate = new Date(`${displayExamDate}T00:00:00+09:00`);
+  // 3. 日数計算
+  const now = new Date();
+  const jstNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+  const todayStr = jstNow.toISOString().split('T')[0];
+  const today = new Date(todayStr);
+  const examDate = new Date(displayExamDate);
   const diffTime = examDate.getTime() - today.getTime();
-  const isExpired = diffTime <= 0;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const isExpired = diffDays <= 0;
 
-  // 構造化データ (JSON-LD) を生成
+  // ★追加: 近隣県（同じ地方の他の県）を取得する
+  // 自分の県の region と同じで、かつ自分以外の県を取得
+  const { data: neighborPrefs } = await supabase
+    .from('prefectures')
+    .select('*')
+    .eq('region', prefData.region)
+    .neq('id', prefData.id) // 自分自身は除外
+    .order('id', { ascending: true });
+
+  // 構造化データ
   const ld = {
     "@context": "https://schema.org",
-    "@graph": exams.map((e: any) => {
-      const startDate = e?.date || null;
-      const isFuture = startDate ? new Date(`${startDate}T00:00:00+09:00`).getTime() > Date.now() : false;
-      return {
-        "@type": "Event",
-        "name": e?.name || `${displayPrefName} 入試`,
-        "startDate": startDate,
-        "location": {
-          "@type": "Place",
-          "name": displayPrefName,
-        },
-        "description": e?.category ? `${e.name}（区分: ${e.category}）` : e?.name || "",
-        "eventStatus": isFuture ? "https://schema.org/EventScheduled" : "https://schema.org/EventCompleted"
-      };
-    })
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "EduLens",
+            "item": "https://edulens.jp"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "全国一覧",
+            "item": "https://edulens.jp/countdown"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": `${displayPrefName}の入試`,
+            "item": `https://edulens.jp/countdown/${prefecture}/${year}`
+          }
+        ]
+      },
+      ...exams.map((e: any) => {
+        const startDate = e?.date || null;
+        const isFuture = startDate ? new Date(`${startDate}T00:00:00+09:00`).getTime() > Date.now() : false;
+        return {
+          "@type": "Event",
+          "name": e?.name || `${displayPrefName} 入試`,
+          "startDate": startDate,
+          "location": {
+            "@type": "Place",
+            "name": displayPrefName,
+          },
+          "description": e?.category ? `${e.name}（区分: ${e.category}）` : e?.name || "",
+          "eventStatus": isFuture ? "https://schema.org/EventScheduled" : "https://schema.org/EventCompleted"
+        };
+      })
+    ]
   };
 
-  // 4. 画面の表示 (HTML/Tailwind CSS)
   return (
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
         
-        {/* ヘッダー部分 */}
+        {/* ヘッダー */}
         <div className="mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayPrefName}
@@ -103,18 +190,15 @@ export default async function CountdownPage({ params }: { params: Params }) {
           <p className="text-2xl text-slate-500 font-medium">{year}年度 {displayExamName}</p>
         </div>
 
-        {/* カウントダウン部分 */}
+        {/* カウントダウン */}
         <div className="mb-16">
           <div className="inline-block border-b-2 border-blue-600 pb-1 mb-12">
             <span className="text-slate-400 font-medium tracking-widest text-sm uppercase">Examination Date</span>
             <span className="ml-4 text-xl font-bold text-slate-800">{displayExamDate.replace(/-/g, '.')}</span>
           </div>
-          
           <div className="mb-8">
-            {/* クライアントコンポーネントでリアルタイムカウントダウンを表示 */}
             <CountdownTimer targetDate={displayExamDate} />
           </div>
-
           {isExpired && (
             <div className="text-blue-600 font-bold mt-8 text-lg">
               試験当日、または終了しました
@@ -122,10 +206,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
           )}
         </div>
 
-        {/* 年間入試スケジュール (クライアント側でリアルタイム更新) */}
+        {/* スケジュールリスト */}
         {exams.length > 0 && (
           <div>
-            {/* ExamSchedule はクライアントコンポーネントで秒ごとに再計算します */}
             {/* @ts-ignore-next-line Server Component importing Client Component (allowed) */}
             <ExamSchedule exams={exams} />
           </div>
@@ -134,11 +217,29 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {/* ホーム画面に追加ボタン */}
         <AddToHomeButton />
 
-        {/* ====== SEO向けコンテンツエリア（中央寄せコンテナ内に左揃えテキスト） ====== */}
+        {/* ★追加: 同じ地方の他県リンク（SEO強化: 内部リンク） */}
+        {neighborPrefs && neighborPrefs.length > 0 && (
+          <div className="w-full max-w-4xl mx-auto mb-16 text-left mt-12">
+            <h3 className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-wider pl-1">
+              {REGION_NAMES[prefData.region] || '近隣'}エリアの他の入試もチェック
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {neighborPrefs.map((pref: any) => (
+                <Link 
+                  key={pref.id} 
+                  href={`/countdown/${pref.slug}/${year}`}
+                  className="px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
+                >
+                  {pref.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* SEOコンテンツエリア */}
         <div className="max-w-3xl mx-auto mt-8 pt-6 border-t text-left text-slate-500">
           <h3 className="text-lg font-semibold text-slate-800 mb-3">{displayPrefName} 公立高校入試について</h3>
-
-          {/* 解説文（examsのデータを使って自然文を作る） */}
           <p className="mb-3">
             {year}年度の{displayPrefName}における公立高校入試は、以下のような日程で行われます。
             {exams.length > 0 ? (
@@ -150,7 +251,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
             )}
           </p>
 
-          {/* 簡易的な一覧（左揃え） */}
           {exams.length > 0 && (
             <ul className="list-disc pl-5 mb-4 text-slate-500">
               {exams.map((e: any) => (
@@ -163,7 +263,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
           )}
 
           {/* FAQ */}
-          <div className="mt-4">
+          <div className="mt-6">
             <h4 className="font-semibold text-slate-800 mb-2">よくある質問（FAQ）</h4>
             <dl className="text-slate-500 space-y-3">
               <div>
@@ -178,24 +278,33 @@ export default async function CountdownPage({ params }: { params: Params }) {
                   A: 合格発表日は試験種別や自治体によって異なります。一般的には試験の数日〜数週間後に発表されますので、各都道府県・学校の公式発表を確認してください。
                 </dd>
               </div>
-              <div>
-                <dt className="font-medium text-slate-700">Q: 試験情報はどこで確認できますか？</dt>
-                <dd className="mt-1">
-                  A: 各都道府県教育委員会や志望校の公式サイトが一次情報となります。本サイトは参考情報としてご利用ください。
-                </dd>
-              </div>
             </dl>
+          </div>
+
+          {/* ★追加: シェアボタン */}
+          <div className="mt-8 pt-6 border-t border-slate-100">
+            <p className="text-xs font-bold text-slate-400 mb-3 text-center">このカウントダウンをシェアする</p>
+            <div className="flex justify-center gap-4">
+              <a 
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/${prefecture}/${year}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors flex items-center gap-2"
+              >
+                {/* Xロゴ */}
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                X (Twitter) でシェア
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* 構造化データ（JSON-LD）埋め込み（画面には表示されない） */}
         <script
           type="application/ld+json"
-          // JSON-LD をそのまま埋め込む
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
         />
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-12 pb-8">
           <p className="text-sm text-slate-400 font-medium tracking-wide">
             GOOD LUCK TO ALL STUDENTS
           </p>
