@@ -29,10 +29,10 @@ export default function RootLayout({
         {/* OGP & X(Twitter) Card meta tags */}
         <meta property="og:title" content="EduLens" />
         <meta property="og:description" content="入試カウントダウン" />
-        <meta property="og:image" content="/Xcard.png" />
+        <meta property="og:image" content="https://edulens.jp/Xcard.png" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/Xcard.png" />
+        <meta name="twitter:image" content="https://edulens.jp/Xcard.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
