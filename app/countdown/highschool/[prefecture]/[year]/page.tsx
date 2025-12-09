@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   const title = `${prefName}公立高校入試カウントダウン${year} - 試験日まであと何日？ | EduLens`;
   const description = `${year}年度（令和${parseInt(year) - 2018}年度）${prefName}公立高校入試の試験日はいつ？${examDateText ? `一般選抜は${examDateText}です。` : ""}試験当日まで「あと何日」かリアルタイムでカウントダウン表示します。`;
-  const url = `https://edulens.jp/countdown/${prefecture}/${year}`;
+  const url = `https://edulens.jp/countdown/highschool/${prefecture}/${year}`;
 
   return {
     title: title,
@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: title,
       description: description,
     },
-    manifest: `/countdown/${prefecture}/${year}/manifest.json`,
+    manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };
 }
 
@@ -149,14 +149,20 @@ export default async function CountdownPage({ params }: { params: Params }) {
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "全国一覧",
+            "name": "入試選択",
             "item": "https://edulens.jp/countdown"
           },
           {
             "@type": "ListItem",
             "position": 3,
+            "name": "高校入試一覧",
+            "item": "https://edulens.jp/countdown/highschool"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
             "name": `${displayPrefName}の入試`,
-            "item": `https://edulens.jp/countdown/${prefecture}/${year}`
+            "item": `https://edulens.jp/countdown/highschool/${prefecture}/${year}`
           }
         ]
       },
@@ -227,7 +233,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
               {neighborPrefs.map((pref: any) => (
                 <Link 
                   key={pref.id} 
-                  href={`/countdown/${pref.slug}/${year}`}
+                  href={`/countdown/highschool/${pref.slug}/${year}`}
                   className="px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                 >
                   {pref.name}
@@ -286,7 +292,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
             <p className="text-xs font-bold text-slate-400 mb-3 text-center">このカウントダウンをシェアする</p>
             <div className="flex justify-center gap-4">
               <a 
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/${prefecture}/${year}`)}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/highschool/${prefecture}/${year}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors flex items-center gap-2"

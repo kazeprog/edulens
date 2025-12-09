@@ -1,139 +1,53 @@
-import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
-// ▼▼▼ 年度を自動計算するロジック ▼▼▼
-function getTargetExamYear() {
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-  const currentMonth = now.getMonth() + 1;
-  const currentYear = now.getFullYear();
-  // 4月以降は翌年の入試を表示
-  return currentMonth >= 4 ? currentYear + 1 : currentYear;
-}
-
-const REGION_NAMES: Record<string, string> = {
-  hokkaido: "北海道",
-  tohoku: "東北",
-  kanto: "関東",
-  chubu: "中部",
-  kinki: "近畿",
-  chugoku: "中国",
-  shikoku: "四国",
-  kyushu: "九州",
-  okinawa: "沖縄",
+export const metadata: Metadata = {
+  title: '入試カテゴリー選択 | EduLens',
+  description: '高校入試、大学入試それぞれのカウントダウンを確認できます。',
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const targetYear = getTargetExamYear();
-  const reiwaYear = targetYear - 2018;
-
-  return {
-    title: `全国公立高校入試カウントダウン${targetYear} - 都道府県から探す | EduLens`,
-    description: `【${targetYear}年度/令和${reiwaYear}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`,
-    keywords: [
-      "高校入試 カウントダウン", 
-      "公立高校入試 日程", 
-      `高校受験 ${targetYear}`, 
-      `令和${reiwaYear}年度 高校入試`, 
-      "都道府県別"
-    ],
-    openGraph: {
-      title: `全国公立高校入試カウントダウン${targetYear} | EduLens`,
-      description: `あと何日？全国47都道府県の入試日程を網羅。志望校の試験日をチェックしよう。`,
-      type: 'website',
-    },
-  };
-}
-
-export default async function PrefectureSelectPage() {
-  const { data: prefectures } = await supabase
-    .from('prefectures')
-    .select('*')
-    .order('id', { ascending: true });
-
-  if (!prefectures) {
-    return <div className="p-8 text-center">データを取得できませんでした。</div>;
-  }
-
-  const targetYear = getTargetExamYear();
-  const reiwaYear = targetYear - 2018;
-
-  const groupedPrefs = prefectures.reduce((acc, pref) => {
-    if (!acc[pref.region]) {
-      acc[pref.region] = [];
-    }
-    acc[pref.region].push(pref);
-    return acc;
-  }, {} as Record<string, typeof prefectures>);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "EduLens",
-        "item": "https://edulens.jp"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "全国公立高校入試一覧",
-        "item": "https://edulens.jp/countdown"
-      }
-    ]
-  };
-
+export default function CountdownHubPage() {
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-[calc(100vh-80px)] bg-slate-50 flex items-center justify-center p-4">
+      <div className="max-w-4xl w-full">
         
         <div className="text-center mb-12">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">
-            全国公立高校入試カウントダウン
-            {/* ▼▼▼ blockを指定して、常に改行させます ▼▼▼ */}
-            <span className="block text-blue-600 mt-2 text-3xl sm:text-4xl">
-              {targetYear} (令和{reiwaYear}年度)
-            </span>
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">
+            入試カテゴリーを選択
           </h1>
-          <p className="text-sm sm:text-base text-slate-500 leading-relaxed">
-            {targetYear}年春に受験を迎える皆さんへ。<br className="hidden sm:inline" />
-            志望校の都道府県を選んで、試験日程と残り日数を確認しましょう。
+          <p className="text-slate-500">
+            目指すゴール（高校・大学）を選んで、合格へのカウントダウンを見てみましょう。
           </p>
         </div>
 
-        <div className="space-y-8">
-          {Object.keys(REGION_NAMES).map((regionKey) => {
-            const prefs = groupedPrefs[regionKey];
-            if (!prefs || prefs.length === 0) return null;
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {/* 高校入試へのリンク */}
+          <Link 
+            href="/countdown/highschool"
+            className="group relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all text-center flex flex-col items-center justify-center h-64"
+          >
+            <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              {/* 高校アイコン（ペン） */}
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">高校入試</h2>
+            <p className="text-slate-400 text-sm">都道府県別の公立高校入試日程</p>
+          </Link>
 
-            return (
-              <div key={regionKey} className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
-                <h2 className="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2 border-l-4 border-blue-600 pl-3">
-                  {REGION_NAMES[regionKey]}
-                </h2>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {prefs.map((pref: any) => (
-                    <Link
-                      key={pref.id}
-                      href={`/countdown/${pref.slug}/${targetYear}`}
-                      className="block text-center py-3 px-2 rounded-lg bg-slate-50 hover:bg-blue-50 hover:text-blue-600 hover:font-bold transition-all border border-slate-100 text-slate-600 text-sm sm:text-base"
-                    >
-                      {pref.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+          {/* 大学入試へのリンク */}
+          <Link 
+            href="/countdown/university"
+            className="group relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all text-center flex flex-col items-center justify-center h-64"
+          >
+            <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              {/* 大学アイコン（学帽） */}
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors">大学入試</h2>
+            <p className="text-slate-400 text-sm">共通テスト・個別試験日程</p>
+            <span className="absolute top-4 right-4 bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded font-bold">Coming Soon</span>
+          </Link>
         </div>
-        
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
 
       </div>
     </div>
