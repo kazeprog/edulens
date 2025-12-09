@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       type: 'article',
       siteName: 'EduLens',
       images: [
-        `${url}/og.png`,
+        `${url}/Xcard.png`,
         'https://edulens.jp/logo.png'
       ],
     },
@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: title,
       description: description,
       images: [
-        `${url}/og.png`,
+        `${url}/Xcard.png`,
         'https://edulens.jp/logo.png'
       ]
     },
