@@ -166,7 +166,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
     displayResultAnswerText = `A. ${multipleAnswerText}`;
   }
 
-  // ▼ 追加: 構造化データ用の画像URL
+  // 構造化データ用の画像URL
   const imageUrl = `https://edulens.jp/Xcard.png`;
 
   const ld = {
@@ -185,19 +185,13 @@ export default async function CountdownPage({ params }: { params: Params }) {
         "@type": "Event",
         "name": e?.name || `${displayPrefName} 入試`,
         "startDate": e?.date || null,
-        // ▼ 追加: 終了日（データになければ開始日と同じにする）
-        "endDate": e?.date || null,
-        
-        // ▼ 追加: 画像（OGPと同じURLを指定）
-        "image": [imageUrl],
-
-        // ▼ 追加: 主催者（信頼性アップ）
-        "organizer": {
+        "endDate": e?.date || null, // 終了日（開始日と同じに設定）
+        "image": [imageUrl], // OGP画像を指定
+        "organizer": { // 主催者情報
           "@type": "Organization",
           "name": `${displayPrefName}教育委員会`,
           "url": `https://edulens.jp/countdown/highschool/${prefecture}/${year}`
         },
-
         "location": { "@type": "Place", "name": displayPrefName },
         "description": e?.name || "",
         "eventStatus": "https://schema.org/EventScheduled"
@@ -266,7 +260,25 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </div>
         )}
 
-        <AddToHomeButton />
+        {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
+        <div className="mt-8 flex flex-col items-center gap-4 w-full">
+          
+          {/* ホーム画面に追加 */}
+          <AddToHomeButton />
+
+          {/* Xで共有 */}
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/highschool/${prefecture}/${year}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-sm w-full max-w-xs"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            Xで共有
+          </a>
+
+        </div>
+        {/* ▲▲▲ エリア終了 ▲▲▲ */}
 
         {neighborPrefs.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mb-16 text-left mt-16">
@@ -287,7 +299,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </div>
         )}
 
-        {/* 解説セクション */}
+        {/* 解説セクション（SEOコンテンツ） */}
         <div className="mt-20 pt-10 border-t border-slate-100 text-left">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">
             {displayPrefName}公立高校入試はいつ？{year}年度の試験日程
@@ -338,18 +350,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
               </div>
             </dl>
           </div>
-        </div>
-
-        <div className="mt-12 text-center">
-          <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/highschool/${prefecture}/${year}`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-            Xで共有
-          </a>
         </div>
 
         <div className="mt-12 text-center">
