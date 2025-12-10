@@ -30,7 +30,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = `全国公立高校入試カウントダウン${targetYear} - 都道府県から探す | EduLens`;
   const pageDescription = `【${targetYear}年度/令和${reiwaYear}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`;
   const url = `https://edulens.jp/countdown/highschool`;
-  const imageUrl = `https://edulens.jp/Xcard.png`;
 
   return {
     title: pageTitle,
@@ -48,22 +47,11 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       url: url,
       siteName: 'EduLens',
-      images: [
-        {
-          url: imageUrl,
-          secureUrl: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: `${targetYear}年度 全国公立高校入試カウントダウン`,
-          type: 'image/png',
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: pageTitle,
       description: pageDescription,
-      images: [imageUrl],
       site: '@edulens',
       creator: '@edulens',
     },

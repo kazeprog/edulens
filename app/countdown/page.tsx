@@ -10,22 +10,11 @@ export const metadata: Metadata = {
     url: 'https://edulens.jp/countdown',
     type: 'website',
     siteName: 'EduLens',
-    images: [
-      {
-        url: 'https://edulens.jp/Xcard.png',
-        secureUrl: 'https://edulens.jp/Xcard.png',
-        width: 1200,
-        height: 630,
-        alt: '入試カウントダウン - EduLens',
-        type: 'image/png',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: '入試カテゴリー選択 | EduLens',
     description: '高校入試、大学入試それぞれのカウントダウンを確認できます。',
-    images: ['https://edulens.jp/Xcard.png'],
   },
 };
 

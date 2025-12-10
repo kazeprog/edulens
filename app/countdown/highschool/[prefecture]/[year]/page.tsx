@@ -51,7 +51,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const title = `${prefName}公立高校入試${year} いつ？あと何日？｜試験日カウントダウン | EduLens`;
   const description = `${prefName}公立高校入試${year}年度はいつ？${examDateText ? `一般選抜は${examDateText}実施。` : ""}試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${prefName}入試日程情報。`;
   const url = `https://edulens.jp/countdown/highschool/${prefecture}/${year}`;
-  const imageUrl = `https://edulens.jp/Xcard.png`;
 
   return {
     title: title,
@@ -71,22 +70,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: url,
       type: 'article',
       siteName: 'EduLens',
-      images: [
-        {
-          url: imageUrl,
-          secureUrl: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: `${prefName}公立高校入試${year}年度カウントダウン`,
-          type: 'image/png',
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [imageUrl],
     },
     manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };
@@ -166,8 +154,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
     displayResultAnswerText = `A. ${multipleAnswerText}`;
   }
 
-  // 構造化データ用の画像URL
-  const imageUrl = `https://edulens.jp/Xcard.png`;
+  // ★修正箇所: const imageUrl = ... を削除しました
 
   const ld = {
     "@context": "https://schema.org",
@@ -186,7 +173,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         "name": e?.name || `${displayPrefName} 入試`,
         "startDate": e?.date || null,
         "endDate": e?.date || null, // 終了日（開始日と同じに設定）
-        "image": [imageUrl], // OGP画像を指定
+        // ★修正箇所: "image": [imageUrl] を削除しました
         "organizer": { // 主催者情報
           "@type": "Organization",
           "name": `${displayPrefName}教育委員会`,

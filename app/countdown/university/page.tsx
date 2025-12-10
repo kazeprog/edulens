@@ -15,7 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `大学入試カウントダウン${targetYear} - 共通テスト・国公立日程 | EduLens`;
   const description = `${targetYear}年度（令和${reiwaYear}年度）の大学入学共通テスト、国公立大学2次試験（前期・後期）の日程と残り日数を表示します。`;
   const url = 'https://edulens.jp/countdown/university';
-  const imageUrl = 'https://edulens.jp/Xcard.png';
 
   return {
     title: title,
@@ -26,22 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       url: url,
       type: 'website',
       siteName: 'EduLens',
-      images: [
-        {
-          url: imageUrl,
-          secureUrl: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: `大学入試カウントダウン${targetYear}`,
-          type: 'image/png',
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [imageUrl],
     },
   };
 }
@@ -87,7 +75,6 @@ export default async function UniversityTopPage() {
               const isCommonTest = event.slug.includes('common');
 
               return (
-                // ▼▼▼ ここを div ではなく Link にしています ▼▼▼
                 <Link 
                   key={event.id} 
                   href={`/countdown/university/${event.slug}/${targetYear}`}
@@ -107,7 +94,6 @@ export default async function UniversityTopPage() {
                         {event.name}
                       </h2>
                       <div className="text-slate-500 font-medium flex items-center gap-2">
-                        {/* アイコン */}
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                         {event.date.replace(/-/g, '.')}
                         {event.description && (
@@ -144,7 +130,6 @@ export default async function UniversityTopPage() {
           )}
         </div>
 
-        {/* 戻るリンク（アイコン付き） */}
         <div className="mt-12 text-center">
            <Link href="/countdown" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
