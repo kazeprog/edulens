@@ -117,7 +117,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
             "name": "試験日はいつですか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": `${event.name}は、${event.date}に実施されます。`
+              "text": `${event.name}は、${event.date.split('-')[0]}年${parseInt(event.date.split('-')[1])}月${parseInt(event.date.split('-')[2])}日に実施されます。`
             }
           },
           {
@@ -216,7 +216,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. {event.name}はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. {year}年度の{event.name}は、<strong>{event.date}</strong>に実施されます。
+                  A. {year}年度の{event.name}は、<strong>{event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日</strong>に実施されます。
                   試験日まであと<strong>{diffDays}日</strong>です。
                 </dd>
               </div>

@@ -22,7 +22,7 @@ const REGION_NAMES: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { prefecture, year } = await params;
-  
+
   let prefName = prefecture.toUpperCase();
   let examDateText = "";
 
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       .eq('year', parseInt(year))
       .eq('category', 'public_general')
       .single();
-    
+
     if (examData?.date) {
       const d = new Date(examData.date);
       examDateText = `${d.getMonth() + 1}月${d.getDate()}日`;
@@ -121,7 +121,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
   const displayExamDateDots = displayExamDate.split('-').join('.');
   const displayExamDateJap = (() => {
     const p = displayExamDate.split('-');
-    return p.length === 3 ? `${p[0]}年${p[1]}月${p[2]}日` : displayExamDate;
+    return p.length === 3 ? `${p[0]}年${parseInt(p[1])}月${parseInt(p[2])}日` : displayExamDate;
   })();
 
   const now = new Date();
@@ -135,6 +135,40 @@ export default async function CountdownPage({ params }: { params: Params }) {
   const neighborPrefs = allPrefectures.filter(
     (p) => p.region === prefData.region && p.id !== prefData.id
   );
+  
+  // --- ▼▼▼ 合格発表日の回答テキストを生成するロジックを追加 ▼▼▼ ---
+  const cleanResultDateStrings = exams
+    .filter((e: any) => e.result_date)
+    .map((e: any) => {
+      const d = new Date(e.result_date);
+      const month = d.getMonth() + 1;
+      const day = d.getDate();
+      const examYear = d.getFullYear(); // 念のため年を取得
+      return `「${e.name}」の合格発表は${examYear}年${month}月${day}日`;
+    });
+
+  let schemaResultAnswerText: string;
+  let displayResultAnswerText: string;
+
+  if (cleanResultDateStrings.length === 0) {
+    const fallbackText = `詳細な日程は${displayPrefName}教育委員会の公式発表をご確認ください。`;
+    schemaResultAnswerText = fallbackText;
+    displayResultAnswerText = `A. ${fallbackText}通常、試験の1週間〜10日後に行われます。`; // 元の補足を残す
+  } else if (cleanResultDateStrings.length === 1) {
+    // 1つの場合: 「一般選抜」の合格発表はX年Y月Z日に予定されています。
+    schemaResultAnswerText = `${cleanResultDateStrings[0]}に予定されています。`;
+    displayResultAnswerText = `A. ${schemaResultAnswerText}`;
+  } else {
+    // 複数の場合: 複数の選抜区分があり、「A」の合格発表はX日、「B」の合格発表はY日、そして「C」の合格発表はZ日に予定されています。
+    const listItems = [...cleanResultDateStrings];
+    const lastItem = listItems.pop();
+    const listText = listItems.join('、');
+    const multipleAnswerText = `複数の選抜区分があり、${listText}、そして${lastItem}に予定されています。`;
+    schemaResultAnswerText = multipleAnswerText;
+    displayResultAnswerText = `A. ${multipleAnswerText}`;
+  }
+  // --- ▲▲▲ 合格発表日の回答テキストを生成するロジックを追加 ▲▲▲ ---
+
 
   const ld = {
     "@context": "https://schema.org",
@@ -164,7 +198,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
             "name": "入試日はいつですか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": `${displayExamName}は、${displayExamDate}に実施されます。`
+              "text": `${displayExamName}は、${displayExamDateJap}に実施されます。`
             }
           },
           {
@@ -172,7 +206,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
             "name": "合格発表はいつですか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": `詳細な日程は${displayPrefName}教育委員会の公式発表をご確認ください。通常、試験の1週間〜10日後に行われます。`
+              // ▼▼▼ 修正 ▼▼▼
+              "text": schemaResultAnswerText
+              // ▲▲▲ 修正 ▲▲▲
             }
           }
         ]
@@ -183,7 +219,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
   return (
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
-        
+
         <div className="mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayPrefName}
@@ -222,8 +258,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
             </h3>
             <div className="flex flex-wrap gap-2">
               {neighborPrefs.map((pref: any) => (
-                <Link 
-                  key={pref.id} 
+                <Link
+                  key={pref.id}
                   href={`/countdown/highschool/${pref.slug}/${year}`}
                   className="px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                 >
@@ -266,7 +302,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. {displayPrefName}公立高校入試はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. {year}年度の{displayPrefName}公立高校入試（{displayExamName}）は、<strong>{displayExamDate}</strong>に実施されます。
+                  A. {year}年度の{displayPrefName}公立高校入試（{displayExamName}）は、<strong>{displayExamDateJap}</strong>に実施されます。
                   試験日まであと<strong>{diffDays}日</strong>です。
                 </dd>
               </div>
@@ -280,7 +316,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. 合格発表はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. 詳細な日程は{displayPrefName}教育委員会の公式発表をご確認ください。通常、試験の1週間〜10日後に行われます。
+                  {/* ▼▼▼ 修正 ▼▼▼ */}
+                  {displayResultAnswerText}
+                  {/* ▲▲▲ 修正 ▲▲▲ */}
                 </dd>
               </div>
             </dl>
@@ -289,7 +327,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {/* ▲▲▲ 追加ここまで ▲▲▲ */}
 
         <div className="mt-12 text-center">
-          <a 
+          <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/highschool/${prefecture}/${year}`)}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -302,17 +340,17 @@ export default async function CountdownPage({ params }: { params: Params }) {
 
         {/* ▼▼▼ 追加: カテゴリ選択に戻るリンク ▼▼▼ */}
         <div className="mt-12 text-center">
-           <Link href="/countdown/highschool" className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-             都道府県一覧に戻る
-           </Link>
+          <Link href="/countdown/highschool" className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            都道府県一覧に戻る
+          </Link>
         </div>
 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
         />
-        
+
         <div className="text-center mt-8 pb-8">
           <p className="text-sm text-slate-400 font-medium tracking-wide">
             GOOD LUCK TO <span className="text-blue-600">ALL STUDENTS</span>
