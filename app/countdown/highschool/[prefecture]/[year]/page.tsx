@@ -166,6 +166,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
     displayResultAnswerText = `A. ${multipleAnswerText}`;
   }
 
+  // ▼ 追加: 構造化データ用の画像URL
+  const imageUrl = `https://edulens.jp/Xcard.png`;
+
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -182,6 +185,19 @@ export default async function CountdownPage({ params }: { params: Params }) {
         "@type": "Event",
         "name": e?.name || `${displayPrefName} 入試`,
         "startDate": e?.date || null,
+        // ▼ 追加: 終了日（データになければ開始日と同じにする）
+        "endDate": e?.date || null,
+        
+        // ▼ 追加: 画像（OGPと同じURLを指定）
+        "image": [imageUrl],
+
+        // ▼ 追加: 主催者（信頼性アップ）
+        "organizer": {
+          "@type": "Organization",
+          "name": `${displayPrefName}教育委員会`,
+          "url": `https://edulens.jp/countdown/highschool/${prefecture}/${year}`
+        },
+
         "location": { "@type": "Place", "name": displayPrefName },
         "description": e?.name || "",
         "eventStatus": "https://schema.org/EventScheduled"
@@ -214,20 +230,16 @@ export default async function CountdownPage({ params }: { params: Params }) {
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
 
-        {/* ▼▼▼ 追加: SEO用 隠しH1 (スクリーンリーダー対応) ▼▼▼ */}
-        {/* 視覚的には見えませんが、クローラーや読み上げソフトにはこれが「ページのH1」として認識されます */}
+        {/* SEO用 隠しH1 (スクリーンリーダー対応) */}
         <h1 className="sr-only">
           {displayPrefName}公立高校入試{year} カウントダウン｜日程と合格発表
         </h1>
-        {/* ▲▲▲ 追加ここまで ▲▲▲ */}
 
         <div className="mb-12">
-          {/* ▼▼▼ 変更: 視覚的なタイトルを h1 から div に変更 (SEO重複防止) ▼▼▼ */}
-          {/* スタイル(text-4xlなど)はそのままなので、見た目は1ミリも変わりません */}
+          {/* 視覚的なタイトルを h1 から div に変更 (SEO重複防止) */}
           <div className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayPrefName}
           </div>
-          {/* ▲▲▲ 変更ここまで ▲▲▲ */}
           
           <p className="text-2xl text-slate-500 font-medium">{year}年度 {displayExamName}</p>
         </div>
