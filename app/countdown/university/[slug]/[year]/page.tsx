@@ -3,12 +3,16 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CountdownTimer from './CountdownTimer';
 import AddToHomeButton from './AddToHomeButton';
-import type { Metadata } from 'next';
+// ▼ 1. ResolvingMetadata を追加
+import type { Metadata, ResolvingMetadata } from 'next';
 
 type Params = Promise<{ slug: string; year: string }>;
 
-// ▼ メタデータ生成 ▼
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+// ▼ 2. parent: ResolvingMetadata を追加
+export async function generateMetadata(
+  { params }: { params: Params },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { slug, year } = await params;
   
   // 試験データを取得
@@ -24,6 +28,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const d = new Date(event.date);
   const dateText = `${d.getMonth() + 1}月${d.getDate()}日`;
   
+  // ▼ 3. 親（opengraph-image.png）の画像情報を取得
+  const previousImages = (await parent).openGraph?.images || [];
+
   const title = `${event.name}${year} いつ？あと何日？| 試験日カウントダウン | EduLens`;
   const description = `${event.name}${year}年度はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${event.name}日程情報。`;
   const url = `https://edulens.jp/countdown/university/${slug}/${year}`;
@@ -46,11 +53,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: url,
       type: 'article',
       siteName: 'EduLens',
+      images: previousImages, // ▼ 4. 画像を継承
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
+      images: previousImages, // ▼ 5. Twitter用にも継承
     },
   };
 }

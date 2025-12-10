@@ -4,7 +4,8 @@ import Link from 'next/link';
 import CountdownTimer from './CountdownTimer';
 import ExamSchedule from './ExamSchedule';
 import AddToHomeButton from './AddToHomeButton';
-import type { Metadata } from 'next';
+// ▼ 1. ResolvingMetadata を追加
+import type { Metadata, ResolvingMetadata } from 'next';
 
 type Params = Promise<{ prefecture: string; year: string }>;
 
@@ -20,7 +21,11 @@ const REGION_NAMES: Record<string, string> = {
   okinawa: "沖縄",
 };
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+// ▼ 2. 第2引数に parent: ResolvingMetadata を追加
+export async function generateMetadata(
+  { params }: { params: Params },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { prefecture, year } = await params;
 
   let prefName = prefecture.toUpperCase();
@@ -48,6 +53,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     }
   }
 
+  // ▼ 3. 親（opengraph-image.png）の画像情報を取得
+  const previousImages = (await parent).openGraph?.images || [];
+
   const title = `${prefName}公立高校入試${year} いつ？あと何日？｜試験日カウントダウン | EduLens`;
   const description = `${prefName}公立高校入試${year}年度はいつ？${examDateText ? `一般選抜は${examDateText}実施。` : ""}試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${prefName}入試日程情報。`;
   const url = `https://edulens.jp/countdown/highschool/${prefecture}/${year}`;
@@ -70,17 +78,20 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: url,
       type: 'article',
       siteName: 'EduLens',
+      images: previousImages, // ▼ 4. これで画像を継承！
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
+      images: previousImages, // ▼ 5. Twitter用にも継承
     },
     manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };
 }
 
 export default async function CountdownPage({ params }: { params: Params }) {
+  // ... (この下のコンポーネント部分は変更なしでOKです) ...
   const { prefecture, year } = await params;
 
   const { data: allPrefectures } = await supabase
@@ -154,8 +165,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
     displayResultAnswerText = `A. ${multipleAnswerText}`;
   }
 
-  // ★修正箇所: const imageUrl = ... を削除しました
-
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -173,7 +182,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
         "name": e?.name || `${displayPrefName} 入試`,
         "startDate": e?.date || null,
         "endDate": e?.date || null, // 終了日（開始日と同じに設定）
-        // ★修正箇所: "image": [imageUrl] を削除しました
         "organizer": { // 主催者情報
           "@type": "Organization",
           "name": `${displayPrefName}教育委員会`,

@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // ▼▼▼ 【重要】この1行を追加してください！ ▼▼▼
+  metadataBase: new URL('https://edulens.jp'),
+  // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
   title: "EduLens",
   description: "入試カウントダウン",
   openGraph: {
