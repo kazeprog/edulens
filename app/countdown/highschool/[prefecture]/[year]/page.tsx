@@ -136,14 +136,14 @@ export default async function CountdownPage({ params }: { params: Params }) {
     (p) => p.region === prefData.region && p.id !== prefData.id
   );
   
-  // --- ▼▼▼ 合格発表日の回答テキストを生成するロジックを追加 ▼▼▼ ---
+  // 合格発表日のテキスト生成ロジック
   const cleanResultDateStrings = exams
     .filter((e: any) => e.result_date)
     .map((e: any) => {
       const d = new Date(e.result_date);
       const month = d.getMonth() + 1;
       const day = d.getDate();
-      const examYear = d.getFullYear(); // 念のため年を取得
+      const examYear = d.getFullYear(); 
       return `「${e.name}」の合格発表は${examYear}年${month}月${day}日`;
     });
 
@@ -153,13 +153,11 @@ export default async function CountdownPage({ params }: { params: Params }) {
   if (cleanResultDateStrings.length === 0) {
     const fallbackText = `詳細な日程は${displayPrefName}教育委員会の公式発表をご確認ください。`;
     schemaResultAnswerText = fallbackText;
-    displayResultAnswerText = `A. ${fallbackText}通常、試験の1週間〜10日後に行われます。`; // 元の補足を残す
+    displayResultAnswerText = `A. ${fallbackText}通常、試験の1週間〜10日後に行われます。`; 
   } else if (cleanResultDateStrings.length === 1) {
-    // 1つの場合: 「一般選抜」の合格発表はX年Y月Z日に予定されています。
     schemaResultAnswerText = `${cleanResultDateStrings[0]}に予定されています。`;
     displayResultAnswerText = `A. ${schemaResultAnswerText}`;
   } else {
-    // 複数の場合: 複数の選抜区分があり、「A」の合格発表はX日、「B」の合格発表はY日、そして「C」の合格発表はZ日に予定されています。
     const listItems = [...cleanResultDateStrings];
     const lastItem = listItems.pop();
     const listText = listItems.join('、');
@@ -167,8 +165,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
     schemaResultAnswerText = multipleAnswerText;
     displayResultAnswerText = `A. ${multipleAnswerText}`;
   }
-  // --- ▲▲▲ 合格発表日の回答テキストを生成するロジックを追加 ▲▲▲ ---
-
 
   const ld = {
     "@context": "https://schema.org",
@@ -206,9 +202,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
             "name": "合格発表はいつですか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              // ▼▼▼ 修正 ▼▼▼
               "text": schemaResultAnswerText
-              // ▲▲▲ 修正 ▲▲▲
             }
           }
         ]
@@ -220,10 +214,21 @@ export default async function CountdownPage({ params }: { params: Params }) {
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
 
+        {/* ▼▼▼ 追加: SEO用 隠しH1 (スクリーンリーダー対応) ▼▼▼ */}
+        {/* 視覚的には見えませんが、クローラーや読み上げソフトにはこれが「ページのH1」として認識されます */}
+        <h1 className="sr-only">
+          {displayPrefName}公立高校入試{year} カウントダウン｜日程と合格発表
+        </h1>
+        {/* ▲▲▲ 追加ここまで ▲▲▲ */}
+
         <div className="mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
+          {/* ▼▼▼ 変更: 視覚的なタイトルを h1 から div に変更 (SEO重複防止) ▼▼▼ */}
+          {/* スタイル(text-4xlなど)はそのままなので、見た目は1ミリも変わりません */}
+          <div className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayPrefName}
-          </h1>
+          </div>
+          {/* ▲▲▲ 変更ここまで ▲▲▲ */}
+          
           <p className="text-2xl text-slate-500 font-medium">{year}年度 {displayExamName}</p>
         </div>
 
@@ -270,7 +275,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </div>
         )}
 
-        {/* ▼▼▼ 追加：SEO用の解説セクション（デザインは控えめに） ▼▼▼ */}
+        {/* 解説セクション */}
         <div className="mt-20 pt-10 border-t border-slate-100 text-left">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">
             {displayPrefName}公立高校入試はいつ？{year}年度の試験日程
@@ -295,7 +300,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
             </p>
           </div>
 
-          {/* よくある質問（SEOの宝庫） */}
+          {/* よくある質問 */}
           <div className="mt-10">
             <h3 className="text-xl font-bold text-slate-800 mb-4">{displayPrefName}公立高校入試 よくある質問</h3>
             <dl className="space-y-6">
@@ -316,15 +321,12 @@ export default async function CountdownPage({ params }: { params: Params }) {
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. 合格発表はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  {/* ▼▼▼ 修正 ▼▼▼ */}
                   {displayResultAnswerText}
-                  {/* ▲▲▲ 修正 ▲▲▲ */}
                 </dd>
               </div>
             </dl>
           </div>
         </div>
-        {/* ▲▲▲ 追加ここまで ▲▲▲ */}
 
         <div className="mt-12 text-center">
           <a
@@ -338,7 +340,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </a>
         </div>
 
-        {/* ▼▼▼ 追加: カテゴリ選択に戻るリンク ▼▼▼ */}
         <div className="mt-12 text-center">
           <Link href="/countdown/highschool" className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
