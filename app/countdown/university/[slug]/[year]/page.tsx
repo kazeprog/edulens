@@ -6,7 +6,22 @@ import AddToHomeButton from './AddToHomeButton';
 // ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 
+// ISR設定: 1分ごとにキャッシュを更新（Supabaseへの接続数を削減）
+export const revalidate = 60;
+
 type Params = Promise<{ slug: string; year: string }>;
+
+const REGION_NAMES: Record<string, string> = {
+  hokkaido: "北海道",
+  tohoku: "東北",
+  kanto: "関東",
+  chubu: "中部",
+  kinki: "近畿",
+  chugoku: "中国",
+  shikoku: "四国",
+  kyushu: "九州",
+  okinawa: "沖縄",
+};
 
 // ▼ 2. parent: ResolvingMetadata を追加
 export async function generateMetadata(
