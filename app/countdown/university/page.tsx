@@ -11,9 +11,38 @@ function getTargetExamYear() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const targetYear = getTargetExamYear();
+  const reiwaYear = targetYear - 2018;
+  const title = `大学入試カウントダウン${targetYear} - 共通テスト・国公立日程 | EduLens`;
+  const description = `${targetYear}年度（令和${reiwaYear}年度）の大学入学共通テスト、国公立大学2次試験（前期・後期）の日程と残り日数を表示します。`;
+  const url = 'https://edulens.jp/countdown/university';
+  const imageUrl = 'https://edulens.jp/Xcard.png';
+
   return {
-    title: `大学入試カウントダウン${targetYear} - 共通テスト・国公立日程 | EduLens`,
-    description: `${targetYear}年度（令和${targetYear - 2018}年度）の大学入学共通テスト、国公立大学2次試験（前期・後期）の日程と残り日数を表示します。`,
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      url: url,
+      type: 'website',
+      siteName: 'EduLens',
+      images: [
+        {
+          url: imageUrl,
+          secureUrl: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `大学入試カウントダウン${targetYear}`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [imageUrl],
+    },
   };
 }
 

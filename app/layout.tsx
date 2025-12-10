@@ -20,11 +20,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "EduLens",
     description: "入試カウントダウン",
-    images: ["https://edulens.jp/Xcard.png"],
+    url: "https://edulens.jp",
     type: "website",
+    siteName: "EduLens",
+    images: [
+      {
+        url: "https://edulens.jp/Xcard.png",
+        secureUrl: "https://edulens.jp/Xcard.png",
+        width: 1200,
+        height: 630,
+        alt: "EduLens - 入試カウントダウン",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title: "EduLens",
+    description: "入試カウントダウン",
     images: ["https://edulens.jp/Xcard.png"],
   },
 };
