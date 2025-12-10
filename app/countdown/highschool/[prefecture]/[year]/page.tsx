@@ -56,8 +56,8 @@ export async function generateMetadata(
   // ▼ 3. 親（opengraph-image.png）の画像情報を取得
   const previousImages = (await parent).openGraph?.images || [];
 
-  const title = `${prefName}公立高校入試${year} いつ？あと何日？｜試験日カウントダウン | EduLens`;
-  const description = `${prefName}公立高校入試${year}年度はいつ？${examDateText ? `一般選抜は${examDateText}実施。` : ""}試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${prefName}入試日程情報。`;
+  const title = `${prefName}公立高校入試日程${year} いつ？あと何日？｜試験日カウントダウン | EduLens`;
+  const description = `${prefName}公立高校入試日程${year}年度版。試験日はいつ？${examDateText ? `一般選抜は${examDateText}実施。` : ""}試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${prefName}入試日程情報。`;
   const url = `https://edulens.jp/countdown/highschool/${prefecture}/${year}`;
 
   return {
