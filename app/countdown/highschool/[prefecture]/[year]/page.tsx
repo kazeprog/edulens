@@ -51,6 +51,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const title = `${prefName}公立高校入試${year} いつ？あと何日？｜試験日カウントダウン | EduLens`;
   const description = `${prefName}公立高校入試${year}年度はいつ？${examDateText ? `一般選抜は${examDateText}実施。` : ""}試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${prefName}入試日程情報。`;
   const url = `https://edulens.jp/countdown/highschool/${prefecture}/${year}`;
+  const imageUrl = `https://edulens.jp/Xcard.png`;
 
   return {
     title: title,
@@ -71,18 +72,21 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       type: 'article',
       siteName: 'EduLens',
       images: [
-        `${url}/Xcard.png`,
-        'https://edulens.jp/logo.png'
+        {
+          url: imageUrl,
+          secureUrl: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${prefName}公立高校入試${year}年度カウントダウン`,
+          type: 'image/png',
+        },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [
-        `${url}/Xcard.png`,
-        'https://edulens.jp/logo.png'
-      ]
+      images: [imageUrl],
     },
     manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };

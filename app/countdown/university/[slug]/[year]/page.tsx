@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const title = `${event.name}${year} いつ？あと何日？| 試験日カウントダウン | EduLens`;
   const description = `${event.name}${year}年度はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${event.name}日程情報。`;
   const url = `https://edulens.jp/countdown/university/${slug}/${year}`;
+  const imageUrl = `https://edulens.jp/Xcard.png`;
 
   return {
     title: title,
@@ -47,18 +48,21 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       type: 'article',
       siteName: 'EduLens',
       images: [
-        `${url}/Xcard.png`,
-        'https://edulens.jp/logo.png'
+        {
+          url: imageUrl,
+          secureUrl: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${event.name}${year}年度カウントダウン`,
+          type: 'image/png',
+        },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [
-        `${url}/Xcard.png`,
-        'https://edulens.jp/logo.png'
-      ]
+      images: [imageUrl],
     },
   };
 }
