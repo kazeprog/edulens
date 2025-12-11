@@ -184,7 +184,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         "organizer": { // 主催者情報
           "@type": "Organization",
           "name": `${displayPrefName}教育委員会`,
-          "url": `https://edulens.jp/countdown/highschool/${prefecture}/${year}`
+          "url": prefData.education_board_url || `https://edulens.jp/countdown/highschool/${prefecture}/${year}`
         },
         "location": { "@type": "Place", "name": displayPrefName },
         "description": e?.name || "",
