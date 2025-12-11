@@ -33,7 +33,7 @@ export async function generateMetadata(
 
   const { data: prefData } = await supabase
     .from('prefectures')
-    .select('id, name')
+    .select('id, name, education_board_url')
     .eq('slug', prefecture)
     .single();
 
@@ -95,7 +95,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
 
   const { data: allPrefectures } = await supabase
     .from('prefectures')
-    .select('*')
+    .select('*, education_board_url')
     .order('id', { ascending: true });
 
   if (!allPrefectures) return notFound();
@@ -335,6 +335,25 @@ export default async function CountdownPage({ params }: { params: Params }) {
             都道府県一覧に戻る
           </Link>
         </div>
+
+        {/* ▼▼▼ 信頼性向上リンク追加 ▼▼▼ */}
+        {prefData.education_board_url && (
+          <div className="mt-8 pt-6 border-t border-slate-200 text-center">
+            <p className="text-sm text-slate-500 mb-3">
+              情報元: {displayPrefName}公立高校入試の正確な情報は、必ず公式ウェブサイトでご確認ください。
+            </p>
+            <a
+              href={prefData.education_board_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-50 text-blue-600 border border-blue-200 rounded-full font-bold hover:bg-blue-100 transition-colors shadow-sm"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.828a2 2 0 00-2.828 0l-3.828 3.828a2 2 0 002.828 2.828l3.828-3.828a2 2 0 000-2.828zM15 14h-2M9 10h2M12 12V6M16 6H8a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V8a2 2 0 00-2-2z" /></svg>
+              {displayPrefName}教育委員会の公式ページへ
+            </a>
+          </div>
+        )}
+        {/* ▲▲▲ 信頼性向上リンク追加 ▲▲▲ */}
 
         <script
           type="application/ld+json"
