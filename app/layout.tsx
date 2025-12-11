@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,33 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // ▼▼▼ 【重要】この1行を追加してください！ ▼▼▼
-  metadataBase: new URL('https://edulens.jp'),
-  // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
   title: "EduLens",
   description: "入試カウントダウン",
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
-    ],
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/site.webmanifest',
-  openGraph: {
-    title: "EduLens",
-    description: "入試カウントダウン",
-    url: "https://edulens.jp",
-    type: "website",
-    siteName: "EduLens",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "EduLens",
-    description: "入試カウントダウン",
-  },
 };
 
 export default function RootLayout({
@@ -51,6 +25,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        {/* OGP & X(Twitter) Card meta tags */}
+        <meta property="og:title" content="EduLens" />
+        <meta property="og:description" content="入試カウントダウン" />
+        <meta property="og:image" content="/Xcard.png" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/Xcard.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
       >
@@ -63,7 +52,6 @@ export default function RootLayout({
         <main>
           {children}
         </main>
-        <Analytics />
       </body>
     </html>
   );
