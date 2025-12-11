@@ -1,9 +1,9 @@
 import { supabase } from '@/utils/supabase/client';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CountdownTimer from './CountdownTimer';
 import ExamSchedule from './ExamSchedule';
-import AddToHomeButton from './AddToHomeButton';
+import CountdownWithActions from './CountdownWithActions';
+import ActionButtons from './ActionButtons';
 // ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -91,7 +91,6 @@ export async function generateMetadata(
 }
 
 export default async function CountdownPage({ params }: { params: Params }) {
-  // ... (この下のコンポーネント部分は変更なしでOKです) ...
   const { prefecture, year } = await params;
 
   const { data: allPrefectures } = await supabase
@@ -233,20 +232,14 @@ export default async function CountdownPage({ params }: { params: Params }) {
           <p className="text-2xl text-slate-500 font-medium">{year}年度 {displayExamName}</p>
         </div>
 
-        <div className="mb-16">
-          <div className="inline-block border-b-2 border-blue-600 pb-1 mb-12">
-            <span className="text-slate-400 font-medium tracking-widest text-sm uppercase">Examination Date</span>
-            <span className="ml-4 text-xl font-bold text-slate-800">{displayExamDateDots}</span>
-          </div>
-          <div className="mb-8">
-            <CountdownTimer targetDate={displayExamDate} />
-          </div>
-          {isExpired && (
-            <div className="text-blue-600 font-bold mt-8 text-lg">
-              試験当日、または終了しました
-            </div>
-          )}
-        </div>
+        <CountdownWithActions 
+          displayPrefName={displayPrefName}
+          year={year}
+          displayExamName={displayExamName}
+          displayExamDateDots={displayExamDateDots}
+          displayExamDate={displayExamDate}
+          isExpired={isExpired}
+        />
 
         {exams.length > 0 && (
           <div>
@@ -256,23 +249,12 @@ export default async function CountdownPage({ params }: { params: Params }) {
         )}
 
         {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
-        <div className="mt-8 flex flex-col items-center gap-4 w-full">
-          
-          {/* ホーム画面に追加 */}
-          <AddToHomeButton />
-
-          {/* Xで共有 */}
-          <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayPrefName}公立高校入試まで、あと${diffDays}日！ #高校入試 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/highschool/${prefecture}/${year}`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-sm w-full max-w-xs"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-            Xで共有
-          </a>
-
-        </div>
+        <ActionButtons 
+          displayPrefName={displayPrefName}
+          year={year}
+          prefecture={prefecture}
+          diffDays={diffDays}
+        />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
 
         {neighborPrefs.length > 0 && (
