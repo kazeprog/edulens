@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CountdownTimer from './CountdownTimer';
 import AddToHomeButton from './AddToHomeButton';
-// ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新（Supabaseへの接続数を削減）
@@ -11,19 +10,9 @@ export const revalidate = 60;
 
 type Params = Promise<{ slug: string; year: string }>;
 
-const REGION_NAMES: Record<string, string> = {
-  hokkaido: "北海道",
-  tohoku: "東北",
-  kanto: "関東",
-  chubu: "中部",
-  kinki: "近畿",
-  chugoku: "中国",
-  shikoku: "四国",
-  kyushu: "九州",
-  okinawa: "沖縄",
-};
+// ※ REGION_NAMES はこのファイルでは使用されないため削除しました ※
 
-// ▼ 2. parent: ResolvingMetadata を追加
+// ▼ parent: ResolvingMetadata を追加して画像継承を可能にする
 export async function generateMetadata(
   { params }: { params: Params },
   parent: ResolvingMetadata
@@ -43,11 +32,14 @@ export async function generateMetadata(
   const d = new Date(event.date);
   const dateText = `${d.getMonth() + 1}月${d.getDate()}日`;
   
-  // ▼ 3. 親（opengraph-image.png）の画像情報を取得
+  // 親（opengraph-image.png）の画像情報を取得
   const previousImages = (await parent).openGraph?.images || [];
 
-  const title = `${event.name}${year} いつ？あと何日？| 試験日カウントダウン | EduLens`;
-  const description = `${event.name}${year}年度はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。受験生必見の${event.name}日程情報。`;
+  // ▼▼▼ タイトルと説明文を「日程」に最適化 ▼▼▼
+  const title = `${event.name}日程${year}｜あと何日？いつ？カウントダウン | EduLens`;
+  const description = `${event.name}日程${year}年度版。試験日はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。出願期間や合格発表日など${event.name}の最新情報を網羅。`;
+  // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
   const url = `https://edulens.jp/countdown/university/${slug}/${year}`;
 
   return {
@@ -68,13 +60,13 @@ export async function generateMetadata(
       url: url,
       type: 'article',
       siteName: 'EduLens',
-      images: previousImages, // ▼ 4. 画像を継承
+      images: previousImages, // 画像を継承
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: previousImages, // ▼ 5. Twitter用にも継承
+      images: previousImages, // Twitter用にも継承
     },
   };
 }
@@ -201,11 +193,11 @@ export default async function UniversityExamPage({ params }: { params: Params })
           </h2>
           <div className="prose text-slate-500 text-sm leading-relaxed space-y-4">
             <p className="text-base font-semibold text-slate-700">
-              {event.name}{year}年度の試験日は<strong className="text-indigo-600">{event.date.split('-').join('年').replace('年', '年').split('-').join('月')}日</strong>です。
+              {event.name}{year}年度の試験日は<strong className="text-indigo-600">{event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日</strong>です。
               試験日まであと<strong className="text-indigo-600">{diffDays}日</strong>です。
             </p>
             <p>
-              {year}年度の{event.name}は、{event.date.split('-').join('年').replace('年', '年').split('-').join('月')}日に実施されます。
+              {year}年度の{event.name}は、{event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日に実施されます。
               本サイト「EduLens」では、試験当日までの残り日数をカウントダウン形式で提供し、受験生の皆さんが計画的に学習を進められるようサポートしています。
               {event.name}まで「あと何日」かを常に意識することで、効率的な受験勉強が可能になります。
             </p>
@@ -235,7 +227,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. {event.name}まであと何日ですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. {event.date.split('-').join('年').replace('年', '年').split('-').join('月')}日の試験日まで、本日時点で<strong className="text-indigo-600">あと{diffDays}日</strong>です。
+                  A. {event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日の試験日まで、本日時点で<strong className="text-indigo-600">あと{diffDays}日</strong>です。
                   このページでは残り日数をリアルタイムでカウントダウン表示しています。
                 </dd>
               </div>
