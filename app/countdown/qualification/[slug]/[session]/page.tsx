@@ -335,7 +335,11 @@ export default async function QualificationCountdownPage({ params }: { params: P
           <div className="prose text-slate-500 text-sm leading-relaxed space-y-4">
             <p className="text-base font-semibold text-slate-700">
               {examSchedule.exam_name} {examSchedule.session_name}の一次試験日は<strong className="text-blue-600">{formatDateJP(examSchedule.primary_exam_date)}</strong>です。
-              試験日まであと<strong className="text-blue-600">{diffDays}日</strong>です。
+              {!isExpired ? (
+                <>試験日まであと<strong className="text-blue-600">{diffDays}日</strong>です。</>
+              ) : (
+                <>試験は終了しました。</>
+              )}
             </p>
             <p>
               {examSchedule.session_name}の{examSchedule.exam_name}は、申込期間が{formatDateJP(examSchedule.application_start)}から{formatDateJP(examSchedule.application_end)}まで、
@@ -371,14 +375,26 @@ export default async function QualificationCountdownPage({ params }: { params: P
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. {examSchedule.exam_name} {examSchedule.session_name}の試験日はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
                   A. {examSchedule.session_name}の一次試験は、<strong>{formatDateJP(examSchedule.primary_exam_date)}</strong>に実施されます。
-                  試験日まであと<strong>{diffDays}日</strong>です。
+                  {!isExpired ? (
+                    <>試験日まであと<strong>{diffDays}日</strong>です。</>
+                  ) : (
+                    <>試験は終了しました。</>
+                  )}
                 </dd>
               </div>
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. 試験日まであと何日ですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. {formatDateJP(examSchedule.primary_exam_date)}の試験日まで、本日時点で<strong className="text-blue-600">あと{diffDays}日</strong>です。
-                  このページでは残り日数をリアルタイムでカウントダウン表示しています。
+                  {!isExpired ? (
+                    <>
+                      A. {formatDateJP(examSchedule.primary_exam_date)}の試験日まで、本日時点で<strong className="text-blue-600">あと{diffDays}日</strong>です。
+                      このページでは残り日数をリアルタイムでカウントダウン表示しています。
+                    </>
+                  ) : (
+                    <>
+                      A. {formatDateJP(examSchedule.primary_exam_date)}の試験は終了しました。
+                    </>
+                  )}
                 </dd>
               </div>
               {examSchedule.result_date && (
