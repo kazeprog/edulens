@@ -1,8 +1,8 @@
 import { supabase } from '@/utils/supabase/client';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CountdownTimer from './CountdownTimer';
-import AddToHomeButton from './AddToHomeButton';
+import CountdownWithActions from './CountdownWithActions';
+import ActionButtons from './ActionButtons';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新
@@ -181,20 +181,13 @@ export default async function QualificationCountdownPage({ params }: { params: P
         </div>
 
         {/* カウントダウン表示エリア */}
-        <div className="mb-16">
-          <div className="inline-block border-b-2 border-blue-600 pb-1 mb-12">
-            <span className="text-slate-400 font-medium tracking-widest text-sm uppercase">Examination Date</span>
-            <span className="ml-4 text-xl font-bold text-slate-800">{displayExamDateDots}</span>
-          </div>
-          <div className="mb-8">
-            <CountdownTimer targetDate={displayExamDate} />
-          </div>
-          {isExpired && (
-            <div className="text-blue-600 font-bold mt-8 text-lg">
-              試験当日、または終了しました
-            </div>
-          )}
-        </div>
+        <CountdownWithActions 
+          examName={displayExamName}
+          sessionName={displaySessionName}
+          displayExamDateDots={displayExamDateDots}
+          displayExamDate={displayExamDate}
+          isExpired={isExpired}
+        />
 
         {/* 日程詳細リスト */}
         <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-12 text-left">
@@ -247,6 +240,16 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </div>
         </div>
 
+        {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
+        <ActionButtons 
+          examName={displayExamName}
+          sessionName={displaySessionName}
+          slug={slug}
+          sessionSlug={session}
+          diffDays={diffDays}
+        />
+        {/* ▲▲▲ エリア終了 ▲▲▲ */}
+
         {/* ✅ SEO用コンテンツエリア（新規追加） */}
         <div className="w-full max-w-3xl mx-auto mt-16 text-left border-t border-slate-200 pt-10">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">
@@ -275,22 +278,8 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </div>
         </div>
 
-        {/* アクションボタン & リンク */}
-        <div className="mt-12 flex flex-col items-center gap-6 w-full">
-          <div className="flex flex-col items-center gap-4 w-full">
-            <AddToHomeButton />
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayExamName} ${displaySessionName}まで、あと${diffDays}日！ #資格試験 #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/${slug}/${session}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-sm w-full max-w-xs"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-              Xで共有
-            </a>
-          </div>
-
-          <Link href={`/countdown/${slug}`} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2 mt-4">
+        <div className="mt-12 text-center">
+          <Link href={`/countdown/${slug}`} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             {displayExamName}の日程一覧に戻る
           </Link>

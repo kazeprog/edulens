@@ -62,7 +62,7 @@ export default function AddToHomeButton() {
   }
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full">
       <button
         onClick={handleInstallClick}
         className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-blue-700 transition-colors shadow-sm w-full"
