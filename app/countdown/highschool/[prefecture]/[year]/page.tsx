@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ExamSchedule from './ExamSchedule';
 import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
+import AmazonExamLink from '@/components/AmazonExamLink';
 // ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -256,6 +257,12 @@ export default async function CountdownPage({ params }: { params: Params }) {
           diffDays={diffDays}
         />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
+
+        {/* Amazonリンク */}
+        <AmazonExamLink 
+          keyword={`${displayPrefName}高校入試`} 
+          suffix={`過去問 ${year}`}
+        />
 
         {neighborPrefs.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mb-16 text-left mt-16">
