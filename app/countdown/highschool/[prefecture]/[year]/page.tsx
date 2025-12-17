@@ -255,6 +255,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
           year={year}
           prefecture={prefecture}
           diffDays={diffDays}
+          displayExamDate={displayExamDate}
+          displayExamName={displayExamName}
         />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
 
