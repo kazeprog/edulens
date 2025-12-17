@@ -62,22 +62,22 @@ export default function AddToHomeButton() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-8 mb-8">
+    <div className="w-full">
       <button
         onClick={handleInstallClick}
-        className="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition-colors flex items-center justify-center gap-3"
+        className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-blue-700 transition-colors shadow-sm w-full"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className="w-4 h-4"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          strokeWidth={2}
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
             d="M12 4v16m8-8H4"
           />
         </svg>

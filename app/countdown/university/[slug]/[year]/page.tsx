@@ -1,25 +1,22 @@
 import { supabase } from '@/utils/supabase/client';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CountdownTimer from './CountdownTimer';
-import AddToHomeButton from './AddToHomeButton';
+import CountdownWithActions from './CountdownWithActions';
+import ActionButtons from './ActionButtons';
+import AmazonExamLink from '@/components/AmazonExamLink';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-// ISR設定: 1分ごとにキャッシュを更新（Supabaseへの接続数を削減）
 export const revalidate = 60;
 
 type Params = Promise<{ slug: string; year: string }>;
 
-// ※ REGION_NAMES はこのファイルでは使用されないため削除しました ※
-
-// ▼ parent: ResolvingMetadata を追加して画像継承を可能にする
+// ... (generateMetadata は変更なしのため省略。元のまま残してください) ...
 export async function generateMetadata(
   { params }: { params: Params },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { slug, year } = await params;
   
-  // 試験データを取得
   const { data: event } = await supabase
     .from('university_events')
     .select('*')
@@ -31,50 +28,24 @@ export async function generateMetadata(
 
   const d = new Date(event.date);
   const dateText = `${d.getMonth() + 1}月${d.getDate()}日`;
-  
-  // 親（opengraph-image.png）の画像情報を取得
   const previousImages = (await parent).openGraph?.images || [];
-
-  // ▼▼▼ タイトルと説明文を「日程」に最適化 ▼▼▼
   const title = `${event.name}日程${year}｜あと何日？いつ？カウントダウン | EduLens`;
   const description = `${event.name}日程${year}年度版。試験日はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。出願期間や合格発表日など${event.name}の最新情報を網羅。`;
-  // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
   const url = `https://edulens.jp/countdown/university/${slug}/${year}`;
 
   return {
     title: title,
     description: description,
-    keywords: [
-      `${event.name} いつ`,
-      `${event.name} あと何日`,
-      `${event.name} ${year}`,
-      `${event.name} 日程`,
-      "大学入試 カウントダウン",
-      "共通テスト"
-    ],
+    keywords: [`${event.name} いつ`, `${event.name} あと何日`, `${event.name} ${year}`, `${event.name} 日程`, "大学入試 カウントダウン", "共通テスト"],
     alternates: { canonical: url },
-    openGraph: {
-      title: title,
-      description: description,
-      url: url,
-      type: 'article',
-      siteName: 'EduLens',
-      images: previousImages, // 画像を継承
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: title,
-      description: description,
-      images: previousImages, // Twitter用にも継承
-    },
+    openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
+    twitter: { card: 'summary_large_image', title, description, images: previousImages },
   };
 }
 
 export default async function UniversityExamPage({ params }: { params: Params }) {
   const { slug, year } = await params;
 
-  // 1. 試験データを取得
   const { data: event } = await supabase
     .from('university_events')
     .select('*')
@@ -82,11 +53,8 @@ export default async function UniversityExamPage({ params }: { params: Params })
     .eq('year', parseInt(year))
     .single();
 
-  if (!event) {
-    return notFound();
-  }
+  if (!event) return notFound();
 
-  // 2. 日数計算
   const now = new Date();
   const jstNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
   const today = new Date(jstNow.toISOString().split('T')[0]);
@@ -94,11 +62,12 @@ export default async function UniversityExamPage({ params }: { params: Params })
   const diffTime = examDate.getTime() - today.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const isExpired = diffDays <= 0;
-
-  // ★ 共通テストかどうかの判定を追加
   const isCommonTest = event.name.includes('共通テスト');
+  
+  // Amazon検索用キーワード
+  const cleanName = event.name.replace(/\s*[\(（].*?[\)）]/g, '').trim();
 
-  // 構造化データ（Event + FAQPage）
+  // 構造化データ
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -106,10 +75,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
         "@type": "Event",
         "name": event.name,
         "startDate": event.date,
-        "location": {
-          "@type": "Place",
-          "name": "全国各試験会場"
-        },
+        "location": { "@type": "Place", "name": "全国各試験会場" },
         "description": event.description || `${event.name}の試験日程`,
         "eventStatus": "https://schema.org/EventScheduled"
       },
@@ -119,18 +85,12 @@ export default async function UniversityExamPage({ params }: { params: Params })
           {
             "@type": "Question",
             "name": "試験日はいつですか？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": `${event.name}は、${event.date.split('-')[0]}年${parseInt(event.date.split('-')[1])}月${parseInt(event.date.split('-')[2])}日に実施されます。`
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": `${event.name}は、${event.date.split('-')[0]}年${parseInt(event.date.split('-')[1])}月${parseInt(event.date.split('-')[2])}日に実施されます。` }
           },
           {
             "@type": "Question",
             "name": "合格発表はいつですか？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "合格発表の日程は各大学の公式発表をご確認ください。通常、試験の数週間後に行われます。"
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "合格発表の日程は各大学の公式発表をご確認ください。" }
           }
         ]
       }
@@ -141,7 +101,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
         
-        {/* ヘッダー */}
+        {/* ヘッダーエリア */}
         <div className="mb-12">
           <div className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-sm font-bold mb-4">
             {year}年度 大学入試
@@ -154,39 +114,39 @@ export default async function UniversityExamPage({ params }: { params: Params })
           </p>
         </div>
 
-        {/* カウントダウン */}
-        <div className="mb-16">
-          <div className="inline-block border-b-2 border-indigo-500 pb-1 mb-12">
-            <span className="text-slate-400 font-medium tracking-widest text-sm uppercase">Examination Date</span>
-            <span className="ml-4 text-xl font-bold text-slate-800">{event.date.split('-').join('.')}</span>
-          </div>
-          
-          <div className="mb-8">
-            <CountdownTimer targetDate={event.date} />
-          </div>
+        {/* カウントダウンエリア */}
+        <CountdownWithActions 
+          eventName={event.name}
+          year={year}
+          eventDateDots={event.date.split('-').join('.')}
+          eventDate={event.date}
+          isExpired={isExpired}
+        />
 
-          {isExpired && (
-            <div className="text-indigo-600 font-bold mt-8 text-lg">
-              試験当日、または終了しました
-            </div>
-          )}
-        </div>
-
-        {/* 説明・詳細（共通テストの場合のみ表示） */}
-        {isCommonTest && (
+        {/* 共通テスト説明 */}
+        {isCommonTest && event.description && (
           <div className="max-w-2xl mx-auto mb-16 text-center">
-             {event.description && (
-               <p className="text-slate-500 bg-slate-50 p-6 rounded-xl border border-slate-100 inline-block">
-                 {event.description}
-               </p>
-             )}
+             <p className="text-slate-500 bg-slate-50 p-6 rounded-xl border border-slate-100 inline-block">
+               {event.description}
+             </p>
           </div>
         )}
 
-        {/* ホーム画面に追加 */}
-        <AddToHomeButton />
+        {/* アクションボタンエリア */}
+        <ActionButtons 
+          eventName={event.name}
+          slug={slug}
+          year={year}
+          diffDays={diffDays}
+        />
 
-        {/* ▼▼▼ SEO用の解説セクション ▼▼▼ */}
+        {/* Amazonリンク */}
+        <AmazonExamLink 
+          keyword={cleanName} 
+          suffix={`過去問 ${year}`}
+        />
+
+        {/* SEO解説セクション */}
         <div className="mt-20 pt-10 border-t border-slate-100 text-left">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">
             {event.name}はいつ？{year}年度の試験日程
@@ -199,7 +159,6 @@ export default async function UniversityExamPage({ params }: { params: Params })
             <p>
               {year}年度の{event.name}は、{event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日に実施されます。
               本サイト「EduLens」では、試験当日までの残り日数をカウントダウン形式で提供し、受験生の皆さんが計画的に学習を進められるようサポートしています。
-              {event.name}まで「あと何日」かを常に意識することで、効率的な受験勉強が可能になります。
             </p>
             {isCommonTest && (
               <p>
@@ -213,7 +172,6 @@ export default async function UniversityExamPage({ params }: { params: Params })
             </p>
           </div>
 
-          {/* よくある質問 */}
           <div className="mt-10">
             <h3 className="text-xl font-bold text-slate-800 mb-4">{event.name} よくある質問</h3>
             <dl className="space-y-6">
@@ -227,58 +185,33 @@ export default async function UniversityExamPage({ params }: { params: Params })
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. {event.name}まであと何日ですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. {event.date.split('-')[0]}年{parseInt(event.date.split('-')[1])}月{parseInt(event.date.split('-')[2])}日の試験日まで、本日時点で<strong className="text-indigo-600">あと{diffDays}日</strong>です。
-                  このページでは残り日数をリアルタイムでカウントダウン表示しています。
+                  A. 試験日まで、本日時点で<strong className="text-indigo-600">あと{diffDays}日</strong>です。
                 </dd>
               </div>
               <div>
                 <dt className="font-bold text-slate-700 text-base mb-2">Q. 合格発表はいつですか？</dt>
                 <dd className="text-slate-600 text-sm">
-                  A. 合格発表の日程は各大学の公式発表をご確認ください。通常、試験の数週間後に行われます。
+                  A. 合格発表の日程は各大学の公式発表をご確認ください。
                 </dd>
               </div>
-              {isCommonTest && (
-                <div>
-                  <dt className="font-bold text-slate-600 text-sm mb-1">共通テストの科目は？</dt>
-                  <dd className="text-slate-500 text-sm">
-                    国語、地理歴史・公民、数学、理科、外国語から、志望大学・学部が指定する科目を受験します。詳細は各大学の募集要項をご確認ください。
-                  </dd>
-                </div>
-              )}
             </dl>
           </div>
         </div>
-        {/* ▲▲▲ SEO用の解説セクションここまで ▲▲▲ */}
 
-        <div className="mt-12 text-center">
-          <a 
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${event.name}まで、あと${diffDays}日！ #大学入試 #共通テスト #カウントダウン`)}&url=${encodeURIComponent(`https://edulens.jp/countdown/university/${slug}/${year}`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-800 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-            Xで共有
-          </a>
-        </div>
-
-        <div className="mt-12 text-center">
+        {/* 戻るリンク */}
+        <div className="mt-12 text-center pb-8">
            <Link href="/countdown/university" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
              大学入試一覧に戻る
            </Link>
+           <div className="mt-8">
+             <p className="text-sm text-slate-400 font-medium tracking-wide">
+               GOOD LUCK TO <span className="text-indigo-600">ALL STUDENTS</span>
+             </p>
+           </div>
         </div>
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
-        />
         
-        <div className="text-center mt-12 pb-8">
-          <p className="text-sm text-slate-400 font-medium tracking-wide">
-            GOOD LUCK TO <span className="text-indigo-600">ALL STUDENTS</span>
-          </p>
-        </div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       </div>
     </div>
   );

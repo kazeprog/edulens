@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
+// ▼ 1. Amazonリンクコンポーネントをインポート
+import AmazonExamLink from '@/components/AmazonExamLink';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新
@@ -36,44 +38,19 @@ export async function generateMetadata(
 
   const d = new Date(exam.primary_exam_date);
   const examDateText = `${d.getMonth() + 1}月${d.getDate()}日`;
-
-  // 親（opengraph-image.png）の画像情報を取得
   const previousImages = (await parent).openGraph?.images || [];
 
-  // ✅ タイトル：検索キーワード「いつ？」「あと何日？」を左側に配置してCTR向上を狙う
   const title = `${exam.exam_name}試験日はいつ？あと何日？${exam.session_name}日程カウントダウン | EduLens`;
-
-  // ✅ ディスクリプション：具体的な日付とベネフィット（スケジュール管理）を提示
   const description = `【${exam.exam_name}】${exam.session_name}の試験日（${examDateText}）まであと何日？申し込み期間からWeb合格発表日まで、受験に必要な最新スケジュールを完全ガイド。直前対策や計画的な学習に役立つリアルタイムカウントダウン。`;
-
   const url = `https://edulens.jp/countdown/${slug}/${session}`;
 
   return {
     title: title,
     description: description,
-    keywords: [
-      `${exam.exam_name} 試験日`,
-      `${exam.exam_name} いつ`,
-      `${exam.exam_name} あと何日`,
-      `${exam.exam_name} ${exam.session_name}`,
-      "申し込み期間",
-      "合格発表",
-    ],
+    keywords: [`${exam.exam_name} 試験日`, `${exam.exam_name} いつ`, `${exam.exam_name} あと何日`, `${exam.exam_name} ${exam.session_name}`, "申し込み期間", "合格発表"],
     alternates: { canonical: url },
-    openGraph: {
-      title: title,
-      description: description,
-      url: url,
-      type: 'article',
-      siteName: 'EduLens',
-      images: previousImages,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: title,
-      description: description,
-      images: previousImages,
-    },
+    openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
+    twitter: { card: 'summary_large_image', title, description, images: previousImages },
   };
 }
 
@@ -105,7 +82,16 @@ export default async function QualificationCountdownPage({ params }: { params: P
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const isExpired = diffDays <= 0;
 
-  // ✅ 構造化データ (FAQの内容を充実させる)
+  // ▼ Amazon検索用キーワードの最適化ロジック
+  // TOEICなら「公式問題集」、英検なら「過去問 問題集」、それ以外は「過去問」をデフォルトに
+  let amazonSuffix = "過去問";
+  if (displayExamName.toUpperCase().includes("TOEIC")) {
+    amazonSuffix = "公式問題集";
+  } else if (displayExamName.includes("英検")) {
+    amazonSuffix = "過去問 問題集";
+  }
+
+  // 構造化データ
   const faqItems = [
     {
       question: `${displayExamName} ${displaySessionName}の試験日はいつですか？`,
@@ -146,21 +132,14 @@ export default async function QualificationCountdownPage({ params }: { params: P
         "endDate": displayExamDate,
         "eventStatus": "https://schema.org/EventScheduled",
         "description": `${displayExamName} ${displaySessionName}の試験日。${displayExamDateJap}実施。`,
-        "location": {
-          "@type": "Place",
-          "name": "日本全国の試験会場",
-          "address": { "@type": "PostalAddress", "addressCountry": "JP" }
-        }
+        "location": { "@type": "Place", "name": "日本全国の試験会場", "address": { "@type": "PostalAddress", "addressCountry": "JP" } }
       },
       {
         "@type": "FAQPage",
         "mainEntity": faqItems.map(item => ({
           "@type": "Question",
           "name": item.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.answer
-          }
+          "acceptedAnswer": { "@type": "Answer", "text": item.answer }
         }))
       }
     ]
@@ -170,7 +149,6 @@ export default async function QualificationCountdownPage({ params }: { params: P
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
 
-        {/* ✅ H1タグの改善: 隠しテキストではなく、視覚的に見えるタイトルをH1にする */}
         <div className="mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayExamName}
@@ -180,7 +158,6 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </h1>
         </div>
 
-        {/* カウントダウン表示エリア */}
         <CountdownWithActions 
           examName={displayExamName}
           sessionName={displaySessionName}
@@ -198,25 +175,16 @@ export default async function QualificationCountdownPage({ params }: { params: P
             </h2>
           </div>
           <div className="divide-y divide-slate-100">
-            {/* 申込期間 */}
             {(exam.application_start || exam.application_end) && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">申込期間</span>
-                <span className="text-slate-700 font-medium">
-                  {formatDateJap(exam.application_start)} 〜 {formatDateJap(exam.application_end)}
-                </span>
+                <span className="text-slate-700 font-medium">{formatDateJap(exam.application_start)} 〜 {formatDateJap(exam.application_end)}</span>
               </div>
             )}
-
-            {/* 一次試験 */}
             <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
               <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">一次試験 (試験日)</span>
-              <span className="text-lg font-bold text-slate-800">
-                {displayExamDateJap}
-              </span>
+              <span className="text-lg font-bold text-slate-800">{displayExamDateJap}</span>
             </div>
-
-            {/* 二次試験 A/B */}
             {exam.secondary_exam_date_a && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">二次試験 (A日程)</span>
@@ -229,8 +197,6 @@ export default async function QualificationCountdownPage({ params }: { params: P
                 <span className="text-slate-700 font-medium">{formatDateJap(exam.secondary_exam_date_b)}</span>
               </div>
             )}
-
-            {/* 合格発表日 */}
             {exam.result_date && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-blue-50/60">
                 <span className="text-sm font-bold text-blue-600 w-36 flex-shrink-0">Web合否発表</span>
@@ -240,7 +206,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </div>
         </div>
 
-        {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
+        {/* アクションボタンエリア */}
         <ActionButtons 
           examName={displayExamName}
           sessionName={displaySessionName}
@@ -248,9 +214,15 @@ export default async function QualificationCountdownPage({ params }: { params: P
           sessionSlug={session}
           diffDays={diffDays}
         />
-        {/* ▲▲▲ エリア終了 ▲▲▲ */}
 
-        {/* ✅ SEO用コンテンツエリア（新規追加） */}
+        {/* ▼▼▼ 2. Amazonリンク追加（キーワードを工夫して表示） ▼▼▼ */}
+        <AmazonExamLink 
+          keyword={displayExamName} 
+          suffix={amazonSuffix}
+        />
+        {/* ▲▲▲ 追加エリア終了 ▲▲▲ */}
+
+        {/* SEO用コンテンツエリア */}
         <div className="w-full max-w-3xl mx-auto mt-16 text-left border-t border-slate-200 pt-10">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">
             {displayExamName} {displaySessionName} 試験日程まとめ

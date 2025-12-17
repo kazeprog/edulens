@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,6 +54,11 @@ export default function RootLayout({
         <main>
           {children}
         </main>
+        <footer className="w-full py-6 text-center border-t border-slate-100 bg-slate-50">
+          <p className="text-xs text-slate-400">
+            Amazonのアソシエイトとして、EduLensは適格販売により収入を得ています。
+          </p>
+        </footer>
         <Analytics />
       </body>
     </html>
