@@ -11,27 +11,11 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { prefecture: string; year: string } }) {
-    // フォントのロード (Google Fonts)
-    // Noto Sans JP Bold
-    const fontData = await fetch(
-        new URL('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&text=0123456789残り日公立高校入試年度現在試験終了年月あと都道府県', 'https://edulens.jp')
-    ).then((res) => res.arrayBuffer()).catch(() => null);
-
-    // 実際にはAPIがCSSを返すので、そこからTTFのURLを抽出するか、直接TTFをfetchするのが一般的だが、
-    // @vercel/og は Google Fonts の名前指定ロードをサポートしていないため、
-    // ここでは標準的な fetch 手法を使うか、あるいはシンプルにシステムフォント/英数字用フォントで妥協するか。
-    // 日本語フォントはサイズが大きいため、Edgeでのロードは工夫が必要。
-    // 今回は一旦、英数字と一部の記号のみGoogle Fontsからロードし、日本語はデフォルトフォント（豆腐になる可能性あり）を回避するため
-    // 最小限の文字セットのみを含むフォントをロードするか、
-    // あるいはサーバー負荷を考慮して、英数字はInter、日本語は「sans-serif」でOS依存（OGP生成サーバのフォント）に任せる。
-    // Vercel のデフォルト日本語フォントは現在等幅のみ等の制約があるため、
-    // ここでは "Inter" のみをロードして、数字をかっこよく見せることに注力し、日本語はシステムフォントに頼る（または豆腐回避のためGoogle Fontsからサブセット取得）。
-
-    // 確実な方法として、今回は英数字メインのデザインにしつつ、
-    // 日本語が必要な部分は簡単なSVGパスか、あるいはロード可能な範囲のフォントを使う。
-    // 実用的なアプローチ: 数字（カウントダウン）をメインにする。
-
     const { prefecture, year } = await params;
+
+    // ロゴ画像の取得 (絶対URLが必要)
+    // Vercel等の環境では `https://edulens.jp/logo.png` とする
+    const logoData = await fetch(new URL('https://edulens.jp/logo.png')).then((res) => res.arrayBuffer()).catch(() => null);
 
     // データ取得
     const { data: prefData } = await supabase
@@ -76,53 +60,145 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: '#fff',
-                    backgroundImage: 'linear-gradient(to bottom right, #e0e7ff, #ffffff)',
+                    border: '16px solid #2563ea', // blue-600 equivalent (scaled x2 from 4px?? no, 1200w so maybe 16px is robust)
+                    // Original was 4px on 600px width. So 8px on 1200px width.
+                    // Let's go with 12px for better visibility.
+                    position: 'relative',
                     fontFamily: '"sans-serif"',
                 }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                {/* Decorations */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 256, // 32 * 4 * 2 = 256? Original w-32 (128px). 
+                    // Tailwind w-32 is 8rem = 128px.
+                    // On 600px canvas it was w-32 (128px).
+                    // On 1200px canvas it should be 256px.
+                    height: 256,
+                    backgroundColor: '#eff6ff', // blue-50
+                    borderBottomLeftRadius: 256, // rounded-bl-full
+                    opacity: 0.5,
+                }} />
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: 192, // w-24 (96px) * 2 = 192
+                    height: 192,
+                    backgroundColor: '#eff6ff', // blue-50
+                    borderTopRightRadius: 192, // rounded-tr-full
+                    opacity: 0.5,
+                }} />
+
+                {/* Content Container */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10, width: '100%' }}>
+                    {/* Header: Year + Pref */}
+                    <h2 style={{
+                        fontSize: 48, // 2xl (24px) * 2 = 48
+                        fontWeight: 'bold',
+                        color: '#64748b', // slate-500
+                        marginBottom: 16,
+                        margin: 0,
+                    }}>
+                        {year}年度 公立高校入試
+                    </h2>
+
+                    {/* Title: Pref Name */}
+                    <h1 style={{
+                        fontSize: 96, // 5xl (48px) * 2 = 96
+                        fontWeight: 900,
+                        color: '#1e293b', // slate-800
+                        marginBottom: 24, // mb-6 (24px) * 2 = 48
+                        marginTop: 16,
+                        letterSpacing: '-0.025em',
+                    }}>
+                        {prefName}
+                    </h1>
+
+                    {/* Date Line */}
                     <div style={{
                         display: 'flex',
-                        fontSize: 40,
-                        fontWeight: 'bold',
-                        color: '#6366f1',
-                        marginBottom: 20,
-                        padding: '10px 30px',
-                        backgroundColor: '#eef2ff',
-                        borderRadius: 50,
+                        borderBottom: '4px solid #2563ea', // blue-600
+                        paddingBottom: 4,
+                        marginBottom: 24,
                     }}>
-                        {year}年度 {prefName}公立高校入試
+                        <p style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
+                            <span style={{
+                                fontSize: 28, // text-sm (14px) * 2
+                                color: '#94a3b8', // slate-400
+                                fontWeight: 500,
+                                marginRight: 24,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                            }}>DATE</span>
+                            <span style={{
+                                fontSize: 40, // text-xl (20px) * 2
+                                fontWeight: 'bold',
+                                color: '#334155', // slate-700
+                            }}>{examDateText}</span>
+                        </p>
                     </div>
 
-                    {isExpired ? (
-                        <div style={{ fontSize: 120, fontWeight: 900, color: '#4f46e5' }}>
-                            試験終了
-                        </div>
-                    ) : (
-                        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                            <span style={{ fontSize: 60, fontWeight: 'bold', color: '#64748b', marginBottom: 30, marginRight: 20 }}>あと</span>
-                            <span style={{ fontSize: 220, fontWeight: 900, color: '#4f46e5', lineHeight: 1, letterSpacing: '-0.05em' }}>
-                                {diffDays}
-                            </span>
-                            <span style={{ fontSize: 60, fontWeight: 'bold', color: '#64748b', marginBottom: 30, marginLeft: 20 }}>日</span>
-                        </div>
-                    )}
-
-                    <div style={{
-                        display: 'flex',
-                        fontSize: 32,
-                        fontWeight: 'bold',
-                        color: '#334155',
-                        marginTop: 40,
-                        borderBottom: '4px solid #4f46e5',
-                        paddingBottom: 10
-                    }}>
-                        試験日: {examDateText || '未定'}
+                    {/* Countdown Area */}
+                    <div style={{ marginBottom: 16 }}>
+                        {isExpired ? (
+                            <div style={{ fontSize: 120, fontWeight: 900, color: '#2563ea' }}>試験終了</div>
+                        ) : (
+                            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                <span style={{
+                                    fontSize: 40, // text-xl * 2
+                                    fontWeight: 'bold',
+                                    color: '#94a3b8', // slate-400
+                                    marginBottom: 32,
+                                    marginRight: 16,
+                                }}>あと</span>
+                                <span style={{
+                                    fontSize: 256, // text-8xl (96px) * 2 = 192... wait. 8xl is 6rem (96px). 
+                                    // Let's make it bigger. 256px looks good for impact.
+                                    fontWeight: 900,
+                                    color: '#2563ea', // blue-600
+                                    lineHeight: 1,
+                                    letterSpacing: '-0.05em',
+                                }}>{diffDays}</span>
+                                <span style={{
+                                    fontSize: 48, // text-2xl (24px) * 2
+                                    fontWeight: 'bold',
+                                    color: '#94a3b8', // slate-400
+                                    marginBottom: 32,
+                                    marginLeft: 16,
+                                }}>日</span>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div style={{ position: 'absolute', bottom: 40, right: 50, display: 'flex', alignItems: 'center', opacity: 0.7 }}>
-                    <div style={{ fontSize: 24, fontWeight: 'bold', color: '#94a3b8', letterSpacing: '0.1em' }}>EduLens.jp</div>
+                {/* Footer */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 32,
+                    right: 48,
+                    display: 'flex',
+                    alignItems: 'center',
+                    opacity: 0.7,
+                }}>
+                    <span style={{
+                        fontSize: 24, // text-xs * 2 = 24? No, text-xs is 12px. 24px is legible.
+                        fontWeight: 'bold',
+                        color: '#94a3b8', // slate-400
+                        letterSpacing: '0.1em',
+                        marginRight: 16,
+                    }}>EduLens.jp</span>
+                    {/* Logo Image */}
+                    {logoData && (
+                        <img
+                            src={logoData as any}
+                            width={48} // h-6 (24px) * 2 = 48
+                            height={48}
+                            style={{ objectFit: 'contain' }}
+                        />
+                    )}
                 </div>
             </div>
         ),

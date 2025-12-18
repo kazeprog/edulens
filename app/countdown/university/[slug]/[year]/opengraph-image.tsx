@@ -13,12 +13,8 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: { slug: string; year: string } }) {
     const { slug, year } = await params;
 
-    // フォントロード (HighSchoolと同じ)
-    const fontData = await fetch(
-        new URL('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&text=0123456789残り日大学入試年度現在試験終了年月あと共通テスト', 'https://edulens.jp')
-    ).then((res) => res.arrayBuffer()).catch(() => null);
+    const logoData = await fetch(new URL('https://edulens.jp/logo.png')).then((res) => res.arrayBuffer()).catch(() => null);
 
-    // データ取得
     const { data: event } = await supabase
         .from('university_events')
         .select('*')
@@ -41,6 +37,10 @@ export default async function Image({ params }: { params: { slug: string; year: 
         examDateText = `${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
     }
 
+    // Indigo Theme (#4f46e5 / #eef2ff)
+    const themeColor = '#4f46e5'; // indigo-600
+    const bgColor = '#eef2ff'; // indigo-50
+
     return new ImageResponse(
         (
             <div
@@ -52,65 +52,139 @@ export default async function Image({ params }: { params: { slug: string; year: 
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: '#fff',
-                    backgroundImage: 'linear-gradient(to bottom right, #e0e7ff, #ffffff)',
+                    border: `16px solid ${themeColor}`,
+                    position: 'relative',
                     fontFamily: '"sans-serif"',
                 }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{
-                        display: 'flex',
-                        fontSize: 40,
+                {/* Decorations */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 256,
+                    height: 256,
+                    backgroundColor: bgColor,
+                    borderBottomLeftRadius: 256,
+                    opacity: 0.5,
+                }} />
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: 192,
+                    height: 192,
+                    backgroundColor: bgColor,
+                    borderTopRightRadius: 192,
+                    opacity: 0.5,
+                }} />
+
+                {/* Content Container */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10, width: '100%', paddingLeft: 40, paddingRight: 40 }}>
+                    {/* Header */}
+                    <h2 style={{
+                        fontSize: 48,
                         fontWeight: 'bold',
-                        color: '#6366f1',
-                        marginBottom: 20,
-                        padding: '10px 30px',
-                        backgroundColor: '#eef2ff',
-                        borderRadius: 50,
+                        color: '#64748b',
+                        marginBottom: 16,
+                        margin: 0,
                     }}>
                         {year}年度 大学入試
-                    </div>
+                    </h2>
 
-                    <div style={{
-                        fontSize: 40,
-                        fontWeight: 'bold',
+                    {/* Title */}
+                    <h1 style={{
+                        fontSize: 80, // Slightly smaller than Pref to accommodate longer names
+                        fontWeight: 900,
                         color: '#1e293b',
-                        marginBottom: 10,
-                        maxWidth: 1000,
+                        marginBottom: 24,
+                        marginTop: 16,
                         textAlign: 'center',
-                        whiteSpace: 'pre-wrap',
+                        lineHeight: 1.1,
                     }}>
                         {eventName}
-                    </div>
+                    </h1>
 
-                    {isExpired ? (
-                        <div style={{ fontSize: 120, fontWeight: 900, color: '#4f46e5' }}>
-                            試験終了
-                        </div>
-                    ) : (
-                        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                            <span style={{ fontSize: 60, fontWeight: 'bold', color: '#64748b', marginBottom: 30, marginRight: 20 }}>あと</span>
-                            <span style={{ fontSize: 220, fontWeight: 900, color: '#4f46e5', lineHeight: 1, letterSpacing: '-0.05em' }}>
-                                {diffDays}
-                            </span>
-                            <span style={{ fontSize: 60, fontWeight: 'bold', color: '#64748b', marginBottom: 30, marginLeft: 20 }}>日</span>
-                        </div>
-                    )}
-
+                    {/* Date Line */}
                     <div style={{
                         display: 'flex',
-                        fontSize: 32,
-                        fontWeight: 'bold',
-                        color: '#334155',
-                        marginTop: 40,
-                        borderBottom: '4px solid #4f46e5',
-                        paddingBottom: 10
+                        borderBottom: `4px solid ${themeColor}`,
+                        paddingBottom: 4,
+                        marginBottom: 24,
                     }}>
-                        試験日: {examDateText || '未定'}
+                        <p style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
+                            <span style={{
+                                fontSize: 28,
+                                color: '#94a3b8',
+                                fontWeight: 500,
+                                marginRight: 24,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                            }}>DATE</span>
+                            <span style={{
+                                fontSize: 40,
+                                fontWeight: 'bold',
+                                color: '#334155',
+                            }}>{examDateText}</span>
+                        </p>
+                    </div>
+
+                    {/* Countdown Area */}
+                    <div style={{ marginBottom: 16 }}>
+                        {isExpired ? (
+                            <div style={{ fontSize: 120, fontWeight: 900, color: themeColor }}>試験終了</div>
+                        ) : (
+                            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                <span style={{
+                                    fontSize: 40,
+                                    fontWeight: 'bold',
+                                    color: '#94a3b8',
+                                    marginBottom: 32,
+                                    marginRight: 16,
+                                }}>あと</span>
+                                <span style={{
+                                    fontSize: 256,
+                                    fontWeight: 900,
+                                    color: themeColor,
+                                    lineHeight: 1,
+                                    letterSpacing: '-0.05em',
+                                }}>{diffDays}</span>
+                                <span style={{
+                                    fontSize: 48,
+                                    fontWeight: 'bold',
+                                    color: '#94a3b8',
+                                    marginBottom: 32,
+                                    marginLeft: 16,
+                                }}>日</span>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div style={{ position: 'absolute', bottom: 40, right: 50, display: 'flex', alignItems: 'center', opacity: 0.7 }}>
-                    <div style={{ fontSize: 24, fontWeight: 'bold', color: '#94a3b8', letterSpacing: '0.1em' }}>EduLens.jp</div>
+                {/* Footer */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 32,
+                    right: 48,
+                    display: 'flex',
+                    alignItems: 'center',
+                    opacity: 0.7,
+                }}>
+                    <span style={{
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                        color: '#94a3b8',
+                        letterSpacing: '0.1em',
+                        marginRight: 16,
+                    }}>EduLens.jp</span>
+                    {logoData && (
+                        <img
+                            src={logoData as any}
+                            width={48}
+                            height={48}
+                            style={{ objectFit: 'contain' }}
+                        />
+                    )}
                 </div>
             </div>
         ),
