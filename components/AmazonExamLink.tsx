@@ -38,7 +38,7 @@ export default function AmazonExamLink({
     titleText = "過去問の準備はお済みですか？";
     descriptionText = (
       <>
-        <strong>受験まであと{daysLeft}日、1科目あたり約{daysPerSubject}日です。</strong>
+        <strong className="text-base sm:text-lg">受験まであと{daysLeft}日、1科目あたり約{daysPerSubject}日です。</strong>
         <br />
         過去問を準備し早めに取り掛かりましょう！
       </>
