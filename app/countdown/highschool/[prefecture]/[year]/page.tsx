@@ -264,6 +264,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         <AmazonExamLink 
           keyword={`${displayPrefName}高校入試`} 
           suffix={`過去問 ${year}`}
+          daysLeft={diffDays}
         />
 
         {neighborPrefs.length > 0 && (

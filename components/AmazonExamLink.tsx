@@ -4,12 +4,14 @@ type Props = {
   keyword: string;     // 例: "兵庫県", "TOEIC L&R", "英検2級"
   suffix?: string;     // 例: "公立高校入試 過去問 2026", "公式問題集"
   trackingId?: string; // あなたのトラッキングID
+  daysLeft?: number;   // 残り日数（高校受験で使用）
 };
 
 export default function AmazonExamLink({ 
   keyword, 
   suffix = "公立高校入試 過去問 2026", 
-  trackingId = "edulens-22" 
+  trackingId = "edulens-22",
+  daysLeft
 }: Props) {
   
   const searchQuery = encodeURIComponent(`${keyword} ${suffix}`);
@@ -29,6 +31,19 @@ export default function AmazonExamLink({
   let titleText = "過去問の準備はお済みですか？";
   let descriptionText = "合格への近道は「過去問」から。志望校の出題傾向を掴んで、本番に備えましょう。";
   let buttonText = `Amazonで ${keyword} の過去問を見る`;
+
+  // 高校受験で残り日数が渡された場合
+  if (daysLeft !== undefined && keyword.includes("高校入試")) {
+    const daysPerSubject = Math.floor(daysLeft / 5);
+    titleText = "過去問の準備はお済みですか？";
+    descriptionText = (
+      <>
+        <strong>受験まであと{daysLeft}日、1科目あたり約{daysPerSubject}日です。</strong>
+        <br />
+        過去問を準備し早めに取り掛かりましょう！
+      </>
+    );
+  }
 
   if (isScoreBased) {
     // スコア型用メッセージ
