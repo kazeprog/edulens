@@ -13,11 +13,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
+      url: `${BASE_URL}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/contact`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
       url: `${BASE_URL}/countdown`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+
     {
       url: `${BASE_URL}/countdown/highschool`,
       lastModified: new Date(),
@@ -71,7 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (qualificationExams) {
     // 1. 資格トップページ (重複を排除して生成: /countdown/eiken, /countdown/toeic 等)
     const uniqueSlugs = Array.from(new Set(qualificationExams.map((q) => q.slug)));
-    
+
     const qualificationCategoryRoutes = uniqueSlugs.map((slug) => ({
       url: `${BASE_URL}/countdown/${slug}`,
       lastModified: new Date(),
