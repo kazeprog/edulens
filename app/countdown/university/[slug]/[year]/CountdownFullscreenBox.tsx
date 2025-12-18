@@ -179,7 +179,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
       >
         <div className="text-center">
           <div className="inline-block px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold mb-4">{year}年度 大学入試</div>
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 leading-tight overflow-hidden text-ellipsis whitespace-nowrap px-2">{eventName}</h1>
+          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 leading-tight whitespace-pre-wrap line-clamp-3 px-2">{eventName.replace(/([（(])/g, '\n$1')}</h1>
           <div className="h-1 w-20 bg-indigo-600 mx-auto mt-4"></div>
         </div>
 
