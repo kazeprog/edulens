@@ -197,7 +197,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
         {/* Header */}
         <div className="text-center">
           <div className="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-4">{year}年度 公立高校入試</div>
-          <h1 className="text-5xl font-extrabold text-slate-900 mb-2 leading-tight">{displayPrefName}</h1>
+          <h1 className="text-5xl font-extrabold text-slate-900 mb-2 leading-tight whitespace-normal line-clamp-2 px-2">{displayPrefName}</h1>
           <div className="h-1 w-20 bg-blue-600 mx-auto mt-4"></div>
         </div>
 
