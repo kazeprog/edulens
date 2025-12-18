@@ -105,7 +105,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-50 rounded-tr-full opacity-50"></div>
         <div className="z-10 text-center w-full">
           <h2 className="text-2xl font-bold text-slate-500 mb-2">{sessionName}</h2>
-          <h1 className="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight whitespace-normal line-clamp-2 leading-tight px-4 min-h-[4.5rem] flex items-center justify-center">{examName}</h1>
+          <h1 className="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight whitespace-pre-wrap line-clamp-2 leading-tight px-4 min-h-[4.5rem] flex items-center justify-center">{examName.replace(/([（(])/g, '\n$1')}</h1>
           <div className="inline-block border-b-2 border-blue-600 pb-1 mb-4">
             <p className="text-xl font-bold text-slate-700">
               <span className="text-sm text-slate-400 font-medium mr-3 uppercase tracking-widest">Date</span>
@@ -142,7 +142,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
         <div className="absolute bottom-0 left-0 w-full h-4 bg-blue-600"></div>
         <div className="z-10 text-center w-full">
           <h2 className="text-2xl font-bold text-slate-500 mb-2">{sessionName}</h2>
-          <h1 className="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight whitespace-normal line-clamp-2 leading-tight px-4 h-[6rem] flex items-center justify-center">{examName}</h1>
+          <h1 className="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight whitespace-pre-wrap line-clamp-2 leading-tight px-4 h-[6rem] flex items-center justify-center">{examName.replace(/([（(])/g, '\n$1')}</h1>
           <div className="w-full border-t border-slate-200 my-4"></div>
           <div className="mb-8">
             <div className="text-sm text-slate-400 font-bold uppercase tracking-widest mb-2">Examination Date</div>
@@ -175,7 +175,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
       >
         <div className="text-center">
           <div className="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-4">{sessionName}</div>
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 leading-tight whitespace-normal line-clamp-3 px-2">{examName}</h1>
+          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 leading-tight whitespace-pre-wrap line-clamp-3 px-2">{examName.replace(/([（(])/g, '\n$1')}</h1>
           <div className="h-1 w-20 bg-blue-600 mx-auto mt-4"></div>
         </div>
 

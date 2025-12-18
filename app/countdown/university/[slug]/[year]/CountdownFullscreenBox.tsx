@@ -107,7 +107,9 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-indigo-50 rounded-tr-full opacity-50"></div>
         <div className="z-10 text-center w-full">
           <h2 className="text-2xl font-bold text-slate-500 mb-2">{year}年度 大学入試</h2>
-          <h1 className="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight whitespace-normal line-clamp-2 leading-tight px-4 min-h-[4.5rem] flex items-center justify-center">{eventName}</h1>
+          <h1 className="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight whitespace-pre-wrap line-clamp-2 leading-tight px-4 min-h-[4.5rem] flex items-center justify-center">
+            {eventName.replace(/([（(])/g, '\n$1')}
+          </h1>
           <div className="inline-block border-b-2 border-indigo-600 pb-1 mb-4">
             <p className="text-xl font-bold text-slate-700">
               <span className="text-sm text-slate-400 font-medium mr-3 uppercase tracking-widest">Date</span>
@@ -144,7 +146,7 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
         <div className="absolute bottom-0 left-0 w-full h-4 bg-indigo-600"></div>
         <div className="z-10 text-center w-full">
           <h2 className="text-2xl font-bold text-slate-500 mb-2">{year}年度 大学入試</h2>
-          <h1 className="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight whitespace-normal line-clamp-2 leading-tight px-4 h-[6rem] flex items-center justify-center">{eventName}</h1>
+          <h1 className="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight whitespace-pre-wrap line-clamp-2 leading-tight px-4 h-[6rem] flex items-center justify-center">{eventName.replace(/([（(])/g, '\n$1')}</h1>
           <div className="w-full border-t border-slate-200 my-4"></div>
           <div className="mb-8">
             <div className="text-sm text-slate-400 font-bold uppercase tracking-widest mb-2">Examination Date</div>
