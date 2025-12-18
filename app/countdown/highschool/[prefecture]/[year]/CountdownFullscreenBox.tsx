@@ -209,13 +209,12 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
           </div>
 
           <div className="my-8 relative">
-            <div className="absolute -inset-4 bg-blue-100 rounded-full blur-xl opacity-50"></div>
             {isExpired ? (
               <div className="relative text-5xl font-black text-blue-600">Finish</div>
             ) : (
               <div className="relative flex flex-col items-center">
                 <span className="text-2xl font-bold text-slate-400 mb-2">残り</span>
-                <span className="text-[10rem] font-black text-blue-600 leading-none tabular-nums tracking-tighter drop-shadow-sm">
+                <span className="text-[10rem] font-black text-blue-600 leading-none tabular-nums tracking-tighter">
                   {Math.ceil((new Date(displayExamDate).getTime() - new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }).split('T')[0]).getTime()) / (1000 * 60 * 60 * 24))}
                 </span>
                 <span className="text-4xl font-bold text-slate-400 mt-2">Days</span>
