@@ -29,7 +29,7 @@ export default function AmazonExamLink({
 
   // デフォルト（高校入試・大学入試）
   let titleText = "過去問の準備はお済みですか？";
-  let descriptionText = "合格への近道は「過去問」から。志望校の出題傾向を掴んで、本番に備えましょう。";
+  let descriptionText: string | React.ReactNode = "合格への近道は「過去問」から。志望校の出題傾向を掴んで、本番に備えましょう。";
   let buttonText = `Amazonで ${keyword} の過去問を見る`;
 
   // 高校受験で残り日数が渡された場合
