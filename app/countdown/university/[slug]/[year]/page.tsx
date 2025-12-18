@@ -16,7 +16,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { slug, year } = await params;
-  
+
   const { data: event } = await supabase
     .from('university_events')
     .select('*')
@@ -38,8 +38,8 @@ export async function generateMetadata(
     description: description,
     keywords: [`${event.name} いつ`, `${event.name} あと何日`, `${event.name} ${year}`, `${event.name} 日程`, "大学入試 カウントダウン", "共通テスト"],
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
-    twitter: { card: 'summary_large_image', title, description, images: previousImages },
+    openGraph: { title, description, url, type: 'article', siteName: 'EduLens' },
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 
@@ -63,7 +63,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const isExpired = diffDays <= 0;
   const isCommonTest = event.name.includes('共通テスト');
-  
+
   // Amazon検索用キーワード
   const cleanName = event.name.replace(/\s*[\(（].*?[\)）]/g, '').trim();
 
@@ -100,7 +100,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
   return (
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
-        
+
         {/* ヘッダーエリア */}
         <div className="mb-12">
           <div className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-sm font-bold mb-4">
@@ -115,7 +115,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
         </div>
 
         {/* カウントダウンエリア */}
-        <CountdownWithActions 
+        <CountdownWithActions
           eventName={event.name}
           year={year}
           eventDateDots={event.date.split('-').join('.')}
@@ -126,14 +126,14 @@ export default async function UniversityExamPage({ params }: { params: Params })
         {/* 共通テスト説明 */}
         {isCommonTest && event.description && (
           <div className="max-w-2xl mx-auto mb-16 text-center">
-             <p className="text-slate-500 bg-slate-50 p-6 rounded-xl border border-slate-100 inline-block">
-               {event.description}
-             </p>
+            <p className="text-slate-500 bg-slate-50 p-6 rounded-xl border border-slate-100 inline-block">
+              {event.description}
+            </p>
           </div>
         )}
 
         {/* アクションボタンエリア */}
-        <ActionButtons 
+        <ActionButtons
           eventName={event.name}
           slug={slug}
           year={year}
@@ -141,8 +141,8 @@ export default async function UniversityExamPage({ params }: { params: Params })
         />
 
         {/* Amazonリンク */}
-        <AmazonExamLink 
-          keyword={cleanName} 
+        <AmazonExamLink
+          keyword={cleanName}
           suffix={`過去問 ${year}`}
         />
 
@@ -200,17 +200,17 @@ export default async function UniversityExamPage({ params }: { params: Params })
 
         {/* 戻るリンク */}
         <div className="mt-12 text-center pb-8">
-           <Link href="/countdown/university" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-             大学入試一覧に戻る
-           </Link>
-           <div className="mt-8">
-             <p className="text-sm text-slate-400 font-medium tracking-wide">
-               GOOD LUCK TO <span className="text-indigo-600">ALL STUDENTS</span>
-             </p>
-           </div>
+          <Link href="/countdown/university" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            大学入試一覧に戻る
+          </Link>
+          <div className="mt-8">
+            <p className="text-sm text-slate-400 font-medium tracking-wide">
+              GOOD LUCK TO <span className="text-indigo-600">ALL STUDENTS</span>
+            </p>
+          </div>
         </div>
-        
+
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       </div>
     </div>

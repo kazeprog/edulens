@@ -79,13 +79,11 @@ export async function generateMetadata(
       url: url,
       type: 'article',
       siteName: 'EduLens',
-      images: previousImages, // ▼ 4. これで画像を継承！
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: previousImages, // ▼ 5. Twitter用にも継承
     },
     manifest: `/countdown/highschool/${prefecture}/${year}/manifest.json`,
   };
@@ -134,7 +132,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
   const neighborPrefs = allPrefectures.filter(
     (p) => p.region === prefData.region && p.id !== prefData.id
   );
-  
+
   // 合格発表日のテキスト生成ロジック
   const cleanResultDateStrings = exams
     .filter((e: any) => e.result_date)
@@ -142,7 +140,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
       const d = new Date(e.result_date);
       const month = d.getMonth() + 1;
       const day = d.getDate();
-      const examYear = d.getFullYear(); 
+      const examYear = d.getFullYear();
       return `「${e.name}」の合格発表は${examYear}年${month}月${day}日`;
     });
 
@@ -152,7 +150,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
   if (cleanResultDateStrings.length === 0) {
     const fallbackText = `詳細な日程は${displayPrefName}教育委員会の公式発表をご確認ください。`;
     schemaResultAnswerText = fallbackText;
-    displayResultAnswerText = `A. ${fallbackText}通常、試験の1週間〜10日後に行われます。`; 
+    displayResultAnswerText = `A. ${fallbackText}通常、試験の1週間〜10日後に行われます。`;
   } else if (cleanResultDateStrings.length === 1) {
     schemaResultAnswerText = `${cleanResultDateStrings[0]}に予定されています。`;
     displayResultAnswerText = `A. ${schemaResultAnswerText}`;
@@ -229,11 +227,11 @@ export default async function CountdownPage({ params }: { params: Params }) {
           <div className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayPrefName}
           </div>
-          
+
           <p className="text-2xl text-slate-500 font-medium">{year}年度 {displayExamName}</p>
         </div>
 
-        <CountdownWithActions 
+        <CountdownWithActions
           displayPrefName={displayPrefName}
           year={year}
           displayExamName={displayExamName}
@@ -250,7 +248,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         )}
 
         {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
-        <ActionButtons 
+        <ActionButtons
           displayPrefName={displayPrefName}
           year={year}
           prefecture={prefecture}
@@ -261,8 +259,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
 
         {/* Amazonリンク */}
-        <AmazonExamLink 
-          keyword={`${displayPrefName}高校入試`} 
+        <AmazonExamLink
+          keyword={`${displayPrefName}高校入試`}
           suffix={`過去問 ${year}`}
           daysLeft={diffDays}
         />

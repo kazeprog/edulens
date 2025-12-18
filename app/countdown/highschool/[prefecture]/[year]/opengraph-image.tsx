@@ -13,9 +13,18 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: { prefecture: string; year: string } }) {
     const { prefecture, year } = await params;
 
-    // ロゴ画像の取得 (絶対URLが必要)
-    // Vercel等の環境では `https://edulens.jp/logo.png` とする
-    const logoData = await fetch(new URL('https://edulens.jp/logo.png')).then((res) => res.arrayBuffer()).catch(() => null);
+    // ロゴ画像の取得 (Base64 data URIに変換)
+    let logoSrc: string | null = null;
+    try {
+        const logoRes = await fetch(new URL('https://edulens.jp/logo.png'));
+        if (logoRes.ok) {
+            const buffer = await logoRes.arrayBuffer();
+            const base64 = Buffer.from(buffer).toString('base64');
+            logoSrc = `data:image/png;base64,${base64}`;
+        }
+    } catch (e) {
+        // ロゴの取得に失敗した場合は表示しない
+    }
 
     // データ取得
     const { data: prefData } = await supabase
@@ -39,9 +48,13 @@ export default async function Image({ params }: { params: { prefecture: string; 
             .single();
 
         if (examData?.date) {
-            const targetDate = new Date(examData.date);
-            const today = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }).split('T')[0]);
-            const diffTime = targetDate.getTime() - today.getTime();
+            const targetDate = new Date(examData.date + 'T00:00:00+09:00'); // JST
+            const now = new Date();
+            // JSTでの本日の0時を取得
+            const todayJST = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+            todayJST.setHours(0, 0, 0, 0);
+
+            const diffTime = targetDate.getTime() - todayJST.getTime();
             diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             isExpired = diffDays < 0;
 
@@ -60,11 +73,9 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: '#fff',
-                    border: '16px solid #2563ea', // blue-600 equivalent (scaled x2 from 4px?? no, 1200w so maybe 16px is robust)
-                    // Original was 4px on 600px width. So 8px on 1200px width.
-                    // Let's go with 12px for better visibility.
+                    border: '16px solid #2563ea',
                     position: 'relative',
-                    fontFamily: '"sans-serif"',
+                    fontFamily: 'sans-serif',
                 }}
             >
                 {/* Decorations */}
@@ -72,46 +83,43 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     position: 'absolute',
                     top: 0,
                     right: 0,
-                    width: 256, // 32 * 4 * 2 = 256? Original w-32 (128px). 
-                    // Tailwind w-32 is 8rem = 128px.
-                    // On 600px canvas it was w-32 (128px).
-                    // On 1200px canvas it should be 256px.
+                    width: 256,
                     height: 256,
-                    backgroundColor: '#eff6ff', // blue-50
-                    borderBottomLeftRadius: 256, // rounded-bl-full
+                    backgroundColor: '#eff6ff',
+                    borderBottomLeftRadius: 256,
                     opacity: 0.5,
                 }} />
                 <div style={{
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
-                    width: 192, // w-24 (96px) * 2 = 192
+                    width: 192,
                     height: 192,
-                    backgroundColor: '#eff6ff', // blue-50
-                    borderTopRightRadius: 192, // rounded-tr-full
+                    backgroundColor: '#eff6ff',
+                    borderTopRightRadius: 192,
                     opacity: 0.5,
                 }} />
 
                 {/* Content Container */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10, width: '100%' }}>
-                    {/* Header: Year + Pref */}
+                    {/* Header */}
                     <h2 style={{
-                        fontSize: 48, // 2xl (24px) * 2 = 48
+                        fontSize: 48,
                         fontWeight: 'bold',
-                        color: '#64748b', // slate-500
-                        marginBottom: 16,
+                        color: '#64748b',
                         margin: 0,
+                        marginBottom: 16,
                     }}>
                         {year}年度 公立高校入試
                     </h2>
 
-                    {/* Title: Pref Name */}
+                    {/* Title */}
                     <h1 style={{
-                        fontSize: 96, // 5xl (48px) * 2 = 96
+                        fontSize: 96,
                         fontWeight: 900,
-                        color: '#1e293b', // slate-800
-                        marginBottom: 24, // mb-6 (24px) * 2 = 48
+                        color: '#1e293b',
                         marginTop: 16,
+                        marginBottom: 24,
                         letterSpacing: '-0.025em',
                     }}>
                         {prefName}
@@ -120,23 +128,23 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     {/* Date Line */}
                     <div style={{
                         display: 'flex',
-                        borderBottom: '4px solid #2563ea', // blue-600
+                        borderBottom: '4px solid #2563ea',
                         paddingBottom: 4,
                         marginBottom: 24,
                     }}>
                         <p style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
                             <span style={{
-                                fontSize: 28, // text-sm (14px) * 2
-                                color: '#94a3b8', // slate-400
+                                fontSize: 28,
+                                color: '#94a3b8',
                                 fontWeight: 500,
                                 marginRight: 24,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                             }}>DATE</span>
                             <span style={{
-                                fontSize: 40, // text-xl (20px) * 2
+                                fontSize: 40,
                                 fontWeight: 'bold',
-                                color: '#334155', // slate-700
+                                color: '#334155',
                             }}>{examDateText}</span>
                         </p>
                     </div>
@@ -148,24 +156,23 @@ export default async function Image({ params }: { params: { prefecture: string; 
                         ) : (
                             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                                 <span style={{
-                                    fontSize: 40, // text-xl * 2
+                                    fontSize: 40,
                                     fontWeight: 'bold',
-                                    color: '#94a3b8', // slate-400
+                                    color: '#94a3b8',
                                     marginBottom: 32,
                                     marginRight: 16,
                                 }}>あと</span>
                                 <span style={{
-                                    fontSize: 256, // text-8xl (96px) * 2 = 192... wait. 8xl is 6rem (96px). 
-                                    // Let's make it bigger. 256px looks good for impact.
+                                    fontSize: 200,
                                     fontWeight: 900,
-                                    color: '#2563ea', // blue-600
+                                    color: '#2563ea',
                                     lineHeight: 1,
                                     letterSpacing: '-0.05em',
                                 }}>{diffDays}</span>
                                 <span style={{
-                                    fontSize: 48, // text-2xl (24px) * 2
+                                    fontSize: 48,
                                     fontWeight: 'bold',
-                                    color: '#94a3b8', // slate-400
+                                    color: '#94a3b8',
                                     marginBottom: 32,
                                     marginLeft: 16,
                                 }}>日</span>
@@ -184,17 +191,16 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     opacity: 0.7,
                 }}>
                     <span style={{
-                        fontSize: 24, // text-xs * 2 = 24? No, text-xs is 12px. 24px is legible.
+                        fontSize: 24,
                         fontWeight: 'bold',
-                        color: '#94a3b8', // slate-400
+                        color: '#94a3b8',
                         letterSpacing: '0.1em',
                         marginRight: 16,
                     }}>EduLens.jp</span>
-                    {/* Logo Image */}
-                    {logoData && (
+                    {logoSrc && (
                         <img
-                            src={logoData as any}
-                            width={48} // h-6 (24px) * 2 = 48
+                            src={logoSrc}
+                            width={48}
                             height={48}
                             style={{ objectFit: 'contain' }}
                         />

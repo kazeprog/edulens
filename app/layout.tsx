@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     template: '%s | EduLens',
     default: 'EduLens - 入試・資格試験のカウントダウン',
   },
+  metadataBase: new URL('https://edulens.jp'),
   description: "入試カウントダウン",
   icons: {
     icon: [

@@ -49,8 +49,8 @@ export async function generateMetadata(
     description: description,
     keywords: [`${exam.exam_name} 試験日`, `${exam.exam_name} いつ`, `${exam.exam_name} あと何日`, `${exam.exam_name} ${exam.session_name}`, "申し込み期間", "合格発表"],
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
-    twitter: { card: 'summary_large_image', title, description, images: previousImages },
+    openGraph: { title, description, url, type: 'article', siteName: 'EduLens' },
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 
@@ -158,7 +158,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </h1>
         </div>
 
-        <CountdownWithActions 
+        <CountdownWithActions
           examName={displayExamName}
           sessionName={displaySessionName}
           displayExamDateDots={displayExamDateDots}
@@ -207,7 +207,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
         </div>
 
         {/* アクションボタンエリア */}
-        <ActionButtons 
+        <ActionButtons
           examName={displayExamName}
           sessionName={displaySessionName}
           slug={slug}
@@ -216,8 +216,8 @@ export default async function QualificationCountdownPage({ params }: { params: P
         />
 
         {/* ▼▼▼ 2. Amazonリンク追加（キーワードを工夫して表示） ▼▼▼ */}
-        <AmazonExamLink 
-          keyword={displayExamName} 
+        <AmazonExamLink
+          keyword={displayExamName}
           suffix={amazonSuffix}
         />
         {/* ▲▲▲ 追加エリア終了 ▲▲▲ */}
@@ -261,7 +261,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
         />
-        
+
         <div className="text-center mt-16 pb-8 border-t border-slate-100 pt-8">
           <p className="text-sm text-slate-400 font-medium tracking-wide">
             GOOD LUCK TO <span className="text-blue-600">ALL EXAMINEES</span>
