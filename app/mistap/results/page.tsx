@@ -74,8 +74,7 @@ function ResultsContent() {
             startNum,
             endNum
           });
-        } catch (error) {
-          console.error('結果データ読み込みエラー:', error);
+        } catch {
           router.push('/mistap/test-setup');
         }
       };
@@ -90,8 +89,7 @@ function ResultsContent() {
       try {
         const parsedData = JSON.parse(decodeURIComponent(dataParam));
         setResultData(parsedData);
-      } catch (error) {
-        console.error('Failed to parse result data:', error);
+      } catch {
         router.push('/mistap/test-setup');
       }
     } else {
@@ -153,7 +151,6 @@ function ResultsContent() {
           .select();
 
         if (insertError) {
-          console.error("結果保存エラー:", insertError);
           // Row-level security policyエラーの場合は未ログインユーザー向けのメッセージに
           if (insertError.message?.includes('row-level security policy') || insertError.message?.includes('violates')) {
             setError("登録後はあなたの成績が記録されていきます！");
@@ -164,7 +161,6 @@ function ResultsContent() {
           setSaved(true);
         }
       } catch (e: unknown) {
-        console.error(e);
         setError(e instanceof Error ? e.message : String(e));
       } finally {
         setSaving(false);
@@ -201,8 +197,8 @@ function ResultsContent() {
       const template = `Mistapで単語テストを実施しました！\n教材: ${displayTextbook}\n範囲: ${displayRange}\n正答率: ${scorePercent}% (${correct}/${total})\n\n使用した単語テストアプリ:Mistap https://edulens.jp/mistap`;
       const url = `https://x.com/intent/tweet?text=${encodeURIComponent(template)}`;
       window.open(url, '_blank', 'noopener,noreferrer');
-    } catch (e) {
-      console.error('共有に失敗しました', e);
+    } catch {
+      // 共有に失敗
     }
   };
 
@@ -227,8 +223,7 @@ function ResultsContent() {
       } else {
         setShareMessage('この環境では共有に対応していません');
       }
-    } catch (e) {
-      console.error('共有に失敗しました', e);
+    } catch {
       setShareMessage('共有に失敗しました');
     } finally {
       setTimeout(() => setShareMessage(null), 3000);

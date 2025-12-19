@@ -1,5 +1,3 @@
-'use client';
-
 import ClientHeader from '@/components/mistap/ClientHeader';
 import AddToHomePrompt from '@/components/mistap/AddToHomePrompt';
 

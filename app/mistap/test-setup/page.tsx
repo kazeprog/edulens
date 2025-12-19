@@ -82,8 +82,8 @@ export default function TestSetupPage() {
           setLevel('senior');
         }
       }
-    } catch (error) {
-      console.error('プロフィール取得エラー:', error);
+    } catch {
+      // プロフィール取得エラー - 無視
     }
   }, []);
 
@@ -124,8 +124,6 @@ export default function TestSetupPage() {
 
     // Key＆Point古文単語330が見つからない場合の代替検索
     if (level === "senior" && !result.includes("Key＆Point古文単語330")) {
-      console.log("Key＆Point古文単語330が見つからないため代替検索実行");
-
       // 部分一致で検索（半角・全角両方対応）
       const keyPointAlternative = texts.find(text =>
         (text.includes("Key") || text.includes("Key")) &&
@@ -134,16 +132,9 @@ export default function TestSetupPage() {
       );
 
       if (keyPointAlternative) {
-        console.log("代替検索で発見:", keyPointAlternative);
         return [...result, keyPointAlternative];
       }
     }
-
-    console.log("フィルタリング実行:");
-    console.log("- レベル:", level);
-    console.log("- 定義済み教材:", targetTexts);
-    console.log("- データベース教材数:", texts.length);
-    console.log("- フィルタ後教材:", result);
 
     return result;
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
@@ -156,7 +147,6 @@ export default function TestSetupPage() {
         ? universityTexts.filter((t) => !texts.includes(t))
         : seniorTexts.filter((t) => !texts.includes(t));
 
-    console.log("欠けている教材:", result);
     return result;
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
 
@@ -183,11 +173,9 @@ export default function TestSetupPage() {
     }
   }, [filteredTexts, texts, selectedText]);
 
-  // デバッグ用：選択された教材がfilteredTextsに含まれているかチェック
+  // 選択された教材がfilteredTextsに含まれているかチェック
   useEffect(() => {
     if (selectedText && !filteredTexts.includes(selectedText) && filteredTexts.length > 0) {
-      console.warn(`選択された教材 "${selectedText}" が利用可能な教材リストに含まれていません。`,
-        `利用可能: [${filteredTexts.join(', ')}]`);
       // ターゲット1900があればそれを、なければリストの最初を選択
       if (filteredTexts.includes("ターゲット1900")) {
         setSelectedText("ターゲット1900");
@@ -211,7 +199,6 @@ export default function TestSetupPage() {
         const timestamp = parseInt(cachedTimestamp, 10);
         if (Date.now() - timestamp < cacheExpiry) {
           const uniqueTexts = JSON.parse(cachedData);
-          console.log("キャッシュから教材を読み込み:", uniqueTexts.length, "件");
           setTexts(uniqueTexts);
           if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
             setSelectedText(uniqueTexts[0]);
@@ -219,16 +206,15 @@ export default function TestSetupPage() {
           return;
         }
       }
-    } catch (e) {
-      console.error("キャッシュ読み込みエラー:", e);
+    } catch {
+      // キャッシュ読み込みエラー - 無視
     }
 
     // RPCを使用してユニークなtext値を直接取得
     const { data, error } = await supabase.rpc('get_unique_texts');
 
     if (error) {
-      console.error("教材取得エラー (RPC):", error);
-      console.log("フォールバック方式で取得します");
+      // RPC error - will fallback
     }
 
     let uniqueTexts: string[] = [];
@@ -243,7 +229,6 @@ export default function TestSetupPage() {
           uniqueTexts = data.map((item: { text: string }) => item.text);
         }
       }
-      console.log("RPC関数から取得した全教材:", uniqueTexts);
     }
 
     // RPCが失敗またはデータが空の場合、フォールバック
@@ -255,13 +240,11 @@ export default function TestSetupPage() {
         .limit(1000);
 
       if (fallbackError) {
-        console.error("フォールバック取得エラー:", fallbackError);
         setTexts([]);
         return;
       }
 
       uniqueTexts = [...new Set(fallbackData?.map((d) => d.text) || [])];
-      console.log("フォールバック方式で取得した全教材:", uniqueTexts);
     }
 
     setTexts(uniqueTexts);
@@ -274,8 +257,8 @@ export default function TestSetupPage() {
     try {
       localStorage.setItem(cacheKey, JSON.stringify(uniqueTexts));
       localStorage.setItem(cacheTimestampKey, Date.now().toString());
-    } catch (e) {
-      console.error("キャッシュ保存エラー:", e);
+    } catch {
+      // キャッシュ保存エラー - 無視
     }
   }, []);
 
@@ -304,7 +287,6 @@ export default function TestSetupPage() {
       .lte("word_number", sEnd);
 
     if (error || !data) {
-      console.error(error);
       alert("データの取得に失敗しました。教材が存在しない可能性があります。");
       return;
     }
@@ -514,8 +496,8 @@ export default function TestSetupPage() {
         setSelectedTextbook(textbookWeakWords[0].textbook);
       }
 
-    } catch (error) {
-      console.error('苦手単語の取得エラー:', error);
+    } catch {
+      // 苦手単語取得エラー - 無視
     } finally {
       setLoading(false);
     }
@@ -585,9 +567,8 @@ export default function TestSetupPage() {
         // Use RPC to perform an atomic increment in the database
         await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
       }
-    } catch (err) {
-      // log error but continue
-      console.error('profile test_count increment error:', err);
+    } catch {
+      // test_count increment error - continue
     }
 
     const dataParam = encodeURIComponent(JSON.stringify(testData));

@@ -82,8 +82,8 @@ export default function HomePage() {
                     const data = await res.json();
                     setBlogPosts(data.contents);
                 }
-            } catch (error) {
-                console.error('Failed to fetch blog posts:', error);
+            } catch {
+                // Failed to fetch blog posts
             } finally {
                 setBlogLoading(false);
             }
@@ -131,13 +131,11 @@ export default function HomePage() {
                     setIsUpdatingStreak(true);
                     try {
                         const streakResult = await updateLoginStreak(userId);
-                        if (streakResult) {
-                            console.log('Login streak updated on home page:', streakResult);
-                        } else {
-                            console.warn('Login streak update returned null');
+                        if (!streakResult) {
+                            // Login streak update returned null
                         }
-                    } catch (err) {
-                        console.error('Error updating login streak on home page:', err);
+                    } catch {
+                        // Error updating login streak
                     } finally {
                         // Reset flag after a short delay to allow for legitimate re-triggers
                         setTimeout(() => setIsUpdatingStreak(false), 5000);
@@ -151,7 +149,6 @@ export default function HomePage() {
                     .single();
 
                 if (profileError) {
-                    console.error('Profile fetch error:', profileError);
                     setError('プロフィール情報の取得に失敗しました');
                     setLoading(false);
                     return;
@@ -231,12 +228,11 @@ export default function HomePage() {
                     .limit(3);
 
                 if (resultsError) {
-                    console.error('Results fetch error:', resultsError);
+                    // Results fetch error - ignored
                 } else {
                     setRecentResults(resultsData || []);
                 }
-            } catch (err) {
-                console.error('Error loading profile:', err);
+            } catch {
                 setError('データの読み込み中にエラーが発生しました');
             } finally {
                 setLoading(false);
@@ -287,12 +283,12 @@ export default function HomePage() {
                 await deferredPrompt.prompt();
                 const choiceResult = await deferredPrompt.userChoice;
                 if (choiceResult.outcome === 'accepted') {
-                    console.log('PWA installed');
+                    // PWA installed
                 }
                 setDeferredPrompt(null);
                 setShowInstallButton(false);
-            } catch (err) {
-                console.error('Install prompt failed:', err);
+            } catch {
+                // Install prompt failed
             }
         }
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
