@@ -180,6 +180,15 @@ export default function Header() {
         {isMenuOpen && (
           <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 z-50 overflow-hidden py-1">
             <div className="py-1">
+              {/* EduLens トップへ */}
+              <Link
+                href="/"
+                className="block py-3 px-4 text-blue-600 hover:bg-blue-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                🏠 EduLens トップへ
+              </Link>
+              <div className="border-t border-slate-100 my-1"></div>
               {/* ホーム（常に表示） */}
               <Link
                 href={isLoggedIn ? "/mistap/home" : "/mistap"}
