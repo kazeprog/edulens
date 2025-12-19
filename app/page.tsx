@@ -63,7 +63,7 @@ export default function Home() {
 
                   <div className="relative">
                     {/* Icon */}
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-100 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <img
                         src="/CountdownLP.png"
                         alt="Countdown"
@@ -124,7 +124,7 @@ export default function Home() {
 
                   <div className="relative">
                     {/* Icon */}
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-100 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <img
                         src="/MistapLP.png"
                         alt="Mistap"

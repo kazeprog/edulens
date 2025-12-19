@@ -93,12 +93,24 @@ export default function ScreenshotCarousel({
                     <div ref={trackRef} className={`flex whitespace-nowrap ${isManual ? '' : 'animate-scroll-x'}`}>
                         {screenshots.map((name) => (
                             <div key={name + '-a'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
-                                <Image src={`/mistap/${name}.png`} alt={`Mistapアプリの${name}`} fill className="object-contain" />
+                                <Image
+                                    src={`/mistap/${name}.png`}
+                                    alt={`Mistapアプリの${name}`}
+                                    fill
+                                    className="object-contain"
+                                    sizes="(max-width: 768px) 192px, 256px"
+                                />
                             </div>
                         ))}
                         {screenshots.map((name) => (
                             <div key={name + '-b'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
-                                <Image src={`/mistap/${name}.png`} alt={`Mistapアプリの${name}`} fill className="object-contain" />
+                                <Image
+                                    src={`/mistap/${name}.png`}
+                                    alt={`Mistapアプリの${name}`}
+                                    fill
+                                    className="object-contain"
+                                    sizes="(max-width: 768px) 192px, 256px"
+                                />
                             </div>
                         ))}
                     </div>

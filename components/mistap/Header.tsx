@@ -159,6 +159,7 @@ export default function Header() {
           width={200}
           height={60}
           className="h-10 sm:h-14 w-auto object-contain"
+          style={{ width: 'auto' }}
           priority
           unoptimized
         />
