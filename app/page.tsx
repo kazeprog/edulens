@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import CategoryCard from '@/components/CategoryCard';
+import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
-  title: 'EduLens - 入試・資格試験のカウントダウン',
-  description: '高校入試、大学入試、英検、TOEICなどの試験日まであと何日？目標に向かって頑張る受験生のためのカウントダウンサイトです。',
+  title: 'EduLens - 学習を、もっと効果的に',
+  description: '試験日カウントダウンと単語学習システム。高校入試、大学入試、英検、TOEICなどの試験対策をサポート。',
   alternates: {
     canonical: 'https://edulens.jp',
   },
   openGraph: {
-    title: 'EduLens - 入試・資格試験のカウントダウン',
-    description: 'あと何日で本番？高校入試、大学共通テスト、英検など、あなたの「勝負の日」までの時間を可視化します。',
+    title: 'EduLens - 学習を、もっと効果的に',
+    description: '試験日カウントダウンと単語学習システム。あなたの目標達成をサポートする学習ツール。',
     url: 'https://edulens.jp',
     type: 'website',
     siteName: 'EduLens',
@@ -27,108 +28,169 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-[calc(100vh-80px)]">
-      {/* Hero Section */}
-      <section className="flex-1 flex flex-col items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-slate-50">
-        <div className="max-w-4xl w-full text-center space-y-6 sm:space-y-8">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
-            その日は、<br className="sm:hidden" />着実に近づいている。
-          </h1>
-          <p className="text-base sm:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            試験本番までの残り時間を正確に把握し、<br />
-            今日やるべきことに集中するためのカウントダウンツール。
-          </p>
+    <>
+      <SiteHeader />
+      <main>
+        <div className="flex flex-col min-h-[calc(100vh-80px)]">
+          {/* Hero Section */}
+          <section className="flex-1 flex flex-col items-center justify-center py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-slate-50">
+            <div className="max-w-4xl w-full text-center space-y-6 sm:space-y-8">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
+                学習を、<br className="sm:hidden" />もっと効果的に。
+              </h1>
+              <p className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                試験日カウントダウンと単語学習システム。<br />
+                あなたの目標達成をサポートする学習ツール。
+              </p>
+            </div>
+          </section>
 
+          {/* Services Section */}
+          <section id="services" className="py-12 sm:py-20 px-4 bg-slate-50 border-t border-slate-100">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 mb-10 sm:mb-14">
+                サービスを選ぶ
+              </h2>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {/* Countdown Card */}
+                <Link
+                  href="/countdown"
+                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors">
+                      Countdown
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
+                      試験日までの残り時間を可視化。<br />
+                      高校入試・大学入試・英検・TOEIC対応。
+                    </p>
+
+                    {/* Features */}
+                    <ul className="space-y-2 text-sm text-slate-500 mb-6">
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        都道府県別入試日程
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        共通テスト・資格試験対応
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        SNSシェア機能
+                      </li>
+                    </ul>
+
+                    {/* CTA */}
+                    <span className="inline-flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+                      詳しく見る
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Mistap Card */}
+                <Link
+                  href="/mistap"
+                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-200 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-red-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-red-600 transition-colors">
+                      Mistap
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
+                      間違えた単語に集中する学習システム。<br />
+                      効率的な暗記で確実に記憶を定着。
+                    </p>
+
+                    {/* Features */}
+                    <ul className="space-y-2 text-sm text-slate-500 mb-6">
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        間違い単語を自動記録
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        復習テスト自動生成
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        主要単語帳に対応
+                      </li>
+                    </ul>
+
+                    {/* CTA */}
+                    <span className="inline-flex items-center text-red-600 font-semibold group-hover:translate-x-1 transition-transform">
+                      詳しく見る
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* About / SEO Section */}
+          <section className="py-12 sm:py-16 px-4 bg-white">
+            <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12">
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-6 sm:p-12">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">EduLensについて</h2>
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                  EduLens（エデュレンズ）は、受験生や資格試験に挑むすべての人のための学習支援プラットフォームです。<br /><br />
+                  <strong>Countdown</strong>で試験本番までの残り時間を可視化し、「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えます。<br /><br />
+                  <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
+                  あなたの目標達成を、2つのツールで支援します。
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* Categories Section */}
-      <section id="categories" className="py-12 sm:py-16 px-4 bg-slate-50 border-t border-slate-100">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 mb-8 sm:mb-12">
-            カテゴリーから探す
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-            {/* 高校入試 */}
-            <CategoryCard
-              href="/countdown/highschool"
-              color="blue"
-              icon={
-                <svg className="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-              }
-              title="高校入試"
-              description="都道府県別の公立高校入試日程"
-            />
-
-            {/* 大学入試 */}
-            <CategoryCard
-              href="/countdown/university"
-              color="indigo"
-              icon={
-                <svg className="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>
-              }
-              title="大学入試"
-              description="共通テスト・個別試験日程"
-            />
-
-            {/* 英検 */}
-            <CategoryCard
-              href="/countdown/eiken"
-              color="emerald"
-              icon={
-                <svg className="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-              }
-              title="英検 (実用英語技能検定)"
-              description="従来型・S-CBT試験日程"
-            />
-
-            {/* TOEIC */}
-            <CategoryCard
-              href="/countdown/toeic"
-              color="sky"
-              icon={
-                <svg className="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              }
-              title="TOEIC L&R"
-              description="公開テスト日程"
-            />
-
-            {/* TOEFL */}
-            <CategoryCard
-              href="/countdown/toefl"
-              color="teal"
-              icon={
-                <svg className="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-              }
-              title="TOEFL iBT"
-              description="テスト日程"
-            />
-
-          </div>
-        </div>
-      </section>
-
-      {/* About / SEO Section */}
-      <section className="py-12 sm:py-16 px-4 bg-white">
-        <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12">
-          <div className="bg-blue-50 rounded-3xl p-6 sm:p-12">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">EduLensについて</h2>
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed space-y-4">
-              EduLens（エデュレンズ）は、受験生や資格試験に挑むすべての人のための、シンプルで使いやすい試験日カウントダウンツールです。<br />
-              「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えることができます。<br /><br />
-              高校入試、大学共通テスト、英検、TOEIC、TOEFLなど、主要な試験スケジュールに対応。あなたの目標達成を時間管理の面からサポートします。
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
-
-// --------------------------------------------------------
-// Sub Component
-// --------------------------------------------------------
-
-
