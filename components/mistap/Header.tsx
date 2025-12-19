@@ -186,7 +186,7 @@ export default function Header() {
                 className="block py-3 px-4 text-blue-600 hover:bg-blue-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                 onClick={() => setIsMenuOpen(false)}
               >
-                🏠 EduLens トップへ
+                EduLens トップへ
               </Link>
               <div className="border-t border-slate-100 my-1"></div>
               {/* ホーム（常に表示） */}
