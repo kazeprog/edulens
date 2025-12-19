@@ -462,7 +462,7 @@ export default function HomePage() {
                                                     selectedText: todayGoal.textbook,
                                                     startNum: todayGoal.start.toString(),
                                                     endNum: todayGoal.end.toString(),
-                                                    count: (todayGoal.end - todayGoal.start + 1).toString()
+                                                    count: Math.min(10, todayGoal.end - todayGoal.start + 1).toString()
                                                 }).toString();
                                                 router.push(`/mistap/test-setup?${query}`);
                                             }}
