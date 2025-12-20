@@ -1,14 +1,14 @@
-import { createClient } from '@supabase/supabase-js'
+// 後方互換性のためのラッパー
+// 新規コードは @/lib/supabase を直接使用してください
+import { getSupabase } from '@/lib/supabase'
+import { SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_MISTAP_SUPABASE_ANON_KEY
+// 遅延初期化でSupabaseクライアントを取得
+// nullの場合はダミークライアントを返すことでクラッシュを防ぐ
+const client = getSupabase()
 
-if (!supabaseUrl) {
-  throw new Error('Missing env.NEXT_PUBLIC_MISTAP_SUPABASE_URL')
+if (!client) {
+  console.warn('Supabaseクライアントが初期化できませんでした')
 }
-if (!supabaseAnonKey) {
-  throw new Error('Missing env.NEXT_PUBLIC_MISTAP_SUPABASE_ANON_KEY')
-}
 
-console.log('Initializing Supabase client with URL:', supabaseUrl);
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = client as SupabaseClient

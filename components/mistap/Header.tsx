@@ -137,14 +137,12 @@ export default function Header() {
 
   const handleLoginClick = () => {
     setIsMenuOpen(false);
-    if (pathname === '/mistap') {
-      // ホーム画面にいる場合はイベントを発火
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('open-login-form'));
-      }
+    if (isLoggedIn) {
+      // 既にログイン済みの場合はホームへ
+      router.push('/mistap/home');
     } else {
-      // 他の画面にいる場合はクエリパラメータ付きで遷移
-      router.push('/mistap?login=1');
+      // EduLensの統一ログイン画面へリダイレクト（ログイン後にMistapホームへ戻る）
+      router.push('/login?redirect=/mistap/home');
     }
   };
 

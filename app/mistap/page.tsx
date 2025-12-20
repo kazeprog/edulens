@@ -88,8 +88,8 @@ export default function Home() {
   }, []);
 
   const handleSignupClick = () => {
-    setIsSignup(true);
-    setShowLoginForm(true);
+    // EduLensの統一新規登録画面へリダイレクト（ログイン後にMistapホームへ戻る）
+    router.push('/login?mode=signup&redirect=/mistap/home');
   };
 
   if (showLoginForm) {
@@ -105,14 +105,9 @@ export default function Home() {
             <div className="relative">
               <div className="absolute right-0 top-0 md:top-2">
                 <button
-                  onClick={async () => {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (user) {
-                      router.push('/mistap/home');
-                    } else {
-                      setIsSignup(false);
-                      setShowLoginForm(true);
-                    }
+                  onClick={() => {
+                    // EduLensの統一ログイン画面へリダイレクト（ログイン後にMistapホームへ戻る）
+                    router.push('/login?redirect=/mistap/home');
                   }}
                   className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl font-semibold transition-colors"
                 >

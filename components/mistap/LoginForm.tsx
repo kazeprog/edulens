@@ -127,7 +127,8 @@ export default function LoginForm({ initialIsSignup = false }: LoginFormProps) {
             <Background className="flex items-start justify-center min-h-screen p-4">
                 <div className="bg-white/40 backdrop-blur-lg p-4 md:p-8 rounded-xl shadow-xl relative z-10 border border-white/50 w-full max-w-md md:max-w-lg" style={{ marginTop: 'calc(64px + 48px)' }}>
                     <div className="mb-4 md:mb-6">
-                        <h1 className="text-xl md:text-2xl font-bold text-gray-800 text-center">{isSignup ? '新規登録' : 'ログイン'}</h1>
+                        <h1 className="text-xl md:text-2xl font-bold text-gray-800 text-center">{isSignup ? 'EduLensアカウント作成' : 'EduLensにログイン'}</h1>
+                        <p className="text-sm text-gray-600 text-center mt-2">1つのアカウントでMistapなど全てのサービスを利用できます</p>
                     </div>
                     <form onSubmit={isSignup ? handleSignup : handleLogin}>
                         {isSignup && (
@@ -196,7 +197,7 @@ export default function LoginForm({ initialIsSignup = false }: LoginFormProps) {
                                     ? '登録中...'
                                     : 'ログイン中...'
                                 : isSignup
-                                    ? '新規登録'
+                                    ? 'EduLensアカウントを作成'
                                     : 'ログイン'}
                         </button>
 
