@@ -35,6 +35,14 @@ export default function TestSetupPage() {
   const [startNum, setStartNum] = useState<number>(1);
   const [endNum, setEndNum] = useState<number>(100);
   const [count, setCount] = useState<number>(10);
+  // 前回使用した単語帳を記憶するためのフラグ
+  const lastTextbookRef = useRef<string | null>(null);
+  // localStorage読み込み完了フラグ
+  const [isInitialized, setIsInitialized] = useState(false);
+  // テスト作成処理中フラグ
+  const [isCreatingTest, setIsCreatingTest] = useState(false);
+  // useCallback内で最新のisCreatingTestを参照するためのRef
+  const isCreatingTestRef = useRef(false);
 
   // 復習テスト用の状態
   const [textbooks, setTextbooks] = useState<TextbookWeakWords[]>([]);
@@ -47,6 +55,9 @@ export default function TestSetupPage() {
   const [reviewEndNum, setReviewEndNum] = useState<number>(100);
   const [testCount, setTestCount] = useState<number>(10);
   const [loading, setLoading] = useState<boolean>(true);
+  // 復習テスト作成処理中フラグ
+  const [isCreatingReviewTest, setIsCreatingReviewTest] = useState(false);
+  const isCreatingReviewTestRef = useRef(false);
 
   const router = useRouter();
 
@@ -59,8 +70,14 @@ export default function TestSetupPage() {
   } | null>(null);
   const [showDemoConfirm, setShowDemoConfirm] = useState(false);
 
-  // ユーザープロフィールを取得してレベルを自動設定
+  // ユーザープロフィールを取得してレベルを自動設定（初回のみ）
   const loadUserProfile = useCallback(async () => {
+    // 前回使用した単語帳がある場合は、学年によるレベル設定をスキップ
+    // （前回の単語帳に基づくレベルがlocalStorage読み込み時に設定されるため）
+    if (typeof window !== 'undefined' && localStorage.getItem('mistap_last_textbook')) {
+      return; // 2回目以降は前回の単語帳を優先
+    }
+
     try {
       const { data: userData } = await supabase.auth.getUser();
       const userId = userData?.user?.id ?? null;
@@ -150,40 +167,72 @@ export default function TestSetupPage() {
     return result;
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
 
-  // selectedText を filteredTexts の先頭に合わせる
+  // 初回マウント時にlocalStorageから前回使用した単語帳を読み込む
   useEffect(() => {
-    if (filteredTexts.length > 0) {
-      // デフォルト値（ターゲット1900）が filteredTexts に含まれている場合は維持
-      if (selectedText === "ターゲット1900" && filteredTexts.includes("ターゲット1900")) {
-        return; // デフォルト値を維持
-      }
-      // 現在の選択が有効ならそのまま、無効なら「ターゲット1900」を優先、なければリストの最初
-      if (filteredTexts.includes(selectedText)) {
-        return; // 現在の選択を維持
-      } else if (filteredTexts.includes("ターゲット1900")) {
-        setSelectedText("ターゲット1900");
-      } else {
-        setSelectedText(filteredTexts[0]);
-      }
-    } else if (texts.length > 0) {
-      // filteredTexts が空でも DB に教材があれば選択肢として表示できるようにする
-      setSelectedText((prev) => (texts.includes(prev) ? prev : texts[0]));
-    } else {
-      setSelectedText("");
-    }
-  }, [filteredTexts, texts, selectedText]);
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('mistap_last_textbook');
+      if (saved) {
+        lastTextbookRef.current = saved;
+        // 保存された値を初期選択として設定
+        setSelectedText(saved);
 
-  // 選択された教材がfilteredTextsに含まれているかチェック
+        // 保存された単語帳がどのレベルに属するか検出し、レベルを切り替え
+        if (juniorTexts.includes(saved)) {
+          setLevel('junior');
+        } else if (universityTexts.includes(saved)) {
+          setLevel('university');
+        } else if (seniorTexts.includes(saved)) {
+          setLevel('senior');
+        }
+        // どのリストにも含まれない場合は現在のレベルを維持
+      }
+      setIsInitialized(true);
+    }
+  }, [juniorTexts, seniorTexts, universityTexts]);
+
+  // selectedText を filteredTexts に合わせる（初期化完了後かつデータ取得後のみ）
   useEffect(() => {
-    if (selectedText && !filteredTexts.includes(selectedText) && filteredTexts.length > 0) {
-      // ターゲット1900があればそれを、なければリストの最初を選択
+    // 初期化が完了していない場合、またはデータがまだ読み込まれていない場合はスキップ
+    if (!isInitialized || texts.length === 0) return;
+
+    if (filteredTexts.length > 0) {
+      // 現在の選択が有効ならそのまま維持
+      if (filteredTexts.includes(selectedText)) {
+        return;
+      }
+      // 前回使用した単語帳があり、それが利用可能ならそれを選択
+      if (lastTextbookRef.current && filteredTexts.includes(lastTextbookRef.current)) {
+        setSelectedText(lastTextbookRef.current);
+        return;
+      }
+      // なければターゲット1900を優先、それもなければリストの最初
       if (filteredTexts.includes("ターゲット1900")) {
         setSelectedText("ターゲット1900");
       } else {
         setSelectedText(filteredTexts[0]);
       }
+    } else {
+      // filteredTexts が空でも DB に教材があれば選択肢として表示できるようにする
+      setSelectedText((prev) => (texts.includes(prev) ? prev : texts[0]));
     }
-  }, [selectedText, filteredTexts]);
+  }, [filteredTexts, texts, selectedText, isInitialized]);
+
+  // 選択された教材がfilteredTextsに含まれているかチェック（初期化完了後かつデータ取得後のみ）
+  useEffect(() => {
+    // データがまだ読み込まれていない場合はスキップ
+    if (!isInitialized || texts.length === 0) return;
+
+    if (selectedText && !filteredTexts.includes(selectedText) && filteredTexts.length > 0) {
+      // 前回使用した単語帳を優先、なければターゲット1900、それもなければリストの最初を選択
+      if (lastTextbookRef.current && filteredTexts.includes(lastTextbookRef.current)) {
+        setSelectedText(lastTextbookRef.current);
+      } else if (filteredTexts.includes("ターゲット1900")) {
+        setSelectedText("ターゲット1900");
+      } else {
+        setSelectedText(filteredTexts[0]);
+      }
+    }
+  }, [selectedText, filteredTexts, isInitialized, texts]);
 
   const fetchTexts = useCallback(async () => {
     // キャッシュをチェック（5分間有効）
@@ -265,6 +314,9 @@ export default function TestSetupPage() {
   // 小テスト作成処理
   // extractable implementation so demo auto-start can pass overrides
   const createTestImpl = useCallback(async (overrides?: { selectedText?: string; startNum?: number; endNum?: number; count?: number }) => {
+    // 処理中の場合は早期リターン（Refを使用して最新の状態を参照）
+    if (isCreatingTestRef.current) return;
+
     const sText = overrides?.selectedText ?? selectedText;
     const sStart = overrides?.startNum ?? startNum;
     const sEnd = overrides?.endNum ?? endNum;
@@ -279,43 +331,63 @@ export default function TestSetupPage() {
       return;
     }
 
-    const { data, error } = await supabase
-      .from("words")
-      .select("word, word_number, meaning")
-      .eq("text", sText)
-      .gte("word_number", sStart)
-      .lte("word_number", sEnd);
+    // ローディング開始（StateとRef両方を更新）
+    isCreatingTestRef.current = true;
+    setIsCreatingTest(true);
 
-    if (error || !data) {
-      alert("データの取得に失敗しました。教材が存在しない可能性があります。");
-      return;
-    }
-
-    if (data.length === 0) {
-      alert(`「${sText}」の単語番号 ${sStart}～${sEnd} の範囲に単語が見つかりませんでした。範囲を確認してください。`);
-      return;
-    }
-
-    // ランダム抽出
-    const _shuffled = data.sort(() => Math.random() - 0.5).slice(0, sCount);
-
-    // 小テスト画面に遷移（選択した教材名と範囲を渡す）
-    // ここで profiles.test_count を増やす（非同期で安全に回数を記録）
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const userId = userData?.user?.id ?? null;
-      if (userId) {
-        // Use RPC to perform an atomic increment in the database
-        await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
-      }
-    } catch (err) {
-      // log error but continue
-      console.error('profile test_count increment error:', err);
-    }
+      const { data, error } = await supabase
+        .from("words")
+        .select("word, word_number, meaning")
+        .eq("text", sText)
+        .gte("word_number", sStart)
+        .lte("word_number", sEnd);
 
-    // 範囲情報のみをURLに含める（短いURL）
-    // 友達が同じURLでアクセスすると、同じ範囲から異なる単語がランダムに出題される
-    router.push(`/mistap/test?text=${encodeURIComponent(sText)}&start=${sStart}&end=${sEnd}&count=${sCount}`);
+      if (error || !data) {
+        alert("データの取得に失敗しました。教材が存在しない可能性があります。");
+        isCreatingTestRef.current = false;
+        setIsCreatingTest(false);
+        return;
+      }
+
+      if (data.length === 0) {
+        alert(`「${sText}」の単語番号 ${sStart}～${sEnd} の範囲に単語が見つかりませんでした。範囲を確認してください。`);
+        isCreatingTestRef.current = false;
+        setIsCreatingTest(false);
+        return;
+      }
+
+      // ランダム抽出
+      const _shuffled = data.sort(() => Math.random() - 0.5).slice(0, sCount);
+
+      // 小テスト画面に遷移（選択した教材名と範囲を渡す）
+      // ここで profiles.test_count を増やす（非同期で安全に回数を記録）
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const userId = userData?.user?.id ?? null;
+        if (userId) {
+          // Use RPC to perform an atomic increment in the database
+          await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
+        }
+      } catch (err) {
+        // log error but continue
+        console.error('profile test_count increment error:', err);
+      }
+
+      // 選択した単語帳をlocalStorageに保存（次回の初期値として使用）
+      try {
+        localStorage.setItem('mistap_last_textbook', sText);
+      } catch {
+        // localStorage保存エラー - 無視
+      }
+
+      // 範囲情報のみをURLに含める（短いURL）
+      // 友達が同じURLでアクセスすると、同じ範囲から異なる単語がランダムに出題される
+      router.push(`/mistap/test?text=${encodeURIComponent(sText)}&start=${sStart}&end=${sEnd}&count=${sCount}`);
+    } catch {
+      isCreatingTestRef.current = false;
+      setIsCreatingTest(false);
+    }
   }, [filteredTexts, texts, startNum, endNum, count, selectedText, router]);
 
   // public wrapper that uses current state (keeps compatibility)
@@ -505,6 +577,9 @@ export default function TestSetupPage() {
 
   // 復習テスト作成処理
   const createReviewTest = useCallback(async () => {
+    // 処理中の場合は早期リターン
+    if (isCreatingReviewTestRef.current) return;
+
     const selectedTextbookData = textbooks.find(t => t.textbook === selectedTextbook);
     if (!selectedTextbookData) return;
 
@@ -543,38 +618,47 @@ export default function TestSetupPage() {
       return;
     }
 
-    const actualCount = Math.min(testCount, filteredWords.length);
-    const shuffledWords = filteredWords.sort(() => Math.random() - 0.5);
-    const testWords = shuffledWords.slice(0, actualCount);
+    // ローディング開始
+    isCreatingReviewTestRef.current = true;
+    setIsCreatingReviewTest(true);
 
-    const testData = {
-      words: testWords.map(w => ({
-        word: w.word,
-        word_number: w.word_number,
-        meaning: w.meaning
-      })),
-      selectedText: `${selectedTextbook} (復習テスト)`,
-      startNum: null,
-      endNum: null,
-      isReview: true
-    };
-
-    // ここで profiles.test_count を増やす（非同期で安全に回数を記録）
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const userId = userData?.user?.id ?? null;
-      if (userId) {
-        // Use RPC to perform an atomic increment in the database
-        await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
-      }
-    } catch {
-      // test_count increment error - continue
-    }
+      const actualCount = Math.min(testCount, filteredWords.length);
+      const shuffledWords = filteredWords.sort(() => Math.random() - 0.5);
+      const testWords = shuffledWords.slice(0, actualCount);
 
-    const dataParam = encodeURIComponent(JSON.stringify(testData));
-    router.push(`/mistap/test?data=${dataParam}`);
+      const testData = {
+        words: testWords.map(w => ({
+          word: w.word,
+          word_number: w.word_number,
+          meaning: w.meaning
+        })),
+        selectedText: `${selectedTextbook} (復習テスト)`,
+        startNum: null,
+        endNum: null,
+        isReview: true
+      };
+
+      // ここで profiles.test_count を増やす（非同期で安全に回数を記録）
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const userId = userData?.user?.id ?? null;
+        if (userId) {
+          // Use RPC to perform an atomic increment in the database
+          await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
+        }
+      } catch {
+        // test_count increment error - continue
+      }
+
+      const dataParam = encodeURIComponent(JSON.stringify(testData));
+      router.push(`/mistap/test?data=${dataParam}`);
+    } catch {
+      isCreatingReviewTestRef.current = false;
+      setIsCreatingReviewTest(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textbooks, selectedTextbook, includeRecent, includeFrequent, includeSingle, useRange, startNum, endNum, testCount, router]);
+  }, [textbooks, selectedTextbook, includeRecent, includeFrequent, includeSingle, useRange, reviewStartNum, reviewEndNum, testCount, router]);
 
   // 教材取得とユーザープロフィール取得
   useEffect(() => {
@@ -815,13 +899,29 @@ export default function TestSetupPage() {
                 <div className="pt-2 flex flex-col md:flex-row gap-3 md:justify-between">
                   <button
                     onClick={createTest}
-                    className="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white py-4 px-8 rounded-xl font-bold text-lg shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 md:order-2"
+                    disabled={isCreatingTest || !isInitialized || !selectedText}
+                    className={`w-full md:w-auto py-4 px-8 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 md:order-2 ${isCreatingTest || !isInitialized || !selectedText
+                      ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
+                      : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
+                      }`}
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    テストを開始
+                    {isCreatingTest ? (
+                      <>
+                        <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        作成中...
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        テストを開始
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={() => router.back()}
@@ -1110,13 +1210,29 @@ export default function TestSetupPage() {
                     <div className="pt-4">
                       <button
                         onClick={createReviewTest}
-                        className="w-full bg-red-600 hover:bg-red-700 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                        disabled={isCreatingReviewTest || !selectedTextbook}
+                        className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 ${isCreatingReviewTest || !selectedTextbook
+                            ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
+                            : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
+                          }`}
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        復習テストを開始
+                        {isCreatingReviewTest ? (
+                          <>
+                            <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            作成中...
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            復習テストを開始
+                          </>
+                        )}
                       </button>
                       <button
                         onClick={() => router.back()}

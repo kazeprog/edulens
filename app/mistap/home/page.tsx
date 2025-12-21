@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { supabase } from '@/lib/mistap/supabaseClient';
+import { useAuth } from '@/context/AuthContext';
+import { getSupabase } from '@/lib/supabase';
 import { getLoginInfo, updateLoginStreak } from '@/lib/mistap/loginTracker';
 import Background from '@/components/mistap/Background';
 
@@ -62,12 +63,14 @@ interface TestResult {
 
 export default function HomePage() {
     const router = useRouter();
+    const { user, loading: authLoading } = useAuth();
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [todayGoal, setTodayGoal] = useState<TodayGoal | null>(null);
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [isUpdatingStreak, setIsUpdatingStreak] = useState(false);
+    // useRefを使用して最新の値を参照（依存配列に含めずに最新値を参照するため）
+    const isUpdatingStreakRef = useRef(false);
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [showInstallButton, setShowInstallButton] = useState(false);
     const [isIos, setIsIos] = useState(false);
@@ -92,6 +95,13 @@ export default function HomePage() {
         fetchBlogPosts();
     }, []);
 
+    // 認証状態の変化を監視してリダイレクト
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.push('/mistap');
+        }
+    }, [authLoading, user, router]);
+
     useEffect(() => {
         document.title = 'ホーム - Mistap';
 
@@ -114,129 +124,137 @@ export default function HomePage() {
             setShowInstallButton(true);
         }
 
+        return () => {
+            window.removeEventListener('beforeinstallprompt', onBeforeInstall as EventListener);
+        };
+    }, []);
+
+    // プロフィールとデータの読み込み
+    useEffect(() => {
+        // 認証読み込み中またはユーザーがいない場合はスキップ
+        if (authLoading || !user) {
+            return;
+        }
+
+        const supabase = getSupabase();
+        if (!supabase) {
+            setError('データベース接続エラー');
+            setLoading(false);
+            return;
+        }
+
         async function loadProfile() {
-            try {
-                const { data: userData, error: authError } = await supabase.auth.getUser();
+            const userId = user!.id;
 
-                if (authError || !userData?.user) {
-                    router.push('/mistap');
-                    return;
-                }
-
-                const userId = userData.user.id;
-
-                // 自動ログイン（セッション維持）の場合もカウントするためにここで更新
-                // 重複実行を防ぐためフラグでガード
-                if (!isUpdatingStreak) {
-                    setIsUpdatingStreak(true);
-                    try {
-                        const streakResult = await updateLoginStreak(userId);
-                        if (!streakResult) {
-                            // Login streak update returned null
-                        }
-                    } catch {
-                        // Error updating login streak
-                    } finally {
-                        // Reset flag after a short delay to allow for legitimate re-triggers
-                        setTimeout(() => setIsUpdatingStreak(false), 5000);
+            // 自動ログイン（セッション維持）の場合もカウントするためにここで更新
+            // 重複実行を防ぐためフラグでガード
+            if (!isUpdatingStreakRef.current) {
+                isUpdatingStreakRef.current = true;
+                try {
+                    const streakResult = await updateLoginStreak(userId);
+                    if (!streakResult) {
+                        // Login streak update returned null
                     }
+                } catch {
+                    // Error updating login streak
+                } finally {
+                    // Reset flag after a short delay to allow for legitimate re-triggers
+                    setTimeout(() => { isUpdatingStreakRef.current = false; }, 5000);
                 }
+            }
 
-                const { data: profileData, error: profileError } = await supabase
-                    .from('profiles')
-                    .select('full_name, grade, test_count, daily_goal, start_date, selected_textbook')
-                    .eq('id', userId)
+            const { data: profileData, error: profileError } = await supabase!
+                .from('profiles')
+                .select('full_name, grade, test_count, daily_goal, start_date, selected_textbook')
+                .eq('id', userId)
+                .single();
+
+            if (profileError) {
+                setError('プロフィール情報の取得に失敗しました');
+                setLoading(false);
+                return;
+            }
+
+            // 今日の目標計算
+            if (profileData?.daily_goal && profileData?.start_date && profileData?.selected_textbook) {
+                const { data: maxWordData } = await supabase!
+                    .from('words')
+                    .select('word_number')
+                    .eq('text', profileData.selected_textbook)
+                    .order('word_number', { ascending: false })
+                    .limit(1)
                     .single();
 
-                if (profileError) {
-                    setError('プロフィール情報の取得に失敗しました');
-                    setLoading(false);
-                    return;
-                }
+                if (maxWordData) {
+                    const maxWords = maxWordData.word_number;
+                    const dailyGoal = profileData.daily_goal;
+                    const startDate = new Date(profileData.start_date);
+                    const today = new Date();
+                    // 時間をリセットして日付のみで比較
+                    startDate.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
 
-                // 今日の目標計算
-                if (profileData?.daily_goal && profileData?.start_date && profileData?.selected_textbook) {
-                    const { data: maxWordData } = await supabase
-                        .from('words')
-                        .select('word_number')
-                        .eq('text', profileData.selected_textbook)
-                        .order('word_number', { ascending: false })
-                        .limit(1)
-                        .single();
+                    const diffTime = today.getTime() - startDate.getTime();
+                    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-                    if (maxWordData) {
-                        const maxWords = maxWordData.word_number;
-                        const dailyGoal = profileData.daily_goal;
-                        const startDate = new Date(profileData.start_date);
-                        const today = new Date();
-                        // 時間をリセットして日付のみで比較
-                        startDate.setHours(0, 0, 0, 0);
-                        today.setHours(0, 0, 0, 0);
+                    if (diffDays >= 0) {
+                        // サイクル計算
+                        let currentStartNum = 1;
+                        // 単純な計算ではなく、ループでシミュレーションして正確な範囲を特定
+                        // (パフォーマンス的には数式が良いが、ロジックの整合性を優先)
+                        for (let i = 0; i <= diffDays; i++) {
+                            let endNum = currentStartNum + dailyGoal - 1;
+                            if (endNum > maxWords) {
+                                endNum = maxWords;
+                            }
 
-                        const diffTime = today.getTime() - startDate.getTime();
-                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                            if (i === diffDays) {
+                                setTodayGoal({
+                                    textbook: profileData.selected_textbook,
+                                    start: currentStartNum,
+                                    end: endNum
+                                });
+                                break;
+                            }
 
-                        if (diffDays >= 0) {
-                            // サイクル計算
-                            let currentStartNum = 1;
-                            // 単純な計算ではなく、ループでシミュレーションして正確な範囲を特定
-                            // (パフォーマンス的には数式が良いが、ロジックの整合性を優先)
-                            for (let i = 0; i <= diffDays; i++) {
-                                let endNum = currentStartNum + dailyGoal - 1;
-                                if (endNum > maxWords) {
-                                    endNum = maxWords;
-                                }
-
-                                if (i === diffDays) {
-                                    setTodayGoal({
-                                        textbook: profileData.selected_textbook,
-                                        start: currentStartNum,
-                                        end: endNum
-                                    });
-                                    break;
-                                }
-
-                                // 次の日の開始番号
-                                if (endNum === maxWords) {
-                                    currentStartNum = 1;
-                                } else {
-                                    currentStartNum = endNum + 1;
-                                }
+                            // 次の日の開始番号
+                            if (endNum === maxWords) {
+                                currentStartNum = 1;
+                            } else {
+                                currentStartNum = endNum + 1;
                             }
                         }
                     }
                 }
-
-                const loginInfo = await getLoginInfo(userId);
-
-                setProfile({
-                    fullName: profileData?.full_name || 'ゲスト',
-                    grade: profileData?.grade || '未設定',
-                    lastLoginAt: loginInfo?.lastLoginAt || null,
-                    consecutiveLoginDays: loginInfo?.consecutiveLoginDays || 0,
-                    totalTestsTaken: profileData?.test_count || 0,
-                    dailyGoal: profileData?.daily_goal,
-                    startDate: profileData?.start_date,
-                    selectedTextbook: profileData?.selected_textbook
-                });
-
-                const { data: resultsData, error: resultsError } = await supabase
-                    .from('results')
-                    .select('*')
-                    .eq('user_id', userId)
-                    .order('created_at', { ascending: false })
-                    .limit(3);
-
-                if (resultsError) {
-                    // Results fetch error - ignored
-                } else {
-                    setRecentResults(resultsData || []);
-                }
-            } catch {
-                setError('データの読み込み中にエラーが発生しました');
-            } finally {
-                setLoading(false);
             }
+
+            const loginInfo = await getLoginInfo(userId);
+
+            setProfile({
+                fullName: profileData?.full_name || 'ゲスト',
+                grade: profileData?.grade || '未設定',
+                lastLoginAt: loginInfo?.lastLoginAt || null,
+                consecutiveLoginDays: loginInfo?.consecutiveLoginDays || 0,
+                totalTestsTaken: profileData?.test_count || 0,
+                dailyGoal: profileData?.daily_goal,
+                startDate: profileData?.start_date,
+                selectedTextbook: profileData?.selected_textbook
+            });
+
+            const { data: resultsData, error: resultsError } = await supabase!
+                .from('results')
+                .select('*')
+                .eq('user_id', userId)
+                .order('created_at', { ascending: false })
+                .limit(3);
+
+            if (resultsError) {
+                // Results fetch error - ignored
+            } else {
+                setRecentResults(resultsData || []);
+            }
+
+            setLoading(false);
         }
 
         loadProfile();
@@ -256,11 +274,10 @@ export default function HomePage() {
         window.addEventListener('focus', handleFocus);
 
         return () => {
-            window.removeEventListener('beforeinstallprompt', onBeforeInstall as EventListener);
             window.removeEventListener('visibilitychange', handleVisibilityChange);
             window.removeEventListener('focus', handleFocus);
         };
-    }, [router]);
+    }, [authLoading, user]);
 
     const formatDate = (dateString: string | null): string => {
         if (!dateString) return '記録なし';
@@ -294,7 +311,8 @@ export default function HomePage() {
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
     };
 
-    if (loading) {
+    // 認証読み込み中またはデータ読み込み中
+    if (authLoading || loading) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen">
