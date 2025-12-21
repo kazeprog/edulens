@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 if (mounted) {
                     if (session?.user) {
                         setUser(session.user);
-                        getProfile(session.user.id);
+                        await getProfile(session.user.id);
                     } else {
                         // 正常に「セッションなし」が返ってきた場合のみ、未ログインとして確定
                         setUser(null);
@@ -117,9 +117,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 // ここでは loading: false にしない（安易なログアウト判定を防ぐ）
                 if (mounted) {
                     const nextRetry = retryCount + 1;
-                    const delay = Math.min(1000 * Math.pow(2, nextRetry), 5000); // 指数バックオフ
+                    // 初回ロード時はユーザーを待たせすぎないようにリトライ回数と間隔を短く調整
+                    // LocalStorageからの読み込みであれば基本即時のはず。失敗＝ネットワークor設定ミス
+                    const delay = Math.min(500 * Math.pow(1.5, nextRetry), 2000);
 
-                    if (nextRetry < 5) {
+                    if (nextRetry < 3) {
                         setTimeout(() => fetchSession(nextRetry), delay);
                     } else {
                         console.warn('Session fetch failed multiple times. Defaulting to logged out state.');
