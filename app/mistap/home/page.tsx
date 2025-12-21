@@ -161,8 +161,9 @@ export default function HomePage() {
         isLoadingProfileRef.current = false;
 
         async function loadProfile() {
-            // 既に読み込み中の場合はスキップ
-            if (isLoadingProfileRef.current) {
+            // 既に読み込み中かつprofileLoadedがtrueの場合のみスキップ
+            // profileLoadedがfalseの場合は必ず読み込みを実行する
+            if (isLoadingProfileRef.current && profileLoaded) {
                 return;
             }
             isLoadingProfileRef.current = true;
