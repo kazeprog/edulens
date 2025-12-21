@@ -90,24 +90,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
 
         // 初期セッション取得
-        const fetchSession = async () => {
+        const fetchSession = async (retryCount = 0) => {
             try {
                 const { data: { session }, error } = await supabase!.auth.getSession();
-                if (error) console.error('Session fetch error:', error);
+
+                if (error) {
+                    throw error;
+                }
 
                 if (mounted) {
                     if (session?.user) {
                         setUser(session.user);
                         getProfile(session.user.id);
                     } else {
+                        // 正常に「セッションなし」が返ってきた場合のみ、未ログインとして確定
                         setUser(null);
                         setProfile(null);
                     }
                     setLoading(false);
                 }
             } catch (error) {
-                console.error('Session fetch exception:', error);
-                if (mounted) setLoading(false);
+                console.error(`Session fetch error (attempt ${retryCount + 1}):`, error);
+
+                // エラー時はローディング状態を解除せず、リトライする
+                // 3回失敗しても、onAuthStateChange が解決してくれることを期待して
+                // ここでは loading: false にしない（安易なログアウト判定を防ぐ）
+                if (mounted) {
+                    const nextRetry = retryCount + 1;
+                    const delay = Math.min(1000 * Math.pow(2, nextRetry), 5000); // 指数バックオフ
+
+                    if (nextRetry < 5) {
+                        setTimeout(() => fetchSession(nextRetry), delay);
+                    } else {
+                        console.warn('Session fetch failed multiple times. Relying on auth state change listener.');
+                        // 最終的に失敗しても、loadingは維持するか、あるいはユーザーにエラー表示などが必要だが
+                        // ここでは「勝手にログアウト」を防ぐため、onAuthStateChangeイベントの発火を待つ方針
+                    }
+                }
             }
         };
 
