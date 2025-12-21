@@ -282,9 +282,10 @@ export default function HomePage() {
                 } else {
                     setRecentResults(resultsData || []);
                 }
-
-                setLoading(false);
             } finally {
+                if (mounted) {
+                    setLoading(false);
+                }
                 isLoadingProfileRef.current = false;
             }
         }
