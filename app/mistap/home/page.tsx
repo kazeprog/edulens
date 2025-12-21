@@ -72,7 +72,7 @@ export default function HomePage() {
         consecutiveLoginDays: authProfile?.consecutive_login_days || 0,
         totalTestsTaken: authProfile?.test_count || 0,
         dailyGoal: authProfile?.daily_goal,
-        startDate: authProfile?.start_date ? new Date(authProfile.start_date) : undefined,
+        startDate: authProfile?.start_date || undefined,
         selectedTextbook: authProfile?.selected_textbook || undefined
     });
     const [todayGoal, setTodayGoal] = useState<TodayGoal | null>(null);
@@ -154,7 +154,7 @@ export default function HomePage() {
                 consecutiveLoginDays: authProfile.consecutive_login_days || prev.consecutiveLoginDays,
                 totalTestsTaken: authProfile.test_count || prev.totalTestsTaken,
                 dailyGoal: authProfile.daily_goal || prev.dailyGoal,
-                startDate: authProfile.start_date ? new Date(authProfile.start_date) : prev.startDate,
+                startDate: authProfile.start_date || prev.startDate,
                 selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook
             }));
         }
