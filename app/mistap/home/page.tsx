@@ -64,10 +64,20 @@ interface TestResult {
 export default function HomePage() {
     const router = useRouter();
     const { user, loading: authLoading } = useAuth();
-    const [profile, setProfile] = useState<UserProfile | null>(null);
+    // デフォルト値を設定してすぐにUIを表示
+    const [profile, setProfile] = useState<UserProfile>({
+        fullName: 'ゲスト',
+        grade: '未設定',
+        lastLoginAt: null,
+        consecutiveLoginDays: 0,
+        totalTestsTaken: 0,
+        dailyGoal: undefined,
+        startDate: undefined,
+        selectedTextbook: undefined
+    });
     const [todayGoal, setTodayGoal] = useState<TodayGoal | null>(null);
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [profileLoaded, setProfileLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
     // useRefを使用して最新の値を参照（依存配列に含めずに最新値を参照するため）
     const isUpdatingStreakRef = useRef(false);
@@ -102,9 +112,7 @@ export default function HomePage() {
     // 認証状態の変化を監視してリダイレクト
     useEffect(() => {
         if (!authLoading && !user) {
-            // ユーザーがいない場合はローディングを解除してからリダイレクト
-            setLoading(false);
-            router.push('/mistap');
+            router.replace('/mistap');
         }
     }, [authLoading, user, router]);
 
@@ -135,25 +143,22 @@ export default function HomePage() {
         };
     }, []);
 
-    // プロフィールとデータの読み込み
+    // プロフィールとデータの読み込み（バックグラウンドで実行、UIはすぐ表示）
     useEffect(() => {
         // 認証読み込み中またはユーザーがいない場合はスキップ
         if (authLoading || !user) {
             return;
         }
 
-        // ページ再訪問時に確実に読み込みが実行されるようリセット
-        isLoadingProfileRef.current = false;
-        setLoading(true);
-
         const supabase = getSupabase();
         if (!supabase) {
             setError('データベース接続エラー');
-            setLoading(false);
             return;
         }
 
         let mounted = true;
+        // このuseEffect実行時に前回の読み込みフラグをリセット
+        isLoadingProfileRef.current = false;
 
         async function loadProfile() {
             // 既に読み込み中の場合はスキップ
@@ -193,7 +198,7 @@ export default function HomePage() {
 
                 if (profileError) {
                     setError('プロフィール情報の取得に失敗しました');
-                    setLoading(false);
+                    setProfileLoaded(true);
                     return;
                 }
 
@@ -284,7 +289,7 @@ export default function HomePage() {
                 }
             } finally {
                 if (mounted) {
-                    setLoading(false);
+                    setProfileLoaded(true);
                 }
                 isLoadingProfileRef.current = false;
             }
@@ -326,7 +331,7 @@ export default function HomePage() {
                 clearTimeout(loadDebounceRef.current);
             }
         };
-    }, [authLoading, user]);
+    }, [authLoading, user, user?.id]);
 
     const formatDate = (dateString: string | null): string => {
         if (!dateString) return '記録なし';
@@ -360,26 +365,60 @@ export default function HomePage() {
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
     };
 
-    // 認証読み込み中の場合のみローディング表示
-    // authLoadingがfalseでuserがいる場合、loadingはloadProfile()内でfalseになる
-    // authLoadingがfalseでuserがいない場合、上のuseEffectでリダイレクトされる
-    if (authLoading || (user && loading)) {
+    // 認証確認中またはプロファイル読み込み中はローディング表示
+    if (authLoading || (user && !profileLoaded)) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen">
-                    <div className="text-white text-xl">読み込み中...</div>
+                    <div className="flex flex-col items-center gap-6">
+                        {/* スピナーアニメーション */}
+                        <div className="relative">
+                            <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
+                            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
+                        </div>
+                        {/* ローディングテキスト */}
+                        <div className="text-center">
+                            <p className="text-white text-xl font-medium mb-2">読み込み中</p>
+                            <p className="text-white/60 text-sm">データを取得しています...</p>
+                        </div>
+                    </div>
                 </Background>
             </div>
         );
     }
 
-    if (error || !profile) {
+    // ユーザーがいない場合はリダイレクト待ち（useEffectでリダイレクトされる）
+    if (!user) {
+        return (
+            <div className="min-h-screen">
+                <Background className="flex justify-center items-center min-h-screen">
+                    <div className="flex flex-col items-center gap-6">
+                        {/* スピナーアニメーション */}
+                        <div className="relative">
+                            <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
+                            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
+                        </div>
+                        <p className="text-white text-xl font-medium">リダイレクト中...</p>
+                    </div>
+                </Background>
+            </div>
+        );
+    }
+
+    // エラーがある場合のみエラー表示
+    if (error) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen p-4">
-                    <div className="bg-white/40 backdrop-blur-lg p-6 rounded-xl shadow-xl border border-white/50">
-                        <p className="text-red-600 mb-4">{error || 'データの読み込みに失敗しました'}</p>
-                        <button onClick={() => router.push('/mistap')} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                    <div className="bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/50 text-center max-w-sm">
+                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">エラーが発生しました</h3>
+                        <p className="text-gray-600 mb-6">{error}</p>
+                        <button onClick={() => router.push('/mistap')} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors w-full">
                             ホームに戻る
                         </button>
                     </div>
