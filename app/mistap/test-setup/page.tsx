@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 
+// PWAインストールプロンプト用の型定義
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform?: string }>;
+};
+
 interface WeakWord {
   word_number: number;
   word: string;
@@ -75,6 +81,8 @@ export default function TestSetupPage() {
   const [isAndroid, setIsAndroid] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
   const [showAddToHomeModal, setShowAddToHomeModal] = useState(false);
+  // Android向けPWAインストールプロンプト
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
   // ユーザープロフィールを取得してレベルを自動設定（初回のみ）
   const loadUserProfile = useCallback(async () => {
@@ -686,6 +694,18 @@ export default function TestSetupPage() {
     // スタンドアロンモード（既にホーム画面から開かれている）かどうかチェック
     const standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
     setIsStandalone(standalone);
+
+    // PWAインストールプロンプトのキャプチャ（Android Chrome向け）
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
   }, []);
 
   return (
@@ -955,7 +975,25 @@ export default function TestSetupPage() {
                 {(isIos || isAndroid) && !isStandalone && (
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <button
-                      onClick={() => setShowAddToHomeModal(true)}
+                      onClick={async () => {
+                        // Androidでインストールプロンプトが利用可能な場合は直接表示
+                        if (deferredPrompt) {
+                          try {
+                            await deferredPrompt.prompt();
+                            const choiceResult = await deferredPrompt.userChoice;
+                            if (choiceResult.outcome === 'accepted') {
+                              // ユーザーがインストールを承諾
+                              setDeferredPrompt(null);
+                            }
+                          } catch {
+                            // プロンプト表示エラー - フォールバックでモーダルを表示
+                            setShowAddToHomeModal(true);
+                          }
+                        } else {
+                          // iOS またはプロンプトが利用不可の場合は手順を表示
+                          setShowAddToHomeModal(true);
+                        }
+                      }}
                       className="w-full py-3 px-4 rounded-xl border-2 border-dashed border-gray-300 text-gray-600 font-medium flex items-center justify-center gap-2 hover:border-gray-400 hover:text-gray-700 transition-colors"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
