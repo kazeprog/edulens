@@ -9,6 +9,12 @@ type Profile = {
     full_name: string | null;
     role: string | null;
     grade?: string | null;
+    selected_textbook?: string | null;
+    start_date?: string | null;
+    test_count?: number;
+    daily_goal?: number;
+    last_login_at?: string | null;
+    consecutive_login_days?: number;
 };
 
 type AuthContextType = {

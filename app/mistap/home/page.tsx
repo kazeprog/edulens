@@ -63,17 +63,17 @@ interface TestResult {
 
 export default function HomePage() {
     const router = useRouter();
-    const { user, loading: authLoading } = useAuth();
-    // デフォルト値を設定してすぐにUIを表示
+    const { user, profile: authProfile, loading: authLoading } = useAuth();
+    // デフォルト値を設定してすぐにUIを表示。AuthContextからの情報を優先使用
     const [profile, setProfile] = useState<UserProfile>({
-        fullName: 'ゲスト',
-        grade: '未設定',
-        lastLoginAt: null,
-        consecutiveLoginDays: 0,
-        totalTestsTaken: 0,
-        dailyGoal: undefined,
-        startDate: undefined,
-        selectedTextbook: undefined
+        fullName: authProfile?.full_name || 'ゲスト',
+        grade: authProfile?.grade || '未設定',
+        lastLoginAt: authProfile?.last_login_at || null,
+        consecutiveLoginDays: authProfile?.consecutive_login_days || 0,
+        totalTestsTaken: authProfile?.test_count || 0,
+        dailyGoal: authProfile?.daily_goal,
+        startDate: authProfile?.start_date ? new Date(authProfile.start_date) : undefined,
+        selectedTextbook: authProfile?.selected_textbook || undefined
     });
     const [todayGoal, setTodayGoal] = useState<TodayGoal | null>(null);
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
@@ -142,6 +142,23 @@ export default function HomePage() {
             window.removeEventListener('beforeinstallprompt', onBeforeInstall as EventListener);
         };
     }, []);
+
+    // AuthContextのプロフィールが更新されたら反映
+    useEffect(() => {
+        if (authProfile) {
+            setProfile(prev => ({
+                ...prev,
+                fullName: authProfile.full_name || prev.fullName,
+                grade: authProfile.grade || prev.grade,
+                lastLoginAt: authProfile.last_login_at || prev.lastLoginAt,
+                consecutiveLoginDays: authProfile.consecutive_login_days || prev.consecutiveLoginDays,
+                totalTestsTaken: authProfile.test_count || prev.totalTestsTaken,
+                dailyGoal: authProfile.daily_goal || prev.dailyGoal,
+                startDate: authProfile.start_date ? new Date(authProfile.start_date) : prev.startDate,
+                selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook
+            }));
+        }
+    }, [authProfile]);
 
     // プロフィールとデータの読み込み（バックグラウンドで実行、UIはすぐ表示）
     useEffect(() => {
@@ -375,8 +392,9 @@ export default function HomePage() {
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
     };
 
-    // 認証確認中またはプロファイル読み込み中はローディング表示
-    if (authLoading || (user && !profileLoaded)) {
+    // 認証確認中はローディング表示
+    // profileLoadedは待たずに画面を表示し、データ取得中は各セクションでスケルトン/ローディングを表示する方針に変更
+    if (authLoading) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen">
@@ -389,7 +407,7 @@ export default function HomePage() {
                         {/* ローディングテキスト */}
                         <div className="text-center">
                             <p className="text-white text-xl font-medium mb-2">読み込み中</p>
-                            <p className="text-white/60 text-sm">データを取得しています...</p>
+                            <p className="text-white/60 text-sm">認証情報を確認してます...</p>
                         </div>
                     </div>
                 </Background>
