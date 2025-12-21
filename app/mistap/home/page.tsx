@@ -148,7 +148,7 @@ export default function HomePage() {
         if (authProfile) {
             setProfile(prev => ({
                 ...prev,
-                full_name: authProfile.full_name || prev.fullName,
+                fullName: authProfile.full_name || prev.fullName,
                 grade: authProfile.grade || prev.grade,
                 lastLoginAt: authProfile.last_login_at || prev.lastLoginAt,
                 consecutiveLoginDays: authProfile.consecutive_login_days || prev.consecutiveLoginDays,
@@ -157,8 +157,7 @@ export default function HomePage() {
                 startDate: authProfile.start_date || prev.startDate,
                 selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook
             }));
-            // プロフィールがロードされたとみなす
-            setProfileLoaded(true);
+            // ここではロード完了としない（追加データの取得を待つ）
         }
     }, [authProfile]);
 
@@ -166,6 +165,11 @@ export default function HomePage() {
     useEffect(() => {
         // ユーザーがいない、または初期ロード中はスキップ
         if (authLoading || !user) {
+            return;
+        }
+
+        // プロフィールがまだロードされていない場合は待機（AuthContextで必ずセットされるはず）
+        if (!authProfile) {
             return;
         }
 
@@ -329,19 +333,16 @@ export default function HomePage() {
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
     };
 
-    // 認証確認中はローディング表示
-    // profileLoadedは待たずに画面を表示し、データ取得中は各セクションでスケルトン/ローディングを表示する方針に変更
+    // 1. 認証ロード中
     if (authLoading) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen">
                     <div className="flex flex-col items-center gap-6">
-                        {/* スピナーアニメーション */}
                         <div className="relative">
                             <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
                             <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
                         </div>
-                        {/* ローディングテキスト */}
                         <div className="text-center">
                             <p className="text-white text-xl font-medium mb-2">読み込み中</p>
                             <p className="text-white/60 text-sm">認証情報を確認してます...</p>
@@ -352,25 +353,7 @@ export default function HomePage() {
         );
     }
 
-    // ユーザーがいない場合はリダイレクト待ち（useEffectでリダイレクトされる）
-    if (!user) {
-        return (
-            <div className="min-h-screen">
-                <Background className="flex justify-center items-center min-h-screen">
-                    <div className="flex flex-col items-center gap-6">
-                        {/* スピナーアニメーション */}
-                        <div className="relative">
-                            <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
-                            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
-                        </div>
-                        <p className="text-white text-xl font-medium">リダイレクト中...</p>
-                    </div>
-                </Background>
-            </div>
-        );
-    }
-
-    // エラーがある場合のみエラー表示
+    // 2. エラーがある場合（最優先で表示）
     if (error) {
         return (
             <div className="min-h-screen">
@@ -386,6 +369,43 @@ export default function HomePage() {
                         <button onClick={() => router.push('/mistap')} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors w-full">
                             ホームに戻る
                         </button>
+                    </div>
+                </Background>
+            </div>
+        );
+    }
+
+    // 3. ユーザーがいない場合（リダイレクト待ち）
+    if (!user) {
+        return (
+            <div className="min-h-screen">
+                <Background className="flex justify-center items-center min-h-screen">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="relative">
+                            <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
+                            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
+                        </div>
+                        <p className="text-white text-xl font-medium">リダイレクト中...</p>
+                    </div>
+                </Background>
+            </div>
+        );
+    }
+
+    // 4. データ準備中（ここまで来ればユーザーは必ずいる）
+    if (!profileLoaded) {
+        return (
+            <div className="min-h-screen">
+                <Background className="flex justify-center items-center min-h-screen">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="relative">
+                            <div className="w-16 h-16 border-4 border-white/20 rounded-full"></div>
+                            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-white rounded-full animate-spin"></div>
+                        </div>
+                        <div className="text-center">
+                            <p className="text-white text-xl font-medium mb-2">読み込み中</p>
+                            <p className="text-white/60 text-sm">学習データを準備しています...</p>
+                        </div>
                     </div>
                 </Background>
             </div>

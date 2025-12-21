@@ -49,42 +49,88 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let mounted = true;
 
-        async function getProfile(userId: string, retryCount = 0) {
+        async function getProfile(userId: string) {
             const supabase = getSupabase();
             if (!supabase || !mounted) return;
 
-            try {
-                const { data: existing, error } = await supabase
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', userId)
-                    .single();
+            let retryCount = 0;
+            const maxRetries = 2;
 
-                if (!mounted) return;
+            while (retryCount <= maxRetries && mounted) {
+                try {
+                    const { data: existing, error } = await supabase
+                        .from('profiles')
+                        .select('*')
+                        .eq('id', userId)
+                        .single();
 
-                if (error) throw error;
+                    if (!mounted) return;
 
-                if (!existing) {
-                    try {
-                        // DBトリガーがない場合のフォールバック（ベストエフォート）
-                        await supabase.from('profiles').insert({
-                            id: userId,
-                            full_name: null,
-                            role: 'student',
-                        });
-                        if (mounted) {
-                            setProfile({ id: userId, full_name: null, role: 'student' });
+                    let profileData = existing;
+
+                    // エラーハンドリング
+                    if (error) {
+                        // PGRST116（データなし）の場合も、即座に諦めずにリトライする（RLSやタイミングの問題の可能性）
+                        // ただし、リトライ最後回でこれなら「本当にない」とみなす
+                        if (error.code === 'PGRST116') {
+                            if (retryCount < maxRetries) {
+                                console.log(`Profile not found (attempt ${retryCount + 1}), retrying...`);
+                                throw error; // catchブロックへ飛ばしてリトライさせる
+                            }
+                            // リトライしきったらデータなしとして扱う
+                            profileData = null;
+                        } else {
+                            throw error; // その他のエラーはリトライまたはthrow
                         }
-                    } catch (ignore) {
-                        // 既に作成されている場合などは無視
+                    } else {
+                        profileData = existing;
                     }
-                } else {
-                    setProfile(existing);
-                }
-            } catch (error) {
-                console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
-                if (retryCount < 2 && mounted) {
-                    setTimeout(() => getProfile(userId, retryCount + 1), 2000);
+
+                    if (!profileData) {
+                        console.log('Profile finding failed or empty, attempting upsert/fetch...');
+                        try {
+                            // DBトリガーがない場合のフォールバック（ベストエフォート）
+                            // 既に作成されている場合もあるので、Conflict時は無視
+                            await supabase.from('profiles').upsert({
+                                id: userId,
+                                full_name: null,
+                                role: 'student',
+                            }, { onConflict: 'id', ignoreDuplicates: true });
+
+                            // Upsert後、もう一度取得を試みる（既存だった場合、データを取り直すため）
+                            const { data: recheck } = await supabase
+                                .from('profiles')
+                                .select('*')
+                                .eq('id', userId)
+                                .single();
+
+                            if (mounted) {
+                                if (recheck) {
+                                    console.log('Profile fetched after upsert:', recheck);
+                                    setProfile(recheck);
+                                } else {
+                                    // それでも取れない場合は、とりあえず初期値をセット
+                                    console.warn('Profile still missing after upsert, setting default.');
+                                    setProfile({ id: userId, full_name: null, role: 'student' });
+                                }
+                            }
+                        } catch (ignore) {
+                            console.warn('Upsert failed:', ignore);
+                        }
+                    } else {
+                        // console.log('Profile found:', profileData);
+                        setProfile(profileData);
+                    }
+                    // 成功したらループを抜ける
+                    return;
+
+                } catch (error) {
+                    console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
+                    retryCount++;
+                    if (retryCount <= maxRetries && mounted) {
+                        // 2秒待機
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                    }
                 }
             }
         }
@@ -139,6 +185,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         fetchSession();
 
+        // セーフティネット: 万が一、非同期処理がハングした場合でも7秒後には強制的にローディングを解除する
+        const safetyTimeout = setTimeout(() => {
+            if (mounted && loading) {
+                console.warn('Auth check timed out. Forcing loading to false.');
+                setLoading(false);
+            }
+        }, 7000);
+
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (!mounted) return;
@@ -164,6 +218,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         return () => {
             mounted = false;
+            clearTimeout(safetyTimeout);
             subscription.unsubscribe();
             window.removeEventListener('profile-updated', onProfileUpdated as EventListener);
         };
