@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
+import { useAuth } from "@/context/AuthContext";
 import Background from "@/components/mistap/Background";
 import LoginForm from "@/components/mistap/LoginForm";
 import HeroSection from "@/components/mistap/HeroSection";
@@ -26,6 +27,7 @@ interface BlogPost {
 }
 
 export default function Home() {
+  const { user, loading: authLoading } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
@@ -37,6 +39,13 @@ export default function Home() {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isManual, setIsManual] = useState(false);
   const manualResumeTimerRef = useRef<number | null>(null);
+
+  // ログイン済みユーザーは自動的にホームへリダイレクト
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.replace('/mistap/home');
+    }
+  }, [authLoading, user, router]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -91,6 +100,17 @@ export default function Home() {
     // EduLensの統一新規登録画面へリダイレクト（ログイン後にMistapホームへ戻る）
     router.push('/login?mode=signup&redirect=/mistap/home');
   };
+
+  // 認証確認中またはログイン済み（リダイレクト待ち）の場合はローディング表示
+  if (authLoading || user) {
+    return (
+      <Background>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-white text-xl">読み込み中...</div>
+        </div>
+      </Background>
+    );
+  }
 
   if (showLoginForm) {
     return <LoginForm initialIsSignup={isSignup} />;
