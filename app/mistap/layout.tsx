@@ -8,6 +8,13 @@ export const metadata: Metadata = {
     default: 'Mistap - 間違えた単語に集中する学習システム',
   },
   description: '間違えた単語を自動で記録し、効率的に復習できる単語学習システム。',
+  manifest: '/mistap/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Mistap',
+  },
+  applicationName: 'Mistap',
 };
 
 export default function MistapLayout({

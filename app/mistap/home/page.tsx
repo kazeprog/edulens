@@ -153,6 +153,7 @@ export default function HomePage() {
         const supabase = getSupabase();
         if (!supabase) {
             setError('データベース接続エラー');
+            setProfileLoaded(true); // エラーでもローディング解除
             return;
         }
 
@@ -160,10 +161,17 @@ export default function HomePage() {
         // このuseEffect実行時に前回の読み込みフラグをリセット
         isLoadingProfileRef.current = false;
 
+        // 安全装置: 5秒後に強制的にローディングを解除
+        const safetyTimeout = setTimeout(() => {
+            if (mounted && !profileLoaded) {
+                console.warn('Profile loading safety timeout triggered');
+                setProfileLoaded(true);
+            }
+        }, 5000);
+
         async function loadProfile() {
-            // 既に読み込み中かつprofileLoadedがtrueの場合のみスキップ
-            // profileLoadedがfalseの場合は必ず読み込みを実行する
-            if (isLoadingProfileRef.current && profileLoaded) {
+            // 既に読み込み済みの場合はスキップ
+            if (profileLoaded) {
                 return;
             }
             isLoadingProfileRef.current = true;
@@ -326,6 +334,7 @@ export default function HomePage() {
 
         return () => {
             mounted = false;
+            clearTimeout(safetyTimeout);
             window.removeEventListener('visibilitychange', handleVisibilityChange);
             window.removeEventListener('focus', handleFocus);
             if (loadDebounceRef.current) {

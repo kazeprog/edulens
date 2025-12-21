@@ -6,6 +6,11 @@ let _supabase: SupabaseClient | null = null
 // EduLens共通クライアントを取得
 // 環境変数は EDULENS 名を優先、後方互換性のため MISTAP 名もフォールバック
 export function getSupabase(): SupabaseClient | null {
+    // サーバーサイドでは null を返す（クライアントサイドでのみ使用）
+    if (typeof window === 'undefined') {
+        return null
+    }
+
     if (_supabase) {
         return _supabase
     }
@@ -24,5 +29,5 @@ export function getSupabase(): SupabaseClient | null {
     return _supabase
 }
 
-// 後方互換性のため
+// 後方互換性のため（クライアントサイドでのみ初期化）
 export const supabase = typeof window !== 'undefined' ? getSupabase() : null

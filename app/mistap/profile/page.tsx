@@ -15,12 +15,30 @@ export default function ProfilePage() {
 
   useEffect(() => {
     let mounted = true;
+
+    // タイムアウトセーフティ: 5秒でローディング強制解除
+    const safetyTimeout = setTimeout(() => {
+      if (mounted && loading) {
+        console.warn('Profile page loading timeout');
+        setLoading(false);
+        setError('データの読み込みがタイムアウトしました。再読み込みしてください。');
+      }
+    }, 5000);
+
     async function load() {
       setLoading(true);
       try {
-        const { data: userData } = await supabase.auth.getUser();
+        const { data: userData, error: authError } = await supabase.auth.getUser();
+        if (authError) {
+          console.error('Auth error:', authError);
+          if (mounted) setError('認証エラー: ' + authError.message);
+          return;
+        }
         const userId = userData?.user?.id ?? null;
-        if (!userId) return;
+        if (!userId) {
+          if (mounted) setError('ログインが必要です');
+          return;
+        }
         const { data, error } = await supabase.from('profiles').select('full_name,grade').eq('id', userId).single();
         if (error) {
           // no profile yet
@@ -29,14 +47,18 @@ export default function ProfilePage() {
           setGrade(data?.grade ?? '');
         }
       } catch (e: unknown) {
-        setError(e instanceof Error ? e.message : String(e));
+        if (mounted) setError(e instanceof Error ? e.message : String(e));
       } finally {
-        setLoading(false);
+        if (mounted) setLoading(false);
+        clearTimeout(safetyTimeout);
       }
     }
 
     load();
-    return () => { mounted = false };
+    return () => {
+      mounted = false;
+      clearTimeout(safetyTimeout);
+    };
   }, []);
 
   async function handleSave() {
