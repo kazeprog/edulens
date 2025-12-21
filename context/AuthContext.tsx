@@ -122,9 +122,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     if (nextRetry < 5) {
                         setTimeout(() => fetchSession(nextRetry), delay);
                     } else {
-                        console.warn('Session fetch failed multiple times. Relying on auth state change listener.');
-                        // 最終的に失敗しても、loadingは維持するか、あるいはユーザーにエラー表示などが必要だが
-                        // ここでは「勝手にログアウト」を防ぐため、onAuthStateChangeイベントの発火を待つ方針
+                        console.warn('Session fetch failed multiple times. Defaulting to logged out state.');
+                        // 何度（5回）リトライしてもダメな場合は、これ以上待たせるとUIが固まるため
+                        // 「ゲスト（未ログイン）」として判定を下す
+                        if (mounted) {
+                            setUser(null);
+                            setProfile(null);
+                            setLoading(false);
+                        }
                     }
                 }
             }
