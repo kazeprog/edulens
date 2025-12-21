@@ -2,15 +2,18 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/mistap/supabaseClient';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Header() {
   const router = useRouter();
-  const [name, setName] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { user, profile, loading, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  // 認証状態から派生
+  const isLoggedIn = !loading && !!user;
+  const name = profile?.full_name ?? user?.email?.split('@')[0] ?? null;
 
   // メニューの外側クリックで閉じる
   useEffect(() => {
@@ -30,110 +33,10 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    let mounted = true;
-    async function loadProfile() {
-      try {
-        const { data: userData } = await supabase.auth.getUser();
-        const userId = userData?.user?.id ?? null;
-        if (!userId) {
-          if (mounted) {
-            setName(null);
-            setIsLoggedIn(false);
-          }
-          return;
-        }
-
-        // Ensure a profile row exists for newly confirmed users.
-        // Some signup flows (email confirmation) return no user id at signup time,
-        // so the profile row may be missing after the user confirms. Create it if absent.
-        try {
-          const { data: existing } = await supabase
-            .from('profiles')
-            .select('id')
-            .eq('id', userId)
-            .single();
-
-          if (!existing) {
-            // insert a minimal profile row; don't overwrite if it appears concurrently
-            await supabase.from('profiles').insert({
-              id: userId,
-              full_name: null,
-              role: 'student',
-            });
-          }
-        } catch {
-          // ignore errors here — failure to create a profile should not block UI
-          // (for example, duplicate key races or permission issues)
-        }
-
-        if (mounted) setIsLoggedIn(true);
-
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('full_name')
-          .eq('id', userId)
-          .single();
-
-        if (error) {
-          // if no profile, fallback to email name
-          const email = userData?.user?.email ?? null;
-          if (email && mounted) setName(email.split('@')[0]);
-        } else {
-          if (mounted) setName(data?.full_name ?? null);
-        }
-      } catch {
-        // ignore
-      }
-    }
-
-    loadProfile();
-
-    // Listen for profile updates
-    function onProfileUpdated(e: CustomEvent) {
-      try {
-        const name = e?.detail?.full_name;
-        if (name && mounted) setName(name);
-      } catch {
-        // ignore
-      }
-    }
-    window.addEventListener('profile-updated', onProfileUpdated as EventListener);
-
-    // Listen for auth state changes
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      try {
-        const userId = session?.user?.id ?? null;
-        if (userId) {
-          setIsLoggedIn(true);
-          loadProfile();
-        } else {
-          if (mounted) {
-            setName(null);
-            setIsLoggedIn(false);
-          }
-        }
-      } catch {
-        // ignore
-      }
-    });
-    const subscription = data?.subscription;
-
-    return () => {
-      mounted = false;
-      window.removeEventListener('profile-updated', onProfileUpdated as EventListener);
-      try { subscription?.unsubscribe(); } catch { /* ignore */ }
-    };
-  }, []);
-
   async function handleLogout() {
-    await supabase.auth.signOut();
-    setName(null);
-    setIsLoggedIn(false);
+    await signOut();
     router.push('/mistap');
   }
-
-  const pathname = usePathname();
 
   const handleLoginClick = () => {
     setIsMenuOpen(false);
