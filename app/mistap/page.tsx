@@ -27,7 +27,7 @@ interface BlogPost {
 }
 
 export default function Home() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
@@ -41,11 +41,12 @@ export default function Home() {
   const manualResumeTimerRef = useRef<number | null>(null);
 
   // ログイン済みユーザーは自動的にホームへリダイレクト
+  // profile も読み込まれていることを確認してからリダイレクト（レースコンディション防止）
   useEffect(() => {
-    if (!authLoading && user) {
+    if (!authLoading && user && profile) {
       router.replace('/mistap/home');
     }
-  }, [authLoading, user, router]);
+  }, [authLoading, user, profile, router]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
