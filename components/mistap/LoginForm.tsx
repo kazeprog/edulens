@@ -55,7 +55,10 @@ export default function LoginForm({ initialIsSignup = false }: LoginFormProps) {
             }
         }
 
-        router.push('/mistap/home');
+        // AuthContextの認証状態が反映されるのを少し待ってからリダイレクト
+        // setLoadingはtrue のままにしておき、リダイレクト後にページが表示される
+        await new Promise(resolve => setTimeout(resolve, 100));
+        router.replace('/mistap/home');
     }
 
     async function handleSignup(e: React.FormEvent) {

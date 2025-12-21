@@ -102,6 +102,8 @@ export default function HomePage() {
     // 認証状態の変化を監視してリダイレクト
     useEffect(() => {
         if (!authLoading && !user) {
+            // ユーザーがいない場合はローディングを解除してからリダイレクト
+            setLoading(false);
             router.push('/mistap');
         }
     }, [authLoading, user, router]);
@@ -353,8 +355,10 @@ export default function HomePage() {
         // iOS の場合はボタンクリックしても指示を表示するだけ（自動インストール不可）
     };
 
-    // 認証読み込み中またはデータ読み込み中
-    if (authLoading || loading) {
+    // 認証読み込み中の場合のみローディング表示
+    // authLoadingがfalseでuserがいる場合、loadingはloadProfile()内でfalseになる
+    // authLoadingがfalseでuserがいない場合、上のuseEffectでリダイレクトされる
+    if (authLoading || (user && loading)) {
         return (
             <div className="min-h-screen">
                 <Background className="flex justify-center items-center min-h-screen">
