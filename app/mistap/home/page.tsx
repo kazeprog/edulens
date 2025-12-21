@@ -142,6 +142,10 @@ export default function HomePage() {
             return;
         }
 
+        // ページ再訪問時に確実に読み込みが実行されるようリセット
+        isLoadingProfileRef.current = false;
+        setLoading(true);
+
         const supabase = getSupabase();
         if (!supabase) {
             setError('データベース接続エラー');
