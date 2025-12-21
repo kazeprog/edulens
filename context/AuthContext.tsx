@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         async function getProfile(userId: string, retryCount = 0) {
             const supabase = getSupabase();
-            if (!supabase) return;
+            if (!supabase || !mounted) return;
 
             try {
                 const { data: existing, error } = await supabase
@@ -60,44 +60,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     .eq('id', userId)
                     .single();
 
+                if (!mounted) return;
+
                 if (error) throw error;
 
                 if (!existing) {
-                    await supabase.from('profiles').insert({
-                        id: userId,
-                        full_name: null,
-                        role: 'student',
-                    });
-
-                    if (mounted) {
-                        setProfile({ id: userId, full_name: null, role: 'student' });
+                    try {
+                        // DBトリガーがない場合のフォールバック（ベストエフォート）
+                        await supabase.from('profiles').insert({
+                            id: userId,
+                            full_name: null,
+                            role: 'student',
+                        });
+                        if (mounted) {
+                            setProfile({ id: userId, full_name: null, role: 'student' });
+                        }
+                    } catch (ignore) {
+                        // 既に作成されている場合などは無視
                     }
                 } else {
-                    if (mounted) {
-                        setProfile(existing);
-                    }
+                    setProfile(existing);
                 }
             } catch (error) {
                 console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
-                if (retryCount < 3 && mounted) {
-                    setTimeout(() => getProfile(userId, retryCount + 1), 1000);
+                if (retryCount < 2 && mounted) {
+                    setTimeout(() => getProfile(userId, retryCount + 1), 2000);
                 }
             }
         }
 
-        // タイムアウト処理（5秒でローディング強制解除）
-        const timeout = setTimeout(() => {
-            if (mounted) {
-                console.warn('Auth session check timed out');
-                setLoading(false);
-            }
-        }, 5000);
-
-        // 初期セッション取得（リトライ機能付き）
-        const fetchSession = async (retryCount = 0) => {
+        // 初期セッション取得
+        const fetchSession = async () => {
             try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                if (error) throw error;
+                const { data: { session }, error } = await supabase!.auth.getSession();
+                if (error) console.error('Session fetch error:', error);
 
                 if (mounted) {
                     if (session?.user) {
@@ -108,17 +104,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         setProfile(null);
                     }
                     setLoading(false);
-                    clearTimeout(timeout);
                 }
             } catch (error) {
-                console.error(`Session fetch error (attempt ${retryCount + 1}):`, error);
-                if (retryCount < 3 && mounted) {
-                    // 1秒待機してリトライ
-                    setTimeout(() => fetchSession(retryCount + 1), 1000);
-                } else if (mounted) {
-                    setLoading(false);
-                    clearTimeout(timeout);
-                }
+                console.error('Session fetch exception:', error);
+                if (mounted) setLoading(false);
             }
         };
 
@@ -126,24 +115,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (mounted) {
-                // トークンエラーの場合はログアウト状態にする
-                if (event === 'TOKEN_REFRESHED' && !session) {
-                    setUser(null);
-                    setProfile(null);
-                    setLoading(false);
-                    return;
-                }
+            if (!mounted) return;
 
-                if (session?.user) {
-                    setUser(session.user);
-                    await getProfile(session.user.id);
-                } else {
-                    setUser(null);
-                    setProfile(null);
-                }
-                setLoading(false);
+            if (session?.user) {
+                setUser(session.user);
+                await getProfile(session.user.id);
+            } else {
+                setUser(null);
+                setProfile(null);
             }
+            // 状態変化でローディング完了
+            setLoading(false);
         });
 
         // プロフィール更新イベントの監視
@@ -156,7 +138,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         return () => {
             mounted = false;
-            clearTimeout(timeout);
             subscription.unsubscribe();
             window.removeEventListener('profile-updated', onProfileUpdated as EventListener);
         };

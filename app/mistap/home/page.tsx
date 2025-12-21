@@ -148,7 +148,7 @@ export default function HomePage() {
         if (authProfile) {
             setProfile(prev => ({
                 ...prev,
-                fullName: authProfile.full_name || prev.fullName,
+                full_name: authProfile.full_name || prev.fullName,
                 grade: authProfile.grade || prev.grade,
                 lastLoginAt: authProfile.last_login_at || prev.lastLoginAt,
                 consecutiveLoginDays: authProfile.consecutive_login_days || prev.consecutiveLoginDays,
@@ -157,12 +157,14 @@ export default function HomePage() {
                 startDate: authProfile.start_date || prev.startDate,
                 selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook
             }));
+            // プロフィールがロードされたとみなす
+            setProfileLoaded(true);
         }
     }, [authProfile]);
 
-    // プロフィールとデータの読み込み（バックグラウンドで実行、UIはすぐ表示）
+    // 追加データの読み込み（ストリーク更新、今日の目標、履歴）
     useEffect(() => {
-        // 認証読み込み中またはユーザーがいない場合はスキップ
+        // ユーザーがいない、または初期ロード中はスキップ
         if (authLoading || !user) {
             return;
         }
@@ -170,80 +172,56 @@ export default function HomePage() {
         const supabase = getSupabase();
         if (!supabase) {
             setError('データベース接続エラー');
-            setProfileLoaded(true); // エラーでもローディング解除
             return;
         }
 
         let mounted = true;
-        // このuseEffect実行時に前回の読み込みフラグをリセット
-        isLoadingProfileRef.current = false;
+        // データ取得中は前回のエラーをクリア
+        setError(null);
 
-        // 安全装置: 5秒後に強制的にローディングを解除
-        const safetyTimeout = setTimeout(() => {
-            if (mounted && !profileLoaded) {
-                console.warn('Profile loading safety timeout triggered');
-                setProfileLoaded(true);
-            }
-        }, 5000);
+        const loadAdditionalData = async () => {
+            const userId = user.id;
 
-        async function loadProfile() {
-            // 既に読み込み済みの場合はスキップ
-            if (profileLoaded) {
-                return;
-            }
-            isLoadingProfileRef.current = true;
-
-            try {
-                const userId = user!.id;
-
-                // 自動ログイン（セッション維持）の場合もカウントするためにここで更新
-                // 重複実行を防ぐためフラグでガード
-                if (!isUpdatingStreakRef.current) {
-                    isUpdatingStreakRef.current = true;
-                    try {
-                        const streakResult = await updateLoginStreak(userId);
-                        if (!streakResult) {
-                            // Login streak update returned null
-                        }
-                    } catch {
-                        // Error updating login streak
-                    } finally {
-                        // Reset flag after a short delay to allow for legitimate re-triggers
-                        setTimeout(() => { isUpdatingStreakRef.current = false; }, 5000);
+            // 1. ログインストリークの更新 (副作用なのでここで実行)
+            if (!isUpdatingStreakRef.current) {
+                isUpdatingStreakRef.current = true;
+                // バックグラウンド実行（待たない）
+                updateLoginStreak(userId).then(streak => {
+                    if (mounted && streak) {
+                        setProfile(prev => ({
+                            ...prev,
+                            lastLoginAt: streak.lastLogin,
+                            consecutiveLoginDays: streak.consecutiveDays
+                        }));
                     }
-                }
+                }).catch(err => {
+                    console.error('Streak update failed:', err);
+                }).finally(() => {
+                    // 再実行防止期間
+                    setTimeout(() => {
+                        if (mounted) isUpdatingStreakRef.current = false;
+                    }, 5000);
+                });
+            }
 
-                const { data: profileData, error: profileError } = await supabase!
-                    .from('profiles')
-                    .select('full_name, grade, test_count, daily_goal, start_date, selected_textbook')
-                    .eq('id', userId)
-                    .single();
-
-                // マウント解除されていたら処理を中断
-                if (!mounted) return;
-
-                if (profileError) {
-                    setError('プロフィール情報の取得に失敗しました');
-                    setProfileLoaded(true);
-                    return;
-                }
-
-                // 今日の目標計算
-                if (profileData?.daily_goal && profileData?.start_date && profileData?.selected_textbook) {
-                    const { data: maxWordData } = await supabase!
+            // 2. 今日の目標計算 (プロフィール情報が必要)
+            // AuthContextの最新プロフィールを使用
+            const currentProfile = authProfile;
+            if (currentProfile?.daily_goal && currentProfile?.start_date && currentProfile?.selected_textbook) {
+                try {
+                    const { data: maxWordData } = await supabase
                         .from('words')
                         .select('word_number')
-                        .eq('text', profileData.selected_textbook)
+                        .eq('text', currentProfile.selected_textbook)
                         .order('word_number', { ascending: false })
                         .limit(1)
                         .single();
 
                     if (maxWordData && mounted) {
                         const maxWords = maxWordData.word_number;
-                        const dailyGoal = profileData.daily_goal;
-                        const startDate = new Date(profileData.start_date);
+                        const dailyGoal = currentProfile.daily_goal;
+                        const startDate = new Date(currentProfile.start_date);
                         const today = new Date();
-                        // 時間をリセットして日付のみで比較
                         startDate.setHours(0, 0, 0, 0);
                         today.setHours(0, 0, 0, 0);
 
@@ -251,10 +229,7 @@ export default function HomePage() {
                         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
                         if (diffDays >= 0) {
-                            // サイクル計算
                             let currentStartNum = 1;
-                            // 単純な計算ではなく、ループでシミュレーションして正確な範囲を特定
-                            // (パフォーマンス的には数式が良いが、ロジックの整合性を優先)
                             for (let i = 0; i <= diffDays; i++) {
                                 let endNum = currentStartNum + dailyGoal - 1;
                                 if (endNum > maxWords) {
@@ -263,14 +238,13 @@ export default function HomePage() {
 
                                 if (i === diffDays) {
                                     setTodayGoal({
-                                        textbook: profileData.selected_textbook,
+                                        textbook: currentProfile.selected_textbook!,
                                         start: currentStartNum,
                                         end: endNum
                                     });
                                     break;
                                 }
 
-                                // 次の日の開始番号
                                 if (endNum === maxWords) {
                                     currentStartNum = 1;
                                 } else {
@@ -279,86 +253,49 @@ export default function HomePage() {
                             }
                         }
                     }
+                } catch (e) {
+                    console.error('Goal calculation error:', e);
                 }
+            }
 
-                // マウント解除されていたら処理を中断
-                if (!mounted) return;
-
-                const loginInfo = await getLoginInfo(userId);
-
-                if (!mounted) return;
-
-                setProfile({
-                    fullName: profileData?.full_name || 'ゲスト',
-                    grade: profileData?.grade || '未設定',
-                    lastLoginAt: loginInfo?.lastLoginAt || null,
-                    consecutiveLoginDays: loginInfo?.consecutiveLoginDays || 0,
-                    totalTestsTaken: profileData?.test_count || 0,
-                    dailyGoal: profileData?.daily_goal,
-                    startDate: profileData?.start_date,
-                    selectedTextbook: profileData?.selected_textbook
-                });
-
-                const { data: resultsData, error: resultsError } = await supabase!
+            // 3. 最近の成績取得
+            try {
+                const { data: resultsData, error: resultsError } = await supabase
                     .from('results')
                     .select('*')
                     .eq('user_id', userId)
                     .order('created_at', { ascending: false })
                     .limit(3);
 
-                if (!mounted) return;
-
-                if (resultsError) {
-                    // Results fetch error - ignored
-                } else {
+                if (mounted && !resultsError) {
                     setRecentResults(resultsData || []);
                 }
-            } finally {
-                if (mounted) {
-                    setProfileLoaded(true);
-                }
-                isLoadingProfileRef.current = false;
+            } catch (e) {
+                console.error('Recent results fetch error:', e);
             }
-        }
 
-        // 初回読み込み
-        loadProfile();
-
-        // 画面がアクティブになったら再読み込み（日をまたいだ場合の対策）
-        // debounceを適用して連続発火を防止
-        const debouncedLoadProfile = () => {
-            if (loadDebounceRef.current) {
-                clearTimeout(loadDebounceRef.current);
+            if (mounted) {
+                setProfileLoaded(true);
             }
-            loadDebounceRef.current = setTimeout(() => {
-                loadProfile();
-                loadDebounceRef.current = null;
-            }, 300); // 300ms のdebounce
         };
 
+        loadAdditionalData();
+
+        // 可視性変更時のリロードハンドラ
         const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                debouncedLoadProfile();
+            // 認証があり、タブがアクティブになった場合のみデータ更新
+            if (document.visibilityState === 'visible' && !authLoading && user) {
+                loadAdditionalData();
             }
-        };
-
-        const handleFocus = () => {
-            debouncedLoadProfile();
         };
 
         window.addEventListener('visibilitychange', handleVisibilityChange);
-        window.addEventListener('focus', handleFocus);
 
         return () => {
             mounted = false;
-            clearTimeout(safetyTimeout);
             window.removeEventListener('visibilitychange', handleVisibilityChange);
-            window.removeEventListener('focus', handleFocus);
-            if (loadDebounceRef.current) {
-                clearTimeout(loadDebounceRef.current);
-            }
         };
-    }, [authLoading, user, user?.id]);
+    }, [authLoading, user, user?.id, authProfile]);
 
     const formatDate = (dateString: string | null): string => {
         if (!dateString) return '記録なし';
