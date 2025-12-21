@@ -28,9 +28,8 @@ export default function SiteHeader() {
             </Link>
 
             <nav className="flex items-center gap-4">
-                {loading ? (
-                    <div className="w-20 h-8 bg-slate-100 rounded-lg animate-pulse" />
-                ) : user ? (
+                {/* ユーザー情報がある場合はすぐに表示（ローディング中でも） */}
+                {user ? (
                     /* ログイン済み: ハンバーガーメニュー */
                     <div className="relative">
                         <button
@@ -98,6 +97,9 @@ export default function SiteHeader() {
                             </>
                         )}
                     </div>
+                ) : loading ? (
+                    /* ローディング中（ユーザー情報がまだ取得できていない場合のみ） */
+                    <div className="w-20 h-8 bg-slate-100 rounded-lg animate-pulse" />
                 ) : (
                     /* 未ログイン: ログイン・新規登録ボタン */
                     <div className="flex items-center gap-3">

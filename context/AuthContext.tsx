@@ -49,6 +49,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let mounted = true;
 
+        // 高速初期化: LocalStorageからセッションをすぐに読み取る
+        // Supabase はセッションを localStorage に保存しているため、これを直接読み取ることで
+        // 初期表示を高速化できる
+        const quickSessionCheck = () => {
+            try {
+                const storageKey = Object.keys(localStorage).find(key =>
+                    key.startsWith('sb-') && key.endsWith('-auth-token')
+                );
+                if (storageKey) {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        if (parsed?.user) {
+                            // 仮にユーザー情報をセット（正式なセッション確認は並行して行う）
+                            setUser(parsed.user);
+                            return true;
+                        }
+                    }
+                }
+            } catch {
+                // localStorage読み取りエラーは無視
+            }
+            return false;
+        };
+
+        // 即座にlocalStorageをチェック
+        const hasQuickSession = quickSessionCheck();
+
         async function getProfile(userId: string) {
             const supabase = getSupabase();
             if (!supabase || !mounted) return;
@@ -128,8 +156,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
                     retryCount++;
                     if (retryCount <= maxRetries && mounted) {
-                        // 2秒待機
-                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        // 1秒待機（短縮）
+                        await new Promise(resolve => setTimeout(resolve, 1000));
                     }
                 }
             }
@@ -159,20 +187,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 console.error(`Session fetch error (attempt ${retryCount + 1}):`, error);
 
                 // エラー時はローディング状態を解除せず、リトライする
-                // 3回失敗しても、onAuthStateChange が解決してくれることを期待して
-                // ここでは loading: false にしない（安易なログアウト判定を防ぐ）
                 if (mounted) {
                     const nextRetry = retryCount + 1;
-                    // 初回ロード時はユーザーを待たせすぎないようにリトライ回数と間隔を短く調整
-                    // LocalStorageからの読み込みであれば基本即時のはず。失敗＝ネットワークor設定ミス
-                    const delay = Math.min(500 * Math.pow(1.5, nextRetry), 2000);
+                    // リトライ間隔を短縮（200ms〜1秒）
+                    const delay = Math.min(200 * Math.pow(1.5, nextRetry), 1000);
 
                     if (nextRetry < 3) {
                         setTimeout(() => fetchSession(nextRetry), delay);
                     } else {
                         console.warn('Session fetch failed multiple times. Defaulting to logged out state.');
-                        // 何度（5回）リトライしてもダメな場合は、これ以上待たせるとUIが固まるため
-                        // 「ゲスト（未ログイン）」として判定を下す
                         if (mounted) {
                             setUser(null);
                             setProfile(null);
@@ -185,13 +208,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         fetchSession();
 
-        // セーフティネット: 万が一、非同期処理がハングした場合でも7秒後には強制的にローディングを解除する
+        // セーフティネット: 3秒後には強制的にローディングを解除する（7秒から短縮）
         const safetyTimeout = setTimeout(() => {
             if (mounted && loading) {
                 console.warn('Auth check timed out. Forcing loading to false.');
                 setLoading(false);
             }
-        }, 7000);
+        }, 3000);
 
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
