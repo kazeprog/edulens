@@ -49,16 +49,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let mounted = true;
 
-        async function getProfile(userId: string) {
+        async function getProfile(userId: string, retryCount = 0) {
             const supabase = getSupabase();
             if (!supabase) return;
 
             try {
-                const { data: existing } = await supabase
+                const { data: existing, error } = await supabase
                     .from('profiles')
                     .select('*')
                     .eq('id', userId)
                     .single();
+
+                if (error) throw error;
 
                 if (!existing) {
                     await supabase.from('profiles').insert({
@@ -76,7 +78,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     }
                 }
             } catch (error) {
-                console.error('Profile fetch error:', error);
+                console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
+                if (retryCount < 3 && mounted) {
+                    setTimeout(() => getProfile(userId, retryCount + 1), 1000);
+                }
             }
         }
 
@@ -88,9 +93,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         }, 5000);
 
-        // 初期セッション取得
-        supabase.auth.getSession()
-            .then(({ data: { session } }) => {
+        // 初期セッション取得（リトライ機能付き）
+        const fetchSession = async (retryCount = 0) => {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (error) throw error;
+
                 if (mounted) {
                     if (session?.user) {
                         setUser(session.user);
@@ -102,14 +110,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     setLoading(false);
                     clearTimeout(timeout);
                 }
-            })
-            .catch((error) => {
-                console.error('Session fetch error:', error);
-                if (mounted) {
+            } catch (error) {
+                console.error(`Session fetch error (attempt ${retryCount + 1}):`, error);
+                if (retryCount < 3 && mounted) {
+                    // 1秒待機してリトライ
+                    setTimeout(() => fetchSession(retryCount + 1), 1000);
+                } else if (mounted) {
                     setLoading(false);
                     clearTimeout(timeout);
                 }
-            });
+            }
+        };
+
+        fetchSession();
 
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -150,12 +163,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const signOut = async () => {
-        const supabase = getSupabase();
-        if (supabase) {
-            await supabase.auth.signOut();
+        setLoading(true); // 処理中はローディングにする（ガード用）
+        try {
+            const supabase = getSupabase();
+            if (supabase) {
+                await supabase.auth.signOut();
+            }
+        } catch (error) {
+            console.error('Sign out error:', error);
+        } finally {
+            setUser(null);
+            setProfile(null);
+            setLoading(false);
         }
-        setUser(null);
-        setProfile(null);
     };
 
     return (
