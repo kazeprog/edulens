@@ -33,49 +33,6 @@ const AuthContext = createContext<AuthContextType>({
 
 export const useAuth = () => useContext(AuthContext);
 
-// Supabaseのストレージキーを直接クリアする緊急用関数
-function clearSupabaseLocalStorage() {
-    if (typeof window === 'undefined') return;
-
-    try {
-        // Supabaseが使用するローカルストレージのキーを削除
-        const keysToRemove: string[] = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && (key.includes('supabase') || key.includes('sb-'))) {
-                keysToRemove.push(key);
-            }
-        }
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-        console.log('Cleared Supabase localStorage keys:', keysToRemove);
-    } catch (e) {
-        console.error('Failed to clear localStorage:', e);
-    }
-}
-
-// エラーがトークン関連かどうかを判定
-function isTokenError(error: unknown): boolean {
-    if (!error) return false;
-
-    const errorStr = String(error).toLowerCase();
-    const message = (error as { message?: string })?.message?.toLowerCase() || '';
-    const code = (error as { code?: string })?.code || '';
-
-    return (
-        errorStr.includes('refresh') ||
-        errorStr.includes('token') ||
-        errorStr.includes('invalid') ||
-        errorStr.includes('expired') ||
-        errorStr.includes('jwt') ||
-        message.includes('refresh') ||
-        message.includes('token') ||
-        message.includes('invalid') ||
-        message.includes('expired') ||
-        message.includes('jwt') ||
-        code === 'PGRST301' // JWT error
-    );
-}
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -86,29 +43,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Supabaseが利用不可の場合は認証をスキップ
         if (!supabase) {
-            console.log('Supabase not available, skipping auth');
             setLoading(false);
             return;
         }
 
         let mounted = true;
 
-        async function getProfile(userId: string): Promise<Profile | null> {
+        // プロフィール取得（エラーでもログアウトしない）
+        async function fetchProfile(userId: string) {
             const supabase = getSupabase();
-            if (!supabase || !mounted) return null;
+            if (!supabase || !mounted) return;
 
             try {
-                const { data: existing, error } = await supabase
+                const { data, error } = await supabase
                     .from('profiles')
                     .select('*')
                     .eq('id', userId)
                     .single();
 
-                if (!mounted) return null;
+                if (!mounted) return;
 
                 if (error) {
-                    // プロフィールが存在しない場合は作成
                     if (error.code === 'PGRST116') {
+                        // プロフィールが存在しない場合は作成を試みる
                         const defaultProfile = { id: userId, full_name: null, role: 'student' };
                         try {
                             await supabase.from('profiles').upsert(defaultProfile, {
@@ -116,129 +73,62 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                                 ignoreDuplicates: true
                             });
                         } catch {
-                            // upsert失敗でも続行
+                            // ignore upsert error
                         }
-                        return defaultProfile as Profile;
+                        setProfile(defaultProfile as Profile);
+                    } else {
+                        console.warn('Profile fetch error:', error.message);
+                        // エラーでもデフォルトプロフィールをセット（ログアウトしない）
+                        setProfile({ id: userId, full_name: null, role: 'student' } as Profile);
                     }
-                    console.error('Profile fetch error:', error);
-                    // エラーでもデフォルトプロフィールを返す
-                    return { id: userId, full_name: null, role: 'student' } as Profile;
-                }
-
-                return existing;
-            } catch (error) {
-                console.error('Profile fetch exception:', error);
-                return { id: userId, full_name: null, role: 'student' } as Profile;
-            }
-        }
-
-        // セッションをクリアしてログアウト状態にする
-        async function clearSessionAndLogout() {
-            console.log('Clearing session and setting logged out state');
-
-            // まずSupabaseのsignOutを試みる
-            try {
-                const supabase = getSupabase();
-                if (supabase) {
-                    await supabase.auth.signOut({ scope: 'local' });
-                }
-            } catch (signOutError) {
-                console.log('signOut failed, clearing localStorage directly:', signOutError);
-            }
-
-            // ローカルストレージを直接クリア（バックアップ）
-            clearSupabaseLocalStorage();
-
-            if (mounted) {
-                setUser(null);
-                setProfile(null);
-                setLoading(false);
-            }
-        }
-
-        // 初期セッション取得（シンプル化：リトライなし）
-        async function fetchSession() {
-            console.log('Fetching session...');
-
-            try {
-                const { data: { session }, error } = await supabase!.auth.getSession();
-
-                if (!mounted) return;
-
-                if (error) {
-                    console.error('Session fetch error:', error);
-
-                    // トークン関連エラーの場合はセッションをクリア
-                    if (isTokenError(error)) {
-                        console.log('Token error detected, clearing session');
-                        await clearSessionAndLogout();
-                        return;
-                    }
-
-                    // その他のエラーでもログアウト状態にする（安全策）
-                    await clearSessionAndLogout();
                     return;
                 }
 
-                if (session?.user) {
-                    console.log('Session found for user:', session.user.id);
-                    setUser(session.user);
-                    const profile = await getProfile(session.user.id);
-                    if (mounted) {
-                        setProfile(profile);
-                        setLoading(false);
-                    }
-                } else {
-                    console.log('No session found');
-                    setUser(null);
-                    setProfile(null);
-                    setLoading(false);
+                setProfile(data);
+            } catch (err) {
+                console.warn('Profile fetch exception:', err);
+                // 例外でもデフォルトプロフィールをセット（ログアウトしない）
+                if (mounted) {
+                    setProfile({ id: userId, full_name: null, role: 'student' } as Profile);
                 }
-            } catch (error) {
-                console.error('Session fetch exception:', error);
-
-                if (!mounted) return;
-
-                // 例外の場合もセッションをクリア
-                await clearSessionAndLogout();
             }
         }
 
-        fetchSession();
+        // 初期セッション確認
+        async function initSession() {
+            try {
+                const { data: { session } } = await supabase!.auth.getSession();
 
-        // セーフティネット: 5秒後には必ずローディングを解除
-        const safetyTimeout = setTimeout(() => {
-            if (mounted) {
-                setLoading(prev => {
-                    if (prev) {
-                        console.warn('Auth check timed out after 5s. Forcing loading to false and clearing session.');
-                        // タイムアウト時は安全のためセッションもクリア
-                        clearSupabaseLocalStorage();
-                        setUser(null);
-                        setProfile(null);
-                        return false;
-                    }
-                    return prev;
-                });
+                if (!mounted) return;
+
+                if (session?.user) {
+                    setUser(session.user);
+                    await fetchProfile(session.user.id);
+                } else {
+                    setUser(null);
+                    setProfile(null);
+                }
+            } catch (err) {
+                console.warn('getSession error:', err);
+                // エラーでもログアウトしない、単にnullにする
+                if (mounted) {
+                    setUser(null);
+                    setProfile(null);
+                }
+            } finally {
+                if (mounted) {
+                    setLoading(false);
+                }
             }
-        }, 5000);
+        }
 
-        // 認証状態の変更監視
+        initSession();
+
+        // 状態変更監視（Supabase標準のイベントのみに依存）
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (!mounted) return;
 
-            console.log('Auth state change:', event, session?.user?.id);
-
-            // トークンリフレッシュ失敗
-            if (event === 'TOKEN_REFRESHED' && !session) {
-                console.log('Token refresh failed in onAuthStateChange');
-                await clearSessionAndLogout();
-                return;
-            }
-
-            // SIGNED_OUT イベント
             if (event === 'SIGNED_OUT') {
-                console.log('User signed out');
                 setUser(null);
                 setProfile(null);
                 setLoading(false);
@@ -247,10 +137,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             if (session?.user) {
                 setUser(session.user);
-                const profile = await getProfile(session.user.id);
-                if (mounted) {
-                    setProfile(profile);
-                }
+                await fetchProfile(session.user.id);
             } else {
                 setUser(null);
                 setProfile(null);
@@ -268,32 +155,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         return () => {
             mounted = false;
-            clearTimeout(safetyTimeout);
             subscription.unsubscribe();
             window.removeEventListener('profile-updated', onProfileUpdated as EventListener);
         };
     }, []);
 
     const signOut = async () => {
-        console.log('signOut called');
-
-        // まず状態をクリア（UIを即座に更新）
-        setUser(null);
-        setProfile(null);
-
-        try {
-            const supabase = getSupabase();
-            if (supabase) {
-                await supabase.auth.signOut();
-            }
-        } catch (error) {
-            console.error('Sign out error:', error);
+        const supabase = getSupabase();
+        if (supabase) {
+            await supabase.auth.signOut();
         }
-
-        // ローカルストレージを直接クリア（確実にログアウト）
-        clearSupabaseLocalStorage();
-
-        setLoading(false);
+        // onAuthStateChange の SIGNED_OUT イベントで状態がクリアされる
     };
 
     return (
