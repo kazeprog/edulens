@@ -82,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (!supabase || !mounted) return;
 
             let retryCount = 0;
-            const maxRetries = 2;
+            const maxRetries = 1; // リトライは1回のみ（合計2回試行）
 
             while (retryCount <= maxRetries && mounted) {
                 try {
@@ -94,70 +94,53 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
                     if (!mounted) return;
 
-                    let profileData = existing;
-
                     // エラーハンドリング
                     if (error) {
-                        // PGRST116（データなし）の場合も、即座に諦めずにリトライする（RLSやタイミングの問題の可能性）
-                        // ただし、リトライ最後回でこれなら「本当にない」とみなす
+                        // PGRST116（データなし）の場合は即座にupsertへ進む（リトライしない）
                         if (error.code === 'PGRST116') {
-                            if (retryCount < maxRetries) {
-                                console.log(`Profile not found (attempt ${retryCount + 1}), retrying...`);
-                                throw error; // catchブロックへ飛ばしてリトライさせる
-                            }
-                            // リトライしきったらデータなしとして扱う
-                            profileData = null;
-                        } else {
-                            throw error; // その他のエラーはリトライまたはthrow
-                        }
-                    } else {
-                        profileData = existing;
-                    }
+                            // プロフィールが存在しない→作成を試みる
+                            try {
+                                await supabase.from('profiles').upsert({
+                                    id: userId,
+                                    full_name: null,
+                                    role: 'student',
+                                }, { onConflict: 'id', ignoreDuplicates: true });
 
-                    if (!profileData) {
-                        console.log('Profile finding failed or empty, attempting upsert/fetch...');
-                        try {
-                            // DBトリガーがない場合のフォールバック（ベストエフォート）
-                            // 既に作成されている場合もあるので、Conflict時は無視
-                            await supabase.from('profiles').upsert({
-                                id: userId,
-                                full_name: null,
-                                role: 'student',
-                            }, { onConflict: 'id', ignoreDuplicates: true });
+                                const { data: recheck } = await supabase
+                                    .from('profiles')
+                                    .select('*')
+                                    .eq('id', userId)
+                                    .single();
 
-                            // Upsert後、もう一度取得を試みる（既存だった場合、データを取り直すため）
-                            const { data: recheck } = await supabase
-                                .from('profiles')
-                                .select('*')
-                                .eq('id', userId)
-                                .single();
-
-                            if (mounted) {
-                                if (recheck) {
-                                    console.log('Profile fetched after upsert:', recheck);
-                                    setProfile(recheck);
-                                } else {
-                                    // それでも取れない場合は、とりあえず初期値をセット
-                                    console.warn('Profile still missing after upsert, setting default.');
+                                if (mounted) {
+                                    setProfile(recheck || { id: userId, full_name: null, role: 'student' });
+                                }
+                            } catch {
+                                if (mounted) {
                                     setProfile({ id: userId, full_name: null, role: 'student' });
                                 }
                             }
-                        } catch (ignore) {
-                            console.warn('Upsert failed:', ignore);
+                            return;
                         }
-                    } else {
-                        // console.log('Profile found:', profileData);
-                        setProfile(profileData);
+                        // その他のエラーはリトライ
+                        throw error;
                     }
-                    // 成功したらループを抜ける
+
+                    // 取得成功
+                    if (mounted) {
+                        setProfile(existing);
+                    }
                     return;
 
                 } catch (error) {
                     console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
                     retryCount++;
                     if (retryCount <= maxRetries && mounted) {
-                        // 1秒待機（短縮）
-                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        // 300ms待機（高速化）
+                        await new Promise(resolve => setTimeout(resolve, 300));
+                    } else if (mounted) {
+                        // リトライ失敗→デフォルト値をセット
+                        setProfile({ id: userId, full_name: null, role: 'student' });
                     }
                 }
             }
