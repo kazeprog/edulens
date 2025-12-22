@@ -79,7 +79,7 @@ export default function HomePage() {
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [profileTimedOut, setProfileTimedOut] = useState(false);
+    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     // useRefを使用して最新の値を参照（依存配列に含めずに最新値を参照するため）
     const isUpdatingStreakRef = useRef(false);
     // 読み込み中フラグ（重複読み込み防止）
@@ -117,19 +117,30 @@ export default function HomePage() {
         }
     }, [authLoading, user, router]);
 
-    // プロフィール読み込みタイムアウト（5秒）
+    // 初期ロード完了をトラッキング
     useEffect(() => {
-        if (!authLoading && user && !authProfile && !profileTimedOut) {
+        if (!authLoading) {
+            // 初期ロードが完了したら、少し待ってからトラッキング開始
+            const timer = setTimeout(() => {
+                setInitialLoadComplete(true);
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [authLoading]);
+
+    // プロフィール読み込みタイムアウト（5秒）
+    // 初期ロード完了後、userがいるのにprofileがロードされない場合のみ適用
+    useEffect(() => {
+        if (!authLoading && user && !authProfile && initialLoadComplete) {
             const timeout = setTimeout(async () => {
                 console.warn('Profile load timeout - redirecting to Mistap landing');
-                setProfileTimedOut(true);
                 // 無効なトークンをクリアするために強制サインアウト
                 await signOut();
                 router.replace('/mistap');
             }, 5000);
             return () => clearTimeout(timeout);
         }
-    }, [authLoading, user, authProfile, profileTimedOut, signOut, router]);
+    }, [authLoading, user, authProfile, initialLoadComplete, signOut, router]);
 
     useEffect(() => {
         document.title = 'ホーム - Mistap';

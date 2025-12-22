@@ -32,7 +32,7 @@ export default function Home() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
-  const [profileTimedOut, setProfileTimedOut] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const router = useRouter();
 
   // Carousel state
@@ -40,6 +40,17 @@ export default function Home() {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isManual, setIsManual] = useState(false);
   const manualResumeTimerRef = useRef<number | null>(null);
+
+  // 初期ロード完了をトラッキング（タイムアウトは初期ロード後のみ）
+  useEffect(() => {
+    if (!authLoading) {
+      // 初期ロードが完了したら、少し待ってからトラッキング開始
+      const timer = setTimeout(() => {
+        setInitialLoadComplete(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [authLoading]);
 
   // ログイン済みユーザーは自動的にホームへリダイレクト
   // profile も読み込まれていることを確認してからリダイレクト（レースコンディション防止）
@@ -50,18 +61,18 @@ export default function Home() {
   }, [authLoading, user, profile, router]);
 
   // プロフィール読み込みタイムアウト（5秒）
-  // userがいるのにprofileがロードされない場合、無効なトークンの可能性
+  // 初期ロード完了後、userがいるのにprofileがロードされない場合のみ適用
+  // 新規ログイン直後には適用しない
   useEffect(() => {
-    if (!authLoading && user && !profile && !profileTimedOut) {
+    if (!authLoading && user && !profile && initialLoadComplete) {
       const timeout = setTimeout(async () => {
         console.warn('Profile load timeout on Mistap landing - forcing sign out');
-        setProfileTimedOut(true);
         // 無効なトークンをクリアするために強制サインアウト
         await signOut();
       }, 5000);
       return () => clearTimeout(timeout);
     }
-  }, [authLoading, user, profile, profileTimedOut, signOut]);
+  }, [authLoading, user, profile, initialLoadComplete, signOut]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
