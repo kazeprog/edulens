@@ -112,6 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         await new Promise(resolve => setTimeout(resolve, 300));
                     } else if (mounted) {
                         // リトライ失敗→デフォルト値をセット
+                        console.log('Profile fetch failed, setting default profile');
                         setProfile({ id: userId, full_name: null, role: 'student' });
                     }
                 }
@@ -129,11 +130,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
                 if (mounted) {
                     if (session?.user) {
+                        console.log('Session found, setting user and fetching profile');
                         setUser(session.user);
                         await getProfile(session.user.id);
                     } else {
                         // 正常に「セッションなし」が返ってきた場合
                         // quickSessionCheckで仮セットしたuserをクリア
+                        console.log('No session found, clearing user/profile');
                         setUser(null);
                         setProfile(null);
                     }
@@ -165,11 +168,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         fetchSession();
 
-        // セーフティネット: 3秒後には強制的にローディングを解除する（7秒から短縮）
+        // セーフティネット: 3秒後には強制的にローディングを解除する
+        // loadingの現在値をチェックするため、useRefで追跡が必要
         const safetyTimeout = setTimeout(() => {
-            if (mounted && loading) {
-                console.warn('Auth check timed out. Forcing loading to false.');
-                setLoading(false);
+            if (mounted) {
+                // getSessionとonAuthStateChangeの両方が完了していない場合のフォールバック
+                // 3秒経過してもまだloadingがtrueなら、何か問題があるので強制的に解除
+                setLoading(prev => {
+                    if (prev) {
+                        console.warn('Auth check timed out. Forcing loading to false.');
+                        return false;
+                    }
+                    return prev;
+                });
             }
         }, 3000);
 
