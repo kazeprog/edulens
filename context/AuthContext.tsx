@@ -49,38 +49,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let mounted = true;
 
-        // 高速初期化: LocalStorageからセッションをすぐに読み取る
-        // Supabase はセッションを localStorage に保存しているため、これを直接読み取ることで
-        // 初期表示を高速化できる
-        const quickSessionCheck = () => {
-            try {
-                const storageKey = Object.keys(localStorage).find(key =>
-                    key.startsWith('sb-') && key.endsWith('-auth-token')
-                );
-                if (storageKey) {
-                    const stored = localStorage.getItem(storageKey);
-                    if (stored) {
-                        const parsed = JSON.parse(stored);
-                        // セッションの有効期限をチェック
-                        const expiresAt = parsed?.expires_at;
-                        const currentTime = Math.floor(Date.now() / 1000);
-
-                        if (parsed?.user && expiresAt && expiresAt > currentTime) {
-                            // 仮にユーザー情報をセット（正式なセッション確認は並行して行う）
-                            setUser(parsed.user);
-                            return true;
-                        }
-                    }
-                }
-            } catch {
-                // localStorage読み取りエラーは無視
-            }
-            return false;
-        };
-
-        // 即座にlocalStorageをチェック
-        const hasQuickSession = quickSessionCheck();
-
         async function getProfile(userId: string) {
             const supabase = getSupabase();
             if (!supabase || !mounted) return;
