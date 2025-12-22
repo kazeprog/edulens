@@ -33,6 +33,49 @@ const AuthContext = createContext<AuthContextType>({
 
 export const useAuth = () => useContext(AuthContext);
 
+// Supabaseのストレージキーを直接クリアする緊急用関数
+function clearSupabaseLocalStorage() {
+    if (typeof window === 'undefined') return;
+
+    try {
+        // Supabaseが使用するローカルストレージのキーを削除
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.includes('supabase') || key.includes('sb-'))) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+        console.log('Cleared Supabase localStorage keys:', keysToRemove);
+    } catch (e) {
+        console.error('Failed to clear localStorage:', e);
+    }
+}
+
+// エラーがトークン関連かどうかを判定
+function isTokenError(error: unknown): boolean {
+    if (!error) return false;
+
+    const errorStr = String(error).toLowerCase();
+    const message = (error as { message?: string })?.message?.toLowerCase() || '';
+    const code = (error as { code?: string })?.code || '';
+
+    return (
+        errorStr.includes('refresh') ||
+        errorStr.includes('token') ||
+        errorStr.includes('invalid') ||
+        errorStr.includes('expired') ||
+        errorStr.includes('jwt') ||
+        message.includes('refresh') ||
+        message.includes('token') ||
+        message.includes('invalid') ||
+        message.includes('expired') ||
+        message.includes('jwt') ||
+        code === 'PGRST301' // JWT error
+    );
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -43,166 +86,159 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Supabaseが利用不可の場合は認証をスキップ
         if (!supabase) {
+            console.log('Supabase not available, skipping auth');
             setLoading(false);
             return;
         }
 
         let mounted = true;
 
-        async function getProfile(userId: string) {
+        async function getProfile(userId: string): Promise<Profile | null> {
             const supabase = getSupabase();
-            if (!supabase || !mounted) return;
+            if (!supabase || !mounted) return null;
 
-            let retryCount = 0;
-            const maxRetries = 1; // リトライは1回のみ（合計2回試行）
+            try {
+                const { data: existing, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', userId)
+                    .single();
 
-            while (retryCount <= maxRetries && mounted) {
-                try {
-                    const { data: existing, error } = await supabase
-                        .from('profiles')
-                        .select('*')
-                        .eq('id', userId)
-                        .single();
+                if (!mounted) return null;
 
-                    if (!mounted) return;
-
-                    // エラーハンドリング
-                    if (error) {
-                        // PGRST116（データなし）の場合は即座にupsertへ進む（リトライしない）
-                        if (error.code === 'PGRST116') {
-                            // プロフィールが存在しない→作成を試みる
-                            try {
-                                await supabase.from('profiles').upsert({
-                                    id: userId,
-                                    full_name: null,
-                                    role: 'student',
-                                }, { onConflict: 'id', ignoreDuplicates: true });
-
-                                const { data: recheck } = await supabase
-                                    .from('profiles')
-                                    .select('*')
-                                    .eq('id', userId)
-                                    .single();
-
-                                if (mounted) {
-                                    setProfile(recheck || { id: userId, full_name: null, role: 'student' });
-                                }
-                            } catch {
-                                if (mounted) {
-                                    setProfile({ id: userId, full_name: null, role: 'student' });
-                                }
-                            }
-                            return;
+                if (error) {
+                    // プロフィールが存在しない場合は作成
+                    if (error.code === 'PGRST116') {
+                        const defaultProfile = { id: userId, full_name: null, role: 'student' };
+                        try {
+                            await supabase.from('profiles').upsert(defaultProfile, {
+                                onConflict: 'id',
+                                ignoreDuplicates: true
+                            });
+                        } catch {
+                            // upsert失敗でも続行
                         }
-                        // その他のエラーはリトライ
-                        throw error;
+                        return defaultProfile as Profile;
                     }
-
-                    // 取得成功
-                    if (mounted) {
-                        setProfile(existing);
-                    }
-                    return;
-
-                } catch (error) {
-                    console.error(`Profile fetch error (attempt ${retryCount + 1}):`, error);
-                    retryCount++;
-                    if (retryCount <= maxRetries && mounted) {
-                        // 300ms待機（高速化）
-                        await new Promise(resolve => setTimeout(resolve, 300));
-                    } else if (mounted) {
-                        // リトライ失敗→デフォルト値をセット
-                        console.log('Profile fetch failed, setting default profile');
-                        setProfile({ id: userId, full_name: null, role: 'student' });
-                    }
+                    console.error('Profile fetch error:', error);
+                    // エラーでもデフォルトプロフィールを返す
+                    return { id: userId, full_name: null, role: 'student' } as Profile;
                 }
+
+                return existing;
+            } catch (error) {
+                console.error('Profile fetch exception:', error);
+                return { id: userId, full_name: null, role: 'student' } as Profile;
             }
         }
 
-        // 初期セッション取得
-        const fetchSession = async (retryCount = 0) => {
+        // セッションをクリアしてログアウト状態にする
+        async function clearSessionAndLogout() {
+            console.log('Clearing session and setting logged out state');
+
+            // まずSupabaseのsignOutを試みる
+            try {
+                const supabase = getSupabase();
+                if (supabase) {
+                    await supabase.auth.signOut({ scope: 'local' });
+                }
+            } catch (signOutError) {
+                console.log('signOut failed, clearing localStorage directly:', signOutError);
+            }
+
+            // ローカルストレージを直接クリア（バックアップ）
+            clearSupabaseLocalStorage();
+
+            if (mounted) {
+                setUser(null);
+                setProfile(null);
+                setLoading(false);
+            }
+        }
+
+        // 初期セッション取得（シンプル化：リトライなし）
+        async function fetchSession() {
+            console.log('Fetching session...');
+
             try {
                 const { data: { session }, error } = await supabase!.auth.getSession();
 
+                if (!mounted) return;
+
                 if (error) {
-                    // 無効なリフレッシュトークンエラーの場合は静かにクリアする
-                    if (error.message && error.message.includes('Invalid Refresh Token')) {
-                        console.log('Invalid refresh token detected, clearing session');
-                        // ローカルストレージから無効なトークンを削除
-                        await supabase!.auth.signOut({ scope: 'local' });
-                        if (mounted) {
-                            setUser(null);
-                            setProfile(null);
-                            setLoading(false);
-                        }
+                    console.error('Session fetch error:', error);
+
+                    // トークン関連エラーの場合はセッションをクリア
+                    if (isTokenError(error)) {
+                        console.log('Token error detected, clearing session');
+                        await clearSessionAndLogout();
                         return;
                     }
-                    throw error;
+
+                    // その他のエラーでもログアウト状態にする（安全策）
+                    await clearSessionAndLogout();
+                    return;
                 }
 
-                if (mounted) {
-                    if (session?.user) {
-                        console.log('Session found, setting user and fetching profile');
-                        setUser(session.user);
-                        await getProfile(session.user.id);
-                    } else {
-                        // 正常に「セッションなし」が返ってきた場合
-                        // quickSessionCheckで仮セットしたuserをクリア
-                        console.log('No session found, clearing user/profile');
-                        setUser(null);
-                        setProfile(null);
+                if (session?.user) {
+                    console.log('Session found for user:', session.user.id);
+                    setUser(session.user);
+                    const profile = await getProfile(session.user.id);
+                    if (mounted) {
+                        setProfile(profile);
+                        setLoading(false);
                     }
+                } else {
+                    console.log('No session found');
+                    setUser(null);
+                    setProfile(null);
                     setLoading(false);
                 }
             } catch (error) {
-                console.error(`Session fetch error (attempt ${retryCount + 1}):`, error);
+                console.error('Session fetch exception:', error);
 
-                // エラー時はローディング状態を解除せず、リトライする
-                if (mounted) {
-                    const nextRetry = retryCount + 1;
-                    // リトライ間隔を短縮（200ms〜1秒）
-                    const delay = Math.min(200 * Math.pow(1.5, nextRetry), 1000);
+                if (!mounted) return;
 
-                    if (nextRetry < 3) {
-                        setTimeout(() => fetchSession(nextRetry), delay);
-                    } else {
-                        console.warn('Session fetch failed multiple times. Defaulting to logged out state.');
-                        if (mounted) {
-                            // セッション取得失敗→ログアウト状態にする
-                            setUser(null);
-                            setProfile(null);
-                            setLoading(false);
-                        }
-                    }
-                }
+                // 例外の場合もセッションをクリア
+                await clearSessionAndLogout();
             }
-        };
+        }
 
         fetchSession();
 
-        // セーフティネット: 3秒後には強制的にローディングを解除する
-        // loadingの現在値をチェックするため、useRefで追跡が必要
+        // セーフティネット: 5秒後には必ずローディングを解除
         const safetyTimeout = setTimeout(() => {
             if (mounted) {
-                // getSessionとonAuthStateChangeの両方が完了していない場合のフォールバック
-                // 3秒経過してもまだloadingがtrueなら、何か問題があるので強制的に解除
                 setLoading(prev => {
                     if (prev) {
-                        console.warn('Auth check timed out. Forcing loading to false.');
+                        console.warn('Auth check timed out after 5s. Forcing loading to false and clearing session.');
+                        // タイムアウト時は安全のためセッションもクリア
+                        clearSupabaseLocalStorage();
+                        setUser(null);
+                        setProfile(null);
                         return false;
                     }
                     return prev;
                 });
             }
-        }, 3000);
+        }, 5000);
 
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (!mounted) return;
 
-            // トークンエラーイベントの場合は静かに処理
+            console.log('Auth state change:', event, session?.user?.id);
+
+            // トークンリフレッシュ失敗
             if (event === 'TOKEN_REFRESHED' && !session) {
-                console.log('Token refresh failed, clearing session');
+                console.log('Token refresh failed in onAuthStateChange');
+                await clearSessionAndLogout();
+                return;
+            }
+
+            // SIGNED_OUT イベント
+            if (event === 'SIGNED_OUT') {
+                console.log('User signed out');
                 setUser(null);
                 setProfile(null);
                 setLoading(false);
@@ -211,12 +247,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             if (session?.user) {
                 setUser(session.user);
-                await getProfile(session.user.id);
+                const profile = await getProfile(session.user.id);
+                if (mounted) {
+                    setProfile(profile);
+                }
             } else {
                 setUser(null);
                 setProfile(null);
             }
-            // 状態変化でローディング完了
             setLoading(false);
         });
 
@@ -237,7 +275,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const signOut = async () => {
-        setLoading(true); // 処理中はローディングにする（ガード用）
+        console.log('signOut called');
+
+        // まず状態をクリア（UIを即座に更新）
+        setUser(null);
+        setProfile(null);
+
         try {
             const supabase = getSupabase();
             if (supabase) {
@@ -245,11 +288,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         } catch (error) {
             console.error('Sign out error:', error);
-        } finally {
-            setUser(null);
-            setProfile(null);
-            setLoading(false);
         }
+
+        // ローカルストレージを直接クリア（確実にログアウト）
+        clearSupabaseLocalStorage();
+
+        setLoading(false);
     };
 
     return (

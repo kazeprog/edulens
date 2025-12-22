@@ -27,12 +27,11 @@ interface BlogPost {
 }
 
 export default function Home() {
-  const { user, profile, loading: authLoading, signOut } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
-  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const router = useRouter();
 
   // Carousel state
@@ -41,38 +40,12 @@ export default function Home() {
   const [isManual, setIsManual] = useState(false);
   const manualResumeTimerRef = useRef<number | null>(null);
 
-  // 初期ロード完了をトラッキング（タイムアウトは初期ロード後のみ）
-  useEffect(() => {
-    if (!authLoading) {
-      // 初期ロードが完了したら、少し待ってからトラッキング開始
-      const timer = setTimeout(() => {
-        setInitialLoadComplete(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [authLoading]);
-
   // ログイン済みユーザーは自動的にホームへリダイレクト
-  // profile も読み込まれていることを確認してからリダイレクト（レースコンディション防止）
   useEffect(() => {
     if (!authLoading && user && profile) {
       router.replace('/mistap/home');
     }
   }, [authLoading, user, profile, router]);
-
-  // プロフィール読み込みタイムアウト（5秒）
-  // 初期ロード完了後、userがいるのにprofileがロードされない場合のみ適用
-  // 新規ログイン直後には適用しない
-  useEffect(() => {
-    if (!authLoading && user && !profile && initialLoadComplete) {
-      const timeout = setTimeout(async () => {
-        console.warn('Profile load timeout on Mistap landing - forcing sign out');
-        // 無効なトークンをクリアするために強制サインアウト
-        await signOut();
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [authLoading, user, profile, initialLoadComplete, signOut]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -128,12 +101,8 @@ export default function Home() {
     router.push('/login?mode=signup&redirect=/mistap/home');
   };
 
-  // 認証確認中はローディング表示
-  // userがいる場合はprofileロード待ちでローディング表示（リダイレクト準備中）
-  // profileが揃っていればuseEffectでリダイレクトされる
-  const isWaitingForAuth = authLoading || (user && !profile);
-
-  if (isWaitingForAuth) {
+  // 認証確認中のみローディング表示
+  if (authLoading) {
     return (
       <Background>
         <div className="min-h-screen flex items-center justify-center">

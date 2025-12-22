@@ -63,7 +63,7 @@ interface TestResult {
 
 export default function HomePage() {
     const router = useRouter();
-    const { user, profile: authProfile, loading: authLoading, signOut } = useAuth();
+    const { user, profile: authProfile, loading: authLoading } = useAuth();
     // デフォルト値を設定してすぐにUIを表示。AuthContextからの情報を優先使用
     const [profile, setProfile] = useState<UserProfile>({
         fullName: authProfile?.full_name || 'ゲスト',
@@ -79,7 +79,6 @@ export default function HomePage() {
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     // useRefを使用して最新の値を参照（依存配列に含めずに最新値を参照するため）
     const isUpdatingStreakRef = useRef(false);
     // 読み込み中フラグ（重複読み込み防止）
@@ -116,31 +115,6 @@ export default function HomePage() {
             router.replace('/mistap');
         }
     }, [authLoading, user, router]);
-
-    // 初期ロード完了をトラッキング
-    useEffect(() => {
-        if (!authLoading) {
-            // 初期ロードが完了したら、少し待ってからトラッキング開始
-            const timer = setTimeout(() => {
-                setInitialLoadComplete(true);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [authLoading]);
-
-    // プロフィール読み込みタイムアウト（5秒）
-    // 初期ロード完了後、userがいるのにprofileがロードされない場合のみ適用
-    useEffect(() => {
-        if (!authLoading && user && !authProfile && initialLoadComplete) {
-            const timeout = setTimeout(async () => {
-                console.warn('Profile load timeout - redirecting to Mistap landing');
-                // 無効なトークンをクリアするために強制サインアウト
-                await signOut();
-                router.replace('/mistap');
-            }, 5000);
-            return () => clearTimeout(timeout);
-        }
-    }, [authLoading, user, authProfile, initialLoadComplete, signOut, router]);
 
     useEffect(() => {
         document.title = 'ホーム - Mistap';
