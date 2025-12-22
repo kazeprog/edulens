@@ -43,23 +43,39 @@ export default function Home() {
 
   // ログイン済みユーザーは自動的にホームへリダイレクト
   useEffect(() => {
-    if (!authLoading && user && profile && !isRedirecting) {
+    // 認証完了 & ユーザーありの場合
+    if (!authLoading && user && profile) {
       setIsRedirecting(true);
-      router.replace('/mistap/home');
+
+      // 1. Next.jsルーターでの遷移（スマホの負荷を考慮して0.5秒待つ）
+      const timer = setTimeout(() => {
+        router.replace('/mistap/home');
+      }, 500);
+
+      // 2. それでもダメなら3秒後にブラウザ標準機能で強制移動（最終手段）
+      const fallbackTimer = setTimeout(() => {
+        // フラグを戻すのではなく、強制的にURLを書き換えて移動させる
+        window.location.href = '/mistap/home';
+      }, 3000);
+
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(fallbackTimer);
+      };
     }
-  }, [authLoading, user, profile, router, isRedirecting]);
+  }, [authLoading, user, profile, router]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('signup') === '1') {
       setIsSignup(true);
       setShowLoginForm(true);
-      window.history.replaceState({}, '', '/');
+      window.history.replaceState({}, '', '/mistap');
     }
     if (params.get('login') === '1') {
       setIsSignup(false);
       setShowLoginForm(true);
-      window.history.replaceState({}, '', '/');
+      window.history.replaceState({}, '', '/mistap');
     }
 
     const handleOpenLogin = () => {
