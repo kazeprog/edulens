@@ -49,48 +49,71 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let mounted = true;
 
-        // プロフィール取得（エラーでもログアウトしない）
-        async function fetchProfile(userId: string) {
+        // 粘り強いプロフィール取得（スマホの「詰まり」対策）
+        async function fetchProfileWithRetry(userId: string, retries = 3): Promise<Profile | null> {
             const supabase = getSupabase();
-            if (!supabase || !mounted) return;
+            if (!supabase || !mounted) return null;
 
-            try {
-                const { data, error } = await supabase
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', userId)
-                    .single();
+            const defaultProfile = { id: userId, full_name: null, role: 'student' } as Profile;
 
-                if (!mounted) return;
+            for (let i = 0; i < retries; i++) {
+                try {
+                    // 1. 通常の取得
+                    const fetchPromise = supabase
+                        .from('profiles')
+                        .select('*')
+                        .eq('id', userId)
+                        .single();
 
-                if (error) {
-                    if (error.code === 'PGRST116') {
-                        // プロフィールが存在しない場合は作成を試みる
-                        const defaultProfile = { id: userId, full_name: null, role: 'student' };
-                        try {
-                            await supabase.from('profiles').upsert(defaultProfile, {
-                                onConflict: 'id',
-                                ignoreDuplicates: true
-                            });
-                        } catch {
-                            // ignore upsert error
+                    // 2. 2秒で次へ行くためのタイマー（スマホは早めに見切るのがコツ）
+                    const timeoutPromise = new Promise<never>((_, reject) =>
+                        setTimeout(() => reject(new Error('Timeout')), 2000)
+                    );
+
+                    // 3. 競争
+                    const { data, error } = await Promise.race([fetchPromise, timeoutPromise]);
+
+                    if (!mounted) return null;
+
+                    if (error) {
+                        // プロフィール未作成(PGRST116)なら作成して終了
+                        if (error.code === 'PGRST116') {
+                            try {
+                                await supabase.from('profiles').upsert(defaultProfile, {
+                                    onConflict: 'id',
+                                    ignoreDuplicates: true
+                                });
+                            } catch {
+                                // ignore upsert error
+                            }
+                            return defaultProfile;
                         }
-                        setProfile(defaultProfile as Profile);
-                    } else {
-                        console.warn('Profile fetch error:', error.message);
-                        // エラーでもデフォルトプロフィールをセット（ログアウトしない）
-                        setProfile({ id: userId, full_name: null, role: 'student' } as Profile);
+                        throw error;
                     }
-                    return;
-                }
 
-                setProfile(data);
-            } catch (err) {
-                console.warn('Profile fetch exception:', err);
-                // 例外でもデフォルトプロフィールをセット（ログアウトしない）
-                if (mounted) {
-                    setProfile({ id: userId, full_name: null, role: 'student' } as Profile);
+                    // 成功したら即リターン！
+                    return data;
+
+                } catch (err) {
+                    console.warn(`Profile fetch attempt ${i + 1} failed or timed out. Retrying...`, err);
+                    // 最後の1回もダメだったら諦める
+                    if (i === retries - 1) {
+                        console.warn('All profile fetch attempts failed, using default profile');
+                        return defaultProfile;
+                    }
+
+                    // 少し待ってから再トライ（0.5秒）
+                    await new Promise(r => setTimeout(r, 500));
                 }
+            }
+            return defaultProfile;
+        }
+
+        // fetchProfileのラッパー（状態セット用）
+        async function fetchProfile(userId: string) {
+            const profile = await fetchProfileWithRetry(userId);
+            if (mounted && profile) {
+                setProfile(profile);
             }
         }
 
