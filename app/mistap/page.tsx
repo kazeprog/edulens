@@ -103,13 +103,26 @@ export default function Home() {
   };
 
   // 認証確認中はローディング表示
-  // ログイン済み（user AND profile が揃っている）ならリダイレクト待ちでローディング表示
-  // user だけあって profile がない場合は、ランディングページを表示する（profileのロード待ちで止まらないように）
-  if (authLoading || (user && profile)) {
+  // userがいる場合はprofileロード待ちでローディング表示（リダイレクト準備中）
+  // profileが揃っていればuseEffectでリダイレクトされる
+  const isWaitingForAuth = authLoading || (user && !profile);
+
+  if (isWaitingForAuth) {
     return (
       <Background>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-white text-xl">読み込み中...</div>
+        </div>
+      </Background>
+    );
+  }
+
+  // userとprofileが揃っている場合はリダイレクト中
+  if (user && profile) {
+    return (
+      <Background>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-white text-xl">ホームへ移動中...</div>
         </div>
       </Background>
     );
