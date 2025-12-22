@@ -125,6 +125,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 const { data: { session }, error } = await supabase!.auth.getSession();
 
                 if (error) {
+                    // 無効なリフレッシュトークンエラーの場合は静かにクリアする
+                    if (error.message && error.message.includes('Invalid Refresh Token')) {
+                        console.log('Invalid refresh token detected, clearing session');
+                        // ローカルストレージから無効なトークンを削除
+                        await supabase!.auth.signOut({ scope: 'local' });
+                        if (mounted) {
+                            setUser(null);
+                            setProfile(null);
+                            setLoading(false);
+                        }
+                        return;
+                    }
                     throw error;
                 }
 
@@ -187,6 +199,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // 認証状態の変更監視
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (!mounted) return;
+
+            // トークンエラーイベントの場合は静かに処理
+            if (event === 'TOKEN_REFRESHED' && !session) {
+                console.log('Token refresh failed, clearing session');
+                setUser(null);
+                setProfile(null);
+                setLoading(false);
+                return;
+            }
 
             if (session?.user) {
                 setUser(session.user);

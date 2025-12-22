@@ -27,11 +27,12 @@ interface BlogPost {
 }
 
 export default function Home() {
-  const { user, profile, loading: authLoading } = useAuth();
+  const { user, profile, loading: authLoading, signOut } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
+  const [profileTimedOut, setProfileTimedOut] = useState(false);
   const router = useRouter();
 
   // Carousel state
@@ -47,6 +48,20 @@ export default function Home() {
       router.replace('/mistap/home');
     }
   }, [authLoading, user, profile, router]);
+
+  // プロフィール読み込みタイムアウト（5秒）
+  // userがいるのにprofileがロードされない場合、無効なトークンの可能性
+  useEffect(() => {
+    if (!authLoading && user && !profile && !profileTimedOut) {
+      const timeout = setTimeout(async () => {
+        console.warn('Profile load timeout on Mistap landing - forcing sign out');
+        setProfileTimedOut(true);
+        // 無効なトークンをクリアするために強制サインアウト
+        await signOut();
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [authLoading, user, profile, profileTimedOut, signOut]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
