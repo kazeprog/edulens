@@ -12,7 +12,8 @@ export default function SiteHeader() {
     const handleLogout = async () => {
         setIsMenuOpen(false);
         await signOut();
-        window.location.reload();
+        // ホームへリダイレクト（リロードより確実に状態がリセットされる）
+        window.location.href = '/';
     };
 
     return (

@@ -61,7 +61,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     const stored = localStorage.getItem(storageKey);
                     if (stored) {
                         const parsed = JSON.parse(stored);
-                        if (parsed?.user) {
+                        // セッションの有効期限をチェック
+                        const expiresAt = parsed?.expires_at;
+                        const currentTime = Math.floor(Date.now() / 1000);
+
+                        if (parsed?.user && expiresAt && expiresAt > currentTime) {
                             // 仮にユーザー情報をセット（正式なセッション確認は並行して行う）
                             setUser(parsed.user);
                             return true;
@@ -160,7 +164,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         setUser(session.user);
                         await getProfile(session.user.id);
                     } else {
-                        // 正常に「セッションなし」が返ってきた場合のみ、未ログインとして確定
+                        // 正常に「セッションなし」が返ってきた場合
+                        // quickSessionCheckで仮セットしたuserをクリア
                         setUser(null);
                         setProfile(null);
                     }
@@ -180,6 +185,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     } else {
                         console.warn('Session fetch failed multiple times. Defaulting to logged out state.');
                         if (mounted) {
+                            // セッション取得失敗→ログアウト状態にする
                             setUser(null);
                             setProfile(null);
                             setLoading(false);
