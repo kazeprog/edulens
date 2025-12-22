@@ -102,8 +102,10 @@ export default function Home() {
     router.push('/login?mode=signup&redirect=/mistap/home');
   };
 
-  // 認証確認中またはログイン済み（リダイレクト待ち）の場合はローディング表示
-  if (authLoading || user) {
+  // 認証確認中はローディング表示
+  // ログイン済み（user AND profile が揃っている）ならリダイレクト待ちでローディング表示
+  // user だけあって profile がない場合は、ランディングページを表示する（profileのロード待ちで止まらないように）
+  if (authLoading || (user && profile)) {
     return (
       <Background>
         <div className="min-h-screen flex items-center justify-center">
