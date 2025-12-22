@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/mistap/supabaseClient";
+
 import { useAuth } from "@/context/AuthContext";
 import Background from "@/components/mistap/Background";
 import LoginForm from "@/components/mistap/LoginForm";
@@ -32,6 +32,7 @@ export default function Home() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const router = useRouter();
 
   // Carousel state
@@ -42,10 +43,11 @@ export default function Home() {
 
   // ログイン済みユーザーは自動的にホームへリダイレクト
   useEffect(() => {
-    if (!authLoading && user && profile) {
+    if (!authLoading && user && profile && !isRedirecting) {
+      setIsRedirecting(true);
       router.replace('/mistap/home');
     }
-  }, [authLoading, user, profile, router]);
+  }, [authLoading, user, profile, router, isRedirecting]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -101,23 +103,12 @@ export default function Home() {
     router.push('/login?mode=signup&redirect=/mistap/home');
   };
 
-  // 認証確認中のみローディング表示
-  if (authLoading) {
+  // ローディング中またはリダイレクト中は統一したローディング画面を表示
+  if (authLoading || isRedirecting || (user && profile)) {
     return (
       <Background>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-white text-xl">読み込み中...</div>
-        </div>
-      </Background>
-    );
-  }
-
-  // userとprofileが揃っている場合はリダイレクト中
-  if (user && profile) {
-    return (
-      <Background>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-white text-xl">ホームへ移動中...</div>
         </div>
       </Background>
     );
