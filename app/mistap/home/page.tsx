@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { getSupabase } from '@/lib/supabase';
 import { getLoginInfo, updateLoginStreak } from '@/lib/mistap/loginTracker';
+import { getActiveAnnouncements, Announcement } from '@/lib/mistap/announcements';
 import Background from '@/components/mistap/Background';
 import GroupRanking from '@/components/GroupRanking';
 
@@ -91,6 +92,16 @@ export default function HomePage() {
     const [isIos, setIsIos] = useState(false);
     const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
     const [blogLoading, setBlogLoading] = useState(true);
+    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+
+    // お知らせを取得
+    useEffect(() => {
+        const fetchAnnouncements = async () => {
+            const data = await getActiveAnnouncements();
+            setAnnouncements(data);
+        };
+        fetchAnnouncements();
+    }, []);
 
     useEffect(() => {
         const fetchBlogPosts = async () => {
@@ -427,10 +438,25 @@ export default function HomePage() {
                                 おかえりなさい<br />
                                 <span className="text-gray-900">{profile.fullName}</span>さん
                             </h1>
-                            <p className="text-gray-600 text-lg">
-                                今日も目標に向かって頑張りましょう！
-                                {!isProfileIncomplete && <span className="ml-2 inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">{profile.grade}</span>}
-                            </p>
+                            {announcements.length > 0 ? (
+                                <div className="space-y-1">
+                                    {announcements.slice(0, 2).map((announcement) => (
+                                        <p key={announcement.id} className="text-gray-600 text-lg">
+                                            {announcement.message.split(/\\n|\n/).map((line, i, arr) => (
+                                                <span key={i}>
+                                                    {line}
+                                                    {i < arr.length - 1 && <br />}
+                                                </span>
+                                            ))}
+                                        </p>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-gray-600 text-lg">
+                                    今日も目標に向かって頑張りましょう！
+                                    {!isProfileIncomplete && <span className="ml-2 inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">{profile.grade}</span>}
+                                </p>
+                            )}
                         </div>
                     )}
 

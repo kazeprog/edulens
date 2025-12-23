@@ -181,10 +181,14 @@ export default function TestSetupPage() {
     return result;
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
 
-  // 初回マウント時にlocalStorageから前回使用した単語帳を読み込む
+  // 初回マウント時にlocalStorageから前回使用した単語帳と範囲を読み込む
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('mistap_last_textbook');
+      const savedStartNum = localStorage.getItem('mistap_last_start_num');
+      const savedEndNum = localStorage.getItem('mistap_last_end_num');
+      const savedCount = localStorage.getItem('mistap_last_count');
+
       if (saved) {
         lastTextbookRef.current = saved;
         // 保存された値を初期選択として設定
@@ -200,6 +204,21 @@ export default function TestSetupPage() {
         }
         // どのリストにも含まれない場合は現在のレベルを維持
       }
+
+      // 保存された範囲を復元
+      if (savedStartNum) {
+        const num = parseInt(savedStartNum, 10);
+        if (!isNaN(num) && num > 0) setStartNum(num);
+      }
+      if (savedEndNum) {
+        const num = parseInt(savedEndNum, 10);
+        if (!isNaN(num) && num > 0) setEndNum(num);
+      }
+      if (savedCount) {
+        const num = parseInt(savedCount, 10);
+        if (!isNaN(num) && num > 0) setCount(num);
+      }
+
       setIsInitialized(true);
     }
   }, [juniorTexts, seniorTexts, universityTexts]);
@@ -388,9 +407,12 @@ export default function TestSetupPage() {
         console.error('profile test_count increment error:', err);
       }
 
-      // 選択した単語帳をlocalStorageに保存（次回の初期値として使用）
+      // 選択した単語帳と範囲をlocalStorageに保存（次回の初期値として使用）
       try {
         localStorage.setItem('mistap_last_textbook', sText);
+        localStorage.setItem('mistap_last_start_num', sStart.toString());
+        localStorage.setItem('mistap_last_end_num', sEnd.toString());
+        localStorage.setItem('mistap_last_count', sCount.toString());
       } catch {
         // localStorage保存エラー - 無視
       }
