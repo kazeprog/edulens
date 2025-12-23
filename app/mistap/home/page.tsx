@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { getSupabase } from '@/lib/supabase';
 import { getLoginInfo, updateLoginStreak } from '@/lib/mistap/loginTracker';
 import Background from '@/components/mistap/Background';
+import GroupRanking from '@/components/GroupRanking';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -721,6 +722,11 @@ export default function HomePage() {
                             </svg>
                             <span className="text-sm">目標管理</span>
                         </button>
+                    </div>
+
+                    {/* Group Ranking Section */}
+                    <div className="mt-8">
+                        <GroupRanking />
                     </div>
 
                     {/* Blog Section */}

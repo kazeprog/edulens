@@ -21,15 +21,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://edulens.jp'),
   description: "試験日カウントダウンと単語学習システム",
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/apple-touch-icon.png',
-    shortcut: '/favicon.ico',
-  },
   openGraph: {
     title: 'EduLens - 学習を、もっと効果的に',
     description: '試験日カウントダウンと単語学習システム',
