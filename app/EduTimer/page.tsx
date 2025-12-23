@@ -249,7 +249,7 @@ export default function EduTimerPage() {
     <>
       {/* 通知音用のオーディオ要素 */}
       <audio ref={audioRef} preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EAAC5kqa7V9++hnGdpbX6SrLClv4qBjpyqrrm0s6etvLewmpOVkYiOkY+Wl5yenJuUkJCOkpqemZqZmJGLgoGDh42RlpWVko+MiIeIio6PkpKRjomFgoKEiIuOkZGPjIiFgoCBg4eKjY+PjYqHhIGAgIOGiYyOjoyJhoOAgIGDhoiLjIuJhoOAgICBg4WIiouKiIWCgH9/gIOFh4mKiYeEgX9+foGDhYeJiYiGg4B+fn6Ag4WHiImIhoOAfn5+gIKEhoiIh4WDgH5+fn+Bg4WHiIeGg4F+fX5/gYOFh4iHhYOAfn5+f4GDhYeHhoSDgH5+fn+Bg4WGh4aEgn9+fn5/gYOFhoaFg4F/fn5+f4GDhYaGhYOBf35+fn+Bg4WFhoWDgX9+fn5/gYOFhYWEg4F/fn5+f4GDhYWFhIOBf35+fn+AgoSFhYSDgX9+fn5/gIKEhYWEg4F/fn5+f4CChISFhIOBf35+fn+AgoSEhISDgX9+fn5/gIKEhISEg4F/fn5+f4CChISEhIOBf35+fn+AgoSEhISDgX5+fn5/gIKEhISEg4F+fn5+f4CChISEhIOBfn5+fn+AgYOEhISDgX5+fn5/gIGDhISEg4F+fn5+f4CBg4SEhIOBfn5+fn9/gYOEhISDgX5+fn5/f4GDhISEg4F+fn5+f3+Bg4SEhIOBfn5+fn9/gYOEhISDgX5+fn5/f4GDg4SDg4F+fn5+f3+Bg4ODg4OBfn5+fn9/gYODg4ODgX5+fn5/f4GDg4ODg4F+fn5+f3+Bg4ODg4OBfn5+fn9/gYODg4ODgX5+fn5/f4GDg4ODg4F+fn5+f3+AgYODg4OBf35+fn5/gIGDg4ODgX9+fn5+f4CBg4ODg4F/fn5+fn+AgYODg4OBf35+fn5/gIGDg4ODgX9+fn5+f4CBg4ODg4F/fn5+fn+AgYODg4OBf35+fn5/gIGDg4ODgX9+fn5+f4CBgoODg4F/fn5+fn+AgYKDg4OBf35+fn5/gIGCg4ODgX9+fn5+f4CBgoODg4F/fn5+fn9/gIGCg4OCgX9+fn5+f3+AgYKDg4KBf35+fn5/f4CBgoODgoF/fn5+fn9/gIGCg4OCgX9+fn5+f3+AgYKDg4KBf35+fn5/f4CBgoKDgoF/fn5+fn9/gIGCgoOCgX9+fn5+f3+AgYKCg4KBf35+fn5/f4CBgoKDgoF/fn5+f39/gIGCgoOCgX9+fn5/f3+AgYKCgoKBf35+fn9/f4CBgoKCgoF/fn5+f39/gIGCgoKCgX9+fn5/f3+AgYKCgoKBf35+fn9/f4CBgoKCgoF/fn5+f39/gIGCgoKCgX9+fn5/f3+AgYGCgoKBf35+fn9/f4CBgYKCgoF/fn5+f39/gIGBgoKCgX9+fn5/f3+AgYGCgoKBf35+fn9/f4CBgYKCgoF/fn5+f39/gIGBgoKCgX9+fn5/f3+AgYGCgoKBf35+fn9/f4CBgYKCgoF/fn5+f39/gIGBgoKCgX9+fn5/f3+AgYGCgoKBf35+fn9/f4CBgYKCgoF/fn5+f39/gIGBgoKCgX9+fn5/f3+AgYGCgoKBf35+fn9/f4CBgYKCgoF/fn5+f39/gIGBgoKCgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgoKBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gIGBgYGBgX9+fn5/f39/gA==" type="audio/wav" />
+        <source src="/finish-sound.mp3" type="audio/mpeg" />
       </audio>
 
       {/* Header */}
@@ -724,9 +724,26 @@ export default function EduTimerPage() {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  集中時間（分）
-                </label>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="block text-sm font-medium text-slate-700">
+                    集中時間（分）
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (audioRef.current) {
+                        audioRef.current.currentTime = 0;
+                        audioRef.current.play().catch(console.error);
+                      }
+                    }}
+                    className="text-xs text-rose-500 hover:text-rose-600 font-medium flex items-center gap-1 bg-rose-50 px-2 py-1 rounded-full transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9c.78.78 1.535 1.64 2.168 2.538 1.49 2.112 1.954 4.8.966 7.152M10 9v6m4-4H6m4 4h4" />
+                    </svg>
+                    音量テスト
+                  </button>
+                </div>
                 <input
                   type="number"
                   min="1"
