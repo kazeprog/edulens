@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <div className="min-h-[calc(100vh-80px)] bg-white py-12 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto prose prose-slate">
                 <h1>プライバシーポリシー</h1>
-                <p className="text-slate-500 text-sm mb-8">最終更新日: 2025年12月19日</p>
+                <p className="text-slate-500 text-sm mb-8">最終更新日: 2025年12月25日</p>
 
                 <h2>1. 個人情報の利用目的</h2>
                 <p>
@@ -24,9 +24,22 @@ export default function PrivacyPage() {
 
                 <h2>2. 広告について</h2>
                 <p>
-                    当サイトでは、第三者配信の広告サービス（Googleアドセンス、A8.net、Amazonアソシエイト等）を利用しており、ユーザーの興味に応じた商品やサービスの広告を表示するため、クッキー（Cookie）を使用しております。<br />
+                    当サイトでは、第三者配信の広告サービス（Googleアドセンス、A8.net、Amazonアソシエイト等）を利用しており、ユーザーの興味に応じた商品やサービスの広告を表示するため、クッキー（Cookie）を使用しております。
+                </p>
+                <p>
                     クッキーを使用することで当サイトはお客様のコンピュータを識別できるようになりますが、お客様個人を特定できるものではありません。
                 </p>
+                <p>
+                    お客様は、以下の方法でパーソナライズ広告を無効にすることができます。
+                </p>
+                <ul>
+                    <li>
+                        <strong>Google 広告設定</strong>: <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://www.google.com/settings/ads</a> にアクセスして、Googleによるパーソナライズ広告を無効にできます。
+                    </li>
+                    <li>
+                        <strong>Third party cookies</strong>: <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">www.aboutads.info</a> にアクセスして、第三者配信事業者のCookieを無効にすることができます。
+                    </li>
+                </ul>
                 <h3>Amazonアソシエイト・プログラム</h3>
                 <p>
                     EduLensは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。
