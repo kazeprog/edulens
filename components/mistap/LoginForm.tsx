@@ -9,9 +9,10 @@ import Background from '@/components/mistap/Background';
 interface LoginFormProps {
     initialIsSignup?: boolean;
     onClose?: () => void;
+    redirectUrl?: string;
 }
 
-export default function LoginForm({ initialIsSignup = false }: LoginFormProps) {
+export default function LoginForm({ initialIsSignup = false, redirectUrl }: LoginFormProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
@@ -83,10 +84,15 @@ export default function LoginForm({ initialIsSignup = false }: LoginFormProps) {
         setLoading(true);
         setError(null);
 
+        // メール認証後のリダイレクト先を設定
+        const emailVerifyRedirect = redirectUrl
+            ? `${window.location.origin}/mistap/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
+            : `${window.location.origin}/mistap/email-verified`;
+
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
-            options: { emailRedirectTo: `${window.location.origin}/mistap/email-verified` },
+            options: { emailRedirectTo: emailVerifyRedirect },
         });
 
         if (error) {

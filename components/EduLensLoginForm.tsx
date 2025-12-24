@@ -113,11 +113,17 @@ export default function EduLensLoginForm({
         setLoading(true);
         setError(null);
 
+        // メール認証後のリダイレクト先を設定
+        // redirectUrlが指定されている場合は、認証後にそのURLにリダイレクトするようにパラメータを付与
+        const emailVerifyRedirect = redirectUrl
+            ? `${window.location.origin}/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
+            : `${window.location.origin}/email-verified`;
+
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
-                emailRedirectTo: `${window.location.origin}/email-verified`,
+                emailRedirectTo: emailVerifyRedirect,
                 data: {
                     full_name: fullName,
                 }

@@ -1,14 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import { Suspense } from 'react';
 
-export default function EmailVerifiedPage() {
+function EmailVerifiedContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [countdown, setCountdown] = useState(5);
+
+    // リダイレクト先を取得（指定がなければトップページ）
+    const redirectUrl = searchParams.get('redirect') || '/';
 
     // カウントダウン
     useEffect(() => {
@@ -28,9 +33,20 @@ export default function EmailVerifiedPage() {
     // カウントダウンが0になったらリダイレクト
     useEffect(() => {
         if (countdown === 0) {
-            router.push('/');
+            router.push(redirectUrl);
         }
-    }, [countdown, router]);
+    }, [countdown, router, redirectUrl]);
+
+    // リダイレクト先の表示名を生成
+    const getRedirectLabel = () => {
+        if (redirectUrl.includes('/mistap/join/')) {
+            return 'グループ参加ページへ';
+        } else if (redirectUrl.includes('/mistap')) {
+            return 'Mistapホームへ';
+        } else {
+            return 'トップページへ';
+        }
+    };
 
     return (
         <>
@@ -51,18 +67,30 @@ export default function EmailVerifiedPage() {
                             全てのサービスをご利用いただけます。
                         </p>
                         <p className="text-sm text-slate-500 mb-4">
-                            {countdown > 0 ? `${countdown}秒後にトップページへ移動します...` : 'リダイレクト中...'}
+                            {countdown > 0 ? `${countdown}秒後に${getRedirectLabel()}移動します...` : 'リダイレクト中...'}
                         </p>
                         <Link
-                            href="/"
+                            href={redirectUrl}
                             className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg"
                         >
-                            今すぐトップページへ
+                            今すぐ{getRedirectLabel()}
                         </Link>
                     </div>
                 </div>
             </main>
             <SiteFooter />
         </>
+    );
+}
+
+export default function EmailVerifiedPage() {
+    return (
+        <Suspense fallback={
+            <main className="min-h-[calc(100vh-160px)] flex items-center justify-center">
+                <div className="text-slate-500">読み込み中...</div>
+            </main>
+        }>
+            <EmailVerifiedContent />
+        </Suspense>
     );
 }
