@@ -4,6 +4,7 @@ import Link from 'next/link';
 import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
 import AmazonExamLink from '@/components/AmazonExamLink';
+import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 export const revalidate = 60;
@@ -139,6 +140,12 @@ export default async function UniversityExamPage({ params }: { params: Params })
           year={year}
           diffDays={diffDays}
         />
+
+        {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
+        <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
+          <ServiceList currentService="Countdown" />
+        </div>
+        {/* ▲▲▲ サービス一覧終了 ▲▲▲ */}
 
         {/* Amazonリンク */}
         <AmazonExamLink

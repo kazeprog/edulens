@@ -5,6 +5,7 @@ import ExamSchedule from './ExamSchedule';
 import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
 import AmazonExamLink from '@/components/AmazonExamLink';
+import ServiceList from '@/components/ServiceList';
 // ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -257,6 +258,14 @@ export default async function CountdownPage({ params }: { params: Params }) {
           displayExamName={displayExamName}
         />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
+
+        {/* ▼▼▼ エリア終了 ▲▲▲ */}
+
+        {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
+        <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
+          <ServiceList currentService="Countdown" />
+        </div>
+        {/* ▲▲▲ サービス一覧終了 ▲▲▲ */}
 
         {/* Amazonリンク */}
         <AmazonExamLink

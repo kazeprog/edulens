@@ -5,6 +5,7 @@ import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
 // ▼ 1. Amazonリンクコンポーネントをインポート
 import AmazonExamLink from '@/components/AmazonExamLink';
+import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新
@@ -214,6 +215,12 @@ export default async function QualificationCountdownPage({ params }: { params: P
           sessionSlug={session}
           diffDays={diffDays}
         />
+
+        {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
+        <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
+          <ServiceList currentService="Countdown" />
+        </div>
+        {/* ▲▲▲ サービス一覧終了 ▲▲▲ */}
 
         {/* ▼▼▼ 2. Amazonリンク追加（キーワードを工夫して表示） ▼▼▼ */}
         <AmazonExamLink

@@ -52,7 +52,7 @@ export default function Home() {
                 サービスを選ぶ
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 {/* Countdown Card */}
                 <Link
                   href="/countdown"
@@ -235,6 +235,67 @@ export default function Home() {
                     </span>
                   </div>
                 </Link>
+
+                {/* Black Lens Card */}
+                <Link
+                  href="/blacklens"
+                  className="group relative bg-slate-900 rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-700 hover:shadow-xl hover:border-purple-500 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-900 to-slate-800 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <img
+                        src="/BlacklensSquare.png"
+                        alt="BlackLens"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors">
+                      BlackLens
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 leading-relaxed">
+                      勉強のストレスをためずに吐き出す<br />
+                      コメントボード。
+                    </p>
+
+                    {/* Features */}
+                    <ul className="space-y-2 text-sm text-gray-500 mb-6">
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        完全匿名投稿
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        「わかる」・「エール」リアクション
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        カテゴリ別悩み一覧
+                      </li>
+                    </ul>
+
+                    {/* CTA */}
+                    <span className="inline-flex items-center text-purple-400 font-semibold group-hover:translate-x-1 transition-transform">
+                      入る
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
               </div>
             </div>
           </section >
@@ -249,7 +310,8 @@ export default function Home() {
                   <strong>Countdown</strong>で試験本番までの残り時間を可視化し、「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えます。<br /><br />
                   <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
                   <strong>EduTimer</strong>は、ポモドーロテクニックを活用した集中タイマー。25分集中・5分休憩のサイクルで、効率的な学習をサポートします。<br /><br />
-                  あなたの目標達成を、3つのツールで支援します。
+                  <strong>BlackLens</strong>は、受験生の悩みやストレスを匿名で吐き出せる掃きだめ板。「わかる」「エール」のリアクションで、同じ悩みを持つ仲間とつながれます。<br /><br />
+                  あなたの目標達成を、4つのツールで支援します。
                 </p>
               </div>
             </div>

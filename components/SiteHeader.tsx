@@ -35,16 +35,12 @@ export default function SiteHeader() {
                     <div className="relative">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                            className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none p-2 rounded-full hover:bg-slate-100 transition-colors"
                             aria-label="メニュー"
                         >
-                            <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                {isMenuOpen ? (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                ) : (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                )}
-                            </svg>
+                            <span className={`block w-6 h-0.5 bg-slate-600 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                            <span className={`block w-6 h-0.5 bg-slate-600 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                            <span className={`block w-6 h-0.5 bg-slate-600 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
                         </button>
 
                         {/* ドロップダウンメニュー */}
@@ -56,40 +52,54 @@ export default function SiteHeader() {
                                     onClick={() => setIsMenuOpen(false)}
                                 />
 
-                                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
-                                    {/* ユーザー情報 */}
-                                    <div className="px-4 py-3 border-b border-slate-100">
-                                        <p className="text-sm font-medium text-slate-800">
-                                            {profile?.full_name || user.email?.split('@')[0] || 'ユーザー'}さん
-                                        </p>
-                                        <p className="text-xs text-slate-500 truncate">
-                                            {user.email}
-                                        </p>
-                                    </div>
+                                <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 z-50 overflow-hidden py-1">
+                                    <div className="py-1">
+                                        {/* ユーザー情報 */}
+                                        <div className="px-4 py-3 border-b border-slate-100">
+                                            <p className="text-sm font-medium text-slate-800">
+                                                {profile?.full_name || user.email?.split('@')[0] || 'ユーザー'}さん
+                                            </p>
+                                            <p className="text-xs text-slate-500 truncate">
+                                                {user.email}
+                                            </p>
+                                        </div>
 
-                                    {/* メニュー項目 */}
-                                    <div className="py-2">
+                                        {/* メニュー項目 */}
                                         <Link
-                                            href="/mistap/home"
-                                            className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                                            href="/countdown"
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
-                                            Mistap ホーム
+                                            カウントダウン
+                                        </Link>
+                                        <Link
+                                            href="/mistap/home"
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            Mistap
                                         </Link>
                                         <Link
                                             href="/EduTimer"
-                                            className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             EduTimer
                                         </Link>
-                                    </div>
+                                        <Link
+                                            href="/blacklens"
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-purple-500"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            BlackLens
+                                        </Link>
 
-                                    {/* ログアウト */}
-                                    <div className="border-t border-slate-100 pt-2">
+                                        <div className="border-t border-slate-100 my-1"></div>
+
+                                        {/* ログアウト */}
                                         <button
                                             onClick={handleLogout}
-                                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                            className="block w-full text-left py-3 px-4 text-red-600 hover:bg-red-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                                         >
                                             ログアウト
                                         </button>

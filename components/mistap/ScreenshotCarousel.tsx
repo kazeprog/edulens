@@ -82,40 +82,43 @@ export default function ScreenshotCarousel({
                 <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 md:mb-12">
                     Mistap プレビュー
                 </h3>
-                <div
-                    ref={carouselOuterRef}
-                    className={`relative w-full ${isManual ? 'overflow-x-auto' : 'overflow-hidden'}`}
-                    onPointerDown={handlePointerDown}
-                    onPointerMove={handlePointerMove}
-                    onPointerUp={handlePointerUp}
-                    onPointerCancel={handlePointerCancel}
-                >
-                    <div ref={trackRef} className={`flex whitespace-nowrap ${isManual ? '' : 'animate-scroll-x'}`}>
-                        {screenshots.map((name) => (
-                            <div key={name + '-a'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
-                                <Image
-                                    src={`/mistap/${name}.png`}
-                                    alt={`Mistapアプリの${name}`}
-                                    fill
-                                    className="object-contain"
-                                    sizes="(max-width: 768px) 192px, 256px"
-                                />
-                            </div>
-                        ))}
-                        {screenshots.map((name) => (
-                            <div key={name + '-b'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
-                                <Image
-                                    src={`/mistap/${name}.png`}
-                                    alt={`Mistapアプリの${name}`}
-                                    fill
-                                    className="object-contain"
-                                    sizes="(max-width: 768px) 192px, 256px"
-                                />
-                            </div>
-                        ))}
+                {/* ラッパー（ボタン位置固定のため） */}
+                <div className="relative">
+                    <div
+                        ref={carouselOuterRef}
+                        className={`w-full ${isManual ? 'overflow-x-auto' : 'overflow-hidden'}`}
+                        onPointerDown={handlePointerDown}
+                        onPointerMove={handlePointerMove}
+                        onPointerUp={handlePointerUp}
+                        onPointerCancel={handlePointerCancel}
+                    >
+                        <div ref={trackRef} className={`flex whitespace-nowrap ${isManual ? '' : 'animate-scroll-x'}`}>
+                            {screenshots.map((name) => (
+                                <div key={name + '-a'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
+                                    <Image
+                                        src={`/mistap/${name}.png`}
+                                        alt={`Mistapアプリの${name}`}
+                                        fill
+                                        className="object-contain"
+                                        sizes="(max-width: 768px) 192px, 256px"
+                                    />
+                                </div>
+                            ))}
+                            {screenshots.map((name) => (
+                                <div key={name + '-b'} className="relative flex-shrink-0 w-48 md:w-64 h-96 md:h-[32rem] rounded-xl shadow-lg border border-gray-200 mr-4 overflow-hidden">
+                                    <Image
+                                        src={`/mistap/${name}.png`}
+                                        alt={`Mistapアプリの${name}`}
+                                        fill
+                                        className="object-contain"
+                                        sizes="(max-width: 768px) 192px, 256px"
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Nav buttons */}
+                    {/* Nav buttons（ラッパーに対してabsolute） */}
                     <button
                         aria-label="前へ"
                         className="hidden md:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur rounded-full shadow-md hover:bg-white transition-colors z-10"
