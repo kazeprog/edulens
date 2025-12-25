@@ -126,6 +126,7 @@ export default function EduLensLoginForm({
                 emailRedirectTo: emailVerifyRedirect,
                 data: {
                     full_name: fullName,
+                    grade: grade,
                 }
             },
         });
@@ -134,17 +135,6 @@ export default function EduLensLoginForm({
             setLoading(false);
             setError('登録に失敗しました: ' + error.message);
             return;
-        }
-
-        // プロフィール作成
-        const userId = data.user?.id;
-        if (userId) {
-            await supabase.from('profiles').upsert({
-                id: userId,
-                full_name: fullName || null,
-                role: 'student',
-                grade: grade || null,
-            });
         }
 
         setLoading(false);

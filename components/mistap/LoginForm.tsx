@@ -92,23 +92,19 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
-            options: { emailRedirectTo: emailVerifyRedirect },
+            options: {
+                emailRedirectTo: emailVerifyRedirect,
+                data: {
+                    full_name: fullName,
+                    grade: grade,
+                }
+            },
         });
 
         if (error) {
             setLoading(false);
             setError(error.message);
             return;
-        }
-
-        const userId = data.user?.id;
-        if (userId) {
-            await supabase.from('profiles').upsert({
-                id: userId,
-                full_name: fullName || null,
-                role: 'student',
-                grade: grade || null,
-            }).select();
         }
 
         setLoading(false);
