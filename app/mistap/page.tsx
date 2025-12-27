@@ -13,6 +13,7 @@ import TextbooksSection from "@/components/mistap/TextbooksSection";
 import TestimonialsSection from "@/components/mistap/TestimonialsSection";
 import BlogSection from "@/components/mistap/BlogSection";
 import CTASection from "@/components/mistap/CTASection";
+import TestSetupContent from "@/components/mistap/TestSetupContent";
 
 // ブログ記事の型定義
 interface BlogPost {
@@ -161,24 +162,19 @@ export default function Home() {
         {/* ヘッダー */}
         <header className="pt-6 pb-10">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="relative">
-              <div className="absolute right-0 top-0 md:top-2">
-                <button
-                  onClick={() => {
-                    // EduLensの統一ログイン画面へリダイレクト（ログイン後にMistapホームへ戻る）
-                    router.push('/login?redirect=/mistap/home');
-                  }}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl font-semibold transition-colors"
-                >
-                  ログイン
-                </button>
-              </div>
-            </div>
           </div>
         </header>
 
         <main>
           <HeroSection onSignupClick={handleSignupClick} />
+
+          {/* テスト作成セクション（デモ） */}
+          <section className="py-12 px-4">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">📚 今すぐ試してみる</h2>
+              <TestSetupContent embedMode={true} />
+            </div>
+          </section>
 
           <ScreenshotCarousel
             isManual={isManual}
