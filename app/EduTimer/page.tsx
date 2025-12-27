@@ -341,7 +341,7 @@ export default function EduTimerPage() {
           {/* Title - SEOキーワードを含める */}
           <div className="text-center mb-8">
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-2">
-              EduTimer
+              EduTimer - 無料ポモドーロタイマー
             </h1>
             <p className="text-slate-600">
               ポモドーロテクニックで集中力を高める<br />
