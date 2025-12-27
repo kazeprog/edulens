@@ -266,7 +266,7 @@ export default function ProgressDashboard() {
         setSelectedCategory(null);
     };
 
-    const selectedWords = selectedCategory ? wordLists[selectedCategory] || [] : [];
+    const selectedWords = selectedCategory ? (wordLists as Record<string, WordData[]>)[selectedCategory] || [] : [];
 
     if (loading) {
         return (
