@@ -10,6 +10,7 @@ import { getLoginInfo, updateLoginStreak } from '@/lib/mistap/loginTracker';
 import { getActiveAnnouncements, Announcement } from '@/lib/mistap/announcements';
 import Background from '@/components/mistap/Background';
 import GroupRanking from '@/components/GroupRanking';
+import ProgressDashboard from '@/components/mistap/ProgressDashboard';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -622,6 +623,9 @@ export default function HomePage() {
                                     </div>
                                 </div>
                             )}
+
+                            {/* Learning Progress Dashboard */}
+                            <ProgressDashboard />
 
                             <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6 md:p-8">
                                 <div className="flex items-center justify-between mb-6">
