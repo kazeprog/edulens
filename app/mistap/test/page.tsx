@@ -315,7 +315,12 @@ function TestContent() {
     if (!testData) return;
     const { selectedText, startNum, endNum, words } = testData;
     const wrongNumbers = Array.from(tappedIds).join(',');
-    router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}`);
+    // 正解した単語番号を計算（タップされていない単語）
+    const correctNumbers = words
+      .filter((w: Word) => !tappedIds.has(w.word_number))
+      .map((w: Word) => w.word_number)
+      .join(',');
+    router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}`);
   }
 
   if (!testData) {

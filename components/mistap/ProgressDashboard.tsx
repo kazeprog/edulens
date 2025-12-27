@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import {
     PieChart,
     Pie,
@@ -12,6 +14,8 @@ import {
     CartesianGrid,
     Tooltip,
 } from 'recharts';
+import { getSupabase } from '@/lib/supabase';
+import { useAuth } from '@/context/AuthContext';
 
 // カラー設定
 const COLORS = {
@@ -20,110 +24,394 @@ const COLORS = {
     notLearned: '#EF4444', // 覚えていない (Red)
 };
 
-// モックデータ: 学習進捗状況 (ドーナツグラフ用)
-const PROGRESS_DATA = [
-    { name: '覚えた単語', value: 450, color: COLORS.learned },
-    { name: '要チェックの単語', value: 80, color: COLORS.toCheck },
-    { name: '覚えていない単語', value: 120, color: COLORS.notLearned },
-];
+// 単語データの型
+interface WordData {
+    word: string;
+    meaning: string;
+    word_number: number;
+    wrong_count: number;
+    correct_count: number;
+    last_wrong_date: string;
+    textbook: string;
+}
 
-// モックデータ: 学習推移 (折れ線グラフ用 - 過去60日分)
-const generateTrendData = () => {
-    const data = [];
-    const today = new Date();
-    for (let i = 59; i >= 0; i--) {
-        const date = new Date(today);
-        date.setDate(date.getDate() - i);
-        const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+interface ProgressItem {
+    name: string;
+    value: number;
+    color: string;
+}
 
-        // ランダムなデータ生成 (徐々に増える傾向 + ランダムな変動)
-        const base = Math.floor(Math.random() * 5); // 0-4 words per day base
-        const spike = Math.random() > 0.9 ? Math.floor(Math.random() * 10) + 5 : 0; // occasional spike
+interface TrendDataPoint {
+    date: string;
+    learned: number;
+    toCheck: number;
+    notLearned: number;
+}
 
-        data.push({
-            date: dateStr,
-            learned: Math.floor(Math.random() * 3),
-            toCheck: Math.floor(Math.random() * 2),
-            notLearned: base + spike,
-        });
-    }
-    return data;
-};
-
-const TREND_DATA = generateTrendData();
-
-import { useRef, useEffect } from 'react';
+interface DailyStatsMap {
+    [textbook: string]: Map<string, { learned: number; toCheck: number; notLearned: number }>;
+}
 
 export default function ProgressDashboard() {
+    const { user } = useAuth();
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    // 初回レンダリング時に右端（最新の日付）までスクロール
+    // 全単語データ（教材情報を含む）
+    const [allWords, setAllWords] = useState<WordData[]>([]);
+
+    // 利用可能な教材リスト
+    const [textbooks, setTextbooks] = useState<string[]>([]);
+
+    // 選択中の教材（null = 全て）
+    const [selectedTextbook, setSelectedTextbook] = useState<string | null>(null);
+
+    // 日別統計（教材ごと）
+    const [dailyStatsMap, setDailyStatsMap] = useState<DailyStatsMap>({});
+
+    // データ取得
+    const loadWordData = useCallback(async () => {
+        if (!user) {
+            setLoading(false);
+            return;
+        }
+
+        const supabase = getSupabase();
+        if (!supabase) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            // 全テスト結果を取得（correct_wordsも含む）
+            const { data: results, error } = await supabase
+                .from('results')
+                .select('incorrect_words, correct_words, correct, total, selected_text, created_at')
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: true });
+
+            if (error) {
+                console.error('Error loading word data:', error);
+                setLoading(false);
+                return;
+            }
+
+            // 単語ごとの正解・不正解を追跡
+            const wordMap = new Map<string, WordData>();
+            const textbookSet = new Set<string>();
+            const dailyStats: DailyStatsMap = {};
+
+            results?.forEach(result => {
+                const dateKey = new Date(result.created_at).toISOString().split('T')[0];
+                const textbook = result.selected_text || '不明';
+                textbookSet.add(textbook);
+
+                // 日別統計の初期化
+                if (!dailyStats[textbook]) {
+                    dailyStats[textbook] = new Map();
+                }
+                if (!dailyStats[textbook].has(dateKey)) {
+                    dailyStats[textbook].set(dateKey, { learned: 0, toCheck: 0, notLearned: 0 });
+                }
+
+                const stats = dailyStats[textbook].get(dateKey)!;
+
+                // 不正解の単語を処理
+                if (result.incorrect_words && Array.isArray(result.incorrect_words)) {
+                    result.incorrect_words.forEach((word: { word_number: number; word: string; meaning: string }) => {
+                        const key = `${textbook}|${word.word_number}`;
+
+                        if (wordMap.has(key)) {
+                            const existing = wordMap.get(key)!;
+                            existing.wrong_count += 1;
+                            existing.last_wrong_date = result.created_at;
+                        } else {
+                            wordMap.set(key, {
+                                word: word.word,
+                                meaning: word.meaning,
+                                word_number: word.word_number,
+                                wrong_count: 1,
+                                correct_count: 0,
+                                last_wrong_date: result.created_at,
+                                textbook: textbook,
+                            });
+                        }
+                    });
+                    stats.notLearned += result.incorrect_words.length;
+                }
+
+                // 正解の単語を処理（correct_wordsから直接取得）
+                if (result.correct_words && Array.isArray(result.correct_words)) {
+                    result.correct_words.forEach((word: { word_number: number; word: string; meaning: string }) => {
+                        const key = `${textbook}|${word.word_number}`;
+
+                        if (wordMap.has(key)) {
+                            wordMap.get(key)!.correct_count += 1;
+                        } else {
+                            wordMap.set(key, {
+                                word: word.word,
+                                meaning: word.meaning,
+                                word_number: word.word_number,
+                                wrong_count: 0,
+                                correct_count: 1,
+                                last_wrong_date: '',
+                                textbook: textbook,
+                            });
+                        }
+                    });
+                    stats.learned += result.correct_words.length;
+                }
+            });
+
+            // ステート更新
+            setAllWords(Array.from(wordMap.values()));
+            setTextbooks(Array.from(textbookSet).sort());
+            setDailyStatsMap(dailyStats);
+
+        } catch (e) {
+            console.error('Error loading word data:', e);
+        } finally {
+            setLoading(false);
+        }
+    }, [user]);
+
     useEffect(() => {
-        if (scrollRef.current) {
+        loadWordData();
+    }, [loadWordData]);
+
+    // 選択された教材でフィルタリングされた単語
+    const filteredWords = useMemo(() => {
+        if (!selectedTextbook) return allWords;
+        return allWords.filter(w => w.textbook === selectedTextbook);
+    }, [allWords, selectedTextbook]);
+
+    // フィルタリングされた単語を分類
+    const { wordLists, progressData } = useMemo(() => {
+        const learnedWords: WordData[] = [];
+        const toCheckWords: WordData[] = [];
+        const notLearnedWords: WordData[] = [];
+
+        filteredWords.forEach(word => {
+            if (word.wrong_count === 0 && word.correct_count > 0) {
+                learnedWords.push(word);
+            } else if (word.wrong_count > 0 && word.correct_count > 0) {
+                toCheckWords.push(word);
+            } else if (word.wrong_count > 0 && word.correct_count === 0) {
+                notLearnedWords.push(word);
+            }
+        });
+
+        learnedWords.sort((a, b) => b.correct_count - a.correct_count);
+        toCheckWords.sort((a, b) => b.wrong_count - a.wrong_count);
+        notLearnedWords.sort((a, b) => b.wrong_count - a.wrong_count);
+
+        return {
+            wordLists: {
+                '覚えた単語': learnedWords,
+                '要チェックの単語': toCheckWords,
+                '覚えていない単語': notLearnedWords,
+            },
+            progressData: [
+                { name: '覚えた単語', value: learnedWords.length, color: COLORS.learned },
+                { name: '要チェックの単語', value: toCheckWords.length, color: COLORS.toCheck },
+                { name: '覚えていない単語', value: notLearnedWords.length, color: COLORS.notLearned },
+            ],
+        };
+    }, [filteredWords]);
+
+    // トレンドデータを生成
+    const trendData = useMemo(() => {
+        const now = new Date();
+        const trend: TrendDataPoint[] = [];
+
+        // 選択された教材の日別統計を取得（または全教材を合算）
+        const relevantTextbooks = selectedTextbook ? [selectedTextbook] : Object.keys(dailyStatsMap);
+
+        for (let i = 59; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            const dateKey = date.toISOString().split('T')[0];
+            const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+
+            let learned = 0, toCheck = 0, notLearned = 0;
+
+            relevantTextbooks.forEach(tb => {
+                const stats = dailyStatsMap[tb]?.get(dateKey);
+                if (stats) {
+                    learned += stats.learned;
+                    toCheck += stats.toCheck;
+                    notLearned += stats.notLearned;
+                }
+            });
+
+            trend.push({ date: dateStr, learned, toCheck, notLearned });
+        }
+
+        return trend;
+    }, [dailyStatsMap, selectedTextbook]);
+
+    // 初回レンダリング時に右端までスクロール
+    useEffect(() => {
+        if (scrollRef.current && !loading) {
             scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
         }
-    }, []);
+    }, [loading, trendData]);
+
+    const handleCardClick = (categoryName: string) => {
+        setSelectedCategory(categoryName);
+    };
+
+    const closeModal = () => {
+        setSelectedCategory(null);
+    };
+
+    const selectedWords = selectedCategory ? wordLists[selectedCategory] || [] : [];
+
+    if (loading) {
+        return (
+            <div className="flex flex-col gap-6">
+                <div className="grid grid-cols-3 gap-3 md:gap-4">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="bg-white rounded-xl p-3 md:p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center animate-pulse">
+                            <div className="h-4 bg-gray-200 rounded w-16 mb-2"></div>
+                            <div className="h-8 bg-gray-200 rounded w-12"></div>
+                        </div>
+                    ))}
+                </div>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-64 animate-pulse">
+                    <div className="h-4 bg-gray-200 rounded w-32 mx-auto mb-4"></div>
+                    <div className="h-40 bg-gray-100 rounded-full w-40 mx-auto"></div>
+                </div>
+            </div>
+        );
+    }
+
+    const totalWords = progressData.reduce((sum, item) => sum + item.value, 0);
+
     return (
         <div className="flex flex-col gap-6">
 
-            {/* 1. 学習進捗状況 (ドーナツグラフ) */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center">
-                <h3 className="text-gray-700 font-bold mb-4">単語学習の進捗状況</h3>
-                <div className="w-full h-64 relative">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                            <Pie
-                                data={PROGRESS_DATA}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={60}
-                                outerRadius={80}
-                                paddingAngle={0}
-                                dataKey="value"
-                                startAngle={90}
-                                endAngle={-270}
+            {/* 教材タブ */}
+            {textbooks.length > 0 && (
+                <div className="bg-white rounded-xl p-2 shadow-sm border border-gray-100">
+                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300">
+                        <button
+                            onClick={() => setSelectedTextbook(null)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedTextbook === null
+                                ? 'bg-red-500 text-white shadow-sm'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                }`}
+                        >
+                            全て
+                        </button>
+                        {textbooks.map((tb) => (
+                            <button
+                                key={tb}
+                                onClick={() => setSelectedTextbook(tb)}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedTextbook === tb
+                                    ? 'bg-red-500 text-white shadow-sm'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    }`}
                             >
-                                {PROGRESS_DATA.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
-                                ))}
-                            </Pie>
-                            <Legend
-                                layout="horizontal"
-                                verticalAlign="bottom"
-                                align="center"
-                                iconType="rect"
-                                formatter={(value, entry: any) => (
-                                    <span className="text-gray-600 text-sm ml-1 mr-2">{value}</span>
-                                )}
-                            />
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
-                    {/* 中央のテキスト（オプション） - ドーナツの真ん中 */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none mb-6">
-                        {/* 必要であればここに合計数などを表示 */}
+                                {tb}
+                            </button>
+                        ))}
                     </div>
                 </div>
+            )}
+
+            {/* 0. サマリーカード */}
+            <div className="grid grid-cols-3 gap-3 md:gap-4">
+                {progressData.map((item, index) => (
+                    <div
+                        key={index}
+                        onClick={() => handleCardClick(item.name)}
+                        className="bg-white rounded-xl p-3 md:p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-md hover:border-red-100 transition-all active:scale-95"
+                    >
+                        <span className="text-xs md:text-sm font-medium text-gray-500 mb-1">{item.name}</span>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-xl md:text-2xl font-bold" style={{ color: item.color }}>
+                                {item.value}
+                            </span>
+                            <span className="text-xs text-gray-400">語</span>
+                        </div>
+                    </div>
+                ))}
             </div>
+
+            {/* 1. 学習進捗状況 (ドーナツグラフ) */}
+            {totalWords > 0 ? (
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center">
+                    <h3 className="text-gray-700 font-bold mb-4">単語学習の進捗状況</h3>
+                    <div className="w-full h-64 relative">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                                <Pie
+                                    data={progressData}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={60}
+                                    outerRadius={80}
+                                    paddingAngle={0}
+                                    dataKey="value"
+                                    startAngle={90}
+                                    endAngle={-270}
+                                >
+                                    {progressData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
+                                    ))}
+                                </Pie>
+                                <Legend
+                                    layout="horizontal"
+                                    verticalAlign="bottom"
+                                    align="center"
+                                    iconType="rect"
+                                    formatter={(value) => (
+                                        <span className="text-gray-600 text-sm ml-1 mr-2">{value}</span>
+                                    )}
+                                />
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none mb-6">
+                            <span className="text-2xl font-bold text-gray-800">{totalWords}</span>
+                            <span className="block text-xs text-gray-500">語</span>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center h-64">
+                    <div className="text-gray-400 text-center">
+                        <svg className="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <p className="text-sm">
+                            {selectedTextbook
+                                ? `「${selectedTextbook}」のテスト履歴がありません`
+                                : 'テストを受けると進捗が表示されます'
+                            }
+                        </p>
+                    </div>
+                </div>
+            )}
 
             {/* 2. 学習推移グラフ (折れ線グラフ) */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                 <h3 className="text-gray-700 font-bold mb-4 text-center sm:text-left">単語学習の推移 (過去60日間)</h3>
 
-                {/* スクロール可能なコンテナ */}
                 <div
                     ref={scrollRef}
                     className="w-full overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
                 >
-                    {/* グラフの幅を画面幅の約2倍（200%）に設定して、30日分を表示させる */}
                     <div className="h-72 min-w-[200%] sm:min-w-[1200px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart
-                                data={TREND_DATA}
+                                data={trendData}
                                 margin={{
                                     top: 5,
-                                    right: 30, // 右端のpaddingを少し増やす
-                                    left: 0, // 左端はスクロールで見切れるので0でOK
+                                    right: 30,
+                                    left: 0,
                                     bottom: 5,
                                 }}
                             >
@@ -131,7 +419,7 @@ export default function ProgressDashboard() {
                                 <XAxis
                                     dataKey="date"
                                     tick={{ fontSize: 10, fill: '#6B7280' }}
-                                    interval={4} // 5日ごとに表示（4つ飛ばす）
+                                    interval={4}
                                     angle={-45}
                                     textAnchor="end"
                                     height={50}
@@ -147,7 +435,7 @@ export default function ProgressDashboard() {
                                 <Line
                                     type="monotone"
                                     dataKey="learned"
-                                    name="覚えた単語"
+                                    name="正解数"
                                     stroke={COLORS.learned}
                                     strokeWidth={2}
                                     dot={false}
@@ -155,17 +443,8 @@ export default function ProgressDashboard() {
                                 />
                                 <Line
                                     type="monotone"
-                                    dataKey="toCheck"
-                                    name="要チェックの単語"
-                                    stroke={COLORS.toCheck}
-                                    strokeWidth={2}
-                                    dot={false}
-                                    activeDot={{ r: 6 }}
-                                />
-                                <Line
-                                    type="monotone"
                                     dataKey="notLearned"
-                                    name="覚えていない単語"
+                                    name="間違い数"
                                     stroke={COLORS.notLearned}
                                     strokeWidth={2}
                                     dot={false}
@@ -179,6 +458,64 @@ export default function ProgressDashboard() {
                     ← スクロールして過去の推移を確認 →
                 </p>
             </div>
+
+            {/* 単語リストモーダル */}
+            {selectedCategory && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={closeModal}>
+                    <div
+                        className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+                            <div>
+                                <h3 className="font-bold text-gray-800">{selectedCategory}</h3>
+                                {selectedTextbook && (
+                                    <p className="text-xs text-gray-500">{selectedTextbook}</p>
+                                )}
+                            </div>
+                            <button
+                                onClick={closeModal}
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="overflow-y-auto p-4 flex-1">
+                            {selectedWords.length > 0 ? (
+                                <ul className="space-y-3">
+                                    {selectedWords.map((word, idx) => (
+                                        <li key={idx} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-100">
+                                            <div>
+                                                <span className="font-bold text-gray-900">{word.word || `#${word.word_number}`}</span>
+                                                {word.wrong_count > 1 && (
+                                                    <span className="ml-2 text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">
+                                                        {word.wrong_count}回
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <span className="text-sm text-gray-600">{word.meaning}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <div className="text-center py-8 text-gray-500">
+                                    単語がありません
+                                </div>
+                            )}
+                        </div>
+                        <div className="p-4 border-t border-gray-100 bg-gray-50">
+                            <button
+                                onClick={closeModal}
+                                className="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition-colors"
+                            >
+                                閉じる
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -13,6 +13,7 @@ interface TappedWord {
 
 interface ResultData {
   tappedWords: TappedWord[];
+  correctWords: TappedWord[];
   total: number;
   selectedText: string;
   startNum: number;
@@ -39,6 +40,7 @@ function ResultsContent() {
     const endParam = searchParams.get('end');
     const totalParam = searchParams.get('total');
     const wrongParam = searchParams.get('wrong');
+    const correctParam = searchParams.get('correct');
 
     if (textParam && totalParam !== null) {
       // URLパラメータから結果データを復元
@@ -49,13 +51,14 @@ function ResultsContent() {
           const endNum = endParam ? parseInt(endParam) : 0;
           const total = parseInt(totalParam);
           const wrongNumbers = wrongParam ? wrongParam.split(',').map(n => parseInt(n)).filter(n => !isNaN(n)) : [];
+          const correctNumbers = correctParam ? correctParam.split(',').map(n => parseInt(n)).filter(n => !isNaN(n)) : [];
+
+          // "(復習テスト)" などのサフィックスを除去して検索
+          const normalizedTextName = selectedText.replace(/[\s]*[（(][^）)]*復習[^)）]*[)）][\s]*$/u, '').trim();
 
           // 間違えた単語の詳細を単語番号から取得
           let tappedWords: TappedWord[] = [];
           if (wrongNumbers.length > 0) {
-            // "(復習テスト)" などのサフィックスを除去して検索
-            const normalizedTextName = selectedText.replace(/[\s]*[（(][^）)]*復習[^)）]*[)）][\s]*$/u, '').trim();
-
             const { data, error } = await supabase
               .from("words")
               .select("word, word_number, meaning")
@@ -67,8 +70,23 @@ function ResultsContent() {
             }
           }
 
+          // 正解した単語の詳細を単語番号から取得
+          let correctWords: TappedWord[] = [];
+          if (correctNumbers.length > 0) {
+            const { data, error } = await supabase
+              .from("words")
+              .select("word, word_number, meaning")
+              .eq("text", normalizedTextName)
+              .in("word_number", correctNumbers);
+
+            if (!error && data) {
+              correctWords = data;
+            }
+          }
+
           setResultData({
             tappedWords,
+            correctWords,
             total,
             selectedText,
             startNum,
@@ -107,7 +125,7 @@ function ResultsContent() {
       setSaving(true);
       setError(null);
 
-      const { tappedWords = [], total = 0, selectedText, startNum, endNum } = resultData || {};
+      const { tappedWords = [], correctWords = [], total = 0, selectedText, startNum, endNum } = resultData || {};
       const correct = total - tappedWords.length;
 
       try {
@@ -140,6 +158,7 @@ function ResultsContent() {
           correct: correct ?? 0,
           incorrect_count: tappedWords.length ?? 0,
           incorrect_words: tappedWords ?? [],
+          correct_words: correctWords ?? [],
           test_key: testKey,
         };
 
