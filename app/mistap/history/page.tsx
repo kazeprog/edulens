@@ -193,7 +193,7 @@ export default function HistoryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       <Background className="min-h-screen">
         <div className="max-w-5xl mx-auto px-4 py-8" style={{ marginTop: '25px' }}>
 
@@ -355,6 +355,6 @@ export default function HistoryPage() {
           )}
         </div>
       </Background>
-    </div>
+    </main>
   );
 }

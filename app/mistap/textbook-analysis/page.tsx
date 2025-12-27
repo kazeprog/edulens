@@ -173,13 +173,13 @@ function TextbookAnalysisContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-gray-50">
         <Background className="min-h-screen">
           <div className="flex justify-center items-center min-h-screen">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
           </div>
         </Background>
-      </div>
+      </main>
     );
   }
 
@@ -189,7 +189,7 @@ function TextbookAnalysisContent() {
   const averageScore = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       <Background className="min-h-screen">
         <div className="max-w-5xl mx-auto px-4 py-8" style={{ marginTop: '25px' }}>
 
@@ -355,7 +355,7 @@ function TextbookAnalysisContent() {
           )}
         </div>
       </Background>
-    </div>
+    </main>
   );
 }
 

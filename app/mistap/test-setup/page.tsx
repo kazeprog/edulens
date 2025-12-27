@@ -698,7 +698,7 @@ export default function TestSetupPage() {
 
   // 教材取得とユーザープロフィール取得
   useEffect(() => {
-    document.title = 'テスト作成 - Mistap';
+    // document.title removed for server-side metadata
     fetchTexts();
     loadUserProfile();
     loadWeakWords();
@@ -731,7 +731,7 @@ export default function TestSetupPage() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <Background className="flex justify-center items-start min-h-screen p-4">
         <div
           className="bg-white/40 backdrop-blur-lg shadow-xl rounded-xl p-6 md:p-8 border border-white/50"
@@ -1465,6 +1465,6 @@ export default function TestSetupPage() {
           </div>
         )}
       </Background>
-    </div>
+    </main>
   );
 }

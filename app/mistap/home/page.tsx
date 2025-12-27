@@ -129,8 +129,6 @@ export default function HomePage() {
     }, [authLoading, user, router]);
 
     useEffect(() => {
-        document.title = 'ホーム - Mistap';
-
         // PWA Install prompt detection
         const ua = typeof navigator !== 'undefined' ? navigator.userAgent || '' : '';
         const isiOS = /iPad|iPhone|iPod/.test(ua) && !('MSStream' in window);
@@ -427,7 +425,7 @@ export default function HomePage() {
     const isProfileIncomplete = profile.fullName === 'ゲスト' || profile.grade === '未設定';
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-gray-50">
             <Background className="min-h-screen">
                 <div className="max-w-5xl mx-auto px-4 pb-8" style={{ marginTop: '25px' }}>
 
@@ -811,6 +809,6 @@ export default function HomePage() {
                     )}
                 </div>
             </Background>
-        </div>
+        </main>
     );
 }

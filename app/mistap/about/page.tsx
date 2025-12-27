@@ -6,7 +6,7 @@ import Background from '@/components/mistap/Background';
 export default function AboutPage() {
   return (
     <Background>
-      <div className="min-h-screen py-12">
+      <main className="min-h-screen py-12">
         <div className="max-w-6xl mx-auto px-4">
 
           {/* ヒーローセクション */}
@@ -213,7 +213,7 @@ export default function AboutPage() {
             </div>
           </section>
         </div>
-      </div>
+      </main>
     </Background>
   );
 }

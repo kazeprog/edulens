@@ -295,7 +295,7 @@ export default function GoalsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       <Background className="min-h-screen">
         <div className="max-w-5xl mx-auto px-4 pb-8" style={{ marginTop: '25px' }}>
           {/* Header with Back Button */}
@@ -563,6 +563,6 @@ export default function GoalsPage() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

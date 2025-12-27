@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function SiteHeader() {
     const { user, profile, loading, signOut } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const handleLogout = async () => {
         setIsMenuOpen(false);
@@ -15,6 +17,14 @@ export default function SiteHeader() {
         // ホームへリダイレクト（リロードより確実に状態がリセットされる）
         window.location.href = '/';
     };
+
+    // リダイレクト先URL（ログインページ自身の場合は付与しない）
+    const redirectParam = pathname && pathname !== '/login'
+        ? `redirect=${encodeURIComponent(pathname)}`
+        : '';
+
+    const loginUrl = redirectParam ? `/login?${redirectParam}` : '/login';
+    const signupUrl = redirectParam ? `/login?mode=signup&${redirectParam}` : '/login?mode=signup';
 
     return (
         <header className="w-full py-4 px-4 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b border-slate-100">
@@ -115,13 +125,13 @@ export default function SiteHeader() {
                     /* 未ログイン: ログイン・新規登録ボタン */
                     <div className="flex items-center gap-3">
                         <Link
-                            href="/login"
+                            href={loginUrl}
                             className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
                         >
                             ログイン
                         </Link>
                         <Link
-                            href="/login?mode=signup"
+                            href={signupUrl}
                             className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
                         >
                             新規登録

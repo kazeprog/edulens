@@ -137,6 +137,27 @@ export default function Home() {
   return (
     <Background>
       <div className="min-h-screen">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Mistap",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "JPY"
+              },
+              "description": "間違えた単語を自動で記録し、効率的に復習できる単語学習システム。",
+              "featureList": "間違えた単語の自動記録, 分散学習法に基づく復習, 市販の単語帳に対応",
+              "screenshot": "https://edulens.jp/MistapLP.png"
+            })
+          }}
+        />
+
         {/* ヘッダー */}
         <header className="pt-6 pb-10">
           <div className="max-w-6xl mx-auto px-4">
@@ -156,25 +177,27 @@ export default function Home() {
           </div>
         </header>
 
-        <HeroSection onSignupClick={handleSignupClick} />
+        <main>
+          <HeroSection onSignupClick={handleSignupClick} />
 
-        <ScreenshotCarousel
-          isManual={isManual}
-          setIsManual={setIsManual}
-          carouselOuterRef={carouselOuterRef}
-          trackRef={trackRef}
-          manualResumeTimerRef={manualResumeTimerRef}
-        />
+          <ScreenshotCarousel
+            isManual={isManual}
+            setIsManual={setIsManual}
+            carouselOuterRef={carouselOuterRef}
+            trackRef={trackRef}
+            manualResumeTimerRef={manualResumeTimerRef}
+          />
 
-        <FeaturesSection />
+          <FeaturesSection />
 
-        <TextbooksSection />
+          <TextbooksSection />
 
-        <TestimonialsSection />
+          <TestimonialsSection />
 
-        <BlogSection blogPosts={blogPosts} blogLoading={blogLoading} />
+          <BlogSection blogPosts={blogPosts} blogLoading={blogLoading} />
 
-        <CTASection onSignupClick={handleSignupClick} />
+          <CTASection onSignupClick={handleSignupClick} />
+        </main>
       </div>
     </Background>
   );

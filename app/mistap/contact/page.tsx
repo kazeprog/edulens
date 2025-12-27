@@ -6,9 +6,8 @@ import Link from 'next/link';
 import { supabase } from '@/lib/mistap/supabaseClient';
 
 export default function ContactPage() {
-  useEffect(() => {
-    document.title = 'お問い合わせ - Mistap';
-  }, []);
+  // document.title removed for server-side metadata
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -101,7 +100,7 @@ export default function ContactPage() {
 
   return (
     <Background>
-      <div className="min-h-screen pt-20">
+      <main className="min-h-screen pt-20">
         <div className="max-w-2xl mx-auto px-4 py-8 md:py-16">
           <div className="bg-white/40 backdrop-blur-lg rounded-xl p-6 md:p-8 shadow-xl border border-white/50">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -244,7 +243,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </Background>
   );
 }

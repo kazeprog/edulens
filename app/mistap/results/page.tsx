@@ -31,7 +31,7 @@ function ResultsContent() {
   const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
-    document.title = 'テスト結果 - Mistap';
+    // document.title removed for server-side metadata
 
     // 新しい形式: URLパラメータから読み込み（単語番号のみ）
     const textParam = searchParams.get('text');
@@ -173,11 +173,11 @@ function ResultsContent() {
 
   if (!resultData) {
     return (
-      <div className="min-h-screen">
+      <main className="min-h-screen">
         <Background className="flex justify-center items-start min-h-screen">
           <div className="text-white text-xl" style={{ marginTop: 'calc(64px + 48px)' }}>Loading...</div>
         </Background>
-      </div>
+      </main>
     );
   }
 
@@ -231,7 +231,7 @@ function ResultsContent() {
   };
 
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <Background className="flex items-start justify-center min-h-screen p-4">
         <div className="bg-white/40 backdrop-blur-lg p-6 md:p-8 rounded-xl shadow-xl w-full max-w-3xl border border-white/50" style={{ marginTop: '25px' }}>
           <h1 className="text-3xl font-bold mb-6 text-center">テスト結果</h1>
@@ -457,7 +457,7 @@ function ResultsContent() {
           </div>
         </div>
       </Background>
-    </div>
+    </main>
   );
 }
 

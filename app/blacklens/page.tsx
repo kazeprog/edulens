@@ -104,24 +104,27 @@ export default function BlackLensPage() {
         <div className="min-h-screen bg-black text-gray-200 font-sans pb-20">
             {/* --- ヘッダー --- */}
             <header className="w-full py-2 px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-black/90 backdrop-blur-md z-50 border-b border-gray-800">
-                <Link href="/blacklens" className="hover:opacity-80 transition-opacity">
-                    <Image
-                        src="/BlackLensHeader.png?v=2"
-                        alt="Black Lens"
-                        width={200}
-                        height={60}
-                        className="h-10 sm:h-14 w-auto object-contain"
-                        style={{ width: 'auto' }}
-                        priority
-                        unoptimized
-                    />
-                </Link>
+                <h1 className="flex items-center">
+                    <Link href="/blacklens" className="hover:opacity-80 transition-opacity">
+                        <Image
+                            src="/BlackLensHeader.png?v=2"
+                            alt="Black Lens - 勉強の悩みを吐き出す掲示板"
+                            width={200}
+                            height={60}
+                            className="h-10 sm:h-14 w-auto object-contain"
+                            style={{ width: 'auto' }}
+                            priority
+                            unoptimized
+                        />
+                    </Link>
+                </h1>
                 {/* ハンバーガーメニューボタン */}
                 <div className="relative">
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none p-2 rounded-full hover:bg-gray-800 transition-colors"
-                        aria-label="メニュー"
+                        aria-label="メニューを開く"
+                        aria-expanded={isMenuOpen}
                     >
                         <span className={`block w-6 h-0.5 bg-gray-400 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
                         <span className={`block w-6 h-0.5 bg-gray-400 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
@@ -175,15 +178,19 @@ export default function BlackLensPage() {
 
             <main className="max-w-md mx-auto px-4 pt-6 space-y-8">
                 {/* --- 投稿フォーム --- */}
-                <div className="bg-gray-900 rounded-2xl p-4 border border-gray-800 shadow-lg">
+                <div className="bg-gray-900 rounded-2xl p-4 border border-gray-800 shadow-lg" role="form" aria-label="新規投稿フォーム">
+                    <label htmlFor="nickname-input" className="sr-only">ニックネーム (任意)</label>
                     <input
+                        id="nickname-input"
                         type="text"
                         placeholder="ニックネーム (任意)"
                         className="w-full bg-gray-800 text-white text-sm rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500"
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
                     />
+                    <label htmlFor="content-textarea" className="sr-only">投稿内容</label>
                     <textarea
+                        id="content-textarea"
                         rows={3}
                         placeholder="悩みやストレスなど自由にどうぞ"
                         className="w-full bg-gray-800 text-white text-base rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500 resize-none"
@@ -191,12 +198,13 @@ export default function BlackLensPage() {
                         onChange={(e) => setContent(e.target.value)}
                     />
                     {/* カテゴリ選択 */}
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="カテゴリ選択">
                         {CATEGORIES.map((cat) => (
                             <button
                                 key={cat}
                                 type="button"
                                 onClick={() => setCategory(cat)}
+                                aria-pressed={category === cat}
                                 className={`text-xs px-3 py-1.5 rounded-full transition-colors ${category === cat
                                     ? "bg-purple-600 text-white"
                                     : "bg-gray-800 text-gray-400 hover:bg-gray-700"
@@ -220,12 +228,14 @@ export default function BlackLensPage() {
 
                 {/* --- 検索バー --- */}
                 <div className="relative">
+                    <label htmlFor="search-input" className="sr-only">投稿を検索</label>
                     <input
-                        type="text"
+                        id="search-input"
+                        type="search"
                         placeholder="悩みやキーワードで検索"
                         className="w-full bg-gray-900 border border-gray-800 text-sm rounded-full px-4 py-3 pl-10 focus:outline-none text-gray-300"
                     />
-                    <span className="absolute left-3 top-3 text-gray-500">🔍</span>
+                    <span className="absolute left-3 top-3 text-gray-500" aria-hidden="true">🔍</span>
                 </div>
 
                 {/* --- タイムライン --- */}
