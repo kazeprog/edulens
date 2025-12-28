@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
+import MistapFooter from '@/components/mistap/Footer';
 
 interface IncorrectWord {
   word_number: number;
@@ -355,6 +356,7 @@ export default function HistoryPage() {
           )}
         </div>
       </Background>
+      <MistapFooter />
     </main>
   );
 }

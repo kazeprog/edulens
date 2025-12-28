@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
+import MistapFooter from "@/components/mistap/Footer";
 
 interface TappedWord {
   word_number: number;
@@ -476,6 +477,7 @@ function ResultsContent() {
           </div>
         </div>
       </Background>
+      <MistapFooter />
     </main>
   );
 }

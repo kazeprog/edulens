@@ -11,6 +11,7 @@ import { getActiveAnnouncements, Announcement } from '@/lib/mistap/announcements
 import Background from '@/components/mistap/Background';
 import GroupRanking from '@/components/GroupRanking';
 import ProgressDashboard from '@/components/mistap/ProgressDashboard';
+import MistapFooter from '@/components/mistap/Footer';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -813,6 +814,7 @@ export default function HomePage() {
                     )}
                 </div>
             </Background>
+            <MistapFooter />
         </main>
     );
 }

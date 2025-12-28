@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Background from '@/components/mistap/Background';
+import MistapFooter from '@/components/mistap/Footer';
 
 export default function GoalsPage() {
   const router = useRouter();
@@ -563,6 +564,7 @@ export default function GoalsPage() {
           </div>
         </div>
       )}
+      <MistapFooter />
     </main>
   );
 }

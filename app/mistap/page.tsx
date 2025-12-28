@@ -14,6 +14,7 @@ import TestimonialsSection from "@/components/mistap/TestimonialsSection";
 import BlogSection from "@/components/mistap/BlogSection";
 import CTASection from "@/components/mistap/CTASection";
 import TestSetupContent from "@/components/mistap/TestSetupContent";
+import MistapFooter from "@/components/mistap/Footer";
 
 // ブログ記事の型定義
 interface BlogPost {
@@ -193,6 +194,8 @@ export default function Home() {
           <BlogSection blogPosts={blogPosts} blogLoading={blogLoading} />
 
           <CTASection onSignupClick={handleSignupClick} />
+
+          <MistapFooter />
         </main>
       </div>
     </Background>

@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
+import MistapFooter from '@/components/mistap/Footer';
 
 interface IncorrectWord {
   word_number: number;
@@ -355,6 +356,7 @@ function TextbookAnalysisContent() {
           )}
         </div>
       </Background>
+      <MistapFooter />
     </main>
   );
 }

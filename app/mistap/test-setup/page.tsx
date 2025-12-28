@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
+import MistapFooter from "@/components/mistap/Footer";
 
 // PWAインストールプロンプト用の型定義
 type BeforeInstallPromptEvent = Event & {
@@ -1465,6 +1466,7 @@ export default function TestSetupPage() {
           </div>
         )}
       </Background>
+      <MistapFooter />
     </main>
   );
 }

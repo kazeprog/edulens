@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Background from '@/components/mistap/Background';
+import MistapFooter from '@/components/mistap/Footer';
 
 export default function AboutPage() {
   return (
@@ -214,6 +215,7 @@ export default function AboutPage() {
           </section>
         </div>
       </main>
+      <MistapFooter />
     </Background>
   );
 }

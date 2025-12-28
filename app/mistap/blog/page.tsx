@@ -2,6 +2,7 @@ import Link from "next/link";
 import { client } from "@/lib/mistap/microcms"; // lib/microcms.ts を指す
 import type { Metadata } from "next";
 import Image from "next/image";
+import MistapFooter from "@/components/mistap/Footer";
 
 // メタデータ
 export const metadata: Metadata = {
@@ -132,6 +133,7 @@ export default async function BlogPage() {
           ))}
         </ul>
       </div>
+      <MistapFooter />
     </div>
   );
 }

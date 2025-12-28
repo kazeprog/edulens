@@ -8,6 +8,7 @@ import FlippableCard from "@/components/mistap/FlippableCard";
 import TestCard from "@/components/mistap/TestCard";
 import PrintWarningModal from "@/components/mistap/PrintWarningModal";
 import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/TestActionButtons";
+import MistapFooter from "@/components/mistap/Footer";
 
 interface Word {
   word_number: number;
@@ -425,6 +426,7 @@ function TestContent() {
           />
         </div>
       </Background>
+      <MistapFooter />
     </div>
   );
 }

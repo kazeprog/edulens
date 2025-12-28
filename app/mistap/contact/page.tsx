@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Background from '@/components/mistap/Background';
 import Link from 'next/link';
 import { supabase } from '@/lib/mistap/supabaseClient';
+import MistapFooter from '@/components/mistap/Footer';
 
 export default function ContactPage() {
   // document.title removed for server-side metadata
@@ -244,6 +245,7 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
+      <MistapFooter />
     </Background>
   );
 }

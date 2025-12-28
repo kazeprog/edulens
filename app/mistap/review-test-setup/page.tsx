@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import Link from "next/link";
+import MistapFooter from "@/components/mistap/Footer";
 
 interface WeakWord {
   word_number: number;
@@ -403,6 +404,7 @@ export default function ReviewTestSetupPage() {
           </button>
         </div>
       </div>
+      <MistapFooter />
     </Background>
   );
 }
