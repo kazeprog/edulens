@@ -1,35 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { supabase } from '@/lib/mistap/supabaseClient';
 
 interface HeroSectionProps {
     onSignupClick: () => void;
 }
 
 export default function HeroSection({ onSignupClick }: HeroSectionProps) {
-    const [demoLoading, setDemoLoading] = useState(false);
-    const router = useRouter();
-
-    const handleDemoClick = async () => {
-        if (demoLoading) return;
-        setDemoLoading(true);
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                router.push('/mistap/home');
-            } else {
-                router.push('/mistap/test-setup');
-            }
-        } catch {
-            router.push('/mistap/test-setup');
-        } finally {
-            setDemoLoading(false);
-        }
-    };
-
     return (
         <section className="py-6 md:py-12">
             <div className="max-w-6xl mx-auto px-4 text-center">
@@ -47,13 +24,6 @@ export default function HeroSection({ onSignupClick }: HeroSectionProps) {
                             className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors"
                         >
                             アカウント作成(無料)
-                        </button>
-                        <button
-                            onClick={handleDemoClick}
-                            disabled={demoLoading}
-                            className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {demoLoading ? '読み込み中...' : 'デモを試す'}
                         </button>
                         <Link
                             href="/mistap/about"

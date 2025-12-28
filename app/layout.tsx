@@ -56,6 +56,21 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
+        {/* Google Analytics (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-JQ63VXZTM4"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-JQ63VXZTM4');
+            `,
+          }}
+        />
         {/* Google AdSense - 審査用（原始的なタグでGoogleロボットに見せる） */}
         <script
           async
