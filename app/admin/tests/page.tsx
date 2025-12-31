@@ -327,7 +327,7 @@ export default function TestHistoryPage() {
                             {filteredResults.map((result) => {
                                 const scorePercent = Math.round((result.correct / result.total) * 100);
                                 const isHighScore = scorePercent >= 80;
-                                const hasName = profiles.has(result.user_id);
+                                const hasName = result.user_id ? profiles.has(result.user_id) : false;
 
                                 return (
                                     <tr key={result.id} className="hover:bg-slate-50 transition">
