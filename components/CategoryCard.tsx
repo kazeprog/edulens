@@ -5,7 +5,7 @@ type CategoryCardProps = {
     title: string;
     description: string;
     icon: React.ReactNode;
-    color: 'blue' | 'indigo' | 'emerald' | 'sky' | 'teal';
+    color: 'blue' | 'indigo' | 'emerald' | 'sky' | 'teal' | 'rose';
 };
 
 export default function CategoryCard({ href, title, description, icon, color }: CategoryCardProps) {
@@ -16,6 +16,7 @@ export default function CategoryCard({ href, title, description, icon, color }: 
         emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'hover:border-emerald-200', groupText: 'group-hover:text-emerald-700' },
         sky: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'hover:border-sky-200', groupText: 'group-hover:text-sky-700' },
         teal: { bg: 'bg-teal-50', text: 'text-teal-700', border: 'hover:border-teal-200', groupText: 'group-hover:text-teal-700' },
+        rose: { bg: 'bg-rose-50', text: 'text-rose-600', border: 'hover:border-rose-200', groupText: 'group-hover:text-rose-600' },
     };
 
     const s = colorStyles[color];

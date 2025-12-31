@@ -1,6 +1,6 @@
 import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 import MonthlyList from './MonthlyList';
 
@@ -28,10 +28,10 @@ export async function generateMetadata(
 
   // 検索意図「いつ？あと何日？」をそのままタイトルに反映
   const title = `${displayExamName}試験日はいつ？あと何日？日程・カウントダウン一覧 | EduLens`;
-  
+
   // 問いかけと解決策（リアルタイムカウントダウン）を提示
   const description = `【${displayExamName}】試験日はいつ？本番まであと何日かをリアルタイムでカウントダウン。次回の日程、出願期間、合格発表日まで最新情報を一覧で掲載。受験生必見の${displayExamName}情報サイト。`;
-  
+
   const url = `https://edulens.jp/countdown/${slug}`;
   const previousImages = (await parent).openGraph?.images || [];
 
@@ -85,6 +85,12 @@ export default async function ExamListPage({ params }: { params: Params }) {
     const compareDate = exam.result_date || exam.primary_exam_date;
     return compareDate >= todayStr;
   }) || [];
+
+  // 1件しかない場合は直接詳細ページへリダイレクト (TOEFL/TOEICなどの月別表示系は除く)
+  if (filteredExams.length === 1 && slug !== 'toefl' && slug !== 'toeic') {
+    const targetExam = filteredExams[0];
+    redirect(`/countdown/${targetExam.slug}/${targetExam.session_slug}`);
+  }
 
   // 表示用の試験名を取得（データがあればその1件目から）
   let examName = filteredExams.length > 0 ? filteredExams[0].exam_name : (exams && exams.length > 0 ? exams[0].exam_name : slug);
