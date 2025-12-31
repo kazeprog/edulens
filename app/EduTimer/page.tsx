@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
-import { getEduLensSupabase } from '@/lib/supabase-edulens';
+import { getSupabase } from '@/lib/supabase';
 
 // タイマーモードの定義
 type TimerMode = 'work' | 'shortBreak' | 'longBreak';
@@ -54,7 +54,7 @@ export default function EduTimerPage() {
   // セッション履歴を読み込む（edulensプロジェクトから）
   const loadSessionHistory = useCallback(async () => {
     if (!user) return;
-    const supabase = getEduLensSupabase();
+    const supabase = getSupabase();
     if (!supabase) return;
 
     setLoadingHistory(true);
@@ -79,7 +79,7 @@ export default function EduTimerPage() {
   // セッションをDBに保存（edulensプロジェクトへ）
   const saveSession = useCallback(async (workDuration: number) => {
     if (!user) return;
-    const supabase = getEduLensSupabase();
+    const supabase = getSupabase();
     if (!supabase) return;
 
     try {

@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS official_exams CASCADE;
+DROP TABLE IF EXISTS university_events CASCADE;
+DROP TABLE IF EXISTS exam_schedules CASCADE;
+DROP TABLE IF EXISTS prefectures CASCADE;

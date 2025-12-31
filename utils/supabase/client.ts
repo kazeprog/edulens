@@ -1,17 +1,31 @@
-import { createClient } from '@supabase/supabase-js'
+/**
+ * Supabase Client for Countdown features
+ * 
+ * This module re-exports the central Supabase client from lib/supabase.ts
+ * to ensure all features use the consolidated tango-test-app project.
+ * 
+ * NOTE: This client works on BOTH server and client side.
+ * For server-side rendering (like generateMetadata), we create a fresh client.
+ */
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+// サーバーサイドでも動作するクライアントを作成
+function createSupabaseClient(): SupabaseClient {
+  // tango-test-app プロジェクトの環境変数を使用
+  // EDULENS を優先、MISTAP をフォールバック
+  const supabaseUrl = process.env.NEXT_PUBLIC_EDULENS_SUPABASE_URL
+    || process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL
+    || ''
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_EDULENS_SUPABASE_ANON_KEY
+    || process.env.NEXT_PUBLIC_MISTAP_SUPABASE_ANON_KEY
+    || ''
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  // 開発環境などで環境変数が未設定の場合、モジュール評価時に例外を投げると
-  // Next のメタデータ生成や静的レンダリングでクラッシュするため、ここでは警告を出すに留めます。
-  // 実際に Supabase を使用する処理（クエリ送信など）は、呼び出し時に環境変数をチェックしてください。
-  // 例：`if (!process.env.NEXT_PUBLIC_SUPABASE_URL) throw new Error(...)`
-  // 開発中は .env.local に環境変数を追加してください。
-  // https://supabase.com/docs/guides/with-nextjs
-  // eslint-disable-next-line no-console
-  console.warn('Missing Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Missing Supabase environment variables: NEXT_PUBLIC_EDULENS_SUPABASE_URL or NEXT_PUBLIC_EDULENS_SUPABASE_ANON_KEY')
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey)
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// シングルトンクライアント (サーバー・クライアント両方で動作)
+export const supabase = createSupabaseClient()

@@ -1,15 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
-
-// ▼▼ Supabase設定 ▼▼
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 // 日付フォーマット関数（date-fns不要）
 const formatDate = (dateString: string) => {
