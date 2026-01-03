@@ -108,6 +108,13 @@ export default function ContactPage() {
               お問い合わせ
             </h1>
 
+            <div className="mb-8 text-center bg-white/50 rounded-lg p-4 border border-white/60">
+              <p className="text-sm text-gray-600 mb-1">メールでのお問い合わせはこちら</p>
+              <a href="mailto:mistap.edulens@gmail.com" className="text-red-600 font-bold hover:underline">
+                mistap.edulens@gmail.com
+              </a>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* お問い合わせ種別 */}
               <div>

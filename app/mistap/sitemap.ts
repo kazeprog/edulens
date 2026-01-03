@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { client } from '@/lib/mistap/microcms';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://mistap.app';
+  const baseUrl = 'https://edulens.jp/mistap';
 
   // 静的ページ
   const staticPages: MetadataRoute.Sitemap = [

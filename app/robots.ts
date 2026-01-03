@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://edulens.jp/sitemap.xml',
+    sitemap: ['https://edulens.jp/sitemap.xml', 'https://edulens.jp/mistap/sitemap.xml'],
   };
 }

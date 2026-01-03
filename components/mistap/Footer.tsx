@@ -7,6 +7,7 @@ export default function MistapFooter() {
                 <Link href="/terms" className="hover:text-red-600 hover:underline transition-colors">利用規約</Link>
                 <Link href="/privacy" className="hover:text-red-600 hover:underline transition-colors">プライバシーポリシー</Link>
                 <Link href="/mistap/contact" className="hover:text-red-600 hover:underline transition-colors">お問い合わせ</Link>
+                <Link href="/mistap/blog" className="hover:text-red-600 hover:underline transition-colors">ブログ</Link>
                 <Link href="/mistap/about" className="hover:text-red-600 hover:underline transition-colors">Mistapとは</Link>
             </nav>
             <div className="space-y-2">
