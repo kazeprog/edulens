@@ -7,6 +7,7 @@ export default function SiteFooter() {
                 <Link href="/terms" className="hover:text-slate-800 hover:underline">利用規約</Link>
                 <Link href="/privacy" className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
                 <Link href="/contact" className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
+                <Link href="/operator" className="hover:text-slate-800 hover:underline">運営者情報</Link>
             </nav>
             <div className="space-y-2">
                 <p className="text-xs text-slate-400">
