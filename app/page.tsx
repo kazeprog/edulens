@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import { client } from "@/lib/mistap/microcms";
 
 export const metadata: Metadata = {
   title: 'EduLens - 学習を、もっと効果的に',
@@ -26,7 +28,42 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+// microCMS Interface
+interface Blog {
+  id: string;
+  publishedAt: string;
+  title: string;
+  eyecatch?: {
+    url: string;
+    height: number;
+    width: number;
+  };
+}
+
+// SEO専用記事のID（一覧から除外）
+const SEO_EXCLUDED_ID = '9dj-wo0gj';
+
+async function getLatestBlogs() {
+  try {
+    const data = await client.getList<Blog>({
+      endpoint: "blogs",
+      queries: {
+        orders: "-publishedAt",
+        fields: 'id,title,publishedAt,eyecatch',
+        filters: `category[not_equals]${SEO_EXCLUDED_ID}`,
+        limit: 3,
+      },
+    });
+    return data.contents;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const latestPosts = await getLatestBlogs();
+
   return (
     <>
       <SiteHeader />
@@ -300,8 +337,60 @@ export default function Home() {
             </div>
           </section >
 
+          {/* Latest Articles Section */}
+          {latestPosts.length > 0 && (
+            <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex justify-between items-end mb-8 sm:mb-12">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    新着記事
+                  </h2>
+                  <Link href="/mistap/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                    記事一覧
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {latestPosts.map((post) => (
+                    <Link
+                      key={post.id}
+                      href={`/mistap/blog/${post.id}`}
+                      className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                        {post.eyecatch ? (
+                          <Image
+                            src={post.eyecatch.url}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-slate-400">
+                            No Image
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-6">
+                        <p className="text-xs text-slate-500 mb-2">
+                          {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
+                        </p>
+                        <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* About / SEO Section */}
-          < section className="py-12 sm:py-16 px-4 bg-white" >
+          < section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100" >
             <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12">
               <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-6 sm:p-12">
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">EduLensについて</h2>
