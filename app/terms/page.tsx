@@ -4,7 +4,7 @@ export const metadata: Metadata = {
     title: '利用規約 | EduLens',
     description: 'EduLens（以下「当サイト」）の利用規約です。',
     robots: {
-        index: false,
+        index: true,
         follow: true,
     },
 };

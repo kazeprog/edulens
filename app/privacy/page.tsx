@@ -4,7 +4,7 @@ export const metadata: Metadata = {
     title: 'プライバシーポリシー | EduLens',
     description: 'EduLensにおける個人情報の取り扱い、広告掲載、アクセス解析ツールについての方針をまとめています。',
     robots: {
-        index: false,
+        index: true,
         follow: true,
     },
 };

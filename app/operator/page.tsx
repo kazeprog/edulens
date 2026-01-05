@@ -5,7 +5,7 @@ export const metadata: Metadata = {
     title: '運営者情報 | EduLens',
     description: 'EduLensの運営者情報と運営目的について。',
     robots: {
-        index: false,
+        index: true,
         follow: true,
     },
 };
