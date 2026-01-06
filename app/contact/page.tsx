@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'お問い合わせ | EduLens',
     description: 'EduLensに関するお問い合わせはこちらからお願いします。',
+    robots: {
+        index: true,
+        follow: true,
+    },
 };
 
 export default function ContactPage() {
