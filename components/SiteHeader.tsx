@@ -40,7 +40,7 @@ export default function SiteHeader() {
 
             <nav className="flex items-center gap-4">
                 {!loading && !user && (
-                    <div className="flex items-center gap-3 mr-2">
+                    <div className="hidden md:flex items-center gap-3 mr-4">
                         <Link
                             href={loginUrl}
                             className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
@@ -90,6 +90,26 @@ export default function SiteHeader() {
                                                 <p className="text-xs text-slate-500 truncate">
                                                     {user.email}
                                                 </p>
+                                            </div>
+                                        )}
+
+                                        {/* 未ログイン時のモバイル用メニュー */}
+                                        {!user && (
+                                            <div className="md:hidden border-b border-slate-100 mb-1 pb-1">
+                                                <Link
+                                                    href={loginUrl}
+                                                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                >
+                                                    ログイン
+                                                </Link>
+                                                <Link
+                                                    href={signupUrl}
+                                                    className="block py-3 px-4 text-blue-600 hover:bg-slate-50 transition-colors font-bold border-l-4 border-transparent hover:border-blue-500"
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                >
+                                                    新規登録
+                                                </Link>
                                             </div>
                                         )}
 
