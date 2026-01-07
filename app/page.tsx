@@ -400,7 +400,7 @@ export default async function Home() {
                       href={`/blog/${post.id}`}
                       className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                     >
-                      <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                      <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
                         {post.eyecatch ? (
                           <Image
                             src={post.eyecatch.url}
