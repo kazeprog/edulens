@@ -4,7 +4,7 @@ import Image from 'next/image';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MistapProtected from '@/components/MistapProtected';
-import { client } from "@/lib/mistap/microcms";
+import { mistapClient, blogClient } from "@/lib/mistap/microcms";
 
 export const metadata: Metadata = {
   title: 'EduLens - 学習を、もっと効果的に',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 // microCMS Interface
-interface Blog {
+interface MistapBlog {
   id: string;
   publishedAt: string;
   title: string;
@@ -41,12 +41,27 @@ interface Blog {
   };
 }
 
+interface EduLensBlog {
+  id: string;
+  publishedAt: string;
+  title: string;
+  eyecatch?: {
+    url: string;
+    height: number;
+    width: number;
+  };
+  category?: {
+    id: string;
+    name: string;
+  };
+}
+
 // SEO専用記事のID（一覧から除外）
 const SEO_EXCLUDED_ID = '9dj-wo0gj';
 
-async function getLatestBlogs() {
+async function getLatestMistapBlogs() {
   try {
-    const data = await client.getList<Blog>({
+    const data = await mistapClient.getList<MistapBlog>({
       endpoint: "blogs",
       queries: {
         orders: "-publishedAt",
@@ -57,13 +72,32 @@ async function getLatestBlogs() {
     });
     return data.contents;
   } catch (e) {
-    console.error(e);
+    console.error("Mistap blog fetch error:", e);
+    return [];
+  }
+}
+
+async function getEduLensBlogs() {
+  try {
+    const data = await blogClient.getList<EduLensBlog>({
+      endpoint: "blogs", // EduLens側のエンドポイント名。もし違う場合は修正が必要
+      queries: {
+        orders: "-publishedAt",
+        limit: 3,
+        fields: 'id,title,publishedAt,eyecatch,category',
+      },
+    });
+    return data.contents;
+  } catch (e) {
+    // 環境変数が設定されていない場合のエラーなどはここでキャッチ
+    console.warn("EduLens blog fetch error (possibly not configured):", e);
     return [];
   }
 }
 
 export default async function Home() {
-  const latestPosts = await getLatestBlogs();
+  const latestMistapPosts = await getLatestMistapBlogs();
+  const latestEduLensPosts = await getEduLensBlogs();
 
   return (
     <>
@@ -334,14 +368,66 @@ export default async function Home() {
             </div>
           </section >
 
+          {/* EduLens Blog Section (Visible to ALL) */}
+          {latestEduLensPosts.length > 0 && (
+            <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex justify-between items-end mb-8 sm:mb-12">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    EduLens ブログ
+                  </h2>
+                  <Link href="/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                    記事一覧
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {latestEduLensPosts.map((post) => (
+                    <Link
+                      key={post.id}
+                      href={`/blog/${post.id}`}
+                      className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                        {post.eyecatch ? (
+                          <Image
+                            src={post.eyecatch.url}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-slate-400">
+                            No Image
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-6">
+                        <p className="text-xs text-slate-500 mb-2">
+                          {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
+                        </p>
+                        <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* Latest Articles Section - Show ONLY for logged-in users */}
-          {latestPosts.length > 0 && (
+          {latestMistapPosts.length > 0 && (
             <MistapProtected>
               <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
                 <div className="max-w-5xl mx-auto">
                   <div className="flex justify-between items-end mb-8 sm:mb-12">
                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
-                      新着記事
+                      Mistap 新着記事
                     </h2>
                     <Link href="/mistap/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
                       記事一覧
@@ -352,7 +438,7 @@ export default async function Home() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {latestPosts.map((post) => (
+                    {latestMistapPosts.map((post) => (
                       <Link
                         key={post.id}
                         href={`/mistap/blog/${post.id}`}

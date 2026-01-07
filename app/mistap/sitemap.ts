@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { client } from '@/lib/mistap/microcms';
+import { mistapClient } from '@/lib/mistap/microcms';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://edulens.jp/mistap';
@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ブログ記事を取得
   try {
-    const { contents } = await client.getList({
+    const { contents } = await mistapClient.getList({
       endpoint: 'blogs',
       queries: { fields: 'id,updatedAt', limit: 100 },
     });

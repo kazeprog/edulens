@@ -1,4 +1,4 @@
-import { client } from "@/lib/mistap/microcms";
+import { mistapClient } from "@/lib/mistap/microcms";
 import { notFound } from "next/navigation";
 import type { Blog } from "../page"; // 
 import Link from "next/link"; // Link
@@ -29,7 +29,7 @@ async function getPostByContentId(contentId: string, draftKey?: string) {
     }
 
     // idでコンテンツを直接取得（キャッシュ無効化）
-    const post = await client.getListDetail<Blog>({
+    const post = await mistapClient.getListDetail<Blog>({
       endpoint: "blogs",
       contentId: contentId,
       queries,
@@ -232,7 +232,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
  * */
 export async function generateStaticParams() {
   try {
-    const data = await client.getList<Blog>({
+    const data = await mistapClient.getList<Blog>({
       endpoint: "blogs",
       queries: { fields: "id" },
     });

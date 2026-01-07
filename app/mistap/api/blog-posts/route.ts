@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { client } from '@/lib/mistap/microcms';
+import { mistapClient } from '@/lib/mistap/microcms';
 
 // キャッシュを無効化
 export const dynamic = 'force-dynamic';
@@ -10,7 +10,7 @@ const SEO_EXCLUDED_ID = '9dj-wo0gj';
 
 export async function GET() {
   try {
-    const data = await client.getList({
+    const data = await mistapClient.getList({
       endpoint: 'blogs',
       queries: {
         orders: '-publishedAt',

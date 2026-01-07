@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { client } from "@/lib/mistap/microcms"; // lib/microcms.ts を指す
+import { mistapClient } from "@/lib/mistap/microcms"; // lib/microcms.ts を指す
 import type { Metadata } from "next";
 import Image from "next/image";
 import MistapFooter from "@/components/mistap/Footer";
@@ -55,7 +55,7 @@ async function getAllBlogs() {
   let allContents: Blog[] = [];
 
   while (true) {
-    const data = await client.getList<Blog>({
+    const data = await mistapClient.getList<Blog>({
       endpoint: "blogs",
       queries: {
         orders: "-publishedAt",
