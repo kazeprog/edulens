@@ -69,6 +69,9 @@ async function getLatestMistapBlogs() {
         filters: `category[not_equals]${SEO_EXCLUDED_ID}`,
         limit: 3,
       },
+      customRequestInit: {
+        cache: 'no-store', // 常に最新を取得
+      },
     });
     return data.contents;
   } catch (e) {
@@ -86,6 +89,9 @@ async function getEduLensBlogs() {
         limit: 3,
         fields: 'id,title,publishedAt,eyecatch,category',
       },
+      customRequestInit: {
+        cache: 'no-store', // 常に最新を取得
+      },
     });
     return data.contents;
   } catch (e) {
@@ -96,8 +102,11 @@ async function getEduLensBlogs() {
 }
 
 export default async function Home() {
-  const latestMistapPosts = await getLatestMistapBlogs();
-  const latestEduLensPosts = await getEduLensBlogs();
+  // 並列取得で高速化
+  const [latestMistapPosts, latestEduLensPosts] = await Promise.all([
+    getLatestMistapBlogs(),
+    getEduLensBlogs(),
+  ]);
 
   return (
     <>
