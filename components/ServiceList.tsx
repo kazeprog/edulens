@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext';
 
 // サービス一覧データ（トップページと連動）
 const SERVICES = [
@@ -12,14 +13,12 @@ const SERVICES = [
         image: '/CountdownLP.png',
         description: '試験日カウントダウン',
     },
-    /* TEMPORARY: Hide for AdSense
     {
         name: 'Mistap',
         href: '/mistap',
         image: '/MistapLP.png',
         description: '単語学習システム',
     },
-    */
     {
         name: 'EduTimer',
         href: '/EduTimer',
@@ -40,6 +39,7 @@ interface ServiceListProps {
 }
 
 export default function ServiceList({ currentService }: ServiceListProps) {
+    const { user } = useAuth();
     const scrollRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<number | null>(null);
     const isPaused = useRef(false);
@@ -47,11 +47,19 @@ export default function ServiceList({ currentService }: ServiceListProps) {
     const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const lastScrollLeft = useRef(0);
 
+    // フィルタリングされたサービスリスト（ログイン状態に基づく）
+    const filteredServices = SERVICES.filter(service => {
+        if (service.name === 'Mistap') {
+            return !!user; // ログイン時のみ表示
+        }
+        return true;
+    });
+
     // 1セット分の幅を計算
     const cardWidth = 160;
     const gap = 16;
     const totalCardWidth = cardWidth + gap;
-    const setWidth = totalCardWidth * SERVICES.length;
+    const setWidth = totalCardWidth * filteredServices.length;
 
     useEffect(() => {
         const scrollContainer = scrollRef.current;
@@ -130,7 +138,7 @@ export default function ServiceList({ currentService }: ServiceListProps) {
     };
 
     // 無限ループ用に5セット複製
-    const displayServices = [...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES];
+    const displayServices = [...filteredServices, ...filteredServices, ...filteredServices, ...filteredServices, ...filteredServices];
 
     return (
         <section className="py-8 bg-white border-y border-slate-100">

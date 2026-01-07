@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import MistapProtected from '@/components/MistapProtected';
 import { client } from "@/lib/mistap/microcms";
 
 export const metadata: Metadata = {
@@ -151,62 +152,62 @@ export default async function Home() {
                   </div>
                 </Link>
 
-                {/* Mistap Card */}
-                {/* TEMPORARY: Hide for AdSense
-                <Link
-                  href="/mistap"
-                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-200 transition-all duration-300 overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-red-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+                {/* Mistap Card - Show ONLY for logged-in users */}
+                <MistapProtected>
+                  <Link
+                    href="/mistap"
+                    className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-200 transition-all duration-300 overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-red-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
 
-                  <div className="relative">
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <img
-                        src="/MistapLP.png"
-                        alt="Mistap"
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="relative">
+                      <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                        <img
+                          src="/MistapLP.png"
+                          alt="Mistap"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-red-600 transition-colors">
+                        Mistap
+                      </h3>
+
+                      <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
+                        間違えた単語に集中する学習システム。<br />
+                        効率的な暗記で確実に記憶を定着。
+                      </p>
+
+                      <ul className="space-y-2 text-sm text-slate-500 mb-6">
+                        <li className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          間違い単語を自動記録
+                        </li>
+                        <li className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          復習テスト自動生成
+                        </li>
+                        <li className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          主要単語帳に対応
+                        </li>
+                      </ul>
+
+                      <span className="inline-flex items-center text-red-600 font-semibold group-hover:translate-x-1 transition-transform">
+                        詳しく見る
+                        <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
                     </div>
-
-                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-red-600 transition-colors">
-                      Mistap
-                    </h3>
-
-                    <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
-                      間違えた単語に集中する学習システム。<br />
-                      効率的な暗記で確実に記憶を定着。
-                    </p>
-
-                    <ul className="space-y-2 text-sm text-slate-500 mb-6">
-                      <li className="flex items-center">
-                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        間違い単語を自動記録
-                      </li>
-                      <li className="flex items-center">
-                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        復習テスト自動生成
-                      </li>
-                      <li className="flex items-center">
-                        <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        主要単語帳に対応
-                      </li>
-                    </ul>
-
-                    <span className="inline-flex items-center text-red-600 font-semibold group-hover:translate-x-1 transition-transform">
-                      詳しく見る
-                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-                */}
+                  </Link>
+                </MistapProtected>
 
                 {/* EduTimer Card */}
                 <Link
@@ -333,59 +334,59 @@ export default async function Home() {
             </div>
           </section >
 
-          {/* Latest Articles Section */}
-          {/* TEMPORARY: Hide for AdSense
+          {/* Latest Articles Section - Show ONLY for logged-in users */}
           {latestPosts.length > 0 && (
-            <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
-              <div className="max-w-5xl mx-auto">
-                <div className="flex justify-between items-end mb-8 sm:mb-12">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
-                    新着記事
-                  </h2>
-                  <Link href="/mistap/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
-                    記事一覧
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {latestPosts.map((post) => (
-                    <Link
-                      key={post.id}
-                      href={`/mistap/blog/${post.id}`}
-                      className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
-                    >
-                      <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
-                        {post.eyecatch ? (
-                          <Image
-                            src={post.eyecatch.url}
-                            alt={post.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-slate-400">
-                            No Image
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-6">
-                        <p className="text-xs text-slate-500 mb-2">
-                          {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                        </p>
-                        <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
-                      </div>
+            <MistapProtected>
+              <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
+                <div className="max-w-5xl mx-auto">
+                  <div className="flex justify-between items-end mb-8 sm:mb-12">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+                      新着記事
+                    </h2>
+                    <Link href="/mistap/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                      記事一覧
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                  ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {latestPosts.map((post) => (
+                      <Link
+                        key={post.id}
+                        href={`/mistap/blog/${post.id}`}
+                        className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+                      >
+                        <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                          {post.eyecatch ? (
+                            <Image
+                              src={post.eyecatch.url}
+                              alt={post.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-400">
+                              No Image
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-6">
+                          <p className="text-xs text-slate-500 mb-2">
+                            {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
+                          </p>
+                          <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </MistapProtected>
           )}
-          */}
 
           {/* About / SEO Section */}
           < section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100" >
@@ -395,12 +396,13 @@ export default async function Home() {
                 <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
                   EduLens（エデュレンズ）は、受験生や資格試験に挑むすべての人のための学習支援プラットフォームです。<br /><br />
                   <strong>Countdown</strong>で試験本番までの残り時間を可視化し、「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えます。<br /><br />
-                  {/* TEMPORARY: Hide for AdSense
-                  <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
-                  */}
+                  {/* Mistap Description - Show ONLY for logged-in users */}
+                  <MistapProtected>
+                    <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
+                  </MistapProtected>
                   <strong>EduTimer</strong>は、ポモドーロテクニックを活用した集中タイマー。25分集中・5分休憩のサイクルで、効率的な学習をサポートします。<br /><br />
                   <strong>BlackLens</strong>は、受験生の悩みやストレスを匿名で吐き出せる掃きだめ板。「わかる」「エール」のリアクションで、同じ悩みを持つ仲間とつながれます。<br /><br />
-                  あなたの目標達成を、3つのツールで支援します。
+                  あなたの目標達成を、<MistapProtected>4</MistapProtected>つのツールで支援します。
                 </p>
               </div>
             </div>

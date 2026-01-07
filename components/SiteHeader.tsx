@@ -101,15 +101,15 @@ export default function SiteHeader() {
                                         >
                                             カウントダウン
                                         </Link>
-                                        {/* TEMPORARY: Hide for AdSense
-                                        <Link
-                                            href="/mistap/home"
-                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            Mistap
-                                        </Link>
-                                        */}
+                                        {user && (
+                                            <Link
+                                                href="/mistap/home"
+                                                className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                Mistap
+                                            </Link>
+                                        )}
                                         <Link
                                             href="/EduTimer"
                                             className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
@@ -124,15 +124,15 @@ export default function SiteHeader() {
                                         >
                                             BlackLens
                                         </Link>
-                                        {/* TEMPORARY: Hide for AdSense
-                                        <Link
-                                            href="/mistap/blog"
-                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-orange-500"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            Mistapブログ
-                                        </Link>
-                                        */}
+                                        {user && (
+                                            <Link
+                                                href="/mistap/blog"
+                                                className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-orange-500"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                Mistapブログ
+                                            </Link>
+                                        )}
 
                                         {/* ログアウト (ログイン時のみ) */}
                                         {user && (
