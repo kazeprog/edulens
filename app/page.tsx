@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 60; // 1分ごとに更新（ISR）
+
 // microCMS Interface
 interface MistapBlog {
   id: string;
@@ -69,9 +71,9 @@ async function getLatestMistapBlogs() {
         filters: `category[not_equals]${SEO_EXCLUDED_ID}`,
         limit: 3,
       },
-      customRequestInit: {
-        cache: 'no-store', // 常に最新を取得
-      },
+      // customRequestInit: { // ISR(revalidate=60)のためcache設定削除
+      //   cache: 'no-store',
+      // },
     });
     return data.contents;
   } catch (e) {
@@ -89,9 +91,9 @@ async function getEduLensBlogs() {
         limit: 3,
         fields: 'id,title,publishedAt,eyecatch,category',
       },
-      customRequestInit: {
-        cache: 'no-store', // 常に最新を取得
-      },
+      // customRequestInit: { // ISR(revalidate=60)のためcache設定削除
+      //   cache: 'no-store',
+      // },
     });
     return data.contents;
   } catch (e) {
