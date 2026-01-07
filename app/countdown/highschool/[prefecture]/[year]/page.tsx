@@ -9,7 +9,7 @@ import ServiceList from '@/components/ServiceList';
 // ▼ 1. ResolvingMetadata を追加
 import type { Metadata, ResolvingMetadata } from 'next';
 import { blogClient } from '@/lib/mistap/microcms';
-import type { EduLensBlog } from '@/app/blog/page';
+import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
 
 type Params = Promise<{ prefecture: string; year: string }>;
@@ -93,10 +93,10 @@ export async function generateMetadata(
   };
 }
 
-// EduLensブログ取得
-async function getEduLensBlogs() {
+// EduLensコラム取得
+async function getEduLensColumns() {
   try {
-    const data = await blogClient.getList<EduLensBlog>({
+    const data = await blogClient.getList<EduLensColumn>({
       endpoint: "blogs",
       queries: {
         orders: "-publishedAt",
@@ -109,7 +109,7 @@ async function getEduLensBlogs() {
     });
     return data.contents;
   } catch (error) {
-    console.warn("Failed to fetch EduLens blogs:", error);
+    console.warn("Failed to fetch EduLens columns:", error);
     return [];
   }
 }
@@ -122,7 +122,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
     .select('*, education_board_url')
     .order('id', { ascending: true });
 
-  const blogPosts = await getEduLensBlogs(); // 並列取得はNext.jsのRequest Memoization等が効く場合もあるが、ここでは単純にawaitで呼び出し（Supabase側と混ぜると複雑になるため一旦直列、あるいはPromise.allするなら下のように変更）
+  const columnPosts = await getEduLensColumns(); // 並列取得はNext.jsのRequest Memoization等が効く場合もあるが、ここでは単純にawaitで呼び出し（Supabase側と混ぜると複雑になるため一旦直列、あるいはPromise.allするなら下のように変更）
 
   if (!allPrefectures) return notFound();
 
@@ -287,18 +287,18 @@ export default async function CountdownPage({ params }: { params: Params }) {
 
         {/* ▼▼▼ エリア終了 ▲▲▲ */}
 
-        {/* ▼▼▼ EduLensブログ記事 ▼▼▼ */}
-        {blogPosts.length > 0 && (
+        {/* ▼▼▼ EduLensコラム記事 ▼▼▼ */}
+        {columnPosts.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mt-16 mb-8">
             <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
-              EduLens 最新記事
+              EduLens 最新コラム
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
+              {columnPosts.map((post) => (
                 <Link
                   key={post.id}
-                  href={`/blog/${post.id}`}
+                  href={`/column/${post.id}`}
                   className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                 >
                   <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
@@ -327,14 +327,14 @@ export default async function CountdownPage({ params }: { params: Params }) {
               ))}
             </div>
             <div className="text-right mt-4">
-              <Link href="/blog" className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-1">
+              <Link href="/column" className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-1">
                 もっと見る
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </Link>
             </div>
           </div>
         )}
-        {/* ▲▲▲ EduLensブログ記事終了 ▲▲▲ */}
+        {/* ▲▲▲ EduLensコラム記事終了 ▲▲▲ */}
 
         {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">

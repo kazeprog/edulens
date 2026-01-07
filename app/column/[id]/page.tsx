@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import type { EduLensBlog } from "../page";
+import type { EduLensColumn } from "../page";
 
 export const revalidate = 3600;
 export const dynamic = 'force-dynamic';
@@ -24,7 +24,7 @@ async function getPostById(id: string, draftKey?: string) {
             queries.draftKey = draftKey;
         }
 
-        const post = await blogClient.getListDetail<EduLensBlog>({
+        const post = await blogClient.getListDetail<EduLensColumn>({
             endpoint: "blogs",
             contentId: id,
             queries,
@@ -49,17 +49,17 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
     if (!post) {
         return {
-            title: "記事が見つかりません | EduLens",
+            title: "コラムが見つかりません | EduLens",
         };
     }
 
     return {
-        title: `${post.title} | EduLens ブログ`,
+        title: `${post.title} | EduLens コラム`,
         description: post.content.replace(/<[^>]*>/g, "").substring(0, 160),
         openGraph: {
             title: post.title,
             type: "article",
-            url: `https://edulens.jp/blog/${id}`,
+            url: `https://edulens.jp/column/${id}`,
             images: [
                 {
                     url: post.eyecatch?.url || "https://edulens.jp/Xcard.png",
@@ -74,7 +74,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 // 関連記事取得
 async function getRecommendedPosts(currentId: string) {
     try {
-        const data = await blogClient.getList<EduLensBlog>({
+        const data = await blogClient.getList<EduLensColumn>({
             endpoint: "blogs",
             queries: {
                 orders: "-publishedAt",
@@ -156,12 +156,12 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                     {/* おすすめの記事セクション */}
                     {recommendedPosts.length > 0 && (
                         <div className="mb-12">
-                            <h2 className="text-xl font-bold text-slate-800 mb-6">おすすめの記事</h2>
+                            <h2 className="text-xl font-bold text-slate-800 mb-6">おすすめのコラム</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {recommendedPosts.map((post) => (
                                     <Link
                                         key={post.id}
-                                        href={`/blog/${post.id}`}
+                                        href={`/column/${post.id}`}
                                         className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                                     >
                                         <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
@@ -194,13 +194,13 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
 
                     <div className="text-center">
                         <Link
-                            href="/blog"
+                            href="/column"
                             className="inline-flex items-center text-slate-600 hover:text-blue-600 font-medium transition-colors"
                         >
                             <svg className="w-4 h-4 mr-2 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
-                            記事一覧に戻る
+                            コラム一覧に戻る
                         </Link>
                     </div>
                 </div>
@@ -212,7 +212,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
 
 export async function generateStaticParams() {
     try {
-        const data = await blogClient.getList<EduLensBlog>({
+        const data = await blogClient.getList<EduLensColumn>({
             endpoint: "blogs",
             queries: { fields: "id" },
         });

@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { supabase } from '@/utils/supabase/client';
+import { blogClient, isBlogClientAvailable } from '@/lib/mistap/microcms';
+import type { EduLensColumn } from '@/app/column/page';
 const BASE_URL = 'https://edulens.jp';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -66,6 +68,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: `${BASE_URL}/column`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
   ];
 
   // 2. データ取得 (並列でリクエストすると少し高速になります)
@@ -73,10 +81,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { data: prefectures },
     { data: universityEvents },
     { data: qualificationExams },
+    { contents: columns },
   ] = await Promise.all([
     supabase.from('prefectures').select('slug'),
     supabase.from('university_events').select('slug, year').eq('year', 2026),
     supabase.from('exam_schedules').select('slug, session_slug'),
+    isBlogClientAvailable()
+      ? blogClient.getList<EduLensColumn>({ endpoint: 'blogs', queries: { limit: 100, fields: 'id' } })
+      : Promise.resolve({ contents: [] }),
   ]);
 
 
@@ -125,6 +137,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     dynamicRoutes.push(...qualificationCategoryRoutes, ...qualificationSessionRoutes);
+  }
+
+  // --- コラム記事 ---
+  if (columns) {
+    const columnRoutes = columns.map((post) => ({
+      url: `${BASE_URL}/column/${post.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
+    dynamicRoutes.push(...columnRoutes);
   }
 
   return [...routes, ...dynamicRoutes];

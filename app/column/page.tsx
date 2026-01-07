@@ -7,23 +7,23 @@ import SiteFooter from "@/components/SiteFooter";
 
 // メタデータ
 export const metadata: Metadata = {
-    title: "ブログ | EduLens",
-    description: "EduLensの公式ブログ。効果的な学習方法や試験対策情報を発信します。",
+    title: "コラム | EduLens",
+    description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
     openGraph: {
-        title: "ブログ | EduLens",
-        description: "EduLensの公式ブログ。効果的な学習方法や試験対策情報を発信します。",
+        title: "コラム | EduLens",
+        description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
         type: "website",
-        url: "https://edulens.jp/blog",
+        url: "https://edulens.jp/column",
     },
     twitter: {
         card: "summary_large_image",
-        title: "ブログ | EduLens",
-        description: "EduLensの公式ブログ。効果的な学習方法や試験対策情報を発信します。",
+        title: "コラム | EduLens",
+        description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
     },
 };
 
 // microCMSの型定義
-export interface EduLensBlog {
+export interface EduLensColumn {
     id: string;
     createdAt: string;
     updatedAt: string;
@@ -46,14 +46,14 @@ export interface EduLensBlog {
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-async function getAllBlogs() {
+async function getAllColumns() {
     const limit = 100;
     let offset = 0;
-    let allContents: EduLensBlog[] = [];
+    let allContents: EduLensColumn[] = [];
 
     try {
         while (true) {
-            const data = await blogClient.getList<EduLensBlog>({
+            const data = await blogClient.getList<EduLensColumn>({
                 endpoint: "blogs",
                 queries: {
                     orders: "-publishedAt",
@@ -71,7 +71,7 @@ async function getAllBlogs() {
             offset += limit;
         }
     } catch (error) {
-        console.error("Failed to fetch EduLens blogs:", error);
+        console.error("Failed to fetch EduLens columns:", error);
         return [];
     }
 
@@ -79,8 +79,8 @@ async function getAllBlogs() {
 }
 
 // ページ本体 (サーバーコンポーネント)
-export default async function BlogPage() {
-    const posts = await getAllBlogs();
+export default async function ColumnPage() {
+    const posts = await getAllColumns();
 
     return (
         <>
@@ -88,7 +88,7 @@ export default async function BlogPage() {
             <div className="min-h-screen bg-slate-50">
                 <div className="max-w-5xl mx-auto p-4 md:p-8">
                     <div className="bg-white rounded-3xl p-8 mb-12 shadow-sm border border-slate-100">
-                        <h1 className="text-3xl font-bold text-slate-800 mb-4">EduLens ブログ</h1>
+                        <h1 className="text-3xl font-bold text-slate-800 mb-4">EduLens コラム</h1>
                         <p className="text-slate-600">
                             学習のヒントや最新情報をお届けします。
                         </p>
@@ -104,7 +104,7 @@ export default async function BlogPage() {
                         {posts.map((post) => (
                             <Link
                                 key={post.id}
-                                href={`/blog/${post.id}`}
+                                href={`/column/${post.id}`}
                                 className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                             >
                                 <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">

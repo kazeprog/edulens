@@ -41,7 +41,7 @@ interface MistapBlog {
   };
 }
 
-interface EduLensBlog {
+interface EduLensColumn {
   id: string;
   publishedAt: string;
   title: string;
@@ -82,7 +82,7 @@ async function getLatestMistapBlogs() {
 
 async function getEduLensBlogs() {
   try {
-    const data = await blogClient.getList<EduLensBlog>({
+    const data = await blogClient.getList<EduLensColumn>({
       endpoint: "blogs", // EduLens側のエンドポイント名。もし違う場合は修正が必要
       queries: {
         orders: "-publishedAt",
@@ -96,7 +96,7 @@ async function getEduLensBlogs() {
     return data.contents;
   } catch (e) {
     // 環境変数が設定されていない場合のエラーなどはここでキャッチ
-    console.warn("EduLens blog fetch error (possibly not configured):", e);
+    console.warn("EduLens column fetch error (possibly not configured):", e);
     return [];
   }
 }
@@ -377,15 +377,15 @@ export default async function Home() {
             </div>
           </section >
 
-          {/* EduLens Blog Section (Visible to ALL) */}
+          {/* EduLens Column Section (Visible to ALL) */}
           {latestEduLensPosts.length > 0 && (
             <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
               <div className="max-w-5xl mx-auto">
                 <div className="flex justify-between items-end mb-8 sm:mb-12">
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
-                    EduLens ブログ
+                    EduLens コラム
                   </h2>
-                  <Link href="/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                  <Link href="/column" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
                     記事一覧
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -397,7 +397,7 @@ export default async function Home() {
                   {latestEduLensPosts.map((post) => (
                     <Link
                       key={post.id}
-                      href={`/blog/${post.id}`}
+                      href={`/column/${post.id}`}
                       className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                     >
                       <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
