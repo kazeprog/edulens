@@ -103,6 +103,13 @@ export default function SiteHeader() {
                                         >
                                             BlackLens
                                         </Link>
+                                        <Link
+                                            href="/mistap/blog"
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-orange-500"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            Mistapブログ
+                                        </Link>
 
                                         <div className="border-t border-slate-100 my-1"></div>
 

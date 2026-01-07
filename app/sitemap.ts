@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
 import { supabase } from '@/utils/supabase/client';
-
 const BASE_URL = 'https://edulens.jp';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -11,6 +10,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/blacklens`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/terms`,
@@ -67,12 +72,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     { data: prefectures },
     { data: universityEvents },
-    { data: qualificationExams } // 追加: 資格試験データ
+    { data: qualificationExams },
   ] = await Promise.all([
     supabase.from('prefectures').select('slug'),
     supabase.from('university_events').select('slug, year').eq('year', 2026),
-    supabase.from('exam_schedules').select('slug, session_slug') // 追加
+    supabase.from('exam_schedules').select('slug, session_slug'),
   ]);
+
 
   const dynamicRoutes: MetadataRoute.Sitemap = [];
 
