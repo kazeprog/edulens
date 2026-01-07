@@ -152,15 +152,14 @@ export default async function Home() {
                 </Link>
 
                 {/* Mistap Card */}
+                {/* TEMPORARY: Hide for AdSense
                 <Link
                   href="/mistap"
                   className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-200 transition-all duration-300 overflow-hidden"
                 >
-                  {/* Background decoration */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-red-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
 
                   <div className="relative">
-                    {/* Icon */}
                     <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <img
                         src="/MistapLP.png"
@@ -169,18 +168,15 @@ export default async function Home() {
                       />
                     </div>
 
-                    {/* Title */}
                     <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-red-600 transition-colors">
                       Mistap
                     </h3>
 
-                    {/* Description */}
                     <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
                       間違えた単語に集中する学習システム。<br />
                       効率的な暗記で確実に記憶を定着。
                     </p>
 
-                    {/* Features */}
                     <ul className="space-y-2 text-sm text-slate-500 mb-6">
                       <li className="flex items-center">
                         <svg className="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +198,6 @@ export default async function Home() {
                       </li>
                     </ul>
 
-                    {/* CTA */}
                     <span className="inline-flex items-center text-red-600 font-semibold group-hover:translate-x-1 transition-transform">
                       詳しく見る
                       <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,6 +206,7 @@ export default async function Home() {
                     </span>
                   </div>
                 </Link>
+                */}
 
                 {/* EduTimer Card */}
                 <Link
@@ -338,6 +334,7 @@ export default async function Home() {
           </section >
 
           {/* Latest Articles Section */}
+          {/* TEMPORARY: Hide for AdSense
           {latestPosts.length > 0 && (
             <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
               <div className="max-w-5xl mx-auto">
@@ -388,6 +385,7 @@ export default async function Home() {
               </div>
             </section>
           )}
+          */}
 
           {/* About / SEO Section */}
           < section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100" >
