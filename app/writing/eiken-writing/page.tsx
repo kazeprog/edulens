@@ -304,7 +304,7 @@ export default function WritingCheckPage() {
                                 {isAnalyzing ? (
                                     <>
                                         <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5" />
-                                        AIが採点中... (約10秒)
+                                        AIが採点中... (約20秒)
                                     </>
                                 ) : (
                                     "添削を開始する"
@@ -331,10 +331,10 @@ export default function WritingCheckPage() {
                                         <CheckCircle2 className="mr-2" /> 採点結果
                                     </h2>
                                 </div>
-                                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                                    <div className="text-center md:text-left">
+                                <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-6">
+                                    <div className="text-center md:text-left min-w-[150px]">
                                         <p className="text-sm text-gray-500 uppercase tracking-wider font-semibold">Total Score</p>
-                                        <p className="text-5xl font-extrabold text-gray-900 mt-2">
+                                        <p className="text-5xl font-extrabold text-gray-900 mt-1">
                                             {result.score.total} <span className="text-2xl text-gray-400 font-normal">/ 16</span>
                                         </p>
                                         <div className={`mt-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-bold ${result.is_passing_level ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-800"
@@ -343,15 +343,15 @@ export default function WritingCheckPage() {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
+                                    <div className="grid grid-cols-2 gap-4 w-full md:flex-1">
                                         {[
                                             { key: 'content', label: 'Content' },
                                             { key: 'structure', label: 'Structure' },
                                             { key: 'vocabulary', label: 'Vocabulary' },
                                             { key: 'grammar', label: 'Grammar' }
                                         ].map((item) => (
-                                            <div key={item.key} className="bg-gray-50 rounded-lg p-3 text-center">
-                                                <p className="text-xs text-gray-500 uppercase mb-1">{item.label}</p>
+                                            <div key={item.key} className="bg-gray-50 rounded-lg p-3 text-center border border-gray-100">
+                                                <p className="text-xs text-secondary-500 font-bold uppercase mb-1">{item.label}</p>
                                                 <p className="text-xl font-bold text-gray-800">
                                                     {/* @ts-ignore */}
                                                     {result.score[item.key]} <span className="text-xs text-gray-400">/ 4</span>
@@ -391,7 +391,7 @@ export default function WritingCheckPage() {
                                                         </div>
                                                         <div className="flex items-baseline gap-2">
                                                             <span className="text-xs font-bold text-red-500 uppercase min-w-[60px]">Original:</span>
-                                                            <span className="text-gray-800 line-through decoration-red-400/50">{correction.original}</span>
+                                                            <span className="text-gray-800 font-medium bg-red-100/50 px-1 rounded">{correction.original}</span>
                                                         </div>
                                                         <div className="flex items-baseline gap-2">
                                                             <span className="text-xs font-bold text-green-600 uppercase min-w-[60px]">Fixed:</span>

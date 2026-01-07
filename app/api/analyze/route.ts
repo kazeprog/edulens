@@ -23,23 +23,28 @@ const EikenLevelsMap: Record<string, string> = {
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. Rate Limiting
+        // 1. Rate Limiting (Temporarily Disabled)
         const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-        const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+        // try {
+        //     const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
-        if (!success) {
-            return NextResponse.json(
-                { error: "Too Many Requests", message: "本日の利用上限に達しました。" },
-                {
-                    status: 429,
-                    headers: {
-                        "X-RateLimit-Limit": limit.toString(),
-                        "X-RateLimit-Remaining": remaining.toString(),
-                        "X-RateLimit-Reset": reset.toString(),
-                    }
-                }
-            );
-        }
+        //     if (!success) {
+        //         return NextResponse.json(
+        //             { error: "Too Many Requests", message: "本日の利用上限に達しました。" },
+        //             {
+        //                 status: 429,
+        //                 headers: {
+        //                     "X-RateLimit-Limit": limit.toString(),
+        //                     "X-RateLimit-Remaining": remaining.toString(),
+        //                     "X-RateLimit-Reset": reset.toString(),
+        //                 }
+        //             }
+        //         );
+        //     }
+        // } catch (error) {
+        //     console.error("Rate Limit Error (Fail Open):", error);
+        //     // Continue execution even if rate limit check fails
+        // }
 
         // 2. Parse and Validate Request
         const body = await req.json();
@@ -163,6 +168,7 @@ ${criteriaSection}
 
 ## Step 3: 添削 (Correction)
 文法ミス、不自然なコロケーション、より洗練された表現への書き換えを提案してください。
+修正箇所は、文全体ではなく「間違っている箇所のみ」を指摘してください。（例: "are becoming" -> "is becoming"）
 なぜ間違っているのか、どうすれば良くなるのかの「解説」を日本語で添えてください。
 ${problemType === "summary" ? "※要約の場合、元の文章の丸写しになっていないか、言い換えの提案も含めてください。" : ""}
 
@@ -202,7 +208,7 @@ JSON Schema:
 }
 `;
 
-        // 6. Call Gemini API
+        // 6. Call Gemini API with Retry Logic (Max 3 attempts)
         const imageParts = images.map(base64 => ({
             inlineData: {
                 data: base64,
@@ -210,16 +216,35 @@ JSON Schema:
             }
         }));
 
-        // Send Prompt + Images (Prompt first, then Problem Image (if any), then Answer Image)
-        const generatedContent = await model.generateContent([prompt, ...imageParts]);
-        const responseText = generatedContent.response.text();
+        let responseText = "";
+        let attempt = 0;
+        const maxAttempts = 3;
+
+        while (attempt < maxAttempts) {
+            try {
+                attempt++;
+                // Send Prompt + Images (Prompt first, then Problem Image (if any), then Answer Image)
+                const generatedContent = await model.generateContent([prompt, ...imageParts]);
+                responseText = generatedContent.response.text();
+                break; // Success, exit loop
+            } catch (error: any) {
+                console.warn(`Gemini API attempt ${attempt} failed:`, error.message);
+                if (attempt === maxAttempts) {
+                    throw error; // Throw the error if max attempts reached
+                }
+                // Optional: wait a bit before retrying (e.g., 1 second)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
 
         // 7. Clean and Parse Response
         const cleanedJson = responseText.replace(/```json|```/g, "").trim();
+        const jsonMatch = cleanedJson.match(/\{[\s\S]*\}/);
+        const jsonString = jsonMatch ? jsonMatch[0] : cleanedJson;
 
         let parsedResponse;
         try {
-            parsedResponse = JSON.parse(cleanedJson);
+            parsedResponse = JSON.parse(jsonString);
         } catch (e) {
             console.error("Failed to parse Gemini response:", responseText);
             return NextResponse.json(
@@ -230,10 +255,13 @@ JSON Schema:
 
         return NextResponse.json(parsedResponse);
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Analysis Error:", error);
         return NextResponse.json(
-            { error: "Internal Server Error", message: "サーバー内部でエラーが発生しました。" },
+            {
+                error: "Internal Server Error",
+                message: `サーバー内部でエラーが発生しました。詳細: ${error.message || String(error)}`
+            },
             { status: 500 }
         );
     }
