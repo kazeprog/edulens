@@ -12,12 +12,14 @@ const SERVICES = [
         image: '/CountdownLP.png',
         description: '試験日カウントダウン',
     },
+    /* TEMPORARY: Hide for AdSense
     {
         name: 'Mistap',
         href: '/mistap',
         image: '/MistapLP.png',
         description: '単語学習システム',
     },
+    */
     {
         name: 'EduTimer',
         href: '/EduTimer',

@@ -39,9 +39,26 @@ export default function SiteHeader() {
             </Link>
 
             <nav className="flex items-center gap-4">
-                {/* ユーザー情報がある場合はすぐに表示（ローディング中でも） */}
-                {user ? (
-                    /* ログイン済み: ハンバーガーメニュー */
+                {!loading && !user && (
+                    <div className="flex items-center gap-3 mr-2">
+                        <Link
+                            href={loginUrl}
+                            className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
+                        >
+                            ログイン
+                        </Link>
+                        <Link
+                            href={signupUrl}
+                            className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+                        >
+                            新規登録
+                        </Link>
+                    </div>
+                )}
+
+                {loading ? (
+                    <div className="w-10 h-10 bg-slate-100 rounded-full animate-pulse" />
+                ) : (
                     <div className="relative">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -64,15 +81,17 @@ export default function SiteHeader() {
 
                                 <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 z-50 overflow-hidden py-1">
                                     <div className="py-1">
-                                        {/* ユーザー情報 */}
-                                        <div className="px-4 py-3 border-b border-slate-100">
-                                            <p className="text-sm font-medium text-slate-800">
-                                                {profile?.full_name || user.email?.split('@')[0] || 'ユーザー'}さん
-                                            </p>
-                                            <p className="text-xs text-slate-500 truncate">
-                                                {user.email}
-                                            </p>
-                                        </div>
+                                        {/* ユーザー情報 (ログイン時のみ) */}
+                                        {user && (
+                                            <div className="px-4 py-3 border-b border-slate-100">
+                                                <p className="text-sm font-medium text-slate-800">
+                                                    {profile?.full_name || user.email?.split('@')[0] || 'ユーザー'}さん
+                                                </p>
+                                                <p className="text-xs text-slate-500 truncate">
+                                                    {user.email}
+                                                </p>
+                                            </div>
+                                        )}
 
                                         {/* メニュー項目 */}
                                         <Link
@@ -115,38 +134,22 @@ export default function SiteHeader() {
                                         </Link>
                                         */}
 
-                                        <div className="border-t border-slate-100 my-1"></div>
-
-                                        {/* ログアウト */}
-                                        <button
-                                            onClick={handleLogout}
-                                            className="block w-full text-left py-3 px-4 text-red-600 hover:bg-red-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
-                                        >
-                                            ログアウト
-                                        </button>
+                                        {/* ログアウト (ログイン時のみ) */}
+                                        {user && (
+                                            <>
+                                                <div className="border-t border-slate-100 my-1"></div>
+                                                <button
+                                                    onClick={handleLogout}
+                                                    className="block w-full text-left py-3 px-4 text-red-600 hover:bg-red-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                                                >
+                                                    ログアウト
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </>
                         )}
-                    </div>
-                ) : loading ? (
-                    /* ローディング中（ユーザー情報がまだ取得できていない場合のみ） */
-                    <div className="w-20 h-8 bg-slate-100 rounded-lg animate-pulse" />
-                ) : (
-                    /* 未ログイン: ログイン・新規登録ボタン */
-                    <div className="flex items-center gap-3">
-                        <Link
-                            href={loginUrl}
-                            className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
-                        >
-                            ログイン
-                        </Link>
-                        <Link
-                            href={signupUrl}
-                            className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
-                        >
-                            新規登録
-                        </Link>
                     </div>
                 )}
             </nav>
