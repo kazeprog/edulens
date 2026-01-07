@@ -48,12 +48,12 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
+      { url: 'https://edulens.jp/favicon.ico' },
+      { url: 'https://edulens.jp/favicon.svg', type: 'image/svg+xml' },
+      { url: 'https://edulens.jp/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png' },
+      { url: 'https://edulens.jp/apple-touch-icon.png' },
     ],
   },
 };
