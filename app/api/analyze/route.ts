@@ -208,7 +208,7 @@ JSON Schema:
 }
 `;
 
-        // 6. Call Gemini API with Retry Logic (Max 3 attempts)
+        // 6. Call Gemini API with Retry Logic for JSON Parsing
         const imageParts = images.map(base64 => ({
             inlineData: {
                 data: base64,
@@ -216,41 +216,39 @@ JSON Schema:
             }
         }));
 
-        let responseText = "";
+        let parsedResponse;
         let attempt = 0;
         const maxAttempts = 3;
 
         while (attempt < maxAttempts) {
             try {
                 attempt++;
-                // Send Prompt + Images (Prompt first, then Problem Image (if any), then Answer Image)
+                // Send Prompt + Images
                 const generatedContent = await model.generateContent([prompt, ...imageParts]);
-                responseText = generatedContent.response.text();
-                break; // Success, exit loop
+                const responseText = generatedContent.response.text();
+
+                // 7. Clean and Parse Response
+                const cleanedJson = responseText.replace(/```json|```/g, "").trim();
+                const jsonMatch = cleanedJson.match(/\{[\s\S]*\}/);
+                const jsonString = jsonMatch ? jsonMatch[0] : cleanedJson;
+
+                parsedResponse = JSON.parse(jsonString);
+
+                // If parsing success, break the loop
+                break;
+
             } catch (error: any) {
-                console.warn(`Gemini API attempt ${attempt} failed:`, error.message);
+                console.warn(`Gemini API/Parsing attempt ${attempt} failed:`, error.message);
+
+                // If we reached max attempts, strictly throw the error or return error response
                 if (attempt === maxAttempts) {
-                    throw error; // Throw the error if max attempts reached
+                    console.error("Max attempts reached for Gemini generation/parsing.");
+                    throw new Error("Failed to generate valid analysis after multiple attempts.");
                 }
-                // Optional: wait a bit before retrying (e.g., 1 second)
-                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Wait before retrying (backoff)
+                await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
             }
-        }
-
-        // 7. Clean and Parse Response
-        const cleanedJson = responseText.replace(/```json|```/g, "").trim();
-        const jsonMatch = cleanedJson.match(/\{[\s\S]*\}/);
-        const jsonString = jsonMatch ? jsonMatch[0] : cleanedJson;
-
-        let parsedResponse;
-        try {
-            parsedResponse = JSON.parse(jsonString);
-        } catch (e) {
-            console.error("Failed to parse Gemini response:", responseText);
-            return NextResponse.json(
-                { error: "AI Response Error", message: "AIからの応答の解析に失敗しました。", raw: responseText },
-                { status: 500 }
-            );
         }
 
         return NextResponse.json(parsedResponse);

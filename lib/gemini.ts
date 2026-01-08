@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, GenerativeModel, GenerationConfig } from "@google/generative-ai";
+import { GoogleGenerativeAI, GenerativeModel, GenerationConfig, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { redis } from "@/lib/redis";
 
 if (!process.env.GOOGLE_GEMINI_API_KEY) {
@@ -18,9 +18,9 @@ const ACTIVE_KEY_INDEX_REDIS_KEY = "GEMINI_ACTIVE_KEY_INDEX";
 export class GeminiModelWrapper {
     private models: GenerativeModel[];
     private currentKeyIndex = 0;
-    private config: { model: string; generationConfig?: GenerationConfig };
+    private config: { model: string; generationConfig?: GenerationConfig; safetySettings?: any[] };
 
-    constructor(keys: string[], config: { model: string; generationConfig?: GenerationConfig }) {
+    constructor(keys: string[], config: { model: string; generationConfig?: GenerationConfig; safetySettings?: any[] }) {
         this.config = config;
         this.models = keys.map(key => {
             const genAI = new GoogleGenerativeAI(key);
@@ -64,6 +64,7 @@ export class GeminiModelWrapper {
 
     async generateContent(params: any): Promise<any> {
         let attempts = 0;
+        // Try each key once before giving up (or more if needed, but checking all keys once is reasonable for a 429)
         const maxAttempts = this.models.length;
 
         while (attempts < maxAttempts) {
@@ -77,9 +78,11 @@ export class GeminiModelWrapper {
                     console.warn(`Gemini API Rate Limit hit on key #${this.currentKeyIndex}. Rotating...`);
                     await this.rotateKey();
                     attempts++;
+                    // Optional: Add small delay if you want, but rotation implies we try next key immediately
                     continue;
                 }
 
+                // If it's not a rate limit error, throw strictly
                 throw error;
             }
         }
@@ -91,6 +94,25 @@ export class GeminiModelWrapper {
 // Wrapper behaves like the original model object for generateContent
 export const model = new GeminiModelWrapper(apiKeys, {
     model: "gemini-2.5-flash",
+    // Relax safety settings to prevent blocking harmless content
+    safetySettings: [
+        {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+        },
+    ],
     generationConfig: {
         responseMimeType: "application/json"
     }
