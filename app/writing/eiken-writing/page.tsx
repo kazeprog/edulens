@@ -260,7 +260,7 @@ export default function WritingCheckPage() {
                             {/* Image Upload B (Answer - Required) */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    解答用紙 (手書き) <span className="text-red-500">*</span>
+                                    解答用紙 (手書き、スクリーンショット等) <span className="text-red-500">*</span>
                                 </label>
                                 <div className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg hover:border-blue-400 transition-colors relative h-64 bg-gray-50 ${!imageB && error ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}>
                                     {previewB ? (
