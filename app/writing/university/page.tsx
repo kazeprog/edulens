@@ -42,6 +42,8 @@ export default function UniversityWritingPage() {
     const [isAnalyzing, setIsAnalyzing] = useState(false)
     const [result, setResult] = useState<AnalysisResult | null>(null)
     const [error, setError] = useState<string | null>(null)
+    const [isProcessingA, setIsProcessingA] = useState(false)
+    const [isProcessingB, setIsProcessingB] = useState(false)
 
     const compressImage = async (file: File) => {
         const options = {
@@ -60,19 +62,30 @@ export default function UniversityWritingPage() {
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, type: 'A' | 'B') => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0]
-            const compressedFile = await compressImage(file)
+            if (type === 'A') setIsProcessingA(true)
+            else setIsProcessingB(true)
 
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                if (type === 'A') {
-                    setImageA(compressedFile)
-                    setPreviewA(reader.result as string)
-                } else {
-                    setImageB(compressedFile)
-                    setPreviewB(reader.result as string)
+            try {
+                const compressedFile = await compressImage(file)
+
+                const reader = new FileReader()
+                reader.onloadend = () => {
+                    if (type === 'A') {
+                        setImageA(compressedFile)
+                        setPreviewA(reader.result as string)
+                        setIsProcessingA(false)
+                    } else {
+                        setImageB(compressedFile)
+                        setPreviewB(reader.result as string)
+                        setIsProcessingB(false)
+                    }
                 }
+                reader.readAsDataURL(compressedFile)
+            } catch (error) {
+                console.error("Error processing image:", error)
+                if (type === 'A') setIsProcessingA(false)
+                else setIsProcessingB(false)
             }
-            reader.readAsDataURL(compressedFile)
         }
     }
 
@@ -91,8 +104,8 @@ export default function UniversityWritingPage() {
     }
 
     const handleAnalyze = async () => {
-        if (!imageB) {
-            setError("解答用紙の画像をアップロードしてください。")
+        if (!imageA || !imageB) {
+            setError("問題文と解答用紙の両方の画像をアップロードしてください。")
             return
         }
 
@@ -151,6 +164,9 @@ export default function UniversityWritingPage() {
                                 難関大学入試の採点基準に基づき、AIが論理性・表現力を徹底指導。<br />
                                 「減点されない工夫」と「合格するための表現」をアドバイスします。
                             </p>
+                            <p className="text-sm text-gray-500 pt-2">
+                                まずは1回、登録なしでお試しください。無料のアカウント作成で「1日3回」まで、Proプランなら「無制限」で何度でも添削を受けられます。
+                            </p>
                         </div>
 
                         {/* Pro Upgrade Button */}
@@ -196,13 +212,18 @@ export default function UniversityWritingPage() {
                                 </div>
                             </div>
 
-                            {/* Image Upload A (Question - Optional) */}
+                            {/* Image Upload A (Question - Required) */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    問題用紙 (任意)
+                                    問題用紙 <span className="text-red-500">*</span>
                                 </label>
-                                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors relative h-64 bg-gray-50">
-                                    {previewA ? (
+                                <div className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg hover:border-blue-400 transition-colors relative h-64 bg-gray-50 ${!imageA && error ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}>
+                                    {isProcessingA ? (
+                                        <div className="flex flex-col items-center justify-center space-y-2">
+                                            <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+                                            <span className="text-sm text-gray-500">画像を処理中...</span>
+                                        </div>
+                                    ) : previewA ? (
                                         <div className="relative w-full h-full">
                                             <Image src={previewA} alt="Question Preview" fill style={{ objectFit: "contain" }} />
                                             <button
@@ -234,10 +255,15 @@ export default function UniversityWritingPage() {
                             {/* Image Upload B (Answer - Required) */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    解答用紙 (手書き推奨) <span className="text-red-500">*</span>
+                                    解答用紙 <span className="text-red-500">*</span>
                                 </label>
                                 <div className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg hover:border-blue-400 transition-colors relative h-64 bg-gray-50 ${!imageB && error ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}>
-                                    {previewB ? (
+                                    {isProcessingB ? (
+                                        <div className="flex flex-col items-center justify-center space-y-2">
+                                            <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+                                            <span className="text-sm text-gray-500">画像を処理中...</span>
+                                        </div>
+                                    ) : previewB ? (
                                         <div className="relative w-full h-full">
                                             <Image src={previewB} alt="Answer Preview" fill style={{ objectFit: "contain" }} />
                                             <button
@@ -287,9 +313,41 @@ export default function UniversityWritingPage() {
                         </div>
 
                         {error && (
-                            <div className="mt-4 p-4 rounded-md bg-red-50 text-red-700 flex items-center justify-center">
-                                <AlertCircle className="w-5 h-5 mr-2" />
-                                {error}
+                            <div className="mt-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                {error.includes("本日の利用回数") ? (
+                                    <div className="bg-white rounded-xl shadow-lg border border-orange-100 overflow-hidden">
+                                        <div className="bg-orange-50 px-6 py-4 border-b border-orange-100 flex items-center">
+                                            <AlertCircle className="w-6 h-6 text-orange-600 mr-3" />
+                                            <h3 className="text-lg font-bold text-orange-800">利用制限に達しました</h3>
+                                        </div>
+                                        <div className="p-6 text-center">
+                                            <p className="text-gray-600 mb-6 text-lg">{error}</p>
+                                            {!user ? (
+                                                <div className="space-y-4">
+                                                    <p className="font-bold text-gray-800">無料アカウントを作成して、さらに添削を受ける</p>
+                                                    <a
+                                                        href="/mistap"
+                                                        className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg"
+                                                    >
+                                                        ログイン / 新規登録
+                                                    </a>
+                                                </div>
+                                            ) : (
+                                                <div className="space-y-4">
+                                                    <p className="font-bold text-gray-800">Proプランで無制限に添削を受ける</p>
+                                                    <div className="flex justify-center">
+                                                        <UpgradeButton userId={user.id} />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="p-4 rounded-md bg-red-50 text-red-700 flex items-center justify-center border border-red-100">
+                                        <AlertCircle className="w-5 h-5 mr-2" />
+                                        {error}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
@@ -342,7 +400,7 @@ export default function UniversityWritingPage() {
                                     <h3 className="text-lg font-bold text-gray-900 mb-4">読み取りテキスト</h3>
                                     {result.topic_recognition && (
                                         <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                            <span className="text-xs font-bold text-blue-600 uppercase block mb-1">Question Type</span>
+                                            <span className="text-xs font-bold text-blue-600 uppercase block mb-1">読み取ったトピック</span>
                                             <p className="text-sm text-gray-700">{result.topic_recognition}</p>
                                         </div>
                                     )}
