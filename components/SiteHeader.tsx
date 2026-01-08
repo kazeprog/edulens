@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import ManageSubscriptionButton from './ManageSubscriptionButton';
 
 export default function SiteHeader() {
     const { user, profile, loading, signOut } = useAuth();
@@ -158,6 +159,12 @@ export default function SiteHeader() {
                                         {user && (
                                             <>
                                                 <div className="border-t border-slate-100 my-1"></div>
+
+                                                {/* Proユーザーのみプラン管理ボタンを表示 */}
+                                                {profile?.is_pro && profile.stripe_customer_id && (
+                                                    <ManageSubscriptionButton customerId={profile.stripe_customer_id} />
+                                                )}
+
                                                 <button
                                                     onClick={handleLogout}
                                                     className="block w-full text-left py-3 px-4 text-red-600 hover:bg-red-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"

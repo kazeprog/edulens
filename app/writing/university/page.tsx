@@ -7,6 +7,8 @@ import { Loader2, Upload, AlertCircle, CheckCircle2, GraduationCap } from "lucid
 
 import SiteHeader from "@/components/SiteHeader"
 import SiteFooter from "@/components/SiteFooter"
+import { useAuth } from '@/context/AuthContext';
+import UpgradeButton from "@/components/UpgradeButton";
 
 type AnalysisResult = {
     transcribed_text: string
@@ -30,6 +32,7 @@ type AnalysisResult = {
 }
 
 export default function UniversityWritingPage() {
+    const { user, profile } = useAuth();
     const [universityName, setUniversityName] = useState("")
     const [wordLimit, setWordLimit] = useState("")
     const [imageA, setImageA] = useState<File | null>(null) // Question
@@ -149,6 +152,13 @@ export default function UniversityWritingPage() {
                                 「減点されない工夫」と「合格するための表現」をアドバイスします。
                             </p>
                         </div>
+
+                        {/* Pro Upgrade Button */}
+                        {user && !profile?.is_pro && (
+                            <div className="mt-8 flex justify-center">
+                                <UpgradeButton userId={user.id} />
+                            </div>
+                        )}
                     </div>
 
                     {/* Input Section */}

@@ -7,6 +7,8 @@ import { Loader2, Upload, AlertCircle, CheckCircle2 } from "lucide-react"
 
 import SiteHeader from "@/components/SiteHeader"
 import SiteFooter from "@/components/SiteFooter"
+import { useAuth } from '@/context/AuthContext';
+import UpgradeButton from "@/components/UpgradeButton";
 
 type AnalysisResult = {
     transcribed_text: string
@@ -39,6 +41,7 @@ const EikenLevels = [
 ]
 
 export default function WritingCheckPage() {
+    const { user, profile } = useAuth();
     const [selectedLevel, setSelectedLevel] = useState("2")
     const [problemType, setProblemType] = useState<"opinion" | "summary" | "email">("opinion") // Default to opinion
     const [imageA, setImageA] = useState<File | null>(null) // Question
@@ -178,6 +181,13 @@ export default function WritingCheckPage() {
                                 ただ英語を直すだけではありません。 EduLensでは「英検の観点（内容・構成・語彙・文法）」を学習したAIがあなたの答案を採点、アドバイスします。
                             </p>
                         </div>
+
+                        {/* Pro Upgrade Button */}
+                        {user && !profile?.is_pro && (
+                            <div className="mt-8 flex justify-center">
+                                <UpgradeButton userId={user.id} />
+                            </div>
+                        )}
                     </div>
 
                     {/* Input Section */}
