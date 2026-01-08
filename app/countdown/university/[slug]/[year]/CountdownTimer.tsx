@@ -45,12 +45,29 @@ export default function CountdownTimer({ targetDate }: { targetDate: string }) {
   }, [targetDate]);
 
   if (!isClient) {
+    const SkeletonUnit = () => (
+      <div className="flex flex-col items-center mx-2 sm:mx-4">
+        {/* Digit placeholder matching text-5xl (mobile) / text-7xl (sm) height */}
+        <div className="w-[60px] sm:w-[80px] h-[48px] sm:h-[72px] bg-slate-200 rounded animate-pulse"></div>
+        {/* Label placeholder matching text-xs (mobile) / text-sm (sm) height + margin */}
+        <div className="w-8 h-[12px] sm:h-[14px] bg-slate-200 rounded mt-2 animate-pulse"></div>
+      </div>
+    );
+
+    // Separator placeholder matching the rendered separator's structure and margins
+    const SkeletonSeparator = () => (
+      <div className="text-3xl sm:text-5xl font-light text-slate-200 mt-2 select-none">:</div>
+    );
+
     return (
-      <div className="animate-pulse flex justify-center gap-4">
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
+      <div className="flex flex-wrap justify-center items-start">
+        <SkeletonUnit />
+        <SkeletonSeparator />
+        <SkeletonUnit />
+        <SkeletonSeparator />
+        <SkeletonUnit />
+        <SkeletonSeparator />
+        <SkeletonUnit />
       </div>
     );
   }
