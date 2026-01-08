@@ -10,10 +10,19 @@ export const redis = new Redis({
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
 })
 
-// Create a new ratelimiter, that allows 3 requests per 24 hours
-export const ratelimit = new Ratelimit({
+// Rate limiter for Free Users (3 requests per 24 hours)
+export const ratelimitFree = new Ratelimit({
     redis: redis,
     limiter: Ratelimit.slidingWindow(3, '24 h'),
     analytics: true,
-    prefix: '@upstash/ratelimit',
+    prefix: '@upstash/ratelimit/free',
 })
+
+// Rate limiter for Guest Users (1 request per 24 hours)
+export const ratelimitGuest = new Ratelimit({
+    redis: redis,
+    limiter: Ratelimit.slidingWindow(1, '24 h'),
+    analytics: true,
+    prefix: '@upstash/ratelimit/guest',
+})
+

@@ -8,6 +8,7 @@ import { Loader2, Upload, AlertCircle, CheckCircle2 } from "lucide-react"
 import SiteHeader from "@/components/SiteHeader"
 import SiteFooter from "@/components/SiteFooter"
 import { useAuth } from '@/context/AuthContext';
+import { getSupabase } from "@/lib/supabase";
 import UpgradeButton from "@/components/UpgradeButton";
 
 type AnalysisResult = {
@@ -136,9 +137,21 @@ export default function WritingCheckPage() {
             if (imageA) images.push(await convertToBase64(imageA))
             images.push(await convertToBase64(imageB))
 
+            const supabase = getSupabase();
+            let token = "";
+            if (supabase) {
+                const { data } = await supabase.auth.getSession();
+                token = data.session?.access_token || "";
+            }
+
+            const headers: Record<string, string> = { "Content-Type": "application/json" };
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+
             const response = await fetch("/api/analyze", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers,
                 body: JSON.stringify({
                     images,
                     level: selectedLevel,
@@ -150,7 +163,7 @@ export default function WritingCheckPage() {
 
             if (!response.ok) {
                 if (response.status === 429) {
-                    throw new Error("本日の利用上限に達しました。明日またお試しください。")
+                    throw new Error(data.message || "本日の利用上限に達しました。明日またお試しください。")
                 }
                 throw new Error(data.message || "解析中にエラーが発生しました。")
             }
@@ -179,6 +192,9 @@ export default function WritingCheckPage() {
                             </p>
                             <p className="text-base leading-relaxed">
                                 ただ英語を直すだけではありません。 EduLensでは「英検の観点（内容・構成・語彙・文法）」を学習したAIがあなたの答案を採点、アドバイスします。
+                            </p>
+                            <p className="text-base leading-relaxed">
+                                まずは1回、登録なしでお試しください。無料のアカウント作成で「1日3回」まで、Proプランなら「無制限」で何度でも添削を受けられます。
                             </p>
                         </div>
 

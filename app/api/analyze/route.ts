@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ratelimit } from "@/lib/redis";
+import { ratelimitFree, ratelimitGuest } from "@/lib/redis";
 import { model } from "@/lib/gemini";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 // Request schema
@@ -26,8 +27,59 @@ const EikenLevelsMap: Record<string, string> = {
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. Rate Limiting (Temporarily Disabled)
+        // 1. Authenticate User & Check Pro Status
+        const authHeader = req.headers.get('Authorization');
+        let user = null;
+        let isPro = false;
+
+        if (authHeader) {
+            const token = authHeader.replace('Bearer ', '');
+            const supabase = createClient(
+                process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_MISTAP_SUPABASE_ANON_KEY!
+            );
+            const { data: { user: authUser } } = await supabase.auth.getUser(token);
+
+            if (authUser) {
+                user = authUser;
+                // Check profile for is_pro
+                // Note: Using a fresh client or admin client might be better, but RLS usually allows reading own profile
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('is_pro')
+                    .eq('id', user.id)
+                    .single();
+                if (profile?.is_pro) isPro = true;
+            }
+        }
+
+        // 2. Rate Limiting
         const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+        let identifier = ip; // Default to IP for guests
+        let limitResult = { success: true, limit: 0, remaining: 0, reset: 0 };
+
+        if (!isPro) {
+            if (user) {
+                // Free User (3 requests/day)
+                identifier = user.id; // Use User ID for logged-in users
+                limitResult = await ratelimitFree.limit(identifier);
+            } else {
+                // Guest User (1 request/day)
+                limitResult = await ratelimitGuest.limit(identifier);
+            }
+
+            if (!limitResult.success) {
+                return NextResponse.json(
+                    {
+                        error: "Rate Limit Exceeded",
+                        message: user
+                            ? "本日の利用回数（3回）を超えました。Proプランにアップグレードすると無制限で利用できます。"
+                            : "本日の利用回数（1回・お試し）を超えました。ログインすると1日3回まで利用できます。"
+                    },
+                    { status: 429 }
+                );
+            }
+        }
 
         // 2. Parse and Validate Request
         const body = await req.json();
@@ -278,6 +330,25 @@ JSON Schema:
   "model_answer": "生成した模範解答"
 }
 `;
+
+        // 3. Increment usage stats for logged-in users (ASYNC - don't block response)
+        if (user) {
+            (async () => {
+                const supabase = createClient(
+                    process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL!,
+                    process.env.SUPABASE_SERVICE_ROLE_KEY!
+                );
+
+                // Try RPC first for atomic update
+                const { error } = await supabase.rpc('increment_total_writing_checks', { user_id: user.id });
+                if (error) {
+                    // Fallback: Read-Modify-Write
+                    const { data: profile } = await supabase.from('profiles').select('total_writing_checks').eq('id', user.id).single();
+                    const current = profile?.total_writing_checks || 0;
+                    await supabase.from('profiles').update({ total_writing_checks: current + 1 }).eq('id', user.id);
+                }
+            })().catch(err => console.error("Failed to update stats:", err));
+        }
 
         return await generateGeminiResponse(prompt, images);
 
