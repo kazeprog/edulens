@@ -15,6 +15,7 @@ type Profile = {
     daily_goal?: number;
     last_login_at?: string | null;
     consecutive_login_days?: number;
+    is_pro?: boolean;
 };
 
 type AuthContextType = {
