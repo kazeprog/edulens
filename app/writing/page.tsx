@@ -43,21 +43,25 @@ export default function WritingHubPage() {
                         </Link>
 
                         {/* University Exam Writing (Coming Soon) */}
-                        <div className="bg-gray-100 rounded-2xl p-8 border border-gray-200 flex flex-col items-center text-center opacity-75 cursor-not-allowed">
-                            <div className="w-16 h-16 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center mb-6">
+                        {/* University Exam Writing */}
+                        <Link
+                            href="/writing/university"
+                            className="group bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-8 border border-gray-100 flex flex-col items-center text-center"
+                        >
+                            <div className="w-16 h-16 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <GraduationCap className="w-8 h-8" />
                             </div>
-                            <h2 className="text-2xl font-bold text-gray-500 mb-2">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-slate-700 transition-colors">
                                 大学受験対策
                             </h2>
                             <p className="text-gray-500 mb-6 flex-grow">
-                                志望校の傾向に合わせた自由英作文対策。<br />
-                                （現在準備中です）
+                                志望校の傾向に合わせた厳格な採点。<br />
+                                難関大合格に向けた論理構成を指導します。
                             </p>
-                            <span className="inline-flex items-center text-gray-400 font-semibold px-4 py-2 bg-gray-200 rounded-full text-sm">
-                                Coming Soon
+                            <span className="inline-flex items-center text-slate-600 font-semibold group-hover:translate-x-1 transition-transform">
+                                添削を始める <ArrowRight className="ml-2 w-4 h-4" />
                             </span>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
