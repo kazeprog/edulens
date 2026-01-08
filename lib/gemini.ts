@@ -1,13 +1,95 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, GenerativeModel, GenerationConfig } from "@google/generative-ai";
+import { redis } from "@/lib/redis";
 
 if (!process.env.GOOGLE_GEMINI_API_KEY) {
     throw new Error("GOOGLE_GEMINI_API_KEY must be defined in .env.local");
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY);
+// Support multiple API keys for rotation
+const apiKeys = [
+    process.env.GOOGLE_GEMINI_API_KEY,
+    process.env.GOOGLE_GEMINI_API_KEY_2
+].filter((key): key is string => !!key);
 
-// Use the flash model for speed and cost efficiency
-export const model = genAI.getGenerativeModel({
+console.log(`Loaded ${apiKeys.length} Gemini API keys.`);
+
+const ACTIVE_KEY_INDEX_REDIS_KEY = "GEMINI_ACTIVE_KEY_INDEX";
+
+export class GeminiModelWrapper {
+    private models: GenerativeModel[];
+    private currentKeyIndex = 0;
+    private config: { model: string; generationConfig?: GenerationConfig };
+
+    constructor(keys: string[], config: { model: string; generationConfig?: GenerationConfig }) {
+        this.config = config;
+        this.models = keys.map(key => {
+            const genAI = new GoogleGenerativeAI(key);
+            return genAI.getGenerativeModel(config);
+        });
+
+        // Initialize current key from Redis (async, so essentially "eventually consistent" for the first call)
+        this.initCurrentKey();
+    }
+
+    private async initCurrentKey() {
+        try {
+            const storedIndex = await redis.get<number>(ACTIVE_KEY_INDEX_REDIS_KEY);
+            if (storedIndex !== null && typeof storedIndex === "number" && storedIndex >= 0 && storedIndex < this.models.length) {
+                this.currentKeyIndex = storedIndex;
+                console.log(`Initialized Gemini API Key from Redis: #${this.currentKeyIndex}`);
+            }
+        } catch (error) {
+            console.error("Failed to retrieve Gemini active key index from Redis:", error);
+        }
+    }
+
+    private get currentModel(): GenerativeModel {
+        return this.models[this.currentKeyIndex];
+    }
+
+    private async rotateKey() {
+        if (this.models.length <= 1) return;
+
+        const nextIndex = (this.currentKeyIndex + 1) % this.models.length;
+        this.currentKeyIndex = nextIndex;
+        console.warn(`Switched to Gemini API Key #${this.currentKeyIndex}`);
+
+        // Persist new index to Redis with 24h expiration
+        try {
+            await redis.set(ACTIVE_KEY_INDEX_REDIS_KEY, nextIndex, { ex: 60 * 60 * 24 });
+        } catch (error) {
+            console.error("Failed to persist new Gemini active key index to Redis:", error);
+        }
+    }
+
+    async generateContent(params: any): Promise<any> {
+        let attempts = 0;
+        const maxAttempts = this.models.length;
+
+        while (attempts < maxAttempts) {
+            try {
+                return await this.currentModel.generateContent(params);
+            } catch (error: any) {
+                // Check for 429 Limit Exceeded
+                const isRateLimit = error.message?.includes("429") || error.status === 429 || error.statusText?.includes("Too Many Requests");
+
+                if (isRateLimit) {
+                    console.warn(`Gemini API Rate Limit hit on key #${this.currentKeyIndex}. Rotating...`);
+                    await this.rotateKey();
+                    attempts++;
+                    continue;
+                }
+
+                throw error;
+            }
+        }
+
+        throw new Error(`All ${this.models.length} Gemini API keys have been rate limited.`);
+    }
+}
+
+// Wrapper behaves like the original model object for generateContent
+export const model = new GeminiModelWrapper(apiKeys, {
     model: "gemini-2.5-flash",
     generationConfig: {
         responseMimeType: "application/json"
