@@ -9,13 +9,13 @@ import { mistapClient, blogClient } from "@/lib/mistap/microcms";
 
 export const metadata: Metadata = {
   title: 'EduLens - 学習を、もっと効果的に',
-  description: '試験日カウントダウンと単語学習システム。高校入試、大学入試、英検、TOEICなどの試験対策をサポート。',
+  description: '試験日カウントダウンとAI添削サービス。高校入試、大学入試、英検、TOEICなどの試験対策をサポート。',
   alternates: {
     canonical: 'https://edulens.jp',
   },
   openGraph: {
     title: 'EduLens - 学習を、もっと効果的に',
-    description: '試験日カウントダウンと単語学習システム。あなたの目標達成をサポートする学習ツール。',
+    description: '試験日カウントダウンとAI添削サービス。あなたの目標達成をサポートする学習ツール。',
     url: 'https://edulens.jp',
     type: 'website',
     siteName: 'EduLens',
@@ -123,7 +123,7 @@ export default async function Home() {
                 学習を、<br className="sm:hidden" />もっと効果的に。
               </h1>
               <p className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                試験日カウントダウンと単語学習システム。<br />
+                試験日カウントダウンとAI添削サービス。<br />
                 あなたの目標達成をサポートする学習ツール。
               </p>
             </div>

@@ -1,14 +1,78 @@
-"use client"
-
 import Link from "next/link"
 import { ArrowRight, BookOpen, GraduationCap } from "lucide-react"
+import type { Metadata } from 'next'
 
 import SiteHeader from "@/components/SiteHeader"
 import SiteFooter from "@/components/SiteFooter"
 
+export const metadata: Metadata = {
+    title: 'AI英作文添削 - EduLens | 英検・大学入試対応',
+    description: '最短10秒でAIが英作文を添削。英検®や大学入試の自由英作文・和文英訳に対応。経験豊富な予備校講師レベルのフィードバックで合格力を高めます。',
+    openGraph: {
+        title: 'AI英作文添削 - EduLens | 英検・大学入試対応',
+        description: '最短10秒でAIが英作文を添削。英検®や大学入試の自由英作文・和文英訳に対応。',
+        url: 'https://edulens.jp/writing',
+        siteName: 'EduLens',
+        type: 'website',
+        images: [
+            {
+                url: '/EduLensWriting.png',
+                width: 1200,
+                height: 630,
+                alt: 'EduLens AI Writing',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'AI英作文添削 - EduLens',
+        description: '最短10秒でAIが英作文を添削。英検®や大学入試に対応。',
+        images: ['/EduLensWriting.png'],
+    },
+};
+
 export default function WritingHubPage() {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "EduLens AI英作文添削",
+        "description": "英検・大学入試対策に特化したAI英作文添削サービス。",
+        "provider": {
+            "@type": "Organization",
+            "name": "EduLens",
+            "url": "https://edulens.jp"
+        },
+        "areaServed": "JP",
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "英作文添削コース",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "英検®対策コース",
+                        "description": "3級〜1級対応。論理構成と語彙を強化。"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "大学受験対策コース",
+                        "description": "志望校別傾向対策。自由英作文・和文英訳対応。"
+                    }
+                }
+            ]
+        }
+    };
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <SiteHeader />
             <div className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto">
@@ -42,7 +106,6 @@ export default function WritingHubPage() {
                             </span>
                         </Link>
 
-                        {/* University Exam Writing (Coming Soon) */}
                         {/* University Exam Writing */}
                         <Link
                             href="/writing/university"
