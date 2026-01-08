@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { BookOpen } from 'lucide-react';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MistapProtected from '@/components/MistapProtected';
@@ -308,6 +309,69 @@ export default async function Home() {
                     {/* CTA */}
                     <span className="inline-flex items-center text-rose-600 font-semibold group-hover:translate-x-1 transition-transform">
                       今すぐ使う
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Writing Card */}
+                <Link
+                  href="/writing"
+                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <Image
+                        src="/EduLensWriting.png"
+                        alt="AI添削"
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-emerald-600 transition-colors">
+                      AI添削
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
+                      AI英作文添削。<br />
+                      英検®対策から自由英作文まで。
+                    </p>
+
+                    {/* Features */}
+                    <ul className="space-y-2 text-sm text-slate-500 mb-6">
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        AIによる即時添削
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        英検®対応
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        論理構成のアドバイス
+                      </li>
+                    </ul>
+
+                    {/* CTA */}
+                    <span className="inline-flex items-center text-emerald-600 font-semibold group-hover:translate-x-1 transition-transform">
+                      添削する
                       <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>

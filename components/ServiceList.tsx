@@ -4,35 +4,52 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import { BookOpen } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 // サービス一覧データ（トップページと連動）
-const SERVICES = [
-    {
-        name: 'Countdown',
-        href: '/countdown',
-        image: '/CountdownLP.png',
-        description: '試験日カウントダウン',
-    },
-    {
-        name: 'Mistap',
-        href: '/mistap',
-        image: '/MistapLP.png',
-        description: '単語学習システム',
-    },
-    {
-        name: 'EduTimer',
-        href: '/EduTimer',
-        image: '/EdutimerLogo.png',
-        description: 'ポモドーロタイマー',
-    },
-    {
-        name: 'BlackLens',
-        href: '/blacklens',
-        image: '/BlacklensSquare.png',
-        description: 'ストレス発散ボード',
-        dark: true,
-    },
-];
+const SERVICES: {
+    name: string;
+    href: string;
+    image?: string;
+    icon?: LucideIcon;
+    description: string;
+    dark?: boolean;
+    color?: string;
+}[] = [
+        {
+            name: 'Countdown',
+            href: '/countdown',
+            image: '/CountdownLP.png',
+            description: '試験日カウントダウン',
+        },
+        {
+            name: 'Mistap',
+            href: '/mistap',
+            image: '/MistapLP.png',
+            description: '単語学習システム',
+        },
+        {
+            name: 'EduTimer',
+            href: '/EduTimer',
+            image: '/EdutimerLogo.png',
+            description: 'ポモドーロタイマー',
+        },
+        {
+            name: 'AI添削',
+            href: '/writing',
+            image: '/EduLensWriting.png',
+            description: 'AI英作文添削',
+            color: 'emerald',
+        },
+        {
+            name: 'BlackLens',
+            href: '/blacklens',
+            image: '/BlacklensSquare.png',
+            description: 'ストレス発散ボード',
+            dark: true,
+        },
+    ];
 
 interface ServiceListProps {
     currentService?: string;
@@ -165,19 +182,25 @@ export default function ServiceList({ currentService }: ServiceListProps) {
                   flex-shrink-0 w-40 rounded-xl p-4 border transition-all
                   ${isDark
                                         ? 'bg-slate-900 border-slate-700 hover:border-purple-500'
-                                        : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-md'
+                                        : service.color === 'emerald'
+                                            ? 'bg-white border-slate-200 hover:border-emerald-300 hover:shadow-md'
+                                            : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-md'
                                     }
                 `}
                             >
                                 {/* アイコン */}
                                 <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center overflow-hidden rounded-lg">
-                                    <Image
-                                        src={service.image}
-                                        alt={service.name}
-                                        width={64}
-                                        height={64}
-                                        className="w-full h-full object-contain"
-                                    />
+                                    {service.image ? (
+                                        <Image
+                                            src={service.image}
+                                            alt={service.name}
+                                            width={64}
+                                            height={64}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    ) : service.icon ? (
+                                        <service.icon className={`w-8 h-8 ${service.color === 'emerald' ? 'text-emerald-600' : 'text-slate-600'}`} />
+                                    ) : null}
                                 </div>
 
                                 {/* サービス名 */}
