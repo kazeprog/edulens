@@ -1,6 +1,7 @@
 import { supabase } from '@/utils/supabase/client';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import CountdownWithActions from './CountdownWithActions';
 import ActionButtons from './ActionButtons';
 import AmazonExamLink from '@/components/AmazonExamLink';
@@ -64,6 +65,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const isExpired = diffDays <= 0;
   const isCommonTest = event.name.includes('共通テスト');
+  const isSecondaryExam = event.name.includes('2次試験');
 
   // Amazon検索用キーワード
   const cleanName = event.name.replace(/\s*[\(（].*?[\)）]/g, '').trim();
@@ -140,6 +142,55 @@ export default async function UniversityExamPage({ params }: { params: Params })
           year={year}
           diffDays={diffDays}
         />
+
+
+
+
+
+        {/* ▼▼▼ 大学入試英作文添削おすすめカード ▼▼▼ */}
+        {isSecondaryExam && (
+          <div className="w-full max-w-2xl mx-auto mb-12 mt-16">
+            <Link
+              href="/writing/university"
+              className="group relative block bg-white rounded-2xl p-6 sm:p-8 shadow-sm border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
+              {/* おすすめバッジ */}
+              <div className="absolute top-0 right-0 bg-gradient-to-l from-indigo-500 to-blue-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl shadow-sm z-10">
+                おすすめ
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+                {/* 画像エリア */}
+                <div className="w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 relative group-hover:scale-105 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-indigo-50 rounded-full scale-90 opacity-50"></div>
+                  <Image
+                    src="/EduLensWriting.png"
+                    alt="AI大学入試英作文添削"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-contain relative z-10"
+                  />
+                </div>
+
+                {/* テキストエリア */}
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 group-hover:text-indigo-700 transition-colors">
+                    志望校の英作文対策は万全？
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-500 leading-relaxed mb-4">
+                    <span className="font-bold text-indigo-600">最短10秒でAIが添削！</span><br />
+                    難関大合格レベルの採点基準で、あなたの解答を厳格に評価します。
+                  </p>
+                  <span className="inline-flex items-center gap-2 text-indigo-600 font-bold border-b border-indigo-200 group-hover:border-indigo-500 pb-0.5 transition-all">
+                    今すぐ添削を試す
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        )}
+        {/* ▲▲▲ おすすめカード終了 ▲▲▲ */}
 
         {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
