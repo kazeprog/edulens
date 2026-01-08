@@ -80,9 +80,9 @@ export default function AdminDashboardPage() {
                 supabase.from('results').select('*', { count: 'exact', head: true }),
                 supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfWeek()),
-                supabase.from('profiles').select('id, full_name, created_at').order('created_at', { ascending: false }).limit(3),
-                supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(3),
-                supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(3),
+                supabase.from('profiles').select('id, full_name, created_at').order('created_at', { ascending: false }).limit(15),
+                supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
+                supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
             ]);
 
             setStats({
@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
 
             // 日時でソート
             activities.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-            setRecentActivity(activities.slice(0, 8));
+            setRecentActivity(activities.slice(0, 20));
 
             setLoading(false);
         }
