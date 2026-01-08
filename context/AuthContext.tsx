@@ -16,6 +16,8 @@ type Profile = {
     last_login_at?: string | null;
     consecutive_login_days?: number;
     is_pro?: boolean;
+    stripe_customer_id?: string | null;
+    stripe_subscription_id?: string | null;
 };
 
 type AuthContextType = {
