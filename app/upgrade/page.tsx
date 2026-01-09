@@ -6,7 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import UpgradeButton from '@/components/UpgradeButton';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { CheckCircle2, Star, Zap } from 'lucide-react';
+import { CheckCircle2, Star, Zap, Share2, Copy } from 'lucide-react';
 
 export default function UpgradePage() {
     const { user, profile, loading } = useAuth();
@@ -109,6 +109,43 @@ export default function UpgradePage() {
                                     )}
                                 </div>
                             </div>
+
+                            {!isPro && (
+                                <div className="mt-10 pt-10 border-t border-slate-100">
+                                    <h3 className="text-lg font-bold text-slate-800 mb-4 text-center">
+                                        保護者の方に決済をお願いする場合
+                                    </h3>
+                                    <p className="text-sm text-slate-500 text-center mb-6 max-w-lg mx-auto">
+                                        ご自身のスマホで決済できない場合は、下記のリンクを保護者の方に送ることで、保護者様のスマホで決済手続きを行えます。
+                                    </p>
+
+                                    <div className="max-w-md mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <button
+                                            onClick={() => {
+                                                const url = `${window.location.origin}/upgrade/share?uid=${user.id}`;
+                                                navigator.clipboard.writeText(url);
+                                                alert("リンクをコピーしました！保護者の方に送ってください。");
+                                            }}
+                                            className="flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 py-3 px-4 rounded-xl font-bold hover:bg-slate-50 transition-colors shadow-sm"
+                                        >
+                                            <Copy className="w-5 h-5 text-slate-500" />
+                                            リンクをコピー
+                                        </button>
+
+                                        <button
+                                            onClick={() => {
+                                                const url = `${window.location.origin}/upgrade/share?uid=${user.id}`;
+                                                const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(`EduLens Proへのアップグレードをお願いします！\nこちらのリンクから決済できます：\n${url}`)}`;
+                                                window.open(lineUrl, '_blank');
+                                            }}
+                                            className="flex items-center justify-center gap-2 bg-[#06C755] text-white py-3 px-4 rounded-xl font-bold hover:bg-[#05b34c] transition-colors shadow-sm"
+                                        >
+                                            <Share2 className="w-5 h-5" />
+                                            LINEで送る
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
 
