@@ -42,9 +42,8 @@ export interface Blog {
   };
 }
 
-// ページのキャッシュ設定 - 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ページのキャッシュ設定
+export const revalidate = 360;
 
 // SEO専用記事のID（一覧から除外）
 const SEO_EXCLUDED_ID = '9dj-wo0gj';
@@ -105,6 +104,7 @@ export default async function BlogPage() {
             >
               <Link
                 href={`/mistap/blog/${post.id}`} // コンテンツIDを使用
+                prefetch={false}
                 className="flex flex-col md:flex-row"
               >
                 {post.eyecatch && (

@@ -42,9 +42,8 @@ export interface EduLensColumn {
     };
 }
 
-// ページのキャッシュ設定 - 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ページのキャッシュ設定
+export const revalidate = 360;
 
 async function getAllColumns() {
     const limit = 100;
@@ -105,6 +104,7 @@ export default async function ColumnPage() {
                             <Link
                                 key={post.id}
                                 href={`/column/${post.id}`}
+                                prefetch={false}
                                 className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                             >
                                 <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">

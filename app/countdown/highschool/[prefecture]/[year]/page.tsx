@@ -298,6 +298,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
                 <Link
                   key={post.id}
                   href={`/column/${post.id}`}
+                  prefetch={false}
                   className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                 >
                   <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
@@ -326,7 +327,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
               ))}
             </div>
             <div className="text-right mt-4">
-              <Link href="/column" className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-1">
+              <Link href="/column" prefetch={false} className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-1">
                 もっと見る
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </Link>
@@ -358,6 +359,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
                 <Link
                   key={pref.id}
                   href={`/countdown/highschool/${pref.slug}/${year}`}
+                  prefetch={false}
                   className="px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                 >
                   {pref.name}
@@ -421,7 +423,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/countdown/highschool" className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
+          <Link href="/countdown/highschool" prefetch={false} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             都道府県一覧に戻る
           </Link>

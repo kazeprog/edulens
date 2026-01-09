@@ -159,6 +159,7 @@ export default async function PrefectureSelectPage() {
 
               <Link
                 href={`/countdown/highschool/${detectedPref.slug}/${targetYear}`}
+                prefetch={false}
                 className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-700 hover:shadow-lg transition-all"
               >
                 {detectedPref.name}のカウントダウンへ
@@ -185,6 +186,7 @@ export default async function PrefectureSelectPage() {
                     <Link
                       key={pref.id}
                       href={`/countdown/highschool/${pref.slug}/${targetYear}`}
+                      prefetch={false}
                       className="block text-center py-3 px-2 rounded-lg bg-slate-50 hover:bg-blue-50 hover:text-blue-600 hover:font-bold transition-all border border-slate-100 text-slate-600 text-sm sm:text-base"
                     >
                       {pref.name}
@@ -197,7 +199,7 @@ export default async function PrefectureSelectPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/countdown" className="text-blue-600 hover:text-blue-800 font-medium hover:underline">
+          <Link href="/countdown" prefetch={false} className="text-blue-600 hover:text-blue-800 font-medium hover:underline">
             ← カテゴリ選択に戻る
           </Link>
         </div>

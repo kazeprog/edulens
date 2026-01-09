@@ -140,6 +140,7 @@ export default async function Home() {
                 {/* Countdown Card */}
                 <Link
                   href="/countdown"
+                  prefetch={false}
                   className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 overflow-hidden"
                 >
                   {/* Background decoration */}
@@ -202,6 +203,7 @@ export default async function Home() {
                 <MistapProtected>
                   <Link
                     href="/mistap"
+                    prefetch={false}
                     className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-200 transition-all duration-300 overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-red-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -258,6 +260,7 @@ export default async function Home() {
                 {/* EduTimer Card */}
                 <Link
                   href="/EduTimer"
+                  prefetch={false}
                   className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-rose-200 transition-all duration-300 overflow-hidden"
                 >
                   {/* Background decoration */}
@@ -319,6 +322,7 @@ export default async function Home() {
                 {/* Writing Card */}
                 <Link
                   href="/writing"
+                  prefetch={false}
                   className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 overflow-hidden"
                 >
                   {/* Background decoration */}
@@ -382,6 +386,7 @@ export default async function Home() {
                 {/* Black Lens Card */}
                 <Link
                   href="/blacklens"
+                  prefetch={false}
                   className="group relative bg-slate-900 rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-700 hover:shadow-xl hover:border-purple-500 transition-all duration-300 overflow-hidden"
                 >
                   {/* Background decoration */}
@@ -451,7 +456,7 @@ export default async function Home() {
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
                     EduLens コラム
                   </h2>
-                  <Link href="/column" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                  <Link href="/column" prefetch={false} className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
                     記事一覧
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -464,6 +469,7 @@ export default async function Home() {
                     <Link
                       key={post.id}
                       href={`/column/${post.id}`}
+                      prefetch={false}
                       className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                     >
                       <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
