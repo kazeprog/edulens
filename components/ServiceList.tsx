@@ -178,6 +178,7 @@ export default function ServiceList({ currentService }: ServiceListProps) {
                             <Link
                                 key={`${service.name}-${index}`}
                                 href={service.href}
+                                prefetch={false}
                                 className={`
                   flex-shrink-0 w-40 rounded-xl p-4 border transition-all
                   ${isDark
