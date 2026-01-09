@@ -51,7 +51,7 @@ export default async function UniversityTopPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        
+
         <div className="text-center mb-12">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">
             大学入試カウントダウン
@@ -75,9 +75,10 @@ export default async function UniversityTopPage() {
               const isCommonTest = event.slug.includes('common');
 
               return (
-                <Link 
-                  key={event.id} 
+                <Link
+                  key={event.id}
                   href={`/countdown/university/${event.slug}/${targetYear}`}
+                  prefetch={false}
                   className={`block relative bg-white rounded-xl p-6 sm:p-8 shadow-sm border transition-all 
                     ${isCommonTest ? 'border-indigo-200 shadow-md ring-1 ring-indigo-50 hover:ring-indigo-200 hover:shadow-lg' : 'border-slate-100 hover:shadow-md hover:border-blue-200'}
                   `}
@@ -89,7 +90,7 @@ export default async function UniversityTopPage() {
                       `}>
                         {isCommonTest ? '共通テスト' : '個別試験'}
                       </span>
-                      
+
                       <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1">
                         {event.name}
                       </h2>
@@ -131,10 +132,10 @@ export default async function UniversityTopPage() {
         </div>
 
         <div className="mt-12 text-center">
-           <Link href="/countdown" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-             カテゴリ選択に戻る
-           </Link>
+          <Link href="/countdown" prefetch={false} className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            カテゴリ選択に戻る
+          </Link>
         </div>
 
       </div>

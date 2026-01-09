@@ -254,7 +254,7 @@ export default function EduTimerPage() {
 
       {/* Header */}
       <header className="w-full py-4 px-4 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b border-slate-100">
-        <Link href="/" className="w-48 h-12 block hover:opacity-80 transition-opacity relative">
+        <Link href="/" prefetch={false} className="w-48 h-12 block hover:opacity-80 transition-opacity relative">
           <Image
             src="/logo.png"
             alt="EduLens"
@@ -271,7 +271,7 @@ export default function EduTimerPage() {
               {profile?.full_name ? `${profile.full_name}さん` : (user.email ? `${user.email.split('@')[0]}さん` : 'ゲストさん')}
             </span>
           ) : (
-            <Link href="/login?redirect=/EduTimer" className="text-sm font-bold text-rose-600 hover:text-rose-700 transition-colors">
+            <Link href="/login?redirect=/EduTimer" prefetch={false} className="text-sm font-bold text-rose-600 hover:text-rose-700 transition-colors">
               ログイン
             </Link>
           )}
@@ -301,7 +301,7 @@ export default function EduTimerPage() {
       <nav className="max-w-4xl mx-auto px-4 py-4" aria-label="Breadcrumb">
         <ol className="flex items-center space-x-2 text-sm text-slate-500">
           <li>
-            <Link href="/" className="hover:text-rose-600 transition-colors">ホーム</Link>
+            <Link href="/" prefetch={false} className="hover:text-rose-600 transition-colors">ホーム</Link>
           </li>
           <li>
             <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -616,6 +616,7 @@ export default function EduTimerPage() {
                   </div>
                   <Link
                     href="/login?redirect=/EduTimer"
+                    prefetch={false}
                     className="flex-shrink-0 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-300 transform hover:-translate-y-0.5"
                   >
                     ログインして記録
@@ -818,9 +819,9 @@ export default function EduTimerPage() {
       {/* Footer */}
       <footer className="w-full py-8 text-center border-t border-slate-100 bg-slate-50">
         <nav className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-slate-500">
-          <Link href="/terms" className="hover:text-slate-800 hover:underline">利用規約</Link>
-          <Link href="/privacy" className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
-          <Link href="/contact" className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
+          <Link href="/terms" prefetch={false} className="hover:text-slate-800 hover:underline">利用規約</Link>
+          <Link href="/privacy" prefetch={false} className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
+          <Link href="/contact" prefetch={false} className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
         </nav>
         <div className="space-y-2">
           <p className="text-xs text-slate-400">

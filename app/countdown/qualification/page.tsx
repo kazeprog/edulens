@@ -257,6 +257,7 @@ export default async function QualificationPage() {
                                         <Link
                                             key={exam.id}
                                             href={`/countdown/${exam.slug}/${exam.session_slug}`}
+                                            prefetch={false}
                                             className="group bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all block relative overflow-hidden"
                                         >
                                             <div className="flex justify-between items-start mb-3">
@@ -295,7 +296,7 @@ export default async function QualificationPage() {
                 </div>
 
                 <div className="mt-16 text-center pt-8 border-t border-slate-200">
-                    <Link href="/countdown" className="text-blue-600 hover:underline inline-flex items-center gap-2 font-medium">
+                    <Link href="/countdown" prefetch={false} className="text-blue-600 hover:underline inline-flex items-center gap-2 font-medium">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                         カテゴリ選択に戻る
                     </Link>

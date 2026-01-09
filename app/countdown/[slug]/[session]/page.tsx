@@ -222,6 +222,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           <div className="w-full max-w-2xl mx-auto mb-12 mt-16">
             <Link
               href="/writing"
+              prefetch={false}
               className="group relative block bg-white rounded-2xl p-6 sm:p-8 shadow-sm border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
               {/* おすすめバッジ */}
@@ -304,7 +305,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
         </div>
 
         <div className="mt-12 text-center">
-          <Link href={`/countdown/${slug}`} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
+          <Link href={`/countdown/${slug}`} prefetch={false} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             {displayExamName}の日程一覧に戻る
           </Link>

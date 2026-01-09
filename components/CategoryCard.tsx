@@ -24,6 +24,7 @@ export default function CategoryCard({ href, title, description, icon, color }: 
     return (
         <Link
             href={href}
+            prefetch={false}
             className={`group relative bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-sm border border-slate-100 hover:shadow-md ${s.border} transition-all flex flex-row sm:flex-col items-center justify-start sm:justify-center text-left sm:text-center h-auto sm:h-64`}
         >
             <div className={`w-12 h-12 sm:w-16 sm:h-16 ${s.bg} ${s.text} rounded-full flex items-center justify-center mr-4 sm:mr-0 sm:mb-6 flex-shrink-0 group-hover:scale-110 transition-transform`}>

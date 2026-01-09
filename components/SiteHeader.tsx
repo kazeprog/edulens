@@ -29,7 +29,7 @@ export default function SiteHeader() {
 
     return (
         <header className="w-full py-4 px-4 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b border-slate-100">
-            <Link href="/" className="w-48 h-12 block hover:opacity-80 transition-opacity relative">
+            <Link href="/" prefetch={false} className="w-48 h-12 block hover:opacity-80 transition-opacity relative">
                 <Image
                     src="/logo.png"
                     alt="EduLens"
@@ -44,12 +44,14 @@ export default function SiteHeader() {
                     <div className="hidden md:flex items-center gap-3 mr-4">
                         <Link
                             href={loginUrl}
+                            prefetch={false}
                             className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
                         >
                             ログイン
                         </Link>
                         <Link
                             href={signupUrl}
+                            prefetch={false}
                             className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
                         >
                             新規登録
@@ -99,6 +101,7 @@ export default function SiteHeader() {
                                             <div className="md:hidden border-b border-slate-100 mb-1 pb-1">
                                                 <Link
                                                     href={loginUrl}
+                                                    prefetch={false}
                                                     className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                                     onClick={() => setIsMenuOpen(false)}
                                                 >
@@ -106,6 +109,7 @@ export default function SiteHeader() {
                                                 </Link>
                                                 <Link
                                                     href={signupUrl}
+                                                    prefetch={false}
                                                     className="block py-3 px-4 text-blue-600 hover:bg-slate-50 transition-colors font-bold border-l-4 border-transparent hover:border-blue-500"
                                                     onClick={() => setIsMenuOpen(false)}
                                                 >
@@ -117,6 +121,7 @@ export default function SiteHeader() {
                                         {/* メニュー項目 */}
                                         <Link
                                             href="/countdown"
+                                            prefetch={false}
                                             className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
@@ -125,6 +130,7 @@ export default function SiteHeader() {
                                         {user && (
                                             <Link
                                                 href="/mistap/home"
+                                                prefetch={false}
                                                 className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
@@ -133,6 +139,7 @@ export default function SiteHeader() {
                                         )}
                                         <Link
                                             href="/EduTimer"
+                                            prefetch={false}
                                             className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
@@ -140,6 +147,7 @@ export default function SiteHeader() {
                                         </Link>
                                         <Link
                                             href="/blacklens"
+                                            prefetch={false}
                                             className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-purple-500"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
@@ -148,6 +156,7 @@ export default function SiteHeader() {
                                         {user && (
                                             <Link
                                                 href="/mistap/blog"
+                                                prefetch={false}
                                                 className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-orange-500"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >

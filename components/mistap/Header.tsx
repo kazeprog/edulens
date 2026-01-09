@@ -53,7 +53,7 @@ export default function Header() {
 
   return (
     <header className="w-full py-2 px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-sm z-50">
-      <Link href="/mistap" className="flex items-center group relative hover:opacity-80 transition-opacity" aria-label="Mistap Home">
+      <Link href="/mistap" prefetch={false} className="flex items-center group relative hover:opacity-80 transition-opacity" aria-label="Mistap Home">
         <Image
           src="/mistap-logo.png?v=new"
           alt="Mistap"
@@ -86,6 +86,7 @@ export default function Header() {
                 {/* EduLens トップへ */}
                 <Link
                   href="/"
+                  prefetch={false}
                   className="block py-3 px-4 text-blue-600 hover:bg-blue-50 transition-colors font-medium border-l-4 border-transparent hover:border-blue-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -95,6 +96,7 @@ export default function Header() {
                 {/* ホーム */}
                 <Link
                   href="/mistap/home"
+                  prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -108,6 +110,7 @@ export default function Header() {
                 {/* Show profile link even when name is not set so users can edit their info */}
                 <Link
                   href="/mistap/profile"
+                  prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -115,6 +118,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/mistap/test-setup"
+                  prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -122,6 +126,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/mistap/history"
+                  prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -129,6 +134,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/mistap/contact"
+                  prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -156,12 +162,14 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/login?redirect=/mistap/home"
+            prefetch={false}
             className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
           >
             ログイン
           </Link>
           <Link
             href="/login?mode=signup&redirect=/mistap/home"
+            prefetch={false}
             className="text-sm font-semibold text-white bg-gradient-to-r from-red-500 to-pink-500 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
           >
             新規登録

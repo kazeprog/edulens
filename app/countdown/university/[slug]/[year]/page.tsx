@@ -152,6 +152,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
           <div className="w-full max-w-2xl mx-auto mb-12 mt-16">
             <Link
               href="/writing/university"
+              prefetch={false}
               className="group relative block bg-white rounded-2xl p-6 sm:p-8 shadow-sm border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
               {/* おすすめバッジ */}
@@ -258,7 +259,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
 
         {/* 戻るリンク */}
         <div className="mt-12 text-center pb-8">
-          <Link href="/countdown/university" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
+          <Link href="/countdown/university" prefetch={false} className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             大学入試一覧に戻る
           </Link>

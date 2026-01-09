@@ -4,10 +4,10 @@ export default function SiteFooter() {
     return (
         <footer className="w-full py-8 text-center border-t border-slate-100 bg-slate-50">
             <nav className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-slate-500">
-                <Link href="/terms" className="hover:text-slate-800 hover:underline">利用規約</Link>
-                <Link href="/privacy" className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
-                <Link href="/contact" className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
-                <Link href="/operator" className="hover:text-slate-800 hover:underline">運営者情報</Link>
+                <Link href="/terms" prefetch={false} className="hover:text-slate-800 hover:underline">利用規約</Link>
+                <Link href="/privacy" prefetch={false} className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
+                <Link href="/contact" prefetch={false} className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
+                <Link href="/operator" prefetch={false} className="hover:text-slate-800 hover:underline">運営者情報</Link>
             </nav>
             <div className="space-y-2">
                 <p className="text-xs text-slate-400">

@@ -140,6 +140,7 @@ export default async function ExamListPage({ params }: { params: Params }) {
                 <Link
                   key={exam.id}
                   href={`/countdown/${exam.slug}/${exam.session_slug}`}
+                  prefetch={false}
                   className={`block relative bg-white rounded-xl p-6 sm:p-8 shadow-sm border transition-all border-slate-100 hover:shadow-md hover:border-blue-200`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -184,7 +185,7 @@ export default async function ExamListPage({ params }: { params: Params }) {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/countdown" className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
+          <Link href="/countdown" prefetch={false} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             カテゴリ選択に戻る
           </Link>

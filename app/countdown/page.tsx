@@ -102,7 +102,7 @@ export default function CountdownHubPage() {
         </div>
 
         <div className="mt-8 text-center pt-8 border-t border-slate-200">
-          <Link href="/" className="text-blue-600 hover:underline">
+          <Link href="/" prefetch={false} className="text-blue-600 hover:underline">
             &larr; EduLens トップへ戻る
           </Link>
         </div>
