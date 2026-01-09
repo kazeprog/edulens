@@ -134,6 +134,7 @@ export default function ActionButtons({
         {/* 残り勉強時間シミュレーター */}
         <Link
           href={`/study-time-calculator?date=${displayExamDate}&name=${encodeURIComponent(displayExamName)}&back=${encodeURIComponent(`/countdown/highschool/${prefecture}/${year}`)}`}
+          prefetch={false}
           className="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-indigo-700 transition-colors shadow-sm w-full"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
