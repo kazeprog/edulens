@@ -108,8 +108,9 @@ export default function PrefectureLayout({
                 <ul className="space-y-1.5">
                   {region.prefs.map((pref) => (
                     <li key={pref.slug}>
-                      <Link 
-                        href={`/countdown/highschool/${pref.slug}/2026`} 
+                      <Link
+                        href={`/countdown/highschool/${pref.slug}/2026`}
+                        prefetch={false}
                         className="text-slate-300 hover:text-slate-500 transition-colors block"
                         aria-label={`${pref.name}高校入試日程`}
                       >

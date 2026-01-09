@@ -75,10 +75,9 @@ export default function MonthlyList({ groups, slug }: Props) {
               </span>
             </button>
 
-            <div 
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                openMonths[month] ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-              }`}
+            <div
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${openMonths[month] ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+                }`}
             >
               <div className="p-4 grid gap-3">
                 {exams.map((exam) => {
@@ -91,6 +90,7 @@ export default function MonthlyList({ groups, slug }: Props) {
                     <Link
                       key={exam.id}
                       href={`/countdown/${slug}/${exam.session_slug}`}
+                      prefetch={false}
                       className="block bg-white border border-slate-100 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all group"
                     >
                       <div className="flex items-center justify-between">
@@ -102,7 +102,7 @@ export default function MonthlyList({ groups, slug }: Props) {
                             {exam.primary_exam_date.replace(/-/g, '/')}
                           </div>
                         </div>
-                        
+
                         <div className="text-right">
                           {isFinished ? (
                             <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">終了</span>

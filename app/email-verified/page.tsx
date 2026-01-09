@@ -71,6 +71,7 @@ function EmailVerifiedContent() {
                         </p>
                         <Link
                             href={redirectUrl}
+                            prefetch={false}
                             className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg"
                         >
                             今すぐ{getRedirectLabel()}
