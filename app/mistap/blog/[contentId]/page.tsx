@@ -235,7 +235,7 @@ export async function generateStaticParams() {
     });
 
     const paths = data.contents.map((post) => ({
-      slug: post.id,
+      contentId: post.id,
     }));
 
     return paths;
