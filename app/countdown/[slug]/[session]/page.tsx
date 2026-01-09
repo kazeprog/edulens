@@ -10,7 +10,7 @@ import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新
-export const revalidate = 360;
+export const revalidate = 86400;
 
 type Params = Promise<{ slug: string; session: string }>;
 

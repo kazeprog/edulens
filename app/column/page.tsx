@@ -43,7 +43,7 @@ export interface EduLensColumn {
 }
 
 // ページのキャッシュ設定
-export const revalidate = 360;
+export const revalidate = 86400;
 
 async function getAllColumns() {
     const limit = 100;

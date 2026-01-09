@@ -7,7 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import type { EduLensColumn } from "../page";
 
-export const revalidate = 360;
+export const revalidate = 86400;
 
 type Props = {
     params: Promise<{

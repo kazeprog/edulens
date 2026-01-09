@@ -43,7 +43,7 @@ export interface Blog {
 }
 
 // ページのキャッシュ設定
-export const revalidate = 360;
+export const revalidate = 86400;
 
 // SEO専用記事のID（一覧から除外）
 const SEO_EXCLUDED_ID = '9dj-wo0gj';

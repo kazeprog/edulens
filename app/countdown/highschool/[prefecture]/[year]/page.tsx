@@ -12,7 +12,7 @@ import { blogClient } from '@/lib/mistap/microcms';
 import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
 
-export const revalidate = 360;
+export const revalidate = 86400;
 
 type Params = Promise<{ prefecture: string; year: string }>;
 

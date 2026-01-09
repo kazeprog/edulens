@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 
-export const revalidate = 360;
+export const revalidate = 86400;
 
 // 年度自動計算
 function getTargetExamYear() {

@@ -7,7 +7,7 @@ import { draftMode } from "next/headers";
 import Image from "next/image";
 
 // ページのキャッシュ設定
-export const revalidate = 360;
+export const revalidate = 86400;
 
 type Props = {
   params: Promise<{

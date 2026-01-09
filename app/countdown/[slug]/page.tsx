@@ -5,7 +5,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import MonthlyList from './MonthlyList';
 
 // ISR設定
-export const revalidate = 360;
+export const revalidate = 86400;
 
 type Params = Promise<{ slug: string }>;
 
