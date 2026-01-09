@@ -12,6 +12,8 @@ import { blogClient } from '@/lib/mistap/microcms';
 import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
 
+export const revalidate = 360;
+
 type Params = Promise<{ prefecture: string; year: string }>;
 
 const REGION_NAMES: Record<string, string> = {
@@ -102,9 +104,6 @@ async function getEduLensColumns() {
         orders: "-publishedAt",
         limit: 3,
         fields: "id,title,publishedAt,eyecatch",
-      },
-      customRequestInit: {
-        cache: 'no-store',
       },
     });
     return data.contents;

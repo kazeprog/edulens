@@ -7,8 +7,7 @@ import { draftMode } from "next/headers";
 import Image from "next/image";
 
 // ページのキャッシュ設定
-export const revalidate = 3600; // 1時間
-export const dynamic = 'force-dynamic'; // 動的レンダリングを強制
+export const revalidate = 360;
 
 type Props = {
   params: Promise<{
@@ -28,14 +27,11 @@ async function getPostByContentId(contentId: string, draftKey?: string) {
       queries.draftKey = draftKey;
     }
 
-    // idでコンテンツを直接取得（キャッシュ無効化）
+    // idでコンテンツを直接取得
     const post = await mistapClient.getListDetail<Blog>({
       endpoint: "blogs",
       contentId: contentId,
       queries,
-      customRequestInit: {
-        cache: 'no-store',
-      },
     });
 
     return post;

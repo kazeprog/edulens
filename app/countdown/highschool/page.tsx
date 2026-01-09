@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 
+export const revalidate = 360;
+
 // 年度自動計算
 function getTargetExamYear() {
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));

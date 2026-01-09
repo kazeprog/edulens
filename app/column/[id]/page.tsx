@@ -7,8 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import type { EduLensColumn } from "../page";
 
-export const revalidate = 3600;
-export const dynamic = 'force-dynamic';
+export const revalidate = 360;
 
 type Props = {
     params: Promise<{
@@ -28,9 +27,6 @@ async function getPostById(id: string, draftKey?: string) {
             endpoint: "blogs",
             contentId: id,
             queries,
-            customRequestInit: {
-                cache: 'no-store',
-            },
         });
 
         return post;
@@ -81,9 +77,6 @@ async function getRecommendedPosts(currentId: string) {
                 limit: 3,
                 filters: `id[not_equals]${currentId}`,
                 fields: "id,title,publishedAt,eyecatch",
-            },
-            customRequestInit: {
-                cache: 'no-store',
             },
         });
         return data.contents;
