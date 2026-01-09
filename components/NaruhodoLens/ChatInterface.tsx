@@ -501,7 +501,7 @@ export default function ChatInterface() {
                         {/* Send Button */}
                         <button
                             type="submit"
-                            disabled={status !== 'ready' || (!input.trim() && !files?.length) || isChatEnded || (user && !isTokenReady)}
+                            disabled={status !== 'ready' || (!input.trim() && !files?.length) || isChatEnded || (!!user && !isTokenReady)}
                             className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-100 hover:bg-blue-700 transition-all disabled:opacity-50 disabled:bg-slate-300 disabled:shadow-none hover:scale-105 disabled:hover:scale-100"
                         >
                             {isLoading ? (
