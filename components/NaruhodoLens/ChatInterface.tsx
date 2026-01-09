@@ -176,7 +176,7 @@ export default function ChatInterface() {
         const lastMessage = messages[messages.length - 1];
         if (lastMessage.role === 'assistant') {
             // Check text content safely
-            let text = lastMessage.content;
+            let text = (lastMessage as any).content;
             // Handle parts if present (Vercel AI SDK v6)
             if (!text && (lastMessage as any).parts) {
                 text = (lastMessage as any).parts
