@@ -75,6 +75,7 @@ export default function SubscriptionSuccessPage() {
 
                 <Link
                     href="/"
+                    prefetch={false}
                     className="group inline-flex items-center justify-center w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02]"
                 >
                     学習を再開する
