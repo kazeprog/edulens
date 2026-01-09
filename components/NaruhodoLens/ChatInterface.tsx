@@ -159,8 +159,8 @@ export default function ChatInterface() {
             api: '/api/naruhodo-lens',
             headers: token ? { 'Authorization': `Bearer ${token}` } : undefined,
         }),
-        body: {
-            token: token // Also send in body as fallback
+        onFinish: (message) => {
+            // Optional: Handle finish
         },
         onError: (error) => {
             if (error.message.includes('Limit exceeded')) {
