@@ -80,7 +80,7 @@ export default async function Image({ params }: { params: { slug: string; year: 
                             <span style={{ fontSize: 40, fontWeight: 'bold', color: '#334155' }}>{examDateText}</span>
                         </p>
                     </div>
-                    <div style={{ marginBottom: 16 }}>
+                    <div style={{ display: 'flex', marginBottom: 16 }}>
                         {isExpired ? (
                             <div style={{ fontSize: 120, fontWeight: 900, color: themeColor }}>試験終了</div>
                         ) : (

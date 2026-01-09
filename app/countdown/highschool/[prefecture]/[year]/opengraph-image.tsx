@@ -150,7 +150,7 @@ export default async function Image({ params }: { params: { prefecture: string; 
                     </div>
 
                     {/* Countdown Area */}
-                    <div style={{ marginBottom: 16 }}>
+                    <div style={{ display: 'flex', marginBottom: 16 }}>
                         {isExpired ? (
                             <div style={{ fontSize: 120, fontWeight: 900, color: '#2563ea' }}>試験終了</div>
                         ) : (
