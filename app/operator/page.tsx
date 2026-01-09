@@ -29,7 +29,7 @@ export default function OperatorPage() {
 
                         <div className="sm:col-span-1 font-bold text-slate-700">お問い合わせ</div>
                         <div className="sm:col-span-2">
-                            <Link href="/contact" className="text-blue-600 hover:underline">
+                            <Link href="/contact" prefetch={false} className="text-blue-600 hover:underline">
                                 お問い合わせページ
                             </Link>
                             よりご連絡ください。

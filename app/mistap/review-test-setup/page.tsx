@@ -232,7 +232,7 @@ export default function ReviewTestSetupPage() {
             </p>
 
             <div className="space-y-3">
-              <Link href="/mistap/test-setup" className="block w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold transition-colors duration-200">
+              <Link href="/mistap/test-setup" prefetch={false} className="block w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold transition-colors duration-200">
                 通常テストを作成
               </Link>
               <button onClick={() => router.back()} className="w-full bg-gray-500 hover:bg-gray-600 text-white py-3 px-4 rounded-xl font-medium transition-colors duration-200">
@@ -252,7 +252,7 @@ export default function ReviewTestSetupPage() {
 
         {/* タブナビゲーション */}
         <div className="flex mb-6 bg-gray-100 rounded-xl p-1">
-          <Link href="/mistap/test-setup" className="flex-1 text-center py-2 px-4 text-gray-600 hover:text-gray-800 transition-colors rounded-lg">
+          <Link href="/mistap/test-setup" prefetch={false} className="flex-1 text-center py-2 px-4 text-gray-600 hover:text-gray-800 transition-colors rounded-lg">
             通常テスト
           </Link>
           <div className="flex-1 text-center py-2 px-4 bg-red-600 text-white rounded-lg font-medium">

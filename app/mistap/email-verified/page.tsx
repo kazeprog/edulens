@@ -94,6 +94,7 @@ function EmailVerifiedContent() {
                 </p>
                 <Link
                   href={redirectUrl}
+                  prefetch={false}
                   className="inline-block px-6 py-3 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-colors"
                 >
                   今すぐ{getRedirectLabel()}
@@ -102,9 +103,9 @@ function EmailVerifiedContent() {
             ) : (
               <div className="flex gap-3 justify-center">
                 {userEmail ? (
-                  <Link href="/mistap/test-setup" className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">テスト作成へ</Link>
+                  <Link href="/mistap/test-setup" prefetch={false} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">テスト作成へ</Link>
                 ) : (
-                  <Link href="/mistap?login=1" className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">ログインしてテスト作成</Link>
+                  <Link href="/mistap?login=1" prefetch={false} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">ログインしてテスト作成</Link>
                 )}
               </div>
             )}

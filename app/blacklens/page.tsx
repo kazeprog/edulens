@@ -99,7 +99,7 @@ export default function BlackLensPage() {
             {/* --- ヘッダー --- */}
             <header className="w-full py-2 px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-black/90 backdrop-blur-md z-50 border-b border-gray-800">
                 <h1 className="flex items-center">
-                    <Link href="/blacklens" className="hover:opacity-80 transition-opacity">
+                    <Link href="/blacklens" prefetch={false} className="hover:opacity-80 transition-opacity">
                         <Image
                             src="/BlackLensHeader.png?v=2"
                             alt="Black Lens - 勉強の悩みを吐き出す掲示板"
@@ -130,6 +130,7 @@ export default function BlackLensPage() {
                         <div className="absolute top-full right-0 mt-2 w-56 bg-gray-900 rounded-xl shadow-xl border border-gray-700 z-50 overflow-hidden py-1">
                             <Link
                                 href="/"
+                                prefetch={false}
                                 className="block py-3 px-4 text-gray-300 hover:bg-gray-800 transition-colors font-medium"
                                 onClick={() => setIsMenuOpen(false)}
                             >
@@ -138,6 +139,7 @@ export default function BlackLensPage() {
                             <div className="border-t border-gray-700 my-1"></div>
                             <Link
                                 href="/mistap"
+                                prefetch={false}
                                 className="block py-3 px-4 text-gray-300 hover:bg-gray-800 transition-colors font-medium"
                                 onClick={() => setIsMenuOpen(false)}
                             >
@@ -145,6 +147,7 @@ export default function BlackLensPage() {
                             </Link>
                             <Link
                                 href="/countdown"
+                                prefetch={false}
                                 className="block py-3 px-4 text-gray-300 hover:bg-gray-800 transition-colors font-medium"
                                 onClick={() => setIsMenuOpen(false)}
                             >
@@ -152,6 +155,7 @@ export default function BlackLensPage() {
                             </Link>
                             <Link
                                 href="/EduTimer"
+                                prefetch={false}
                                 className="block py-3 px-4 text-gray-300 hover:bg-gray-800 transition-colors font-medium"
                                 onClick={() => setIsMenuOpen(false)}
                             >
@@ -160,6 +164,7 @@ export default function BlackLensPage() {
                             <div className="border-t border-gray-700 my-1"></div>
                             <Link
                                 href="/contact"
+                                prefetch={false}
                                 className="block py-3 px-4 text-gray-300 hover:bg-gray-800 transition-colors font-medium"
                                 onClick={() => setIsMenuOpen(false)}
                             >

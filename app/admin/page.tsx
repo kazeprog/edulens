@@ -223,19 +223,19 @@ export default function AdminDashboardPage() {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
                 <h3 className="text-lg font-bold mb-4 text-slate-800">クイックメニュー</h3>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                    <Link href="/admin/exams" className="bg-blue-50 text-blue-700 p-4 rounded-lg hover:bg-blue-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/exams" prefetch={false} className="bg-blue-50 text-blue-700 p-4 rounded-lg hover:bg-blue-100 transition text-center font-bold text-sm">
                         📝 試験日程管理
                     </Link>
-                    <Link href="/admin/announcements" className="bg-orange-50 text-orange-700 p-4 rounded-lg hover:bg-orange-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/announcements" prefetch={false} className="bg-orange-50 text-orange-700 p-4 rounded-lg hover:bg-orange-100 transition text-center font-bold text-sm">
                         📢 お知らせ配信
                     </Link>
-                    <Link href="/admin/blacklens" className="bg-purple-50 text-purple-700 p-4 rounded-lg hover:bg-purple-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/blacklens" prefetch={false} className="bg-purple-50 text-purple-700 p-4 rounded-lg hover:bg-purple-100 transition text-center font-bold text-sm">
                         💬 BlackLens管理
                     </Link>
-                    <Link href="/admin/tests" className="bg-green-50 text-green-700 p-4 rounded-lg hover:bg-green-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/tests" prefetch={false} className="bg-green-50 text-green-700 p-4 rounded-lg hover:bg-green-100 transition text-center font-bold text-sm">
                         📊 テスト履歴
                     </Link>
-                    <Link href="/countdown" className="bg-slate-50 text-slate-700 p-4 rounded-lg hover:bg-slate-100 transition text-center font-bold text-sm" target="_blank">
+                    <Link href="/countdown" prefetch={false} className="bg-slate-50 text-slate-700 p-4 rounded-lg hover:bg-slate-100 transition text-center font-bold text-sm" target="_blank">
                         🔗 サイトを見る
                     </Link>
                 </div>

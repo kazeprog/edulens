@@ -209,13 +209,14 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
 
           <Link
             href="/mistap/test-setup"
+            prefetch={false}
             className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors shadow-lg hover:shadow-red-300 inline-block"
           >
             今すぐデモを試してみる
           </Link>
 
           <p className="text-sm text-gray-600 mt-4">
-            ※「間違えた単語」の保存には<Link href="/mistap?signup=1" className="underline hover:text-red-600 font-medium">アカウント登録（無料）</Link>が必要です。
+            ※「間違えた単語」の保存には<Link href="/mistap?signup=1" prefetch={false} className="underline hover:text-red-600 font-medium">アカウント登録（無料）</Link>が必要です。
           </p>
 
         </div>

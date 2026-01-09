@@ -66,18 +66,18 @@ export default function AdminLayout({
                     <h1 className="text-xl font-bold">EduLens Admin</h1>
                 </div>
                 <nav className="p-4 space-y-2">
-                    <Link href="/admin" className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                    <Link href="/admin" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         ダッシュボード
                     </Link>
-                    <Link href="/admin/exams" className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                    <Link href="/admin/exams" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         試験日程管理
                     </Link>
-                    <Link href="/admin/announcements" className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                    <Link href="/admin/announcements" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         お知らせ管理
                     </Link>
                 </nav>
                 <div className="absolute bottom-0 w-full p-4 border-t border-slate-700">
-                    <Link href="/" className="block px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                    <Link href="/" prefetch={false} className="block px-4 py-2 text-sm text-slate-400 hover:text-white transition">
                         &larr; サイトに戻る
                     </Link>
                 </div>

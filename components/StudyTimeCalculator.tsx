@@ -75,8 +75,8 @@ export default function StudyTimeCalculator({
             </div>
             勉強時間シミュレーター
           </h3>
-          <button 
-            onClick={() => setIsConfigMode(!isConfigMode)} 
+          <button
+            onClick={() => setIsConfigMode(!isConfigMode)}
             className="text-xs font-medium text-slate-400 hover:text-indigo-600 transition-colors px-3 py-1.5 rounded-full hover:bg-indigo-50"
           >
             {isConfigMode ? '閉じる' : '設定変更'}
@@ -130,8 +130,8 @@ export default function StudyTimeCalculator({
             </div>
 
             <div className="space-y-8 mb-10">
-               {/* 平日スライダー */}
-               <div>
+              {/* 平日スライダー */}
+              <div>
                 <label htmlFor="weekday-slider" className="flex justify-between items-end mb-3">
                   <span className="text-sm font-bold text-slate-700 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
@@ -155,7 +155,7 @@ export default function StudyTimeCalculator({
                     onChange={(e) => setWeekdayHours(parseFloat(e.target.value))}
                     className="absolute w-full h-6 opacity-0 cursor-pointer z-10"
                   />
-                  <div 
+                  <div
                     className="absolute h-5 w-5 bg-white border-2 border-indigo-500 rounded-full shadow-md pointer-events-none transition-all duration-150 group-hover:scale-110"
                     style={{ left: `calc(${(weekdayHours / 10) * 100}% - 10px)` }}
                   ></div>
@@ -187,7 +187,7 @@ export default function StudyTimeCalculator({
                     onChange={(e) => setHolidayHours(parseFloat(e.target.value))}
                     className="absolute w-full h-6 opacity-0 cursor-pointer z-10"
                   />
-                  <div 
+                  <div
                     className="absolute h-5 w-5 bg-white border-2 border-indigo-500 rounded-full shadow-md pointer-events-none transition-all duration-150 group-hover:scale-110"
                     style={{ left: `calc(${(holidayHours / 16) * 100}% - 10px)` }}
                   ></div>
@@ -219,7 +219,7 @@ export default function StudyTimeCalculator({
                     onChange={(e) => setSubjectCount(parseInt(e.target.value))}
                     className="absolute w-full h-6 opacity-0 cursor-pointer z-10"
                   />
-                  <div 
+                  <div
                     className="absolute h-5 w-5 bg-white border-2 border-indigo-500 rounded-full shadow-md pointer-events-none transition-all duration-150 group-hover:scale-110"
                     style={{ left: `calc(${((subjectCount - 1) / 9) * 100}% - 10px)` }}
                   ></div>
@@ -263,7 +263,7 @@ export default function StudyTimeCalculator({
           </div>
         )}
 
-        <Link href={backUrl} className="w-full py-3.5 px-4 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-600 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow">
+        <Link href={backUrl} prefetch={false} className="w-full py-3.5 px-4 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-600 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
           元のページに戻る
         </Link>

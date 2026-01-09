@@ -510,7 +510,7 @@ export default async function Home() {
                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
                       Mistap 新着記事
                     </h2>
-                    <Link href="/mistap/blog" className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                    <Link href="/mistap/blog" prefetch={false} className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
                       記事一覧
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -523,6 +523,7 @@ export default async function Home() {
                       <Link
                         key={post.id}
                         href={`/mistap/blog/${post.id}`}
+                        prefetch={false}
                         className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                       >
                         <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
