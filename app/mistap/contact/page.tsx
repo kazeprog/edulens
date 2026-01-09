@@ -81,12 +81,14 @@ export default function ContactPage() {
               <div className="space-y-4">
                 <Link
                   href="/mistap/test-setup"
+                  prefetch={false}
                   className="block bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
                 >
                   テスト作成に戻る
                 </Link>
                 <Link
                   href="/mistap"
+                  prefetch={false}
                   className="block text-gray-600 hover:text-gray-800"
                 >
                   ホームに戻る

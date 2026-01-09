@@ -24,6 +24,7 @@ export default function AboutPage() {
               </p>
               <Link
                 href="/mistap"
+                prefetch={false}
                 className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl text-lg font-semibold inline-block transition-colors"
               >
                 今すぐ始める
@@ -200,12 +201,14 @@ export default function AboutPage() {
               <div className="flex justify-center gap-4 flex-wrap">
                 <Link
                   href="/mistap"
+                  prefetch={false}
                   className="bg-white text-red-600 hover:bg-gray-100 px-8 py-3 rounded-xl text-lg font-semibold inline-block transition-colors"
                 >
                   無料で始める
                 </Link>
                 <Link
                   href="/mistap/test-setup"
+                  prefetch={false}
                   className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-3 rounded-xl text-lg font-semibold inline-block transition-colors"
                 >
                   デモを試す

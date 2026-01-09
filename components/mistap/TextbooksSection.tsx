@@ -106,6 +106,7 @@ export default function TextbooksSection() {
                     </p>
                     <Link
                         href="/mistap/contact"
+                        prefetch={false}
                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-xl font-semibold transition-colors"
                     >
                         📚 単語帳リクエスト

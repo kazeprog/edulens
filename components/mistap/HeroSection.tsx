@@ -27,6 +27,7 @@ export default function HeroSection({ onSignupClick }: HeroSectionProps) {
                         </button>
                         <Link
                             href="/mistap/about"
+                            prefetch={false}
                             className="text-gray-700 hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold border-2 border-gray-300 hover:border-gray-400 transition-colors"
                         >
                             詳しく見る

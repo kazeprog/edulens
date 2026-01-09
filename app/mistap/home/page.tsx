@@ -768,6 +768,7 @@ export default function HomePage() {
                                 </h3>
                                 <Link
                                     href="/mistap/blog"
+                                    prefetch={false}
                                     className="text-sm text-gray-500 hover:text-red-600 font-medium flex items-center gap-1 transition-colors"
                                 >
                                     すべて見る
@@ -781,6 +782,7 @@ export default function HomePage() {
                                     <Link
                                         key={post.id}
                                         href={`/mistap/blog/${post.id}`}
+                                        prefetch={false}
                                         className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-sm border border-white/50 overflow-hidden hover:shadow-md transition-all group flex flex-col h-full"
                                     >
                                         {post.eyecatch && (

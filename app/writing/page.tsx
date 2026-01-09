@@ -89,6 +89,7 @@ export default function WritingHubPage() {
                         {/* Eiken Writing */}
                         <Link
                             href="/writing/eiken-writing"
+                            prefetch={false}
                             className="group bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-8 border border-gray-100 flex flex-col items-center text-center"
                         >
                             <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -109,6 +110,7 @@ export default function WritingHubPage() {
                         {/* University Exam Writing */}
                         <Link
                             href="/writing/university"
+                            prefetch={false}
                             className="group bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-8 border border-gray-100 flex flex-col items-center text-center"
                         >
                             <div className="w-16 h-16 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">

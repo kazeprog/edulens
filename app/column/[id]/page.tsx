@@ -155,6 +155,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                                     <Link
                                         key={post.id}
                                         href={`/column/${post.id}`}
+                                        prefetch={false}
                                         className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
                                     >
                                         <div className="aspect-[1200/630] relative bg-slate-100 overflow-hidden">
@@ -188,6 +189,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                     <div className="text-center">
                         <Link
                             href="/column"
+                            prefetch={false}
                             className="inline-flex items-center text-slate-600 hover:text-blue-600 font-medium transition-colors"
                         >
                             <svg className="w-4 h-4 mr-2 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">

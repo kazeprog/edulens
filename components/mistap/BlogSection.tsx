@@ -33,6 +33,7 @@ export default function BlogSection({ blogPosts, blogLoading }: BlogSectionProps
                         <Link
                             key={post.id}
                             href={`/mistap/blog/${post.id}`}
+                            prefetch={false}
                             className="bg-white/40 backdrop-blur-lg rounded-xl shadow-xl border border-white/50 overflow-hidden transition-shadow hover:shadow-2xl group"
                         >
                             {post.eyecatch && (
@@ -64,6 +65,7 @@ export default function BlogSection({ blogPosts, blogLoading }: BlogSectionProps
                 <div className="text-center mt-8">
                     <Link
                         href="/mistap/blog"
+                        prefetch={false}
                         className="inline-block bg-gray-700 hover:bg-gray-800 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
                     >
                         すべての記事を見る →
