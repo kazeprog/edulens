@@ -59,6 +59,9 @@ async function getAllColumns() {
                     limit,
                     offset,
                 },
+                customRequestInit: {
+                    next: { revalidate: 1800 },
+                },
             });
 
             allContents = [...allContents, ...data.contents];

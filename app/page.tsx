@@ -72,9 +72,9 @@ async function getLatestMistapBlogs() {
         filters: `category[not_equals]${SEO_EXCLUDED_ID}`,
         limit: 3,
       },
-      // customRequestInit: { // ISR(revalidate=60)のためcache設定削除
-      //   cache: 'no-store',
-      // },
+      customRequestInit: {
+        next: { revalidate: 1800 }, // ブログ記事は30分ごとに更新
+      },
     });
     return data.contents;
   } catch (e) {
@@ -92,9 +92,9 @@ async function getEduLensBlogs() {
         limit: 3,
         fields: 'id,title,publishedAt,eyecatch,category',
       },
-      // customRequestInit: { // ISR(revalidate=60)のためcache設定削除
-      //   cache: 'no-store',
-      // },
+      customRequestInit: {
+        next: { revalidate: 1800 }, // ブログ記事は30分ごとに更新
+      },
     });
     return data.contents;
   } catch (e) {
@@ -131,12 +131,12 @@ export default async function Home() {
 
           {/* Services Section */}
           <section id="services" className="py-12 sm:py-20 px-4 bg-slate-50 border-t border-slate-100">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 mb-10 sm:mb-14">
                 サービスを選ぶ
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {/* Countdown Card */}
                 <Link
                   href="/countdown"
@@ -192,6 +192,68 @@ export default async function Home() {
                     {/* CTA */}
                     <span className="inline-flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
                       詳しく見る
+                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+
+                {/* NaruhodoLens Card */}
+                <Link
+                  href="/naruhodo-lens"
+                  prefetch={false}
+                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-sky-200 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-sky-100 to-sky-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <img
+                        src="/naruhodolenslogo.png"
+                        alt="NaruhodoLens"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 sm:mb-3 group-hover:text-sky-600 transition-colors">
+                      ナルホドレンズ
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
+                      わからない問題の写真を撮って送るだけ。<br />
+                      AIが専属家庭教師のように解説。
+                    </p>
+
+                    {/* Features */}
+                    <ul className="space-y-2 text-sm text-slate-500 mb-6">
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        画像認識で即座に解説
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        対話形式で疑問を解消
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        数学・理科・英語に対応
+                      </li>
+                    </ul>
+
+                    {/* CTA */}
+                    <span className="inline-flex items-center text-sky-600 font-semibold group-hover:translate-x-1 transition-transform">
+                      質問する
                       <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
