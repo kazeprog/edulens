@@ -1,5 +1,5 @@
 import { supabase } from '@/utils/supabase/client';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import CountdownWithActions from './CountdownWithActions';
@@ -66,7 +66,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
     .eq('session_slug', session)
     .single();
 
-  if (!exam) return notFound();
+  if (!exam) redirect('/');
 
   const displayExamName = exam.exam_name;
   const displaySessionName = exam.session_name;

@@ -112,6 +112,11 @@ export default async function ExamListPage({ params }: { params: Params }) {
     }, {} as { [key: string]: typeof filteredExams });
   }
 
+  // 表示すべきデータがない場合はトップへリダイレクト
+  if (filteredExams.length === 0 && !monthlyGroups) {
+    redirect('/');
+  }
+
   return (
     <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
@@ -129,7 +134,7 @@ export default async function ExamListPage({ params }: { params: Params }) {
         <div className="grid gap-6">
           {monthlyGroups ? (
             <MonthlyList groups={monthlyGroups} slug={slug} />
-          ) : filteredExams.length > 0 ? (
+          ) : (
             filteredExams.map((exam) => {
               const examDate = new Date(exam.primary_exam_date);
               const diffTime = examDate.getTime() - today.getTime();
@@ -177,10 +182,6 @@ export default async function ExamListPage({ params }: { params: Params }) {
                 </Link>
               );
             })
-          ) : (
-            <div className="text-center py-12 bg-white rounded-xl border border-slate-100 text-slate-400">
-              現在、表示できる試験日程がありません。
-            </div>
           )}
         </div>
 
