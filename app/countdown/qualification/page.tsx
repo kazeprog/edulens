@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 // ISR設定
-export const revalidate = 60;
+export const revalidate = 360;
 
 export const metadata: Metadata = {
     title: '資格試験日程一覧 | EduLens',

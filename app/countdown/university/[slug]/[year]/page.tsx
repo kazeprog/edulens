@@ -8,7 +8,7 @@ import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 360;
 
 type Params = Promise<{ slug: string; year: string }>;
 

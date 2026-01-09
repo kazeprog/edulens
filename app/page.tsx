@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60; // 1分ごとに更新（ISR）
+export const revalidate = 360; // 6分ごとに更新（ISR）
 
 // microCMS Interface
 interface MistapBlog {
