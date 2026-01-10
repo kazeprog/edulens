@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(req: NextRequest) {
     const secret = req.nextUrl.searchParams.get('secret');
@@ -10,8 +10,10 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        // 'blog' タグが付いたキャッシュを削除（再検証）
-        await revalidateTag('blog');
+        // ブログが表示される主要なパスを再検証
+        revalidatePath('/', 'layout'); // トップページとその配下すべて
+        revalidatePath('/column', 'page'); // コラム一覧
+
         return NextResponse.json({ revalidated: true, now: Date.now() });
     } catch (err) {
         return NextResponse.json({ message: 'Error revalidating' }, { status: 500 });
