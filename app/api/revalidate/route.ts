@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     try {
         // 'blog' タグが付いたキャッシュを削除（再検証）
-        revalidateTag('blog');
+        await revalidateTag('blog');
         return NextResponse.json({ revalidated: true, now: Date.now() });
     } catch (err) {
         return NextResponse.json({ message: 'Error revalidating' }, { status: 500 });
