@@ -7,6 +7,7 @@ import ActionButtons from './ActionButtons';
 import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
+import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 
 export const revalidate = 86400;
 
@@ -134,6 +135,11 @@ export default async function UniversityExamPage({ params }: { params: Params })
             </p>
           </div>
         )}
+
+        {/* ▼▼▼ ナルホドレンズ カード ▼▼▼ */}
+        <div className="w-full max-w-2xl mx-auto mb-4 mt-8">
+          <NaruhodoLensPromoCard />
+        </div>
 
         {/* アクションボタンエリア */}
         <ActionButtons

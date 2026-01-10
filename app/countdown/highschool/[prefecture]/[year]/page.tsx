@@ -11,6 +11,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { blogClient } from '@/lib/mistap/microcms';
 import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
+import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 
 export const revalidate = 86400;
 
@@ -104,6 +105,9 @@ async function getEduLensColumns() {
         orders: "-publishedAt",
         limit: 3,
         fields: "id,title,publishedAt,eyecatch",
+      },
+      customRequestInit: {
+        next: { tags: ['blog'] },
       },
     });
     return data.contents;
@@ -273,6 +277,11 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </div>
         )}
 
+        {/* ▼▼▼ ナルホドレンズ カード ▼▼▼ */}
+        <div className="w-full max-w-2xl mx-auto mb-4 mt-8">
+          <NaruhodoLensPromoCard />
+        </div>
+
         {/* ▼▼▼ アクションボタンエリア（縦並び） ▼▼▼ */}
         <ActionButtons
           displayPrefName={displayPrefName}
@@ -283,8 +292,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
           displayExamName={displayExamName}
         />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
-
-        {/* ▼▼▼ エリア終了 ▲▲▲ */}
 
         {/* ▼▼▼ EduLensコラム記事 ▼▼▼ */}
         {columnPosts.length > 0 && (

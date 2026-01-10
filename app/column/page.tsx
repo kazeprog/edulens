@@ -60,7 +60,7 @@ async function getAllColumns() {
                     offset,
                 },
                 customRequestInit: {
-                    next: { revalidate: 1800 },
+                    next: { tags: ['blog'] },
                 },
             });
 

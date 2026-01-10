@@ -73,7 +73,7 @@ async function getLatestMistapBlogs() {
         limit: 3,
       },
       customRequestInit: {
-        next: { revalidate: 1800 }, // ブログ記事は30分ごとに更新
+        next: { tags: ['blog'] },
       },
     });
     return data.contents;
@@ -93,7 +93,7 @@ async function getEduLensBlogs() {
         fields: 'id,title,publishedAt,eyecatch,category',
       },
       customRequestInit: {
-        next: { revalidate: 1800 }, // ブログ記事は30分ごとに更新
+        next: { tags: ['blog'] },
       },
     });
     return data.contents;

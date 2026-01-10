@@ -287,7 +287,14 @@ export default function ChatInterface() {
             {/* Messages Area */}
             <div className="flex-1 min-h-0 overflow-y-auto px-4 py-6 space-y-6">
                 {messages.length === 0 && (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                    <div className="flex flex-col items-center justify-start min-h-full pt-6 md:pt-12 text-center px-4">
+                        <div className="mb-6">
+                            <img
+                                src="/naruhodolenslogo.png"
+                                alt="Naruhodo Lens Logo"
+                                className="w-auto h-32 object-contain"
+                            />
+                        </div>
                         <h2 className="text-2xl font-bold text-slate-800 mb-3">ナルホドレンズへようこそ！</h2>
                         <p className="text-slate-500 text-sm max-w-sm leading-relaxed mb-8">
                             問題の画像をアップロードすると、<br />
