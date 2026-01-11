@@ -632,7 +632,7 @@ export default async function Home() {
                   </MistapProtected>
                   <strong>EduTimer</strong>は、ポモドーロテクニックを活用した集中タイマー。25分集中・5分休憩のサイクルで、効率的な学習をサポートします。<br /><br />
                   <strong>BlackLens</strong>は、受験生の悩みやストレスを匿名で吐き出せる掃きだめ板。「わかる」「エール」のリアクションで、同じ悩みを持つ仲間とつながれます。<br /><br />
-                  あなたの目標達成を、<MistapProtected>4</MistapProtected>つのツールで支援します。
+                  あなたの目標達成を、5<MistapProtected>+1</MistapProtected>つのツールで支援します。
                 </p>
               </div>
             </div>
