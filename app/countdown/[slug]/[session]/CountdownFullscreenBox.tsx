@@ -12,17 +12,23 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
   displayExamDateDots: string;
   displayExamDate: string;
   isExpired: boolean;
-}>(({
-  examName,
-  sessionName,
-  displayExamDateDots,
-  displayExamDate,
-  isExpired
-}, ref) => {
+}>((
+  {
+    examName,
+    sessionName,
+    displayExamDateDots,
+    displayExamDate,
+    isExpired
+  }, ref) => {
   const countdownRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // iOS detection
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    setIsIOS(iOS);
+
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
     };
@@ -33,9 +39,17 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
 
   useImperativeHandle(ref, () => ({
     requestFullscreen: () => {
-      if (countdownRef.current) {
+      if (isIOS) {
+        // For iOS: use pseudo-fullscreen mode
+        setIsFullscreen(true);
+        // Scroll to top to hide address bar
+        window.scrollTo(0, 0);
+      } else if (countdownRef.current) {
+        // For other browsers: use native Fullscreen API
         countdownRef.current.requestFullscreen().catch((err) => {
           console.error(`全画面表示の開始に失敗しました: ${err.message}`);
+          // Fallback to pseudo-fullscreen
+          setIsFullscreen(true);
         });
       }
     }
@@ -43,10 +57,31 @@ const CountdownFullscreenBox = forwardRef<CountdownFullscreenBoxRef, {
 
   return (
     <div
-      className={`${isFullscreen ? 'flex flex-col items-center justify-center min-h-screen bg-white p-4 sm:p-8 relative' : 'mb-16'
+      className={`${isFullscreen
+        ? isIOS
+          ? 'fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white p-4 sm:p-8 overflow-auto'
+          : 'flex flex-col items-center justify-center min-h-screen bg-white p-4 sm:p-8 relative'
+        : 'mb-16'
         } transition-all`}
       ref={countdownRef}
+      style={isFullscreen && isIOS ? {
+        minHeight: '100dvh', // Dynamic viewport height for mobile, fallback to 100vh
+        touchAction: 'pan-y'
+      } : undefined}
     >
+
+      {/* Close button for iOS fullscreen */}
+      {isFullscreen && isIOS && (
+        <button
+          onClick={() => setIsFullscreen(false)}
+          className="fixed top-4 right-4 z-[10000] bg-slate-800 text-white rounded-full p-3 shadow-lg hover:bg-slate-700 transition-colors"
+          aria-label="全画面を終了"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      )}
 
       <div
         className={`${isFullscreen ? 'scale-100 sm:scale-50 md:scale-125 lg:scale-150 xl:scale-175' : ''} transition-transform transform`}
