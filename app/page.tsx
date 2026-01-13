@@ -6,6 +6,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MistapProtected from '@/components/MistapProtected';
 import { mistapClient, blogClient } from "@/lib/mistap/microcms";
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const metadata: Metadata = {
   title: 'EduLens - 学習を、もっと効果的に',
@@ -509,6 +510,15 @@ export default async function Home() {
               </div>
             </div>
           </section >
+
+          {/* AdSense Section */}
+          <section className="py-8 bg-slate-50 flex justify-center border-t border-slate-100">
+            <div className="w-full max-w-6xl px-4">
+              <GoogleAdsense
+                style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
+              />
+            </div>
+          </section>
 
           {/* EduLens Column Section (Visible to ALL) */}
           {latestEduLensPosts.length > 0 && (

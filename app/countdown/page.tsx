@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import CategoryCard from '@/components/CategoryCard';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const metadata: Metadata = {
   title: '入試カテゴリー選択 | EduLens',
@@ -31,6 +32,14 @@ export default function CountdownHubPage() {
           <p className="text-sm sm:text-base text-slate-500">
             目指すゴールを選んで、合格へのカウントダウンを見てみましょう。
           </p>
+        </div>
+
+        {/* AdSense Unit */}
+        <div className="mb-8">
+          <GoogleAdsense
+            style={{ display: 'block', minHeight: '100px', width: '100%' }}
+            format="horizontal"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">

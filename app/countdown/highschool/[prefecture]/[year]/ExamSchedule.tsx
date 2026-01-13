@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export default function ExamSchedule({ exams }: { exams: any[] }) {
   const [nowMs, setNowMs] = useState(() => Date.now());
@@ -19,6 +20,9 @@ export default function ExamSchedule({ exams }: { exams: any[] }) {
 
   return (
     <div className="w-full max-w-2xl mx-auto mb-16 text-left">
+      <div className="mb-8">
+        <GoogleAdsense />
+      </div>
       <h2 className="text-lg font-bold text-slate-800 mb-6 border-l-4 border-blue-600 pl-4">
         年間入試スケジュール
       </h2>
@@ -33,23 +37,23 @@ export default function ExamSchedule({ exams }: { exams: any[] }) {
               <div
                 key={exam.id}
                 className={`p-4 flex items-center justify-between ${isFinished ? 'bg-slate-50 text-slate-400' : 'hover:bg-slate-50 transition-colors'}`}>
-                
+
                 {/* 左側：試験名と日程 */}
                 <div className="flex-1 pr-2">
                   <div className={`font-bold text-sm sm:text-base mb-1.5 ${isFinished ? 'text-slate-500' : 'text-slate-800'}`}>
                     {exam.name}
                   </div>
-                  
+
                   {/* ▼▼▼ 修正: 日程表示エリア ▼▼▼ */}
                   <div className="flex flex-col gap-1">
                     {/* 試験日 */}
                     <div className="text-xs sm:text-sm flex items-center">
-                       <span className={`inline-block w-8 text-[10px] text-center rounded px-1 py-0.5 mr-2 font-bold ${isFinished ? 'bg-slate-200 text-slate-500' : 'bg-slate-100 text-slate-600'}`}>
-                         試験
-                       </span>
-                       <span className={isFinished ? 'opacity-70' : ''}>
-                         {exam.date.replace(/-/g, '/')}
-                       </span>
+                      <span className={`inline-block w-8 text-[10px] text-center rounded px-1 py-0.5 mr-2 font-bold ${isFinished ? 'bg-slate-200 text-slate-500' : 'bg-slate-100 text-slate-600'}`}>
+                        試験
+                      </span>
+                      <span className={isFinished ? 'opacity-70' : ''}>
+                        {exam.date.replace(/-/g, '/')}
+                      </span>
                     </div>
 
                     {/* 合格発表日（データがある場合のみ表示） */}
@@ -76,7 +80,7 @@ export default function ExamSchedule({ exams }: { exams: any[] }) {
                     <div className="flex flex-col items-end">
                       <span className="text-[10px] text-slate-400 mb-[-2px]">今日をいれて</span>
                       <span className="text-blue-600 font-bold text-lg">
-                         あと {thisDiffDays} 日
+                        あと {thisDiffDays} 日
                       </span>
                     </div>
                   )}
