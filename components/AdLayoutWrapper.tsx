@@ -17,7 +17,7 @@ export default function AdLayoutWrapper({
             <div className="w-full flex justify-center my-4">
                 <GoogleAdsense
                     slot="9969163744"
-                    format="horizontal"
+                    format="auto"
                     style={{ display: 'block', minHeight: '100px', width: '100%', maxWidth: '1000px' }}
                     key={`${pathname}-top`}
                 />
