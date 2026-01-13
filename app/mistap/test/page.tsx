@@ -9,6 +9,7 @@ import TestCard from "@/components/mistap/TestCard";
 import PrintWarningModal from "@/components/mistap/PrintWarningModal";
 import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/TestActionButtons";
 import MistapFooter from "@/components/mistap/Footer";
+import GoogleAdsense from "@/components/GoogleAdsense";
 
 interface Word {
   word_number: number;
@@ -409,6 +410,15 @@ function TestContent() {
               onCancel={() => setShowPrintWarning(false)}
             />
           )}
+
+          {/* AdSense Card (Word Card Style) */}
+          <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-6 overflow-hidden" style={{ minHeight: '128px' }}>
+            <GoogleAdsense
+              className="w-full h-full flex items-center justify-center"
+              style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}
+              format="auto" // auto allows it to fill the card
+            />
+          </div>
 
           <MobileActionButtons
             showAnswers={showAnswers}
