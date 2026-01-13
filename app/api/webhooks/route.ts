@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-12-15.clover',
+    // apiVersion: '2025-12-15.clover', // Commenting out to use default or avoid invalid version error
 });
 
 // Initialize Supabase Admin Client to bypass RLS
@@ -36,26 +36,38 @@ export async function POST(req: Request) {
     }
 
     try {
+        console.log(`Webhook received: ${event.type}`); // DEBUG LOG
+
         switch (event.type) {
             case 'checkout.session.completed': {
                 const session = event.data.object as Stripe.Checkout.Session;
+                console.log('Session data:', JSON.stringify({
+                    id: session.id,
+                    metadata: session.metadata,
+                    customer: session.customer,
+                    subscription: session.subscription
+                }, null, 2)); // DEBUG LOG
+
                 const userId = session.metadata?.userId;
 
                 if (userId) {
+                    console.log(`Found userId: ${userId}, updating profile...`); // DEBUG LOG
                     // Update user profile to pro
-                    const { error } = await supabaseAdmin
+                    const { data, error } = await supabaseAdmin
                         .from('profiles')
                         .update({
                             is_pro: true,
                             stripe_customer_id: session.customer as string,
                             stripe_subscription_id: session.subscription as string,
                         })
-                        .eq('id', userId);
+                        .eq('id', userId)
+                        .select(); // Add select to see if row was actually updated
 
                     if (error) {
                         console.error('Error updating Supabase profile (checkout.session.completed):', error);
                         return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
                     }
+                    console.log('Profile updated successfully:', data); // DEBUG LOG
                 } else {
                     console.warn('No userId found in session metadata');
                 }
