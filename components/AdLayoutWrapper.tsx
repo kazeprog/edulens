@@ -25,16 +25,8 @@ export default function AdLayoutWrapper({
             </div>
 
             {/* メインコンテンツ */}
-            <div className="flex-grow">
+            <div className="flex-grow pb-28">
                 {children}
-            </div>
-
-            {/* 下部広告 (レクタングル/デフォルト) */}
-            <div className="w-full flex justify-center my-4 pb-28">
-                <GoogleAdsense
-                    slot="9969163744"
-                    key={`${pathname}-bottom`}
-                />
             </div>
 
             <StickyFooterAd key={`${pathname}-footer`} />
