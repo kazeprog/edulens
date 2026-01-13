@@ -417,6 +417,7 @@ function TestContent() {
               className="w-full h-full flex items-center justify-center"
               style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}
               format="auto" // auto allows it to fill the card
+              responsive="false"
             />
           </div>
 
