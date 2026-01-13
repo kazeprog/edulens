@@ -5,6 +5,7 @@ import Link from "next/link"; // Link
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import Image from "next/image";
+import GoogleAdsense from "@/components/GoogleAdsense";
 
 // ページのキャッシュ設定
 export const revalidate = 86400;
@@ -193,6 +194,9 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
             __html: post.content,
           }}
         />
+
+        {/* 記事読み終わり直後の広告 */}
+        <GoogleAdsense />
 
         {/* (2) CTA */}
         <hr className="border-gray-300" />

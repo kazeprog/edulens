@@ -15,6 +15,7 @@ type GoogleAdsenseProps = {
     style?: React.CSSProperties;
     format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
     responsive?: 'true' | 'false';
+    className?: string;
 };
 
 const GoogleAdsense = ({
@@ -23,6 +24,7 @@ const GoogleAdsense = ({
     style = { display: 'block', minHeight: '280px' },
     format = 'auto',
     responsive = 'true',
+    className = "mb-4",
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
 
@@ -35,7 +37,7 @@ const GoogleAdsense = ({
     }, [pathname]);
 
     return (
-        <div style={{ minHeight: style?.minHeight || '280px', width: '100%' }}>
+        <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%' }}>
             <ins
                 className="adsbygoogle"
                 style={style}

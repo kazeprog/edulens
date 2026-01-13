@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Image from "next/image";
+import GoogleAdsense from "@/components/GoogleAdsense";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import type { EduLensColumn } from "../page";
@@ -145,6 +146,9 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                             }}
                         />
                     </article>
+
+                    {/* 記事読み終わり直後の広告 */}
+                    <GoogleAdsense />
 
                     {/* おすすめの記事セクション */}
                     {recommendedPosts.length > 0 && (

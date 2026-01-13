@@ -2,6 +2,7 @@ import Link from "next/link";
 import { blogClient } from "@/lib/mistap/microcms";
 import type { Metadata } from "next";
 import Image from "next/image";
+import GoogleAdsense from "@/components/GoogleAdsense";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -95,6 +96,8 @@ export default async function ColumnPage() {
                             学習のヒントや最新情報をお届けします。
                         </p>
                     </div>
+
+                    <GoogleAdsense />
 
                     {!posts.length && (
                         <div className="text-center py-20 bg-white rounded-3xl border border-slate-100">

@@ -297,9 +297,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {/* ▼▼▼ EduLensコラム記事 ▼▼▼ */}
         {columnPosts.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mt-16 mb-8">
-            <div className="mb-8">
-              <GoogleAdsense />
-            </div>
+            <GoogleAdsense />
             <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
               EduLens 最新コラム
@@ -404,6 +402,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
               試験当日は時間に余裕を持って会場に到着し、体調管理を万全にして、志望校合格を目指して頑張ってください。
             </p>
           </div>
+
+          {/* ユーザーが解説を読み終え、FAQへ進む前の区切りとして配置 */}
+          <GoogleAdsense />
 
           {/* よくある質問 */}
           <div className="mt-10">

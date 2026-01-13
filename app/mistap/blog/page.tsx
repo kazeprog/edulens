@@ -3,6 +3,7 @@ import { mistapClient } from "@/lib/mistap/microcms"; // lib/microcms.ts を指�
 import type { Metadata } from "next";
 import Image from "next/image";
 import MistapFooter from "@/components/mistap/Footer";
+import GoogleAdsense from "@/components/GoogleAdsense";
 
 // メタデータ
 export const metadata: Metadata = {
@@ -89,6 +90,8 @@ export default async function BlogPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-3xl mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-8 text-gray-800">ブログ一覧</h1>
+
+        <GoogleAdsense />
 
         {/* 投稿がない場合の表示 */}
         {posts.length === 0 && (

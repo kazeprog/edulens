@@ -2,6 +2,7 @@ import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const revalidate = 86400;
 
@@ -169,6 +170,7 @@ export default async function PrefectureSelectPage() {
           </div>
         )}
         {/* ▲▲▲ 追加ここまで ▲▲▲ */}
+        <GoogleAdsense />
 
         <div className="space-y-8">
           {Object.keys(REGION_NAMES).map((regionKey) => {
