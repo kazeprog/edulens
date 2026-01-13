@@ -412,7 +412,7 @@ function TestContent() {
           )}
 
           {/* AdSense Card (Word Card Style) - Mobile Only */}
-          <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-6 overflow-hidden md:hidden" style={{ minHeight: '128px' }}>
+          <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-3 overflow-hidden md:hidden" style={{ minHeight: '128px' }}>
             <GoogleAdsense
               className="w-full h-full flex items-center justify-center"
               style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}

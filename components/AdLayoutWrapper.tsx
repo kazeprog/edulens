@@ -3,6 +3,7 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import GoogleAdsense from '@/components/GoogleAdsense';
+import StickyFooterAd from '@/components/StickyFooterAd';
 
 export default function AdLayoutWrapper({
     children,
@@ -29,12 +30,14 @@ export default function AdLayoutWrapper({
             </div>
 
             {/* 下部広告 (レクタングル/デフォルト) */}
-            <div className="w-full flex justify-center my-4">
+            <div className="w-full flex justify-center my-4 pb-28">
                 <GoogleAdsense
                     slot="9969163744"
                     key={`${pathname}-bottom`}
                 />
             </div>
+
+            <StickyFooterAd key={`${pathname}-footer`} />
         </div>
     );
 }
