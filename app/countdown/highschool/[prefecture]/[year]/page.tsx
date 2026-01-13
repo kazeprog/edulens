@@ -12,6 +12,7 @@ import { blogClient } from '@/lib/mistap/microcms';
 import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const revalidate = 86400;
 
@@ -296,6 +297,9 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {/* ▼▼▼ EduLensコラム記事 ▼▼▼ */}
         {columnPosts.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mt-16 mb-8">
+            <div className="mb-8">
+              <GoogleAdsense />
+            </div>
             <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
               EduLens 最新コラム
