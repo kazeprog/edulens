@@ -457,6 +457,22 @@ export default function HomePage() {
                                     {!isProfileIncomplete && <span className="ml-2 inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">{profile.grade}</span>}
                                 </p>
                             )}
+
+                            {/* Pro plan promotion link */}
+                            {!authProfile?.is_pro && (
+                                <div className="mt-3">
+                                    <Link
+                                        href="/upgrade"
+                                        prefetch={false}
+                                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors group"
+                                    >
+                                        <span>広告非表示はこちら</span>
+                                        <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     )}
 
