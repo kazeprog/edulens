@@ -185,15 +185,17 @@ export default function SiteHeader() {
                                             <>
                                                 <div className="border-t border-slate-100 my-1"></div>
 
-                                                {/* Proプランへのリンク */}
-                                                <Link
-                                                    href="/upgrade"
-                                                    prefetch={false}
-                                                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
-                                                    onClick={() => setIsMenuOpen(false)}
-                                                >
-                                                    Proプラン登録
-                                                </Link>
+                                                {/* Proプランへのリンク (Proユーザー以外に表示) */}
+                                                {!profile?.is_pro && (
+                                                    <Link
+                                                        href="/upgrade"
+                                                        prefetch={false}
+                                                        className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
+                                                        onClick={() => setIsMenuOpen(false)}
+                                                    >
+                                                        Proプラン登録
+                                                    </Link>
+                                                )}
 
                                                 {/* Proユーザーのみプラン管理ボタンを表示 */}
                                                 {profile?.is_pro && profile.stripe_customer_id && (
