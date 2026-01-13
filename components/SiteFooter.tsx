@@ -7,6 +7,7 @@ export default function SiteFooter() {
                 <Link href="/terms" prefetch={false} className="hover:text-slate-800 hover:underline">利用規約</Link>
                 <Link href="/privacy" prefetch={false} className="hover:text-slate-800 hover:underline">プライバシーポリシー</Link>
                 <Link href="/contact" prefetch={false} className="hover:text-slate-800 hover:underline">お問い合わせ</Link>
+                <Link href="/legal/tokusho" prefetch={false} className="hover:text-slate-800 hover:underline">特定商取引法に基づく表記</Link>
                 <Link href="/operator" prefetch={false} className="hover:text-slate-800 hover:underline">運営者情報</Link>
             </nav>
             <div className="space-y-2">
