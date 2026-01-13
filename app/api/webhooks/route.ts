@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    // apiVersion: '2025-12-15.clover', // Commenting out to use default or avoid invalid version error
+    apiVersion: '2025-12-15.clover',
 });
 
 // Initialize Supabase Admin Client to bypass RLS
@@ -101,4 +101,10 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ received: true });
+}
+
+// Simple GET handler to verify the endpoint is reachable and logging works
+export async function GET() {
+    console.log('Webhook endpoint GET request received - Endpoint is active');
+    return NextResponse.json({ status: 'active', message: 'Webhook endpoint is ready for POST requests' });
 }
