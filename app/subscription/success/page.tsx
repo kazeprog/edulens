@@ -69,7 +69,19 @@ export default function SubscriptionSuccessPage() {
                         Proプランでできること
                     </h3>
                     <ul className="space-y-2 text-slate-600 ml-4">
-                        <li>• AIによる無制限の添削</li>
+                        {[
+                            'サイト内の広告非表示',
+                            'ナルホドレンズ質問回数 1日20回',
+                            '英検AI添削 回数無制限',
+                            '大学入試英作文添削 無制限',
+                            '優先的なサポート',
+                            '新機能への早期アクセス'
+                        ].map((item, idx) => (
+                            <li key={idx} className="flex items-center text-left">
+                                <CheckCircle className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" />
+                                <span>{item}</span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
