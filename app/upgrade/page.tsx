@@ -64,19 +64,23 @@ export default function UpgradePage() {
                                     </h2>
                                     <ul className="space-y-4">
                                         {[
+                                            'サイト内の広告非表示',
                                             'ナルホドレンズ質問回数 1日20回',
                                             '英検AI添削 回数無制限',
                                             '大学入試英作文添削 無制限',
                                             '優先的なサポート',
                                             '新機能への早期アクセス'
-                                        ].map((item, idx) => (
-                                            <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium">
-                                                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                                                    <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                                                </div>
-                                                {item}
-                                            </li>
-                                        ))}
+                                        ].map((item, idx) => {
+                                            const isHighlight = item === 'サイト内の広告非表示';
+                                            return (
+                                                <li key={idx} className={`flex items-center gap-3 font-medium ${isHighlight ? 'text-blue-600 text-xl font-bold' : 'text-slate-700'}`}>
+                                                    <div className={`flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center ${isHighlight ? 'w-8 h-8' : 'w-6 h-6'}`}>
+                                                        <CheckCircle2 className={`${isHighlight ? 'w-5 h-5' : 'w-4 h-4'} text-blue-600`} />
+                                                    </div>
+                                                    {item}
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 </div>
 
