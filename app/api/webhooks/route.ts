@@ -36,38 +36,26 @@ export async function POST(req: Request) {
     }
 
     try {
-        console.log(`Webhook received: ${event.type}`); // DEBUG LOG
-
         switch (event.type) {
             case 'checkout.session.completed': {
                 const session = event.data.object as Stripe.Checkout.Session;
-                console.log('Session data:', JSON.stringify({
-                    id: session.id,
-                    metadata: session.metadata,
-                    customer: session.customer,
-                    subscription: session.subscription
-                }, null, 2)); // DEBUG LOG
-
                 const userId = session.metadata?.userId;
 
                 if (userId) {
-                    console.log(`Found userId: ${userId}, updating profile...`); // DEBUG LOG
                     // Update user profile to pro
-                    const { data, error } = await supabaseAdmin
+                    const { error } = await supabaseAdmin
                         .from('profiles')
                         .update({
                             is_pro: true,
                             stripe_customer_id: session.customer as string,
                             stripe_subscription_id: session.subscription as string,
                         })
-                        .eq('id', userId)
-                        .select(); // Add select to see if row was actually updated
+                        .eq('id', userId);
 
                     if (error) {
                         console.error('Error updating Supabase profile (checkout.session.completed):', error);
                         return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
                     }
-                    console.log('Profile updated successfully:', data); // DEBUG LOG
                 } else {
                     console.warn('No userId found in session metadata');
                 }
@@ -101,10 +89,4 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ received: true });
-}
-
-// Simple GET handler to verify the endpoint is reachable and logging works
-export async function GET() {
-    console.log('Webhook endpoint GET request received - Endpoint is active');
-    return NextResponse.json({ status: 'active', message: 'Webhook endpoint is ready for POST requests' });
 }
