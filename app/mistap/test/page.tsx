@@ -355,7 +355,7 @@ function TestContent() {
             {testTitle}
           </h1>
 
-          <div className="mb-8" translate="no">
+          <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
             <div ref={mobileCardsRef} className="block md:hidden">
               {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
@@ -371,6 +371,16 @@ function TestContent() {
                   minHeight={item.requiredMinHeight}
                 />
               ))}
+
+              {/* AdSense Card (Word Card Style) - Mobile Only */}
+              <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-3 overflow-hidden" style={{ minHeight: '128px' }}>
+                <GoogleAdsense
+                  className="w-full h-full flex items-center justify-center"
+                  style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}
+                  format="auto" // auto allows it to fill the card
+                  responsive="false"
+                />
+              </div>
             </div>
 
             {/* Desktop: 2-column layout */}
@@ -400,25 +410,6 @@ function TestContent() {
                 ))}
               </ul>
             </div>
-          </div>
-
-          {showPrintWarning && (
-            <PrintWarningModal
-              testWordCount={testData.words.length}
-              onRecreate20Words={recreateWith20Words}
-              onPrintAnyway={() => { setShowPrintWarning(false); executePrint(); }}
-              onCancel={() => setShowPrintWarning(false)}
-            />
-          )}
-
-          {/* AdSense Card (Word Card Style) - Mobile Only */}
-          <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-3 overflow-hidden md:hidden" style={{ minHeight: '128px' }}>
-            <GoogleAdsense
-              className="w-full h-full flex items-center justify-center"
-              style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}
-              format="auto" // auto allows it to fill the card
-              responsive="false"
-            />
           </div>
 
           <MobileActionButtons
