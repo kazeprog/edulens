@@ -94,7 +94,7 @@ export default function FlippableCard({
     <div className="mb-3" style={{ perspective: '1000px' }}>
       <div
         ref={cardRef}
-        className={`relative w-full cursor-pointer transition-transform duration-700 ease-out`}
+        className={`relative w-full cursor-pointer transition-transform duration-700 ease-out touch-pan-y`}
         style={{
           transformStyle: 'preserve-3d',
           transform: `rotateY(${currentRotation}deg)`,
@@ -107,8 +107,8 @@ export default function FlippableCard({
         {/* カード表面（英単語のみ） */}
         <div
           className={`absolute inset-0 w-full rounded-xl border-2 transition-colors duration-200 ${isTapped
-              ? 'bg-red-100 border-red-400 text-black'
-              : 'bg-white/90 border-gray-300 hover:bg-gray-50'
+            ? 'bg-red-100 border-red-400 text-black'
+            : 'bg-white/90 border-gray-300 hover:bg-gray-50'
             } backdrop-blur-sm flex flex-col px-4 py-3`}
           style={{ backfaceVisibility: 'hidden' }}
         >
@@ -128,8 +128,8 @@ export default function FlippableCard({
         {/* カード裏面（英単語 + 意味） */}
         <div
           className={`absolute inset-0 w-full rounded-xl border-2 transition-colors duration-200 ${isTapped
-              ? 'bg-red-100 border-red-400 text-black'
-              : 'bg-gray-50/90 border-gray-400 hover:bg-gray-100/90'
+            ? 'bg-red-100 border-red-400 text-black'
+            : 'bg-gray-50/90 border-gray-400 hover:bg-gray-100/90'
             } backdrop-blur-sm flex flex-col px-4 py-3`}
           style={{
             backfaceVisibility: 'hidden',
