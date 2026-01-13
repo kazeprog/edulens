@@ -87,10 +87,10 @@ export default function SiteHeader() {
                                         {/* ユーザー情報 (ログイン時のみ) */}
                                         {user && (
                                             <div className="px-4 py-3 border-b border-slate-100">
-                                                <p className="text-sm font-medium text-slate-800">
+                                                <p className="text-base font-medium text-slate-800">
                                                     {profile?.full_name || user.email?.split('@')[0] || 'ユーザー'}さん
                                                 </p>
-                                                <p className="text-xs text-slate-500 truncate">
+                                                <p className="text-base text-slate-500 truncate">
                                                     {user.email}
                                                 </p>
                                             </div>
@@ -126,6 +126,22 @@ export default function SiteHeader() {
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             カウントダウン
+                                        </Link>
+                                        <Link
+                                            href="/writing"
+                                            prefetch={false}
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-green-500"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            AI添削
+                                        </Link>
+                                        <Link
+                                            href="/naruhodo-lens"
+                                            prefetch={false}
+                                            className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-500"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            ナルホドレンズ
                                         </Link>
                                         {user && (
                                             <Link
@@ -168,6 +184,16 @@ export default function SiteHeader() {
                                         {user && (
                                             <>
                                                 <div className="border-t border-slate-100 my-1"></div>
+
+                                                {/* Proプランへのリンク */}
+                                                <Link
+                                                    href="/upgrade"
+                                                    prefetch={false}
+                                                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                >
+                                                    Proプラン登録
+                                                </Link>
 
                                                 {/* Proユーザーのみプラン管理ボタンを表示 */}
                                                 {profile?.is_pro && profile.stripe_customer_id && (
