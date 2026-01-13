@@ -18,6 +18,8 @@ type GoogleAdsenseProps = {
     className?: string;
 };
 
+import { useAuth } from '@/context/AuthContext';
+
 const GoogleAdsense = ({
     slot = "9969163744",
     client = "ca-pub-6321932201615449",
@@ -27,6 +29,12 @@ const GoogleAdsense = ({
     className = "mb-4",
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
+    const { profile, loading } = useAuth();
+
+    // Proユーザーの場合は何も表示しない
+    if (!loading && profile?.is_pro) {
+        return null;
+    }
 
     useEffect(() => {
         try {

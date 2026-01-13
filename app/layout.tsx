@@ -6,6 +6,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import AdLayoutWrapper from "@/components/AdLayoutWrapper";
 import ScrollToTop from "@/components/ScrollToTop";
+import AdSenseScript from "@/components/AdSenseScript";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,11 +90,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
       >
         <ScrollToTop />
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
+        <AdSenseScript />
         <AuthProvider>
           <AdLayoutWrapper>
             {children}

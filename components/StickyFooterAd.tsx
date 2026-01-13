@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import GoogleAdsense from './GoogleAdsense';
+import { useAuth } from '@/context/AuthContext';
 
 export default function StickyFooterAd() {
     const [isVisible, setIsVisible] = useState(true);
     const [isAndroid, setIsAndroid] = useState(false);
+    const { profile, loading } = useAuth();
 
     useEffect(() => {
         // OS判定 (マウント後のみ実行)
@@ -13,7 +15,8 @@ export default function StickyFooterAd() {
         setIsAndroid(/android/i.test(userAgent));
     }, []);
 
-    if (!isVisible) return null;
+    // Proユーザー、または非表示状態の場合は表示しない
+    if (!isVisible || (!loading && profile?.is_pro)) return null;
 
     return (
         <div

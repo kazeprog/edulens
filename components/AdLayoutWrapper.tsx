@@ -5,13 +5,19 @@ import { usePathname } from 'next/navigation';
 import GoogleAdsense from '@/components/GoogleAdsense';
 import StickyFooterAd from '@/components/StickyFooterAd';
 
+import { useAuth } from '@/context/AuthContext';
+
 export default function AdLayoutWrapper({
     children,
 }: {
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
-    const isNoAdPage = pathname === '/upgrade' || pathname?.startsWith('/upgrade/');
+    const { profile, loading } = useAuth();
+
+    // アップグレードページ、またはProユーザーの場合は広告非表示
+    const isPro = !loading && !!profile?.is_pro;
+    const isNoAdPage = pathname === '/upgrade' || pathname?.startsWith('/upgrade/') || isPro;
 
     return (
         <div className="flex flex-col min-h-screen">
