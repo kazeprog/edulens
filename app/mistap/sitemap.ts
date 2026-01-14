@@ -38,6 +38,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // 単語帳別ランディングページ
+  const bookSlugs = [
+    'target-1900',
+    'systan',
+    'kobun-315',
+    'duo-30',
+    'leap',
+    'stock-4500',
+    'toeic-gold',
+    'passtan',
+  ];
+
+  const bookPages: MetadataRoute.Sitemap = bookSlugs.map((slug) => ({
+    url: `${baseUrl}/books/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   // ブログ記事を取得
   try {
     const { contents } = await mistapClient.getList({
@@ -52,9 +71,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticPages, ...blogPages];
+    return [...staticPages, ...bookPages, ...blogPages];
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);
-    return staticPages;
+    return [...staticPages, ...bookPages];
   }
 }
