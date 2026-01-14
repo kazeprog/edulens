@@ -121,7 +121,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     return {
         title: `${book.title} | 無料Webテストアプリ - Mistap`,
-        description: `【登録不要・無料】${book.title}。${book.desc} アプリのインストール不要で、今すぐブラウザから単語テストを開始できます。間違えた単語のみを効率的に復習可能です。`,
+        description: `【無料・インストール不要】${book.title}。${book.desc} アプリのインストールなしで、今すぐブラウザから単語テストを開始できます。間違えた単語のみを効率的に復習可能です。`,
         keywords: [...book.keywords, 'Mistap', 'ミスタップ', 'EduLens', '無料'],
         openGraph: {
             title: `${book.title} | 無料Webテストアプリ`,
@@ -225,7 +225,7 @@ export default async function BookLP({ params }: PageProps) {
     const heroTitle = (
         <>
             {book.title}<br />
-            <span className="text-yellow-300 mt-2 block md:inline text-lg md:text-2xl">{book.subTitle}</span>
+            <span className="text-gray-900 mt-2 block md:inline text-lg md:text-2xl">{book.subTitle}</span>
         </>
     );
 
@@ -239,14 +239,7 @@ export default async function BookLP({ params }: PageProps) {
             />
             <div className="min-h-screen flex flex-col">
 
-                {/* ヘッダー */}
-                <header className="pt-6 pb-4">
-                    <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
-                        <Link href="/mistap" className="text-white font-bold text-xl hover:opacity-80 transition">
-                            Mistap
-                        </Link>
-                    </div>
-                </header>
+
 
                 <main className="flex-grow">
                     {/* 統一されたHeroSectionを使用 */}
@@ -277,7 +270,7 @@ export default async function BookLP({ params }: PageProps) {
                                 <p className="mb-2">
                                     <strong>Mistap（ミスタップ）</strong>は、学校の小テストや定期テスト対策、大学受験の基礎固めに使える無料のWebテストアプリです。
                                     特に<strong>{book.selectedText}</strong>を使用している学生に最適化されており、
-                                    アプリのインストールや面倒な会員登録なしで、ブラウザからすぐにテストを開始できます。
+                                    アプリのインストールなしで、ブラウザからすぐにテストを開始できます。
                                 </p>
                                 <p>
                                     通学中の電車やバスの中、試験直前の休み時間など、スキマ時間を使って{book.category === 'english' ? '英単語' : '古文単語'}の実力を効率的にチェックしましょう。
