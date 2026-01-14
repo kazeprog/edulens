@@ -31,18 +31,22 @@ const GoogleAdsense = ({
     const pathname = usePathname();
     const { profile, loading } = useAuth();
 
-    // Proユーザーの場合は何も表示しない
-    if (!loading && profile?.is_pro) {
-        return null;
-    }
-
+    // useEffect must be called before any conditional return (React Hooks rules)
     useEffect(() => {
+        // Don't push ads if user is Pro
+        if (profile?.is_pro) return;
+
         try {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         } catch (err) {
             console.error('Google AdSense error:', err);
         }
-    }, [pathname]);
+    }, [pathname, profile?.is_pro]);
+
+    // Proユーザーの場合は何も表示しない
+    if (!loading && profile?.is_pro) {
+        return null;
+    }
 
     return (
         <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%' }}>
