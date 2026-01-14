@@ -5,6 +5,7 @@ import { BookOpen } from 'lucide-react';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MistapProtected from '@/components/MistapProtected';
+import BotHidden from '@/components/BotHidden';
 import { mistapClient, blogClient } from "@/lib/mistap/microcms";
 import GoogleAdsense from '@/components/GoogleAdsense';
 
