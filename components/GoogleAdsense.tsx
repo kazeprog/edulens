@@ -33,8 +33,9 @@ const GoogleAdsense = ({
 
     // useEffect must be called before any conditional return (React Hooks rules)
     useEffect(() => {
-        // Don't push ads if user is Pro
+        // Don't push ads if user is Pro or on login page
         if (profile?.is_pro) return;
+        if (pathname === '/login') return;
 
         try {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -43,8 +44,13 @@ const GoogleAdsense = ({
         }
     }, [pathname, profile?.is_pro]);
 
-    // Proユーザーの場合は何も表示しない
+    // Proユーザーまたはログイン/新規登録画面では広告を表示しない
     if (!loading && profile?.is_pro) {
+        return null;
+    }
+
+    // ログイン/新規登録画面では広告を表示しない
+    if (pathname === '/login') {
         return null;
     }
 
