@@ -357,7 +357,7 @@ function TestContent() {
 
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden">
+            <div ref={mobileCardsRef} className="block md:hidden overflow-hidden" style={{ maxWidth: '100%' }}>
               {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
                 <FlippableCard
                   key={item.word_number}
@@ -373,13 +373,18 @@ function TestContent() {
               ))}
 
               {/* AdSense Card (Word Card Style) - Mobile Only */}
-              <div className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-3 overflow-hidden" style={{ minHeight: '128px' }}>
-                <GoogleAdsense
-                  className="w-full h-full flex items-center justify-center"
-                  style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px' }}
-                  format="auto" // auto allows it to fill the card
-                  responsive="false"
-                />
+              <div
+                className="w-full rounded-xl border-2 border-gray-300 bg-white/90 mb-3 overflow-hidden"
+                style={{ minHeight: '128px', maxWidth: '100%' }}
+              >
+                <div style={{ maxWidth: '100%', overflow: 'hidden' }}>
+                  <GoogleAdsense
+                    className="w-full h-full flex items-center justify-center"
+                    style={{ display: 'block', width: '100%', height: '100%', minHeight: '128px', maxWidth: '100%' }}
+                    format="auto"
+                    responsive="false"
+                  />
+                </div>
               </div>
             </div>
 
