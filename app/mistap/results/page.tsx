@@ -407,6 +407,12 @@ function ResultsContent() {
               >
                 新しいテスト
               </button>
+              <button
+                onClick={() => router.push('/mistap/home')}
+                className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 px-4 rounded-xl text-lg"
+              >
+                ホーム画面に戻る
+              </button>
               {isLoggedIn ? (
                 <button
                   onClick={() => router.push('/mistap/history')}
@@ -444,6 +450,12 @@ function ResultsContent() {
                 className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded-xl"
               >
                 新しいテスト
+              </button>
+              <button
+                onClick={() => router.push('/mistap/home')}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-xl"
+              >
+                ホーム画面に戻る
               </button>
               {isLoggedIn ? (
                 <button
