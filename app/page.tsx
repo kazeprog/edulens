@@ -5,7 +5,6 @@ import { BookOpen } from 'lucide-react';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MistapProtected from '@/components/MistapProtected';
-import BotHidden from '@/components/BotHidden';
 import { mistapClient, blogClient } from "@/lib/mistap/microcms";
 import GoogleAdsense from '@/components/GoogleAdsense';
 
@@ -574,59 +573,57 @@ export default async function Home() {
             </section>
           )}
 
-          {/* Latest Articles Section - botからは見えないようにする */}
+          {/* Latest Mistap Articles Section */}
           {latestMistapPosts.length > 0 && (
-            <BotHidden>
-              <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
-                <div className="max-w-5xl mx-auto">
-                  <div className="flex justify-between items-end mb-8 sm:mb-12">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
-                      Mistap 新着記事
-                    </h2>
-                    <Link href="/mistap/blog" prefetch={false} className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
-                      記事一覧
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {latestMistapPosts.map((post) => (
-                      <Link
-                        key={post.id}
-                        href={`/mistap/blog/${post.id}`}
-                        prefetch={false}
-                        className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
-                      >
-                        <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
-                          {post.eyecatch ? (
-                            <Image
-                              src={post.eyecatch.url}
-                              alt={post.title}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-slate-400">
-                              No Image
-                            </div>
-                          )}
-                        </div>
-                        <div className="p-6">
-                          <p className="text-xs text-slate-500 mb-2">
-                            {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                          </p>
-                          <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                            {post.title}
-                          </h3>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+            <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex justify-between items-end mb-8 sm:mb-12">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    Mistap 新着記事
+                  </h2>
+                  <Link href="/mistap/blog" prefetch={false} className="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base flex items-center">
+                    記事一覧
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
                 </div>
-              </section>
-            </BotHidden>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {latestMistapPosts.map((post) => (
+                    <Link
+                      key={post.id}
+                      href={`/mistap/blog/${post.id}`}
+                      prefetch={false}
+                      className="group block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                        {post.eyecatch ? (
+                          <Image
+                            src={post.eyecatch.url}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-slate-400">
+                            No Image
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-6">
+                        <p className="text-xs text-slate-500 mb-2">
+                          {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
+                        </p>
+                        <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
           )}
 
           {/* About / SEO Section */}
@@ -638,10 +635,7 @@ export default async function Home() {
                   EduLens（エデュレンズ）は、受験生や資格試験に挑むすべての人のための学習支援プラットフォームです。<br /><br />
                   <strong>Countdown</strong>で試験本番までの残り時間を可視化し、「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えます。<br /><br />
                   <strong>ナルホドレンズ</strong>は、わからない問題の写真を撮って送るだけで、AIが専属家庭教師のように丁寧に解説してくれるサービスです。数学・理科・英語など幅広い教科に対応し、対話形式で疑問を解消できます。<br /><br />
-                  {/* Mistap Description - botからは見えないようにする */}
-                  <BotHidden>
-                    <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
-                  </BotHidden>
+                  <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
                   <strong>EduTimer</strong>は、ポモドーロテクニックを活用した集中タイマー。25分集中・5分休憩のサイクルで、効率的な学習をサポートします。<br /><br />
                   <strong>AI添削</strong>では、英検®対策や自由英作文の添削をAIが即座に行います。文法ミスの修正から論理構成のアドバイスまで、詳細なフィードバックを提供します。<br /><br />
                   <strong>BlackLens</strong>は、受験生の悩みやストレスを匿名で吐き出せる掃きだめ板。「わかる」「エール」のリアクションで、同じ悩みを持つ仲間とつながれます。<br /><br />
