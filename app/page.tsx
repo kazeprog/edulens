@@ -573,9 +573,9 @@ export default async function Home() {
             </section>
           )}
 
-          {/* Latest Articles Section - Show ONLY for logged-in users */}
+          {/* Latest Articles Section - botからは見えないようにする */}
           {latestMistapPosts.length > 0 && (
-            <MistapProtected>
+            <BotHidden>
               <section className="py-12 sm:py-16 px-4 bg-white border-t border-slate-100">
                 <div className="max-w-5xl mx-auto">
                   <div className="flex justify-between items-end mb-8 sm:mb-12">
@@ -625,7 +625,7 @@ export default async function Home() {
                   </div>
                 </div>
               </section>
-            </MistapProtected>
+            </BotHidden>
           )}
 
           {/* About / SEO Section */}
@@ -637,14 +637,14 @@ export default async function Home() {
                   EduLens（エデュレンズ）は、受験生や資格試験に挑むすべての人のための学習支援プラットフォームです。<br /><br />
                   <strong>Countdown</strong>で試験本番までの残り時間を可視化し、「あと何日あるか」を具体的に意識することで、漠然とした不安を「今日やるべき行動」に変えます。<br /><br />
                   <strong>ナルホドレンズ</strong>は、わからない問題の写真を撮って送るだけで、AIが専属家庭教師のように丁寧に解説してくれるサービスです。数学・理科・英語など幅広い教科に対応し、対話形式で疑問を解消できます。<br /><br />
-                  {/* Mistap Description - Show ONLY for logged-in users */}
-                  <MistapProtected>
+                  {/* Mistap Description - botからは見えないようにする */}
+                  <BotHidden>
                     <strong>Mistap</strong>では、間違えた単語に集中する新しい学習方式で、効率的な暗記をサポート。システム英単語、ターゲット、LEAPなど主要な単語帳に対応しています。<br /><br />
-                  </MistapProtected>
+                  </BotHidden>
                   <strong>EduTimer</strong>は、ポモドーロテクニックを活用した集中タイマー。25分集中・5分休憩のサイクルで、効率的な学習をサポートします。<br /><br />
                   <strong>AI添削</strong>では、英検®対策や自由英作文の添削をAIが即座に行います。文法ミスの修正から論理構成のアドバイスまで、詳細なフィードバックを提供します。<br /><br />
                   <strong>BlackLens</strong>は、受験生の悩みやストレスを匿名で吐き出せる掃きだめ板。「わかる」「エール」のリアクションで、同じ悩みを持つ仲間とつながれます。<br /><br />
-                  あなたの目標達成を、5<MistapProtected>+1</MistapProtected>つのツールで支援します。
+                  あなたの目標達成を、6つのツールで支援します。
                 </p>
               </div>
             </div>
