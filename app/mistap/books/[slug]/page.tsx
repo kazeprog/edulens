@@ -2,6 +2,10 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Background from "@/components/mistap/Background";
 import MistapFooter from "@/components/mistap/Footer";
+import TestSetupContent from "@/components/mistap/TestSetupContent";
+import HeroSection from "@/components/mistap/HeroSection";
+import FeaturesSection from "@/components/mistap/FeaturesSection";
+import React from 'react';
 
 // ---------------------------------------------
 // 1. 教材データの定義（「テストアプリ」として再定義）
@@ -26,14 +30,14 @@ const BOOKS: Record<string, { title: string; subTitle: string; desc: string; key
         subTitle: '古文単語の「小テスト」対策に。',
         desc: '重要古文単語315の見出し語をWebでテスト。意味が出てこない単語をタップするだけで、試験直前の総チェックが完了します。',
         keywords: ['重要古文単語315', '古文単語', 'テスト', '確認', 'アプリ'],
-        selectedText: '重要古文単語315',
+        selectedText: '読んで見て聞いて覚える 重要古文単語315',
     },
     'duo-30': {
         title: 'DUO 3.0対応 暗記テスト',
         subTitle: '例文の単語、本当に覚えてる？',
         desc: 'DUO 3.0掲載語彙の定着度テスト。通勤・通学のスキマ時間を使って、自分の記憶漏れをWebアプリで診断できます。',
         keywords: ['DUO3.0', 'テスト', 'アプリ', '復習', '英語'],
-        selectedText: 'DUO 3.0',
+        selectedText: 'DUO 3.0例文',
     },
     'leap': {
         title: 'LEAP対応 単語テスト',
@@ -42,26 +46,12 @@ const BOOKS: Record<string, { title: string; subTitle: string; desc: string; key
         keywords: ['LEAP', 'リープ', '単語テスト', 'アプリ', '英語'],
         selectedText: 'LEAP',
     },
-    'stock-4500': {
-        title: '速読英単語 必修編対応 テスト',
-        subTitle: '速単の定着度をチェック。',
-        desc: '速読英単語 必修編の単語をWebでテスト。長文読解に必要な語彙力を、スキマ時間で効率的に確認できます。',
-        keywords: ['速読英単語', '必修編', 'テスト', 'アプリ', '英語'],
-        selectedText: '速読英単語 必修編',
-    },
     'toeic-gold': {
         title: 'TOEIC L&R 金のフレーズ対応 テスト',
         subTitle: 'TOEICスコアアップの近道。',
         desc: '金のフレーズ対応の無料テスト。TOEIC頻出単語の暗記状況を瞬時にチェックし、弱点を効率的に克服しましょう。',
         keywords: ['TOEIC', '金のフレーズ', 'テスト', 'アプリ', '英語'],
-        selectedText: '金のフレーズ',
-    },
-    'passtan': {
-        title: 'パス単対応 テスト',
-        subTitle: '英検対策の定番をWebでテスト。',
-        desc: 'でる順パス単対応の無料テストアプリ。英検の級別に単語をテストし、合格に必要な語彙力を効率的に身につけましょう。',
-        keywords: ['パス単', '英検', 'テスト', 'アプリ', '英語'],
-        selectedText: 'パス単',
+        selectedText: 'TOEIC金のフレーズ',
     },
 };
 
@@ -121,6 +111,16 @@ export default async function BookLP({ params }: PageProps) {
         return <div className="p-10 text-center text-white">教材データが見つかりません。</div>;
     }
 
+    // HeroSectionのカスタムタイトルと説明
+    const heroTitle = (
+        <>
+            {book.title}<br />
+            <span className="text-red-500 mt-2 block md:inline">{book.subTitle}</span>
+        </>
+    );
+
+    const heroDescription = book.desc;
+
     return (
         <Background>
             <div className="min-h-screen flex flex-col">
@@ -138,67 +138,46 @@ export default async function BookLP({ params }: PageProps) {
                 </header>
 
                 <main className="flex-grow">
-                    {/* ヒーローセクション */}
-                    <section className="py-12 px-4 text-center text-white">
-                        <div className="max-w-3xl mx-auto">
-                            <div className="inline-block bg-red-500/30 border border-red-400/50 backdrop-blur-md rounded-full px-4 py-1 text-sm mb-6 text-red-100">
-                                完全無料・インストール不要
-                            </div>
+                    {/* 統一されたHeroSectionを使用 */}
+                    <HeroSection
+                        title={heroTitle}
+                        description={heroDescription}
+                        showButtons={false}
+                    >
+                        {/* LP専用のカスタムボタン */}
+                        <div className="flex flex-col gap-3 md:flex-row md:gap-4 justify-center items-center">
+                            <Link
+                                href={`/mistap/test-setup?selectedText=${encodeURIComponent(book.selectedText)}`}
+                                className="w-full sm:w-auto px-8 py-4 bg-yellow-400 text-yellow-900 rounded-xl font-bold text-lg shadow-lg hover:bg-yellow-300 hover:scale-105 transition transform text-center"
+                            >
+                                今すぐテストする（無料）
+                            </Link>
+                            <Link
+                                href="/mistap"
+                                className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition text-center"
+                            >
+                                トップページへ
+                            </Link>
+                        </div>
+                    </HeroSection>
 
-                            <h1 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                                {book.title}<br />
-                                <span className="text-yellow-300">{book.subTitle}</span>
-                            </h1>
-
-                            <p className="text-lg md:text-xl text-gray-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-                                {book.desc}
-                            </p>
-
-                            {/* アクションボタン */}
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                                <Link
-                                    href={`/mistap/test-setup?selectedText=${encodeURIComponent(book.selectedText)}`}
-                                    className="w-full sm:w-auto px-8 py-4 bg-yellow-400 text-yellow-900 rounded-full font-bold text-lg shadow-lg hover:bg-yellow-300 hover:scale-105 transition transform"
-                                >
-                                    今すぐテストする（無料）
-                                </Link>
-                                <Link
-                                    href="/mistap"
-                                    className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-full font-bold text-lg hover:bg-white/20 transition"
-                                >
-                                    トップページへ
-                                </Link>
-                            </div>
+                    {/* テスト作成コンポーネント */}
+                    <section className="py-6 px-4">
+                        <div className="max-w-2xl mx-auto">
+                            <h2 className="text-xl font-bold text-white mb-4 text-center">📚 今すぐテストする</h2>
+                            <TestSetupContent embedMode={true} presetTextbook={book.selectedText} />
                         </div>
                     </section>
 
-                    {/* 機能解説 */}
-                    <section className="py-12 bg-white/95 backdrop-blur-sm rounded-t-3xl text-gray-800">
-                        <div className="max-w-4xl mx-auto px-4">
-                            <h2 className="text-2xl font-bold text-center mb-10">
-                                <span className="text-red-600">Mistap</span>のテスト方式
-                            </h2>
+                    {/* 統一されたFeaturesSectionを使用 */}
+                    <FeaturesSection />
 
-                            <div className="grid md:grid-cols-3 gap-8 mb-12">
-                                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm text-center">
-                                    <div className="text-4xl mb-4">⚡</div>
-                                    <h3 className="font-bold text-lg mb-2">高速判定テスト</h3>
-                                    <p className="text-sm text-gray-600">「分かる・分からない」を瞬時にジャッジ。4択問題よりもスピーディに全範囲を網羅できます。</p>
-                                </div>
-                                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm text-center">
-                                    <div className="text-4xl mb-4">📊</div>
-                                    <h3 className="font-bold text-lg mb-2">自動採点・記録</h3>
-                                    <p className="text-sm text-gray-600">テスト結果は自動保存。間違えた単語（弱点）だけがリストに残ります。</p>
-                                </div>
-                                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm text-center">
-                                    <div className="text-4xl mb-4">🔄</div>
-                                    <h3 className="font-bold text-lg mb-2">再テスト機能</h3>
-                                    <p className="text-sm text-gray-600">間違えた単語だけで「再テスト」が可能。満点になるまで何度でも挑戦できます。</p>
-                                </div>
-                            </div>
+                    {/* SEO対策テキスト・機能解説（元の内容を維持しつつ、デザインに馴染ませる） */}
+                    <section className="py-12 bg-white/95 backdrop-blur-sm rounded-t-3xl text-gray-800 mt-8">
+                        <div className="max-w-4xl mx-auto px-4">
 
                             {/* SEO対策テキスト */}
-                            <div className="prose prose-red mx-auto bg-red-50 p-6 rounded-lg text-sm text-gray-700">
+                            <div className="prose prose-red mx-auto bg-red-50 p-6 rounded-lg text-sm text-gray-700 mb-12">
                                 <h3 className="text-base font-bold text-red-800 mb-2">{book.title}の学習に</h3>
                                 <p>
                                     学校の小テストや定期テスト対策に使える、<strong>{book.title}</strong>対応のWebアプリです。
@@ -217,7 +196,7 @@ export default async function BookLP({ params }: PageProps) {
                                             href={`/mistap/books/${key}`}
                                             className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-700 transition"
                                         >
-                                            {value.selectedText}
+                                            {value.title.split('対応')[0]}
                                         </Link>
                                     ))}
                                 </div>
@@ -231,3 +210,4 @@ export default async function BookLP({ params }: PageProps) {
         </Background>
     );
 }
+

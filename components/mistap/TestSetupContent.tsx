@@ -31,9 +31,10 @@ interface TextbookWeakWords {
 
 interface TestSetupContentProps {
   embedMode?: boolean;
+  presetTextbook?: string;
 }
 
-export default function TestSetupContent({ embedMode = false }: TestSetupContentProps) {
+export default function TestSetupContent({ embedMode = false, presetTextbook }: TestSetupContentProps) {
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
@@ -186,8 +187,27 @@ export default function TestSetupContent({ embedMode = false }: TestSetupContent
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
 
   // 初回マウント時にlocalStorageから前回使用した単語帳と範囲を読み込む
+  // presetTextbookが渡された場合はそれを優先
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // presetTextbookが渡された場合はそれを優先
+      if (presetTextbook) {
+        setSelectedText(presetTextbook);
+        lastTextbookRef.current = presetTextbook;
+
+        // presetTextbookがどのレベルに属するか検出し、レベルを切り替え
+        if (juniorTexts.includes(presetTextbook)) {
+          setLevel('junior');
+        } else if (universityTexts.includes(presetTextbook)) {
+          setLevel('university');
+        } else if (seniorTexts.includes(presetTextbook)) {
+          setLevel('senior');
+        }
+
+        setIsInitialized(true);
+        return;
+      }
+
       const saved = localStorage.getItem('mistap_last_textbook');
       const savedStartNum = localStorage.getItem('mistap_last_start_num');
       const savedEndNum = localStorage.getItem('mistap_last_end_num');
@@ -225,7 +245,7 @@ export default function TestSetupContent({ embedMode = false }: TestSetupContent
 
       setIsInitialized(true);
     }
-  }, [juniorTexts, seniorTexts, universityTexts]);
+  }, [juniorTexts, seniorTexts, universityTexts, presetTextbook]);
 
   // selectedText を filteredTexts に合わせる（初期化完了後かつデータ取得後のみ）
   useEffect(() => {

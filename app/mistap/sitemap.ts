@@ -45,9 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'kobun-315',
     'duo-30',
     'leap',
-    'stock-4500',
     'toeic-gold',
-    'passtan',
   ];
 
   const bookPages: MetadataRoute.Sitemap = bookSlugs.map((slug) => ({
