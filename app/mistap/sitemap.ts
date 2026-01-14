@@ -45,6 +45,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'kobun-315',
     'duo-30',
     'leap',
+    'target-1200',
+    'kobun-330',
+    'kobun-325',
     'toeic-gold',
   ];
 
