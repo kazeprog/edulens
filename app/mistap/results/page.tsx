@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import MistapFooter from "@/components/mistap/Footer";
+import GoogleAdsense from "@/components/GoogleAdsense";
 
 interface TappedWord {
   word_number: number;
@@ -305,6 +306,16 @@ function ResultsContent() {
             ) : (
               <div className="text-gray-500 text-center py-4">ありません</div>
             )}
+          </div>
+
+          {/* 広告エリア（間違えた単語の下） */}
+          <div className="flex justify-center my-6">
+            <GoogleAdsense
+              slot="9969163744"
+              format="rectangle"
+              style={{ display: 'block', width: '100%', maxWidth: '336px', height: '280px' }}
+              responsive="false"
+            />
           </div>
 
           <div className="space-y-4">

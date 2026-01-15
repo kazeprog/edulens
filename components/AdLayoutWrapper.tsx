@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import GoogleAdsense from '@/components/GoogleAdsense';
-import StickyFooterAd from '@/components/StickyFooterAd';
+
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -50,8 +50,10 @@ export default function AdLayoutWrapper({
                 {children}
             </div>
 
-            {/* スティッキーフッター広告 - モバイルのみ表示（PCでは非表示） */}
-            {!isNoAdPage && isMobile && <StickyFooterAd key={`${pathname}-footer`} />}
+            {/* スティッキーフッター広告 - モバイルのみ表示（PCでは非表示） */
+            /* 廃止: Google純正アンカー広告に移行するため削除
+               !isNoAdPage && isMobile && <StickyFooterAd key={`${pathname}-footer`} />
+            */}
         </div>
     );
 }
