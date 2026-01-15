@@ -357,7 +357,7 @@ function TestContent() {
 
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden overflow-hidden" style={{ maxWidth: '100%' }}>
+            <div ref={mobileCardsRef} className="block md:hidden" style={{ maxWidth: '100%' }}>
               {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
                 <FlippableCard
                   key={item.word_number}
@@ -380,7 +380,7 @@ function TestContent() {
                 >
                   <div style={{ maxWidth: '100%', overflow: 'hidden' }}>
                     <GoogleAdsense
-                      className="w-full h-full flex items-center justify-center"
+                      className="w-full flex items-center justify-center"
                       style={{ display: 'block', minHeight: '128px', overflow: 'hidden' }}
                       format="rectangle"
                       responsive="false"
