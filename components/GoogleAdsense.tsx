@@ -55,7 +55,7 @@ const GoogleAdsense = ({
     }
 
     return (
-        <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%' }}>
+        <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
             <ins
                 className="adsbygoogle"
                 style={style}
