@@ -357,7 +357,7 @@ function TestContent() {
 
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden px-2" style={{ maxWidth: '100%' }}>
+            <div ref={mobileCardsRef} className="block md:hidden px-3" style={{ maxWidth: '100%' }}>
               {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
                 <FlippableCard
                   key={item.word_number}
