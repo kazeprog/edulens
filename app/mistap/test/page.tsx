@@ -404,7 +404,7 @@ function TestContent() {
             </div>
           </div>
 
-          <div className="md:hidden mb-6">
+          <div className="md:hidden mb-6 w-full overflow-hidden" style={{ maxWidth: '100%' }}>
             <GoogleAdsense
               style={{ display: 'block', width: '100%', minHeight: '100px' }}
               format="rectangle"
