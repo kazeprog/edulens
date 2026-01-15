@@ -404,15 +404,21 @@ function TestContent() {
             </div>
           </div>
 
-          {/* 広告を一時的に無効化してテスト
-          <div className="md:hidden mb-6 w-full overflow-hidden" style={{ maxWidth: '100%' }}>
+          {/* AdSense - contain: strict で完全隔離 */}
+          <div
+            className="md:hidden mb-6 w-full overflow-hidden"
+            style={{
+              maxWidth: '100%',
+              height: '250px',
+              contain: 'strict'
+            }}
+          >
             <GoogleAdsense
-              style={{ display: 'block', width: '100%', minHeight: '100px' }}
+              style={{ display: 'block', width: '100%', height: '100%' }}
               format="rectangle"
               responsive="true"
             />
           </div>
-          */}
 
           <MobileActionButtons
             showAnswers={showAnswers}
