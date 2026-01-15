@@ -18,6 +18,7 @@ export default function ExamManagerPage() {
     const [exams, setExams] = useState<Exam[]>([]);
     const [editingExam, setEditingExam] = useState<Partial<Exam> | null>(null);
     const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState<'upcoming' | 'past' | 'all'>('upcoming');
 
     // データ取得
     const fetchExams = async () => {
@@ -77,6 +78,24 @@ export default function ExamManagerPage() {
             alert(`削除エラー: ${err instanceof Error ? err.message : String(err)}`);
         }
     };
+
+    const getFilteredExams = () => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return exams.filter(exam => {
+            const examDate = new Date(exam.primary_exam_date);
+            // examDate自体は0:00なのでそのまま比較
+            if (filter === 'upcoming') {
+                return examDate >= today;
+            } else if (filter === 'past') {
+                return examDate < today;
+            }
+            return true;
+        });
+    };
+
+    const filteredExams = getFilteredExams();
 
     return (
         <div>
@@ -169,12 +188,44 @@ export default function ExamManagerPage() {
             </div>
 
             {/* 一覧リスト */}
-            <button
-                onClick={() => setEditingExam({ is_active: true })}
-                className="mb-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-bold"
-            >
-                + 新規追加
-            </button>
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex space-x-2">
+                    <button
+                        onClick={() => setFilter('upcoming')}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filter === 'upcoming'
+                            ? 'bg-blue-600 text-white shadow-md'
+                            : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                            }`}
+                    >
+                        これからの試験
+                    </button>
+                    <button
+                        onClick={() => setFilter('past')}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filter === 'past'
+                            ? 'bg-slate-600 text-white shadow-md'
+                            : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                            }`}
+                    >
+                        終了した試験
+                    </button>
+                    <button
+                        onClick={() => setFilter('all')}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filter === 'all'
+                            ? 'bg-slate-800 text-white shadow-md'
+                            : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                            }`}
+                    >
+                        すべて
+                    </button>
+                </div>
+
+                <button
+                    onClick={() => setEditingExam({ is_active: true })}
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm shadow-sm transition"
+                >
+                    + 新規追加
+                </button>
+            </div>
 
             {loading ? <p>Loading...</p> : (
                 <div className="overflow-x-auto bg-white rounded-lg shadow border border-slate-200">
@@ -188,32 +239,39 @@ export default function ExamManagerPage() {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-slate-200">
-                            {exams.map((exam) => (
-                                <tr key={exam.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{exam.primary_exam_date}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-slate-900">{exam.session_name}</div>
-                                        <div className="text-sm text-slate-500">{exam.exam_name}</div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                                        {exam.slug} / {exam.session_slug}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button
-                                            onClick={() => setEditingExam(exam)}
-                                            className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                        >
-                                            編集
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(exam.id)}
-                                            className="text-red-600 hover:text-red-900"
-                                        >
-                                            削除
-                                        </button>
+                            {filteredExams.length === 0 ? (
+                                <tr>
+                                    <td colSpan={4} className="px-6 py-12 text-center text-slate-400">
+                                        データがありません
                                     </td>
                                 </tr>
-                            ))}
+                            ) : (
+                                filteredExams.map((exam) => (
+                                    <tr key={exam.id}>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{exam.primary_exam_date}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-slate-900">{exam.session_name}</div>
+                                            <div className="text-sm text-slate-500">{exam.exam_name}</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                            {exam.slug} / {exam.session_slug}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button
+                                                onClick={() => setEditingExam(exam)}
+                                                className="text-indigo-600 hover:text-indigo-900 mr-4"
+                                            >
+                                                編集
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(exam.id)}
+                                                className="text-red-600 hover:text-red-900"
+                                            >
+                                                削除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )))}
                         </tbody>
                     </table>
                 </div>

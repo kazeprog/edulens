@@ -157,14 +157,8 @@ export default function AdminDashboardPage() {
     };
 
     const getActivityColor = (type: RecentActivity['type']) => {
-        switch (type) {
-            case 'user':
-                return 'bg-green-100 text-green-600';
-            case 'exam':
-                return 'bg-blue-100 text-blue-600';
-            case 'post':
-                return 'bg-purple-100 text-purple-600';
-        }
+        // 全てニュートラルな色に統一
+        return 'bg-slate-100 text-slate-600';
     };
 
     if (loading) {
@@ -187,35 +181,35 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">登録試験数</p>
-                    <p className="text-2xl font-bold text-blue-600">{stats.examCount}</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.examCount}</p>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">お知らせ数</p>
-                    <p className="text-2xl font-bold text-orange-500">{stats.announcementCount}</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.announcementCount}</p>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">BlackLens投稿</p>
-                    <p className="text-2xl font-bold text-purple-600">{stats.blackPostCount}</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.blackPostCount}</p>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">単語テスト数</p>
-                    <p className="text-2xl font-bold text-green-600">{stats.testResultCount}</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.testResultCount}</p>
                 </div>
             </div>
 
             {/* サブ統計カード */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-                    <p className="text-xs text-green-600 font-medium">ポモドーロ完了</p>
-                    <p className="text-xl font-bold text-green-700">{stats.pomodoroSessionCount}</p>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium">ポモドーロ完了</p>
+                    <p className="text-xl font-bold text-slate-700">{stats.pomodoroSessionCount}</p>
                 </div>
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
-                    <p className="text-xs text-blue-600 font-medium">本日の新規登録</p>
-                    <p className="text-xl font-bold text-blue-700">{stats.todayNewUsers}</p>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium">本日の新規登録</p>
+                    <p className="text-xl font-bold text-slate-700">{stats.todayNewUsers}</p>
                 </div>
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100">
-                    <p className="text-xs text-amber-600 font-medium">今週追加の試験</p>
-                    <p className="text-xl font-bold text-amber-700">{stats.weeklyNewExams}</p>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium">今週追加の試験</p>
+                    <p className="text-xl font-bold text-slate-700">{stats.weeklyNewExams}</p>
                 </div>
             </div>
 
@@ -223,19 +217,19 @@ export default function AdminDashboardPage() {
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
                 <h3 className="text-lg font-bold mb-4 text-slate-800">クイックメニュー</h3>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                    <Link href="/admin/exams" prefetch={false} className="bg-blue-50 text-blue-700 p-4 rounded-lg hover:bg-blue-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/exams" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📝 試験日程管理
                     </Link>
-                    <Link href="/admin/announcements" prefetch={false} className="bg-orange-50 text-orange-700 p-4 rounded-lg hover:bg-orange-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/announcements" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📢 お知らせ配信
                     </Link>
-                    <Link href="/admin/blacklens" prefetch={false} className="bg-purple-50 text-purple-700 p-4 rounded-lg hover:bg-purple-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/blacklens" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         💬 BlackLens管理
                     </Link>
-                    <Link href="/admin/tests" prefetch={false} className="bg-green-50 text-green-700 p-4 rounded-lg hover:bg-green-100 transition text-center font-bold text-sm">
+                    <Link href="/admin/tests" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📊 テスト履歴
                     </Link>
-                    <Link href="/countdown" prefetch={false} className="bg-slate-50 text-slate-700 p-4 rounded-lg hover:bg-slate-100 transition text-center font-bold text-sm" target="_blank">
+                    <Link href="/countdown" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm" target="_blank">
                         🔗 サイトを見る
                     </Link>
                 </div>
