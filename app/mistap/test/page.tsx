@@ -381,9 +381,9 @@ function TestContent() {
                   <div style={{ maxWidth: '100%', overflow: 'hidden' }}>
                     <GoogleAdsense
                       className="w-full flex items-center justify-center"
-                      style={{ display: 'block', minHeight: '128px', overflow: 'hidden' }}
-                      format="rectangle"
-                      responsive="false"
+                      style={{ display: 'block', minHeight: '128px' }}
+                      format="auto"
+                      responsive="true"
                     />
                   </div>
                 </div>
