@@ -65,6 +65,128 @@ interface TestResult {
     created_at: string;
 }
 
+// 登録ユーザー数表示コンポーネント
+function UserCountDisplay() {
+    const [userCount, setUserCount] = useState<number | null>(null);
+    const [displayCount, setDisplayCount] = useState(0);
+    const elementRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const fetchUserCount = async () => {
+            const supabase = getSupabase();
+            if (!supabase) return;
+
+            const { count } = await supabase
+                .from('profiles')
+                .select('*', { count: 'exact', head: true });
+
+            if (count !== null) {
+                setUserCount(count);
+            }
+        };
+
+        fetchUserCount();
+    }, []);
+
+    // Intersection Observerの設定
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setIsVisible(true);
+                    observer.disconnect(); // 一度表示されたら監視終了
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [userCount]);
+
+    // カウントアップアニメーション
+    useEffect(() => {
+        if (userCount === null || !isVisible) return;
+
+        const duration = 2000; // 2秒でカウントアップ
+        const frameDuration = 1000 / 60; // 60fps
+        const totalFrames = Math.round(duration / frameDuration);
+        const increment = userCount / totalFrames;
+
+        let currentCount = 0;
+        const timer = setInterval(() => {
+            currentCount += increment;
+            if (currentCount >= userCount) {
+                setDisplayCount(userCount);
+                clearInterval(timer);
+            } else {
+                setDisplayCount(Math.floor(currentCount));
+            }
+        }, frameDuration);
+
+        return () => clearInterval(timer);
+    }, [userCount, isVisible]);
+
+    if (userCount === null) {
+        return (
+            <div ref={elementRef} className="mt-8 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-pulse">
+                <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
+                    <div className="space-y-2">
+                        <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                        <div className="h-8 w-32 bg-gray-200 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div ref={elementRef} className="mt-8 relative group">
+            {/* 背景の装飾効果 */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+
+            <div className="relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100 overflow-hidden">
+                {/* 背景パターン */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-50 to-indigo-50 rounded-full -ml-8 -mb-8 opacity-50"></div>
+
+                <div className="relative flex items-center justify-between">
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200 transform group-hover:scale-110 transition-transform duration-300">
+                            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p className="text-sm font-semibold text-gray-500 mb-0.5">Mistap メンバー数</p>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                                    {displayCount.toLocaleString()}
+                                </span>
+                                <span className="text-sm font-bold text-gray-400">人</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 参加ボタン的な装飾 */}
+                    <div className="hidden md:flex items-center gap-2 text-blue-600 bg-blue-50 px-4 py-2 rounded-xl text-sm font-bold group-hover:bg-blue-100 transition-colors">
+                        <span>現在拡大中!</span>
+                        <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
 export default function HomePage() {
     const router = useRouter();
     const { user, profile: authProfile, loading: authLoading } = useAuth();
@@ -773,6 +895,9 @@ export default function HomePage() {
                     <div className="mt-8">
                         <GroupRanking />
                     </div>
+
+                    {/* Total Users Card */}
+                    <UserCountDisplay />
 
                     {/* Blog Section */}
                     {!blogLoading && blogPosts.length > 0 && (

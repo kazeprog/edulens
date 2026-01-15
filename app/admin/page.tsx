@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Link from 'next/link';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // 統計データの型定義
 interface DashboardStats {
@@ -14,7 +15,23 @@ interface DashboardStats {
     testResultCount: number;
     todayNewUsers: number;
     weeklyNewExams: number;
+    thisMonthNewUsers: number;
+    lastMonthNewUsers: number;
 }
+
+// 月別登録データの型
+interface MonthlyRegistration {
+    month: string;
+    count: number;
+}
+
+// 日別登録データの型
+interface DailyRegistration {
+    date: string;
+    count: number;
+}
+
+type ChartViewMode = 'daily' | 'monthly';
 
 // アクティビティの型定義
 interface RecentActivity {
@@ -50,9 +67,37 @@ export default function AdminDashboardPage() {
         testResultCount: 0,
         todayNewUsers: 0,
         weeklyNewExams: 0,
+        thisMonthNewUsers: 0,
+        lastMonthNewUsers: 0,
     });
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
+    const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
+    const [dailyRegistrations, setDailyRegistrations] = useState<DailyRegistration[]>([]);
+    const [chartViewMode, setChartViewMode] = useState<ChartViewMode>('monthly');
     const [loading, setLoading] = useState(true);
+
+    // 月初を取得するヘルパー
+    const getStartOfMonth = (date: Date) => {
+        const d = new Date(date);
+        d.setDate(1);
+        d.setHours(0, 0, 0, 0);
+        return d.toISOString();
+    };
+
+    const getStartOfLastMonth = () => {
+        const now = new Date();
+        now.setMonth(now.getMonth() - 1);
+        now.setDate(1);
+        now.setHours(0, 0, 0, 0);
+        return now.toISOString();
+    };
+
+    const getEndOfLastMonth = () => {
+        const now = new Date();
+        now.setDate(0); // 先月の最終日
+        now.setHours(23, 59, 59, 999);
+        return now.toISOString();
+    };
 
     useEffect(() => {
         async function fetchDashboardData() {
@@ -68,9 +113,12 @@ export default function AdminDashboardPage() {
                 { count: testResultCount },
                 { count: todayNewUsers },
                 { count: weeklyNewExams },
+                { count: thisMonthNewUsers },
+                { count: lastMonthNewUsers },
                 { data: recentUsers },
                 { data: recentExams },
                 { data: recentPosts },
+                { data: allProfiles },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -80,10 +128,59 @@ export default function AdminDashboardPage() {
                 supabase.from('results').select('*', { count: 'exact', head: true }),
                 supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfWeek()),
+                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfMonth(new Date())),
+                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfLastMonth()).lte('created_at', getEndOfLastMonth()),
                 supabase.from('profiles').select('id, full_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
+                supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
             ]);
+
+            // 月別登録データを集計（過去12ヶ月）
+            if (allProfiles) {
+                const monthlyData: { [key: string]: number } = {};
+                const dailyData: { [key: string]: number } = {};
+                const today = new Date();
+
+                // 過去12ヶ月分を初期化
+                for (let i = 11; i >= 0; i--) {
+                    const d = new Date(today);
+                    d.setMonth(d.getMonth() - i);
+                    const monthStr = `${d.getFullYear()}/${d.getMonth() + 1}`;
+                    monthlyData[monthStr] = 0;
+                }
+
+                // 過去30日分を初期化
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date(today);
+                    d.setDate(d.getDate() - i);
+                    const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
+                    dailyData[dateStr] = 0;
+                }
+
+                // 登録日/月をカウント
+                allProfiles.forEach((p: { created_at: string }) => {
+                    const d = new Date(p.created_at);
+
+                    // 月別
+                    const monthStr = `${d.getFullYear()}/${d.getMonth() + 1}`;
+                    if (monthlyData[monthStr] !== undefined) {
+                        monthlyData[monthStr]++;
+                    }
+
+                    // 日別（過去30日以内）
+                    const diffDays = Math.floor((today.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+                    if (diffDays < 30 && diffDays >= 0) {
+                        const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
+                        if (dailyData[dateStr] !== undefined) {
+                            dailyData[dateStr]++;
+                        }
+                    }
+                });
+
+                setMonthlyRegistrations(Object.entries(monthlyData).map(([month, count]) => ({ month, count })));
+                setDailyRegistrations(Object.entries(dailyData).map(([date, count]) => ({ date, count })));
+            }
 
             setStats({
                 userCount: userCount || 0,
@@ -94,6 +191,8 @@ export default function AdminDashboardPage() {
                 testResultCount: testResultCount || 0,
                 todayNewUsers: todayNewUsers || 0,
                 weeklyNewExams: weeklyNewExams || 0,
+                thisMonthNewUsers: thisMonthNewUsers || 0,
+                lastMonthNewUsers: lastMonthNewUsers || 0,
             });
 
             // アクティビティをマージ&ソート
@@ -212,6 +311,99 @@ export default function AdminDashboardPage() {
                     <p className="text-xl font-bold text-slate-700">{stats.weeklyNewExams}</p>
                 </div>
             </div>
+
+            {/* 登録者推移 */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+                <h3 className="text-lg font-bold mb-4 text-slate-800">📈 登録者推移</h3>
+
+                {/* 月次統計 */}
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        <p className="text-xs text-blue-600 font-medium">今月の登録者</p>
+                        <p className="text-xl font-bold text-blue-700">{stats.thisMonthNewUsers}人</p>
+                    </div>
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <p className="text-xs text-slate-500 font-medium">先月の登録者</p>
+                        <p className="text-xl font-bold text-slate-700">{stats.lastMonthNewUsers}人</p>
+                    </div>
+                    <div className={`p-4 rounded-xl border ${stats.lastMonthNewUsers > 0
+                        ? (stats.thisMonthNewUsers >= stats.lastMonthNewUsers
+                            ? 'bg-green-50 border-green-100'
+                            : 'bg-red-50 border-red-100')
+                        : 'bg-slate-50 border-slate-200'
+                        }`}>
+                        <p className={`text-xs font-medium ${stats.lastMonthNewUsers > 0
+                            ? (stats.thisMonthNewUsers >= stats.lastMonthNewUsers
+                                ? 'text-green-600'
+                                : 'text-red-600')
+                            : 'text-slate-500'
+                            }`}>月次増加率</p>
+                        <p className={`text-xl font-bold ${stats.lastMonthNewUsers > 0
+                            ? (stats.thisMonthNewUsers >= stats.lastMonthNewUsers
+                                ? 'text-green-700'
+                                : 'text-red-700')
+                            : 'text-slate-700'
+                            }`}>
+                            {stats.lastMonthNewUsers > 0
+                                ? `${stats.thisMonthNewUsers >= stats.lastMonthNewUsers ? '+' : ''}${(((stats.thisMonthNewUsers - stats.lastMonthNewUsers) / stats.lastMonthNewUsers) * 100).toFixed(1)}%`
+                                : '-'}
+                        </p>
+                    </div>
+                </div>
+
+                {/* 表示切り替えボタン */}
+                <div className="flex justify-end mb-4">
+                    <div className="inline-flex rounded-lg border border-slate-200 p-1 bg-slate-50">
+                        <button
+                            onClick={() => setChartViewMode('daily')}
+                            className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${chartViewMode === 'daily'
+                                    ? 'bg-white text-blue-600 shadow-sm'
+                                    : 'text-slate-500 hover:text-slate-700'
+                                }`}
+                        >
+                            日別 (30日)
+                        </button>
+                        <button
+                            onClick={() => setChartViewMode('monthly')}
+                            className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${chartViewMode === 'monthly'
+                                    ? 'bg-white text-blue-600 shadow-sm'
+                                    : 'text-slate-500 hover:text-slate-700'
+                                }`}
+                        >
+                            月別 (12ヶ月)
+                        </button>
+                    </div>
+                </div>
+
+                <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                            data={chartViewMode === 'monthly' ? monthlyRegistrations : dailyRegistrations}
+                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                        >
+                            <XAxis
+                                dataKey={chartViewMode === 'monthly' ? 'month' : 'date'}
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={false}
+                                interval={chartViewMode === 'daily' ? 4 : 0}
+                            />
+                            <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                formatter={(value) => [`${value ?? 0}人`, '新規登録']}
+                                labelStyle={{ fontWeight: 'bold', marginBottom: '4px' }}
+                            />
+                            <Line type="linear" dataKey="count" name="新規登録" stroke="#3b82f6" strokeWidth={2} dot={{ fill: '#3b82f6', strokeWidth: 2, r: 3 }} activeDot={{ r: 5 }} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-2">
+                    {chartViewMode === 'monthly' ? '過去12ヶ月の月別登録者数' : '過去30日間の日別登録者数'}
+                </p>
+            </div>
+
 
             {/* クイックメニュー */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
