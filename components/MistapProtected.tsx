@@ -13,7 +13,7 @@ export default function MistapProtected({ children }: { children: React.ReactNod
 
     // ハイドレーション不一致を防ぐため、マウントされるまで何もレンダリングしない、
     // またはローディング中は表示しない
-    if (!mounted || loading || !user) {
+    if (!mounted || loading) {
         return null;
     }
 

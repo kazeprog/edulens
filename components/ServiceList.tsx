@@ -64,13 +64,8 @@ export default function ServiceList({ currentService }: ServiceListProps) {
     const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const lastScrollLeft = useRef(0);
 
-    // フィルタリングされたサービスリスト（ログイン状態に基づく）
-    const filteredServices = SERVICES.filter(service => {
-        if (service.name === 'Mistap') {
-            return !!user; // ログイン時のみ表示
-        }
-        return true;
-    });
+    // フィルタリング不要のためそのまま使用
+    const filteredServices = SERVICES;
 
     // 1セット分の幅を計算
     const cardWidth = 160;
