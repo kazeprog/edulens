@@ -404,17 +404,17 @@ function TestContent() {
             </div>
           </div>
 
-          {/* AdSense - contain: strict で完全隔離 */}
+          {/* AdSense - contain: layout paint でレイアウト隔離 */}
           <div
             className="md:hidden mb-6 w-full overflow-hidden"
             style={{
               maxWidth: '100%',
-              height: '250px',
-              contain: 'strict'
+              minHeight: '250px',
+              contain: 'layout paint'
             }}
           >
             <GoogleAdsense
-              style={{ display: 'block', width: '100%', height: '100%' }}
+              style={{ display: 'block', width: '100%', minHeight: '250px' }}
               format="rectangle"
               responsive="true"
             />
