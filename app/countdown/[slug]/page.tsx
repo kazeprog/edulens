@@ -43,6 +43,10 @@ export async function generateMetadata(
   return {
     title: title,
     description: description,
+    robots: {
+      index: true,
+      follow: true,
+    },
     keywords: [
       `${displayExamName} ${year}`,
       `${displayExamName} 試験日`,
@@ -66,6 +70,10 @@ export async function generateMetadata(
       title: title,
       description: description,
       images: previousImages,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
