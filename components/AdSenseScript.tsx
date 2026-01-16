@@ -1,6 +1,7 @@
 'use client';
 
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function AdSenseScript() {
@@ -19,9 +20,11 @@ export default function AdSenseScript() {
 
     if (loading) return null;
 
+    const pathname = usePathname();
     const isPro = !!profile?.is_pro;
+    const isLoginPage = pathname === '/login';
 
-    if (isPro) {
+    if (isPro || isLoginPage) {
         return (
             <style jsx global>{`
                 .adsbygoogle, .google-auto-placed, .ap_container {
