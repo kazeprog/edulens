@@ -67,7 +67,7 @@ export async function generateMetadata(
     openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
     twitter: { card: 'summary_large_image', title, description, images: previousImages },
     robots: {
-      index: !/^\d{4}-\d{2}-\d{2}$/.test(session), // YYYY-MM-DD形式（日付ページ）はnoindex
+      index: true,
       follow: true,
     },
   };
