@@ -52,13 +52,11 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
-      { url: 'https://edulens.jp/favicon.ico' },
-      { url: 'https://edulens.jp/favicon.svg', type: 'image/svg+xml' },
-      { url: 'https://edulens.jp/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
     ],
-    apple: [
-      { url: 'https://edulens.jp/apple-touch-icon.png' },
-    ],
+    shortcut: [{ url: '/favicon.ico' }],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
 };
 
@@ -70,6 +68,11 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
+        {/* Favicon - explicit for maximum compatibility */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
         {/* Google Analytics (gtag.js) */}
         <script
           async

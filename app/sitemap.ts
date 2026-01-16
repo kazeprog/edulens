@@ -129,12 +129,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // 2. 各回詳細ページ (/countdown/eiken/2025-3, /countdown/toefl/2026-01-24 等)
-    const qualificationSessionRoutes = qualificationExams.map((exam) => ({
-      url: `${BASE_URL}/countdown/${exam.slug}/${exam.session_slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }));
+    // 日付パターン(YYYY-MM-DD)のURLは除外する（Googleのインデックスノイズ対策）
+    const qualificationSessionRoutes = qualificationExams
+      .filter((exam) => !/^\d{4}-\d{2}-\d{2}$/.test(exam.session_slug))
+      .map((exam) => ({
+        url: `${BASE_URL}/countdown/${exam.slug}/${exam.session_slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
 
     dynamicRoutes.push(...qualificationCategoryRoutes, ...qualificationSessionRoutes);
   }

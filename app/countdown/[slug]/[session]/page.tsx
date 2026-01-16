@@ -40,20 +40,36 @@ export async function generateMetadata(
   }
 
   const d = new Date(exam.primary_exam_date);
+  const examYear = d.getFullYear(); // 試験自体の年
   const examDateText = `${d.getMonth() + 1}月${d.getDate()}日`;
   const previousImages = (await parent).openGraph?.images || [];
 
-  const title = `${exam.exam_name}試験日はいつ？あと何日？${exam.session_name}日程カウントダウン | EduLens`;
-  const description = `【${exam.exam_name}】${exam.session_name}の試験日（${examDateText}）まであと何日？申し込み期間からWeb合格発表日まで、受験に必要な最新スケジュールを完全ガイド。直前対策や計画的な学習に役立つリアルタイムカウントダウン。`;
+  // タイトルに「年」と具体的な日付を含める
+  const title = `${exam.exam_name} ${exam.session_name}の日程・試験日【${examYear}年】あと何日？ | EduLens`;
+
+  const description = `【${examYear}年最新】${exam.exam_name} ${exam.session_name}の試験日は${examYear}年${examDateText}。本番まであと何日かをリアルタイムカウントダウン。出願期間（申し込み開始・締切）、合格発表日など重要日程を完全網羅。`;
+
   const url = `https://edulens.jp/countdown/${slug}/${session}`;
 
   return {
     title: title,
     description: description,
-    keywords: [`${exam.exam_name} 試験日`, `${exam.exam_name} いつ`, `${exam.exam_name} あと何日`, `${exam.exam_name} ${exam.session_name}`, "申し込み期間", "合格発表"],
+    keywords: [
+      `${exam.exam_name} ${examYear}`,
+      `${exam.exam_name} ${exam.session_name}`,
+      `${exam.exam_name} 試験日`,
+      `${exam.exam_name} あと何日`,
+      "日程",
+      "出願期間",
+      "合格発表日"
+    ],
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article', siteName: 'EduLens' },
-    twitter: { card: 'summary_large_image', title, description },
+    openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
+    twitter: { card: 'summary_large_image', title, description, images: previousImages },
+    robots: {
+      index: !/^\d{4}-\d{2}-\d{2}$/.test(session), // YYYY-MM-DD形式（日付ページ）はnoindex
+      follow: true,
+    },
   };
 }
 
@@ -152,11 +168,52 @@ export default async function QualificationCountdownPage({ params }: { params: P
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
 
+        {/* パンくずリスト */}
+        <nav className="flex text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-2">
+            <li className="inline-flex items-center">
+              <Link href="/" className="hover:text-blue-600 transition-colors">EduLens</Link>
+            </li>
+            <li className="inline-flex items-center">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href="/countdown" className="hover:text-blue-600 transition-colors ml-1">入試選択</Link>
+              </div>
+            </li>
+            <li className="inline-flex items-center">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href="/countdown/qualification" className="hover:text-blue-600 transition-colors ml-1">資格試験一覧</Link>
+              </div>
+            </li>
+            <li className="inline-flex items-center">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href={`/countdown/${slug}`} className="hover:text-blue-600 transition-colors ml-1">{displayExamName}</Link>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span className="ml-1 text-slate-700 font-medium">{displaySessionName}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
         <div className="mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 tracking-tight">
             {displayExamName}
-            <span className="block text-2xl sm:text-3xl text-slate-500 font-medium mt-2">
-              {displaySessionName}
+            <span className="block text-xl sm:text-3xl text-slate-500 font-medium mt-3">
+              {displaySessionName} <span className="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-lg text-lg sm:text-2xl align-middle ml-2">{new Date(displayExamDate).getFullYear()}年</span>
             </span>
           </h1>
         </div>
@@ -181,29 +238,41 @@ export default async function QualificationCountdownPage({ params }: { params: P
             {(exam.application_start || exam.application_end) && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">申込期間</span>
-                <span className="text-slate-700 font-medium">{formatDateJap(exam.application_start)} 〜 {formatDateJap(exam.application_end)}</span>
+                <span className="text-slate-700 font-medium">
+                  <time dateTime={exam.application_start}>{formatDateJap(exam.application_start)}</time>
+                  {' '}〜{' '}
+                  <time dateTime={exam.application_end}>{formatDateJap(exam.application_end)}</time>
+                </span>
               </div>
             )}
             <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
               <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">一次試験 (試験日)</span>
-              <span className="text-lg font-bold text-slate-800">{displayExamDateJap}</span>
+              <span className="text-lg font-bold text-slate-800">
+                <time dateTime={displayExamDate}>{displayExamDateJap}</time>
+              </span>
             </div>
             {exam.secondary_exam_date_a && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">二次試験 (A日程)</span>
-                <span className="text-slate-700 font-medium">{formatDateJap(exam.secondary_exam_date_a)}</span>
+                <span className="text-slate-700 font-medium">
+                  <time dateTime={exam.secondary_exam_date_a}>{formatDateJap(exam.secondary_exam_date_a)}</time>
+                </span>
               </div>
             )}
             {exam.secondary_exam_date_b && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-sm font-bold text-slate-500 w-36 flex-shrink-0">二次試験 (B日程)</span>
-                <span className="text-slate-700 font-medium">{formatDateJap(exam.secondary_exam_date_b)}</span>
+                <span className="text-slate-700 font-medium">
+                  <time dateTime={exam.secondary_exam_date_b}>{formatDateJap(exam.secondary_exam_date_b)}</time>
+                </span>
               </div>
             )}
             {exam.result_date && (
               <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-blue-50/60">
                 <span className="text-sm font-bold text-blue-600 w-36 flex-shrink-0">Web合否発表</span>
-                <span className="text-lg font-bold text-blue-700">{formatDateJap(exam.result_date)}</span>
+                <span className="text-lg font-bold text-blue-700">
+                  <time dateTime={exam.result_date}>{formatDateJap(exam.result_date)}</time>
+                </span>
               </div>
             )}
           </div>
