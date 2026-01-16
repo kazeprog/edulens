@@ -22,7 +22,13 @@ export default function AdSenseScript() {
     const isPro = !!profile?.is_pro;
 
     if (isPro) {
-        return null;
+        return (
+            <style jsx global>{`
+                .adsbygoogle, .google-auto-placed, .ap_container {
+                    display: none !important;
+                }
+            `}</style>
+        );
     }
 
     return (
