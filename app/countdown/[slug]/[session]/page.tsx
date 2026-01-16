@@ -67,7 +67,8 @@ export async function generateMetadata(
     openGraph: { title, description, url, type: 'article', siteName: 'EduLens', images: previousImages },
     twitter: { card: 'summary_large_image', title, description, images: previousImages },
     robots: {
-      index: true,
+      // TOEFLとTOEICの日付形式ページのみnoindex
+      index: !((['toefl', 'toeic'].includes(slug)) && /^\d{4}-\d{2}-\d{2}$/.test(session)),
       follow: true,
     },
   };
