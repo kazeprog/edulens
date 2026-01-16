@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function AdSenseScript() {
     const { user, profile, loading } = useAuth();
+    const pathname = usePathname();
 
     // 読み込み中、またはProプランユーザーの場合はスクリプトを読み込まない
     // (未ログイン時は広告を表示するため、!user || !profile.is_pro の場合に表示)
@@ -20,7 +21,6 @@ export default function AdSenseScript() {
 
     if (loading) return null;
 
-    const pathname = usePathname();
     const isPro = !!profile?.is_pro;
     const isLoginPage = pathname === '/login';
 

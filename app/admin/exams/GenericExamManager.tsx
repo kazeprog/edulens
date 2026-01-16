@@ -12,7 +12,10 @@ type Exam = {
     primary_exam_date: string;
     result_date: string | null;
     is_active: boolean;
+    category?: string | null;
 };
+
+import { categories } from '@/app/constants/examCategories';
 
 export default function GenericExamManager() {
     const [exams, setExams] = useState<Exam[]>([]);
@@ -166,6 +169,21 @@ export default function GenericExamManager() {
                             onChange={e => setEditingExam({ ...editingExam, result_date: e.target.value })}
                         />
                     </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">カテゴリ (未選択は一覧非表示)</label>
+                        <select
+                            className="w-full border p-2 rounded"
+                            value={editingExam?.category || ''}
+                            onChange={e => setEditingExam({ ...editingExam, category: e.target.value || null })}
+                        >
+                            <option value="">未分類 (一覧に表示しない)</option>
+                            {categories.map(cat => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
                     <div className="md:col-span-2 flex justify-end gap-2 mt-4">
                         <button
@@ -283,6 +301,16 @@ export default function GenericExamManager() {
                                                     className="text-indigo-600 hover:text-indigo-900 mr-4"
                                                 >
                                                     編集
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        // IDを除外してコピー（新規作成モードにする）
+                                                        const { id, ...rest } = exam;
+                                                        setEditingExam({ ...rest, session_slug: '', session_name: '', primary_exam_date: '' });
+                                                    }}
+                                                    className="text-green-600 hover:text-green-900 mr-4"
+                                                >
+                                                    複製
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(exam.id)}
