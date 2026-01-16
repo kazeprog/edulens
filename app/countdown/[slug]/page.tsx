@@ -71,10 +71,6 @@ export async function generateMetadata(
       description: description,
       images: previousImages,
     },
-    robots: {
-      index: true,
-      follow: true,
-    },
   };
 }
 
