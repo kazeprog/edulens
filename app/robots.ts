@@ -8,21 +8,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
       },
-      {
-        // AdSenseクローラー: Mistapをブロック
-        userAgent: 'Mediapartners-Google',
-        disallow: ['/mistap/'],
-      },
-      {
-        // Google Ads クローラー: Mistapをブロック
-        userAgent: 'AdsBot-Google',
-        disallow: ['/mistap/'],
-      },
-      {
-        // Google Ads モバイルクローラー: Mistapをブロック
-        userAgent: 'AdsBot-Google-Mobile',
-        disallow: ['/mistap/'],
-      },
+
     ],
     sitemap: [
       'https://edulens.jp/sitemap.xml',
