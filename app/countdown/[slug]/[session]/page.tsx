@@ -8,6 +8,7 @@ import ActionButtons from './ActionButtons';
 import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
 import GoogleAdsense from '@/components/GoogleAdsense';
+import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 // ISR設定: 1分ごとにキャッシュを更新
@@ -83,6 +84,15 @@ export default async function QualificationCountdownPage({ params }: { params: P
     .eq('slug', slug)
     .eq('session_slug', session)
     .single();
+
+  const { data: banners } = await supabase
+    .from('affiliate_banners')
+    .select('position, content')
+    .eq('slug', slug)
+    .eq('is_active', true);
+
+  const countdownBottomContent = banners?.find(b => b.position === 'countdown_bottom')?.content;
+  const shareBottomContent = banners?.find(b => b.position === 'share_bottom')?.content;
 
   if (!exam) redirect('/');
 
@@ -228,6 +238,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
         />
 
         {/* 日程詳細リスト */}
+        {countdownBottomContent && <BannerDisplay content={countdownBottomContent} />}
         <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-12 text-left">
           <div className="bg-slate-50 px-6 py-4 border-b border-slate-100">
             <h2 className="text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -286,6 +297,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           slug={slug}
           sessionSlug={session}
           diffDays={diffDays}
+          shareBannerContent={shareBottomContent}
         />
 
         <div className="w-full max-w-2xl mx-auto my-8">

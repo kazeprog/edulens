@@ -3,6 +3,7 @@ import AddToHomeButton from "./AddToHomeButton";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { toBlob } from "html-to-image";
+import BannerDisplay from "@/components/AffiliateBanners/BannerDisplay";
 
 export default function ActionButtons({
   displayPrefName,
@@ -10,7 +11,8 @@ export default function ActionButtons({
   prefecture,
   diffDays,
   displayExamDate,
-  displayExamName
+  displayExamName,
+  shareBannerContent
 }: {
   displayPrefName: string;
   year: string;
@@ -18,6 +20,7 @@ export default function ActionButtons({
   diffDays: number;
   displayExamDate: string;
   displayExamName: string;
+  shareBannerContent?: string;
 }) {
   const [isSharing, setIsSharing] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -152,6 +155,12 @@ export default function ActionButtons({
           Xで共有 (リンク)
         </a>
       </div>
+
+      {shareBannerContent && (
+        <div className="w-full max-w-xs mx-auto mb-12">
+          <BannerDisplay content={shareBannerContent} />
+        </div>
+      )}
 
       {/* Share Selection Modal */}
       {showShareModal && (

@@ -13,6 +13,7 @@ import type { EduLensColumn } from '@/app/column/page';
 import Image from 'next/image';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 import GoogleAdsense from '@/components/GoogleAdsense';
+import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 
 export const revalidate = 86400;
 
@@ -141,6 +142,15 @@ export default async function CountdownPage({ params }: { params: Params }) {
     .eq('year', parseInt(year))
     .order('date', { ascending: true });
   exams = examData || [];
+
+  const { data: banners } = await supabase
+    .from('affiliate_banners')
+    .select('position, content')
+    .eq('slug', prefecture)
+    .eq('is_active', true);
+
+  const countdownBottomContent = banners?.find(b => b.position === 'countdown_bottom')?.content;
+  const shareBottomContent = banners?.find(b => b.position === 'share_bottom')?.content;
 
   const mainExam = exams.find((e: any) => e.category === 'public_general') || exams[0] || null;
   const displayPrefName = prefData.name;
@@ -278,6 +288,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
           </div>
         )}
 
+        {countdownBottomContent && <BannerDisplay content={countdownBottomContent} />}
+
         {/* ▼▼▼ ナルホドレンズ カード ▼▼▼ */}
         <div className="w-full max-w-2xl mx-auto mb-4 mt-8">
           <NaruhodoLensPromoCard />
@@ -291,6 +303,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
           diffDays={diffDays}
           displayExamDate={displayExamDate}
           displayExamName={displayExamName}
+          shareBannerContent={shareBottomContent}
         />
         {/* ▲▲▲ エリア終了 ▲▲▲ */}
 

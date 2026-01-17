@@ -357,8 +357,8 @@ export default function AdminDashboardPage() {
                         <button
                             onClick={() => setChartViewMode('daily')}
                             className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${chartViewMode === 'daily'
-                                    ? 'bg-white text-blue-600 shadow-sm'
-                                    : 'text-slate-500 hover:text-slate-700'
+                                ? 'bg-white text-blue-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
                                 }`}
                         >
                             日別 (30日)
@@ -366,8 +366,8 @@ export default function AdminDashboardPage() {
                         <button
                             onClick={() => setChartViewMode('monthly')}
                             className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${chartViewMode === 'monthly'
-                                    ? 'bg-white text-blue-600 shadow-sm'
-                                    : 'text-slate-500 hover:text-slate-700'
+                                ? 'bg-white text-blue-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
                                 }`}
                         >
                             月別 (12ヶ月)
@@ -414,6 +414,9 @@ export default function AdminDashboardPage() {
                     </Link>
                     <Link href="/admin/announcements" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📢 お知らせ配信
+                    </Link>
+                    <Link href="/admin/affiliates" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
+                        💰 アフィリエイト管理
                     </Link>
                     <Link href="/admin/blacklens" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         💬 BlackLens管理

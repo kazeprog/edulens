@@ -75,6 +75,9 @@ export default function AdminLayout({
                     <Link href="/admin/announcements" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         お知らせ管理
                     </Link>
+                    <Link href="/admin/affiliates" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        アフィリエイト管理
+                    </Link>
                 </nav>
                 <div className="absolute bottom-0 w-full p-4 border-t border-slate-700">
                     <Link href="/" prefetch={false} className="block px-4 py-2 text-sm text-slate-400 hover:text-white transition">

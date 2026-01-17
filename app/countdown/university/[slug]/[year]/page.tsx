@@ -8,6 +8,7 @@ import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
+import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 
 export const revalidate = 86400;
 
@@ -54,7 +55,17 @@ export default async function UniversityExamPage({ params }: { params: Params })
     .select('*')
     .eq('slug', slug)
     .eq('year', parseInt(year))
+    .eq('year', parseInt(year))
     .single();
+
+  const { data: banners } = await supabase
+    .from('affiliate_banners')
+    .select('position, content')
+    .eq('slug', slug)
+    .eq('is_active', true);
+
+  const countdownBottomContent = banners?.find(b => b.position === 'countdown_bottom')?.content;
+  const shareBottomContent = banners?.find(b => b.position === 'share_bottom')?.content;
 
   if (!event) return notFound();
 
@@ -136,6 +147,8 @@ export default async function UniversityExamPage({ params }: { params: Params })
           </div>
         )}
 
+        {countdownBottomContent && <BannerDisplay content={countdownBottomContent} />}
+
         {/* ▼▼▼ ナルホドレンズ カード ▼▼▼ */}
         <div className="w-full max-w-2xl mx-auto mb-4 mt-8">
           <NaruhodoLensPromoCard />
@@ -147,6 +160,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
           slug={slug}
           year={year}
           diffDays={diffDays}
+          shareBannerContent={shareBottomContent}
         />
 
 
