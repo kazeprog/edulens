@@ -39,7 +39,7 @@ export default function AdLayoutWrapper({
                     <GoogleAdsense
                         slot="9969163744"
                         format="auto"
-                        style={{ display: 'block', minHeight: '100px', width: '100%', maxWidth: '1280px' }}
+                        style={{ display: 'block', minHeight: '100px', width: '100%' }}
                         key={`${pathname}-top`}
                     />
                 </div>
