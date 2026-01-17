@@ -27,7 +27,7 @@ export default function AffiliateManagementPage() {
     const [slugOptions, setSlugOptions] = useState<SelectOption[]>([]);
 
     // Form states
-    const [formSlug, setFormSlug] = useState('');
+    const [formSlugs, setFormSlugs] = useState<string[]>([]);
     const [formPosition, setFormPosition] = useState<'countdown_bottom' | 'share_bottom'>('countdown_bottom');
     const [formContent, setFormContent] = useState('');
     const [formIsActive, setFormIsActive] = useState(true);
@@ -103,13 +103,13 @@ export default function AffiliateManagementPage() {
     const handleOpenModal = (banner?: Banner) => {
         if (banner) {
             setEditingBanner(banner);
-            setFormSlug(banner.slug);
+            setFormSlugs([banner.slug]);
             setFormPosition(banner.position);
             setFormContent(banner.content);
             setFormIsActive(banner.is_active);
         } else {
             setEditingBanner(null);
-            setFormSlug('');
+            setFormSlugs([]);
             setFormPosition('countdown_bottom');
             setFormContent('');
             setFormIsActive(true);
@@ -125,21 +125,22 @@ export default function AffiliateManagementPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formSlug || !formContent) {
+        if (formSlugs.length === 0 || !formContent) {
             alert('Slugとバナー内容は必須です');
             return;
         }
 
-        const payload = {
-            slug: formSlug,
-            position: formPosition,
-            content: formContent,
-            is_active: formIsActive,
-            updated_at: new Date().toISOString(),
-        };
-
         try {
             if (editingBanner) {
+                // 編集モード：既存IDに対し単一更新 (フォーム上はsingle selection)
+                const payload = {
+                    slug: formSlugs[0],
+                    position: formPosition,
+                    content: formContent,
+                    is_active: formIsActive,
+                    updated_at: new Date().toISOString(),
+                };
+
                 const { error } = await supabase
                     .from('affiliate_banners')
                     .update(payload)
@@ -147,9 +148,17 @@ export default function AffiliateManagementPage() {
 
                 if (error) throw error;
             } else {
+                // 新規作成モード：選択されたSlugごとにInsert
+                const payloads = formSlugs.map(slug => ({
+                    slug: slug,
+                    position: formPosition,
+                    content: formContent,
+                    is_active: formIsActive,
+                }));
+
                 const { error } = await supabase
                     .from('affiliate_banners')
-                    .insert([payload]);
+                    .insert(payloads);
 
                 if (error) throw error;
             }
@@ -274,8 +283,8 @@ export default function AffiliateManagementPage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                    <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+                        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-10">
                             <h3 className="text-lg font-bold text-slate-800">
                                 {editingBanner ? 'バナーを編集' : '新規バナー作成'}
                             </h3>
@@ -284,17 +293,37 @@ export default function AffiliateManagementPage() {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Slug</label>
+                                    <label className="block text-sm font-medium text-slate-700 mb-1">
+                                        Slug {editingBanner ? '(編集時は単一選択)' : '(複数選択可)'}
+                                    </label>
+                                    {!editingBanner && (
+                                        <p className="text-xs text-blue-600 mb-2">
+                                            ※ PC: Ctrl(Windows)/Command(Mac)を押しながらクリックで複数選択。<br />
+                                            ※ モバイル: 長押し等で複数選択可能な場合がありますがPC推奨。
+                                        </p>
+                                    )}
                                     <select
-                                        value={formSlug}
-                                        onChange={(e) => setFormSlug(e.target.value)}
-                                        className="w-full rounded-lg border-slate-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                        multiple={!editingBanner} // 編集時は単一選択
+                                        value={formSlugs}
+                                        onChange={(e) => {
+                                            const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+
+                                            if (editingBanner) {
+                                                // multiple=falseのselectの場合、e.target.valueで単一値が取れるが、
+                                                // multiple={!editingBanner} なんで editingBanner が true なら multiple=false
+                                                setFormSlugs([e.target.value]);
+                                            } else {
+                                                // multiple=trueの場合
+                                                setFormSlugs(selectedOptions);
+                                            }
+                                        }}
+                                        className={`w-full rounded-lg border-slate-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm ${!editingBanner ? 'h-64' : ''}`}
                                         required
                                     >
-                                        <option value="">選択してください</option>
+                                        {!editingBanner && <option value="" disabled>-- 複数選択可能です --</option>}
                                         {renderSlugOptions()}
                                     </select>
                                     <p className="text-xs text-slate-500 mt-1">※リストにない場合は直接手入力できません（DB要確認）</p>
@@ -348,7 +377,7 @@ export default function AffiliateManagementPage() {
                                     type="submit"
                                     className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-medium shadow-sm transition"
                                 >
-                                    保存する
+                                    {editingBanner ? '更新する' : `作成する (選択数: ${formSlugs.length})`}
                                 </button>
                             </div>
                         </form>
