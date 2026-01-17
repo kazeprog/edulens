@@ -96,8 +96,8 @@ export default async function ExamListPage({ params }: { params: Params }) {
     return compareDate >= todayStr;
   }) || [];
 
-  // 1件しかない場合は直接詳細ページへリダイレクト (TOEFL/TOEIC/宅建などの月別表示系や複数回系は除く)
-  const excludedSlugs = ['toefl', 'toeic', 'takken'];
+  // 1件しかない場合は直接詳細ページへリダイレクト (TOEFL/TOEICなどの月別表示系は除く)
+  const excludedSlugs = ['toefl', 'toeic'];
   if (filteredExams.length === 1 && !excludedSlugs.includes(slug)) {
     const targetExam = filteredExams[0];
     redirect(`/countdown/${targetExam.slug}/${targetExam.session_slug}`);
