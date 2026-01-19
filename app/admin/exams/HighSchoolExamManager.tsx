@@ -70,10 +70,35 @@ export default function HighSchoolExamManager() {
         if (!editingExam) return;
 
         try {
-            const { error } = await supabase
-                .from('official_exams')
-                .upsert(editingExam)
-                .select();
+            let error;
+            if (editingExam.id) {
+                // 既存レコードの更新
+                const result = await supabase
+                    .from('official_exams')
+                    .update({
+                        year: editingExam.year,
+                        prefecture_id: editingExam.prefecture_id,
+                        category: editingExam.category,
+                        name: editingExam.name,
+                        date: editingExam.date,
+                        result_date: editingExam.result_date,
+                    })
+                    .eq('id', editingExam.id);
+                error = result.error;
+            } else {
+                // 新規レコードの挿入
+                const result = await supabase
+                    .from('official_exams')
+                    .insert({
+                        year: editingExam.year,
+                        prefecture_id: editingExam.prefecture_id,
+                        category: editingExam.category,
+                        name: editingExam.name,
+                        date: editingExam.date,
+                        result_date: editingExam.result_date,
+                    });
+                error = result.error;
+            }
 
             if (error) throw error;
 
@@ -81,7 +106,8 @@ export default function HighSchoolExamManager() {
             setEditingExam(null);
             fetchExams();
         } catch (err: unknown) {
-            alert(`保存エラー: ${err instanceof Error ? err.message : String(err)}`);
+            const errorMessage = (err as { message?: string })?.message || JSON.stringify(err);
+            alert(`保存エラー: ${errorMessage}`);
         }
     };
 
@@ -307,6 +333,15 @@ export default function HighSchoolExamManager() {
                                                     className="text-indigo-600 hover:text-indigo-900 mr-4"
                                                 >
                                                     編集
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        const { id, ...rest } = exam;
+                                                        setEditingExam({ ...rest, date: '', result_date: null });
+                                                    }}
+                                                    className="text-green-600 hover:text-green-900 mr-4"
+                                                >
+                                                    複製
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(exam.id)}

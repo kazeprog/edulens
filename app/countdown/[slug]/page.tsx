@@ -1,6 +1,6 @@
 import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 import MonthlyList from './MonthlyList';
 
@@ -96,12 +96,8 @@ export default async function ExamListPage({ params }: { params: Params }) {
     return compareDate >= todayStr;
   }) || [];
 
-  // 1件しかない場合は直接詳細ページへリダイレクト (TOEFL/TOEICなどの月別表示系は除く)
-  const excludedSlugs = ['toefl', 'toeic'];
-  if (filteredExams.length === 1 && !excludedSlugs.includes(slug)) {
-    const targetExam = filteredExams[0];
-    redirect(`/countdown/${targetExam.slug}/${targetExam.session_slug}`);
-  }
+  // リダイレクトを廃止：親ページを常に表示してインデックス可能にする
+  // 試験が1件の場合も一覧ページを表示（1クリックで詳細へ移動可能）
 
   // 表示用の試験名を取得（データがあればその1件目から）
   let examName = filteredExams.length > 0 ? filteredExams[0].exam_name : (exams && exams.length > 0 ? exams[0].exam_name : slug);

@@ -46,10 +46,33 @@ export default function UniversityExamManager() {
         if (!editingEvent) return;
 
         try {
-            const { error } = await supabase
-                .from('university_events')
-                .upsert(editingEvent)
-                .select();
+            let error;
+            if (editingEvent.id) {
+                // 既存レコードの更新
+                const result = await supabase
+                    .from('university_events')
+                    .update({
+                        year: editingEvent.year,
+                        slug: editingEvent.slug,
+                        name: editingEvent.name,
+                        date: editingEvent.date,
+                        description: editingEvent.description,
+                    })
+                    .eq('id', editingEvent.id);
+                error = result.error;
+            } else {
+                // 新規レコードの挿入
+                const result = await supabase
+                    .from('university_events')
+                    .insert({
+                        year: editingEvent.year,
+                        slug: editingEvent.slug,
+                        name: editingEvent.name,
+                        date: editingEvent.date,
+                        description: editingEvent.description,
+                    });
+                error = result.error;
+            }
 
             if (error) throw error;
 
@@ -57,7 +80,8 @@ export default function UniversityExamManager() {
             setEditingEvent(null); // 編集モード終了
             fetchEvents(); // リスト更新
         } catch (err: unknown) {
-            alert(`保存エラー: ${err instanceof Error ? err.message : String(err)}`);
+            const errorMessage = (err as { message?: string })?.message || JSON.stringify(err);
+            alert(`保存エラー: ${errorMessage}`);
         }
     };
 
@@ -237,6 +261,15 @@ export default function UniversityExamManager() {
                                                     className="text-indigo-600 hover:text-indigo-900 mr-4"
                                                 >
                                                     編集
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        const { id, ...rest } = event;
+                                                        setEditingEvent({ ...rest, date: '' });
+                                                    }}
+                                                    className="text-green-600 hover:text-green-900 mr-4"
+                                                >
+                                                    複製
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(event.id)}
