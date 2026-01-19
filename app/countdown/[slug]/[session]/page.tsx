@@ -7,7 +7,6 @@ import ActionButtons from './ActionButtons';
 // ▼ 1. Amazonリンクコンポーネントをインポート
 import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
-import GoogleAdsense from '@/components/GoogleAdsense';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -300,9 +299,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           shareBannerContent={shareBottomContent}
         />
 
-        <div className="w-full max-w-2xl mx-auto my-8">
-          <GoogleAdsense />
-        </div>
+
 
         {/* ▼▼▼ 英検用ライティング添削おすすめカード ▼▼▼ */}
         {displayExamName.includes('英検') && (

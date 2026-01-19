@@ -416,9 +416,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
             </p>
           </div>
 
-          {/* ユーザーが解説を読み終え、FAQへ進む前の区切りとして配置 */}
-          <GoogleAdsense />
-
           {/* よくある質問 */}
           <div className="mt-10">
             <h3 className="text-xl font-bold text-slate-800 mb-4">{displayPrefName}公立高校入試 よくある質問</h3>
