@@ -19,26 +19,36 @@ export default function AdSenseScript() {
     // UX的には「Proユーザーに広告を見せない」が最優先なので、
     // loading完了待ち -> Proなら表示しない、そうでなければ表示、とする。
 
-    if (loading) return null;
-
-    const isPro = !!profile?.is_pro;
+    const isPro = !loading && !!profile?.is_pro;
     const isLoginPage = pathname === '/login';
+    const shouldHideAds = isPro || isLoginPage;
 
-    if (isPro || isLoginPage) {
-        return (
-            <style jsx global>{`
-                .adsbygoogle, .google-auto-placed, .ap_container {
-                    display: none !important;
-                }
-            `}</style>
-        );
-    }
+    // Proユーザーまたはログインページでは広告を非表示にするCSS
+    const hideAdsStyle = shouldHideAds ? (
+        <style jsx global>{`
+            .adsbygoogle, .google-auto-placed, .ap_container, ins.adsbygoogle {
+                display: none !important;
+                height: 0 !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+                visibility: hidden !important;
+            }
+        `}</style>
+    ) : null;
 
-    return (
+    // 広告を表示すべきユーザーのみスクリプトを読み込む
+    const adScript = !shouldHideAds && !loading ? (
         <Script
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
             strategy="afterInteractive"
             crossOrigin="anonymous"
         />
+    ) : null;
+
+    return (
+        <>
+            {hideAdsStyle}
+            {adScript}
+        </>
     );
 }
