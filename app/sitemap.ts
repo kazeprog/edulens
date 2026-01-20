@@ -50,6 +50,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    // ▼▼▼ 追加: 2027年度版のルート ▼▼▼
+    {
+      url: `${BASE_URL}/countdown/highschool?year=2027`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     {
       url: `${BASE_URL}/countdown/university`,
       lastModified: new Date(),
@@ -96,12 +103,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // --- 高校入試 (都道府県別) ---
   if (prefectures) {
-    const highschoolRoutes = prefectures.map((pref) => ({
-      url: `${BASE_URL}/countdown/highschool/${pref.slug}/2026`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    }));
+    // 2026年度と2027年度の両方を生成
+    const targetYears = [2026, 2027];
+    const highschoolRoutes = prefectures.flatMap((pref) =>
+      targetYears.map(year => ({
+        url: `${BASE_URL}/countdown/highschool/${pref.slug}/${year}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.9,
+      }))
+    );
     dynamicRoutes.push(...highschoolRoutes);
   }
 

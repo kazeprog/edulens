@@ -205,10 +205,11 @@ export default function HighSchoolExamManager() {
                         <label className="block text-sm font-medium mb-1">カテゴリー</label>
                         <select
                             className="w-full border p-2 rounded"
-                            value={editingExam?.category || 'public_general'}
+                            value={editingExam?.category || ''}
                             onChange={e => setEditingExam({ ...editingExam, category: e.target.value })}
                             required
                         >
+                            <option value="">選択してください</option>
                             <option value="public_general">公立高校 一般選抜</option>
                             <option value="public_recommendation">公立高校 推薦・特色</option>
                             <option value="other">その他</option>
@@ -266,7 +267,7 @@ export default function HighSchoolExamManager() {
             {/* 新規追加ボタン */}
             <div className="mb-4 flex justify-end">
                 <button
-                    onClick={() => setEditingExam({ year: targetYear, category: 'public_general' })}
+                    onClick={() => setEditingExam({ year: targetYear })}
                     className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm shadow-sm transition"
                 >
                     + 新規追加

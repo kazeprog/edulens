@@ -49,7 +49,7 @@ export default function ExamManagerPage() {
                         : 'text-slate-500 hover:text-slate-700'
                         }`}
                 >
-                    🤖 AIインポート
+                    AIインポート
                 </button>
             </div>
 

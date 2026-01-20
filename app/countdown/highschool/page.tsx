@@ -26,13 +26,34 @@ const REGION_NAMES: Record<string, string> = {
   okinawa: "沖縄",
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const targetYear = getTargetExamYear();
+// ▼▼▼ 変更: Propsの型定義を追加 ▼▼▼
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata(
+  { searchParams }: Props
+): Promise<Metadata> {
+  const resolvedSearchParams = await searchParams;
+  const yearParam = resolvedSearchParams?.year;
+
+  // デフォルト年度
+  const defaultYear = getTargetExamYear();
+
+  // パラメータがあればそれを、なければデフォルト
+  const targetYear = yearParam ? parseInt(Array.isArray(yearParam) ? yearParam[0] : yearParam) : defaultYear;
   const reiwaYear = targetYear - 2018;
 
-  const pageTitle = `全国公立高校入試カウントダウン${targetYear} - 都道府県から探す | EduLens`;
-  const pageDescription = `【${targetYear}年度/令和${reiwaYear}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`;
-  const url = `https://edulens.jp/countdown/highschool`;
+  // バリデーション: 未来すぎる年や過去すぎる年はデフォルトに戻す
+  const validYear = (targetYear >= 2024 && targetYear <= 2030) ? targetYear : defaultYear;
+
+  const pageTitle = `全国公立高校入試カウントダウン${validYear} - 都道府県から探す | EduLens`;
+  const pageDescription = `【${validYear}年度/令和${validYear - 2018}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`;
+
+  // パラメータがある場合はパラメータ付き、なければベースURL
+  const url = validYear === defaultYear
+    ? `https://edulens.jp/countdown/highschool`
+    : `https://edulens.jp/countdown/highschool?year=${validYear}`;
 
   return {
     title: pageTitle,
@@ -40,8 +61,8 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: [
       "高校入試 カウントダウン",
       "公立高校入試 日程",
-      `高校受験 ${targetYear}`,
-      `令和${reiwaYear}年度 高校入試`,
+      `高校受験 ${validYear}`,
+      `令和${validYear - 2018}年度 高校入試`,
       "都道府県別",
     ],
     openGraph: {
@@ -64,7 +85,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function PrefectureSelectPage() {
+export default async function PrefectureSelectPage({ searchParams }: Props) {
   // 1. 全都道府県データを取得
   const { data: prefectures } = await supabase
     .from('prefectures')
@@ -75,7 +96,16 @@ export default async function PrefectureSelectPage() {
     return <div className="p-8 text-center">データを取得できませんでした。</div>;
   }
 
-  const targetYear = getTargetExamYear();
+  const resolvedSearchParams = await searchParams;
+  const yearParam = resolvedSearchParams?.year;
+  const defaultYear = getTargetExamYear();
+
+  // 年度決定ロジック
+  let targetYear = yearParam ? parseInt(Array.isArray(yearParam) ? yearParam[0] : yearParam) : defaultYear;
+  if (isNaN(targetYear) || targetYear < 2024 || targetYear > 2030) {
+    targetYear = defaultYear;
+  }
+
   const reiwaYear = targetYear - 2018;
 
   // ▼▼▼ 追加: 地域自動推定ロジック ▼▼▼
@@ -119,7 +149,7 @@ export default async function PrefectureSelectPage() {
         "@type": "ListItem",
         "position": 3,
         "name": "高校入試一覧",
-        "item": "https://edulens.jp/countdown/highschool"
+        "item": `https://edulens.jp/countdown/highschool${targetYear !== defaultYear ? `?year=${targetYear}` : ''}`
       }
     ]
   };
@@ -127,6 +157,29 @@ export default async function PrefectureSelectPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
+
+        {/* ▼▼▼ 年度切り替えタブ ▼▼▼ */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white p-1 rounded-lg border border-slate-200 shadow-sm inline-flex">
+            {[2026, 2027].map((y) => {
+              const isActive = y === targetYear;
+              return (
+                <Link
+                  key={y}
+                  href={y === defaultYear ? '/countdown/highschool' : `/countdown/highschool?year=${y}`}
+                  prefetch={false}
+                  className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${isActive
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50'
+                    }`}
+                >
+                  {y}年度
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        {/* ▲▲▲ 年度切り替えタブ ▲▲▲ */}
 
         <div className="text-center mb-12">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">
