@@ -9,6 +9,7 @@ import AmazonExamLink from '@/components/AmazonExamLink';
 import ServiceList from '@/components/ServiceList';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import type { Metadata, ResolvingMetadata } from 'next';
+import OtherQualifications from '../OtherQualifications';
 
 // ISR設定: 1分ごとにキャッシュを更新
 export const revalidate = 86400;
@@ -399,6 +400,9 @@ export default async function QualificationCountdownPage({ params }: { params: P
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
         />
+
+        {/* 他の資格試験リンク */}
+        <OtherQualifications currentSlug={slug} />
 
         <div className="text-center mt-16 pb-8 border-t border-slate-100 pt-8">
           <p className="text-sm text-slate-400 font-medium tracking-wide">

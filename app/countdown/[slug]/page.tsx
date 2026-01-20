@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 import MonthlyList from './MonthlyList';
+import OtherQualifications from './OtherQualifications';
 
 // ISR設定
 export const revalidate = 86400;
@@ -273,6 +274,9 @@ export default async function ExamListPage({ params }: { params: Params }) {
             </p>
           </div>
         </div>
+
+        {/* 他の資格試験リンク */}
+        <OtherQualifications currentSlug={slug} />
 
         <div className="mt-12 text-center">
           <Link href="/countdown" prefetch={false} className="text-blue-600 hover:text-blue-800 font-medium hover:underline inline-flex items-center gap-2">
