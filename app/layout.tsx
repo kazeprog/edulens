@@ -26,7 +26,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://edulens.jp'),
   description: "試験日カウントダウンとAI添削サービス",
   openGraph: {
-    title: 'EduLens - 学習を、もっと効果的に',
     description: '試験日カウントダウンとAI添削サービス',
     url: 'https://edulens.jp',
     siteName: 'EduLens',
@@ -43,7 +42,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EduLens - 学習を、もっと効果的に',
     description: '試験日カウントダウンとAI添削サービス',
     images: ['/Xcard.png'],
     creator: '@EduLensjp',
