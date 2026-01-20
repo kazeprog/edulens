@@ -201,15 +201,14 @@ export default async function Home() {
                 </Link>
 
                 {/* NaruhodoLens Card */}
-                <Link
-                  href="/naruhodo-lens"
-                  prefetch={false}
-                  className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-sky-200 transition-all duration-300 overflow-hidden"
-                >
+                <div className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-100 hover:shadow-xl hover:border-sky-200 transition-all duration-300 overflow-hidden">
+                  {/* Main Link Overlay */}
+                  <Link href="/naruhodo-lens" prefetch={false} className="absolute inset-0 z-10" aria-label="ナルホドレンズ" />
+
                   {/* Background decoration */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-sky-100 to-sky-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity" />
 
-                  <div className="relative">
+                  <div className="relative pointer-events-none">
                     {/* Icon */}
                     <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                       <img
@@ -253,14 +252,30 @@ export default async function Home() {
                     </ul>
 
                     {/* CTA */}
-                    <span className="inline-flex items-center text-sky-600 font-semibold group-hover:translate-x-1 transition-transform">
-                      質問する
-                      <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="mb-3">
+                      <span className="inline-flex items-center text-sky-600 font-semibold group-hover:translate-x-1 transition-transform">
+                        質問する
+                        <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Secondary Link */}
+                  <div className="relative z-20 pointer-events-auto">
+                    <Link
+                      href="/naruhodo-lens/about"
+                      prefetch={false}
+                      className="inline-flex items-center text-sm text-slate-400 hover:text-sky-600 transition-colors"
+                    >
+                      詳しく見る
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </span>
+                    </Link>
                   </div>
-                </Link>
+                </div>
 
                 {/* Mistap Card - Show ONLY for logged-in users */}
                 <MistapProtected>

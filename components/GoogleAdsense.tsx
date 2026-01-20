@@ -29,12 +29,14 @@ const GoogleAdsense = ({
     className = "mb-4",
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
-    const { profile, loading } = useAuth();
+    const { user, profile, loading } = useAuth();
 
     // useEffect must be called before any conditional return (React Hooks rules)
     useEffect(() => {
         // Don't push ads if user is Pro or on login page
-        if (profile?.is_pro) return;
+        // Also skip if profile is pending (user exists but profile null)
+        const isPendingProfile = !!user && !profile;
+        if (profile?.is_pro || isPendingProfile || loading) return;
         if (pathname === '/login') return;
 
         try {
@@ -42,10 +44,12 @@ const GoogleAdsense = ({
         } catch (err) {
             console.error('Google AdSense error:', err);
         }
-    }, [pathname, profile?.is_pro]);
+    }, [pathname, profile?.is_pro, loading, user, profile]);
 
     // Proユーザーまたはログイン/新規登録画面では広告を表示しない
-    if (!loading && profile?.is_pro) {
+    // プロフィール未取得(isPendingProfile)の場合も表示しない
+    const isPendingProfile = !!user && !profile;
+    if (!loading && (profile?.is_pro || isPendingProfile)) {
         return null;
     }
 

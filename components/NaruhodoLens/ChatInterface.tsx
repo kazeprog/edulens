@@ -160,14 +160,49 @@ export default function ChatInterface() {
             headers: token ? { 'Authorization': `Bearer ${token}` } : undefined,
         }),
         onFinish: (message) => {
-            // Optional: Handle finish
+            // Check if message is essentially empty (silent failure)
+            let hasContent = false;
+            // Use type assertion to avoid strict type error if type definition is incomplete
+            const msg = message as any;
+            if (msg.content) hasContent = true;
+            if (msg.parts && msg.parts.length > 0) hasContent = true;
+
+            if (!hasContent) {
+                alert('応答が空でした。通信エラーの可能性があります。もう一度お試しください。');
+                // Optional: remove the empty message or trigger reload
+            }
         },
         onError: (error) => {
             if (error.message.includes('Limit exceeded')) {
                 alert('1日の質問回数制限に達しました。\nログインすると1日2回、Proプランなら20回まで質問できます！');
+            } else {
+                console.error('Chat error:', error);
+                alert('エラーが発生しました。もう一度お試しください。\n' + error.message);
+                // リロードを促すことも検討
             }
         }
     });
+
+    const isLoading = status === 'streaming' || status === 'submitted';
+
+    // Timeout Watcher: If loading takes too long (e.g. network hang), force reset
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        if (isLoading) {
+            // 60秒以上応答がない場合はタイムアウトとみなす
+            timeoutId = setTimeout(() => {
+                if (isLoading) {
+                    alert('応答がタイムアウトしました。通信環境を確認して、もう一度お試しください。');
+                    window.location.reload(); // 最も確実なリセット
+                }
+            }, 60000); // 60s
+        }
+
+        return () => {
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, [isLoading, messages]); // messagesが変わればリセット（ストリーミング中は更新され続けるため）
 
     // Check for chat end signal
     useEffect(() => {
@@ -191,7 +226,7 @@ export default function ChatInterface() {
         }
     }, [messages]);
 
-    const isLoading = status === 'streaming' || status === 'submitted';
+
 
     // Auto-scroll to bottom when new messages arrive
     useEffect(() => {

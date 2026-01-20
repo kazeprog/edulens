@@ -13,7 +13,7 @@ export default function AdLayoutWrapper({
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
-    const { profile, loading } = useAuth();
+    const { user, profile, loading } = useAuth();
     const [isMobile, setIsMobile] = useState(true); // デフォルトはモバイル（SSR対策）
 
     useEffect(() => {
@@ -27,8 +27,11 @@ export default function AdLayoutWrapper({
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // アップグレードページ、またはProユーザーの場合は広告非表示
-    const isPro = !loading && !!profile?.is_pro;
+    // Proユーザー判定 (loading完了後)
+    // ユーザーがいるがプロフィール未取得の場合も、安全のためPro扱い(広告非表示)とする
+    const isPendingProfile = !!user && !profile;
+    const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
+
     const isNoAdPage = pathname === '/upgrade' || pathname?.startsWith('/upgrade/') || isPro;
 
     return (

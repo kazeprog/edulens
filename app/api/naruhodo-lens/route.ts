@@ -281,12 +281,32 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // Create streaming response using Vercel AI SDK v6
-        const result = streamText({
-            model: google('gemini-2.0-flash'),
-            system: SYSTEM_PROMPT,
-            messages: await convertToModelMessages(messages),
-        });
+        // Pre-convert messages once to reuse
+        const coreMessages = await convertToModelMessages(messages);
+
+        let result;
+
+        try {
+            // Create streaming response using Vercel AI SDK v6
+            // Attempt 1: Primary Model (gemini-2.0-flash) with 5 retries
+            result = streamText({
+                model: google('gemini-2.0-flash'),
+                system: SYSTEM_PROMPT,
+                messages: coreMessages,
+                maxRetries: 5, // 応答が返ってこないことがあるため、リトライ回数を5回に増やす
+            });
+        } catch (error) {
+            console.warn('Primary model (gemini-2.0-flash) failed. Switching to fallback (gemini-2.5-flash-lite).', error);
+
+            // Attempt 2: Fallback Model (gemini-2.5-flash-lite)
+            // Note: Fallback also has default retries (or we can specify fewer if desired)
+            result = streamText({
+                model: google('gemini-2.5-flash-lite'),
+                system: SYSTEM_PROMPT,
+                messages: coreMessages,
+                maxRetries: 2, // フォールバックも念の為リトライ
+            });
+        }
 
         // Return UI message stream response
         const response = result.toUIMessageStreamResponse();

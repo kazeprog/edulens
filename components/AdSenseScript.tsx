@@ -19,9 +19,20 @@ export default function AdSenseScript() {
     // UX的には「Proユーザーに広告を見せない」が最優先なので、
     // loading完了待ち -> Proなら表示しない、そうでなければ表示、とする。
 
-    const isPro = !loading && !!profile?.is_pro;
+    // Proユーザー判定 (loading完了後)
+    // 注意: AuthContextのloadingがfalseになっても、profile取得が非同期で遅れる場合がある(onAuthStateChange直後など)。
+    // そのため、「ユーザーはいるがプロフィールがない」状態も「判定中」として扱い、広告を出さない安全側に倒す。
+    const isPendingProfile = !!user && !profile;
+    const isPro = !!profile?.is_pro;
+
     const isLoginPage = pathname === '/login';
-    const shouldHideAds = isPro || isLoginPage;
+
+    // 広告を非表示にする条件:
+    // 1. Auth読み込み中
+    // 2. プロフィール読み込み中 (ユーザーあり・プロフなし)
+    // 3. Proユーザー確定
+    // 4. ログインページ
+    const shouldHideAds = loading || isPendingProfile || isPro || isLoginPage;
 
     // Proユーザーまたはログインページでは広告を非表示にするCSS
     const hideAdsStyle = shouldHideAds ? (

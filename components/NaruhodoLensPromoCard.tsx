@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function NaruhodoLensPromoCard() {
     return (
         <Link
-            href="/naruhodo-lens"
+            href="/naruhodo-lens/about"
             prefetch={false}
             className="group relative block w-full bg-white rounded-2xl p-6 sm:p-8 shadow-sm border-2 border-sky-100 hover:border-sky-300 hover:shadow-xl transition-all duration-300 overflow-hidden mb-4"
         >
