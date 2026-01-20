@@ -6,7 +6,7 @@ import { getTargetExamYear } from '@/lib/date-utils';
 export async function generateMetadata(): Promise<Metadata> {
   const targetYear = getTargetExamYear();
   const reiwaYear = targetYear - 2018;
-  const title = `大学入試カウントダウン${targetYear} - 共通テスト・国公立日程 | EduLens`;
+  const title = `大学入試カウントダウン${targetYear} - 共通テスト・国公立日程`;
   const description = `${targetYear}年度（令和${reiwaYear}年度）の大学入学共通テスト、国公立大学2次試験（前期・後期）の日程と残り日数を表示します。`;
   const url = 'https://edulens.jp/countdown/university';
 

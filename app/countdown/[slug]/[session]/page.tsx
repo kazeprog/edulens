@@ -45,8 +45,8 @@ export async function generateMetadata(
   const examDateText = `${d.getMonth() + 1}月${d.getDate()}日`;
   const previousImages = (await parent).openGraph?.images || [];
 
-  // タイトルに「年」と具体的な日付を含める
-  const title = `${exam.exam_name} ${exam.session_name}の日程・試験日【${examYear}年】あと何日？ | EduLens`;
+  // タイトルを短縮（検索結果で見切れ防止）
+  const title = `【${examYear}年】${exam.exam_name} 試験日まであと何日`;
 
   const description = `【${examYear}年最新】${exam.exam_name} ${exam.session_name}の試験日は${examYear}年${examDateText}。本番まであと何日かをリアルタイムカウントダウン。出願期間（申し込み開始・締切）、合格発表日など重要日程を完全網羅。`;
 

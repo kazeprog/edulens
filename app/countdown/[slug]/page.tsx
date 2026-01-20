@@ -33,7 +33,7 @@ export async function generateMetadata(
   const displayExamName = nextExam?.exam_name || slug.toUpperCase();
 
   // 検索意図「いつ？あと何日？」をそのままタイトルに反映 + 年号
-  const title = `${displayExamName}の日程・カウントダウン【${year}年最新】 | EduLens`;
+  const title = `${displayExamName}の日程・カウントダウン【${year}年最新】`;
 
   // 問いかけと解決策（リアルタイムカウントダウン）を提示
   const description = `【${year}年～${year + 1}年】${displayExamName}の試験日はいつ？本番まであと何日かをリアルタイムでカウントダウン。日程、出願期間、合格発表日まで最新情報を一覧で掲載。`;

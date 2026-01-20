@@ -33,7 +33,7 @@ export async function generateMetadata(
   const d = new Date(event.date);
   const dateText = `${d.getMonth() + 1}月${d.getDate()}日`;
   const previousImages = (await parent).openGraph?.images || [];
-  const title = `${event.name}日程${year}｜あと何日？いつ？カウントダウン | EduLens`;
+  const title = `${event.name}日程${year}｜あと何日？いつ？カウントダウン`;
   const description = `${event.name}日程${year}年度版。試験日はいつ？${dateText}実施。試験日まであと何日かをリアルタイムでカウントダウン。出願期間や合格発表日など${event.name}の最新情報を網羅。`;
   const url = `https://edulens.jp/countdown/university/${slug}/${year}`;
 

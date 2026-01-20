@@ -39,7 +39,7 @@ export async function generateMetadata(
   // バリデーション: デフォルト年度〜その翌年まで対応
   const validYear = (targetYear >= defaultYear && targetYear <= defaultYear + 1) ? targetYear : defaultYear;
 
-  const pageTitle = `全国公立高校入試カウントダウン${validYear} - 都道府県から探す | EduLens`;
+  const pageTitle = `全国公立高校入試カウントダウン${validYear} - 都道府県から探す`;
   const pageDescription = `【${validYear}年度/令和${validYear - 2018}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`;
 
   // パラメータがある場合はパラメータ付き、なければベースURL

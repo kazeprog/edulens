@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const year = jstNow.getFullYear();
 
     return {
-        title: `資格試験日程一覧・カウントダウン【${year}年最新】 | EduLens`,
+        title: `資格試験日程一覧・カウントダウン【${year}年最新】`,
         description: `【${year}年～${year + 1}年】医師、宅建、簿記、基本情報技術者など、様々な資格試験の日程一覧。試験日までのカウントダウン、出願期間、合格発表日を確認できます。`,
         keywords: [
             `資格試験 ${year}`,
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
             canonical: 'https://edulens.jp/countdown/qualification',
         },
         openGraph: {
-            title: `資格試験日程一覧・カウントダウン【${year}年最新】 | EduLens`,
+            title: `資格試験日程一覧・カウントダウン【${year}年最新】`,
             description: `【${year}年最新】医療・法律・IT・ビジネスなど様々な資格試験の日程まとめ。あと何日で試験などのカウントダウンも確認できます。`,
             url: 'https://edulens.jp/countdown/qualification',
             type: 'website',
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
         },
         twitter: {
             card: 'summary_large_image',
-            title: `資格試験日程一覧・カウントダウン【${year}年最新】 | EduLens`,
+            title: `資格試験日程一覧・カウントダウン【${year}年最新】`,
             description: `【${year}年最新】様々な資格試験の日程とカウントダウン一覧。`,
         },
     };

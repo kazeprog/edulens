@@ -4,10 +4,10 @@ import CategoryCard from '@/components/CategoryCard';
 import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const metadata: Metadata = {
-  title: '入試カテゴリー選択 | EduLens',
+  title: '入試カテゴリー選択',
   description: '高校入試、大学入試それぞれのカウントダウンを確認できます。',
   openGraph: {
-    title: '入試カテゴリー選択 | EduLens',
+    title: '入試カテゴリー選択',
     description: '高校入試、大学入試それぞれのカウントダウンを確認できます。',
     url: 'https://edulens.jp/countdown',
     type: 'website',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '入試カテゴリー選択 | EduLens',
+    title: '入試カテゴリー選択',
     description: '高校入試、大学入試それぞれのカウントダウンを確認できます。',
   },
 };
