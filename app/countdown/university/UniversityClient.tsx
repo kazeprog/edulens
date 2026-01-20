@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
+import { getTargetExamYear } from '@/lib/date-utils';
 
 type UniversityEvent = {
     id: number;
@@ -13,13 +14,6 @@ type UniversityEvent = {
     date: string;
     description: string | null;
 };
-
-function getTargetExamYear() {
-    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-    const currentMonth = now.getMonth() + 1;
-    const currentYear = now.getFullYear();
-    return currentMonth >= 4 ? currentYear + 1 : currentYear;
-}
 
 function EventCard({ event, today }: { event: UniversityEvent; today: Date }) {
     const examDate = new Date(event.date);
@@ -78,26 +72,8 @@ function EventCard({ event, today }: { event: UniversityEvent; today: Date }) {
     );
 }
 
-function YearSection({ year, events, today }: { year: number; events: UniversityEvent[]; today: Date }) {
-    const reiwaYear = year - 2018;
+// YearSection コンポーネント削除
 
-    if (events.length === 0) return null;
-
-    return (
-        <div className="mb-12">
-            <h2 className="text-xl font-bold text-slate-700 mb-4 flex items-center gap-2">
-                <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">
-                    {year}年度 (令和{reiwaYear}年)
-                </span>
-            </h2>
-            <div className="grid gap-6">
-                {events.map((event) => (
-                    <EventCard key={event.id} event={event} today={today} />
-                ))}
-            </div>
-        </div>
-    );
-}
 
 export default function UniversityClientPage() {
     const searchParams = useSearchParams();
@@ -155,23 +131,44 @@ export default function UniversityClientPage() {
     const displayYear = specificYear || targetYear;
     const reiwaYear = displayYear - 2018;
 
-    // 現在の年度と来年の年度のイベント
-    const currentYearEvents = allEvents.filter(e => e.year === (specificYear || targetYear));
-    const nextYear = targetYear + 1;
-    const nextYearEvents = specificYear ? [] : allEvents.filter(e => e.year === nextYear);
+    // 現在の年度のイベント
+    const currentYearEvents = allEvents.filter(e => e.year === displayYear);
 
-    // 他の年度リンク（現在表示している年度以外で、利用可能な年度のみ）
+    // 他の年度リンク（現在表示している年度以外で、利用可能な年度のみ - タブにある年度は除外）
     const otherYears = availableYears.filter(y => {
-        if (specificYear) {
-            return y !== specificYear;
-        }
-        // デフォルト表示の場合、targetYearとnextYear以外
-        return y !== targetYear && y !== nextYear;
+        // タブに表示されている年度は除外
+        if (y === targetYear || y === targetYear + 1) return false;
+
+        return y !== displayYear;
     });
 
     return (
         <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
+
+                {/* ▼▼▼ 年度切り替えタブ ▼▼▼ */}
+                <div className="flex justify-center mb-8">
+                    <div className="bg-white p-1 rounded-lg border border-slate-200 shadow-sm inline-flex">
+                        {[targetYear, targetYear + 1].map((y) => {
+                            const isActive = (specificYear || targetYear) === y;
+                            // その年度のデータがあるか、またはターゲット年度(未来含む)なら表示
+                            return (
+                                <Link
+                                    key={y}
+                                    href={y === targetYear ? '/countdown/university' : `/countdown/university?year=${y}`}
+                                    prefetch={false}
+                                    className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${isActive
+                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        : 'text-slate-500 hover:text-indigo-600 hover:bg-slate-50'
+                                        }`}
+                                >
+                                    {y}年度
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+                {/* ▲▲▲ 年度切り替えタブ ▲▲▲ */}
 
                 <div className="text-center mb-12">
                     <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">
@@ -184,59 +181,22 @@ export default function UniversityClientPage() {
                         大学入学共通テストおよび国公立大学2次試験の<br className="hidden sm:inline" />
                         主要日程までのカウントダウンです。
                     </p>
-
-                    {/* 年度切替リンク - 他に表示可能な年度がある場合のみ */}
-                    {!specificYear && otherYears.length > 0 && (
-                        <div className="mt-4 flex justify-center gap-2 flex-wrap">
-                            <span className="text-sm text-slate-400">他の年度:</span>
-                            {otherYears.map(y => (
-                                <Link
-                                    key={y}
-                                    href={`/countdown/university?year=${y}`}
-                                    className="text-sm text-indigo-600 hover:underline"
-                                >
-                                    {y}年度
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                    {specificYear && (
-                        <div className="mt-4">
-                            <Link
-                                href="/countdown/university"
-                                className="text-sm text-indigo-600 hover:underline"
-                            >
-                                ← 最新の日程に戻る
-                            </Link>
-                        </div>
-                    )}
                 </div>
 
                 {loading ? (
                     <div className="text-center py-12 text-slate-400">読み込み中...</div>
                 ) : (
                     <>
-                        {/* 今年（または指定年）の日程 */}
+                        {/* 選択された年度の日程 */}
                         {currentYearEvents.length > 0 ? (
-                            specificYear ? (
-                                <div className="grid gap-6 mb-12">
-                                    {currentYearEvents.map((event) => (
-                                        <EventCard key={event.id} event={event} today={today} />
-                                    ))}
-                                </div>
-                            ) : (
-                                <YearSection year={targetYear} events={currentYearEvents} today={today} />
-                            )
+                            <div className="grid gap-6 mb-12">
+                                {currentYearEvents.map((event) => (
+                                    <EventCard key={event.id} event={event} today={today} />
+                                ))}
+                            </div>
                         ) : (
                             <div className="text-center py-12 bg-white rounded-xl border border-slate-100 text-slate-400 mb-12">
-                                {specificYear ? `${specificYear}年度の日程データが登録されていません。` : 'まだ日程データが登録されていません。'}
-                            </div>
-                        )}
-
-                        {/* 来年の日程（プレビュー） */}
-                        {!specificYear && nextYearEvents.length > 0 && (
-                            <div className="border-t border-slate-200 pt-8">
-                                <YearSection year={nextYear} events={nextYearEvents} today={today} />
+                                {`${displayYear}年度の日程データが登録されていません。`}
                             </div>
                         )}
                     </>

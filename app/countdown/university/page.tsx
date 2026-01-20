@@ -1,13 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import UniversityClient from './UniversityClient';
-
-function getTargetExamYear() {
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-  const currentMonth = now.getMonth() + 1;
-  const currentYear = now.getFullYear();
-  return currentMonth >= 4 ? currentYear + 1 : currentYear;
-}
+import { getTargetExamYear } from '@/lib/date-utils';
 
 export async function generateMetadata(): Promise<Metadata> {
   const targetYear = getTargetExamYear();
