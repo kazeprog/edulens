@@ -2,9 +2,14 @@ import { MetadataRoute } from 'next';
 import { supabase } from '@/utils/supabase/client';
 import { blogClient, isBlogClientAvailable } from '@/lib/mistap/microcms';
 import type { EduLensColumn } from '@/app/column/page';
+import { getTargetExamYear } from '@/lib/date-utils';
+
 const BASE_URL = 'https://edulens.jp';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseYear = getTargetExamYear();
+  const nextYear = baseYear + 1;
+
   // 1. 静的ルート
   const routes: MetadataRoute.Sitemap = [
     {
@@ -50,9 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    // ▼▼▼ 追加: 2027年度版のルート ▼▼▼
+    // ▼▼▼ 翌年度版のルート (動的) ▼▼▼
     {
-      url: `${BASE_URL}/countdown/highschool?year=2027`,
+      url: `${BASE_URL}/countdown/highschool?year=${nextYear}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -91,7 +96,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { contents: columns },
   ] = await Promise.all([
     supabase.from('prefectures').select('slug'),
-    supabase.from('university_events').select('slug, year').eq('year', 2026),
+    // 大学入試: 今年度以降のイベントを取得
+    supabase.from('university_events').select('slug, year').gte('year', baseYear),
     supabase.from('exam_schedules').select('slug, session_slug'),
     isBlogClientAvailable()
       ? blogClient.getList<EduLensColumn>({ endpoint: 'blogs', queries: { limit: 100, fields: 'id' } })
@@ -103,8 +109,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // --- 高校入試 (都道府県別) ---
   if (prefectures) {
-    // 2026年度と2027年度の両方を生成
-    const targetYears = [2026, 2027];
+    // 今年度と翌年度の両方を生成
+    const targetYears = [baseYear, nextYear];
     const highschoolRoutes = prefectures.flatMap((pref) =>
       targetYears.map(year => ({
         url: `${BASE_URL}/countdown/highschool/${pref.slug}/${year}`,

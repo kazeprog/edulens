@@ -3,16 +3,9 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 import GoogleAdsense from '@/components/GoogleAdsense';
+import { getTargetExamYear } from '@/lib/date-utils';
 
 export const revalidate = 86400;
-
-// 年度自動計算
-function getTargetExamYear() {
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-  const currentMonth = now.getMonth() + 1;
-  const currentYear = now.getFullYear();
-  return currentMonth >= 4 ? currentYear + 1 : currentYear;
-}
 
 const REGION_NAMES: Record<string, string> = {
   hokkaido: "北海道",
@@ -42,10 +35,9 @@ export async function generateMetadata(
 
   // パラメータがあればそれを、なければデフォルト
   const targetYear = yearParam ? parseInt(Array.isArray(yearParam) ? yearParam[0] : yearParam) : defaultYear;
-  const reiwaYear = targetYear - 2018;
 
-  // バリデーション: 未来すぎる年や過去すぎる年はデフォルトに戻す
-  const validYear = (targetYear >= 2024 && targetYear <= 2030) ? targetYear : defaultYear;
+  // バリデーション: デフォルト年度〜その翌年まで対応
+  const validYear = (targetYear >= defaultYear && targetYear <= defaultYear + 1) ? targetYear : defaultYear;
 
   const pageTitle = `全国公立高校入試カウントダウン${validYear} - 都道府県から探す | EduLens`;
   const pageDescription = `【${validYear}年度/令和${validYear - 2018}年度対応】全国47都道府県の公立高校入試日程と試験までの残り日数を一覧で確認できます。`;
@@ -99,10 +91,12 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
   const resolvedSearchParams = await searchParams;
   const yearParam = resolvedSearchParams?.year;
   const defaultYear = getTargetExamYear();
+  const targetYears = [defaultYear, defaultYear + 1];
 
   // 年度決定ロジック
   let targetYear = yearParam ? parseInt(Array.isArray(yearParam) ? yearParam[0] : yearParam) : defaultYear;
-  if (isNaN(targetYear) || targetYear < 2024 || targetYear > 2030) {
+  // バリデーション: リストに含まれていなければデフォルト
+  if (!targetYears.includes(targetYear)) {
     targetYear = defaultYear;
   }
 
@@ -161,7 +155,7 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
         {/* ▼▼▼ 年度切り替えタブ ▼▼▼ */}
         <div className="flex justify-center mb-8">
           <div className="bg-white p-1 rounded-lg border border-slate-200 shadow-sm inline-flex">
-            {[2026, 2027].map((y) => {
+            {targetYears.map((y) => {
               const isActive = y === targetYear;
               return (
                 <Link
@@ -169,8 +163,8 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
                   href={y === defaultYear ? '/countdown/highschool' : `/countdown/highschool?year=${y}`}
                   prefetch={false}
                   className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${isActive
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50'
                     }`}
                 >
                   {y}年度
