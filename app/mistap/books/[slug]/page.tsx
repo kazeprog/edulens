@@ -120,7 +120,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const pageUrl = `${siteUrl}/books/${slug}`;
 
     return {
-        title: `${book.title} | 無料Webテストアプリ - Mistap`,
+        title: `${book.title} | Mistap`,
         description: `【無料・インストール不要】${book.title}。${book.desc} アプリのインストールなしで、今すぐブラウザから単語テストを開始できます。間違えた単語のみを効率的に復習可能です。`,
         keywords: [...book.keywords, 'Mistap', 'ミスタップ', 'EduLens', '無料'],
         openGraph: {

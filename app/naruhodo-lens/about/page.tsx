@@ -38,6 +38,14 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://edulens.jp/naruhodo-lens/about',
     },
+    icons: {
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
+        ],
+        shortcut: [{ url: '/favicon.ico' }],
+        apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    },
 };
 
 // Structured Data

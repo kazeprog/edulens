@@ -12,6 +12,14 @@ export const metadata = {
         card: 'summary',
         images: ['/naruhodolenslogo.png'],
     },
+    icons: {
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
+        ],
+        shortcut: [{ url: '/favicon.ico' }],
+        apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    },
 };
 
 export default function NaruhodoLensPage() {
