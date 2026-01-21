@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
@@ -10,6 +10,7 @@ import PrintWarningModal from "@/components/mistap/PrintWarningModal";
 import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/TestActionButtons";
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
+import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
 
 interface Word {
   word_number: number;
@@ -36,6 +37,52 @@ function TestContent() {
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
+
+  const testTitle = useMemo(() => {
+    const selectedText = testData?.selectedText;
+    const startNum = testData?.startNum;
+    const endNum = testData?.endNum;
+
+    if (!selectedText) return "小テスト";
+
+    // 特殊なタイトルの場合
+    if (selectedText === "過去形" || selectedText === "過去形、過去分詞形") {
+      return <span>{selectedText} 小テスト</span>;
+    }
+
+    const normalized = normalizeTextbookName(selectedText);
+    let unitLabel = null;
+
+    // 教科書テスト（Lesson指定）または復習テストの場合の単元名抽出
+    if ((startNum == null || endNum == null) && selectedText.startsWith(normalized) && selectedText.length > normalized.length) {
+      let suffix = selectedText.substring(normalized.length).replace(/^[\s-–—]+/, '').trim();
+
+      // 復習テストの括弧を除去
+      if (suffix.includes('復習テスト')) {
+        suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
+      }
+
+      if (suffix) {
+        unitLabel = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+      }
+    }
+
+    if (unitLabel) {
+      return (
+        <span className="flex flex-col items-center">
+          <span>{normalized}</span>
+          <span className="text-xl mt-1">{unitLabel} 小テスト</span>
+        </span>
+      );
+    }
+
+    // 通常の単語番号指定の場合
+    return (startNum != null && endNum != null) ?
+      `${selectedText}(${startNum}〜${endNum}) 小テスト` :
+      `${selectedText} 小テスト`;
+
+  }, [testData]);
+
 
   function handleCancel() {
     router.push('/mistap/test-setup');
@@ -316,13 +363,35 @@ function TestContent() {
   function handleFinish() {
     if (!testData) return;
     const { selectedText, startNum, endNum, words } = testData;
-    const wrongNumbers = Array.from(tappedIds).join(',');
-    // 正解した単語番号を計算（タップされていない単語）
-    const correctNumbers = words
-      .filter((w: Word) => !tappedIds.has(w.word_number))
-      .map((w: Word) => w.word_number)
-      .join(',');
-    router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}`);
+
+    // 教科書テストの場合（startNum/endNumがnull）は、単語データを直接渡す
+    const isTextbookTest = (testData as { isTextbookTest?: boolean }).isTextbookTest || (startNum == null && endNum == null);
+
+    if (isTextbookTest) {
+      // 間違えた単語と正解した単語を抽出
+      const tappedWords = words.filter((w: Word) => tappedIds.has(w.word_number));
+      const correctWords = words.filter((w: Word) => !tappedIds.has(w.word_number));
+
+      // 結果データをJSONで渡す
+      const resultData = {
+        tappedWords,
+        correctWords,
+        total: words.length,
+        selectedText,
+        startNum: null,
+        endNum: null
+      };
+      const dataParam = encodeURIComponent(JSON.stringify(resultData));
+      router.push(`/mistap/results?data=${dataParam}`);
+    } else {
+      // 従来の単語帳テスト：単語番号のみ渡してSupabaseから取得
+      const wrongNumbers = Array.from(tappedIds).join(',');
+      const correctNumbers = words
+        .filter((w: Word) => !tappedIds.has(w.word_number))
+        .map((w: Word) => w.word_number)
+        .join(',');
+      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}`);
+    }
   }
 
   if (!testData) {
@@ -339,13 +408,7 @@ function TestContent() {
   const leftWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 0) : [];
   const rightWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 1) : [];
 
-  const testTitle = selectedText ? (
-    (selectedText === "過去形" || selectedText === "過去形、過去分詞形") ?
-      `${selectedText} 小テスト` :
-      (startNum != null && endNum != null) ?
-        `${selectedText}(${startNum}〜${endNum}) 小テスト` :
-        `${selectedText} 小テスト`
-  ) : "小テスト";
+
 
   return (
     <div className="min-h-screen">

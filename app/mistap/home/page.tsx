@@ -58,6 +58,7 @@ interface TestResult {
     selected_text: string | null;
     start_num: number | null;
     end_num: number | null;
+    unit: string | null;
     total: number;
     correct: number;
     incorrect_count: number;
@@ -823,22 +824,26 @@ export default function HomePage() {
                                                                 }`}>
                                                                 {scorePercentage}<span className="text-xs ml-0.5">%</span>
                                                             </div>
-                                                            <div>
-                                                                <h4 className="font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                                                            <div className="flex flex-col gap-1">
+                                                                <h4 className="font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">
                                                                     {result.selected_text || '小テスト'}
                                                                 </h4>
-                                                                <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
-                                                                    <span className="flex items-center gap-1">
-                                                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                                        </svg>
-                                                                        {new Date(result.created_at).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })}
-                                                                    </span>
-                                                                    {result.start_num && result.end_num && (
-                                                                        <span className="bg-gray-100 px-2 py-0.5 rounded text-xs">
+                                                                <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                                                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                    </svg>
+                                                                    {new Date(result.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' })}
+                                                                </div>
+                                                                <div className="flex items-center">
+                                                                    {result.unit ? (
+                                                                        <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium">
+                                                                            {result.unit}
+                                                                        </span>
+                                                                    ) : (result.start_num !== null && result.end_num !== null ? (
+                                                                        <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium">
                                                                             No. {result.start_num} - {result.end_num}
                                                                         </span>
-                                                                    )}
+                                                                    ) : null)}
                                                                 </div>
                                                             </div>
                                                         </div>

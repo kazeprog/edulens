@@ -23,6 +23,7 @@ interface TestResult {
   incorrect_count: number;
   incorrect_words: IncorrectWord[] | null;
   created_at: string;
+  unit: string | null;
 }
 
 interface TextbookStats {
@@ -325,13 +326,17 @@ export default function HistoryPage() {
                                     {new Date(result.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
                                   </div>
                                   <div className="font-medium text-gray-900">
-                                    {result.start_num && result.end_num ? (
+                                    {result.unit ? (
+                                      <span className="bg-gray-100 px-2 py-1 rounded-lg text-sm">
+                                        {result.unit}
+                                      </span>
+                                    ) : (result.start_num && result.end_num ? (
                                       <span className="bg-gray-100 px-2 py-1 rounded-lg text-sm">
                                         No. {result.start_num} - {result.end_num}
                                       </span>
                                     ) : (
                                       <span className="text-gray-600">全範囲</span>
-                                    )}
+                                    ))}
                                     <span className="mx-2 text-gray-300">|</span>
                                     <span className="text-gray-600 text-sm">{result.correct}/{result.total}問正解</span>
                                   </div>

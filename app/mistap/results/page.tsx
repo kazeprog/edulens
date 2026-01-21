@@ -6,6 +6,7 @@ import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
+import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
 
 interface TappedWord {
   word_number: number;
@@ -151,9 +152,32 @@ function ResultsContent() {
         const wordNumbers = Array.isArray(tappedWords) ? tappedWords.map((w: TappedWord) => w.word_number).sort((a: number, b: number) => a - b) : [];
         const testKey = `${selectedText ?? ''}::${startNum ?? ''}::${endNum ?? ''}::${wordNumbers.join(',')}`;
 
+        // 教科書名を正規化（例: "New Crown 中1 - Lesson1" -> "New Crown 中1"）
+        const normalizedTextbookName = selectedText ? normalizeTextbookName(selectedText) : null;
+
+        // 単元名を抽出（正規化された教科書名を除いた部分）
+        // 例: "New Crown 中1 - Lesson1 - Part1" -> "Lesson1 Part1"
+        // 例: "New Crown 中1 (復習テスト)" -> "復習テスト"
+        let unitName = null;
+        if (selectedText && normalizedTextbookName && selectedText.length > normalizedTextbookName.length) {
+          // 正規化名以降の部分を取得し、先頭の区切り文字（ハイフン等）を除去
+          let suffix = selectedText.substring(normalizedTextbookName.length).replace(/^[\s-–—]+/, '').trim();
+
+          // 復習テストの括弧を除去
+          if (suffix.includes('復習テスト')) {
+            suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
+          }
+
+          // 内部のハイフンをスペースに置換して見やすくする
+          if (suffix) {
+            unitName = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+          }
+        }
+
         const payload = {
           user_id: userId,
-          selected_text: selectedText ?? null,
+          selected_text: normalizedTextbookName,
+          unit: unitName, // 新しいunitカラムに保存
           start_num: startNum ?? null,
           end_num: endNum ?? null,
           total: total ?? 0,
@@ -203,11 +227,36 @@ function ResultsContent() {
   }
 
   const { tappedWords = [], total = 0 } = resultData;
-  const displayTextbook = resultData.selectedText ?? '小テスト';
-  const isReview = displayTextbook.includes('(復習テスト)');
-  const displayRange = (!isReview && resultData.startNum && resultData.endNum)
-    ? `${resultData.startNum}〜${resultData.endNum}`
-    : (!isReview ? '全範囲' : null);
+
+  // 表示用に教科書名と範囲（単元名）を分割
+  let displayTextbook = resultData.selectedText ?? '小テスト';
+  let unitLabel: string | null = null;
+  // const isReview = displayTextbook.includes('(復習テスト)'); // Check deprecated
+
+  if (resultData.selectedText) {
+    const normalized = normalizeTextbookName(resultData.selectedText);
+    // 教科書名が正規化名で始まっていて、かつ後ろに何か続いている場合のみ分割
+    if (resultData.selectedText.startsWith(normalized) && resultData.selectedText.length > normalized.length) {
+      let suffix = resultData.selectedText.substring(normalized.length).replace(/^[\s-–—]+/, '').trim();
+
+      // 復習テストの括弧を除去してきれいにする
+      if (suffix.includes('復習テスト')) {
+        suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
+      }
+
+      if (suffix) {
+        displayTextbook = normalized;
+        // 範囲表示用に整形（ハイフンをスペースに）
+        unitLabel = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+      }
+    }
+  }
+
+  const displayRange = unitLabel
+    ? unitLabel
+    : ((resultData.startNum && resultData.endNum)
+      ? `${resultData.startNum}〜${resultData.endNum}`
+      : '全範囲');
   // (correct already computed above in saveResult scope) — compute for display
   const correct = total - tappedWords.length;
 

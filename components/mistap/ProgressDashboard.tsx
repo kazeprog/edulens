@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import { getSupabase } from '@/lib/supabase';
 import { useAuth } from '@/context/AuthContext';
+import { normalizeTextbookName } from '@/lib/mistap/textbookUtils';
 
 // カラー設定
 const COLORS = {
@@ -23,6 +24,8 @@ const COLORS = {
     toCheck: '#F472B6', // 要チェック (Pink)
     notLearned: '#EF4444', // 覚えていない (Red)
 };
+
+
 
 // 単語データの型
 interface WordData {
@@ -180,10 +183,18 @@ export default function ProgressDashboard() {
         loadWordData();
     }, [loadWordData]);
 
+    // 表示用の教科書リスト（重複を除去した基本教科書名）
+    const displayTextbooks = useMemo(() => {
+        const baseNames = new Set<string>();
+        textbooks.forEach(tb => baseNames.add(normalizeTextbookName(tb)));
+        return Array.from(baseNames).sort();
+    }, [textbooks]);
+
     // 選択された教材でフィルタリングされた単語
     const filteredWords = useMemo(() => {
         if (!selectedTextbook) return allWords;
-        return allWords.filter(w => w.textbook === selectedTextbook);
+        // 基本教科書名が一致する全てのレッスンの単語を含める
+        return allWords.filter(w => normalizeTextbookName(w.textbook) === selectedTextbook);
     }, [allWords, selectedTextbook]);
 
     // フィルタリングされた単語を分類
@@ -226,7 +237,9 @@ export default function ProgressDashboard() {
         const trend: TrendDataPoint[] = [];
 
         // 選択された教材の日別統計を取得（または全教材を合算）
-        const relevantTextbooks = selectedTextbook ? [selectedTextbook] : Object.keys(dailyStatsMap);
+        const relevantTextbooks = selectedTextbook
+            ? Object.keys(dailyStatsMap).filter(tb => normalizeTextbookName(tb) === selectedTextbook)
+            : Object.keys(dailyStatsMap);
 
         for (let i = 59; i >= 0; i--) {
             const date = new Date(now);
@@ -293,7 +306,7 @@ export default function ProgressDashboard() {
         <div className="flex flex-col gap-6">
 
             {/* 教材タブ */}
-            {textbooks.length > 0 && (
+            {displayTextbooks.length > 0 && (
                 <div className="bg-white rounded-xl p-2 shadow-sm border border-gray-100">
                     <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300">
                         <button
@@ -305,7 +318,7 @@ export default function ProgressDashboard() {
                         >
                             全て
                         </button>
-                        {textbooks.map((tb) => (
+                        {displayTextbooks.map((tb) => (
                             <button
                                 key={tb}
                                 onClick={() => setSelectedTextbook(tb)}
@@ -374,7 +387,7 @@ export default function ProgressDashboard() {
                                 <Tooltip />
                             </PieChart>
                         </ResponsiveContainer>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none mb-6">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none" style={{ top: 'calc(50% - 20px)' }}>
                             <span className="text-2xl font-bold text-gray-800">{totalWords}</span>
                             <span className="block text-xs text-gray-500">語</span>
                         </div>
