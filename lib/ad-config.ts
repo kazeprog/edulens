@@ -10,6 +10,7 @@ export const NO_ADS_ROUTES_PREFIXES = [
 
 export const NO_ADS_ROUTES_EXACT = [
     "/mistap",          // Mistapトップページ（LPなので除外、配下の機能ページは表示）
+    "/",                // サイトトップ（LP）
 ];
 
 /**
