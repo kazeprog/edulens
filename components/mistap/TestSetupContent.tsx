@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
+import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
 
 // PWAインストールプロンプト用の型定義
 type BeforeInstallPromptEvent = Event & {
@@ -32,12 +33,25 @@ interface TextbookWeakWords {
 interface TestSetupContentProps {
   embedMode?: boolean;
   presetTextbook?: string;
+  initialGrade?: string;
 }
 
-export default function TestSetupContent({ embedMode = false, presetTextbook }: TestSetupContentProps) {
+export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade }: TestSetupContentProps) {
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
+
+  // 教科書テスト用の状態
+  const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>('');
+  const [selectedUnit, setSelectedUnit] = useState<{ section: number; unit: number } | null>(null);
+  const [textbookUnits, setTextbookUnits] = useState<{ section: number; unit: number; label: string; wordCount: number }[]>([]);
+  const [isCreatingTextbookTest, setIsCreatingTextbookTest] = useState(false);
+  const isCreatingTextbookTestRef = useRef(false);
+
+  // 中学テストの種類（単語帳 or 教科書）
+  const [juniorTestType, setJuniorTestType] = useState<'wordbook' | 'textbook'>('wordbook');
+  // 教科書テスト用の詳細状態
+  const [selectedSchoolGrade, setSelectedSchoolGrade] = useState<string>(initialGrade || '中1');
 
   // 通常テスト用の状態
   const [texts, setTexts] = useState<string[]>([]);
@@ -186,12 +200,22 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
     return result;
   }, [level, texts, juniorTexts, seniorTexts, universityTexts]);
 
-  // 初回マウント時にlocalStorageから前回使用した単語帳と範囲を読み込む
-  // presetTextbookが渡された場合はそれを優先
+  // 初回マウント時にlocalStorageから前回使用した設定を読み込む
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // presetTextbookが渡された場合はそれを優先
       if (presetTextbook) {
+        // 教科書テスト（NEW CROWN, NEW HORIZONなど）の場合
+        const isTextbook = TEXTBOOK_LIST.some(t => t.name === presetTextbook);
+        if (isTextbook) {
+          setLevel('junior');
+          setJuniorTestType('textbook');
+          setSelectedSchoolTextbook(presetTextbook);
+          setIsInitialized(true);
+          return;
+        }
+
+        // 通常の単語帳テストの場合
         setSelectedText(presetTextbook);
         lastTextbookRef.current = presetTextbook;
 
@@ -208,28 +232,38 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
         return;
       }
 
-      const saved = localStorage.getItem('mistap_last_textbook');
+      const savedLevel = localStorage.getItem('mistap_last_level');
+      const savedTextbook = localStorage.getItem('mistap_last_textbook');
       const savedStartNum = localStorage.getItem('mistap_last_start_num');
       const savedEndNum = localStorage.getItem('mistap_last_end_num');
       const savedCount = localStorage.getItem('mistap_last_count');
 
-      if (saved) {
-        lastTextbookRef.current = saved;
-        // 保存された値を初期選択として設定
-        setSelectedText(saved);
+      // 教科書テスト用
+      const savedJuniorTestType = localStorage.getItem('mistap_junior_test_type');
+      const savedSchoolTextbook = localStorage.getItem('mistap_selected_school_textbook');
+      const savedSchoolGrade = localStorage.getItem('mistap_selected_school_grade');
+      const savedUnit = localStorage.getItem('mistap_selected_unit');
 
-        // 保存された単語帳がどのレベルに属するか検出し、レベルを切り替え
-        if (juniorTexts.includes(saved)) {
-          setLevel('junior');
-        } else if (universityTexts.includes(saved)) {
-          setLevel('university');
-        } else if (seniorTexts.includes(saved)) {
-          setLevel('senior');
-        }
-        // どのリストにも含まれない場合は現在のレベルを維持
+      if (savedLevel) {
+        setLevel(savedLevel);
       }
 
-      // 保存された範囲を復元
+      if (savedTextbook) {
+        lastTextbookRef.current = savedTextbook;
+        setSelectedText(savedTextbook);
+
+        // レベルが未保存の場合のみ、単語帳から推論
+        if (!savedLevel) {
+          if (juniorTexts.includes(savedTextbook)) {
+            setLevel('junior');
+          } else if (universityTexts.includes(savedTextbook)) {
+            setLevel('university');
+          } else if (seniorTexts.includes(savedTextbook)) {
+            setLevel('senior');
+          }
+        }
+      }
+
       if (savedStartNum) {
         const num = parseInt(savedStartNum, 10);
         if (!isNaN(num) && num > 0) setStartNum(num);
@@ -243,9 +277,54 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
         if (!isNaN(num) && num > 0) setCount(num);
       }
 
+      // 教科書テスト設定の復元
+      if (savedJuniorTestType === 'wordbook' || savedJuniorTestType === 'textbook') {
+        setJuniorTestType(savedJuniorTestType as 'wordbook' | 'textbook');
+      }
+      if (savedSchoolTextbook) {
+        setSelectedSchoolTextbook(savedSchoolTextbook);
+      }
+      if (savedSchoolGrade) {
+        setSelectedSchoolGrade(savedSchoolGrade);
+      }
+      if (savedUnit) {
+        try {
+          setSelectedUnit(JSON.parse(savedUnit));
+        } catch (e) {
+          console.error('Failed to parse saved unit:', e);
+        }
+      }
+
       setIsInitialized(true);
     }
   }, [juniorTexts, seniorTexts, universityTexts, presetTextbook]);
+
+  // 教科書テスト用の単元読み込み
+  useEffect(() => {
+    if (activeTab === 'normal' && level === 'junior' && juniorTestType === 'textbook' && selectedSchoolTextbook) {
+      const units = getUnitsForTextbook(selectedSchoolTextbook, selectedSchoolGrade);
+      setTextbookUnits(units);
+
+      // すでに選択されている単元が、新しく取得した単元リストに含まれているかチェック
+      const isStillValid = selectedUnit && units.some(u => u.section === selectedUnit.section && u.unit === selectedUnit.unit);
+
+      if (!isStillValid) {
+        if (units.length > 0) {
+          setSelectedUnit({ section: units[0].section, unit: units[0].unit });
+        } else {
+          setSelectedUnit(null);
+        }
+      }
+    }
+  }, [activeTab, level, juniorTestType, selectedSchoolTextbook, selectedSchoolGrade]);
+
+  // 教科書の初期設定
+  useEffect(() => {
+    if (!selectedSchoolTextbook) {
+      setSelectedSchoolTextbook('New Crown');
+    }
+  }, [selectedSchoolTextbook]);
+
 
   // selectedText を filteredTexts に合わせる（初期化完了後かつデータ取得後のみ）
   useEffect(() => {
@@ -437,6 +516,10 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
         localStorage.setItem('mistap_last_start_num', sStart.toString());
         localStorage.setItem('mistap_last_end_num', sEnd.toString());
         localStorage.setItem('mistap_last_count', sCount.toString());
+        localStorage.setItem('mistap_last_level', level);
+        if (level === 'junior') {
+          localStorage.setItem('mistap_junior_test_type', 'wordbook');
+        }
       } catch {
         // localStorage保存エラー - 無視
       }
@@ -448,12 +531,82 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
       isCreatingTestRef.current = false;
       setIsCreatingTest(false);
     }
-  }, [filteredTexts, texts, startNum, endNum, count, selectedText, router]);
+  }, [filteredTexts, texts, startNum, endNum, count, selectedText, router, level]);
+
+  // 教科書テスト作成処理
+  const createTextbookTest = useCallback(async () => {
+    if (isCreatingTextbookTestRef.current || !selectedUnit) return;
+
+    isCreatingTextbookTestRef.current = true;
+    setIsCreatingTextbookTest(true);
+
+    try {
+      const words = getWordsForUnit(selectedSchoolTextbook, selectedSchoolGrade, selectedUnit.section, selectedUnit.unit);
+
+      if (words.length === 0) {
+        alert('この単元には単語が登録されていません。');
+        setIsCreatingTextbookTest(false);
+        isCreatingTextbookTestRef.current = false;
+        return;
+      }
+
+      // ランダム抽出（全単語出題。必要に応じて制限も可能）
+      // ユーザーが指定した語数（count）で制限する
+      const testWords = words.sort(() => Math.random() - 0.5).slice(0, count);
+
+      // 単元ラベルを取得
+      const unitInfo = textbookUnits.find(u => u.section === selectedUnit.section && u.unit === selectedUnit.unit);
+      const unitLabel = unitInfo ? unitInfo.label : `Lesson ${selectedUnit.section} - Part ${selectedUnit.unit}`;
+
+      const testData = {
+        words: testWords.map((w, i) => ({
+          word: w.word,
+          word_number: i + 1, // 教科書テストの場合は1からの連番にする
+          meaning: w.meaning
+        })),
+        selectedText: `${selectedSchoolTextbook} ${selectedSchoolGrade} - ${unitLabel}`,
+        startNum: null,
+        endNum: null,
+        isTextbookTest: true
+      };
+
+      // profiles.test_count を増やす
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const userId = userData?.user?.id ?? null;
+        if (userId) {
+          await supabase.rpc('increment_profile_test_count', { p_user_id: userId });
+        }
+      } catch (err) {
+        console.error('profile test_count increment error:', err);
+      }
+
+      // 選択状態を保存
+      try {
+        localStorage.setItem('mistap_last_level', 'junior');
+        localStorage.setItem('mistap_junior_test_type', 'textbook');
+        localStorage.setItem('mistap_selected_school_textbook', selectedSchoolTextbook);
+        localStorage.setItem('mistap_selected_school_grade', selectedSchoolGrade);
+        localStorage.setItem('mistap_selected_unit', JSON.stringify(selectedUnit));
+        localStorage.setItem('mistap_last_count', count.toString());
+      } catch (e) {
+        // ignore
+      }
+
+      const dataParam = encodeURIComponent(JSON.stringify(testData));
+      router.push(`/mistap/test?data=${dataParam}`);
+    } catch (err) {
+      console.error('textbook test creation error:', err);
+      setIsCreatingTextbookTest(false);
+      isCreatingTextbookTestRef.current = false;
+    }
+  }, [selectedSchoolTextbook, selectedSchoolGrade, selectedUnit, textbookUnits, count, router]);
 
   // public wrapper that uses current state (keeps compatibility)
   const createTest = useCallback(async () => {
     return await createTestImpl();
   }, [createTestImpl]);
+
 
   const urlParamsProcessed = useRef(false);
 
@@ -814,75 +967,150 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
               </div>
             </div>
 
-            {/* 教材選択 */}
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">単語帳</label>
-              <div className="relative">
-                <select
-                  value={selectedText}
-                  onChange={(e) => setSelectedText(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-50 [&>option]:text-gray-900 [&>optgroup]:text-gray-900"
-                  translate="no"
-                >
-                  {level === "junior" ? (
-                    // 中学向けは従来通り。filteredTexts が空の場合は texts を代替表示する
-                    (filteredTexts.length > 0 ? filteredTexts : texts).map((text) => (
-                      <option key={text} value={text} translate="no">
-                        {text}
-                      </option>
-                    ))
-                  ) : level === "university" ? (
-                    // 大学生・社会人向け
-                    <>
-                      {universityTexts
-                        .filter(text => texts.includes(text))
-                        .map(text => (
-                          <option key={text} value={text} translate="no">{text}</option>
-                        ))}
-                      {/* もし定義済み教材がなければ、DB の教材一覧を代替で表示 */}
-                      {universityTexts.filter(text => texts.includes(text)).length === 0 && (
-                        <>
-                          {texts.map(text => (
-                            <option key={text} value={text} translate="no">{text}</option>
-                          ))}
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    // 高校向けはグループ化（データベースに存在するもののみ）
-                    <>
-                      <optgroup label="📖 英単語">
-                        {["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"]
-                          .filter(text => texts.includes(text))
-                          .map(text => (
-                            <option key={text} value={text} translate="no">{text}</option>
-                          ))}
-                      </optgroup>
-                      <optgroup label="📜 古文単語">
-                        {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"]
-                          .filter(text => texts.includes(text))
-                          .map(text => (
-                            <option key={text} value={text} translate="no">{text}</option>
-                          ))}
-                      </optgroup>
-                      {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                      {(!["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"].some(t => texts.includes(t))) && (
-                        <>
-                          {texts.map(text => (
-                            <option key={text} value={text} translate="no">{text}</option>
-                          ))}
-                        </>
-                      )}
-                    </>
-                  )}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+            {/* 中学の場合のテストタイプ選択 */}
+            {level === 'junior' && (
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700">テストの種類</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setJuniorTestType('wordbook')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'wordbook'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    単語帳テスト
+                  </button>
+                  <button
+                    onClick={() => setJuniorTestType('textbook')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'textbook'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    教科書テスト
+                  </button>
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* 教材選択 */}
+            {!(level === 'junior' && juniorTestType === 'textbook') ? (
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700">単語帳</label>
+                <div className="relative">
+                  <select
+                    value={selectedText}
+                    onChange={(e) => setSelectedText(e.target.value)}
+                    className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900 [&>optgroup]:text-gray-900"
+                    translate="no"
+                  >
+                    {level === "junior" ? (
+                      // 中学向けは従来通り。filteredTexts が空の場合は texts を代替表示する
+                      (filteredTexts.length > 0 ? filteredTexts : texts).map((text) => (
+                        <option key={text} value={text} translate="no">
+                          {text}
+                        </option>
+                      ))
+                    ) : level === "university" ? (
+                      // 大学生・社会人向け
+                      <>
+                        {universityTexts
+                          .filter(text => texts.includes(text))
+                          .map(text => (
+                            <option key={text} value={text} translate="no">{text}</option>
+                          ))}
+                        {/* もし定義済み教材がなければ、DB の教材一覧を代替で表示 */}
+                        {universityTexts.filter(text => texts.includes(text)).length === 0 && (
+                          <>
+                            {texts.map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      // 高校向けはグループ化（データベースに存在するもののみ）
+                      <>
+                        <optgroup label="📖 英単語">
+                          {["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"]
+                            .filter(text => texts.includes(text))
+                            .map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                        </optgroup>
+                        <optgroup label="📜 古文単語">
+                          {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"]
+                            .filter(text => texts.includes(text))
+                            .map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                        </optgroup>
+                        {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
+                        {(!["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"].some(t => texts.includes(t))) && (
+                          <>
+                            {texts.map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    )}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-gray-500 ml-1">教科書</label>
+                    <select
+                      value={selectedSchoolTextbook}
+                      onChange={(e) => setSelectedSchoolTextbook(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                    >
+                      {Array.from(new Set(TEXTBOOK_LIST.map(t => t.name))).map(name => (
+                        <option key={name} value={name}>{name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-gray-500 ml-1">学年</label>
+                    <select
+                      value={selectedSchoolGrade}
+                      onChange={(e) => setSelectedSchoolGrade(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                    >
+                      {['中1', '中2', '中3'].map(grade => (
+                        <option key={grade} value={grade}>{grade}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-gray-500 ml-1">単元</label>
+                  <select
+                    value={selectedUnit ? `${selectedUnit.section}-${selectedUnit.unit}` : ''}
+                    onChange={(e) => {
+                      const [section, unit] = e.target.value.split('-').map(Number);
+                      setSelectedUnit({ section, unit });
+                    }}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                  >
+                    {textbookUnits.map(u => (
+                      <option key={`${u.section}-${u.unit}`} value={`${u.section}-${u.unit}`}>
+                        {u.label} ({u.wordCount}語)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
 
             {/* 開発用：欠けている教材の警告 */}
             {missingTexts.length > 0 && process.env.NODE_ENV === 'development' && (
@@ -902,7 +1130,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
             <div className="bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
 
               {/* 範囲指定 */}
-              {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && (
+              {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="p-1.5 bg-white rounded-lg text-gray-500 shadow-sm">
@@ -982,14 +1210,14 @@ export default function TestSetupContent({ embedMode = false, presetTextbook }: 
             {/* アクションボタン */}
             <div className="pt-2 flex flex-col md:flex-row gap-3 md:justify-between">
               <button
-                onClick={createTest}
-                disabled={isCreatingTest || !isInitialized || !selectedText}
-                className={`w-full md:w-auto py-4 px-8 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 md:order-2 ${isCreatingTest || !isInitialized || !selectedText
+                onClick={level === 'junior' && juniorTestType === 'textbook' ? createTextbookTest : createTest}
+                disabled={(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)}
+                className={`w-full md:w-auto py-4 px-8 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 md:order-2 ${(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)
                   ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
                   : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
                   }`}
               >
-                {isCreatingTest ? (
+                {(isCreatingTest || isCreatingTextbookTest) ? (
                   <>
                     <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

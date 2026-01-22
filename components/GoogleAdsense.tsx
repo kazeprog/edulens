@@ -30,8 +30,10 @@ const GoogleAdsense = ({
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
+    const containerRef = useRef<HTMLDivElement>(null);
     const adRef = useRef<HTMLModElement>(null);
     const isAdLoaded = useRef(false);
+
 
     // useEffect must be called before any conditional return (React Hooks rules)
     useEffect(() => {
@@ -50,12 +52,28 @@ const GoogleAdsense = ({
             return;
         }
 
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            isAdLoaded.current = true;
-        } catch (err) {
-            console.error('Google AdSense error:', err);
-        }
+        // コンテナの幅が0の場合は少し待ってからリトライ
+        const tryPushAd = () => {
+            if (containerRef.current) {
+                const width = containerRef.current.offsetWidth;
+                if (width === 0) {
+                    // 幅が0の場合は100ms後にリトライ
+                    setTimeout(tryPushAd, 100);
+                    return;
+                }
+            }
+
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+                isAdLoaded.current = true;
+            } catch (err) {
+                console.error('Google AdSense error:', err);
+            }
+        };
+
+        // 少し遅延させてDOMが完全にレンダリングされてから実行
+        const timer = setTimeout(tryPushAd, 100);
+        return () => clearTimeout(timer);
     }, [pathname, profile?.is_pro, loading, user, profile]);
 
     // Proユーザーまたはログイン/新規登録画面では広告を表示しない
@@ -71,7 +89,7 @@ const GoogleAdsense = ({
     }
 
     return (
-        <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
+        <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
             <ins
                 ref={adRef}
                 className="adsbygoogle"
