@@ -34,9 +34,12 @@ interface TestSetupContentProps {
   embedMode?: boolean;
   presetTextbook?: string;
   initialGrade?: string;
+  initialLesson?: number;
+  initialStartNum?: number;
+  initialEndNum?: number;
 }
 
-export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade }: TestSetupContentProps) {
+export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade, initialLesson, initialStartNum, initialEndNum }: TestSetupContentProps) {
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
@@ -57,8 +60,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const [texts, setTexts] = useState<string[]>([]);
   const [selectedText, setSelectedText] = useState<string>("ターゲット1900");
   const [level, setLevel] = useState<string>("senior");
-  const [startNum, setStartNum] = useState<number>(1);
-  const [endNum, setEndNum] = useState<number>(100);
+  const [startNum, setStartNum] = useState<number>(initialStartNum || 1);
+  const [endNum, setEndNum] = useState<number>(initialEndNum || 100);
   const [count, setCount] = useState<number>(10);
   // 前回使用した単語帳を記憶するためのフラグ
   const lastTextbookRef = useRef<string | null>(null);
@@ -211,6 +214,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
           setLevel('junior');
           setJuniorTestType('textbook');
           setSelectedSchoolTextbook(presetTextbook);
+          // initialGrade is already set in useState init
+
           setIsInitialized(true);
           return;
         }
@@ -299,24 +304,45 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
   }, [juniorTexts, seniorTexts, universityTexts, presetTextbook]);
 
-  // 教科書テスト用の単元読み込み
+  // initialLessonが変更されたときに選択ユニットを更新
   useEffect(() => {
-    if (activeTab === 'normal' && level === 'junior' && juniorTestType === 'textbook' && selectedSchoolTextbook) {
+    if (initialLesson && textbookUnits.length > 0) {
+      // 最初のユニットがLesson番号と一致するものを探す
+      // note: textbookUnits items are { section: number, unit: number, label: string }
+      const target = textbookUnits.find(u => u.section === initialLesson);
+      if (target) {
+        setSelectedUnit(target);
+      }
+    }
+  }, [initialLesson, textbookUnits]);
+
+  // 教科書選択時にUnit一覧を取得
+  useEffect(() => {
+    if (!selectedSchoolTextbook || !selectedSchoolGrade) return;
+
+    // activeTabなどのチェックを追加
+    if (activeTab === 'normal' && (level === 'junior' || juniorTestType === 'textbook')) {
+      // Load units
       const units = getUnitsForTextbook(selectedSchoolTextbook, selectedSchoolGrade);
       setTextbookUnits(units);
 
-      // すでに選択されている単元が、新しく取得した単元リストに含まれているかチェック
-      const isStillValid = selectedUnit && units.some(u => u.section === selectedUnit.section && u.unit === selectedUnit.unit);
-
-      if (!isStillValid) {
-        if (units.length > 0) {
-          setSelectedUnit({ section: units[0].section, unit: units[0].unit });
-        } else {
-          setSelectedUnit(null);
+      // reset selection if needed, but not if we just set it via initialLesson
+      if (!initialLesson) {
+        // デフォルト選択ロジック（必要なら）
+        // setSelectedUnit(null); 
+        // または既存のロジックを維持
+        const isStillValid = selectedUnit && units.some(u => u.section === selectedUnit.section && u.unit === selectedUnit.unit);
+        if (!isStillValid) {
+          if (units.length > 0) {
+            // 自動選択しない（ユーザーに選ばせる）方が良いかもしれないが、以前のロジックは自動選択していた
+            setSelectedUnit({ section: units[0].section, unit: units[0].unit });
+          } else {
+            setSelectedUnit(null);
+          }
         }
       }
     }
-  }, [activeTab, level, juniorTestType, selectedSchoolTextbook, selectedSchoolGrade]);
+  }, [selectedSchoolTextbook, selectedSchoolGrade, initialLesson, activeTab, level, juniorTestType]);
 
   // 教科書の初期設定
   useEffect(() => {

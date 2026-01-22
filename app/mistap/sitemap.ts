@@ -38,24 +38,61 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 単語帳別ランディングページ
-  const bookSlugs = [
-    'target-1900',
-    'systan',
-    'kobun-315',
-    'duo-30',
-    'leap',
-    'target-1200',
-    'kobun-330',
-    'kobun-325',
-    'toeic-gold',
+
+
+  // 新・教科書＆単語帳特設ページ (SEO強化版)
+  const textbookPaths = [
+    'textbook/new-crown',
+    'textbook/new-crown/grade1',
+    'textbook/new-crown/grade2',
+    'textbook/new-crown/grade3',
+    'textbook/new-horizon',
+    'textbook/new-horizon/grade1',
+    'textbook/new-horizon/grade2',
+    'textbook/new-horizon/grade3',
+    'textbook/system-words',
+    'textbook/target-1900',
+    'textbook/target-1200',
+    'textbook/leap',
+    'textbook/duo-30',
+    'textbook/toeic-gold',
+    'textbook/kobun-315',
+    'textbook/kobun-330',
+    'textbook/kobun-325',
   ];
 
-  const bookPages: MetadataRoute.Sitemap = bookSlugs.map((slug) => ({
-    url: `${baseUrl}/books/${slug}`,
+  // 動的Unit/Lessonページの生成
+  const { getAvailableLessons, WORDBOOK_CONFIG } = await import('@/lib/mistap/textbook-data');
+
+  // School Textbooks
+  const schoolBookConfigs = [
+    { name: 'New Crown', slug: 'new-crown', maxGrade: 3 },
+    { name: 'New Horizon', slug: 'new-horizon', maxGrade: 3 },
+  ];
+
+  schoolBookConfigs.forEach(book => {
+    for (let g = 1; g <= book.maxGrade; g++) {
+      const gradeStr = `中${g}`;
+      const lessons = getAvailableLessons(book.name, gradeStr);
+      lessons.forEach(l => {
+        textbookPaths.push(`textbook/${book.slug}/grade${g}/${l}`);
+      });
+    }
+  });
+
+  // Wordbooks
+  Object.keys(WORDBOOK_CONFIG).forEach(key => {
+    const config = WORDBOOK_CONFIG[key];
+    for (let i = 1; i <= config.totalUnits; i++) {
+      textbookPaths.push(`textbook/${key}/${i}`);
+    }
+  });
+
+  const textbookPages: MetadataRoute.Sitemap = textbookPaths.map((path) => ({
+    url: `${baseUrl}/${path}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
   }));
 
   // ブログ記事を取得
@@ -72,9 +109,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticPages, ...bookPages, ...blogPages];
+    return [...staticPages, ...textbookPages, ...blogPages];
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);
-    return [...staticPages, ...bookPages];
+    return [...staticPages, ...textbookPages];
   }
 }

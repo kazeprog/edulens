@@ -16,9 +16,22 @@ interface TextbookLPTemplateProps {
     canonicalUrl: string;
     unitLabel?: string;
     initialGrade?: string;
+    audience?: 'junior' | 'senior' | 'general';
+    bookType?: 'textbook' | 'wordbook';
 }
 
-export default function TextbookLPTemplate({ textbookName, textbookNameJa, publisherName, themeColor, presetTextbook, canonicalUrl, unitLabel = "Unit", initialGrade }: TextbookLPTemplateProps) {
+export default function TextbookLPTemplate({
+    textbookName,
+    textbookNameJa,
+    publisherName,
+    themeColor,
+    presetTextbook,
+    canonicalUrl,
+    unitLabel = "Unit",
+    initialGrade,
+    audience = 'junior',
+    bookType = 'textbook'
+}: TextbookLPTemplateProps) {
     const getThemeClasses = () => {
         // ... (theme logic remains same)
         switch (themeColor) {
@@ -100,7 +113,7 @@ export default function TextbookLPTemplate({ textbookName, textbookNameJa, publi
         "@context": "https://schema.org",
         "@type": "EducationalApplication",
         "name": `Mistap ${textbookNameJa} 英単語テスト`,
-        "educationalLevel": "MiddleSchool",
+        "educationalLevel": audience === 'senior' ? "HighSchool" : "MiddleSchool",
         "about": `${textbookNameJa} 英単語 テスト`,
         "url": canonicalUrl,
         "applicationCategory": "EducationalApplication",
@@ -111,6 +124,11 @@ export default function TextbookLPTemplate({ textbookName, textbookNameJa, publi
             "priceCurrency": "JPY"
         }
     };
+
+    const badgeLabel = audience === 'senior' ? '大学受験・共通テスト対策に' : '中学生の定期テスト対策に';
+    const descriptionText = bookType === 'wordbook'
+        ? `${textbookNameJa}（${textbookName}）は、${publisherName}の英単語帳です。`
+        : `${textbookNameJa}（${textbookName}）は、${publisherName}の中学英語教科書です。`;
 
     return (
         <>
@@ -131,17 +149,17 @@ export default function TextbookLPTemplate({ textbookName, textbookNameJa, publi
                                         <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${theme.ping} opacity-75`}></span>
                                         <span className={`relative inline-flex rounded-full h-3 w-3 ${theme.dot}`}></span>
                                     </span>
-                                    中学生の定期テスト対策に
+                                    {badgeLabel}
                                 </div>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                                     <span className={`block text-xl md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>{textbookNameJa}（{textbookName}）完全対応</span>
-                                    教科書の英単語を<br />
+                                    {bookType === 'wordbook' ? '収録英単語を' : '教科書の英単語を'}<br />
                                     <span className={theme.textHighlight}>ゲーム感覚で完全攻略</span>
                                 </h1>
                                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                                    {textbookNameJa}（{textbookName}）は、{publisherName}の中学英語教科書です。<br />
+                                    {descriptionText}<br />
                                     本ページでは{textbookNameJa}の英単語テストを{unitLabel}別に無料で提供しています。<br />
-                                    全学年・全単元に対応し、通学時間やスキマ時間にスマホひとつで予習・復習が完了します。
+                                    通学時間やスキマ時間に、スマホひとつで予習・復習が完了します。
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
                                     <Link
@@ -163,27 +181,34 @@ export default function TextbookLPTemplate({ textbookName, textbookNameJa, publi
                                     <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-sky-400 rounded-full opacity-20 blur-xl animate-pulse delay-700"></div>
 
                                     <div className="text-center mb-4">
-                                        <h3 className="text-lg font-bold text-slate-700">対応教科書</h3>
+                                        <h3 className="text-lg font-bold text-slate-700">対応教材</h3>
                                         <div className="mt-2 text-2xl font-black text-slate-800 tracking-wider">
                                             {textbookName}
                                         </div>
                                         <div className="text-sm text-slate-500 font-medium">({textbookNameJa})</div>
                                     </div>
 
-                                    <div className="grid grid-cols-3 gap-2 text-center text-sm font-semibold text-slate-600 bg-slate-50 rounded-xl p-3">
-                                        <div className="flex flex-col items-center gap-1">
-                                            <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">1</span>
-                                            <span>中1</span>
+                                    {audience === 'junior' ? (
+                                        <div className="grid grid-cols-3 gap-2 text-center text-sm font-semibold text-slate-600 bg-slate-50 rounded-xl p-3">
+                                            <div className="flex flex-col items-center gap-1">
+                                                <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">1</span>
+                                                <span>中1</span>
+                                            </div>
+                                            <div className="flex flex-col items-center gap-1">
+                                                <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">2</span>
+                                                <span>中2</span>
+                                            </div>
+                                            <div className="flex flex-col items-center gap-1">
+                                                <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">3</span>
+                                                <span>中3</span>
+                                            </div>
                                         </div>
-                                        <div className="flex flex-col items-center gap-1">
-                                            <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">2</span>
-                                            <span>中2</span>
+                                    ) : (
+                                        <div className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 rounded-xl p-3">
+                                            <CheckSquare className="w-5 h-5 text-emerald-500" />
+                                            <span>全範囲をカバー</span>
                                         </div>
-                                        <div className="flex flex-col items-center gap-1">
-                                            <span className="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-xs">3</span>
-                                            <span>中3</span>
-                                        </div>
-                                    </div>
+                                    )}
 
                                     <div className="mt-6 flex items-center justify-center">
                                         <p className="text-slate-500 text-sm">全単元・全レッスンを網羅！</p>
