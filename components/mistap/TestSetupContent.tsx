@@ -45,7 +45,12 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
 
   // 教科書テスト用の状態
-  const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>('');
+  const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>(() => {
+    if (presetTextbook && TEXTBOOK_LIST.some(t => t.name === presetTextbook)) {
+      return presetTextbook;
+    }
+    return '';
+  });
   const [selectedUnit, setSelectedUnit] = useState<{ section: number; unit: number } | null>(null);
   const [textbookUnits, setTextbookUnits] = useState<{ section: number; unit: number; label: string; wordCount: number }[]>([]);
   const [isCreatingTextbookTest, setIsCreatingTextbookTest] = useState(false);

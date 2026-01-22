@@ -6,6 +6,7 @@ import GoogleAdsense from '@/components/GoogleAdsense';
 
 
 import { useAuth } from '@/context/AuthContext';
+import { isNoAdsRoute } from '@/lib/ad-config';
 
 export default function AdLayoutWrapper({
     children,
@@ -32,7 +33,7 @@ export default function AdLayoutWrapper({
     const isPendingProfile = !!user && !profile;
     const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
 
-    const isNoAdPage = pathname === '/upgrade' || pathname?.startsWith('/upgrade/') || isPro;
+    const isNoAdPage = isNoAdsRoute(pathname) || isPro;
 
     return (
         <div className="flex flex-col min-h-screen">
