@@ -33,7 +33,7 @@ export default function ExamSchedule({ exams }: { exams: any[] }) {
 
             return (
               <div
-                key={exam.id}
+                key={`${exam.id}-${exam.date}-${exam.name}`}
                 className={`p-4 flex items-center justify-between ${isFinished ? 'bg-slate-50 text-slate-400' : 'hover:bg-slate-50 transition-colors'}`}>
 
                 {/* 左側：試験名と日程 */}

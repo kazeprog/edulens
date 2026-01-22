@@ -161,7 +161,7 @@ export default async function QualificationPage() {
             <div className="max-w-7xl mx-auto">
 
                 {/* パンくずリスト */}
-                <nav className="flex text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+                <nav className="flex justify-center text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
                     <ol className="inline-flex items-center space-x-1 md:space-x-2">
                         <li className="inline-flex items-center">
                             <Link href="/" className="hover:text-blue-600 transition-colors">EduLens</Link>

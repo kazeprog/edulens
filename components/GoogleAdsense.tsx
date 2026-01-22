@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 declare global {
@@ -30,6 +30,8 @@ const GoogleAdsense = ({
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
+    const adRef = useRef<HTMLModElement>(null);
+    const isAdLoaded = useRef(false);
 
     // useEffect must be called before any conditional return (React Hooks rules)
     useEffect(() => {
@@ -39,8 +41,18 @@ const GoogleAdsense = ({
         if (profile?.is_pro || isPendingProfile || loading) return;
         if (pathname === '/login') return;
 
+        // 既に広告がロードされている場合はスキップ
+        if (isAdLoaded.current) return;
+
+        // ins要素が既に広告を持っているかチェック
+        if (adRef.current && adRef.current.getAttribute('data-adsbygoogle-status')) {
+            isAdLoaded.current = true;
+            return;
+        }
+
         try {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
+            isAdLoaded.current = true;
         } catch (err) {
             console.error('Google AdSense error:', err);
         }
@@ -61,6 +73,7 @@ const GoogleAdsense = ({
     return (
         <div className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
             <ins
+                ref={adRef}
                 className="adsbygoogle"
                 style={style}
                 data-ad-client={client}

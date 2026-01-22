@@ -29,9 +29,40 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function UniversityTopPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "EduLens",
+        "item": "https://edulens.jp"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "入試選択",
+        "item": "https://edulens.jp/countdown"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "大学入試一覧",
+        "item": "https://edulens.jp/countdown/university"
+      }
+    ]
+  };
+
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">読み込み中...</div>}>
-      <UniversityClient />
-    </Suspense>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">読み込み中...</div>}>
+        <UniversityClient />
+      </Suspense>
+    </>
   );
 }

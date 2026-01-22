@@ -322,6 +322,39 @@ export default async function CountdownPage({ params }: { params: Params }) {
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl text-center">
 
+        {/* パンくずリスト */}
+        <nav className="flex justify-center text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-2">
+            <li className="inline-flex items-center">
+              <Link href="/" className="hover:text-blue-600 transition-colors">EduLens</Link>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href="/countdown" className="hover:text-blue-600 transition-colors ml-1">入試選択</Link>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href="/countdown/highschool" className="hover:text-blue-600 transition-colors ml-1">高校入試一覧</Link>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span className="ml-1 text-slate-700 font-medium">{displayPrefName}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
         <h1 className="sr-only">
           {displayPrefName}公立高校入試{year} カウントダウン｜日程と合格発表
         </h1>

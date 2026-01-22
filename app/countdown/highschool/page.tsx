@@ -152,6 +152,31 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
     <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
 
+        {/* パンくずリスト */}
+        <nav className="flex justify-center text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-2">
+            <li className="inline-flex items-center">
+              <Link href="/" className="hover:text-blue-600 transition-colors">EduLens</Link>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <Link href="/countdown" className="hover:text-blue-600 transition-colors ml-1">入試選択</Link>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg className="w-3 h-3 text-slate-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span className="ml-1 text-slate-700 font-medium">高校入試一覧</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
         {/* ▼▼▼ 年度切り替えタブ ▼▼▼ */}
         <div className="flex justify-center mb-8">
           <div className="bg-white p-1 rounded-lg border border-slate-200 shadow-sm inline-flex">
