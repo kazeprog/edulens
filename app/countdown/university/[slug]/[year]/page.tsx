@@ -9,6 +9,7 @@ import ServiceList from '@/components/ServiceList';
 import type { Metadata, ResolvingMetadata } from 'next';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
+import { SeoIntro, SeoParentsSection } from '@/components/countdown/CountdownSeoContent';
 
 export const revalidate = 86400;
 
@@ -179,6 +180,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
           eventDate={event.date}
           isExpired={isExpired}
         />
+        <SeoIntro />
 
         {/* 共通テスト説明 */}
         {isCommonTest && event.description && (
@@ -256,6 +258,7 @@ export default async function UniversityExamPage({ params }: { params: Params })
         {/* ▲▲▲ おすすめカード終了 ▲▲▲ */}
 
         {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
+        <SeoParentsSection />
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
           <ServiceList currentService="Countdown" />
         </div>

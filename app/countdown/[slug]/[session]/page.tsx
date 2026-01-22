@@ -10,6 +10,7 @@ import ServiceList from '@/components/ServiceList';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import type { Metadata, ResolvingMetadata } from 'next';
 import OtherQualifications from '../OtherQualifications';
+import { SeoIntro, SeoParentsSection } from '@/components/countdown/CountdownSeoContent';
 
 // ISR設定: 1分ごとにキャッシュを更新
 export const revalidate = 86400;
@@ -236,6 +237,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
           displayExamDate={displayExamDate}
           isExpired={isExpired}
         />
+        <SeoIntro />
 
         {/* 日程詳細リスト */}
         {countdownBottomContent && <BannerDisplay content={countdownBottomContent} />}
@@ -349,6 +351,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
         {/* ▲▲▲ 英検カード終了 ▲▲▲ */}
 
         {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
+        <SeoParentsSection />
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
           <ServiceList currentService="Countdown" />
         </div>

@@ -13,6 +13,7 @@ import Image from 'next/image';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 import GoogleAdsense from '@/components/GoogleAdsense';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
+import { SeoIntro, SeoParentsSection } from '@/components/countdown/CountdownSeoContent';
 
 export const revalidate = 86400;
 
@@ -381,6 +382,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
           isExpired={isExpired}
         />
 
+        <SeoIntro />
+
         {exams.length > 0 && (
           <div>
             {/* @ts-ignore-next-line Server Component importing Client Component (allowed) */}
@@ -452,6 +455,8 @@ export default async function CountdownPage({ params }: { params: Params }) {
             </div>
           </div>
         )}
+
+        <SeoParentsSection />
 
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
           <ServiceList currentService="Countdown" />
