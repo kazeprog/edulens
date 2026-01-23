@@ -20,7 +20,7 @@ export default function AdminLayout({
                 const { data: { user } } = await supabase.auth.getUser();
 
                 if (!user) {
-                    router.replace('/mistap/login'); // Redirect to login if not authenticated
+                    router.replace('/login'); // Redirect to login if not authenticated
                     return;
                 }
 
