@@ -19,7 +19,21 @@ interface TextbookLPTemplateProps {
     initialGrade?: string;
     audience?: 'junior' | 'senior' | 'general';
     bookType?: 'textbook' | 'wordbook';
+    overrideCoverTitle?: string;
+    overrideDescriptionSubject?: string;
+    seoSettings?: {
+        heroTitle?: React.ReactNode;
+        heroDescription?: string;
+        testSectionTitle?: string;
+        testSectionDescription?: React.ReactNode;
+        featuresTitle?: string;
+        featuresDescription?: React.ReactNode;
+        feature1?: { title: string; description: string };
+        feature2?: { title: string; description: string };
+        feature3?: { title: string; description: string };
+    };
 }
+
 
 export default function TextbookLPTemplate({
     textbookName,
@@ -31,7 +45,10 @@ export default function TextbookLPTemplate({
     unitLabel = "Unit",
     initialGrade,
     audience = 'junior',
-    bookType = 'textbook'
+    bookType = 'textbook',
+    overrideCoverTitle,
+    overrideDescriptionSubject,
+    seoSettings
 }: TextbookLPTemplateProps) {
     const getThemeClasses = () => {
         // ... (theme logic remains same)
@@ -127,9 +144,14 @@ export default function TextbookLPTemplate({
     };
 
     const badgeLabel = audience === 'senior' ? '大学受験・共通テスト対策に' : '中学生の定期テスト対策に';
-    const descriptionText = bookType === 'wordbook'
-        ? `${textbookNameJa}（${textbookName}）は、${publisherName}の英単語帳です。`
-        : `${textbookNameJa}（${textbookName}）は、${publisherName}の中学英語教科書です。`;
+
+    const isSameName = textbookName === textbookNameJa;
+    const defaultSubject = isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`;
+    const subject = overrideDescriptionSubject || defaultSubject;
+
+    const descriptionText = seoSettings?.heroDescription || (bookType === 'wordbook'
+        ? `${subject}は、${publisherName}の英単語帳です。`
+        : `${subject}は、${publisherName}の中学英語教科書です。`);
 
     // ローカルJSONからデータを取得
     const localWords = presetTextbook ? getJsonTextbookData(presetTextbook) : null;
@@ -156,15 +178,23 @@ export default function TextbookLPTemplate({
                                     </span>
                                     {badgeLabel}
                                 </div>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                                    <span className={`block text-xl md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>{textbookNameJa}（{textbookName}）完全対応</span>
-                                    {bookType === 'wordbook' ? '収録英単語を' : '教科書の英単語を'}<br />
-                                    <span className={theme.textHighlight}>ゲーム感覚で完全攻略</span>
-                                </h1>
+                                {seoSettings?.heroTitle || (
+                                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
+                                        <span className={`block text-xl md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>
+                                            {isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`}完全対応
+                                        </span>
+                                        {bookType === 'wordbook' ? '収録英単語を' : '教科書の英単語を'}<br />
+                                        <span className={theme.textHighlight}>ゲーム感覚で完全攻略</span>
+                                    </h1>
+                                )}
                                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
                                     {descriptionText}<br />
-                                    本ページでは{textbookNameJa}の英単語テストを{unitLabel}別に無料で提供しています。<br />
-                                    通学時間やスキマ時間に、スマホひとつで予習・復習が完了します。
+                                    {!seoSettings?.heroDescription && (
+                                        <>
+                                            本ページでは{textbookNameJa}の英単語テストを{unitLabel}別に無料で提供しています。<br />
+                                            通学時間やスキマ時間に、スマホひとつで予習・復習が完了します。
+                                        </>
+                                    )}
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
                                     <Link
@@ -187,10 +217,20 @@ export default function TextbookLPTemplate({
 
                                     <div className="text-center mb-4">
                                         <h3 className="text-lg font-bold text-slate-700">対応教材</h3>
-                                        <div className="mt-2 text-2xl font-black text-slate-800 tracking-wider">
-                                            {textbookName}
-                                        </div>
-                                        <div className="text-sm text-slate-500 font-medium">({textbookNameJa})</div>
+                                        {overrideCoverTitle ? (
+                                            <div className="mt-2 text-2xl font-black text-slate-800 tracking-wider">
+                                                {overrideCoverTitle}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="mt-2 text-2xl font-black text-slate-800 tracking-wider">
+                                                    {textbookName}
+                                                </div>
+                                                {!isSameName && (
+                                                    <div className="text-sm text-slate-500 font-medium">({textbookNameJa})</div>
+                                                )}
+                                            </>
+                                        )}
                                     </div>
 
                                     {audience === 'junior' ? (
@@ -228,11 +268,15 @@ export default function TextbookLPTemplate({
                 <section id="test-demo" className="py-20 bg-slate-50 border-t border-slate-100 border-b">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold text-slate-800 mb-4">実際のテストを試してみる</h2>
-                            <p className="text-slate-600">
-                                学年と単元を選ぶだけで、すぐにテストが始まります。<br />
-                                選択肢から「教科書テスト」を選んで、<strong>{textbookNameJa}</strong>を選択してください。
-                            </p>
+                            <h2 className="text-3xl font-bold text-slate-800 mb-4">{seoSettings?.testSectionTitle || '実際のテストを試してみる'}</h2>
+                            <div className="text-slate-600">
+                                {seoSettings?.testSectionDescription || (
+                                    <p>
+                                        学年と単元を選ぶだけで、すぐにテストが始まります。<br />
+                                        選択肢から「教科書テスト」を選んで、<strong>{textbookNameJa}</strong>を選択してください。
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
@@ -259,28 +303,32 @@ export default function TextbookLPTemplate({
                 <section className="py-20 bg-white">
                     <div className="container mx-auto px-4 max-w-6xl">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">定期テストの点数が上がる理由</h2>
-                            <p className="text-slate-600 text-lg">
-                                Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                                {textbookNameJa}のテスト範囲に合わせて、効率的に点数を伸ばすための機能が詰まっています。
-                            </p>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">{seoSettings?.featuresTitle || '定期テストの点数が上がる理由'}</h2>
+                            <div className="text-slate-600 text-lg">
+                                {seoSettings?.featuresDescription || (
+                                    <p>
+                                        Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
+                                        {textbookNameJa}のテスト範囲に合わせて、効率的に点数を伸ばすための機能が詰まっています。
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             <FeatureCard
                                 icon={<span className={`text-3xl font-black ${theme.textAccent}`}>01</span>}
-                                title="教科書のレッスン通り"
-                                description={`${textbookName}のページ順・レッスン順に単語が収録されているので、学校の授業の進度に合わせて予習・復習ができます。`}
+                                title={seoSettings?.feature1?.title || '教科書のレッスン通り'}
+                                description={seoSettings?.feature1?.description || `${textbookName}のページ順・レッスン順に単語が収録されているので、学校の授業の進度に合わせて予習・復習ができます。`}
                             />
                             <FeatureCard
                                 icon={<span className={`text-3xl font-black ${theme.textAccent}`}>02</span>}
-                                title="苦手な単語を自動リスト化"
-                                description="間違えた単語は自動的に「苦手リスト」に登録されます。テスト直前にそのリストだけを見直せば、効率よく弱点を克服できます。"
+                                title={seoSettings?.feature2?.title || '苦手な単語を自動リスト化'}
+                                description={seoSettings?.feature2?.description || "間違えた単語は自動的に「苦手リスト」に登録されます。テスト直前にそのリストだけを見直せば、効率よく弱点を克服できます。"}
                             />
                             <FeatureCard
                                 icon={<span className={`text-3xl font-black ${theme.textAccent}`}>03</span>}
-                                title="タップするだけで復習リスト作成"
-                                description="分からなかった単語をタップするだけで、あなただけの復習リストが自動で完成。覚えた単語はリストから消していくことで、効率的に学習できます。"
+                                title={seoSettings?.feature3?.title || 'タップするだけで復習リスト作成'}
+                                description={seoSettings?.feature3?.description || "分からなかった単語をタップするだけで、あなただけの復習リストが自動で完成。覚えた単語はリストから消していくことで、効率的に学習できます。"}
                             />
                         </div>
                     </div>
