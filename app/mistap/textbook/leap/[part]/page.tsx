@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import TextbookUnitLPTemplate from '@/components/mistap/TextbookUnitLPTemplate';
 import { WORDBOOK_CONFIG } from '@/lib/mistap/textbook-data';
 
+export const dynamic = "force-static";
 export async function generateStaticParams() {
     const config = WORDBOOK_CONFIG['leap'];
     return Array.from({ length: config.totalUnits }, (_, i) => ({ part: (i + 1).toString() }));

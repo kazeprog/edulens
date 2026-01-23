@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'DUO 3.0（デュオ）英単語テスト｜大学受験・ビジネス英語 無料',
     description: '現代英語の重要単語・熟語を網羅した「DUO 3.0」対応の英単語テスト。Sectionごとの例文頻出単語を無料でテストできます。',

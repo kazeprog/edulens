@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
+import { TextbookWord } from "@/lib/mistap/jsonTextbookData";
 
 // PWAインストールプロンプト用の型定義
 type BeforeInstallPromptEvent = Event & {
@@ -37,9 +38,10 @@ interface TestSetupContentProps {
   initialLesson?: number;
   initialStartNum?: number;
   initialEndNum?: number;
+  initialData?: TextbookWord[];
 }
 
-export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade, initialLesson, initialStartNum, initialEndNum }: TestSetupContentProps) {
+export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade, initialLesson, initialStartNum, initialEndNum, initialData }: TestSetupContentProps) {
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
@@ -402,6 +404,22 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   }, [selectedText, filteredTexts, isInitialized, texts]);
 
   const fetchTexts = useCallback(async () => {
+    // LP用: 静的データが渡されている場合はAPIを叩かずに即座にセット
+    if (initialData && initialData.length > 0) {
+      // initialData内のtextbook名をユニークにする
+      const texts = Array.from(new Set(initialData.map(d => d.textbook))).filter(Boolean);
+      setTexts(texts);
+
+      if (texts.length > 0) {
+        if (presetTextbook && texts.includes(presetTextbook)) {
+          setSelectedText(presetTextbook);
+        } else {
+          setSelectedText(texts[0]);
+        }
+      }
+      return;
+    }
+
     // キャッシュをチェック（5分間有効）
     const cacheKey = 'mistap_textbooks_cache';
     const cacheTimestampKey = 'mistap_textbooks_cache_timestamp';
@@ -503,12 +521,33 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     setIsCreatingTest(true);
 
     try {
-      const { data, error } = await supabase
-        .from("words")
-        .select("word, word_number, meaning")
-        .eq("text", sText)
-        .gte("word_number", sStart)
-        .lte("word_number", sEnd);
+      let data: any[] | null = null;
+      let error = null;
+
+      // 静的データがある場合はそれを使用
+      if (initialData && initialData.length > 0) {
+        // テキスト名フィルタはfetchTextsで行われているので、範囲フィルタのみでOK
+        // ただし念のためテキスト名も見る
+        data = initialData.filter(w =>
+          w.textbook === sText &&
+          w.word_number >= sStart &&
+          w.word_number <= sEnd
+        ).map(w => ({
+          word: w.word,
+          word_number: w.word_number,
+          meaning: w.meaning
+        }));
+      } else {
+        // 従来通りSupabaseから取得
+        const result = await supabase
+          .from("words")
+          .select("word, word_number, meaning")
+          .eq("text", sText)
+          .gte("word_number", sStart)
+          .lte("word_number", sEnd);
+        data = result.data;
+        error = result.error;
+      }
 
       if (error || !data) {
         alert("データの取得に失敗しました。教材が存在しない可能性があります。");

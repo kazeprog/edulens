@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ターゲット1200（Target 1200）英単語テスト｜高校基礎・共通テスト 無料',
     description: '高校英語の基礎固め「英単語ターゲット1200」対応の英単語テスト。Part/Sectionごとの頻出単語を無料でテストできます。高校入学〜共通テスト対策に最適。',

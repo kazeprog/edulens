@@ -1,0 +1,2963 @@
+[
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 1,
+    "word": "おどろく 驚く",
+    "meaning": "（はっと）気づく"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 2,
+    "word": "ののしる",
+    "meaning": "大騒ぎする 大声で騒ぐ,評判になる 噂になる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 3,
+    "word": "ねんず 念ず",
+    "meaning": "（心の中で）祈る,我慢する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 4,
+    "word": "おぼゆ 覚ゆ",
+    "meaning": "（自然に）思われる,似る 似ている,思い出される,（人から）思われる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 5,
+    "word": "しのぶ 忍ぶ",
+    "meaning": "＜耐え忍ぶ＞我慢する 恋心を包み隠す,＜人目を忍ぶ＞人目を避ける"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 6,
+    "word": "ながむ 眺む",
+    "meaning": "もの思いに沈む,（もの思いに沈んで）ぼんやり見る"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 7,
+    "word": "みゆ 見ゆ",
+    "meaning": "＜自発の意から＞（自然と）見える おもわれる,姿を見せる 現れる,＜受け身の意から＞（人から）見られる 見せる 結婚する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 8,
+    "word": "あふ",
+    "meaning": "結婚する,男女が契る"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 9,
+    "word": "ゐる 居る",
+    "meaning": "座る 動かずにいる,＜他の動詞の連用形や助詞「て」について＞〜ている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 10,
+    "word": "ありく 歩く",
+    "meaning": "動き回る 出歩く 外出する,＜動詞の連用形について＞（空間的に）（〜して）まわる （時間的に）（〜し）続ける"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 11,
+    "word": "あく 飽く",
+    "meaning": "満足する,＜「飽かず」の形で＞満ち足りない いやにならない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 12,
+    "word": "うつくし",
+    "meaning": "かわいらしい,立派だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 13,
+    "word": "かなし",
+    "meaning": "＜愛し＞いとしい かわいい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 14,
+    "word": "いみじ",
+    "meaning": "＜連用形「いみじく」「いみじう」の形で＞とても たいそう,＜好ましい場合＞とてもすばらしい とてもうれしい,＜好ましくない場合＞とても悲しい ひどい 大変だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 15,
+    "word": "をかし",
+    "meaning": "趣がある おもしろい,美しい かわいい,滑稽だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 16,
+    "word": "よし",
+    "meaning": "よい すぐれている,＜「よき人」の形で＞身分が高く教養がある"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 17,
+    "word": "あやし 奇し・怪し/賤し",
+    "meaning": "＜奇し・怪し＞不思議だ 変だ,＜奇し・怪し＞けしからん よくない,＜賤し＞身分が低い 卑しい,＜賤し＞粗末だ みすぼらしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 18,
+    "word": "おとなし 大人し",
+    "meaning": "大人らしい 大人びている,年配だ （年長で）主だっている,（年配で）思慮分別がある"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 19,
+    "word": "ゆかし",
+    "meaning": "見たい 聞きたい 知りたい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 20,
+    "word": "おぼつかなし",
+    "meaning": "ぼんやりしている はっきりしない,気がかりだ 不安だ,待ち遠しい もどかしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 21,
+    "word": "ありがたし 有難し",
+    "meaning": "めったにない,＜めったいにないほど＞立派だ すぐれている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 22,
+    "word": "めでたし",
+    "meaning": "すばらしい 立派だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 23,
+    "word": "くちをし 口惜し",
+    "meaning": "残念だ 期待外れだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 24,
+    "word": "うし 憂し",
+    "meaning": "つらい いやだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 25,
+    "word": "わびし 侘びし",
+    "meaning": "つらい 困ったことだ,興ざめだ もの足りない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 26,
+    "word": "あわれなり",
+    "meaning": "心底しみじみと感じられる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 27,
+    "word": "おろかなり 疎かなり",
+    "meaning": "おろそかだ いい加減だ,＜「言ふも」「言へば」に続けて＞（〜という）言葉では言い尽くせない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 28,
+    "word": "ねんごろなり 懇ろなり",
+    "meaning": "熱心だ 丁寧だ,親しい 親密だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 29,
+    "word": "つれづれなり 徒然なり",
+    "meaning": "（することもなく）退屈だ 所在ない 手持ちぶさただ,（一人もの思いに沈む）しんみりともの寂しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 30,
+    "word": "いたづらなり 徒らなり",
+    "meaning": "むだだ 役に立たない,手持ち無沙汰で暇だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 31,
+    "word": "としごろ 年ごろ",
+    "meaning": "長年 数年（の間）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 32,
+    "word": "かたち 形・容貌",
+    "meaning": "容貌 人の姿"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 33,
+    "word": "かげ 影",
+    "meaning": "光,姿 形"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 34,
+    "word": "ほい 本意",
+    "meaning": "かねてからの願い 本来の目的 宿願"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 35,
+    "word": "ものがたり 物語",
+    "meaning": "話 雑談 世話ばなし,（『竹取物語』『源氏物語』などの）物語"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 36,
+    "word": "ふみ 文・書",
+    "meaning": "手紙,漢詩 漢籍 学問"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 37,
+    "word": "ほど 程",
+    "meaning": "＜時間の場合＞時 時分 間,＜空間の場合＞あたり 距離 （道のり） 長さ 広さ,＜人間の場合＞身分 身の程 （分際） 年齢 間柄,＜広く一般に＞様子 程度 ほど"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 38,
+    "word": "なさけ 情け",
+    "meaning": "思いやり 人情,男女間の情愛 恋情,情趣を解する心 風流心"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 39,
+    "word": "ちぎり 契り",
+    "meaning": "約束,前世からの因縁 宿縁,男女の仲 逢瀬"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 40,
+    "word": "けしき 気色",
+    "meaning": "様子 そぶり,機嫌,思い 意向"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 41,
+    "word": "いと",
+    "meaning": "とても たいそう 実に,＜下に打消をともなって＞たいして（〜ない） それほど（〜ない）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 42,
+    "word": "あまた",
+    "meaning": "たくさん 数多く"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 43,
+    "word": "げに",
+    "meaning": "なるほど 本当に"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 44,
+    "word": "なほ",
+    "meaning": "やはり"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 45,
+    "word": "やがて",
+    "meaning": "そのまま,すぐに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 46,
+    "word": "やうやう",
+    "meaning": "だんだん しだいに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 47,
+    "word": "え〜打消",
+    "meaning": "〜できない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 48,
+    "word": "な〜そ",
+    "meaning": "〜（する）な 〜（し）てくれるな"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 49,
+    "word": "さらに〜打消",
+    "meaning": "まったく〜ない 決して〜ない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 50,
+    "word": "いかで・いかでか",
+    "meaning": "＜疑問＞どうして（〜か）,＜反語＞どうして（〜か、いや、〜ない）,＜願望＞どうにかして（〜たい・〜てほしい・〜よう）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 51,
+    "word": "にほふ 匂ふ",
+    "meaning": "美しく照り映える 美しく輝く"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 52,
+    "word": "うつろふ 移ろふ",
+    "meaning": "色が変わる （色が変わり）紅葉する （葉や花が）散る,（心が）移る 心変わりする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 53,
+    "word": "いぬ 往ぬ・去ぬ",
+    "meaning": "行く 去る,（時が）過ぎ去る"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 54,
+    "word": "あそぶ 遊ぶ",
+    "meaning": "管弦を楽しむ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 55,
+    "word": "めづ 愛づ",
+    "meaning": "感嘆する ほめる たたえる,愛する かわいがる 好む"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 56,
+    "word": "ならふ 慣らふ・馴らふ",
+    "meaning": "慣れる 習慣となる,親しむ なじむ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 57,
+    "word": "かしづく",
+    "meaning": "大切に養育する,大切に世話をする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 58,
+    "word": "たのむ 頼む",
+    "meaning": "＜四段活用＞あてにする 期待する,＜下二段活用＞あてにさせる 期待させる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 59,
+    "word": "まもる 守る",
+    "meaning": "見つめる 見守る"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 60,
+    "word": "きこゆ 聞こゆ",
+    "meaning": "聞こえる （自然に）耳に入る,世間に知られる 噂される 評判になる,理解できる 意味がわかる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 61,
+    "word": "おこす",
+    "meaning": "よこす 送ってくる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 62,
+    "word": "まうく 設く",
+    "meaning": "準備する 用意する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 63,
+    "word": "いらふ 答ふ",
+    "meaning": "答える 返事をする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 64,
+    "word": "わたる 渡る",
+    "meaning": "行く 来る 通る,＜補助動詞として＞（時間的に）ずっと（〜する） （空間的に）一面に（〜する）,＜「わたらせたまふ」の形で、「あり」「をり」の尊敬語＞いらっしゃる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 65,
+    "word": "ぐす 具す",
+    "meaning": "（引き）連れる つき従える,つき従う 連れ立つ,添える 備える 備わる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 66,
+    "word": "とぶらふ 弔ふ・訪ふ",
+    "meaning": "訪（おとず）れる 訪ねる,見舞う 安否を尋ねる,弔問する 供養する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 67,
+    "word": "ものす 物す",
+    "meaning": "いる ある,行く 来る,何かをする,＜「〜ものしたまふ」の形で＞〜（て）いらっしゃる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 68,
+    "word": "わななく",
+    "meaning": "ふるえる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 69,
+    "word": "わづらふ",
+    "meaning": "思い悩む 病気になる,苦労する 難儀する,＜補助動詞として＞〜するのに困る 〜しかねる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 70,
+    "word": "まどふ 惑ふ",
+    "meaning": "心が乱れる 途方に暮れる あわてる,＜動詞の連用形について＞ひどく（〜する）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 71,
+    "word": "かづく 被く",
+    "meaning": "＜四段活用＞（褒美を）いただく かぶる,＜下二段活用＞（ほうびを）与える かぶせる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 72,
+    "word": "うす 失す",
+    "meaning": "消える 無くなる,亡くなる 死ぬ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 73,
+    "word": "おこなふ 行ふ",
+    "meaning": "仏道の修行をする 勤行する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 74,
+    "word": "おもしろし",
+    "meaning": "（景色などが）すばらしい 趣がある,興趣がある 興味深い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 75,
+    "word": "あらまほし",
+    "meaning": "理想的だ 好ましい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 76,
+    "word": "やむごとなし",
+    "meaning": "高貴だ 尊い 大切だ,この上ない 並々でない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 77,
+    "word": "ゆゆし",
+    "meaning": "不吉だ 不吉なほど美しい 恐ろしい,すばらしい 立派だ,はなはだしい 重大だ 大変だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 78,
+    "word": "かしこし 畏し・怖し/賢し",
+    "meaning": "＜畏し・恐し＞おそれ多い もったいない,＜賢し＞すばらしい 立派だ 好都合だ,＜連用形「かしこく」の形で＞非常に"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 79,
+    "word": "うるはし",
+    "meaning": "端正だ きちんとしている 立派だ,親しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 80,
+    "word": "はかなし",
+    "meaning": "頼りない あっけない むなしい,ちょっとした とるに足りない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 81,
+    "word": "はかばかし",
+    "meaning": "しっかりしている 頼もしい,はっきりしている 際立っている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 82,
+    "word": "やさし",
+    "meaning": "優雅だ 上品だ 風流だ,けなげだ 殊勝だ 感心だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 83,
+    "word": "いはけなし",
+    "meaning": "幼い あどけない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 84,
+    "word": "かたはらいたし",
+    "meaning": "見苦しい 苦々しい,気の毒だ 心苦しい,恥ずかしい きまりが悪い,はかばかしい 笑止千万だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 85,
+    "word": "こころもとなし 心もとなし",
+    "meaning": "待ち遠しい じれったい,不安だ 心配だ,はっきりしない ぼんやりしている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 86,
+    "word": "いとほし",
+    "meaning": "かわいそうだ 気の毒だ,かわいい いとしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 87,
+    "word": "あさまし",
+    "meaning": "驚きあきれるほどだ,あきれるほどひどい,情けない 嘆かわしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 88,
+    "word": "いたし",
+    "meaning": "＜連用形「いたく」「いたう」の形で＞とても たいそう,＜打消をともなって＞たいして〜（〜ない） それほど（〜ない）,すばらしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 89,
+    "word": "つれなし",
+    "meaning": "平然としている 素知らぬふりをしている,冷淡だ 薄情だ,何の変化もない もとのままだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 90,
+    "word": "あいなし",
+    "meaning": "筋違いだ 具合が悪い,つまらない おもしろくない,＜連用形「あいなく」「あいなう」の形で＞むやみに わけもなく"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 91,
+    "word": "あぢきなし",
+    "meaning": "どうにもならない 無益だ,つまらない 苦々しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 92,
+    "word": "さがなし",
+    "meaning": "性質が良くない 意地が悪い,いたずらだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 93,
+    "word": "すさまじ",
+    "meaning": "興醒めだ,殺風景だ 荒涼としている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 94,
+    "word": "いふかひなし 言ふ甲斐なし",
+    "meaning": "どうしようもない 言っても仕方がない,取るに足りない たわいない,ひどい ふがいない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 95,
+    "word": "よしなし",
+    "meaning": "関係がない いわれがない 理由がない,方法がない しかたがない,つまらない かいがない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 96,
+    "word": "びんなし 便無し",
+    "meaning": "都合が悪い 不都合だ,困ったことだ 感心しない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 97,
+    "word": "ざうざうし",
+    "meaning": "物足りない 心寂しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 98,
+    "word": "むつかし",
+    "meaning": "うっとうしい 不快だ,わずらわしい 面倒だ,むさくるしい 見苦しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 99,
+    "word": "あてなり 貴なり",
+    "meaning": "身分が高い 高貴だ,上品だ 優美だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 100,
+    "word": "きよらなり 清らなり",
+    "meaning": "美しい 華麗だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 101,
+    "word": "さらなり 更なり",
+    "meaning": "＜「言へば」「言ふも」につづけて＞（いまさら）言うまでもない もちろんだ,＜「言へば」「言ふも」を省略して＞（いまさら）言うまでもない もちろんだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 102,
+    "word": "あらはなり 顕なり",
+    "meaning": "丸見えだ,明らかだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 103,
+    "word": "あからさまなり",
+    "meaning": "ちょっとの間だ ちょっと"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 104,
+    "word": "かたくななり 頑ななり",
+    "meaning": "情趣を解さない 教養がない,見苦しい みっともない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 105,
+    "word": "あだなり 徒なり",
+    "meaning": "はかない むなしい,不誠実だ 浮気だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 106,
+    "word": "すずろなり 漫ろなり",
+    "meaning": "あてもない わけもない,思いがけない 無関係だ つまらない,＜多く連用形「すずろに」にの形で＞むやみに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 107,
+    "word": "むげなり 無下なり",
+    "meaning": "まったくひどい 最低だ,＜「むげに」の形で＞むやみに （下に打消をともない）まったく（〜ない）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 108,
+    "word": "おほやけ 公",
+    "meaning": "朝廷,天皇"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 109,
+    "word": "きは 際",
+    "meaning": "身分 分際,程度"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 110,
+    "word": "しるし 験・徴",
+    "meaning": "＜験＞（神仏の）ご利益 霊験,＜験＞効果 効き目,＜徵＞前兆 兆候"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 111,
+    "word": "ことわり 理",
+    "meaning": "道理"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 112,
+    "word": "ためし 例",
+    "meaning": "例 先例 手本,語り草 話のたね"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 113,
+    "word": "わざ 業",
+    "meaning": "仏事 法事,＜形式名詞として＞こと 行い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 114,
+    "word": "おぼえ 覚え",
+    "meaning": "評判 人望,＜多く「御おぼえ」の形で＞寵愛（を受けること）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 115,
+    "word": "ここち 心地",
+    "meaning": "気持ち 感じ,病気 体調"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 116,
+    "word": "うつつ 現",
+    "meaning": "現実,正気"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 117,
+    "word": "つとめて",
+    "meaning": "早朝,翌朝"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 118,
+    "word": "つごもり 晦・晦日",
+    "meaning": "月末 月の下旬"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 119,
+    "word": "ついで",
+    "meaning": "（物事の）順序 順番,機会 折"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 120,
+    "word": "たより 頼り・便り",
+    "meaning": "頼れるもの よりどころ,縁故 つて,便宜 手段,機会 ついで"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 121,
+    "word": "こころざし 志",
+    "meaning": "＜相手に寄せる心＞愛情 誠意,贈り物 謝礼"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 122,
+    "word": "よし 由",
+    "meaning": "縁 関係 いわれ,方法 手段,由緒 風情 品,事情 旨 こと,そぶり ようす"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 123,
+    "word": "よろづ 万",
+    "meaning": "さまざまなこと あらゆること,＜副詞として＞すべて 万事につけて"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 124,
+    "word": "て 手",
+    "meaning": "筆跡 書 文字,演奏法 曲"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 125,
+    "word": "ざえ 才",
+    "meaning": "学問 （漢学の）学識,（音楽の）才能"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 126,
+    "word": "おのづから 自ら",
+    "meaning": "自然に ひとりでに,偶然に たまたま,＜家庭・推量の表現をともなって＞万一 ひょっとすると"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 127,
+    "word": "すなはち 即ち・則ち",
+    "meaning": "すぐに,そのまま"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 128,
+    "word": "とく 疾く",
+    "meaning": "早く すぐに,すでに とっくに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 129,
+    "word": "いつしか",
+    "meaning": "早く（〜したい・〜してほしい）,早くも"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 130,
+    "word": "なべて",
+    "meaning": "総じて おしなべて,普通 並"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 131,
+    "word": "いとど",
+    "meaning": "いっそう ますます"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 132,
+    "word": "かく",
+    "meaning": "このように"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 133,
+    "word": "とかく",
+    "meaning": "あれこれと 何やかやと"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 134,
+    "word": "しか",
+    "meaning": "そう そのように"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 135,
+    "word": "さ",
+    "meaning": "そう そのように"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 136,
+    "word": "さばかり",
+    "meaning": "その程度 それほど,非常に たいそう"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 137,
+    "word": "さながら",
+    "meaning": "そのまま もとのまま,全部 すべて"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 138,
+    "word": "つゆ〜打消",
+    "meaning": "少しも〜ない,まったく〜ない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 139,
+    "word": "よも〜じ",
+    "meaning": "まさか〜ないだろう,よもや〜まい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 140,
+    "word": "なかなか",
+    "meaning": "かえって むしろ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 141,
+    "word": "さすがに",
+    "meaning": "そうはいってもやはり"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 142,
+    "word": "かつ",
+    "meaning": "一方では,すぐに 次から次へと"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 143,
+    "word": "など・などか",
+    "meaning": "＜疑問＞どうして（〜か）,＜反語＞どうして（〜か、いや、〜ない）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 144,
+    "word": "なでふ・なんでふ",
+    "meaning": "＜疑問＞どうして（〜か）,＜反語＞どうして（〜か、いや、〜ない）"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 145,
+    "word": "ありし・ありつる",
+    "meaning": "＜「ありし」の形で＞かつての 以前の,＜「ありつる」の形で＞さっきの 先程の"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 146,
+    "word": "れいの 例の",
+    "meaning": "＜用言を修飾して＞いつものように,＜体言を修飾して＞いつもの"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 147,
+    "word": "おとにきく 音に聞く",
+    "meaning": "噂に聞く 人づてに聞く,評判が高い 有名だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 148,
+    "word": "いかがせむ いかがはせむ",
+    "meaning": "＜疑問＞どうしようか,＜反語＞どうしようもない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 149,
+    "word": "さるべき",
+    "meaning": "（そうするのが）適当な ふさわしい,そうなるはずの そうなる運命の,立派な それ相応の"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 150,
+    "word": "いざたまへ いざ給へ",
+    "meaning": "さあ（一緒に）いらっしゃい,さあ、どうぞ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 151,
+    "word": "のたまふ のたまはす 宣ふ・宣はす",
+    "meaning": "＜「言ふ」の尊敬語＞おっしゃる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 152,
+    "word": "おほす 仰す",
+    "meaning": "＜「言ふ」の尊敬語＞おっしゃる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 153,
+    "word": "きこしめす 聞こし召す",
+    "meaning": "＜「聞く」の尊敬語＞お聞きになる,＜「食ふ」「飲む」の尊敬語＞召し上がる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 154,
+    "word": "ごらんず 御覧ず",
+    "meaning": "＜「見る」の尊敬語＞ご覧になる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 155,
+    "word": "まうす 申す",
+    "meaning": "＜「言ふ」の謙譲語＞申し上げる,＜謙譲の補助動詞＞（お）〜申し上げる お〜する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 156,
+    "word": "きこゆ きこえさす 聞こゆ/聞こえさす",
+    "meaning": "＜「言ふ」の謙譲語＞申し上げる （手紙などを）差し上げる,＜謙譲の補助動詞＞（お）〜申し上げる お〜する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 157,
+    "word": "おはす おはします",
+    "meaning": "＜「あり」「をり」の尊敬語＞いらっしゃる,＜「行く」「来」の尊敬語＞いらっしゃる,＜尊敬の補助動詞＞〜ていらっしゃる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 158,
+    "word": "おぼす おぼしめす 思す/思し召す",
+    "meaning": "＜「思ふ」の尊敬語＞お思いになる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 159,
+    "word": "たまふ 賜ふ・給ふ ＜ハ行四段＞",
+    "meaning": "＜「与ふ」の尊敬語＞御与えになる くださる,＜尊敬の補助動詞＞お〜になる 〜なさる 〜てくださる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 160,
+    "word": "たまふ 賜ふ・給ふ ＜ハ行下二段＞",
+    "meaning": "＜謙譲の補助動詞＞〜ております,〜させていただく"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 161,
+    "word": "たまはす 賜はす",
+    "meaning": "＜「与ふ」の尊敬語＞お与えになる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 162,
+    "word": "たまはる 賜はる・給はる",
+    "meaning": "＜「受く」「もらふ」の謙譲語＞いただく,頂戴する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 163,
+    "word": "うけたまはる 承る",
+    "meaning": "＜「受く」の謙譲語＞お受けする 承諾し申し上げる,＜「聞く」の謙譲語＞お聞きする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 164,
+    "word": "たてまつる 奉る",
+    "meaning": "＜「与ふ」の謙譲語＞差し上げる,＜謙譲の補助動詞＞（お）〜申し上げる お〜する,＜「着る」「乗る」「食ふ・飲む」の尊敬語＞お召しになる お乗りになる 召し上がる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 165,
+    "word": "はべり 侍り",
+    "meaning": "＜「あり」「をり」の謙譲語＞（高貴な方のおそばに）お仕えする 伺候する,＜「あり」「をり」の丁寧語＞あります おります ございます,＜丁寧語の補助動詞＞〜（ござい）ます 〜です"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 166,
+    "word": "さぶらふ 候ふ",
+    "meaning": "＜「あり」「をり」の謙譲語＞（高貴な方のおそばに）お仕えする 伺候する,＜「あり」「をり」の丁寧語＞あります おります ございます,＜丁寧語の補助動詞＞〜ございます 〜です"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 168,
+    "word": "まうづ 詣づ",
+    "meaning": "＜「行く」の謙譲語＞参上する うかがう,＜寺社に「行く」の謙譲語＞参詣する お参りする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 169,
+    "word": "まゐる 参る",
+    "meaning": "＜「行く」「来」の謙譲語＞参上する,＜「与ふ」の謙譲語＞差し上げる,＜「す」の謙譲語＞（高貴な方に何かを）し申し上げる して差し上げる,＜「食ふ」「飲む」の尊敬語＞召し上がる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 170,
+    "word": "まゐらす 参らす",
+    "meaning": "＜「与ふ」の謙譲語＞差し上げる,＜謙譲の補助動詞＞（お）〜申し上げる お〜する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 171,
+    "word": "まかる 罷る",
+    "meaning": "＜「出づ」の謙譲語＞退出する おいとまする,＜「行く」の丁寧語＞参ります 出かけます,＜他の動詞の上につき、謙譲・丁寧のいを表す＞〜申す 〜ます"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 172,
+    "word": "まかづ 罷づ",
+    "meaning": "＜「出づ」の謙譲語＞退出する おいとまする,＜「行く」の丁寧語＞出かけます 参ります"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 173,
+    "word": "つかはす 遣はす",
+    "meaning": "＜「遣る」の尊敬語＞（使者として）おやりになる おつかわしになる,＜「与ふ」「贈る」の尊敬語＞お与えになる お贈りになる,＜敬意を含まない＞贈る 行かせる やる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 174,
+    "word": "あそばす 遊ばす",
+    "meaning": "（音楽の）演奏をなさる （詩歌を）お詠みになる,＜身分の高い人の行為一般に敬意を表して＞〜（を）なさる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 175,
+    "word": "つかうまつる 仕うまつる",
+    "meaning": "＜「仕ふ」の謙譲語＞お仕え申し上げる,＜「す」の謙譲語＞（高貴な方に何かを）し申し上げる いたす,＜謙譲の補助動詞＞（お）〜申し上げる お〜する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 176,
+    "word": "おほとのごもる 大殿籠る",
+    "meaning": "＜「寝」「寝ぬ」の尊敬語＞おやすみになる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 177,
+    "word": "しろしめす",
+    "meaning": "＜「知る」の尊敬語＞ご存知である 知っていらっしゃる,＜「領る」の尊敬語＞お治めになる 領有なさる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 178,
+    "word": "行幸・行啓・御幸",
+    "meaning": "＜行幸＞天皇のおでかけ,＜行啓＞皇后・皇太子などのお出かけ,＜御幸＞上皇・法皇・女院のお出かけ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 179,
+    "word": "そうす 奏す",
+    "meaning": "＜「言ふ」の謙譲語＞（天皇・上皇に）申し上げる 奏上する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 180,
+    "word": "けいす 啓す",
+    "meaning": "＜「言ふ」の謙譲語＞（皇后・皇太子に）申し上げる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 181,
+    "word": "しる 領る",
+    "meaning": "（土地を）領有する,（国を）治める"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 182,
+    "word": "あくがる",
+    "meaning": "さまよい出る,（魂が）宙に彷徨う,（心が）うわの空になる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 183,
+    "word": "やすらふ 休らふ",
+    "meaning": "立ち止まる とどまる,ためらう 躊躇する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 184,
+    "word": "うちいづ うち出づ",
+    "meaning": "口に出して言う"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 185,
+    "word": "やつす",
+    "meaning": "地味な格好にする,目立たない様子をする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 186,
+    "word": "おとなふ 音なふ",
+    "meaning": "音を立てる 声を立てる,手紙を出す 訪れる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 187,
+    "word": "そばむ 側む",
+    "meaning": "横を向く"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 188,
+    "word": "かたらふ 語らふ",
+    "meaning": "交際する 親しくする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 189,
+    "word": "すむ 住む",
+    "meaning": "（男が女のもとに）通う"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 190,
+    "word": "さはる 障る",
+    "meaning": "妨げられる,差し支える"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 191,
+    "word": "あるじす 饗す",
+    "meaning": "客にごちそうする,客をもてなす"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 192,
+    "word": "もてなす",
+    "meaning": "振る舞う,取り扱う 取り計らう,もてはやす 大切に扱う"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 193,
+    "word": "きようず 興ず",
+    "meaning": "面白がる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 194,
+    "word": "およすぐ",
+    "meaning": "成長する 大人になる,大人びる ませる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 195,
+    "word": "ときめく 時めく",
+    "meaning": "寵愛を受ける,時流に乗って栄える"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 196,
+    "word": "さる 避る",
+    "meaning": "避ける 逃れる,断る 辞退する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 197,
+    "word": "こうず 困ず",
+    "meaning": "疲れる,疲労する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 198,
+    "word": "掻き暗す",
+    "meaning": "悲しみが心を暗くする,涙が目の前を暗くする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 199,
+    "word": "うれふ 憂ふ・愁ふ",
+    "meaning": "訴える,悲しみなげく"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 200,
+    "word": "かこつ 託つ",
+    "meaning": "不平を言う,文句を言う"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 201,
+    "word": "いたはる 労る",
+    "meaning": "病気になる 疲労する,骨を折る 苦労する,世話をする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 202,
+    "word": "ためらふ",
+    "meaning": "静養する 病勢を抑える,気を静める 感情を抑える"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 203,
+    "word": "おこたる 怠る",
+    "meaning": "病気が良くなる,病気が快方に向かう"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 204,
+    "word": "なやむ 悩む",
+    "meaning": "病気で苦しむ,気分がすぐれなくなる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 205,
+    "word": "おくる 遅る・後る",
+    "meaning": "先立たれる,先に死なれる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 206,
+    "word": "したたむ 認む",
+    "meaning": "処理する 整理する,用意する 準備する,取り締まる 治める"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 207,
+    "word": "あたらし 惜し",
+    "meaning": "もったいない 惜しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 208,
+    "word": "かたじけなし",
+    "meaning": "恐れ多い もったいない,ありがたい もったいない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 209,
+    "word": "をこがまし 痴がまし",
+    "meaning": "愚かしい,みっともない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 210,
+    "word": "こころにくし 心憎し",
+    "meaning": "奥ゆかしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 211,
+    "word": "さかし 賢し",
+    "meaning": "かしこい 賢明だ,気が利いている 才気がある,気がしっかりしている 気丈だ,こざかしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 212,
+    "word": "すきずきし 好き好きし",
+    "meaning": "好色めいている 色好みだ,風流だ 物好きだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 213,
+    "word": "なまめかし",
+    "meaning": "優美だ,みずみずしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 214,
+    "word": "いまめかし 今めかし",
+    "meaning": "現代風だ 当世風だ,華やかだ 目新しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 215,
+    "word": "しどけなし",
+    "meaning": "無造作だ 気楽なかんじだ,乱れている だらしがない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 216,
+    "word": "つきづきし",
+    "meaning": "似つかわしい,ふさわしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 217,
+    "word": "なつかし",
+    "meaning": "好ましい,感じが良い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 218,
+    "word": "めやすし 目安し",
+    "meaning": "見苦しくない,感じよい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 219,
+    "word": "こころやすし 心安し",
+    "meaning": "安心だ,気楽だ 気安い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 220,
+    "word": "うしろめたし 後ろめたし",
+    "meaning": "心配だ,気がかりだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 221,
+    "word": "こころぐるし 心苦し",
+    "meaning": "つらい 心配だ,気の毒だ 見ていてつらい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 222,
+    "word": "まばゆし",
+    "meaning": "見ていられない 目を背けたいほどだ,恥ずかしい 照れくさい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 223,
+    "word": "はづかし 恥づかし",
+    "meaning": "（こちらが気後れするほど）立派だ すぐれている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 224,
+    "word": "つたなし 拙し",
+    "meaning": "下手だ 拙劣だ,劣っている 凡庸だ,下品だ 見苦しい,不運だ 運が悪い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 225,
+    "word": "こちたし",
+    "meaning": "仰々しい,はなはだしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 226,
+    "word": "さうなし 左右無し",
+    "meaning": "ためらわない,無造作だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 227,
+    "word": "ところせし 所狭し",
+    "meaning": "いっぱいだ あふれるくらいだ,窮屈だ 不自由だ,大袈裟だ 仰々しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 228,
+    "word": "つつまし 慎まし",
+    "meaning": "気がひける,気恥ずかしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 229,
+    "word": "まさなし",
+    "meaning": "よくない 不都合だ,見苦しい みっともない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 230,
+    "word": "ねたし 妬し",
+    "meaning": "しゃくにさわる,憎らしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 231,
+    "word": "まだし",
+    "meaning": "まだ時期が早い 時期尚早だ,不十分だ 未熟だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 232,
+    "word": "はしたなし",
+    "meaning": "不釣り合いだ,無愛想だ,はげしい 強い,きまりが悪い 体裁が悪い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 233,
+    "word": "わりなし",
+    "meaning": "道理にあわない 無理だ,並々ではない はなはだしい,耐え難い つらい,しかたがない やむをえない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 234,
+    "word": "ずちなし 術無し",
+    "meaning": "どうしようもない,しかたがない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 235,
+    "word": "あへなし",
+    "meaning": "あっけない はりあいがない,（今更）どうしようもない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 236,
+    "word": "くまなし 隈無し",
+    "meaning": "暗いところがない 影の部分がない,行き届かないところがない いたらないところがない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 237,
+    "word": "めざまし",
+    "meaning": "気に食わない,不愉快だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 238,
+    "word": "こころづきなし 心付きなし",
+    "meaning": "気に入らない,気に食わない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 239,
+    "word": "ゆくりなし",
+    "meaning": "突然だ,思いがけない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 240,
+    "word": "あつし 篤し",
+    "meaning": "病状が重い,病弱である"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 241,
+    "word": "あながちなり 強ちなり",
+    "meaning": "無理矢理だ 強引だ,無闇だ はなはだしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 242,
+    "word": "なめげなり",
+    "meaning": "無礼だ,無作法だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 243,
+    "word": "なのめなり",
+    "meaning": "並一通りだ ありきたりだ,いい加減だ おろそかだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 244,
+    "word": "おぼろけなり",
+    "meaning": "並一通りだ ありきたりだ,並々ではない 格別だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 245,
+    "word": "あやにくなり",
+    "meaning": "（思いに反して）ひどい,（思いに反して）はなはだしい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 246,
+    "word": "まめやかなり",
+    "meaning": "まじめだ 本気だ,実生活向きだ 実用的だ,本格的だ 本式だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 247,
+    "word": "せちなり 切なり",
+    "meaning": "切実だ 身にしみる,大切だ 切迫している,＜「せちに」の形で＞ひたすら いちずに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 248,
+    "word": "よそなり",
+    "meaning": "無縁だ,無関係だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 249,
+    "word": "うちつけなり",
+    "meaning": "突然だ だしぬけだ,軽率だ 無礼だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 250,
+    "word": "とみなり 頓なり",
+    "meaning": "急だ,＜「とみに」の形で＞すぐに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 251,
+    "word": "みそかなり 密かなり",
+    "meaning": "ひそかだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 252,
+    "word": "こまやかなり",
+    "meaning": "心を込めている 丁寧だ,色が濃い,繊細で美しい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 253,
+    "word": "らうたげなり",
+    "meaning": "かわいらしい,可憐だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 254,
+    "word": "いうなり 優なり",
+    "meaning": "優美だ,優れている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 255,
+    "word": "うち 内裏",
+    "meaning": "宮中 内裏,天皇 帝"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 256,
+    "word": "うへ 上",
+    "meaning": "天皇 帝,奥様 奥方,御座所 貴人のいる所"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 257,
+    "word": "しな 品",
+    "meaning": "身分,家柄"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 258,
+    "word": "ふるさと 古里",
+    "meaning": "古都 旧都,なじみのある土地,実家 我が家"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 259,
+    "word": "こころばへ 心延へ",
+    "meaning": "心遣い 配慮,性格 性質,趣 風情"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 260,
+    "word": "ひま 隙",
+    "meaning": "隙間,絶え間,すき 機会"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 261,
+    "word": "ひがごと 僻事",
+    "meaning": "間違い,過ち"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 262,
+    "word": "とが 咎・科",
+    "meaning": "欠点 短所,罪 過ち"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 263,
+    "word": "そらごと 空言・虚言",
+    "meaning": "嘘,偽り"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 264,
+    "word": "せうそこ 消息",
+    "meaning": "手紙 伝言,訪問 来意を告げること"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 265,
+    "word": "くもゐ 雲居",
+    "meaning": "宮中 都,天上 空,遠く離れた所 はるか遠い所"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 266,
+    "word": "かしこまり 畏まり",
+    "meaning": "お礼,お詫び,謹慎"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 267,
+    "word": "よ・よのなか 世・世の中",
+    "meaning": "男女の仲 夫婦の仲"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 268,
+    "word": "かぎり 限り",
+    "meaning": "（人生の）最期 最後,すべて 全部,だけ ばかり"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 269,
+    "word": "ここら・そこら",
+    "meaning": "たくさん"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 270,
+    "word": "かたみに 互に",
+    "meaning": "互いに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 271,
+    "word": "わざと",
+    "meaning": "わざわざ,特別に とりわけ,＜「わざとの」の形で＞本格的な 本式の"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 272,
+    "word": "うたて",
+    "meaning": "いやなことに 不快に"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 273,
+    "word": "かねて 予ねて",
+    "meaning": "前もって 前から,＜日数を示す語の下について＞〜前から"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 274,
+    "word": "やをら",
+    "meaning": "そっと 静かに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 275,
+    "word": "よもすがら 夜もすがら",
+    "meaning": "一晩中,夜通し"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 276,
+    "word": "ゆめ・ゆめゆめ〜打消・禁止",
+    "meaning": "まったく〜ない 少しも〜ない,決して〜（し）てはいけない 断じて〜（し）てはいけない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 277,
+    "word": "をさをさ〜打消",
+    "meaning": "ほとんど〜ない,めったに〜ない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 278,
+    "word": "あなかま",
+    "meaning": "しっ、静かに,ああ、うるせぇ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 279,
+    "word": "かちより 徒歩より",
+    "meaning": "歩いて,徒歩で"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 280,
+    "word": "けしからず",
+    "meaning": "異様だ,変だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 281,
+    "word": "おもひやる 思ひ遣る",
+    "meaning": "想像する,思いを馳せる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 282,
+    "word": "おきつ 掟つ",
+    "meaning": "あらかじめ決める 決めておく,指図する 命令する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 283,
+    "word": "すまふ 争ふ・辞ふ",
+    "meaning": "抵抗する,断る"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 284,
+    "word": "さす 鎖す",
+    "meaning": "閉める 鍵をかける,＜動詞の連用形について＞途中で〜（する）のをやめる"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 285,
+    "word": "しほたる 潮垂る",
+    "meaning": "涙で袖が濡れる,涙を流す"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 286,
+    "word": "たばかる 謀る",
+    "meaning": "工夫する 一計を案じる,だます 誤魔化す"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 287,
+    "word": "まつりごつ 政ごつ",
+    "meaning": "政治をおこなう"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 288,
+    "word": "らうらうじ 労労じ",
+    "meaning": "物馴れている 才たけている,気品がある 洗練されている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 289,
+    "word": "むくつけし",
+    "meaning": "不気味だ,気味が悪い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 290,
+    "word": "おほけなし",
+    "meaning": "身の程知らずだ,分不相応だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 291,
+    "word": "いぶせし",
+    "meaning": "気が晴れない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 292,
+    "word": "しるし 著し",
+    "meaning": "明白だ 明瞭だ,＜「〜もしるく」の形で＞〜もその通りに 〜もてきめんに"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 293,
+    "word": "こよなし",
+    "meaning": "格段である 格段の差がある,格段に劣っている"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 294,
+    "word": "くやし 悔し",
+    "meaning": "悔やまれる,後悔される"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 295,
+    "word": "たのし 楽し",
+    "meaning": "裕福だ,豊かだ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 296,
+    "word": "おもはずなり 思はずなり",
+    "meaning": "思いがけない,意外だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 297,
+    "word": "ことなり 異なり",
+    "meaning": "別である 他と違う,＜「こと＋名詞」の形で＞違う〜 異なる〜"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 298,
+    "word": "いろ 色",
+    "meaning": "情趣 風情,恋愛 異性"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 299,
+    "word": "こころ 心",
+    "meaning": "情趣を解する心,風流心"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 300,
+    "word": "ゆゑ 故",
+    "meaning": "理由 わけ,品格 由緒,風情 趣"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 301,
+    "word": "あない 案内",
+    "meaning": "内情"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 302,
+    "word": "さた 沙汰",
+    "meaning": "評議 評定,指図 命令,処置 始末"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 303,
+    "word": "やう 様",
+    "meaning": "わけ 事情,手段 方法,こと 様子"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 304,
+    "word": "あらまし",
+    "meaning": "計画 予定,願い"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 305,
+    "word": "いそぎ 急ぎ",
+    "meaning": "準備,用意"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 306,
+    "word": "つま 端",
+    "meaning": "先 端,きっかけ 糸口"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 307,
+    "word": "はらから 同胞",
+    "meaning": "兄弟姉妹"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 308,
+    "word": "けぢめ",
+    "meaning": "区別,ちがい"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 309,
+    "word": "そのかみ 其の上",
+    "meaning": "その時,その昔"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 310,
+    "word": "ただびと 徒人・直人",
+    "meaning": "臣下,普通の貴族"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 311,
+    "word": "をりふし 折節",
+    "meaning": "ちょうどその時 折も折,＜名詞として＞その時々 折々 季節"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 312,
+    "word": "はやく 早く",
+    "meaning": "以前 昔,すでに とっくに,＜「はやく〜けり」の形で＞なんとまあ 実は"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 313,
+    "word": "つくづくと",
+    "meaning": "しんみりと,しみじみと"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 314,
+    "word": "せめて",
+    "meaning": "無理矢理 しいて,非常に きわめて"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 315,
+    "word": "さりとて",
+    "meaning": "いくらなんでも,それにしても"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 316,
+    "word": "さて",
+    "meaning": "そのまま その様な状態で,＜「さての」の形で＞そのほかの それ以外の"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 317,
+    "word": "おほかた〜打消",
+    "meaning": "まったく〜ない,少しも〜ない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 318,
+    "word": "かまへて",
+    "meaning": "注意して 気をつけて,ぜひとも,けっして"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 319,
+    "word": "させる",
+    "meaning": "たいした,これといった"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 320,
+    "word": "さはれ",
+    "meaning": "どうにでもなれ,ままよ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 321,
+    "word": "いとしもなし",
+    "meaning": "たいしたことはない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 322,
+    "word": "かずならず 数ならず",
+    "meaning": "取るに足りない,物の数ではない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 323,
+    "word": "いかにぞや 如何にぞや",
+    "meaning": "あまり感心しない,どんなものか"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 324,
+    "word": "さればよ さればこそ",
+    "meaning": "思った通りだ,案の定だ"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 325,
+    "word": "よのつねなり 世の常なり",
+    "meaning": "ありきたりだ 普通だ,月並みな表現"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 326,
+    "word": "ただならず",
+    "meaning": "様子が普通ではない,心が平静ではない,＜「ただならずなる」の形で＞妊娠する 懐妊する"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 327,
+    "word": "ものもおぼえず 物も覚えず",
+    "meaning": "呆然としている われを失っている,道理をわきまえない"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 328,
+    "word": "ひとやりならず 人遣りならず",
+    "meaning": "他のせいではなく、自分の心からする"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 329,
+    "word": "またのひ 又の日",
+    "meaning": "翌日,次の日"
+  },
+  {
+    "textbook": "Key＆Point古文単語330",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 330,
+    "word": "〜あへず",
+    "meaning": "最後まで〜しきれない"
+  }
+]

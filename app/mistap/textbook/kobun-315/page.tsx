@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '重要古文単語315（読んで見て聞いて覚える）対応テスト｜大学受験 無料',
     description: '「重要古文単語315」対応の古文単語テスト。イラスト付で人気の単語帳の内容を無料でテストできます。共通テスト・大学受験の古文対策に。',

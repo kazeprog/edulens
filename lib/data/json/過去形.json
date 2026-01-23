@@ -1,0 +1,560 @@
+[
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 1,
+    "word": "am, is / are",
+    "meaning": "was / were"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 2,
+    "word": "become",
+    "meaning": "became"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 3,
+    "word": "begin",
+    "meaning": "began"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 4,
+    "word": "break",
+    "meaning": "broke"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 5,
+    "word": "bring",
+    "meaning": "brought"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 6,
+    "word": "build",
+    "meaning": "built"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 7,
+    "word": "buy",
+    "meaning": "bought"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 8,
+    "word": "catch",
+    "meaning": "caught"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 9,
+    "word": "choose",
+    "meaning": "chose"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 10,
+    "word": "come",
+    "meaning": "came"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 11,
+    "word": "cut",
+    "meaning": "cut"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 12,
+    "word": "do, does",
+    "meaning": "did"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 13,
+    "word": "draw",
+    "meaning": "drew"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 14,
+    "word": "drive",
+    "meaning": "drove"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 15,
+    "word": "eat",
+    "meaning": "ate"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 16,
+    "word": "fall",
+    "meaning": "fell"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 17,
+    "word": "feel",
+    "meaning": "felt"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 18,
+    "word": "find",
+    "meaning": "found"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 19,
+    "word": "forget",
+    "meaning": "forgot"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 20,
+    "word": "get",
+    "meaning": "got"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 21,
+    "word": "give",
+    "meaning": "gave"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 22,
+    "word": "go",
+    "meaning": "went"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 23,
+    "word": "grow",
+    "meaning": "grew"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 24,
+    "word": "have, has",
+    "meaning": "had"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 25,
+    "word": "hear",
+    "meaning": "heard"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 26,
+    "word": "hold",
+    "meaning": "held"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 27,
+    "word": "hurt",
+    "meaning": "hurt"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 28,
+    "word": "keep",
+    "meaning": "kept"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 29,
+    "word": "know",
+    "meaning": "knew"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 30,
+    "word": "leave",
+    "meaning": "left"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 31,
+    "word": "let",
+    "meaning": "let"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 32,
+    "word": "mean",
+    "meaning": "meant"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 33,
+    "word": "lose",
+    "meaning": "lost"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 34,
+    "word": "make",
+    "meaning": "made"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 35,
+    "word": "meet",
+    "meaning": "met"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 36,
+    "word": "put",
+    "meaning": "put"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 37,
+    "word": "read",
+    "meaning": "read"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 38,
+    "word": "ride",
+    "meaning": "rode"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 39,
+    "word": "rise",
+    "meaning": "rose"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 40,
+    "word": "run",
+    "meaning": "ran"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 41,
+    "word": "say",
+    "meaning": "said"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 42,
+    "word": "see",
+    "meaning": "saw"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 43,
+    "word": "sell",
+    "meaning": "sold"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 44,
+    "word": "send",
+    "meaning": "sent"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 45,
+    "word": "set",
+    "meaning": "set"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 46,
+    "word": "show",
+    "meaning": "showed"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 47,
+    "word": "sing",
+    "meaning": "sang"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 48,
+    "word": "sit",
+    "meaning": "sat"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 49,
+    "word": "sleep",
+    "meaning": "slept"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 50,
+    "word": "speak",
+    "meaning": "spoke"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 51,
+    "word": "spend",
+    "meaning": "spent"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 52,
+    "word": "spread",
+    "meaning": "spread"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 53,
+    "word": "stand",
+    "meaning": "stood"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 54,
+    "word": "swim",
+    "meaning": "swam"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 55,
+    "word": "take",
+    "meaning": "took"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 56,
+    "word": "teach",
+    "meaning": "taught"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 57,
+    "word": "tell",
+    "meaning": "told"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 58,
+    "word": "think",
+    "meaning": "thought"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 59,
+    "word": "understand",
+    "meaning": "understood"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 60,
+    "word": "wake",
+    "meaning": "woke"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 61,
+    "word": "win",
+    "meaning": "won"
+  },
+  {
+    "textbook": "過去形",
+    "grade": "",
+    "section": 0,
+    "unit": 0,
+    "word_number": 62,
+    "word": "write",
+    "meaning": "wrote"
+  }
+]

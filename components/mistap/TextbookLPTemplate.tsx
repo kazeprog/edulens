@@ -6,6 +6,7 @@ import { CheckCircle, BookOpen, Zap, Trophy, ChevronRight, GraduationCap, School
 import SiteFooter from '@/components/SiteFooter';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
+import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 interface TextbookLPTemplateProps {
     textbookName: string;
@@ -130,6 +131,10 @@ export default function TextbookLPTemplate({
         ? `${textbookNameJa}（${textbookName}）は、${publisherName}の英単語帳です。`
         : `${textbookNameJa}（${textbookName}）は、${publisherName}の中学英語教科書です。`;
 
+    // ローカルJSONからデータを取得
+    const localWords = presetTextbook ? getJsonTextbookData(presetTextbook) : null;
+    const initialData = localWords ? localWords : undefined;
+
     return (
         <>
             <script
@@ -231,7 +236,12 @@ export default function TextbookLPTemplate({
                         </div>
 
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-                            <TestSetupContent embedMode={true} presetTextbook={presetTextbook} initialGrade={initialGrade} />
+                            <TestSetupContent
+                                embedMode={true}
+                                presetTextbook={presetTextbook}
+                                initialGrade={initialGrade}
+                                initialData={initialData}
+                            />
                         </div>
 
                         <div className="mt-8 text-center">

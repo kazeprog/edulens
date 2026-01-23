@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ニューホライズン 中3 英単語テスト（NEW HORIZON）Unit別・無料',
     description: '中学3年生の英語教科書「ニューホライズン（NEW HORIZON）」対応の英単語テスト。Unitごとの単語を無料でテストできます。定期テスト・高校受験対策に最適。',

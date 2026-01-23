@@ -11,6 +11,7 @@ import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/T
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
+import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 interface Word {
   word_number: number;
@@ -212,12 +213,32 @@ function TestContent() {
           const endNum = parseInt(endParam);
           const count = parseInt(countParam);
 
-          const { data, error } = await supabase
-            .from("words")
-            .select("word, word_number, meaning")
-            .eq("text", selectedText)
-            .gte("word_number", startNum)
-            .lte("word_number", endNum);
+          let data: any[] | null = null;
+          let error = null;
+
+          // ローカルJSONデータを試行
+          const localData = getJsonTextbookData(selectedText);
+
+          if (localData && localData.length > 0) {
+            data = localData.filter(w =>
+              w.word_number >= startNum &&
+              w.word_number <= endNum
+            ).map(w => ({
+              word: w.word,
+              word_number: w.word_number,
+              meaning: w.meaning
+            }));
+          } else {
+            // ローカルになければSupabaseへ
+            const result = await supabase
+              .from("words")
+              .select("word, word_number, meaning")
+              .eq("text", selectedText)
+              .gte("word_number", startNum)
+              .lte("word_number", endNum);
+            data = result.data;
+            error = result.error;
+          }
 
           if (error || !data || data.length === 0) {
             router.push('/mistap/test-setup');

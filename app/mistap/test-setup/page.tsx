@@ -6,6 +6,7 @@ import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import MistapFooter from "@/components/mistap/Footer";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
+import { getJsonTextbookData, AVAILABLE_TEXTBOOKS } from "@/lib/mistap/jsonTextbookData";
 
 // PWAインストールプロンプト用の型定義
 type BeforeInstallPromptEvent = Event & {
@@ -336,79 +337,34 @@ export default function TestSetupPage() {
   }, [selectedText, filteredTexts, isInitialized, texts]);
 
   const fetchTexts = useCallback(async () => {
-    // キャッシュをチェック（5分間有効）
-    const cacheKey = 'mistap_textbooks_cache';
-    const cacheTimestampKey = 'mistap_textbooks_cache_timestamp';
-    const cacheExpiry = 5 * 60 * 1000; // 5分
+    // ローカルの静的リストを使用
+    // キャッシュロジックは残しても良いが、静的リストが最速かつ確実なので直接セット
+    const uniqueTexts = AVAILABLE_TEXTBOOKS;
 
-    try {
-      const cachedData = localStorage.getItem(cacheKey);
-      const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
-
-      if (cachedData && cachedTimestamp) {
-        const timestamp = parseInt(cachedTimestamp, 10);
-        if (Date.now() - timestamp < cacheExpiry) {
-          const uniqueTexts = JSON.parse(cachedData);
-          setTexts(uniqueTexts);
-          if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-            setSelectedText(uniqueTexts[0]);
-          }
+    // もしローカルリストが空ならフォールバック（基本ありえないが）
+    if (uniqueTexts.length === 0) {
+      // Fallback to Supabase if local list is empty
+      const { data, error } = await supabase.rpc('get_unique_texts');
+      if (!error && data) {
+        let fetchedTexts: string[] = [];
+        if (Array.isArray(data) && data.length > 0) {
+          if (typeof data[0] === 'string') fetchedTexts = data;
+          else if (typeof data[0] === 'object' && 'text' in data[0]) fetchedTexts = data.map((item: any) => item.text);
+        }
+        if (fetchedTexts.length > 0) {
+          setTexts(fetchedTexts);
+          if (!fetchedTexts.includes("ターゲット1900")) setSelectedText(fetchedTexts[0]);
           return;
         }
       }
-    } catch {
-      // キャッシュ読み込みエラー - 無視
-    }
-
-    // RPCを使用してユニークなtext値を直接取得
-    const { data, error } = await supabase.rpc('get_unique_texts');
-
-    if (error) {
-      // RPC error - will fallback
-    }
-
-    let uniqueTexts: string[] = [];
-
-    // RPCが成功した場合
-    if (!error && data) {
-      // data が配列の場合、{ text: string } の配列か string の配列かを確認
-      if (Array.isArray(data) && data.length > 0) {
-        if (typeof data[0] === 'string') {
-          uniqueTexts = data;
-        } else if (typeof data[0] === 'object' && 'text' in data[0]) {
-          uniqueTexts = data.map((item: { text: string }) => item.text);
-        }
-      }
-    }
-
-    // RPCが失敗またはデータが空の場合、フォールバック
-    if (uniqueTexts.length === 0) {
-      const { data: fallbackData, error: fallbackError } = await supabase
-        .from("words")
-        .select("text")
-        .not("text", "is", null)
-        .limit(1000);
-
-      if (fallbackError) {
-        setTexts([]);
-        return;
-      }
-
-      uniqueTexts = [...new Set(fallbackData?.map((d) => d.text) || [])];
     }
 
     setTexts(uniqueTexts);
+
     // デフォルト値（ターゲット1900）が存在する場合は維持、なければ最初の教材を選択
     if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-      setSelectedText(uniqueTexts[0]);
-    }
-
-    // キャッシュに保存
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify(uniqueTexts));
-      localStorage.setItem(cacheTimestampKey, Date.now().toString());
-    } catch {
-      // キャッシュ保存エラー - 無視
+      // 既存の選択が有効ならそのまま、無効なら先頭
+      // setSelectedTextはuseEffectで制御されるが、ここでも安全策
     }
   }, []);
 
@@ -437,12 +393,34 @@ export default function TestSetupPage() {
     setIsCreatingTest(true);
 
     try {
-      const { data, error } = await supabase
-        .from("words")
-        .select("word, word_number, meaning")
-        .eq("text", sText)
-        .gte("word_number", sStart)
-        .lte("word_number", sEnd);
+      let data: any[] | null = null;
+      let error = null;
+
+      // ローカルJSONからデータを取得・チェック
+      const localData = getJsonTextbookData(sText);
+
+      if (localData && localData.length > 0) {
+        // メモリ上でフィルタリング
+        data = localData.filter(w =>
+          w.word_number >= sStart &&
+          w.word_number <= sEnd &&
+          w.textbook === sText // 念のため
+        ).map(w => ({
+          word: w.word,
+          word_number: w.word_number,
+          meaning: w.meaning
+        }));
+      } else {
+        // フォールバック: Supabase
+        const result = await supabase
+          .from("words")
+          .select("word, word_number, meaning")
+          .eq("text", sText)
+          .gte("word_number", sStart)
+          .lte("word_number", sEnd);
+        data = result.data;
+        error = result.error;
+      }
 
       if (error || !data) {
         alert("データの取得に失敗しました。教材が存在しない可能性があります。");

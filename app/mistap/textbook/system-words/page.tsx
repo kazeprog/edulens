@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'システム英単語（System English Word）英単語テスト｜大学受験・共通テスト 無料',
     description: '大学受験対策の決定版「システム英単語（シスタン）」対応の英単語テスト。Chapter/Stageごとの頻出単語を無料でテストできます。共通テスト・難関大対策に最適。',

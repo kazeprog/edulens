@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'TOEIC L&R 金のフレーズ（金フレ）英単語テスト｜TOEIC対策 無料',
     description: 'TOEIC対策のバイブル「出る単特急 金のフレーズ（金フレ）」対応の英単語テスト。スコアレベル別の頻出単語を無料でテストできます。',

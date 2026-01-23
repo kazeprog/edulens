@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import TextbookUnitLPTemplate from '@/components/mistap/TextbookUnitLPTemplate';
 import { getAvailableLessons } from '@/lib/mistap/textbook-data';
 
+export const dynamic = "force-static";
 export async function generateStaticParams() {
     const lessons = getAvailableLessons('New Crown', '中3');
     if (lessons.length === 0) {

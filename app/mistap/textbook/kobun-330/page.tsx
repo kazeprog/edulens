@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '古文単語330（Key & Point）対応テスト｜大学受験 無料',
     description: '「Key & Point 古文単語330」対応の古文単語テスト。キーポイントで覚える単語帳の内容を無料でテストできます。共通テスト・大学受験の古文対策に。',

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
+export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '古文単語325（ベストセレクション/マドンナ）対応テスト｜大学受験 無料',
     description: '「ベストセレクション 古文単語325」対応の古文単語テスト。人気講師監修の単語帳の内容を無料でテストできます。共通テスト・大学受験の古文対策に。',
