@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import crypto from 'crypto'; 
+import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
   const secret = process.env.MICROCMS_REVALIDATE_SECRET;
   const signature = req.headers.get('x-microcms-webhook-signature');
-  
+
   // 
   if (!secret) {
     console.error('MICROCMS_REVALIDATE_SECRET is missing. Cannot validate.');
@@ -14,34 +14,38 @@ export async function POST(req: NextRequest) {
 
   // 
   if (!signature) {
-      // 
-      console.warn('[SECURITY COMPROMISE] Signature header missing. Granting access for DEBUG.');
-      // 
+    // 
+    console.warn('[SECURITY COMPROMISE] Signature header missing. Granting access for DEBUG.');
+    // 
   } else {
-      // 
-      const body = await req.text();
-      const expectedSignature = crypto
-          .createHmac('sha256', secret)
-          .update(body)
-          .digest('hex');
-      
-      if (signature !== expectedSignature) {
-          console.error(`[SECURITY FAILED] Signature mismatch!`);
-          return NextResponse.json({ message: 'Invalid signature (Mismatched)' }, { status: 401 });
-      }
+    // 
+    const body = await req.text();
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(body)
+      .digest('hex');
+
+    if (signature !== expectedSignature) {
+      console.error(`[SECURITY FAILED] Signature mismatch!`);
+      return NextResponse.json({ message: 'Invalid signature (Mismatched)' }, { status: 401 });
+    }
   }
 
   // 
   try {
     // ... 
-    
-    // 
-    const jsonBody = JSON.parse(req.headers.get('x-microcms-webhook-payload') || await req.text());
-    const slug = jsonBody?.content?.slug as string | undefined;
 
-    revalidatePath('/blog');
-    if (slug) {
-      revalidatePath(`/blog/${slug}`);
+    // 
+    // microCMSのWebhookペイロードからIDを取得
+    const jsonBody = JSON.parse(req.headers.get('x-microcms-webhook-payload') || await req.text());
+    const id = jsonBody?.id as string | undefined;
+
+    // ブログ一覧ページを更新
+    revalidatePath('/mistap/blog');
+
+    // 個別の記事ページを更新（IDベース）
+    if (id) {
+      revalidatePath(`/mistap/blog/${id}`);
     }
 
     console.log("Revalidation successful.");
