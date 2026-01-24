@@ -4,6 +4,8 @@ interface Word {
     meaning: string;
 }
 
+import { Volume2 } from "lucide-react";
+
 interface TestCardProps {
     word: Word;
     isTapped: boolean;
@@ -12,6 +14,16 @@ interface TestCardProps {
 }
 
 export default function TestCard({ word, isTapped, showAnswers, onTap }: TestCardProps) {
+    const handleSpeak = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word.word);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+
     return (
         <div
             role="button"
@@ -28,6 +40,13 @@ export default function TestCard({ word, isTapped, showAnswers, onTap }: TestCar
                 <span className="font-medium text-lg md:text-xl text-gray-900">
                     {word.word}（{word.word_number}）
                 </span>
+                <button
+                    onClick={handleSpeak}
+                    className="p-2 hover:bg-gray-200 rounded-full transition-colors ml-auto"
+                    aria-label="読み上げ"
+                >
+                    <Volume2 className="w-5 h-5 text-gray-500" />
+                </button>
             </div>
             <div
                 className={`answer-content mt-3 text-gray-700 break-words min-w-0 transition-all duration-300 ${showAnswers ? "opacity-100" : "opacity-0"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { Volume2 } from 'lucide-react';
 
 interface FlippableCardProps {
   word: string;
@@ -23,6 +24,17 @@ export default function FlippableCard({
   onTap,
   minHeight = 128 // デフォルトは8rem相当
 }: FlippableCardProps) {
+  const handleSpeak = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      // 既存の読み上げをキャンセル
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const [startX, setStartX] = useState<number | null>(null);
   const [startY, setStartY] = useState<number | null>(null);
   const [currentRotation, setCurrentRotation] = useState(0);
@@ -119,6 +131,13 @@ export default function FlippableCard({
             <span className="font-semibold text-lg text-gray-900 break-words flex-1">
               {word}
             </span>
+            <button
+              onClick={handleSpeak}
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              aria-label="読み上げ"
+            >
+              <Volume2 className="w-5 h-5 text-gray-500" />
+            </button>
           </div>
           <div className="text-xs text-gray-400 text-right mt-auto">
             スワイプで意味表示
@@ -148,6 +167,13 @@ export default function FlippableCard({
                 {meaning}
               </div>
             </div>
+            <button
+              onClick={handleSpeak}
+              className="p-2 hover:bg-gray-200 rounded-full transition-colors flex-shrink-0"
+              aria-label="読み上げ"
+            >
+              <Volume2 className="w-5 h-5 text-gray-500" />
+            </button>
           </div>
           <div className="text-xs text-gray-400 text-right mt-auto">
             スワイプで戻る
