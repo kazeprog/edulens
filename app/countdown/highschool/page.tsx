@@ -242,7 +242,9 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
           </div>
         )}
         {/* ▲▲▲ 追加ここまで ▲▲▲ */}
-        <GoogleAdsense />
+        <div className="flex justify-center w-full text-center">
+          <GoogleAdsense />
+        </div>
 
         <div className="space-y-8">
           {Object.keys(REGION_NAMES).map((regionKey) => {

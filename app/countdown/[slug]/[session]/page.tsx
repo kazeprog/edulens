@@ -10,6 +10,7 @@ import ServiceList from '@/components/ServiceList';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import type { Metadata, ResolvingMetadata } from 'next';
 import OtherQualifications from '../OtherQualifications';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 
 // ISR設定: 1分ごとにキャッシュを更新
@@ -301,6 +302,11 @@ export default async function QualificationCountdownPage({ params }: { params: P
           diffDays={diffDays}
           shareBannerContent={shareBottomContent}
         />
+
+        {/* Google AdSense */}
+        <div className="flex justify-center w-full text-center mt-12 mb-8">
+          <GoogleAdsense />
+        </div>
 
 
 

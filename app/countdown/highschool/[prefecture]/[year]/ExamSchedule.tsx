@@ -20,7 +20,9 @@ export default function ExamSchedule({ exams }: { exams: any[] }) {
 
   return (
     <div className="w-full max-w-2xl mx-auto mb-16 text-left">
-      <GoogleAdsense />
+      <div className="flex justify-center text-center">
+        <GoogleAdsense />
+      </div>
       <h2 className="text-lg font-bold text-slate-800 mb-6 border-l-4 border-blue-600 pl-4">
         年間入試スケジュール
       </h2>

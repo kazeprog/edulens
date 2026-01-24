@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 import MonthlyList from './MonthlyList';
 import OtherQualifications from './OtherQualifications';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 // ISR設定
 export const revalidate = 86400;
@@ -259,8 +260,13 @@ export default async function ExamListPage({ params }: { params: Params }) {
           )}
         </div>
 
+        {/* Google AdSense */}
+        <div className="flex justify-center w-full text-center mt-12 mb-8">
+          <GoogleAdsense />
+        </div>
+
         {/* SEO用テキストセクション */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 mt-20">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 mt-8">
           <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-4">{examName}の日程と対策について</h2>
           <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
             <p>

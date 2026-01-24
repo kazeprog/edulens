@@ -2,6 +2,7 @@ import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 // ISR設定
 export const revalidate = 86400;
@@ -258,8 +259,13 @@ export default async function QualificationPage() {
                     ))}
                 </div>
 
+                {/* Google AdSense */}
+                <div className="flex justify-center w-full text-center mt-12 mb-8">
+                    <GoogleAdsense />
+                </div>
+
                 {/* SEO用テキストセクション */}
-                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 mt-20 max-w-4xl mx-auto">
+                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 mt-8 max-w-4xl mx-auto">
                     <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-4">EduLensの資格試験カウントダウンについて</h2>
                     <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
                         <p>
