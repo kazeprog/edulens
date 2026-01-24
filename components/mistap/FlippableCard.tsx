@@ -120,8 +120,8 @@ export default function FlippableCard({
         <div
           className={`absolute inset-0 w-full rounded-xl border-2 transition-colors duration-200 ${isTapped
             ? 'bg-red-100 border-red-400 text-black'
-            : 'bg-white/90 border-gray-300 hover:bg-gray-50'
-            } backdrop-blur-sm flex flex-col px-4 py-3`}
+            : 'bg-white border-gray-300 hover:bg-gray-50'
+            } flex flex-col px-4 py-3`}
           style={{ backfaceVisibility: 'hidden' }}
         >
           <div className="flex items-center space-x-3 flex-1 min-w-0">
@@ -148,8 +148,8 @@ export default function FlippableCard({
         <div
           className={`absolute inset-0 w-full rounded-xl border-2 transition-colors duration-200 ${isTapped
             ? 'bg-red-100 border-red-400 text-black'
-            : 'bg-gray-50/90 border-gray-400 hover:bg-gray-100/90'
-            } backdrop-blur-sm flex flex-col px-4 py-3`}
+            : 'bg-gray-50 border-gray-400 hover:bg-gray-100'
+            } flex flex-col px-4 py-3`}
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)'
