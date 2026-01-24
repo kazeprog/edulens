@@ -10,6 +10,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import NaruhodoLensPromoCard from '@/components/NaruhodoLensPromoCard';
 import BannerDisplay from '@/components/AffiliateBanners/BannerDisplay';
 import { SeoIntro, SeoParentsSection } from '@/components/countdown/CountdownSeoContent';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 export const revalidate = 86400;
 
@@ -256,6 +257,11 @@ export default async function UniversityExamPage({ params }: { params: Params })
           </div>
         )}
         {/* ▲▲▲ おすすめカード終了 ▲▲▲ */}
+
+        {/* Google AdSense */}
+        <div className="flex justify-center w-full text-center mt-12 mb-8">
+          <GoogleAdsense />
+        </div>
 
         {/* ▼▼▼ EduLensサービス一覧 ▼▼▼ */}
         <SeoParentsSection />

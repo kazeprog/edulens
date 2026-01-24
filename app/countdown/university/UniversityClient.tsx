@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/utils/supabase/client';
 import Link from 'next/link';
 import { getTargetExamYear } from '@/lib/date-utils';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 type UniversityEvent = {
     id: number;
@@ -208,6 +209,11 @@ export default function UniversityClientPage() {
                     </p>
                 </div>
 
+                {/* Google AdSense */}
+                <div className="flex justify-center w-full text-center mt-8 mb-12">
+                    <GoogleAdsense />
+                </div>
+
                 {loading ? (
                     <div className="text-center py-12 text-slate-400">読み込み中...</div>
                 ) : (
@@ -235,6 +241,6 @@ export default function UniversityClientPage() {
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 }
