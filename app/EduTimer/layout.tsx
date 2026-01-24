@@ -56,11 +56,6 @@ const jsonLd = {
         price: '0',
         priceCurrency: 'JPY',
     },
-    aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.8',
-        ratingCount: '120',
-    },
     featureList: [
         'ポモドーロテクニック対応',
         'カスタマイズ可能なタイマー設定',
