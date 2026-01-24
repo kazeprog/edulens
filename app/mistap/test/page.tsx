@@ -403,7 +403,7 @@ function TestContent() {
         endNum: null
       };
       const dataParam = encodeURIComponent(JSON.stringify(resultData));
-      router.push(`/mistap/results?data=${dataParam}`);
+      router.push(`/mistap/results?data=${dataParam}&t=${Date.now()}`);
     } else {
       // 従来の単語帳テスト：単語番号のみ渡してSupabaseから取得
       const wrongNumbers = Array.from(tappedIds).join(',');
@@ -411,7 +411,7 @@ function TestContent() {
         .filter((w: Word) => !tappedIds.has(w.word_number))
         .map((w: Word) => w.word_number)
         .join(',');
-      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}`);
+      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&t=${Date.now()}`);
     }
   }
 

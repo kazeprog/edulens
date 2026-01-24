@@ -149,8 +149,11 @@ function ResultsContent() {
         setIsLoggedIn(true);
 
         // create a deterministic test key so duplicates can be avoided server-side
+        // URLパラメータのタイムスタンプを含めることで、同じテストでも複数回記録されるようにし、
+        // かつページリロード時の重複登録は防ぐ
+        const attemptId = searchParams.get('t') || '';
         const wordNumbers = Array.isArray(tappedWords) ? tappedWords.map((w: TappedWord) => w.word_number).sort((a: number, b: number) => a - b) : [];
-        const testKey = `${selectedText ?? ''}::${startNum ?? ''}::${endNum ?? ''}::${wordNumbers.join(',')}`;
+        const testKey = `${selectedText ?? ''}::${startNum ?? ''}::${endNum ?? ''}::${wordNumbers.join(',')}::${attemptId}`;
 
         // 教科書名を正規化（例: "New Crown 中1 - Lesson1" -> "New Crown 中1"）
         const normalizedTextbookName = selectedText ? normalizeTextbookName(selectedText) : null;
