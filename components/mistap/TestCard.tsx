@@ -20,6 +20,14 @@ export default function TestCard({ word, isTapped, showAnswers, onTap }: TestCar
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(word.word);
             utterance.lang = 'en-US';
+
+            // 英語の音声を明示的に取得して設定（ローマ字読み回避のため）
+            const voices = window.speechSynthesis.getVoices();
+            const englishVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+            if (englishVoice) {
+                utterance.voice = englishVoice;
+            }
+
             window.speechSynthesis.speak(utterance);
         }
     };
