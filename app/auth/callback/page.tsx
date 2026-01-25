@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getSupabase } from '@/lib/supabase';
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [message, setMessage] = useState('認証情報を処理中...');
@@ -44,5 +44,17 @@ export default function AuthCallbackPage() {
                 <p className="text-sm text-slate-600">{message}</p>
             </div>
         </div>
+    );
+}
+
+export default function AuthCallbackPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="text-slate-500">読み込み中...</div>
+            </div>
+        }>
+            <AuthCallbackContent />
+        </Suspense>
     );
 }
