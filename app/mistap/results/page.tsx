@@ -464,6 +464,14 @@ function ResultsContent() {
 
             {/* スマホ用: 縦並びボタン */}
             <div className="block md:hidden space-y-3">
+              {!isLoggedIn && (
+                <button
+                  onClick={() => router.push('/login?mode=signup&redirect=/mistap/home')}
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold"
+                >
+                  アカウント登録
+                </button>
+              )}
               <button
                 onClick={() => router.push('/mistap/test-setup')}
                 className="w-full bg-gray-400 hover:bg-gray-500 text-white py-3 px-4 rounded-xl text-lg"
@@ -476,19 +484,12 @@ function ResultsContent() {
               >
                 ホーム画面に戻る
               </button>
-              {isLoggedIn ? (
+              {isLoggedIn && (
                 <button
                   onClick={() => router.push('/mistap/history')}
                   className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold"
                 >
                   成績管理
-                </button>
-              ) : (
-                <button
-                  onClick={() => router.push('/mistap?signup=1')}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold"
-                >
-                  アカウント登録
                 </button>
               )}
               <button
@@ -508,6 +509,14 @@ function ResultsContent() {
 
             {/* タブレット・PC用: 横並びボタン */}
             <div className="hidden md:flex md:justify-center md:space-x-4">
+              {!isLoggedIn && (
+                <button
+                  onClick={() => router.push('/login?mode=signup&redirect=/mistap/home')}
+                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl"
+                >
+                  アカウント登録
+                </button>
+              )}
               <button
                 onClick={() => router.push('/mistap/test-setup')}
                 className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded-xl"
@@ -520,19 +529,12 @@ function ResultsContent() {
               >
                 ホーム画面に戻る
               </button>
-              {isLoggedIn ? (
+              {isLoggedIn && (
                 <button
                   onClick={() => router.push('/mistap/history')}
                   className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl"
                 >
                   成績管理
-                </button>
-              ) : (
-                <button
-                  onClick={() => router.push('/mistap?signup=1')}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl"
-                >
-                  アカウント登録
                 </button>
               )}
               <button

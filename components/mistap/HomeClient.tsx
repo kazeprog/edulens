@@ -86,9 +86,8 @@ export default function HomeClient() {
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         if (params.get('signup') === '1') {
-            setIsSignup(true);
-            setShowLoginForm(true);
-            window.history.replaceState({}, '', '/mistap');
+            router.push('/login?mode=signup&redirect=/mistap/home');
+            return;
         }
         if (params.get('login') === '1') {
             setIsSignup(false);
