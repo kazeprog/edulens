@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { getBaseUrl } from '@/utils/url';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2025-12-15.clover',
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'https://edulens.jp';
+        const origin = getBaseUrl(req);
 
         const session = await stripe.checkout.sessions.create({
             mode: 'subscription',
