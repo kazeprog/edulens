@@ -1,5 +1,7 @@
 'use client';
 
+import GoogleAdsense from '@/components/GoogleAdsense';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, BookOpen, Zap, Trophy, ChevronRight, GraduationCap, School, ClipboardList, CheckSquare } from 'lucide-react';
@@ -331,6 +333,15 @@ export default function TextbookLPTemplate({
                                 description={seoSettings?.feature3?.description || "分からなかった単語をタップするだけで、あなただけの復習リストが自動で完成。覚えた単語はリストから消していくことで、効率的に学習できます。"}
                             />
                         </div>
+                    </div>
+                </section>
+
+                {/* AdSense Section */}
+                <section className="py-8 bg-slate-50 flex justify-center border-t border-slate-100">
+                    <div className="w-full max-w-4xl px-4">
+                        <GoogleAdsense
+                            style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
+                        />
                     </div>
                 </section>
 

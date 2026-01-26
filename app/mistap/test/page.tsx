@@ -6,7 +6,7 @@ import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import FlippableCard from "@/components/mistap/FlippableCard";
 import TestCard from "@/components/mistap/TestCard";
-import PrintWarningModal from "@/components/mistap/PrintWarningModal";
+// import PrintWarningModal from "@/components/mistap/PrintWarningModal"; // Removed
 import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/TestActionButtons";
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
@@ -34,7 +34,7 @@ function TestContent() {
   const [showAnswers, setShowAnswers] = useState<boolean>(false);
   const [tappedIds, setTappedIds] = useState<Set<number>>(new Set());
   const [flippedIds, setFlippedIds] = useState<Set<number>>(new Set());
-  const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false);
+  // const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false); // Removed
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
@@ -290,11 +290,6 @@ function TestContent() {
   }
 
   function handlePrint() {
-    if (!testData) return;
-    if (testData.words.length > 20) {
-      setShowPrintWarning(true);
-      return;
-    }
     executePrint();
   }
 
@@ -311,6 +306,51 @@ function TestContent() {
     const leftWords = words.filter((_: Word, i: number) => i % 2 === 0);
     const rightWords = words.filter((_: Word, i: number) => i % 2 === 1);
 
+    // Dynamic Scaling Logic
+    const rowCount = Math.ceil(words.length / 2);
+
+    // Base values for standard 20 words (10 rows)
+    // A4 printable height approx 250mm-260mm for content excluding title
+    // Let's calculate based on density.
+
+    let fontSizeWord = 16;
+    let fontSizeMeaning = 14;
+    let itemPaddingV = 5;
+    let itemPaddingH = 12;
+    let gap = 10;
+
+    // Scale down if rows increase
+    if (rowCount > 10) {
+      // Slightly reduce as rows increase
+      const scaleFactor = Math.max(0.4, 1 - ((rowCount - 10) * 0.03));
+      // Decaying scale factor: 0.03 per extra row is a rough guess
+      // 20 rows (40 words) -> 1 - 0.3 = 0.7 
+      // 50 rows (100 words) -> 1 - 1.2 = negative -> need better curve or floor
+
+      // Alternative: Calculate max height per row
+      // Available height for list approx 240mm
+      const availableHeightMm = 240;
+      const heightPerRowMm = availableHeightMm / rowCount;
+
+      // Heuristic mapping from height per row to font size/padding
+      if (heightPerRowMm < 8) { // Very dense
+        fontSizeWord = Math.max(9, heightPerRowMm * 1.2);
+        fontSizeMeaning = Math.max(8, heightPerRowMm * 1.0);
+        itemPaddingV = Math.max(1, heightPerRowMm * 0.2);
+        gap = Math.max(2, heightPerRowMm * 0.3);
+      } else if (heightPerRowMm < 12) { // Dense
+        fontSizeWord = 12;
+        fontSizeMeaning = 10;
+        itemPaddingV = 3;
+        gap = 5;
+      } else if (heightPerRowMm < 18) { // Middle
+        fontSizeWord = 14;
+        fontSizeMeaning = 12;
+        itemPaddingV = 4;
+        gap = 8;
+      }
+    }
+
     const printWindow = window.open('', '', 'width=800,height=600');
     if (!printWindow) return;
 
@@ -321,34 +361,167 @@ function TestContent() {
   <meta charset="utf-8">
   <title>${title}</title>
   <style>
-    @media print { @page { margin: 15mm 20mm; size: A4; } .page-break { page-break-after: always; } }
+    /* リセットと基本設定 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Yu Gothic', 'Hiragino Sans', sans-serif; line-height: 1.6; color: #333; padding: 0; }
-    .page { min-height: 100vh; display: flex; flex-direction: column; }
-    h1 { text-align: center; font-size: 22px; margin-bottom: 16px; border-bottom: 2px solid #333; padding-bottom: 8px; flex-shrink: 0; }
-    .two-column-container { display: flex; gap: 20px; flex: 1; align-items: stretch; }
-    .column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-    .word-item { padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; min-height: 60px; display: flex; flex-direction: column; justify-content: center; }
-    .word-number { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
-    .meaning { color: #555; font-size: 13px; line-height: 1.5; }
+    body { 
+      font-family: 'Yu Gothic', 'Hiragino Sans', sans-serif; 
+      line-height: 1.3; 
+      color: #333;
+      background: #f0f0f0; 
+    }
+
+    /* ページの基本スタイル */
+    .page {
+      background: white;
+      width: 210mm; 
+      height: 297mm; 
+      padding: 15mm 25mm;
+      margin: 20px auto; 
+      display: flex; 
+      flex-direction: column; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 { 
+      text-align: center; 
+      font-size: 20px; 
+      margin-bottom: 10px; 
+      border-bottom: 2px solid #333; 
+      padding-bottom: 5px; 
+      flex-shrink: 0; 
+    }
+    
+    .two-column-container { 
+      display: flex; 
+      gap: 15px; 
+      flex: 1; 
+      overflow: hidden; 
+    }
+    
+    .column { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      gap: ${gap}px; 
+    }
+    
+    .word-item { 
+      flex: 1;
+      padding: ${itemPaddingV}px ${itemPaddingH}px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px; 
+      background: transparent; /* 背景色なし */
+      display: flex; 
+      flex-direction: row; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 10px;
+      min-height: 0;
+    }
+    
+    .word-number { 
+      font-weight: bold; 
+      font-size: ${fontSizeWord}px; 
+      margin-bottom: 0; 
+      flex-shrink: 0; 
+    }
+    
+    .meaning { 
+      color: #333; 
+      font-size: ${fontSizeMeaning}px; 
+      line-height: 1.2; 
+      text-align: right; 
+      font-weight: 500; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 65%;
+    }
+    
     .answer-section .meaning { display: block; }
     .problem-section .meaning { display: none; }
+
+    /* フッター設定 */
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-top: auto; /* 下部に押し下げ */
+      padding-top: 15px;
+      gap: 15px;
+      border-top: 1px solid #eee;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .footer-logo {
+      height: 24px;
+      margin-bottom: 2px;
+    }
+    .footer-url {
+      font-size: 10px;
+      color: #666;
+    }
+    .footer-qr {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* 印刷時の設定 */
+    @media print { 
+      @page { margin: 0; size: A4; }
+      html, body { 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        background: white !important; 
+        width: 100%;
+        height: 100%;
+      }
+      .page { 
+        width: 100% !important; 
+        margin: 0 !important; 
+        padding: 15mm 25mm !important; 
+        box-shadow: none !important; 
+        page-break-after: always;
+        height: 100%; 
+        min-height: 297mm;
+        overflow: hidden !important; 
+      }
+      .page-break { display: none; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
   </style>
 </head>
 <body>
   <div class="page problem-section">
     <h1>${title}</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+    </div>
+    <div class="footer">
+      <div class="footer-left">
+        <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
+        <div class="footer-url">http://edulens.jp/mistap</div>
+      </div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=http://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
-  <div class="page-break"></div>
+  
   <div class="page answer-section">
     <h1>${title} - 解答</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+    </div>
+    <div class="footer">
+      <div class="footer-left">
+        <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
+        <div class="footer-url">http://edulens.jp/mistap</div>
+      </div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=http://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
 </body>
@@ -368,7 +541,6 @@ function TestContent() {
     const { selectedText, startNum } = testData;
     const newEndNum = startNum != null ? startNum + 19 : 20;
     router.push(`/mistap/test?text=${encodeURIComponent(selectedText)}&start=${startNum || 1}&end=${newEndNum}&count=20`);
-    setShowPrintWarning(false);
   }
 
   function handleToggleAnswers() {

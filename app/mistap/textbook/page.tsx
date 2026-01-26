@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import GoogleAdsense from '@/components/GoogleAdsense';
 import { BookOpen, ChevronRight, School, GraduationCap, Briefcase, HelpCircle, CheckCircle2 } from 'lucide-react';
 import MistapFooter from '@/components/mistap/Footer';
 
@@ -384,6 +385,15 @@ export default function TextbookIndexPage() {
                                             <span>古文単語の助動詞や敬語など、紛らわしい語句を整理したい受験生</span>
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+
+                            {/* AdSense Section */}
+                            <div className="py-8 flex justify-center border-t border-slate-100 my-8">
+                                <div className="w-full max-w-4xl px-4">
+                                    <GoogleAdsense
+                                        style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
+                                    />
                                 </div>
                             </div>
 

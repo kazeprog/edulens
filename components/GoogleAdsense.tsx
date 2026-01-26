@@ -52,28 +52,35 @@ const GoogleAdsense = ({
             return;
         }
 
-        // コンテナの幅が0の場合は少し待ってからリトライ
-        const tryPushAd = () => {
-            if (containerRef.current) {
-                const width = containerRef.current.offsetWidth;
-                if (width === 0) {
-                    // 幅が0の場合は100ms後にリトライ
-                    setTimeout(tryPushAd, 100);
-                    return;
-                }
-            }
+        // DOMが完全にレンダリングされ、幅が確保されるまでポーリングする
+        // リトライ回数制限：50回 (100ms * 50 = 5秒)
+        let attempts = 0;
+        const maxAttempts = 50;
+        let timerId: NodeJS.Timeout;
 
-            try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-                isAdLoaded.current = true;
-            } catch (err) {
-                console.error('Google AdSense error:', err);
+        const checkAndPush = () => {
+            // コンポーネントがアンマウントされている、または既にロード済みの場合は終了
+            if (!containerRef.current || isAdLoaded.current) return;
+
+            const width = containerRef.current.offsetWidth;
+            if (width > 0) {
+                try {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    isAdLoaded.current = true;
+                } catch (err) {
+                    console.error('Google AdSense error:', err);
+                }
+            } else if (attempts < maxAttempts) {
+                // 幅が0の場合はリトライ
+                attempts++;
+                timerId = setTimeout(checkAndPush, 100);
             }
         };
 
-        // 少し遅延させてDOMが完全にレンダリングされてから実行
-        const timer = setTimeout(tryPushAd, 100);
-        return () => clearTimeout(timer);
+        // 初回実行
+        timerId = setTimeout(checkAndPush, 100);
+
+        return () => clearTimeout(timerId);
     }, [pathname, profile?.is_pro, loading, user, profile]);
 
     // Proユーザーまたはログイン/新規登録画面では広告を表示しない
