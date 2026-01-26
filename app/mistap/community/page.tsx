@@ -103,6 +103,26 @@ function CommunityContent() {
         }
     }
 
+    async function handleDelete(postId: string) {
+        if (!confirm('本当に削除しますか？\n（返信がある場合、返信も全て削除されます）')) return;
+        if (!supabase) return;
+
+        try {
+            setLoading(true);
+            const { error } = await supabase
+                .from('mistap_community_posts')
+                .delete()
+                .eq('id', postId);
+
+            if (error) throw error;
+            fetchPosts();
+        } catch (err: any) {
+            console.error('Error deleting post:', err);
+            setError(`削除エラー: ${err.message}`);
+            setLoading(false);
+        }
+    }
+
     // Helper to organize posts into threads
     const threads = posts.filter(p => !p.parent_id).map(parent => ({
         ...parent,
@@ -123,6 +143,7 @@ function CommunityContent() {
         <div className="min-h-screen flex flex-col">
             <Background className="flex-1">
                 <div className="max-w-2xl mx-auto w-full px-4 py-8">
+                    {/* ... (header and form remain same) */}
                     <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 overflow-hidden">
                         <div className="p-6 border-b border-gray-100">
                             <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -207,9 +228,20 @@ function CommunityContent() {
                                                     {post.user_name || '名無しさん'}
                                                 </span>
                                             </div>
-                                            <span className="text-xs text-gray-400">
-                                                {formatDate(post.created_at)}
-                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs text-gray-400">
+                                                    {formatDate(post.created_at)}
+                                                </span>
+                                                {user && user.id === post.user_id && (
+                                                    <button
+                                                        onClick={() => handleDelete(post.id)}
+                                                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                                        title="削除する"
+                                                    >
+                                                        🗑️
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                         <p className="text-gray-700 whitespace-pre-wrap leading-relaxed pl-10 mb-3">
                                             {post.content}
@@ -257,9 +289,20 @@ function CommunityContent() {
                                                                     {reply.user_name || '名無しさん'}
                                                                 </span>
                                                             </div>
-                                                            <span className="text-xs text-gray-400">
-                                                                {formatDate(reply.created_at)}
-                                                            </span>
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-xs text-gray-400">
+                                                                    {formatDate(reply.created_at)}
+                                                                </span>
+                                                                {user && user.id === reply.user_id && (
+                                                                    <button
+                                                                        onClick={() => handleDelete(reply.id)}
+                                                                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                                                        title="削除する"
+                                                                    >
+                                                                        🗑️
+                                                                    </button>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                         <p className="text-gray-600 text-sm whitespace-pre-wrap leading-relaxed">
                                                             {reply.content}
