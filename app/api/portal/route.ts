@@ -13,9 +13,11 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing customerId' }, { status: 400 });
         }
 
+        const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'https://edulens.jp';
+
         const session = await stripe.billingPortal.sessions.create({
             customer: customerId,
-            return_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
+            return_url: `${origin}/`,
         });
 
         return NextResponse.json({ url: session.url });

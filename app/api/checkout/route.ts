@@ -13,6 +13,8 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
+        const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'https://edulens.jp';
+
         const session = await stripe.checkout.sessions.create({
             mode: 'subscription',
             payment_method_types: ['card'],
@@ -25,8 +27,8 @@ export async function POST(req: Request) {
             metadata: {
                 userId: userId,
             },
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: returnUrl || `${process.env.NEXT_PUBLIC_APP_URL}/`,
+            success_url: `${origin}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: returnUrl || `${origin}/`,
         });
 
         return NextResponse.json({ url: session.url });
