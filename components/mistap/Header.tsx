@@ -133,6 +133,14 @@ export default function Header() {
                   これまでの成績
                 </Link>
                 <Link
+                  href="/mistap/community"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Mistapコミュニティ
+                </Link>
+                <Link
                   href="/mistap/contact"
                   prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
