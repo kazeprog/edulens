@@ -171,6 +171,9 @@ function ResultsContent() {
             suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
           }
 
+          // 学習状況カテゴリの括弧を除去
+          suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();
+
           // 内部のハイフンをスペースに置換して見やすくする
           if (suffix) {
             unitName = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();

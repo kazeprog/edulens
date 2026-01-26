@@ -63,6 +63,9 @@ function TestContent() {
         suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
       }
 
+      // 学習状況カテゴリの括弧を除去
+      suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();
+
       if (suffix) {
         unitLabel = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
       }
@@ -614,9 +617,9 @@ function TestContent() {
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
             <div ref={mobileCardsRef} className="block md:hidden px-3" style={{ maxWidth: '100%' }}>
-              {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
+              {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word, idx: number) => (
                 <FlippableCard
-                  key={item.word_number}
+                  key={`${item.word_number}-${idx}`}
                   word={item.word}
                   meaning={item.meaning}
                   wordNumber={item.word_number}
@@ -634,8 +637,8 @@ function TestContent() {
             {/* Desktop: 2-column layout */}
             <div ref={desktopGridRef} className="hidden md:grid md:grid-cols-2 md:gap-6">
               <ul>
-                {leftWords.map((item: Word) => (
-                  <li key={item.word_number} className="mb-6">
+                {leftWords.map((item: Word, idx: number) => (
+                  <li key={`${item.word_number}-left-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}
@@ -646,8 +649,8 @@ function TestContent() {
                 ))}
               </ul>
               <ul>
-                {rightWords.map((item: Word) => (
-                  <li key={item.word_number} className="mb-6">
+                {rightWords.map((item: Word, idx: number) => (
+                  <li key={`${item.word_number}-right-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}

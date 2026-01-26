@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import {
     PieChart,
     Pie,
@@ -24,8 +25,6 @@ const COLORS = {
     toCheck: '#F472B6', // 要チェック (Pink)
     notLearned: '#EF4444', // 覚えていない (Red)
 };
-
-
 
 // 単語データの型
 interface WordData {
@@ -56,9 +55,12 @@ interface DailyStatsMap {
 }
 
 export default function ProgressDashboard() {
+    const router = useRouter();
     const { user } = useAuth();
     const scrollRef = useRef<HTMLDivElement>(null);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+    const [showTestMenu, setShowTestMenu] = useState(false);
     const [loading, setLoading] = useState(true);
 
     // 全単語データ（教材情報を含む）
@@ -107,7 +109,13 @@ export default function ProgressDashboard() {
 
             results?.forEach(result => {
                 const dateKey = new Date(result.created_at).toISOString().split('T')[0];
-                const textbook = result.selected_text || '不明';
+                const textbookRaw = result.selected_text || '不明';
+                // カテゴリ名や復習テストのサフィックスを除去して、元の教材名（レッスン情報含む）に寄せる
+                const textbook = textbookRaw
+                    .replace(/[\s]*[（(][^）)]*復習[^)）]*[)）][\s]*$/u, '')
+                    .replace(/[\s]*[（(][^）)]*(覚えた|要チェック|覚えていない)[^)）]*[)）][\s]*$/u, '')
+                    .trim();
+
                 textbookSet.add(textbook);
 
                 // 日別統計の初期化
@@ -204,11 +212,11 @@ export default function ProgressDashboard() {
         const notLearnedWords: WordData[] = [];
 
         filteredWords.forEach(word => {
-            if (word.wrong_count === 0 && word.correct_count > 0) {
+            if (word.correct_count > word.wrong_count) {
                 learnedWords.push(word);
-            } else if (word.wrong_count > 0 && word.correct_count > 0) {
+            } else if (word.correct_count > 0) {
                 toCheckWords.push(word);
-            } else if (word.wrong_count > 0 && word.correct_count === 0) {
+            } else if (word.wrong_count > 0) {
                 notLearnedWords.push(word);
             }
         });
@@ -277,9 +285,54 @@ export default function ProgressDashboard() {
 
     const closeModal = () => {
         setSelectedCategory(null);
+        setShowTestMenu(false);
     };
 
     const selectedWords = selectedCategory ? (wordLists as Record<string, WordData[]>)[selectedCategory] || [] : [];
+
+    const handleCreateTest = async (count: number | 'all') => {
+        if (selectedWords.length === 0) return;
+
+        try {
+            const actualCount = count === 'all' ? selectedWords.length : Math.min(count, selectedWords.length);
+            const shuffled = [...selectedWords].sort(() => Math.random() - 0.5).slice(0, actualCount);
+
+            // もし選ばれた単語がすべて同じ教材なら、その教材名を使用する
+            const uniqueTextbooks = new Set(shuffled.map(w => w.textbook));
+            let targetTextbook = selectedTextbook || '全範囲';
+
+            if (!selectedTextbook && uniqueTextbooks.size === 1) {
+                targetTextbook = Array.from(uniqueTextbooks)[0];
+            }
+
+            const testData = {
+                words: shuffled.map((w) => ({
+                    word: w.word,
+                    word_number: w.word_number,
+                    meaning: w.meaning
+                })),
+                selectedText: `${targetTextbook} (${selectedCategory})`,
+                startNum: null,
+                endNum: null,
+                isReview: true
+            };
+
+            const supabase = getSupabase();
+            if (user && supabase) {
+                // 回数カウント (エラーでも続行)
+                supabase.rpc('increment_profile_test_count', { p_user_id: user.id })
+                    .then(({ error }) => {
+                        if (error) console.error('Failed to increment test count:', error);
+                    });
+            }
+
+            const dataParam = encodeURIComponent(JSON.stringify(testData));
+            router.push(`/mistap/test?data=${dataParam}`);
+        } catch (error) {
+            console.error('Test creation failed:', error);
+            alert('テスト作成に失敗しました');
+        }
+    };
 
     if (loading) {
         return (
@@ -309,15 +362,6 @@ export default function ProgressDashboard() {
             {displayTextbooks.length > 0 && (
                 <div className="bg-white rounded-xl p-2 shadow-sm border border-gray-100">
                     <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300">
-                        <button
-                            onClick={() => setSelectedTextbook(null)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedTextbook === null
-                                ? 'bg-red-500 text-white shadow-sm'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
-                        >
-                            全て
-                        </button>
                         {displayTextbooks.map((tb) => (
                             <button
                                 key={tb}
@@ -351,6 +395,19 @@ export default function ProgressDashboard() {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* カウントの定義説明リンク */}
+            <div className="flex justify-end px-2">
+                <button
+                    onClick={() => setIsHelpModalOpen(true)}
+                    className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    単語のカウントについて
+                </button>
             </div>
 
             {/* 1. 学習進捗状況 (ドーナツグラフ) */}
@@ -502,11 +559,14 @@ export default function ProgressDashboard() {
                                         <li key={idx} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-100">
                                             <div>
                                                 <span className="font-bold text-gray-900">{word.word || `#${word.word_number}`}</span>
-                                                {word.wrong_count > 1 && (
-                                                    <span className="ml-2 text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">
-                                                        {word.wrong_count}回
+                                                <div className="flex gap-2 mt-1">
+                                                    <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">
+                                                        誤: {word.wrong_count}
                                                     </span>
-                                                )}
+                                                    <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded">
+                                                        正: {word.correct_count}
+                                                    </span>
+                                                </div>
                                             </div>
                                             <span className="text-sm text-gray-600">{word.meaning}</span>
                                         </li>
@@ -518,10 +578,96 @@ export default function ProgressDashboard() {
                                 </div>
                             )}
                         </div>
-                        <div className="p-4 border-t border-gray-100 bg-gray-50">
+                        <div className="p-4 border-t border-gray-100 bg-gray-50 space-y-3">
+                            {!showTestMenu ? (
+                                <>
+                                    <button
+                                        onClick={() => setShowTestMenu(true)}
+                                        disabled={selectedWords.length === 0}
+                                        className="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed shadow-md shadow-red-100"
+                                    >
+                                        この中からテスト作成
+                                    </button>
+                                    <button
+                                        onClick={closeModal}
+                                        className="w-full bg-white text-gray-600 border border-gray-200 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors"
+                                    >
+                                        閉じる
+                                    </button>
+                                </>
+                            ) : (
+                                <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                                    <p className="text-center text-sm font-bold text-gray-700">出題数を選択</p>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {[10, 20, 30, 50, 100].map(num => (
+                                            <button
+                                                key={num}
+                                                onClick={() => handleCreateTest(num)}
+                                                disabled={selectedWords.length < num}
+                                                className="bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 hover:bg-red-50 text-gray-700 py-2 rounded-lg text-sm font-bold disabled:opacity-40 disabled:hover:border-gray-200 disabled:hover:text-gray-700 disabled:hover:bg-white transition-all"
+                                            >
+                                                {num}問
+                                            </button>
+                                        ))}
+                                        <button
+                                            onClick={() => handleCreateTest('all')}
+                                            className="bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 hover:bg-red-50 text-gray-700 py-2 rounded-lg text-sm font-bold transition-all"
+                                        >
+                                            全て({selectedWords.length})
+                                        </button>
+                                    </div>
+                                    <button
+                                        onClick={() => setShowTestMenu(false)}
+                                        className="w-full text-gray-500 py-2 text-sm hover:text-gray-700"
+                                    >
+                                        キャンセル
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {isHelpModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setIsHelpModalOpen(false)}>
+                    <div
+                        className="bg-white rounded-2xl w-full max-w-sm shadow-xl p-6 animate-in fade-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3 className="font-bold text-gray-800 text-lg mb-4 text-center">単語のカウントについて</h3>
+                        <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.learned }}></span>
+                                    <span className="font-bold text-gray-800">覚えた単語</span>
+                                </div>
+                                <p className="pl-5">
+                                    過去の学習で、正解した回数が間違えた回数を上回っている単語です。
+                                </p>
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.toCheck }}></span>
+                                    <span className="font-bold text-gray-800">要チェックの単語</span>
+                                </div>
+                                <p className="pl-5">
+                                    正解したことはありますが、まだ間違えた回数の方が多いか、同じ回数の単語です。
+                                </p>
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.notLearned }}></span>
+                                    <span className="font-bold text-gray-800">覚えていない単語</span>
+                                </div>
+                                <p className="pl-5">
+                                    まだ一度も正解できていない単語です。
+                                </p>
+                            </div>
+                        </div>
+                        <div className="mt-6">
                             <button
-                                onClick={closeModal}
-                                className="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition-colors"
+                                onClick={() => setIsHelpModalOpen(false)}
+                                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-colors"
                             >
                                 閉じる
                             </button>

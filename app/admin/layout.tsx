@@ -69,6 +69,9 @@ export default function AdminLayout({
                     <Link href="/admin" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         ダッシュボード
                     </Link>
+                    <Link href="/admin/contacts" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        お問い合わせ
+                    </Link>
                     <Link href="/admin/exams" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         試験日程管理
                     </Link>
