@@ -504,9 +504,9 @@ function TestContent() {
     <div class="footer">
       <div class="footer-left">
         <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
-        <div class="footer-url">http://edulens.jp/mistap</div>
+        <div class="footer-url">https://edulens.jp/mistap</div>
       </div>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=http://edulens.jp/mistap" class="footer-qr" alt="QR Code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
   
@@ -519,9 +519,9 @@ function TestContent() {
     <div class="footer">
       <div class="footer-left">
         <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
-        <div class="footer-url">http://edulens.jp/mistap</div>
+        <div class="footer-url">https://edulens.jp/mistap</div>
       </div>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=http://edulens.jp/mistap" class="footer-qr" alt="QR Code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
 </body>
