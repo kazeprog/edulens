@@ -17,6 +17,7 @@ interface DashboardStats {
     weeklyNewExams: number;
     thisMonthNewUsers: number;
     lastMonthNewUsers: number;
+    referralEnabled: boolean;
 }
 
 // 月別登録データの型
@@ -69,6 +70,7 @@ export default function AdminDashboardPage() {
         weeklyNewExams: 0,
         thisMonthNewUsers: 0,
         lastMonthNewUsers: 0,
+        referralEnabled: true,
     });
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
     const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
@@ -119,6 +121,7 @@ export default function AdminDashboardPage() {
                 { data: recentExams },
                 { data: recentPosts },
                 { data: allProfiles },
+                { data: configResponse },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -134,6 +137,7 @@ export default function AdminDashboardPage() {
                 supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
+                supabase.from('app_config').select('value').eq('key', 'referral_campaign_enabled').single(),
             ]);
 
             // 月別登録データを集計（過去12ヶ月）
@@ -193,6 +197,7 @@ export default function AdminDashboardPage() {
                 weeklyNewExams: weeklyNewExams || 0,
                 thisMonthNewUsers: thisMonthNewUsers || 0,
                 lastMonthNewUsers: lastMonthNewUsers || 0,
+                referralEnabled: configResponse ? (configResponse.value as boolean) : true,
             });
 
             // アクティビティをマージ&ソート
@@ -424,9 +429,50 @@ export default function AdminDashboardPage() {
                     <Link href="/admin/tests" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📊 テスト履歴
                     </Link>
+                    <button
+                        onClick={() => document.getElementById('referral-settings')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm"
+                    >
+                        🎁 招待キャンペーン
+                    </button>
                     <Link href="/countdown" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm" target="_blank">
                         🔗 サイトを見る
                     </Link>
+                </div>
+            </div>
+
+            {/* システム設定 */}
+            <div id="referral-settings" className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+                <h3 className="text-lg font-bold mb-4 text-slate-800">⚙️ システム設定</h3>
+                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                    <div>
+                        <p className="font-bold text-slate-800">友達招待キャンペーン</p>
+                        <p className="text-xs text-slate-500">キャンペーンを有効にすると、ユーザーは招待コードを発行・入力できます。</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={stats.referralEnabled}
+                            onChange={async (e) => {
+                                const newValue = e.target.checked;
+                                // Optimistic update
+                                setStats(prev => ({ ...prev, referralEnabled: newValue }));
+                                try {
+                                    const { error } = await supabase
+                                        .from('app_config')
+                                        .upsert({ key: 'referral_campaign_enabled', value: newValue });
+
+                                    if (error) throw error;
+                                } catch (err) {
+                                    console.error('Failed to update config', err);
+                                    setStats(prev => ({ ...prev, referralEnabled: !newValue }));
+                                    alert('設定の更新に失敗しました');
+                                }
+                            }}
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
                 </div>
             </div>
 

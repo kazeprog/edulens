@@ -11,12 +11,25 @@ export default function ReferralDashboard() {
     const [invitedCount, setInvitedCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
+    const [referralEnabled, setReferralEnabled] = useState(true);
 
     useEffect(() => {
         if (!user) return;
 
         const fetchReferralData = async () => {
             try {
+                // Check campaign status first
+                const { data: config } = await supabase
+                    .from('app_config')
+                    .select('value')
+                    .eq('key', 'referral_campaign_enabled')
+                    .single();
+
+                if (config) {
+                    setReferralEnabled(config.value as boolean);
+                    if (config.value === false) return; // Stop fetching if disabled
+                }
+
                 // 1. Ensure/Get Code
                 const { data: codeData, error: codeError } = await supabase.rpc('ensure_referral_code');
                 if (!codeError && codeData) {
@@ -102,6 +115,21 @@ export default function ReferralDashboard() {
     };
 
     if (loading) return <div className="animate-pulse h-32 bg-slate-100 rounded-xl"></div>;
+
+    if (!referralEnabled) {
+        return (
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 text-center">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Gift className="w-8 h-8 text-slate-400" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-700 mb-2">キャンペーン終了</h3>
+                <p className="text-slate-500 text-sm">
+                    友達招待キャンペーンは現在実施しておりません。<br />
+                    次回の開催をお楽しみに！
+                </p>
+            </div>
+        );
+    }
 
     const nextGoal = Math.ceil((invitedCount + 1) / 3) * 3;
     const currentProgress = invitedCount % 3;
