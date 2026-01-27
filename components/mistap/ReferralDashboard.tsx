@@ -44,9 +44,7 @@ export default function ReferralDashboard() {
     }, [user]);
 
     const handleCopy = async () => {
-        console.log('Copy button clicked. Code:', referralCode);
         if (!referralCode) {
-            console.warn('No referral code available to copy.');
             return;
         }
         // Link leads to LP, stores code, then redirects to signup
@@ -56,7 +54,6 @@ export default function ReferralDashboard() {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(url);
             } else {
-                console.log('Using fallback copy method');
                 // Fallback for non-secure context (e.g. dev http)
                 const textArea = document.createElement("textarea");
                 textArea.value = url;
@@ -84,7 +81,6 @@ export default function ReferralDashboard() {
     };
 
     const handleShare = async () => {
-        console.log('Share button clicked. Code:', referralCode);
         if (!referralCode) return;
         const url = `${window.location.origin}/mistap?ref=${referralCode}&signup=1`;
         const text = `Mistapで一緒に勉強しよう！招待リンクから登録してね。 #Mistap`;
@@ -100,7 +96,6 @@ export default function ReferralDashboard() {
                 // ignore share abort
             }
         } else {
-            console.log('navigator.share not supported, falling back to copy');
             // Fallback
             handleCopy();
         }
