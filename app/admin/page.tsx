@@ -128,6 +128,9 @@ export default function AdminDashboardPage() {
                 { data: recentPosts },
                 { data: allProfiles },
                 { data: configResponse },
+                { data: dauCount },
+                { data: wauCount },
+                { data: mauCount },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -207,9 +210,9 @@ export default function AdminDashboardPage() {
                 thisMonthNewUsers: thisMonthNewUsers || 0,
                 lastMonthNewUsers: lastMonthNewUsers || 0,
                 referralEnabled: configResponse ? (configResponse.value as boolean) : true,
-                dau: arguments[arguments.length - 3]?.data || 0,
-                wau: arguments[arguments.length - 2]?.data || 0,
-                mau: arguments[arguments.length - 1]?.data || 0,
+                dau: dauCount || 0,
+                wau: wauCount || 0,
+                mau: mauCount || 0,
             });
 
             // アクティビティをマージ&ソート
