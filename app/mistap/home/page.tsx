@@ -246,6 +246,29 @@ export default function HomePage() {
         fetchBlogPosts();
     }, []);
 
+    // Referral Code Auto-Claim (Ensure it's claimed upon landing on Home)
+    useEffect(() => {
+        const claimReferral = async () => {
+            if (!user) return;
+            const storedCode = localStorage.getItem('mistap_referral_code');
+            if (!storedCode) return;
+
+            try {
+                const supabase = getSupabase();
+                if (!supabase) return;
+                const { data } = await supabase.rpc('claim_referral_code', { p_code: storedCode });
+
+                // If success or already handled, clear storage
+                if (data?.success || data?.message?.includes('済み') || data?.message?.includes('自分')) {
+                    localStorage.removeItem('mistap_referral_code');
+                }
+            } catch (err) {
+                console.error('Referral claim error:', err);
+            }
+        };
+        claimReferral();
+    }, [user]);
+
     // 認証状態の変化を監視してリダイレクト
     useEffect(() => {
         if (!authLoading && !user) {
