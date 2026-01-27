@@ -147,6 +147,28 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
   }, []);
 
+  const [referralEnabled, setReferralEnabled] = useState(true);
+
+  // Check campaign status
+  useEffect(() => {
+    const checkConfig = async () => {
+      try {
+        const { data } = await supabase
+          .from('app_config')
+          .select('value')
+          .eq('key', 'referral_campaign_enabled')
+          .single();
+
+        if (data) {
+          setReferralEnabled(data.value as boolean);
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+    checkConfig();
+  }, []);
+
   // Referral Code Auto-Claim
   useEffect(() => {
     const claimReferral = async () => {
@@ -156,6 +178,20 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       try {
         const { data: userData } = await supabase.auth.getUser();
         if (!userData?.user) return;
+
+        // Check config
+        const { data: config } = await supabase
+          .from('app_config')
+          .select('value')
+          .eq('key', 'referral_campaign_enabled')
+          .single();
+
+        if (config && config.value === false) {
+          // Campaign disabled, do not claim (or maybe delete stored code?)
+          // Let's keep stored code for now in case campaign re-enables?
+          // Or just return.
+          return;
+        }
 
         const { data } = await supabase.rpc('claim_referral_code', { p_code: storedCode });
 
@@ -1808,6 +1844,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
           </div>
         </div>
       )}
+      {/* End of Component */}
     </div>
   );
 
