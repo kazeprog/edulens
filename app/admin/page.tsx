@@ -37,6 +37,14 @@ interface DailyRegistration {
 
 type ChartViewMode = 'daily' | 'monthly';
 
+// アクティブユーザー推移の型
+interface ActiveUserTrend {
+    trend_date: string;
+    dau: number;
+    wau: number;
+    mau: number;
+}
+
 // アクティビティの型定義
 interface RecentActivity {
     type: 'user' | 'exam' | 'post';
@@ -81,6 +89,7 @@ export default function AdminDashboardPage() {
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
     const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
     const [dailyRegistrations, setDailyRegistrations] = useState<DailyRegistration[]>([]);
+    const [activeUserTrends, setActiveUserTrends] = useState<ActiveUserTrend[]>([]);
     const [chartViewMode, setChartViewMode] = useState<ChartViewMode>('monthly');
     const [loading, setLoading] = useState(true);
 
@@ -131,6 +140,7 @@ export default function AdminDashboardPage() {
                 { data: dauCount },
                 { data: wauCount },
                 { data: mauCount },
+                { data: trendData },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -150,6 +160,7 @@ export default function AdminDashboardPage() {
                 supabase.rpc('get_active_test_user_count', { p_days: 1 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 7 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 30 }),
+                supabase.rpc('get_active_user_trends', { p_days: 30 }),
             ]);
 
             // 月別登録データを集計（過去12ヶ月）
@@ -214,6 +225,10 @@ export default function AdminDashboardPage() {
                 wau: wauCount || 0,
                 mau: mauCount || 0,
             });
+
+            if (trendData) {
+                setActiveUserTrends(trendData);
+            }
 
             // アクティビティをマージ&ソート
             const activities: RecentActivity[] = [];
@@ -331,6 +346,59 @@ export default function AdminDashboardPage() {
                     <p className="text-xs text-slate-500 font-medium mb-1 truncate">MAU (30日間内)</p>
                     <p className="text-2xl font-bold text-slate-800">{stats.mau}人</p>
                 </div>
+            </div>
+
+            {/* アクティブユーザー推移グラフ */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold text-slate-800">📈 アクティブユーザー推移</h3>
+                    <div className="flex gap-4 text-xs">
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <span className="text-slate-600">DAU</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-indigo-500"></div>
+                            <span className="text-slate-600">WAU</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-slate-400"></div>
+                            <span className="text-slate-600">MAU</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                            data={activeUserTrends}
+                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                        >
+                            <XAxis
+                                dataKey="trend_date"
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={false}
+                                tickFormatter={(value) => {
+                                    const d = new Date(value);
+                                    return `${d.getMonth() + 1}/${d.getDate()}`;
+                                }}
+                            />
+                            <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                labelFormatter={(value) => {
+                                    const d = new Date(value);
+                                    return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+                                }}
+                            />
+                            <Line type="monotone" dataKey="dau" name="DAU" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="wau" name="WAU" stroke="#6366f1" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="mau" name="MAU" stroke="#94a3b8" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-2">過去30日間のアクティブユーザー推移</p>
             </div>
 
             {/* サブ統計カード */}
