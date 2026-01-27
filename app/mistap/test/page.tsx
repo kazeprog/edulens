@@ -556,8 +556,22 @@ function TestContent() {
     }
   }
 
-  function handleFinish() {
+  async function handleFinish() {
     if (!testData) return;
+
+    // Increment test count for authenticated users
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        // Fire and forget, or await? 
+        // Await to ensure reliability, but keep UI responsive?
+        // Let's await to be safe, it shouldn't take long.
+        await supabase.rpc('increment_profile_test_count', { p_user_id: user.id });
+      }
+    } catch (err) {
+      console.error('Failed to increment test count:', err);
+    }
+
     const { selectedText, startNum, endNum, words } = testData;
 
     // 教科書テストの場合（startNum/endNumがnull）は、単語データを直接渡す
