@@ -692,6 +692,27 @@ export default function HomePage() {
 
                         {/* Right Column: Recent Activity */}
                         <div className="lg:col-span-2 flex flex-col gap-6">
+
+                            {/* Referral Banner */}
+                            <div
+                                onClick={() => router.push('/mistap/referral')}
+                                className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-3xl shadow-lg shadow-pink-200 p-6 text-white relative overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
+                            >
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
+                                <div className="relative z-10 flex items-center justify-between">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-2 bg-white/20 w-fit px-3 py-1 rounded-full text-xs font-bold">
+                                            <span>🎁 キャンペーン中</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-1">友達招待でProプラン無料！</h3>
+                                        <p className="text-pink-100 text-sm">3人招待すると1ヶ月分プレゼント。<br />タップして招待リンクをコピー。</p>
+                                    </div>
+                                    <div className="bg-white/20 p-3 rounded-full">
+                                        <span className="text-2xl">🚀</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Today's Goal Card */}
                             {todayGoal ? (
                                 <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-3xl shadow-xl shadow-red-200 p-6 md:p-8 text-white relative overflow-hidden">

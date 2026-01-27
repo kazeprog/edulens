@@ -147,6 +147,32 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
   }, []);
 
+  // Referral Code Auto-Claim
+  useEffect(() => {
+    const claimReferral = async () => {
+      const storedCode = localStorage.getItem('mistap_referral_code');
+      if (!storedCode) return;
+
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (!userData?.user) return;
+
+        const { data } = await supabase.rpc('claim_referral_code', { p_code: storedCode });
+
+        // If success or specific errors (already claimed/self), clear storage
+        if (data?.success || data?.message?.includes('済み') || data?.message?.includes('自分')) {
+          localStorage.removeItem('mistap_referral_code');
+          if (data?.success) {
+            // Optional: Show toast -> "招待コードが適用されました！"
+          }
+        }
+      } catch {
+        // ignore
+      }
+    };
+    claimReferral();
+  }, []);
+
   // 中学向け教材リスト（固定）
   const juniorTexts = useMemo(() => [
     "ターゲット1800",

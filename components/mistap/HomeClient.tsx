@@ -85,6 +85,13 @@ export default function HomeClient() {
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
+
+        // Referral Code Capture
+        const refCode = params.get('ref');
+        if (refCode) {
+            localStorage.setItem('mistap_referral_code', refCode);
+        }
+
         if (params.get('signup') === '1') {
             router.push('/login?mode=signup&redirect=/mistap/home');
             return;
