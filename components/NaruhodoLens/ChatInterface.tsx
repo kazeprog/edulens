@@ -168,8 +168,7 @@ export default function ChatInterface() {
             if (msg.parts && msg.parts.length > 0) hasContent = true;
 
             if (!hasContent) {
-                alert('応答が空でした。通信エラーの可能性があります。もう一度お試しください。');
-                // Optional: remove the empty message or trigger reload
+                console.warn('応答が空でした。');
             }
         },
         onError: (error) => {
