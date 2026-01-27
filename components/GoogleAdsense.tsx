@@ -62,12 +62,24 @@ const GoogleAdsense = ({
             // コンポーネントがアンマウントされている、または既にロード済みの場合は終了
             if (!containerRef.current || isAdLoaded.current) return;
 
+            // Double check if ad is already loaded on the element itself
+            if (adRef.current && adRef.current.getAttribute('data-adsbygoogle-status')) {
+                isAdLoaded.current = true;
+                return;
+            }
+
             const width = containerRef.current.offsetWidth;
             if (width > 0) {
                 try {
                     (window.adsbygoogle = window.adsbygoogle || []).push({});
                     isAdLoaded.current = true;
-                } catch (err) {
+                } catch (err: any) {
+                    // Ignore "TagError" (already filled) to prevent console noise
+                    const message = err?.message || '';
+                    if (err?.name === 'TagError' || message.includes('already have ads')) {
+                        isAdLoaded.current = true;
+                        return;
+                    }
                     console.error('Google AdSense error:', err);
                 }
             } else if (attempts < maxAttempts) {
