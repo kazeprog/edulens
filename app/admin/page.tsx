@@ -18,6 +18,9 @@ interface DashboardStats {
     thisMonthNewUsers: number;
     lastMonthNewUsers: number;
     referralEnabled: boolean;
+    dau: number;
+    wau: number;
+    mau: number;
 }
 
 // 月別登録データの型
@@ -71,6 +74,9 @@ export default function AdminDashboardPage() {
         thisMonthNewUsers: 0,
         lastMonthNewUsers: 0,
         referralEnabled: true,
+        dau: 0,
+        wau: 0,
+        mau: 0,
     });
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
     const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
@@ -138,6 +144,9 @@ export default function AdminDashboardPage() {
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
                 supabase.from('app_config').select('value').eq('key', 'referral_campaign_enabled').single(),
+                supabase.rpc('get_active_test_user_count', { p_days: 1 }),
+                supabase.rpc('get_active_test_user_count', { p_days: 7 }),
+                supabase.rpc('get_active_test_user_count', { p_days: 30 }),
             ]);
 
             // 月別登録データを集計（過去12ヶ月）
@@ -198,6 +207,9 @@ export default function AdminDashboardPage() {
                 thisMonthNewUsers: thisMonthNewUsers || 0,
                 lastMonthNewUsers: lastMonthNewUsers || 0,
                 referralEnabled: configResponse ? (configResponse.value as boolean) : true,
+                dau: arguments[arguments.length - 3]?.data || 0,
+                wau: arguments[arguments.length - 2]?.data || 0,
+                mau: arguments[arguments.length - 1]?.data || 0,
             });
 
             // アクティビティをマージ&ソート
@@ -298,6 +310,23 @@ export default function AdminDashboardPage() {
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">単語テスト数</p>
                     <p className="text-2xl font-bold text-slate-800">{stats.testResultCount}</p>
+                </div>
+            </div>
+
+            {/* アクティブユーザー統計 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">📈 アクティブユーザー（単語テスト）</h3>
+            <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">DAU (24時間内)</p>
+                    <p className="text-2xl font-bold text-blue-600">{stats.dau}人</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">WAU (7日間内)</p>
+                    <p className="text-2xl font-bold text-indigo-600">{stats.wau}人</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">MAU (30日間内)</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.mau}人</p>
                 </div>
             </div>
 
