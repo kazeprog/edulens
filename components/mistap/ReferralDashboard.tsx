@@ -49,7 +49,8 @@ export default function ReferralDashboard() {
             console.warn('No referral code available to copy.');
             return;
         }
-        const url = `${window.location.origin}/mistap?ref=${referralCode}`;
+        // Link leads to LP, stores code, then redirects to signup
+        const url = `${window.location.origin}/mistap?ref=${referralCode}&signup=1`;
 
         try {
             if (navigator.clipboard && window.isSecureContext) {
@@ -85,7 +86,7 @@ export default function ReferralDashboard() {
     const handleShare = async () => {
         console.log('Share button clicked. Code:', referralCode);
         if (!referralCode) return;
-        const url = `${window.location.origin}/mistap?ref=${referralCode}`;
+        const url = `${window.location.origin}/mistap?ref=${referralCode}&signup=1`;
         const text = `Mistapで一緒に勉強しよう！招待リンクから登録してね。 #Mistap`;
 
         if (navigator.share) {
