@@ -340,7 +340,11 @@ export default function TestSetupPage() {
   const fetchTexts = useCallback(async () => {
     // ローカルの静的リストを使用
     // キャッシュロジックは残しても良いが、静的リストが最速かつ確実なので直接セット
-    const uniqueTexts = AVAILABLE_TEXTBOOKS;
+    const uniqueTexts = [...AVAILABLE_TEXTBOOKS];
+    // Hotfix: Ensure Target 1400 is included if missing from statically generated list
+    if (!uniqueTexts.includes("ターゲット1400")) {
+      uniqueTexts.push("ターゲット1400");
+    }
 
     // もしローカルリストが空ならフォールバック（基本ありえないが）
     if (uniqueTexts.length === 0) {
