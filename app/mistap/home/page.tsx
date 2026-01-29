@@ -619,12 +619,25 @@ export default function HomePage() {
                                 <div className="space-y-1">
                                     {announcements.slice(0, 2).map((announcement) => (
                                         <p key={announcement.id} className="text-gray-600 text-lg">
-                                            {announcement.message.split(/\\n|\n/).map((line, i, arr) => (
-                                                <span key={i}>
-                                                    {line}
-                                                    {i < arr.length - 1 && <br />}
-                                                </span>
-                                            ))}
+                                            {announcement.message.split(/\\n|\n/).map((line, i, arr) => {
+                                                // Handle $...$ for red text
+                                                const parts = line.split(/(\$.*?\$)/g);
+                                                return (
+                                                    <span key={i}>
+                                                        {parts.map((part, index) => {
+                                                            if (part.startsWith('$') && part.endsWith('$')) {
+                                                                return (
+                                                                    <span key={index} className="text-red-500 font-bold">
+                                                                        {part.slice(1, -1)}
+                                                                    </span>
+                                                                );
+                                                            }
+                                                            return part;
+                                                        })}
+                                                        {i < arr.length - 1 && <br />}
+                                                    </span>
+                                                );
+                                            })}
                                         </p>
                                     ))}
                                 </div>
