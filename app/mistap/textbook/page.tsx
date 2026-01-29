@@ -61,6 +61,12 @@ const universityTextbooks: Textbook[] = [
         badge: "定番"
     },
     {
+        name: "ターゲット1400",
+        description: "大学受験の必須単語。共通テスト・中堅大対策に最適。",
+        path: "/mistap/textbook/target-1400",
+        color: "blue"
+    },
+    {
         name: "LEAP",
         description: "4技能対応の必修英単語。竹岡広信先生のメソッドを凝縮。",
         path: "/mistap/textbook/leap",
@@ -322,7 +328,7 @@ export default function TextbookIndexPage() {
                     <Section
                         title="古文単語"
                         icon={<BookOpen className="w-8 h-8 text-rose-500" />}
-                        description="苦手な古文単語もクイズ形式ならサクサク覚えられる。イラスト付きの解説で定着度アップ。"
+                        description="苦手な古文単語も単語カード形式ならサクサク覚えられる。イラスト付きの解説で定着度アップ。"
                     >
                         {kobunTextbooks.map((textbook, idx) => (
                             <TextbookCard key={idx} {...textbook} />

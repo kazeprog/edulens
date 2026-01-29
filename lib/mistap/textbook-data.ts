@@ -16,6 +16,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         totalUnits: 19,
         getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
     },
+    'target-1400': {
+        name: 'Target 1400',
+        jpName: 'ターゲット1400',
+        unitLabel: 'Section',
+        totalUnits: 14,
+        getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
+    },
     'target-1200': {
         name: 'Target 1200',
         jpName: 'ターゲット1200',
@@ -84,6 +91,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         unitLabel: '章',
         totalUnits: 5,
         getRange: (unit) => ({ start: (unit - 1) * 60 + 1, end: unit * 60 }),
+    },
+    'kobun-351': {
+        name: '理解を深める核心古文単語351',
+        jpName: '核心古文単語351',
+        unitLabel: '章',
+        totalUnits: 7,
+        getRange: (unit) => ({ start: (unit - 1) * 50 + 1, end: Math.min(unit * 50, 351) }),
     },
 };
 

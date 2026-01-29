@@ -2,6 +2,7 @@ import newCrownData from "@/lib/data/json/new-crown.json";
 import newHorizonData from "@/lib/data/json/new-horizon.json";
 import target1900Data from "@/lib/data/json/ターゲット1900.json";
 import target1200Data from "@/lib/data/json/ターゲット1200.json";
+import target1400Data from "@/lib/data/json/ターゲット1400.json";
 import target1800Data from "@/lib/data/json/ターゲット1800.json";
 import systemWordsData from "@/lib/data/json/システム英単語.json";
 import leapData from "@/lib/data/json/leap.json";
@@ -10,6 +11,7 @@ import duo30Data from "@/lib/data/json/duo-30例文.json";
 import kobun315Data from "@/lib/data/json/読んで見て聞いて覚える-重要古文単語315.json";
 import kobun325Data from "@/lib/data/json/ベストセレクション古文単語325.json";
 import kobun330Data from "@/lib/data/json/key＆point古文単語330.json";
+import kobun351Data from "@/lib/data/json/理解を深める核心古文単語351.json";
 
 // 型定義
 export interface TextbookWord {
@@ -36,6 +38,8 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "ターゲット1800": target1800Data as TextbookWord[],
     "target-1200": target1200Data as TextbookWord[],
     "ターゲット1200": target1200Data as TextbookWord[],
+    "target-1400": target1400Data as TextbookWord[],
+    "ターゲット1400": target1400Data as TextbookWord[],
     "system-words": systemWordsData as TextbookWord[],
     "システム英単語": systemWordsData as TextbookWord[],
     "leap": leapData as TextbookWord[],
@@ -54,6 +58,9 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "ベストセレクション古文単語325": kobun325Data as TextbookWord[],
     "kobun-330": kobun330Data as TextbookWord[],
     "key&point古文単語330": kobun330Data as TextbookWord[],
+    "kobun-351": kobun351Data as TextbookWord[],
+    "核心古文単語351": kobun351Data as TextbookWord[],
+    "理解を深める核心古文単語351": kobun351Data as TextbookWord[],
 };
 
 export function getJsonTextbookData(textbookName: string): TextbookWord[] | null {
@@ -69,6 +76,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("new-crown")) return DATA_MAP["new-crown"];
     if (normalized.includes("new-horizon")) return DATA_MAP["new-horizon"];
     if (normalized.includes("target-1900") || textbookName.includes("ターゲット1900")) return DATA_MAP["target-1900"];
+    if (normalized.includes("target-1400") || textbookName.includes("ターゲット1400")) return DATA_MAP["target-1400"];
     if (normalized.includes("target-1800") || textbookName.includes("ターゲット1800")) return DATA_MAP["target-1800"];
     if (normalized.includes("target-1200") || textbookName.includes("ターゲット1200")) return DATA_MAP["target-1200"];
     if (normalized.includes("system") || textbookName.includes("システム英単語")) return DATA_MAP["system-words"];
@@ -78,6 +86,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("315")) return DATA_MAP["kobun-315"];
     if (normalized.includes("325")) return DATA_MAP["kobun-325"];
     if (normalized.includes("330")) return DATA_MAP["kobun-330"];
+    if (normalized.includes("351")) return DATA_MAP["kobun-351"];
 
 
     return null;
