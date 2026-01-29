@@ -146,6 +146,7 @@ export default function TestSetupPage() {
     // 英単語帳（高校向け）
     "LEAP",
     "ターゲット1200",
+    "ターゲット1400",
     "システム英単語",
     "ターゲット1900",
     "DUO 3.0例文",
