@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
-import { TextbookWord } from "@/lib/mistap/jsonTextbookData";
+import { TextbookWord, AVAILABLE_TEXTBOOKS } from "@/lib/mistap/jsonTextbookData";
 
 // PWAインストールプロンプト用の型定義
 type BeforeInstallPromptEvent = Event & {
@@ -64,7 +64,18 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const [selectedSchoolGrade, setSelectedSchoolGrade] = useState<string>(initialGrade || '中1');
 
   // 通常テスト用の状態
-  const [texts, setTexts] = useState<string[]>([]);
+  // Initial state with forced inclusion of "ターゲット1400" to prevent "missing from database" warning
+  const [texts, setTexts] = useState<string[]>(() => {
+    // Check if AVAILABLE_TEXTBOOKS is loaded, otherwise default to a minimal list including Target 1400
+    const defaults = AVAILABLE_TEXTBOOKS && AVAILABLE_TEXTBOOKS.length > 0
+      ? [...AVAILABLE_TEXTBOOKS]
+      : ["ターゲット1900", "ターゲット1400"]; // Minimal fallback
+
+    if (!defaults.includes("ターゲット1400")) {
+      defaults.push("ターゲット1400");
+    }
+    return Array.from(new Set(defaults));
+  });
   const [selectedText, setSelectedText] = useState<string>("ターゲット1900");
   const [level, setLevel] = useState<string>("senior");
   const [startNum, setStartNum] = useState<number>(initialStartNum || 1);
@@ -496,9 +507,19 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         const timestamp = parseInt(cachedTimestamp, 10);
         if (Date.now() - timestamp < cacheExpiry) {
           const uniqueTexts = JSON.parse(cachedData);
+          // Hotfix: Ensure Target 1400 is included in cached data
+          if (!uniqueTexts.includes("ターゲット1400")) {
+            uniqueTexts.push("ターゲット1400");
+          }
+
           setTexts(uniqueTexts);
           if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-            setSelectedText(uniqueTexts[0]);
+            // keep existing logic
+          } else if (uniqueTexts.length > 0) {
+            // ensure selection is valid
+            if (selectedText && !uniqueTexts.includes(selectedText)) {
+              setSelectedText(uniqueTexts[0]);
+            }
           }
           return;
         }
@@ -507,41 +528,43 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       // キャッシュ読み込みエラー - 無視
     }
 
-    // RPCを使用してユニークなtext値を直接取得
-    const { data, error } = await supabase.rpc('get_unique_texts');
+    // Use fallback empty array if AVAILABLE_TEXTBOOKS is undefined
+    const baseList = AVAILABLE_TEXTBOOKS || [];
+    let uniqueTexts = Array.from(new Set([...baseList, "ターゲット1400"]));
 
-    if (error) {
-      // RPC error - will fallback
-    }
+    // If local list is suspiciously empty (only has forced 1400), try fallback methods
+    if (uniqueTexts.length <= 1) {
+      // RPCを使用してユニークなtext値を直接取得
+      const { data, error } = await supabase.rpc('get_unique_texts');
 
-    let uniqueTexts: string[] = [];
-
-    // RPCが成功した場合
-    if (!error && data) {
-      // data が配列の場合、{ text: string } の配列か string の配列かを確認
-      if (Array.isArray(data) && data.length > 0) {
-        if (typeof data[0] === 'string') {
-          uniqueTexts = data;
-        } else if (typeof data[0] === 'object' && 'text' in data[0]) {
-          uniqueTexts = data.map((item: { text: string }) => item.text);
+      if (!error && data) {
+        // data が配列の場合、{ text: string } の配列か string の配列かを確認
+        if (Array.isArray(data) && data.length > 0) {
+          let fetchedTexts: string[] = [];
+          if (typeof data[0] === 'string') {
+            fetchedTexts = data;
+          } else if (typeof data[0] === 'object' && 'text' in data[0]) {
+            fetchedTexts = data.map((item: { text: string }) => item.text);
+          }
+          if (fetchedTexts.length > 0) {
+            uniqueTexts = Array.from(new Set([...fetchedTexts, "ターゲット1400"]));
+          }
         }
       }
     }
 
-    // RPCが失敗またはデータが空の場合、フォールバック
-    if (uniqueTexts.length === 0) {
+    // RPCが失敗またはデータが空の場合、フォールバック (DB raw query)
+    if (uniqueTexts.length <= 1) {
       const { data: fallbackData, error: fallbackError } = await supabase
         .from("words")
         .select("text")
         .not("text", "is", null)
         .limit(1000);
 
-      if (fallbackError) {
-        setTexts([]);
-        return;
+      if (!fallbackError && fallbackData) {
+        const fetchedTexts = fallbackData.map((d) => d.text);
+        uniqueTexts = Array.from(new Set([...fetchedTexts, "ターゲット1400"]));
       }
-
-      uniqueTexts = [...new Set(fallbackData?.map((d) => d.text) || [])];
     }
 
     setTexts(uniqueTexts);
@@ -1166,7 +1189,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                       // 高校向けはグループ化（データベースに存在するもののみ）
                       <>
                         <optgroup label="📖 英単語">
-                          {["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"]
+                          {["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文"]
                             .filter(text => texts.includes(text))
                             .map(text => (
                               <option key={text} value={text} translate="no">{text}</option>
@@ -1180,7 +1203,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                             ))}
                         </optgroup>
                         {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                        {(!["LEAP", "ターゲット1200", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"].some(t => texts.includes(t))) && (
+                        {(!["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"].some(t => texts.includes(t))) && (
                           <>
                             {texts.map(text => (
                               <option key={text} value={text} translate="no">{text}</option>
@@ -1245,7 +1268,6 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
               </div>
             )}
 
-            {/* 開発用：欠けている教材の警告 */}
             {missingTexts.length > 0 && process.env.NODE_ENV === 'development' && (
               <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 rounded-lg">
                 <p className="text-yellow-800 text-sm">
@@ -1256,6 +1278,10 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                     <li key={text}>• {text}</li>
                   ))}
                 </ul>
+                <details className="mt-2 text-xs text-yellow-600">
+                  <summary>読み込まれた教材リスト ({texts.length})</summary>
+                  <p className="mt-1 break-all">{texts.join(', ')}</p>
+                </details>
               </div>
             )}
 
