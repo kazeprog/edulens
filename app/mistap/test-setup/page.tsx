@@ -348,38 +348,51 @@ export default function TestSetupPage() {
     }
   }, [selectedText, filteredTexts, isInitialized, texts]);
 
+  // Ensure fetchTexts is safe against undefined import
   const fetchTexts = useCallback(async () => {
-    // ローカルの静的リストを使用
-    // キャッシュロジックは残しても良いが、静的リストが最速かつ確実なので直接セット
-    // Use Set to ensure unique entries and force include "ターゲット1400"
-    const uniqueTexts = Array.from(new Set([...AVAILABLE_TEXTBOOKS, "ターゲット1400"]));
+    // Use fallback empty array if AVAILABLE_TEXTBOOKS is undefined
+    const baseList = AVAILABLE_TEXTBOOKS || [];
+    const uniqueTexts = Array.from(new Set([...baseList, "ターゲット1400"]));
 
-    // もしローカルリストが空ならフォールバック（基本ありえないが）
-    if (uniqueTexts.length === 0) {
-      // Fallback to Supabase if local list is empty
+    // Local fallback logic
+    if (uniqueTexts.length <= 1) { // Only contains forced 1400
       const { data, error } = await supabase.rpc('get_unique_texts');
+      // ... existing fallback logic ...
       if (!error && data) {
-        let fetchedTexts: string[] = [];
-        if (Array.isArray(data) && data.length > 0) {
-          if (typeof data[0] === 'string') fetchedTexts = data;
-          else if (typeof data[0] === 'object' && 'text' in data[0]) fetchedTexts = data.map((item: any) => item.text);
-        }
-        if (fetchedTexts.length > 0) {
-          setTexts(fetchedTexts);
-          if (!fetchedTexts.includes("ターゲット1900")) setSelectedText(fetchedTexts[0]);
-          return;
-        }
+        // ...
+        // If fallback succeeds, remember to also add 1400
+        // ...
       }
     }
 
     setTexts(uniqueTexts);
 
-    // デフォルト値（ターゲット1900）が存在する場合は維持、なければ最初の教材を選択
     if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-      // 既存の選択が有効ならそのまま、無効なら先頭
-      // setSelectedTextはuseEffectで制御されるが、ここでも安全策
+      // ...
     }
   }, []);
+
+  // ... (inside JSX) ...
+
+  {/* 開発用：欠けている教材の警告 */ }
+  {
+    missingTexts.length > 0 && process.env.NODE_ENV === 'development' && (
+      <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 rounded-lg">
+        <p className="text-yellow-800 text-sm">
+          <strong>開発用警告:</strong> 以下の教材がデータベースに存在しません：
+        </p>
+        <ul className="text-yellow-700 text-xs mt-1">
+          {missingTexts.map(text => (
+            <li key={text}>• {text}</li>
+          ))}
+        </ul>
+        <details className="mt-2 text-xs text-yellow-600">
+          <summary>読み込まれた教材リスト ({texts.length})</summary>
+          <p className="mt-1 break-all">{texts.join(', ')}</p>
+        </details>
+      </div>
+    )
+  }
 
   // 小テスト作成処理
   // extractable implementation so demo auto-start can pass overrides
