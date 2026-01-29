@@ -83,6 +83,10 @@ export default function TextbooksSection() {
                                     <span className="text-green-500 mr-3">✓</span>
                                     <span className="text-gray-700 text-sm md:text-base">ベストセレクション古文単語325</span>
                                 </li>
+                                <li className="flex items-center">
+                                    <span className="text-green-500 mr-3">✓</span>
+                                    <span className="text-gray-700 text-sm md:text-base">理解を深める核心古文単語351</span>
+                                </li>
                             </ul>
                         </div>
                     </div>

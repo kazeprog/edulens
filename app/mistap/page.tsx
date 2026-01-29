@@ -3,7 +3,7 @@ import HomeClient from '@/components/mistap/HomeClient';
 
 export const metadata: Metadata = {
   title: 'Mistap｜英単語帳対応の無料単語テストアプリ（間違えた単語を自動記録）',
-  description: 'Mistapはシステム英単語・ターゲット1900・New Horizonなどに対応した無料単語テストアプリ。間違えた単語を自動記録し、効率的に復習できます。スマホで使える暗記カードとして、大学受験や定期テスト対策に最適。',
+  description: 'Mistapはシステム英単語・ターゲット1900などの主要単語帳や、New Horizon・New Crownなどの中学教科書に対応した無料単語テストアプリ。間違えた単語を自動記録し、効率的に復習できます。スマホで使える暗記カードとして、大学受験や定期テスト対策に最適。',
   keywords: ['英単語アプリ', '単語テスト', 'システム英単語 アプリ', 'ターゲット1900 アプリ', '無料', '暗記', 'New Horizon'],
   alternates: {
     canonical: 'https://edulens.jp/mistap'

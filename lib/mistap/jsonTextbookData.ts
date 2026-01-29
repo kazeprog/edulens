@@ -12,6 +12,9 @@ import kobun315Data from "@/lib/data/json/読んで見て聞いて覚える-重�
 import kobun325Data from "@/lib/data/json/ベストセレクション古文単語325.json";
 import kobun330Data from "@/lib/data/json/key＆point古文単語330.json";
 import kobun351Data from "@/lib/data/json/理解を深める核心古文単語351.json";
+import words150Data from "@/lib/data/json/絶対覚える英単語150.json";
+import pastTenseData from "@/lib/data/json/過去形.json";
+import pastParticipleData from "@/lib/data/json/過去形、過去分詞形.json";
 
 // 型定義
 export interface TextbookWord {
@@ -61,6 +64,14 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "kobun-351": kobun351Data as TextbookWord[],
     "核心古文単語351": kobun351Data as TextbookWord[],
     "理解を深める核心古文単語351": kobun351Data as TextbookWord[],
+
+    // 中学・基礎
+    "absolute-150": words150Data as TextbookWord[],
+    "絶対覚える英単語150": words150Data as TextbookWord[],
+    "past-tense": pastTenseData as TextbookWord[],
+    "過去形": pastTenseData as TextbookWord[],
+    "past-participle": pastParticipleData as TextbookWord[],
+    "過去形、過去分詞形": pastParticipleData as TextbookWord[],
 };
 
 export function getJsonTextbookData(textbookName: string): TextbookWord[] | null {

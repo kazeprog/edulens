@@ -208,7 +208,7 @@ export default function HomeClient() {
                                 </h1>
 
                                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                                    『システム英単語』『ターゲット1900』『DUO3.0』『New Horizon』など、主要な単語帳に完全対応。<br />
+                                    『システム英単語』『ターゲット1900』『DUO3.0』などの主要な単語帳や『New Horizon』『New Crown』など中学教科書にも完全対応。<br />
                                     知識の穴を埋めて、最短ルートで定着させます。
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">

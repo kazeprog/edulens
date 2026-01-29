@@ -146,6 +146,8 @@ export default function TestSetupPage() {
 
   // 中学向け教材リスト（固定）
   const juniorTexts = useMemo(() => [
+    "New Horizon",
+    "New Crown",
     "ターゲット1800",
     "過去形",
     "過去形、過去分詞形",

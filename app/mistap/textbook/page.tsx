@@ -121,6 +121,12 @@ const kobunTextbooks: Textbook[] = [
         description: "共通テストから中堅大まで。頻出語を厳選した一冊。",
         path: "/mistap/textbook/kobun-325",
         color: "orange"
+    },
+    {
+        name: "核心古文単語351",
+        description: "「意味のつながり」で理解を深める。尚文出版の入試必携単語帳。",
+        path: "/mistap/textbook/kobun-351",
+        color: "blue"
     }
 ];
 
@@ -138,6 +144,31 @@ const juniorTextbooks: Textbook[] = [
         path: "/mistap/textbook/new-crown",
         color: "blue",
         badge: "教科書"
+    },
+    {
+        name: "ターゲット1800",
+        description: "中学・高校入試合格のための1800語を完全収録。基礎から応用まで。",
+        path: "/mistap/textbook/target-1800",
+        color: "blue",
+        badge: "人気"
+    },
+    {
+        name: "英単語150",
+        description: "中学英語で最初に覚えるべき超重要150語。土台作りに最適。",
+        path: "/mistap/textbook/absolute-150",
+        color: "emerald"
+    },
+    {
+        name: "不規則動詞（過去形）",
+        description: "中学・高校英語に必須の不規則動詞。過去形を完璧にマスター。",
+        path: "/mistap/textbook/past-tense",
+        color: "blue"
+    },
+    {
+        name: "不規則動詞（過去分詞）",
+        description: "完了形や受け身に欠かせない過去分詞形。活用をセットで攻略。",
+        path: "/mistap/textbook/past-participle",
+        color: "indigo"
     }
 ];
 
