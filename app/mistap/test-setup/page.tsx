@@ -50,7 +50,18 @@ export default function TestSetupPage() {
   const [selectedSchoolGrade, setSelectedSchoolGrade] = useState<string>('中1');
 
   // 通常テスト用の状態
-  const [texts, setTexts] = useState<string[]>([]);
+  // Initial state with forced inclusion of "ターゲット1400" to prevent "missing from database" warning
+  const [texts, setTexts] = useState<string[]>(() => {
+    // Check if AVAILABLE_TEXTBOOKS is loaded, otherwise default to a minimal list including Target 1400
+    const defaults = AVAILABLE_TEXTBOOKS && AVAILABLE_TEXTBOOKS.length > 0
+      ? [...AVAILABLE_TEXTBOOKS]
+      : ["ターゲット1900", "ターゲット1400"]; // Minimal fallback
+
+    if (!defaults.includes("ターゲット1400")) {
+      defaults.push("ターゲット1400");
+    }
+    return Array.from(new Set(defaults));
+  });
   const [selectedText, setSelectedText] = useState<string>("ターゲット1900");
   const [level, setLevel] = useState<string>("senior");
   const [startNum, setStartNum] = useState<number>(1);
