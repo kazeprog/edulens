@@ -6,7 +6,7 @@
     "unit": 0,
     "word_number": 1,
     "word": "believe",
-    "meaning": "（...ということ）を信じる，（...だ）と思う（that節）；信じる"
+    "meaning": "（...ということ）を信じる，（...だ）と思う（that節） 信じる"
   },
   {
     "textbook": "ターゲット1400",
@@ -15,7 +15,7 @@
     "unit": 0,
     "word_number": 2,
     "word": "consider",
-    "meaning": "を（...だと）見なす（to be）；をよく考える"
+    "meaning": "を（...だと）見なす（to be） をよく考える"
   },
   {
     "textbook": "ターゲット1400",
@@ -24,7 +24,7 @@
     "unit": 0,
     "word_number": 3,
     "word": "expect",
-    "meaning": "を予期する，と思う；を期待する"
+    "meaning": "を予期する，と思う を期待する"
   },
   {
     "textbook": "ターゲット1400",
@@ -51,7 +51,7 @@
     "unit": 0,
     "word_number": 6,
     "word": "remember",
-    "meaning": "（を）覚えている；（を）思い出す；（...すること）を覚えておく（to do）"
+    "meaning": "（を）覚えている （を）思い出す （...すること）を覚えておく（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -60,7 +60,7 @@
     "unit": 0,
     "word_number": 7,
     "word": "worry",
-    "meaning": "（～について）心配する（about）；を心配させる；〔受身形で〕心配する"
+    "meaning": "（～について）心配する（about） を心配させる 〔受身形で〕心配する"
   },
   {
     "textbook": "ターゲット1400",
@@ -69,7 +69,7 @@
     "unit": 0,
     "word_number": 8,
     "word": "concern",
-    "meaning": "に関係する；を心配させる"
+    "meaning": "に関係する を心配させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -78,7 +78,7 @@
     "unit": 0,
     "word_number": 9,
     "word": "suggest",
-    "meaning": "（...ということ；...すること）を提案する（that節；doing）；を示唆する"
+    "meaning": "（...ということ ...すること）を提案する（that節 doing） を示唆する"
   },
   {
     "textbook": "ターゲット1400",
@@ -96,7 +96,7 @@
     "unit": 0,
     "word_number": 11,
     "word": "describe",
-    "meaning": "の特徴を述べる；を（～と）言う（as）"
+    "meaning": "の特徴を述べる を（～と）言う（as）"
   },
   {
     "textbook": "ターゲット1400",
@@ -105,7 +105,7 @@
     "unit": 0,
     "word_number": 12,
     "word": "improve",
-    "meaning": "を改善する；よくなる"
+    "meaning": "を改善する よくなる"
   },
   {
     "textbook": "ターゲット1400",
@@ -114,7 +114,7 @@
     "unit": 0,
     "word_number": 13,
     "word": "produce",
-    "meaning": "を生産する；を製造する；を産出する"
+    "meaning": "を生産する を製造する を産出する"
   },
   {
     "textbook": "ターゲット1400",
@@ -141,7 +141,7 @@
     "unit": 0,
     "word_number": 16,
     "word": "increase",
-    "meaning": "増える（⇔ decrease ? 237）；を増やす"
+    "meaning": "増える（⇔ decrease ? 237） を増やす"
   },
   {
     "textbook": "ターゲット1400",
@@ -150,7 +150,7 @@
     "unit": 0,
     "word_number": 17,
     "word": "grow",
-    "meaning": "成長する；になる；を栽培する"
+    "meaning": "成長する になる を栽培する"
   },
   {
     "textbook": "ターゲット1400",
@@ -159,7 +159,7 @@
     "unit": 0,
     "word_number": 18,
     "word": "develop",
-    "meaning": "を開発する；を発達させる；発達する"
+    "meaning": "を開発する を発達させる 発達する"
   },
   {
     "textbook": "ターゲット1400",
@@ -168,7 +168,7 @@
     "unit": 0,
     "word_number": 19,
     "word": "rise",
-    "meaning": "上がる，昇る；増す"
+    "meaning": "上がる，昇る 増す"
   },
   {
     "textbook": "ターゲット1400",
@@ -177,7 +177,7 @@
     "unit": 0,
     "word_number": 20,
     "word": "raise",
-    "meaning": "を上げる；【主に米】 （子供）を育てる（≒ bring up）；（資金など）を集める"
+    "meaning": "を上げる 【主に米】 （子供）を育てる（≒ bring up） （資金など）を集める"
   },
   {
     "textbook": "ターゲット1400",
@@ -186,7 +186,7 @@
     "unit": 0,
     "word_number": 21,
     "word": "follow",
-    "meaning": "（の）次に続く；に従う；（の）後を追う"
+    "meaning": "（の）次に続く に従う （の）後を追う"
   },
   {
     "textbook": "ターゲット1400",
@@ -195,7 +195,7 @@
     "unit": 0,
     "word_number": 22,
     "word": "require",
-    "meaning": "を要求する；を必要とする（≒ need）"
+    "meaning": "を要求する を必要とする（≒ need）"
   },
   {
     "textbook": "ターゲット1400",
@@ -204,7 +204,7 @@
     "unit": 0,
     "word_number": 23,
     "word": "fill",
-    "meaning": "を満たす（⇔ empty ? 700）；いっぱいになる"
+    "meaning": "を満たす（⇔ empty ? 700） いっぱいになる"
   },
   {
     "textbook": "ターゲット1400",
@@ -213,7 +213,7 @@
     "unit": 0,
     "word_number": 24,
     "word": "support",
-    "meaning": "を支持する（⇔ oppose ? 616）；を扶養する；を援助する"
+    "meaning": "を支持する（⇔ oppose ? 616） を扶養する を援助する"
   },
   {
     "textbook": "ターゲット1400",
@@ -222,7 +222,7 @@
     "unit": 0,
     "word_number": 25,
     "word": "share",
-    "meaning": "を共同で使う；を分配する"
+    "meaning": "を共同で使う を分配する"
   },
   {
     "textbook": "ターゲット1400",
@@ -231,7 +231,7 @@
     "unit": 0,
     "word_number": 26,
     "word": "face",
-    "meaning": "に直面する；（危険などが）の身に迫る；の方を向く"
+    "meaning": "に直面する （危険などが）の身に迫る の方を向く"
   },
   {
     "textbook": "ターゲット1400",
@@ -240,7 +240,7 @@
     "unit": 0,
     "word_number": 27,
     "word": "touch",
-    "meaning": "を感動させる；に触れる"
+    "meaning": "を感動させる に触れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -249,7 +249,7 @@
     "unit": 0,
     "word_number": 28,
     "word": "store",
-    "meaning": "を蓄える；を保管する"
+    "meaning": "を蓄える を保管する"
   },
   {
     "textbook": "ターゲット1400",
@@ -258,7 +258,7 @@
     "unit": 0,
     "word_number": 29,
     "word": "pay",
-    "meaning": "（金）を支払う；（注意など）を払う；割に合う"
+    "meaning": "（金）を支払う （注意など）を払う 割に合う"
   },
   {
     "textbook": "ターゲット1400",
@@ -276,7 +276,7 @@
     "unit": 0,
     "word_number": 31,
     "word": "save",
-    "meaning": "（時間・金銭など）を節約する；を救う；を蓄える；（労力など）を省く"
+    "meaning": "（時間・金銭など）を節約する を救う を蓄える （労力など）を省く"
   },
   {
     "textbook": "ターゲット1400",
@@ -285,7 +285,7 @@
     "unit": 0,
     "word_number": 32,
     "word": "happen",
-    "meaning": "（事が）起こる；たまたま（...）する（to do）"
+    "meaning": "（事が）起こる たまたま（...）する（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -294,7 +294,7 @@
     "unit": 0,
     "word_number": 33,
     "word": "occur",
-    "meaning": "（事が）起こる；（考えが）（人の）心に浮かぶ（to）"
+    "meaning": "（事が）起こる （考えが）（人の）心に浮かぶ（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -303,7 +303,7 @@
     "unit": 0,
     "word_number": 34,
     "word": "work",
-    "meaning": "機能する（≒ function）；うまくいく；働く"
+    "meaning": "機能する（≒ function） うまくいく 働く"
   },
   {
     "textbook": "ターゲット1400",
@@ -312,7 +312,7 @@
     "unit": 0,
     "word_number": 35,
     "word": "change",
-    "meaning": "を（～に）変える（to / into）；を（～に）取り換える（for）；変わる"
+    "meaning": "を（～に）変える（to / into） を（～に）取り換える（for） 変わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -321,7 +321,7 @@
     "unit": 0,
     "word_number": 36,
     "word": "run",
-    "meaning": "を経営する；走る；作動する；立候補する"
+    "meaning": "を経営する 走る 作動する 立候補する"
   },
   {
     "textbook": "ターゲット1400",
@@ -330,7 +330,7 @@
     "unit": 0,
     "word_number": 37,
     "word": "turn",
-    "meaning": "の向きを変える；を（～に）変える（into）；（の方を）向く（to）；曲がる；（に）なる"
+    "meaning": "の向きを変える を（～に）変える（into） （の方を）向く（to） 曲がる （に）なる"
   },
   {
     "textbook": "ターゲット1400",
@@ -339,7 +339,7 @@
     "unit": 0,
     "word_number": 38,
     "word": "return",
-    "meaning": "（～から；～へ）戻る，帰る（from；to）；を（～に）返す（to）"
+    "meaning": "（～から ～へ）戻る，帰る（from to） を（～に）返す（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -348,7 +348,7 @@
     "unit": 0,
     "word_number": 39,
     "word": "stand",
-    "meaning": "を我慢する（≒ bear）；立つ，立っている"
+    "meaning": "を我慢する（≒ bear） 立つ，立っている"
   },
   {
     "textbook": "ターゲット1400",
@@ -357,7 +357,7 @@
     "unit": 0,
     "word_number": 40,
     "word": "lie",
-    "meaning": "横たわる；うそをつく；（～に）ある（in）"
+    "meaning": "横たわる うそをつく （～に）ある（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -366,7 +366,7 @@
     "unit": 0,
     "word_number": 41,
     "word": "brain",
-    "meaning": "脳；〔しばしば～s〕頭脳"
+    "meaning": "脳 〔しばしば～s〕頭脳"
   },
   {
     "textbook": "ターゲット1400",
@@ -375,7 +375,7 @@
     "unit": 0,
     "word_number": 42,
     "word": "mind",
-    "meaning": "心，精神（⇔ body 肉体）；知性"
+    "meaning": "心，精神（⇔ body 肉体） 知性"
   },
   {
     "textbook": "ターゲット1400",
@@ -384,7 +384,7 @@
     "unit": 0,
     "word_number": 43,
     "word": "language",
-    "meaning": "言語；言葉（遣い）"
+    "meaning": "言語 言葉（遣い）"
   },
   {
     "textbook": "ターゲット1400",
@@ -393,7 +393,7 @@
     "unit": 0,
     "word_number": 44,
     "word": "thought",
-    "meaning": "（...という）考え（of （doing） / that節）；思考"
+    "meaning": "（...という）考え（of （doing） / that節） 思考"
   },
   {
     "textbook": "ターゲット1400",
@@ -402,7 +402,7 @@
     "unit": 0,
     "word_number": 45,
     "word": "knowledge",
-    "meaning": "知識；（～について）知っていること（of）"
+    "meaning": "知識 （～について）知っていること（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -411,7 +411,7 @@
     "unit": 0,
     "word_number": 46,
     "word": "skill",
-    "meaning": "技術，技能；熟練"
+    "meaning": "技術，技能 熟練"
   },
   {
     "textbook": "ターゲット1400",
@@ -447,7 +447,7 @@
     "unit": 0,
     "word_number": 50,
     "word": "result",
-    "meaning": "結果；〔普通～s〕（試験の）成績"
+    "meaning": "結果 〔普通～s〕（試験の）成績"
   },
   {
     "textbook": "ターゲット1400",
@@ -456,7 +456,7 @@
     "unit": 0,
     "word_number": 51,
     "word": "reason",
-    "meaning": "（～の；...という）理由（for；why節）；理性"
+    "meaning": "（～の ...という）理由（for why節） 理性"
   },
   {
     "textbook": "ターゲット1400",
@@ -465,7 +465,7 @@
     "unit": 0,
     "word_number": 52,
     "word": "cause",
-    "meaning": "原因；理由；大義名分"
+    "meaning": "原因 理由 大義名分"
   },
   {
     "textbook": "ターゲット1400",
@@ -474,7 +474,7 @@
     "unit": 0,
     "word_number": 53,
     "word": "effect",
-    "meaning": "影響，効果；結果"
+    "meaning": "影響，効果 結果"
   },
   {
     "textbook": "ターゲット1400",
@@ -483,7 +483,7 @@
     "unit": 0,
     "word_number": 54,
     "word": "matter",
-    "meaning": "問題；事柄；物質；〔～s〕事態"
+    "meaning": "問題 事柄 物質 〔～s〕事態"
   },
   {
     "textbook": "ターゲット1400",
@@ -492,7 +492,7 @@
     "unit": 0,
     "word_number": 55,
     "word": "sense",
-    "meaning": "感覚；（...という）感じ（of；that節）；意味"
+    "meaning": "感覚 （...という）感じ（of that節） 意味"
   },
   {
     "textbook": "ターゲット1400",
@@ -501,7 +501,7 @@
     "unit": 0,
     "word_number": 56,
     "word": "way",
-    "meaning": "（...する）方法（to do / of doing）；道；経路；様子；様式"
+    "meaning": "（...する）方法（to do / of doing） 道 経路 様子 様式"
   },
   {
     "textbook": "ターゲット1400",
@@ -510,7 +510,7 @@
     "unit": 0,
     "word_number": 57,
     "word": "term",
-    "meaning": "期間；学期；（専門）用語；〔～s〕間柄"
+    "meaning": "期間 学期 （専門）用語 〔～s〕間柄"
   },
   {
     "textbook": "ターゲット1400",
@@ -519,7 +519,7 @@
     "unit": 0,
     "word_number": 58,
     "word": "situation",
-    "meaning": "状況；立場；位置"
+    "meaning": "状況 立場 位置"
   },
   {
     "textbook": "ターゲット1400",
@@ -528,7 +528,7 @@
     "unit": 0,
     "word_number": 59,
     "word": "condition",
-    "meaning": "〔～s〕状況；状態；条件"
+    "meaning": "〔～s〕状況 状態 条件"
   },
   {
     "textbook": "ターゲット1400",
@@ -537,7 +537,7 @@
     "unit": 0,
     "word_number": 60,
     "word": "position",
-    "meaning": "（所定の）位置，場所；立場；地位"
+    "meaning": "（所定の）位置，場所 立場 地位"
   },
   {
     "textbook": "ターゲット1400",
@@ -546,7 +546,7 @@
     "unit": 0,
     "word_number": 61,
     "word": "environment",
-    "meaning": "環境；〔普通 the ～〕自然環境；周囲の状況"
+    "meaning": "環境 〔普通 the ～〕自然環境 周囲の状況"
   },
   {
     "textbook": "ターゲット1400",
@@ -555,7 +555,7 @@
     "unit": 0,
     "word_number": 62,
     "word": "nature",
-    "meaning": "自然；性質"
+    "meaning": "自然 性質"
   },
   {
     "textbook": "ターゲット1400",
@@ -573,7 +573,7 @@
     "unit": 0,
     "word_number": 64,
     "word": "rule",
-    "meaning": "（...するという）規則（to do / that節）；支配；慣習"
+    "meaning": "（...するという）規則（to do / that節） 支配 慣習"
   },
   {
     "textbook": "ターゲット1400",
@@ -582,7 +582,7 @@
     "unit": 0,
     "word_number": 65,
     "word": "interest",
-    "meaning": "（～に対する）興味（in）；利害；〔普通～s〕利益；利息"
+    "meaning": "（～に対する）興味（in） 利害 〔普通～s〕利益 利息"
   },
   {
     "textbook": "ターゲット1400",
@@ -591,7 +591,7 @@
     "unit": 0,
     "word_number": 66,
     "word": "value",
-    "meaning": "価値（≒ worth）；〔～s〕価値観；価格"
+    "meaning": "価値（≒ worth） 〔～s〕価値観 価格"
   },
   {
     "textbook": "ターゲット1400",
@@ -600,7 +600,7 @@
     "unit": 0,
     "word_number": 67,
     "word": "view",
-    "meaning": "〔しばしば～s〕意見；見方；眺め"
+    "meaning": "〔しばしば～s〕意見 見方 眺め"
   },
   {
     "textbook": "ターゲット1400",
@@ -609,7 +609,7 @@
     "unit": 0,
     "word_number": 68,
     "word": "sound",
-    "meaning": "音；音響"
+    "meaning": "音 音響"
   },
   {
     "textbook": "ターゲット1400",
@@ -618,7 +618,7 @@
     "unit": 0,
     "word_number": 69,
     "word": "form",
-    "meaning": "形状；形態；（記入）用紙；（生物・病気などの）種類"
+    "meaning": "形状 形態 （記入）用紙 （生物・病気などの）種類"
   },
   {
     "textbook": "ターゲット1400",
@@ -627,7 +627,7 @@
     "unit": 0,
     "word_number": 70,
     "word": "case",
-    "meaning": "場合；事例；実情；事件"
+    "meaning": "場合 事例 実情 事件"
   },
   {
     "textbook": "ターゲット1400",
@@ -636,7 +636,7 @@
     "unit": 0,
     "word_number": 71,
     "word": "role",
-    "meaning": "役割；（俳優などの）役"
+    "meaning": "役割 （俳優などの）役"
   },
   {
     "textbook": "ターゲット1400",
@@ -645,7 +645,7 @@
     "unit": 0,
     "word_number": 72,
     "word": "age",
-    "meaning": "年齢，年；（特定の）時代"
+    "meaning": "年齢，年 （特定の）時代"
   },
   {
     "textbook": "ターゲット1400",
@@ -654,7 +654,7 @@
     "unit": 0,
     "word_number": 73,
     "word": "care",
-    "meaning": "世話；介護；注意；心配"
+    "meaning": "世話 介護 注意 心配"
   },
   {
     "textbook": "ターゲット1400",
@@ -672,7 +672,7 @@
     "unit": 0,
     "word_number": 75,
     "word": "human",
-    "meaning": "人間の；人間的な"
+    "meaning": "人間の 人間的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -681,7 +681,7 @@
     "unit": 0,
     "word_number": 76,
     "word": "free",
-    "meaning": "自由な；暇な；無料の"
+    "meaning": "自由な 暇な 無料の"
   },
   {
     "textbook": "ターゲット1400",
@@ -690,7 +690,7 @@
     "unit": 0,
     "word_number": 77,
     "word": "sure",
-    "meaning": "（～を；...ということを）確信して（of；that節）；きっと（...する）（to do）；確実な"
+    "meaning": "（～を ...ということを）確信して（of that節） きっと（...する）（to do） 確実な"
   },
   {
     "textbook": "ターゲット1400",
@@ -699,7 +699,7 @@
     "unit": 0,
     "word_number": 78,
     "word": "certain",
-    "meaning": "（～を；...ということを）確信して（of / about；that節）；必ず（...する）（to do）；ある程度の；一定の"
+    "meaning": "（～を ...ということを）確信して（of / about that節） 必ず（...する）（to do） ある程度の 一定の"
   },
   {
     "textbook": "ターゲット1400",
@@ -717,7 +717,7 @@
     "unit": 0,
     "word_number": 80,
     "word": "major",
-    "meaning": "主要な；（数量などが）大きい（⇔ minor）；【主に米】 専攻の"
+    "meaning": "主要な （数量などが）大きい（⇔ minor） 【主に米】 専攻の"
   },
   {
     "textbook": "ターゲット1400",
@@ -726,7 +726,7 @@
     "unit": 0,
     "word_number": 81,
     "word": "minor",
-    "meaning": "重要でない；（数量などが）小さい（⇔ major）"
+    "meaning": "重要でない （数量などが）小さい（⇔ major）"
   },
   {
     "textbook": "ターゲット1400",
@@ -735,7 +735,7 @@
     "unit": 0,
     "word_number": 82,
     "word": "clear",
-    "meaning": "明らかな；澄んだ；明るい；晴れた"
+    "meaning": "明らかな 澄んだ 明るい 晴れた"
   },
   {
     "textbook": "ターゲット1400",
@@ -753,7 +753,7 @@
     "unit": 0,
     "word_number": 84,
     "word": "possible",
-    "meaning": "あり得る；可能な（⇔ impossible）"
+    "meaning": "あり得る 可能な（⇔ impossible）"
   },
   {
     "textbook": "ターゲット1400",
@@ -762,7 +762,7 @@
     "unit": 0,
     "word_number": 85,
     "word": "similar",
-    "meaning": "（～と；～の点で）似ている（to；in）"
+    "meaning": "（～と ～の点で）似ている（to in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -771,7 +771,7 @@
     "unit": 0,
     "word_number": 86,
     "word": "close",
-    "meaning": "（～に）（ごく）近い（to）；親しい；綿密な"
+    "meaning": "（～に）（ごく）近い（to） 親しい 綿密な"
   },
   {
     "textbook": "ターゲット1400",
@@ -780,7 +780,7 @@
     "unit": 0,
     "word_number": 87,
     "word": "common",
-    "meaning": "共通の；一般的な；よくある"
+    "meaning": "共通の 一般的な よくある"
   },
   {
     "textbook": "ターゲット1400",
@@ -789,7 +789,7 @@
     "unit": 0,
     "word_number": 88,
     "word": "general",
-    "meaning": "一般的な（⇔ specific）；全体の"
+    "meaning": "一般的な（⇔ specific） 全体の"
   },
   {
     "textbook": "ターゲット1400",
@@ -798,7 +798,7 @@
     "unit": 0,
     "word_number": 89,
     "word": "ordinary",
-    "meaning": "普通の；並の（⇔ extraordinary ? 787）"
+    "meaning": "普通の 並の（⇔ extraordinary ? 787）"
   },
   {
     "textbook": "ターゲット1400",
@@ -807,7 +807,7 @@
     "unit": 0,
     "word_number": 90,
     "word": "specific",
-    "meaning": "明確な；具体的な；特定の（⇔ general）"
+    "meaning": "明確な 具体的な 特定の（⇔ general）"
   },
   {
     "textbook": "ターゲット1400",
@@ -816,7 +816,7 @@
     "unit": 0,
     "word_number": 91,
     "word": "particular",
-    "meaning": "特別の；（～について）好みがうるさい（about）"
+    "meaning": "特別の （～について）好みがうるさい（about）"
   },
   {
     "textbook": "ターゲット1400",
@@ -825,7 +825,7 @@
     "unit": 0,
     "word_number": 92,
     "word": "individual",
-    "meaning": "個人の；個々の"
+    "meaning": "個人の 個々の"
   },
   {
     "textbook": "ターゲット1400",
@@ -834,7 +834,7 @@
     "unit": 0,
     "word_number": 93,
     "word": "unique",
-    "meaning": "（～に）特有の（to）；唯一の"
+    "meaning": "（～に）特有の（to） 唯一の"
   },
   {
     "textbook": "ターゲット1400",
@@ -861,7 +861,7 @@
     "unit": 0,
     "word_number": 96,
     "word": "thus",
-    "meaning": "したがって（≒ therefore）；このように（≒ in this way）；たとえば（≒ for example）"
+    "meaning": "したがって（≒ therefore） このように（≒ in this way） たとえば（≒ for example）"
   },
   {
     "textbook": "ターゲット1400",
@@ -906,7 +906,7 @@
     "unit": 0,
     "word_number": 101,
     "word": "notice",
-    "meaning": "（に）気づく；（に）注目する"
+    "meaning": "（に）気づく （に）注目する"
   },
   {
     "textbook": "ターゲット1400",
@@ -915,7 +915,7 @@
     "unit": 0,
     "word_number": 102,
     "word": "note",
-    "meaning": "（に）注意する，注目する；を書き留める；を話に出す"
+    "meaning": "（に）注意する，注目する を書き留める を話に出す"
   },
   {
     "textbook": "ターゲット1400",
@@ -924,7 +924,7 @@
     "unit": 0,
     "word_number": 103,
     "word": "discover",
-    "meaning": "を発見する；に気づく"
+    "meaning": "を発見する に気づく"
   },
   {
     "textbook": "ターゲット1400",
@@ -933,7 +933,7 @@
     "unit": 0,
     "word_number": 104,
     "word": "realize",
-    "meaning": "（...ということ；...か）を（はっきりと）理解する（that節；wh-節）；を実現する"
+    "meaning": "（...ということ ...か）を（はっきりと）理解する（that節 wh-節） を実現する"
   },
   {
     "textbook": "ターゲット1400",
@@ -942,7 +942,7 @@
     "unit": 0,
     "word_number": 105,
     "word": "recognize",
-    "meaning": "をそれとわかる；を認める"
+    "meaning": "をそれとわかる を認める"
   },
   {
     "textbook": "ターゲット1400",
@@ -960,7 +960,7 @@
     "unit": 0,
     "word_number": 107,
     "word": "force",
-    "meaning": "（人）に無理やり（...）させる（to do）；を（～に）押しつける（on）"
+    "meaning": "（人）に無理やり（...）させる（to do） を（～に）押しつける（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -969,7 +969,7 @@
     "unit": 0,
     "word_number": 108,
     "word": "order",
-    "meaning": "を（～に）注文する（from）；を（人）に命令する"
+    "meaning": "を（～に）注文する（from） を（人）に命令する"
   },
   {
     "textbook": "ターゲット1400",
@@ -987,7 +987,7 @@
     "unit": 0,
     "word_number": 110,
     "word": "offer",
-    "meaning": "（人）に（物・事）を提供する；（...しよう）と申し出る（to do）"
+    "meaning": "（人）に（物・事）を提供する （...しよう）と申し出る（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -996,7 +996,7 @@
     "unit": 0,
     "word_number": 111,
     "word": "demand",
-    "meaning": "を要求する；を必要とする"
+    "meaning": "を要求する を必要とする"
   },
   {
     "textbook": "ターゲット1400",
@@ -1005,7 +1005,7 @@
     "unit": 0,
     "word_number": 112,
     "word": "argue",
-    "meaning": "（...だ）と主張する（that節）；を論じる；（～と）言い争う（with）"
+    "meaning": "（...だ）と主張する（that節） を論じる （～と）言い争う（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1014,7 +1014,7 @@
     "unit": 0,
     "word_number": 113,
     "word": "claim",
-    "meaning": "を主張する；を要求する"
+    "meaning": "を主張する を要求する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1032,7 +1032,7 @@
     "unit": 0,
     "word_number": 115,
     "word": "challenge",
-    "meaning": "に異議を唱える；に挑戦する"
+    "meaning": "に異議を唱える に挑戦する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1041,7 +1041,7 @@
     "unit": 0,
     "word_number": 116,
     "word": "involve",
-    "meaning": "を巻き込む；を含む"
+    "meaning": "を巻き込む を含む"
   },
   {
     "textbook": "ターゲット1400",
@@ -1059,7 +1059,7 @@
     "unit": 0,
     "word_number": 118,
     "word": "contain",
-    "meaning": "を含む；〔普通否定文で〕を抑制する（≒ control）"
+    "meaning": "を含む 〔普通否定文で〕を抑制する（≒ control）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1077,7 +1077,7 @@
     "unit": 0,
     "word_number": 120,
     "word": "connect",
-    "meaning": "を（～と）つなぐ（to / with）；を関連させる"
+    "meaning": "を（～と）つなぐ（to / with） を関連させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -1086,7 +1086,7 @@
     "unit": 0,
     "word_number": 121,
     "word": "refer",
-    "meaning": "（～に）言及する（to）；（～を）参照する（to）"
+    "meaning": "（～に）言及する（to） （～を）参照する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1104,7 +1104,7 @@
     "unit": 0,
     "word_number": 123,
     "word": "compare",
-    "meaning": "を比べる；を（～に）たとえる（to）"
+    "meaning": "を比べる を（～に）たとえる（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1113,7 +1113,7 @@
     "unit": 0,
     "word_number": 124,
     "word": "measure",
-    "meaning": "を測る；の寸法がある"
+    "meaning": "を測る の寸法がある"
   },
   {
     "textbook": "ターゲット1400",
@@ -1122,7 +1122,7 @@
     "unit": 0,
     "word_number": 125,
     "word": "mark",
-    "meaning": "（印など）を（～に）つける（on）；に（印などを）つける（with）"
+    "meaning": "（印など）を（～に）つける（on） に（印などを）つける（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1131,7 +1131,7 @@
     "unit": 0,
     "word_number": 126,
     "word": "approach",
-    "meaning": "（に）近づく；に取り組む"
+    "meaning": "（に）近づく に取り組む"
   },
   {
     "textbook": "ターゲット1400",
@@ -1140,7 +1140,7 @@
     "unit": 0,
     "word_number": 127,
     "word": "reach",
-    "meaning": "に到着する；（～に）手を伸ばす（for）；（に）届く"
+    "meaning": "に到着する （～に）手を伸ばす（for） （に）届く"
   },
   {
     "textbook": "ターゲット1400",
@@ -1149,7 +1149,7 @@
     "unit": 0,
     "word_number": 128,
     "word": "achieve",
-    "meaning": "を達成する；を成し遂げる"
+    "meaning": "を達成する を成し遂げる"
   },
   {
     "textbook": "ターゲット1400",
@@ -1167,7 +1167,7 @@
     "unit": 0,
     "word_number": 130,
     "word": "complete",
-    "meaning": "を完成させる；を完全なものにする"
+    "meaning": "を完成させる を完全なものにする"
   },
   {
     "textbook": "ターゲット1400",
@@ -1176,7 +1176,7 @@
     "unit": 0,
     "word_number": 131,
     "word": "lead",
-    "meaning": "を（～に）導く（to）；を（...するよう）仕向ける（to do）；（～に）至る（to）"
+    "meaning": "を（～に）導く（to） を（...するよう）仕向ける（to do） （～に）至る（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1185,7 +1185,7 @@
     "unit": 0,
     "word_number": 132,
     "word": "win",
-    "meaning": "（に）勝つ（⇔ lose （に）負ける）；を獲得する"
+    "meaning": "（に）勝つ（⇔ lose （に）負ける） を獲得する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1194,7 +1194,7 @@
     "unit": 0,
     "word_number": 133,
     "word": "lose",
-    "meaning": "を失う；（試合など）で負ける"
+    "meaning": "を失う （試合など）で負ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -1203,7 +1203,7 @@
     "unit": 0,
     "word_number": 134,
     "word": "fail",
-    "meaning": "（...）できない（to do）；（に）失敗する（in）（⇔ succeed ? 318）；（試験など）に落ちる"
+    "meaning": "（...）できない（to do） （に）失敗する（in）（⇔ succeed ? 318） （試験など）に落ちる"
   },
   {
     "textbook": "ターゲット1400",
@@ -1212,7 +1212,7 @@
     "unit": 0,
     "word_number": 135,
     "word": "miss",
-    "meaning": "に乗り遅れる（⇔ catch に間に合う）；（機会など）を逃す；がいなくて寂しく思う"
+    "meaning": "に乗り遅れる（⇔ catch に間に合う） （機会など）を逃す がいなくて寂しく思う"
   },
   {
     "textbook": "ターゲット1400",
@@ -1257,7 +1257,7 @@
     "unit": 0,
     "word_number": 140,
     "word": "prevent",
-    "meaning": "を妨げる；を防ぐ"
+    "meaning": "を妨げる を防ぐ"
   },
   {
     "textbook": "ターゲット1400",
@@ -1266,7 +1266,7 @@
     "unit": 0,
     "word_number": 141,
     "word": "wear",
-    "meaning": "を身に着けている；をすり減らす"
+    "meaning": "を身に着けている をすり減らす"
   },
   {
     "textbook": "ターゲット1400",
@@ -1275,7 +1275,7 @@
     "unit": 0,
     "word_number": 142,
     "word": "bear",
-    "meaning": "を我慢する（≒ stand）；を（心に）抱く；（子）を産む"
+    "meaning": "を我慢する（≒ stand） を（心に）抱く （子）を産む"
   },
   {
     "textbook": "ターゲット1400",
@@ -1284,7 +1284,7 @@
     "unit": 0,
     "word_number": 143,
     "word": "focus",
-    "meaning": "を（～に）集中させる（on）；（～に）焦点を合わせる（on）"
+    "meaning": "を（～に）集中させる（on） （～に）焦点を合わせる（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1311,7 +1311,7 @@
     "unit": 0,
     "word_number": 146,
     "word": "sentence",
-    "meaning": "文；（宣告された）刑；判決"
+    "meaning": "文 （宣告された）刑 判決"
   },
   {
     "textbook": "ターゲット1400",
@@ -1320,7 +1320,7 @@
     "unit": 0,
     "word_number": 147,
     "word": "passage",
-    "meaning": "（文章の）一節；通行；通路"
+    "meaning": "（文章の）一節 通行 通路"
   },
   {
     "textbook": "ターゲット1400",
@@ -1329,7 +1329,7 @@
     "unit": 0,
     "word_number": 148,
     "word": "message",
-    "meaning": "伝言，メッセージ；〔単数形で〕（本・演説などの）要点"
+    "meaning": "伝言，メッセージ 〔単数形で〕（本・演説などの）要点"
   },
   {
     "textbook": "ターゲット1400",
@@ -1338,7 +1338,7 @@
     "unit": 0,
     "word_number": 149,
     "word": "statement",
-    "meaning": "陳述；声明"
+    "meaning": "陳述 声明"
   },
   {
     "textbook": "ターゲット1400",
@@ -1356,7 +1356,7 @@
     "unit": 0,
     "word_number": 151,
     "word": "article",
-    "meaning": "（～についての）記事（on / about）；品物；（契約・憲法などの）条項"
+    "meaning": "（～についての）記事（on / about） 品物 （契約・憲法などの）条項"
   },
   {
     "textbook": "ターゲット1400",
@@ -1365,7 +1365,7 @@
     "unit": 0,
     "word_number": 152,
     "word": "issue",
-    "meaning": "問題；発行；（雑誌などの）号"
+    "meaning": "問題 発行 （雑誌などの）号"
   },
   {
     "textbook": "ターゲット1400",
@@ -1383,7 +1383,7 @@
     "unit": 0,
     "word_number": 154,
     "word": "evidence",
-    "meaning": "証拠（≒ proof）；根拠"
+    "meaning": "証拠（≒ proof） 根拠"
   },
   {
     "textbook": "ターゲット1400",
@@ -1401,7 +1401,7 @@
     "unit": 0,
     "word_number": 156,
     "word": "subject",
-    "meaning": "（研究・話などの）主題；科目；被験者"
+    "meaning": "（研究・話などの）主題 科目 被験者"
   },
   {
     "textbook": "ターゲット1400",
@@ -1410,7 +1410,7 @@
     "unit": 0,
     "word_number": 157,
     "word": "government",
-    "meaning": "〔しばしばthe G～〕政府；政治"
+    "meaning": "〔しばしばthe G～〕政府 政治"
   },
   {
     "textbook": "ターゲット1400",
@@ -1428,7 +1428,7 @@
     "unit": 0,
     "word_number": 159,
     "word": "education",
-    "meaning": "教育；教養"
+    "meaning": "教育 教養"
   },
   {
     "textbook": "ターゲット1400",
@@ -1437,7 +1437,7 @@
     "unit": 0,
     "word_number": 160,
     "word": "company",
-    "meaning": "会社；仲間；付き合い"
+    "meaning": "会社 仲間 付き合い"
   },
   {
     "textbook": "ターゲット1400",
@@ -1455,7 +1455,7 @@
     "unit": 0,
     "word_number": 162,
     "word": "industry",
-    "meaning": "産業；勤勉"
+    "meaning": "産業 勤勉"
   },
   {
     "textbook": "ターゲット1400",
@@ -1464,7 +1464,7 @@
     "unit": 0,
     "word_number": 163,
     "word": "trade",
-    "meaning": "貿易；取引；職業"
+    "meaning": "貿易 取引 職業"
   },
   {
     "textbook": "ターゲット1400",
@@ -1473,7 +1473,7 @@
     "unit": 0,
     "word_number": 164,
     "word": "economy",
-    "meaning": "〔しばしばthe ～〕（国家などの）経済；節約"
+    "meaning": "〔しばしばthe ～〕（国家などの）経済 節約"
   },
   {
     "textbook": "ターゲット1400",
@@ -1491,7 +1491,7 @@
     "unit": 0,
     "word_number": 166,
     "word": "benefit",
-    "meaning": "（物質的・精神的）利益；給付，手当"
+    "meaning": "（物質的・精神的）利益 給付，手当"
   },
   {
     "textbook": "ターゲット1400",
@@ -1500,7 +1500,7 @@
     "unit": 0,
     "word_number": 167,
     "word": "figure",
-    "meaning": "図；数字；姿；〔～s〕計算"
+    "meaning": "図 数字 姿 〔～s〕計算"
   },
   {
     "textbook": "ターゲット1400",
@@ -1509,7 +1509,7 @@
     "unit": 0,
     "word_number": 168,
     "word": "rate",
-    "meaning": "比率；速度"
+    "meaning": "比率 速度"
   },
   {
     "textbook": "ターゲット1400",
@@ -1518,7 +1518,7 @@
     "unit": 0,
     "word_number": 169,
     "word": "chance",
-    "meaning": "（...する）見込み（of doing / that節）；（...する）機会（to do / of doing）"
+    "meaning": "（...する）見込み（of doing / that節） （...する）機会（to do / of doing）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1527,7 +1527,7 @@
     "unit": 0,
     "word_number": 170,
     "word": "opportunity",
-    "meaning": "（～の；...する）機会（for；to do）"
+    "meaning": "（～の ...する）機会（for to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1536,7 +1536,7 @@
     "unit": 0,
     "word_number": 171,
     "word": "project",
-    "meaning": "事業；（規模の大きな）計画"
+    "meaning": "事業 （規模の大きな）計画"
   },
   {
     "textbook": "ターゲット1400",
@@ -1545,7 +1545,7 @@
     "unit": 0,
     "word_number": 172,
     "word": "practice",
-    "meaning": "練習；（意識的な）習慣；実践（⇔ theory ? 153）"
+    "meaning": "練習 （意識的な）習慣 実践（⇔ theory ? 153）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1563,7 +1563,7 @@
     "unit": 0,
     "word_number": 174,
     "word": "quality",
-    "meaning": "質（⇔ quantity）；良質"
+    "meaning": "質（⇔ quantity） 良質"
   },
   {
     "textbook": "ターゲット1400",
@@ -1572,7 +1572,7 @@
     "unit": 0,
     "word_number": 175,
     "word": "quantity",
-    "meaning": "量（⇔ quality）；（～の）分量（of）"
+    "meaning": "量（⇔ quality） （～の）分量（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1581,7 +1581,7 @@
     "unit": 0,
     "word_number": 176,
     "word": "amount",
-    "meaning": "金額；量"
+    "meaning": "金額 量"
   },
   {
     "textbook": "ターゲット1400",
@@ -1608,7 +1608,7 @@
     "unit": 0,
     "word_number": 179,
     "word": "social",
-    "meaning": "社会の；社交の"
+    "meaning": "社会の 社交の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1617,7 +1617,7 @@
     "unit": 0,
     "word_number": 180,
     "word": "official",
-    "meaning": "公式の；公の"
+    "meaning": "公式の 公の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1626,7 +1626,7 @@
     "unit": 0,
     "word_number": 181,
     "word": "financial",
-    "meaning": "財政（上）の；金銭的な"
+    "meaning": "財政（上）の 金銭的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -1653,7 +1653,7 @@
     "unit": 0,
     "word_number": 184,
     "word": "normal",
-    "meaning": "普通の（⇔ abnormal 異常な）；正常な；標準の"
+    "meaning": "普通の（⇔ abnormal 異常な） 正常な 標準の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1662,7 +1662,7 @@
     "unit": 0,
     "word_number": 185,
     "word": "familiar",
-    "meaning": "（～を）よく知っている（with）；（～に）よく知られている（to）"
+    "meaning": "（～を）よく知っている（with） （～に）よく知られている（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1698,7 +1698,7 @@
     "unit": 0,
     "word_number": 189,
     "word": "available",
-    "meaning": "（～にとって）利用できる，入手できる（for / to）；（人の）手が空いている"
+    "meaning": "（～にとって）利用できる，入手できる（for / to） （人の）手が空いている"
   },
   {
     "textbook": "ターゲット1400",
@@ -1707,7 +1707,7 @@
     "unit": 0,
     "word_number": 190,
     "word": "typical",
-    "meaning": "典型的な；（～に）特有の（of）"
+    "meaning": "典型的な （～に）特有の（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1716,7 +1716,7 @@
     "unit": 0,
     "word_number": 191,
     "word": "positive",
-    "meaning": "積極的な（⇔ negative）；（～を）確信している（of / about）（≒ sure）；肯定的な"
+    "meaning": "積極的な（⇔ negative） （～を）確信している（of / about）（≒ sure） 肯定的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -1725,7 +1725,7 @@
     "unit": 0,
     "word_number": 192,
     "word": "negative",
-    "meaning": "好ましくない，消極的な（⇔ positive）；否定の"
+    "meaning": "好ましくない，消極的な（⇔ positive） 否定の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1734,7 +1734,7 @@
     "unit": 0,
     "word_number": 193,
     "word": "passive",
-    "meaning": "受動的な；消極的な（⇔ active ? 285）"
+    "meaning": "受動的な 消極的な（⇔ active ? 285）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1743,7 +1743,7 @@
     "unit": 0,
     "word_number": 194,
     "word": "physical",
-    "meaning": "身体の（⇔ mental）；物理的な；物質の"
+    "meaning": "身体の（⇔ mental） 物理的な 物質の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1752,7 +1752,7 @@
     "unit": 0,
     "word_number": 195,
     "word": "mental",
-    "meaning": "精神の（⇔ ph?sical）；知能の"
+    "meaning": "精神の（⇔ ph?sical） 知能の"
   },
   {
     "textbook": "ターゲット1400",
@@ -1761,7 +1761,7 @@
     "unit": 0,
     "word_number": 196,
     "word": "rather",
-    "meaning": "（～よりも）むしろ（than）；かなり；いくぶん"
+    "meaning": "（～よりも）むしろ（than） かなり いくぶん"
   },
   {
     "textbook": "ターゲット1400",
@@ -1770,7 +1770,7 @@
     "unit": 0,
     "word_number": 197,
     "word": "instead",
-    "meaning": "その代わりに；そうではなくて"
+    "meaning": "その代わりに そうではなくて"
   },
   {
     "textbook": "ターゲット1400",
@@ -1779,7 +1779,7 @@
     "unit": 0,
     "word_number": 198,
     "word": "otherwise",
-    "meaning": "そうでなければ（≒ or else）；それ以外では；違ったふうに"
+    "meaning": "そうでなければ（≒ or else） それ以外では 違ったふうに"
   },
   {
     "textbook": "ターゲット1400",
@@ -1788,7 +1788,7 @@
     "unit": 0,
     "word_number": 199,
     "word": "somehow",
-    "meaning": "どうにかして；どういうわけか"
+    "meaning": "どうにかして どういうわけか"
   },
   {
     "textbook": "ターゲット1400",
@@ -1806,7 +1806,7 @@
     "unit": 0,
     "word_number": 201,
     "word": "wonder",
-    "meaning": "（...だろうか）と思う（if節 / wh-節）；（～に；...ということに）驚く（at；that節）"
+    "meaning": "（...だろうか）と思う（if節 / wh-節） （～に ...ということに）驚く（at that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1815,7 +1815,7 @@
     "unit": 0,
     "word_number": 202,
     "word": "suppose",
-    "meaning": "（たぶん）（...だ）と思う（that節）（≒ think）；〔文頭で接続詞的に〕もし（...）ならば（that節）（≒ if）；と仮定する"
+    "meaning": "（たぶん）（...だ）と思う（that節）（≒ think） 〔文頭で接続詞的に〕もし（...）ならば（that節）（≒ if） と仮定する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1824,7 +1824,7 @@
     "unit": 0,
     "word_number": 203,
     "word": "imagine",
-    "meaning": "（...ということ；...か）を想像する（that節；wh-節）"
+    "meaning": "（...ということ ...か）を想像する（that節 wh-節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1842,7 +1842,7 @@
     "unit": 0,
     "word_number": 205,
     "word": "wish",
-    "meaning": "（...であればいいのに）と思う（that節）；（できたら）（...し）たいと思う（to do）；願う"
+    "meaning": "（...であればいいのに）と思う（that節） （できたら）（...し）たいと思う（to do） 願う"
   },
   {
     "textbook": "ターゲット1400",
@@ -1851,7 +1851,7 @@
     "unit": 0,
     "word_number": 206,
     "word": "determine",
-    "meaning": "を決定する；を突き止める"
+    "meaning": "を決定する を突き止める"
   },
   {
     "textbook": "ターゲット1400",
@@ -1869,7 +1869,7 @@
     "unit": 0,
     "word_number": 208,
     "word": "represent",
-    "meaning": "を象徴する；を表現する；を代表する"
+    "meaning": "を象徴する を表現する を代表する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1878,7 +1878,7 @@
     "unit": 0,
     "word_number": 209,
     "word": "identify",
-    "meaning": "を（～だと）特定する（as）；を（～と）同一のものと見なす（with）"
+    "meaning": "を（～だと）特定する（as） を（～と）同一のものと見なす（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1896,7 +1896,7 @@
     "unit": 0,
     "word_number": 211,
     "word": "solve",
-    "meaning": "を解決する；を解く"
+    "meaning": "を解決する を解く"
   },
   {
     "textbook": "ターゲット1400",
@@ -1905,7 +1905,7 @@
     "unit": 0,
     "word_number": 212,
     "word": "prove",
-    "meaning": "（...ということ）を証明する（that節）；（...だと）わかる（to be）（≒ turn out）"
+    "meaning": "（...ということ）を証明する（that節） （...だと）わかる（to be）（≒ turn out）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1914,7 +1914,7 @@
     "unit": 0,
     "word_number": 213,
     "word": "communicate",
-    "meaning": "（～と）意思を通じ合う（with）；を（～に）伝える（to）"
+    "meaning": "（～と）意思を通じ合う（with） を（～に）伝える（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -1923,7 +1923,7 @@
     "unit": 0,
     "word_number": 214,
     "word": "respect",
-    "meaning": "を（～の点で）尊敬する（for）；を尊重する"
+    "meaning": "を（～の点で）尊敬する（for） を尊重する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1950,7 +1950,7 @@
     "unit": 0,
     "word_number": 217,
     "word": "establish",
-    "meaning": "を設立する；（理論・地位）を確立する"
+    "meaning": "を設立する （理論・地位）を確立する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1959,7 +1959,7 @@
     "unit": 0,
     "word_number": 218,
     "word": "found",
-    "meaning": "を設立する（≒ establish）；の基礎を作る"
+    "meaning": "を設立する（≒ establish） の基礎を作る"
   },
   {
     "textbook": "ターゲット1400",
@@ -1968,7 +1968,7 @@
     "unit": 0,
     "word_number": 219,
     "word": "publish",
-    "meaning": "を出版する；を正式に発表する"
+    "meaning": "を出版する を正式に発表する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1977,7 +1977,7 @@
     "unit": 0,
     "word_number": 220,
     "word": "serve",
-    "meaning": "（の）役に立つ；に食事を出す；に奉仕する"
+    "meaning": "（の）役に立つ に食事を出す に奉仕する"
   },
   {
     "textbook": "ターゲット1400",
@@ -1995,7 +1995,7 @@
     "unit": 0,
     "word_number": 222,
     "word": "apply",
-    "meaning": "（～に；～を求めて）申し込む（to；for）；を（～に）適用する（to）；（～に）当てはまる（to）"
+    "meaning": "（～に ～を求めて）申し込む（to for） を（～に）適用する（to） （～に）当てはまる（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2004,7 +2004,7 @@
     "unit": 0,
     "word_number": 223,
     "word": "treat",
-    "meaning": "を扱う；を治療する；におごる"
+    "meaning": "を扱う を治療する におごる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2013,7 +2013,7 @@
     "unit": 0,
     "word_number": 224,
     "word": "search",
-    "meaning": "（場所など）を（～を求めて）探す，捜索する（for）；を検索する"
+    "meaning": "（場所など）を（～を求めて）探す，捜索する（for） を検索する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2040,7 +2040,7 @@
     "unit": 0,
     "word_number": 227,
     "word": "pick",
-    "meaning": "を選び取る；を摘む"
+    "meaning": "を選び取る を摘む"
   },
   {
     "textbook": "ターゲット1400",
@@ -2049,7 +2049,7 @@
     "unit": 0,
     "word_number": 228,
     "word": "fit",
-    "meaning": "（に）ぴったり合う；（～に）うまく合う（into）；（寸法など）を合わせる"
+    "meaning": "（に）ぴったり合う （～に）うまく合う（into） （寸法など）を合わせる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2058,7 +2058,7 @@
     "unit": 0,
     "word_number": 229,
     "word": "gain",
-    "meaning": "を（努力して）手に入れる；を増す；（時計が）進む（⇔ lose 遅れる）"
+    "meaning": "を（努力して）手に入れる を増す （時計が）進む（⇔ lose 遅れる）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2076,7 +2076,7 @@
     "unit": 0,
     "word_number": 231,
     "word": "spread",
-    "meaning": "広がる；を広げる"
+    "meaning": "広がる を広げる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2085,7 +2085,7 @@
     "unit": 0,
     "word_number": 232,
     "word": "advance",
-    "meaning": "前進する；を進める"
+    "meaning": "前進する を進める"
   },
   {
     "textbook": "ターゲット1400",
@@ -2103,7 +2103,7 @@
     "unit": 0,
     "word_number": 234,
     "word": "depend",
-    "meaning": "依存する；頼る；（に）左右される（on）"
+    "meaning": "依存する 頼る （に）左右される（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2112,7 +2112,7 @@
     "unit": 0,
     "word_number": 235,
     "word": "exist",
-    "meaning": "存在する；生存する"
+    "meaning": "存在する 生存する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2121,7 +2121,7 @@
     "unit": 0,
     "word_number": 236,
     "word": "decline",
-    "meaning": "減る，衰える；を（丁重に）断る（≒ refuse）"
+    "meaning": "減る，衰える を（丁重に）断る（≒ refuse）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2130,7 +2130,7 @@
     "unit": 0,
     "word_number": 237,
     "word": "decrease",
-    "meaning": "減る（⇔ increase ? 16）；を減らす"
+    "meaning": "減る（⇔ increase ? 16） を減らす"
   },
   {
     "textbook": "ターゲット1400",
@@ -2157,7 +2157,7 @@
     "unit": 0,
     "word_number": 240,
     "word": "suffer",
-    "meaning": "（～で）苦しむ（from）；（苦痛）を経験する"
+    "meaning": "（～で）苦しむ（from） （苦痛）を経験する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2166,7 +2166,7 @@
     "unit": 0,
     "word_number": 241,
     "word": "act",
-    "meaning": "行動する；（～の）役を務める（as）"
+    "meaning": "行動する （～の）役を務める（as）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2175,7 +2175,7 @@
     "unit": 0,
     "word_number": 242,
     "word": "perform",
-    "meaning": "を行う；を果たす；を演じる"
+    "meaning": "を行う を果たす を演じる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2184,7 +2184,7 @@
     "unit": 0,
     "word_number": 243,
     "word": "species",
-    "meaning": "（生物の）種；〔the / our ～〕人類"
+    "meaning": "（生物の）種 〔the / our ～〕人類"
   },
   {
     "textbook": "ターゲット1400",
@@ -2193,7 +2193,7 @@
     "unit": 0,
     "word_number": 244,
     "word": "variety",
-    "meaning": "多様（性）；種類"
+    "meaning": "多様（性） 種類"
   },
   {
     "textbook": "ターゲット1400",
@@ -2202,7 +2202,7 @@
     "unit": 0,
     "word_number": 245,
     "word": "degree",
-    "meaning": "程度（≒ extent）；（温度などの）度；（大学の）学位"
+    "meaning": "程度（≒ extent） （温度などの）度 （大学の）学位"
   },
   {
     "textbook": "ターゲット1400",
@@ -2211,7 +2211,7 @@
     "unit": 0,
     "word_number": 246,
     "word": "range",
-    "meaning": "範囲；並び；（同種のものの）集まり"
+    "meaning": "範囲 並び （同種のものの）集まり"
   },
   {
     "textbook": "ターゲット1400",
@@ -2229,7 +2229,7 @@
     "unit": 0,
     "word_number": 248,
     "word": "medium",
-    "meaning": "（伝達などの）媒体；手段；中間"
+    "meaning": "（伝達などの）媒体 手段 中間"
   },
   {
     "textbook": "ターゲット1400",
@@ -2238,7 +2238,7 @@
     "unit": 0,
     "word_number": 249,
     "word": "advantage",
-    "meaning": "（～の；～に対する）有利な点（of；over）（⇔ disadvantage ? 763）"
+    "meaning": "（～の ～に対する）有利な点（of over）（⇔ disadvantage ? 763）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2247,7 +2247,7 @@
     "unit": 0,
     "word_number": 250,
     "word": "task",
-    "meaning": "（課された）任務，仕事；（学習の）課題"
+    "meaning": "（課された）任務，仕事 （学習の）課題"
   },
   {
     "textbook": "ターゲット1400",
@@ -2256,7 +2256,7 @@
     "unit": 0,
     "word_number": 251,
     "word": "rest",
-    "meaning": "〔the ～〕残り；〔the ～〕その他の物［人々］；休息"
+    "meaning": "〔the ～〕残り 〔the ～〕その他の物［人々］ 休息"
   },
   {
     "textbook": "ターゲット1400",
@@ -2274,7 +2274,7 @@
     "unit": 0,
     "word_number": 253,
     "word": "feature",
-    "meaning": "特徴；〔普通～s〕顔つき；特集記事［番組］"
+    "meaning": "特徴 〔普通～s〕顔つき 特集記事［番組］"
   },
   {
     "textbook": "ターゲット1400",
@@ -2292,7 +2292,7 @@
     "unit": 0,
     "word_number": 255,
     "word": "shape",
-    "meaning": "形；体調"
+    "meaning": "形 体調"
   },
   {
     "textbook": "ターゲット1400",
@@ -2301,7 +2301,7 @@
     "unit": 0,
     "word_number": 256,
     "word": "image",
-    "meaning": "イメージ，印象；映像"
+    "meaning": "イメージ，印象 映像"
   },
   {
     "textbook": "ターゲット1400",
@@ -2310,7 +2310,7 @@
     "unit": 0,
     "word_number": 257,
     "word": "detail",
-    "meaning": "〔～s〕詳細（な情報）；細部"
+    "meaning": "〔～s〕詳細（な情報） 細部"
   },
   {
     "textbook": "ターゲット1400",
@@ -2319,7 +2319,7 @@
     "unit": 0,
     "word_number": 258,
     "word": "character",
-    "meaning": "性格（≒ personality）；特徴；登場人物；文字"
+    "meaning": "性格（≒ personality） 特徴 登場人物 文字"
   },
   {
     "textbook": "ターゲット1400",
@@ -2328,7 +2328,7 @@
     "unit": 0,
     "word_number": 259,
     "word": "function",
-    "meaning": "機能；職務"
+    "meaning": "機能 職務"
   },
   {
     "textbook": "ターゲット1400",
@@ -2337,7 +2337,7 @@
     "unit": 0,
     "word_number": 260,
     "word": "structure",
-    "meaning": "構造；建築物"
+    "meaning": "構造 建築物"
   },
   {
     "textbook": "ターゲット1400",
@@ -2346,7 +2346,7 @@
     "unit": 0,
     "word_number": 261,
     "word": "ground",
-    "meaning": "地上；用地；〔普通～s〕根拠"
+    "meaning": "地上 用地 〔普通～s〕根拠"
   },
   {
     "textbook": "ターゲット1400",
@@ -2355,7 +2355,7 @@
     "unit": 0,
     "word_number": 262,
     "word": "influence",
-    "meaning": "（～への）影響（on）；影響力のある人"
+    "meaning": "（～への）影響（on） 影響力のある人"
   },
   {
     "textbook": "ターゲット1400",
@@ -2373,7 +2373,7 @@
     "unit": 0,
     "word_number": 264,
     "word": "pain",
-    "meaning": "痛み；〔～s〕骨折り，苦労"
+    "meaning": "痛み 〔～s〕骨折り，苦労"
   },
   {
     "textbook": "ターゲット1400",
@@ -2382,7 +2382,7 @@
     "unit": 0,
     "word_number": 265,
     "word": "medicine",
-    "meaning": "薬；医学"
+    "meaning": "薬 医学"
   },
   {
     "textbook": "ターゲット1400",
@@ -2400,7 +2400,7 @@
     "unit": 0,
     "word_number": 267,
     "word": "fear",
-    "meaning": "恐怖（心）；（...する；...という）不安（of doing；that節）"
+    "meaning": "恐怖（心） （...する ...という）不安（of doing that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2409,7 +2409,7 @@
     "unit": 0,
     "word_number": 268,
     "word": "memory",
-    "meaning": "記憶（力）；思い出"
+    "meaning": "記憶（力） 思い出"
   },
   {
     "textbook": "ターゲット1400",
@@ -2418,7 +2418,7 @@
     "unit": 0,
     "word_number": 269,
     "word": "emotion",
-    "meaning": "（喜怒哀楽の）感情（≒ feeling）；感動"
+    "meaning": "（喜怒哀楽の）感情（≒ feeling） 感動"
   },
   {
     "textbook": "ターゲット1400",
@@ -2427,7 +2427,7 @@
     "unit": 0,
     "word_number": 270,
     "word": "movement",
-    "meaning": "（政治的な）運動；動き"
+    "meaning": "（政治的な）運動 動き"
   },
   {
     "textbook": "ターゲット1400",
@@ -2436,7 +2436,7 @@
     "unit": 0,
     "word_number": 271,
     "word": "region",
-    "meaning": "（広大な）地域（≒ area）；行政区；領域"
+    "meaning": "（広大な）地域（≒ area） 行政区 領域"
   },
   {
     "textbook": "ターゲット1400",
@@ -2445,7 +2445,7 @@
     "unit": 0,
     "word_number": 272,
     "word": "climate",
-    "meaning": "（長期的な）気候；風潮"
+    "meaning": "（長期的な）気候 風潮"
   },
   {
     "textbook": "ターゲット1400",
@@ -2454,7 +2454,7 @@
     "unit": 0,
     "word_number": 273,
     "word": "temperature",
-    "meaning": "体温；（病気の）熱（≒ fever）；温度"
+    "meaning": "体温 （病気の）熱（≒ fever） 温度"
   },
   {
     "textbook": "ターゲット1400",
@@ -2463,7 +2463,7 @@
     "unit": 0,
     "word_number": 274,
     "word": "community",
-    "meaning": "地域社会；共同体"
+    "meaning": "地域社会 共同体"
   },
   {
     "textbook": "ターゲット1400",
@@ -2472,7 +2472,7 @@
     "unit": 0,
     "word_number": 275,
     "word": "population",
-    "meaning": "人口；（ある地域の）（全）住民；（動物の）総数"
+    "meaning": "人口 （ある地域の）（全）住民 （動物の）総数"
   },
   {
     "textbook": "ターゲット1400",
@@ -2481,7 +2481,7 @@
     "unit": 0,
     "word_number": 276,
     "word": "generation",
-    "meaning": "世代；発生；生産"
+    "meaning": "世代 発生 生産"
   },
   {
     "textbook": "ターゲット1400",
@@ -2490,7 +2490,7 @@
     "unit": 0,
     "word_number": 277,
     "word": "present",
-    "meaning": "（～に）出席している（at / in）（⇔ absent 欠席の）；現在の；（～に）存在している（in）"
+    "meaning": "（～に）出席している（at / in）（⇔ absent 欠席の） 現在の （～に）存在している（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2517,7 +2517,7 @@
     "unit": 0,
     "word_number": 280,
     "word": "ancient",
-    "meaning": "古代の；昔からの"
+    "meaning": "古代の 昔からの"
   },
   {
     "textbook": "ターゲット1400",
@@ -2535,7 +2535,7 @@
     "unit": 0,
     "word_number": 282,
     "word": "serious",
-    "meaning": "真剣な；深刻な；まじめな"
+    "meaning": "真剣な 深刻な まじめな"
   },
   {
     "textbook": "ターゲット1400",
@@ -2562,7 +2562,7 @@
     "unit": 0,
     "word_number": 285,
     "word": "active",
-    "meaning": "活動的な；積極的な（⇔ passive ? 193）"
+    "meaning": "活動的な 積極的な（⇔ passive ? 193）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2571,7 +2571,7 @@
     "unit": 0,
     "word_number": 286,
     "word": "afraid",
-    "meaning": "（～を；...ではないかと）恐れて（of；that節）"
+    "meaning": "（～を ...ではないかと）恐れて（of that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2580,7 +2580,7 @@
     "unit": 0,
     "word_number": 287,
     "word": "aware",
-    "meaning": "（～に；...ということに）気づいて（of；that節）"
+    "meaning": "（～に ...ということに）気づいて（of that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2598,7 +2598,7 @@
     "unit": 0,
     "word_number": 289,
     "word": "whole",
-    "meaning": "全体の；全部の"
+    "meaning": "全体の 全部の"
   },
   {
     "textbook": "ターゲット1400",
@@ -2607,7 +2607,7 @@
     "unit": 0,
     "word_number": 290,
     "word": "low",
-    "meaning": "低い（⇔ high 高い）；（値段が）安い"
+    "meaning": "低い（⇔ high 高い） （値段が）安い"
   },
   {
     "textbook": "ターゲット1400",
@@ -2616,7 +2616,7 @@
     "unit": 0,
     "word_number": 291,
     "word": "huge",
-    "meaning": "巨大な；莫大な"
+    "meaning": "巨大な 莫大な"
   },
   {
     "textbook": "ターゲット1400",
@@ -2625,7 +2625,7 @@
     "unit": 0,
     "word_number": 292,
     "word": "blank",
-    "meaning": "空白の；うつろな"
+    "meaning": "空白の うつろな"
   },
   {
     "textbook": "ターゲット1400",
@@ -2643,7 +2643,7 @@
     "unit": 0,
     "word_number": 294,
     "word": "safe",
-    "meaning": "安全な；差し支えない"
+    "meaning": "安全な 差し支えない"
   },
   {
     "textbook": "ターゲット1400",
@@ -2652,7 +2652,7 @@
     "unit": 0,
     "word_number": 295,
     "word": "wild",
-    "meaning": "野生の；乱暴な；熱狂した"
+    "meaning": "野生の 乱暴な 熱狂した"
   },
   {
     "textbook": "ターゲット1400",
@@ -2661,7 +2661,7 @@
     "unit": 0,
     "word_number": 296,
     "word": "eventually",
-    "meaning": "結局（は）；ついに（は）"
+    "meaning": "結局（は） ついに（は）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2679,7 +2679,7 @@
     "unit": 0,
     "word_number": 298,
     "word": "seemingly",
-    "meaning": "見たところ；見た目には"
+    "meaning": "見たところ 見た目には"
   },
   {
     "textbook": "ターゲット1400",
@@ -2697,7 +2697,7 @@
     "unit": 0,
     "word_number": 300,
     "word": "altogether",
-    "meaning": "完全に（≒ completely）；全部で（≒ in total）"
+    "meaning": "完全に（≒ completely） 全部で（≒ in total）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2706,7 +2706,7 @@
     "unit": 0,
     "word_number": 301,
     "word": "assume",
-    "meaning": "当然（...だ）と思う（that節）；（...だ）と仮定する（that節）；（責任）を引き受ける"
+    "meaning": "当然（...だ）と思う（that節） （...だ）と仮定する（that節） （責任）を引き受ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -2715,7 +2715,7 @@
     "unit": 0,
     "word_number": 302,
     "word": "guess",
-    "meaning": "（...だ）と思う（that節）；を推測する"
+    "meaning": "（...だ）と思う（that節） を推測する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2724,7 +2724,7 @@
     "unit": 0,
     "word_number": 303,
     "word": "associate",
-    "meaning": "から（～を）連想する（with）；（～と）交際する（with）"
+    "meaning": "から（～を）連想する（with） （～と）交際する（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2742,7 +2742,7 @@
     "unit": 0,
     "word_number": 305,
     "word": "indicate",
-    "meaning": "（...ということ）を示す（that節）；を指摘する"
+    "meaning": "（...ということ）を示す（that節） を指摘する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2751,7 +2751,7 @@
     "unit": 0,
     "word_number": 306,
     "word": "respond",
-    "meaning": "（～に）応答する（to）；（～に）反応する（to）"
+    "meaning": "（～に）応答する（to） （～に）反応する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2778,7 +2778,7 @@
     "unit": 0,
     "word_number": 309,
     "word": "manage",
-    "meaning": "（...すること）をなんとかやり遂げる（to do）；をうまく扱う；を経営する"
+    "meaning": "（...すること）をなんとかやり遂げる（to do） をうまく扱う を経営する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2787,7 +2787,7 @@
     "unit": 0,
     "word_number": 310,
     "word": "maintain",
-    "meaning": "を維持する；（...ということ）を主張する（that節）"
+    "meaning": "を維持する （...ということ）を主張する（that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2805,7 +2805,7 @@
     "unit": 0,
     "word_number": 312,
     "word": "join",
-    "meaning": "（会・団体・人）に加わる；（～に）参加する（in）；をつなぐ"
+    "meaning": "（会・団体・人）に加わる （～に）参加する（in） をつなぐ"
   },
   {
     "textbook": "ターゲット1400",
@@ -2823,7 +2823,7 @@
     "unit": 0,
     "word_number": 314,
     "word": "match",
-    "meaning": "（と）調和する；に匹敵する"
+    "meaning": "（と）調和する に匹敵する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2832,7 +2832,7 @@
     "unit": 0,
     "word_number": 315,
     "word": "attack",
-    "meaning": "を襲う，攻撃する；を非難する"
+    "meaning": "を襲う，攻撃する を非難する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2841,7 +2841,7 @@
     "unit": 0,
     "word_number": 316,
     "word": "seek",
-    "meaning": "を探し求める；（...しよう）と努める（to do）"
+    "meaning": "を探し求める （...しよう）と努める（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2850,7 +2850,7 @@
     "unit": 0,
     "word_number": 317,
     "word": "engage",
-    "meaning": "（～に）従事する（in / with）；を（～に）従事させる（in）；を（～に）引き入れる（in）；（...すること）を約束する（to do）"
+    "meaning": "（～に）従事する（in / with） を（～に）従事させる（in） を（～に）引き入れる（in） （...すること）を約束する（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2859,7 +2859,7 @@
     "unit": 0,
     "word_number": 318,
     "word": "succeed",
-    "meaning": "成功する（⇔ fail ? 134）；（～を）継承する（to）"
+    "meaning": "成功する（⇔ fail ? 134） （～を）継承する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2877,7 +2877,7 @@
     "unit": 0,
     "word_number": 320,
     "word": "attend",
-    "meaning": "に出席する；（～の）世話をする（to）"
+    "meaning": "に出席する （～の）世話をする（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2895,7 +2895,7 @@
     "unit": 0,
     "word_number": 322,
     "word": "survive",
-    "meaning": "（を）（切り抜けて）生き残る；より長生きする"
+    "meaning": "（を）（切り抜けて）生き残る より長生きする"
   },
   {
     "textbook": "ターゲット1400",
@@ -2904,7 +2904,7 @@
     "unit": 0,
     "word_number": 323,
     "word": "promote",
-    "meaning": "を促進する；〔普通受身形で〕昇格する"
+    "meaning": "を促進する 〔普通受身形で〕昇格する"
   },
   {
     "textbook": "ターゲット1400",
@@ -2913,7 +2913,7 @@
     "unit": 0,
     "word_number": 324,
     "word": "earn",
-    "meaning": "を稼ぐ；得る"
+    "meaning": "を稼ぐ 得る"
   },
   {
     "textbook": "ターゲット1400",
@@ -2922,7 +2922,7 @@
     "unit": 0,
     "word_number": 325,
     "word": "feed",
-    "meaning": "に食べ物を与える；物を食べる；（～を）えさとして食べる（on）"
+    "meaning": "に食べ物を与える 物を食べる （～を）えさとして食べる（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2931,7 +2931,7 @@
     "unit": 0,
     "word_number": 326,
     "word": "taste",
-    "meaning": "～の味がする；の味をみる"
+    "meaning": "～の味がする の味をみる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2940,7 +2940,7 @@
     "unit": 0,
     "word_number": 327,
     "word": "smell",
-    "meaning": "～のにおいがする；のにおいをかぐ"
+    "meaning": "～のにおいがする のにおいをかぐ"
   },
   {
     "textbook": "ターゲット1400",
@@ -2949,7 +2949,7 @@
     "unit": 0,
     "word_number": 328,
     "word": "adapt",
-    "meaning": "（～に）順応する（to）；を（～に）適合させる（to）"
+    "meaning": "（～に）順応する（to） を（～に）適合させる（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -2958,7 +2958,7 @@
     "unit": 0,
     "word_number": 329,
     "word": "adopt",
-    "meaning": "（考え・方針）を採用する；を養子にする"
+    "meaning": "（考え・方針）を採用する を養子にする"
   },
   {
     "textbook": "ターゲット1400",
@@ -2967,7 +2967,7 @@
     "unit": 0,
     "word_number": 330,
     "word": "adjust",
-    "meaning": "を（～に合わせて）調節する（to）；（～に）順応する（to）；"
+    "meaning": "を（～に合わせて）調節する（to） （～に）順応する（to） "
   },
   {
     "textbook": "ターゲット1400",
@@ -2976,7 +2976,7 @@
     "unit": 0,
     "word_number": 331,
     "word": "separate",
-    "meaning": "を（～から）分離する（from）；分かれる"
+    "meaning": "を（～から）分離する（from） 分かれる"
   },
   {
     "textbook": "ターゲット1400",
@@ -2994,7 +2994,7 @@
     "unit": 0,
     "word_number": 333,
     "word": "replace",
-    "meaning": "を（～と）取り替える（with / by）；に取って代わる"
+    "meaning": "を（～と）取り替える（with / by） に取って代わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3012,7 +3012,7 @@
     "unit": 0,
     "word_number": 335,
     "word": "release",
-    "meaning": "（ガスなど）を放出する；を解放する（⇔ capture ? 741）；を新発売する；（映画）を封切る"
+    "meaning": "（ガスなど）を放出する を解放する（⇔ capture ? 741） を新発売する （映画）を封切る"
   },
   {
     "textbook": "ターゲット1400",
@@ -3030,7 +3030,7 @@
     "unit": 0,
     "word_number": 337,
     "word": "observe",
-    "meaning": "を観察する；に気づく；（...と）述べる（that節）；（規則など）を守る"
+    "meaning": "を観察する に気づく （...と）述べる（that節） （規則など）を守る"
   },
   {
     "textbook": "ターゲット1400",
@@ -3039,7 +3039,7 @@
     "unit": 0,
     "word_number": 338,
     "word": "estimate",
-    "meaning": "（...である）と推定する（that節）；を見積もる；を評価する"
+    "meaning": "（...である）と推定する（that節） を見積もる を評価する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3057,7 +3057,7 @@
     "unit": 0,
     "word_number": 340,
     "word": "emerge",
-    "meaning": "現れる；明らかになる"
+    "meaning": "現れる 明らかになる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3075,7 +3075,7 @@
     "unit": 0,
     "word_number": 342,
     "word": "citizen",
-    "meaning": "国民；市民"
+    "meaning": "国民 市民"
   },
   {
     "textbook": "ターゲット1400",
@@ -3084,7 +3084,7 @@
     "unit": 0,
     "word_number": 343,
     "word": "career",
-    "meaning": "（～としての）経歴（as）；（生涯の）職業"
+    "meaning": "（～としての）経歴（as） （生涯の）職業"
   },
   {
     "textbook": "ターゲット1400",
@@ -3111,7 +3111,7 @@
     "unit": 0,
     "word_number": 346,
     "word": "bill",
-    "meaning": "請求書，【英】 勘定（書）（【米】 check）；【米】 紙幣（【英】 note）；法案"
+    "meaning": "請求書，【英】 勘定（書）（【米】 check） 【米】 紙幣（【英】 note） 法案"
   },
   {
     "textbook": "ターゲット1400",
@@ -3120,7 +3120,7 @@
     "unit": 0,
     "word_number": 347,
     "word": "charge",
-    "meaning": "（サービスに対する）料金；管理；非難；充電"
+    "meaning": "（サービスに対する）料金 管理 非難 充電"
   },
   {
     "textbook": "ターゲット1400",
@@ -3138,7 +3138,7 @@
     "unit": 0,
     "word_number": 349,
     "word": "scale",
-    "meaning": "規模；尺度"
+    "meaning": "規模 尺度"
   },
   {
     "textbook": "ターゲット1400",
@@ -3147,7 +3147,7 @@
     "unit": 0,
     "word_number": 350,
     "word": "site",
-    "meaning": "場所，用地；遺跡"
+    "meaning": "場所，用地 遺跡"
   },
   {
     "textbook": "ターゲット1400",
@@ -3156,7 +3156,7 @@
     "unit": 0,
     "word_number": 351,
     "word": "section",
-    "meaning": "部分；（文書などの）節；（会社などの）部門"
+    "meaning": "部分 （文書などの）節 （会社などの）部門"
   },
   {
     "textbook": "ターゲット1400",
@@ -3165,7 +3165,7 @@
     "unit": 0,
     "word_number": 352,
     "word": "crop",
-    "meaning": "〔しばしば～s〕（農）作物；収穫（高）"
+    "meaning": "〔しばしば～s〕（農）作物 収穫（高）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3174,7 +3174,7 @@
     "unit": 0,
     "word_number": 353,
     "word": "diet",
-    "meaning": "（日常の）食事；ダイエット；〔普通 the D～〕（日本などの）国会"
+    "meaning": "（日常の）食事 ダイエット 〔普通 the D～〕（日本などの）国会"
   },
   {
     "textbook": "ターゲット1400",
@@ -3183,7 +3183,7 @@
     "unit": 0,
     "word_number": 354,
     "word": "source",
-    "meaning": "源；〔普通～s〕（～の）出所（of）"
+    "meaning": "源 〔普通～s〕（～の）出所（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3192,7 +3192,7 @@
     "unit": 0,
     "word_number": 355,
     "word": "resource",
-    "meaning": "〔普通～s〕資源；〔普通～s〕資金"
+    "meaning": "〔普通～s〕資源 〔普通～s〕資金"
   },
   {
     "textbook": "ターゲット1400",
@@ -3201,7 +3201,7 @@
     "unit": 0,
     "word_number": 356,
     "word": "moment",
-    "meaning": "瞬間；（特定の）時点"
+    "meaning": "瞬間 （特定の）時点"
   },
   {
     "textbook": "ターゲット1400",
@@ -3219,7 +3219,7 @@
     "unit": 0,
     "word_number": 358,
     "word": "stage",
-    "meaning": "（発達・変化の）段階；舞台"
+    "meaning": "（発達・変化の）段階 舞台"
   },
   {
     "textbook": "ターゲット1400",
@@ -3228,7 +3228,7 @@
     "unit": 0,
     "word_number": 359,
     "word": "aspect",
-    "meaning": "（物事の）側面；観点"
+    "meaning": "（物事の）側面 観点"
   },
   {
     "textbook": "ターゲット1400",
@@ -3246,7 +3246,7 @@
     "unit": 0,
     "word_number": 361,
     "word": "instance",
-    "meaning": "（具体）例（≒ example）；場合（≒ case）"
+    "meaning": "（具体）例（≒ example） 場合（≒ case）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3255,7 +3255,7 @@
     "unit": 0,
     "word_number": 362,
     "word": "link",
-    "meaning": "（～との；～の間の）関連，つながり（to / with；between）"
+    "meaning": "（～との ～の間の）関連，つながり（to / with between）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3264,7 +3264,7 @@
     "unit": 0,
     "word_number": 363,
     "word": "contrast",
-    "meaning": "（～との）対照（to / with）；（～の間の；～との）差異（between；to / with）"
+    "meaning": "（～との）対照（to / with） （～の間の ～との）差異（between to / with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3273,7 +3273,7 @@
     "unit": 0,
     "word_number": 364,
     "word": "access",
-    "meaning": "（～の）利用，入手（to）；（～への）接近（to）"
+    "meaning": "（～の）利用，入手（to） （～への）接近（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3282,7 +3282,7 @@
     "unit": 0,
     "word_number": 365,
     "word": "device",
-    "meaning": "（～の）装置（for）；工夫"
+    "meaning": "（～の）装置（for） 工夫"
   },
   {
     "textbook": "ターゲット1400",
@@ -3291,7 +3291,7 @@
     "unit": 0,
     "word_number": 366,
     "word": "survey",
-    "meaning": "（アンケートによる意識などの）調査；概観；測量"
+    "meaning": "（アンケートによる意識などの）調査 概観 測量"
   },
   {
     "textbook": "ターゲット1400",
@@ -3300,7 +3300,7 @@
     "unit": 0,
     "word_number": 367,
     "word": "technique",
-    "meaning": "技術；技巧"
+    "meaning": "技術 技巧"
   },
   {
     "textbook": "ターゲット1400",
@@ -3309,7 +3309,7 @@
     "unit": 0,
     "word_number": 368,
     "word": "content",
-    "meaning": "〔～s〕中身；（本・手紙などの）内容；目次"
+    "meaning": "〔～s〕中身 （本・手紙などの）内容 目次"
   },
   {
     "textbook": "ターゲット1400",
@@ -3318,7 +3318,7 @@
     "unit": 0,
     "word_number": 369,
     "word": "surface",
-    "meaning": "表面；〔the ～〕外見"
+    "meaning": "表面 〔the ～〕外見"
   },
   {
     "textbook": "ターゲット1400",
@@ -3327,7 +3327,7 @@
     "unit": 0,
     "word_number": 370,
     "word": "concept",
-    "meaning": "（～の；...という）概念（of；that節）；考え"
+    "meaning": "（～の ...という）概念（of that節） 考え"
   },
   {
     "textbook": "ターゲット1400",
@@ -3345,7 +3345,7 @@
     "unit": 0,
     "word_number": 372,
     "word": "trouble",
-    "meaning": "困難；悩み；（機械などの）故障"
+    "meaning": "困難 悩み （機械などの）故障"
   },
   {
     "textbook": "ターゲット1400",
@@ -3363,7 +3363,7 @@
     "unit": 0,
     "word_number": 374,
     "word": "attitude",
-    "meaning": "（～に対する）態度（to / toward）；考え方"
+    "meaning": "（～に対する）態度（to / toward） 考え方"
   },
   {
     "textbook": "ターゲット1400",
@@ -3372,7 +3372,7 @@
     "unit": 0,
     "word_number": 375,
     "word": "habit",
-    "meaning": "（個人的な）習慣；癖"
+    "meaning": "（個人的な）習慣 癖"
   },
   {
     "textbook": "ターゲット1400",
@@ -3381,7 +3381,7 @@
     "unit": 0,
     "word_number": 376,
     "word": "whatever",
-    "meaning": "たとえ何を...しても，たとえ何が...であろうと；...するものは何でも"
+    "meaning": "たとえ何を...しても，たとえ何が...であろうと ...するものは何でも"
   },
   {
     "textbook": "ターゲット1400",
@@ -3408,7 +3408,7 @@
     "unit": 0,
     "word_number": 379,
     "word": "local",
-    "meaning": "その土地の，地元の；局所の"
+    "meaning": "その土地の，地元の 局所の"
   },
   {
     "textbook": "ターゲット1400",
@@ -3417,7 +3417,7 @@
     "unit": 0,
     "word_number": 380,
     "word": "native",
-    "meaning": "生まれた土地の；その土地［国］固有の"
+    "meaning": "生まれた土地の その土地［国］固有の"
   },
   {
     "textbook": "ターゲット1400",
@@ -3426,7 +3426,7 @@
     "unit": 0,
     "word_number": 381,
     "word": "smart",
-    "meaning": "頭のよい（≒ clever）；（装いが）洗練された"
+    "meaning": "頭のよい（≒ clever） （装いが）洗練された"
   },
   {
     "textbook": "ターゲット1400",
@@ -3444,7 +3444,7 @@
     "unit": 0,
     "word_number": 383,
     "word": "intellectual",
-    "meaning": "知的な；知性がある"
+    "meaning": "知的な 知性がある"
   },
   {
     "textbook": "ターゲット1400",
@@ -3462,7 +3462,7 @@
     "unit": 0,
     "word_number": 385,
     "word": "moral",
-    "meaning": "道徳（上）の；道徳的な（⇔ immoral 不道徳な）"
+    "meaning": "道徳（上）の 道徳的な（⇔ immoral 不道徳な）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3471,7 +3471,7 @@
     "unit": 0,
     "word_number": 386,
     "word": "private",
-    "meaning": "個人的な（⇔ public 公の）；私有の；私立の"
+    "meaning": "個人的な（⇔ public 公の） 私有の 私立の"
   },
   {
     "textbook": "ターゲット1400",
@@ -3480,7 +3480,7 @@
     "unit": 0,
     "word_number": 387,
     "word": "equal",
-    "meaning": "（～に）等しい（to）；平等な"
+    "meaning": "（～に）等しい（to） 平等な"
   },
   {
     "textbook": "ターゲット1400",
@@ -3489,7 +3489,7 @@
     "unit": 0,
     "word_number": 388,
     "word": "fair",
-    "meaning": "公正な（⇔ unfair 不公平な）；（数量などが）かなりの"
+    "meaning": "公正な（⇔ unfair 不公平な） （数量などが）かなりの"
   },
   {
     "textbook": "ターゲット1400",
@@ -3507,7 +3507,7 @@
     "unit": 0,
     "word_number": 390,
     "word": "initial",
-    "meaning": "初期の；語頭の"
+    "meaning": "初期の 語頭の"
   },
   {
     "textbook": "ターゲット1400",
@@ -3516,7 +3516,7 @@
     "unit": 0,
     "word_number": 391,
     "word": "essential",
-    "meaning": "（～に）必要不可欠な（to / for）；本質的な"
+    "meaning": "（～に）必要不可欠な（to / for） 本質的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -3525,7 +3525,7 @@
     "unit": 0,
     "word_number": 392,
     "word": "significant",
-    "meaning": "重要な；意義深い"
+    "meaning": "重要な 意義深い"
   },
   {
     "textbook": "ターゲット1400",
@@ -3534,7 +3534,7 @@
     "unit": 0,
     "word_number": 393,
     "word": "terrible",
-    "meaning": "ひどい；恐ろしい"
+    "meaning": "ひどい 恐ろしい"
   },
   {
     "textbook": "ターゲット1400",
@@ -3552,7 +3552,7 @@
     "unit": 0,
     "word_number": 395,
     "word": "direct",
-    "meaning": "直接の（⇔ indirect 間接の）；率直な"
+    "meaning": "直接の（⇔ indirect 間接の） 率直な"
   },
   {
     "textbook": "ターゲット1400",
@@ -3561,7 +3561,7 @@
     "unit": 0,
     "word_number": 396,
     "word": "nearly",
-    "meaning": "もう少しで；ほとんど（≒ almost）"
+    "meaning": "もう少しで ほとんど（≒ almost）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3597,7 +3597,7 @@
     "unit": 0,
     "word_number": 400,
     "word": "apart",
-    "meaning": "（空間・時間的に）離れて；別々に"
+    "meaning": "（空間・時間的に）離れて 別々に"
   },
   {
     "textbook": "ターゲット1400",
@@ -3615,7 +3615,7 @@
     "unit": 0,
     "word_number": 402,
     "word": "promise",
-    "meaning": "（...すること；...ということ）を約束する（to do；that節）"
+    "meaning": "（...すること ...ということ）を約束する（to do that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3624,7 +3624,7 @@
     "unit": 0,
     "word_number": 403,
     "word": "predict",
-    "meaning": "（...ということ；...か）を予測する（that節；wh-節）；を予言する"
+    "meaning": "（...ということ ...か）を予測する（that節 wh-節） を予言する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3633,7 +3633,7 @@
     "unit": 0,
     "word_number": 404,
     "word": "reflect",
-    "meaning": "を反映する；を反射する；（～について）熟考する（on）"
+    "meaning": "を反映する を反射する （～について）熟考する（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3660,7 +3660,7 @@
     "unit": 0,
     "word_number": 407,
     "word": "commit",
-    "meaning": "（罪・過失など）を犯す；（金・人・時間など）を（～に）投入する（to）；（～に）深く関わる（to）"
+    "meaning": "（罪・過失など）を犯す （金・人・時間など）を（～に）投入する（to） （～に）深く関わる（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3669,7 +3669,7 @@
     "unit": 0,
     "word_number": 408,
     "word": "appreciate",
-    "meaning": "をありがたく思う；を正しく認識［評価］する；を鑑賞する"
+    "meaning": "をありがたく思う を正しく認識［評価］する を鑑賞する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3687,7 +3687,7 @@
     "unit": 0,
     "word_number": 410,
     "word": "doubt",
-    "meaning": "を疑わしいと思う；（...）ではないと思う（that節）"
+    "meaning": "を疑わしいと思う （...）ではないと思う（that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3696,7 +3696,7 @@
     "unit": 0,
     "word_number": 411,
     "word": "complain",
-    "meaning": "（～について；...と）不平を言う（about / of；that節）"
+    "meaning": "（～について ...と）不平を言う（about / of that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3714,7 +3714,7 @@
     "unit": 0,
     "word_number": 413,
     "word": "warn",
-    "meaning": "に（～を；...ということを）警告する（of / about / against；that節）"
+    "meaning": "に（～を ...ということを）警告する（of / about / against that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3723,7 +3723,7 @@
     "unit": 0,
     "word_number": 414,
     "word": "gather",
-    "meaning": "を集める（≒ collect），拾い集める；集まる"
+    "meaning": "を集める（≒ collect），拾い集める 集まる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3732,7 +3732,7 @@
     "unit": 0,
     "word_number": 415,
     "word": "acquire",
-    "meaning": "（習慣など）を身に付ける；を得る"
+    "meaning": "（習慣など）を身に付ける を得る"
   },
   {
     "textbook": "ターゲット1400",
@@ -3741,7 +3741,7 @@
     "unit": 0,
     "word_number": 416,
     "word": "examine",
-    "meaning": "を調べる；を検査する；を診察する"
+    "meaning": "を調べる を検査する を診察する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3750,7 +3750,7 @@
     "unit": 0,
     "word_number": 417,
     "word": "score",
-    "meaning": "（試合・テストで）（点）をとる；を採点する"
+    "meaning": "（試合・テストで）（点）をとる を採点する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3759,7 +3759,7 @@
     "unit": 0,
     "word_number": 418,
     "word": "judge",
-    "meaning": "を（～で）判断する（by / from）；を審査する"
+    "meaning": "を（～で）判断する（by / from） を審査する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3786,7 +3786,7 @@
     "unit": 0,
     "word_number": 421,
     "word": "distinguish",
-    "meaning": "を（～と）区別する（from）；（～の間の）違いを見分ける（between）"
+    "meaning": "を（～と）区別する（from） （～の間の）違いを見分ける（between）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3804,7 +3804,7 @@
     "unit": 0,
     "word_number": 423,
     "word": "shift",
-    "meaning": "（位置・方針など）を変える；を移動させる；変わる"
+    "meaning": "（位置・方針など）を変える を移動させる 変わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3813,7 +3813,7 @@
     "unit": 0,
     "word_number": 424,
     "word": "hide",
-    "meaning": "を隠す（≒ conceal）；隠れる"
+    "meaning": "を隠す（≒ conceal） 隠れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3822,7 +3822,7 @@
     "unit": 0,
     "word_number": 425,
     "word": "mix",
-    "meaning": "を（～と）混ぜる（with）；混ざる"
+    "meaning": "を（～と）混ぜる（with） 混ざる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3831,7 +3831,7 @@
     "unit": 0,
     "word_number": 426,
     "word": "fix",
-    "meaning": "を修理する（≒ repair, mend）；を固定する；（日時・場所など）を決める"
+    "meaning": "を修理する（≒ repair, mend） を固定する （日時・場所など）を決める"
   },
   {
     "textbook": "ターゲット1400",
@@ -3840,7 +3840,7 @@
     "unit": 0,
     "word_number": 427,
     "word": "display",
-    "meaning": "を示す；を展示する"
+    "meaning": "を示す を展示する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3867,7 +3867,7 @@
     "unit": 0,
     "word_number": 430,
     "word": "vary",
-    "meaning": "異なる，多様である；（多様に）変わる"
+    "meaning": "異なる，多様である （多様に）変わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3876,7 +3876,7 @@
     "unit": 0,
     "word_number": 431,
     "word": "expand",
-    "meaning": "を（～に）拡大する（into）；広がる"
+    "meaning": "を（～に）拡大する（into） 広がる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3885,7 +3885,7 @@
     "unit": 0,
     "word_number": 432,
     "word": "evolve",
-    "meaning": "（～に）進化する，発展する（into）；を発展させる"
+    "meaning": "（～に）進化する，発展する（into） を発展させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3894,7 +3894,7 @@
     "unit": 0,
     "word_number": 433,
     "word": "confuse",
-    "meaning": "を混同する；を困惑させる"
+    "meaning": "を混同する を困惑させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -3903,7 +3903,7 @@
     "unit": 0,
     "word_number": 434,
     "word": "consume",
-    "meaning": "を消費する；を飲食する"
+    "meaning": "を消費する を飲食する"
   },
   {
     "textbook": "ターゲット1400",
@@ -3912,7 +3912,7 @@
     "unit": 0,
     "word_number": 435,
     "word": "compete",
-    "meaning": "（～と；～を求めて）競う（with / against；for）"
+    "meaning": "（～と ～を求めて）競う（with / against for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3948,7 +3948,7 @@
     "unit": 0,
     "word_number": 439,
     "word": "refuse",
-    "meaning": "を拒む；を断る（⇔ accept 受け入れる）"
+    "meaning": "を拒む を断る（⇔ accept 受け入れる）"
   },
   {
     "textbook": "ターゲット1400",
@@ -3966,7 +3966,7 @@
     "unit": 0,
     "word_number": 441,
     "word": "deny",
-    "meaning": "を否定する（⇔ admit ? 608）；を拒む"
+    "meaning": "を否定する（⇔ admit ? 608） を拒む"
   },
   {
     "textbook": "ターゲット1400",
@@ -3984,7 +3984,7 @@
     "unit": 0,
     "word_number": 443,
     "word": "audience",
-    "meaning": "観衆，聴衆；（映画などの）観客"
+    "meaning": "観衆，聴衆 （映画などの）観客"
   },
   {
     "textbook": "ターゲット1400",
@@ -3993,7 +3993,7 @@
     "unit": 0,
     "word_number": 444,
     "word": "race",
-    "meaning": "民族，人種；競走"
+    "meaning": "民族，人種 競走"
   },
   {
     "textbook": "ターゲット1400",
@@ -4002,7 +4002,7 @@
     "unit": 0,
     "word_number": 445,
     "word": "conflict",
-    "meaning": "（～との；～間の）争い（with；between）；（利害の）衝突"
+    "meaning": "（～との ～間の）争い（with between） （利害の）衝突"
   },
   {
     "textbook": "ターゲット1400",
@@ -4020,7 +4020,7 @@
     "unit": 0,
     "word_number": 447,
     "word": "struggle",
-    "meaning": "（...しようとする）懸命の努力，奮闘（to do）；（～を求める）闘い（for）"
+    "meaning": "（...しようとする）懸命の努力，奮闘（to do） （～を求める）闘い（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4038,7 +4038,7 @@
     "unit": 0,
     "word_number": 449,
     "word": "progress",
-    "meaning": "進歩；進行"
+    "meaning": "進歩 進行"
   },
   {
     "textbook": "ターゲット1400",
@@ -4047,7 +4047,7 @@
     "unit": 0,
     "word_number": 450,
     "word": "principle",
-    "meaning": "原則，原理；主義"
+    "meaning": "原則，原理 主義"
   },
   {
     "textbook": "ターゲット1400",
@@ -4074,7 +4074,7 @@
     "unit": 0,
     "word_number": 453,
     "word": "birth",
-    "meaning": "出産；誕生"
+    "meaning": "出産 誕生"
   },
   {
     "textbook": "ターゲット1400",
@@ -4092,7 +4092,7 @@
     "unit": 0,
     "word_number": 455,
     "word": "cell",
-    "meaning": "細胞；小個室"
+    "meaning": "細胞 小個室"
   },
   {
     "textbook": "ターゲット1400",
@@ -4110,7 +4110,7 @@
     "unit": 0,
     "word_number": 457,
     "word": "scene",
-    "meaning": "場面；（事件などのあった）場所；風景"
+    "meaning": "場面 （事件などのあった）場所 風景"
   },
   {
     "textbook": "ターゲット1400",
@@ -4119,7 +4119,7 @@
     "unit": 0,
     "word_number": 458,
     "word": "trend",
-    "meaning": "傾向（≒ tendency）；流行（≒ fashion）"
+    "meaning": "傾向（≒ tendency） 流行（≒ fashion）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4137,7 +4137,7 @@
     "unit": 0,
     "word_number": 460,
     "word": "track",
-    "meaning": "〔普通～s〕（車などが通った）跡；走路；線路"
+    "meaning": "〔普通～s〕（車などが通った）跡 走路 線路"
   },
   {
     "textbook": "ターゲット1400",
@@ -4146,7 +4146,7 @@
     "unit": 0,
     "word_number": 461,
     "word": "series",
-    "meaning": "連続；（テレビ番組などの）続き物"
+    "meaning": "連続 （テレビ番組などの）続き物"
   },
   {
     "textbook": "ターゲット1400",
@@ -4155,7 +4155,7 @@
     "unit": 0,
     "word_number": 462,
     "word": "context",
-    "meaning": "状況；文脈"
+    "meaning": "状況 文脈"
   },
   {
     "textbook": "ターゲット1400",
@@ -4164,7 +4164,7 @@
     "unit": 0,
     "word_number": 463,
     "word": "background",
-    "meaning": "（景色・事件などの）背景；経歴"
+    "meaning": "（景色・事件などの）背景 経歴"
   },
   {
     "textbook": "ターゲット1400",
@@ -4173,7 +4173,7 @@
     "unit": 0,
     "word_number": 464,
     "word": "basis",
-    "meaning": "基準；基礎"
+    "meaning": "基準 基礎"
   },
   {
     "textbook": "ターゲット1400",
@@ -4182,7 +4182,7 @@
     "unit": 0,
     "word_number": 465,
     "word": "status",
-    "meaning": "地位，身分；社会的評価；状況"
+    "meaning": "地位，身分 社会的評価 状況"
   },
   {
     "textbook": "ターゲット1400",
@@ -4191,7 +4191,7 @@
     "unit": 0,
     "word_number": 466,
     "word": "volunteer",
-    "meaning": "（～の；...する）ボランティア（for；to do）；志願者"
+    "meaning": "（～の ...する）ボランティア（for to do） 志願者"
   },
   {
     "textbook": "ターゲット1400",
@@ -4209,7 +4209,7 @@
     "unit": 0,
     "word_number": 468,
     "word": "duty",
-    "meaning": "義務；〔しばしば～ties〕職務；関税"
+    "meaning": "義務 〔しばしば～ties〕職務 関税"
   },
   {
     "textbook": "ターゲット1400",
@@ -4218,7 +4218,7 @@
     "unit": 0,
     "word_number": 469,
     "word": "labor",
-    "meaning": "労働；（肉体的・精神的）骨折り"
+    "meaning": "労働 （肉体的・精神的）骨折り"
   },
   {
     "textbook": "ターゲット1400",
@@ -4227,7 +4227,7 @@
     "unit": 0,
     "word_number": 470,
     "word": "reward",
-    "meaning": "（～に対する）褒美（for）；報酬；報奨金"
+    "meaning": "（～に対する）褒美（for） 報酬 報奨金"
   },
   {
     "textbook": "ターゲット1400",
@@ -4236,7 +4236,7 @@
     "unit": 0,
     "word_number": 471,
     "word": "aim",
-    "meaning": "目的（≒ purpose）；ねらい"
+    "meaning": "目的（≒ purpose） ねらい"
   },
   {
     "textbook": "ターゲット1400",
@@ -4254,7 +4254,7 @@
     "unit": 0,
     "word_number": 473,
     "word": "crowd",
-    "meaning": "群衆；観衆"
+    "meaning": "群衆 観衆"
   },
   {
     "textbook": "ターゲット1400",
@@ -4263,7 +4263,7 @@
     "unit": 0,
     "word_number": 474,
     "word": "revolution",
-    "meaning": "革命；回転"
+    "meaning": "革命 回転"
   },
   {
     "textbook": "ターゲット1400",
@@ -4281,7 +4281,7 @@
     "unit": 0,
     "word_number": 476,
     "word": "consequence",
-    "meaning": "〔普通～s〕結果（≒ result）；〔主に否定文で〕重要性"
+    "meaning": "〔普通～s〕結果（≒ result） 〔主に否定文で〕重要性"
   },
   {
     "textbook": "ターゲット1400",
@@ -4290,7 +4290,7 @@
     "unit": 0,
     "word_number": 477,
     "word": "sequence",
-    "meaning": "連続，（連続するものの）順番；一続き"
+    "meaning": "連続，（連続するものの）順番 一続き"
   },
   {
     "textbook": "ターゲット1400",
@@ -4299,7 +4299,7 @@
     "unit": 0,
     "word_number": 478,
     "word": "complex",
-    "meaning": "複雑な（⇔ simple 簡単な）；複合の"
+    "meaning": "複雑な（⇔ simple 簡単な） 複合の"
   },
   {
     "textbook": "ターゲット1400",
@@ -4317,7 +4317,7 @@
     "unit": 0,
     "word_number": 480,
     "word": "FALSE",
-    "meaning": "誤った（⇔ true 本当の）；うその；偽の"
+    "meaning": "誤った（⇔ true 本当の） うその 偽の"
   },
   {
     "textbook": "ターゲット1400",
@@ -4326,7 +4326,7 @@
     "unit": 0,
     "word_number": 481,
     "word": "alternative",
-    "meaning": "代替の；どちらか［どれか］ 1つの"
+    "meaning": "代替の どちらか［どれか］ 1つの"
   },
   {
     "textbook": "ターゲット1400",
@@ -4353,7 +4353,7 @@
     "unit": 0,
     "word_number": 484,
     "word": "primary",
-    "meaning": "最も重要な；最初の；初等の"
+    "meaning": "最も重要な 最初の 初等の"
   },
   {
     "textbook": "ターゲット1400",
@@ -4380,7 +4380,7 @@
     "unit": 0,
     "word_number": 487,
     "word": "legal",
-    "meaning": "法律（上）の；合法的な（⇔ illegal 非合法の）"
+    "meaning": "法律（上）の 合法的な（⇔ illegal 非合法の）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4389,7 +4389,7 @@
     "unit": 0,
     "word_number": 488,
     "word": "commercial",
-    "meaning": "商業的な，営利的な；商業上の"
+    "meaning": "商業的な，営利的な 商業上の"
   },
   {
     "textbook": "ターゲット1400",
@@ -4425,7 +4425,7 @@
     "unit": 0,
     "word_number": 492,
     "word": "former",
-    "meaning": "元の；〔the ～〕前者の（⇔ the latter 後者の）"
+    "meaning": "元の 〔the ～〕前者の（⇔ the latter 後者の）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4434,7 +4434,7 @@
     "unit": 0,
     "word_number": 493,
     "word": "mobile",
-    "meaning": "（物が）可動［移動］式の；（人が）動き回れる"
+    "meaning": "（物が）可動［移動］式の （人が）動き回れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -4443,7 +4443,7 @@
     "unit": 0,
     "word_number": 494,
     "word": "straight",
-    "meaning": "真っすぐな；直立した；率直な"
+    "meaning": "真っすぐな 直立した 率直な"
   },
   {
     "textbook": "ターゲット1400",
@@ -4452,7 +4452,7 @@
     "unit": 0,
     "word_number": 495,
     "word": "regular",
-    "meaning": "定期的な；規則正しい（⇔ irregular 不規則な）；通常の；正規の"
+    "meaning": "定期的な 規則正しい（⇔ irregular 不規則な） 通常の 正規の"
   },
   {
     "textbook": "ターゲット1400",
@@ -4461,7 +4461,7 @@
     "unit": 0,
     "word_number": 496,
     "word": "independent",
-    "meaning": "（人が）（～から）自立した（of）；（～から）独立した（of / from）"
+    "meaning": "（人が）（～から）自立した（of） （～から）独立した（of / from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4488,7 +4488,7 @@
     "unit": 0,
     "word_number": 499,
     "word": "via",
-    "meaning": "【前】 ～の媒介で；～経由で"
+    "meaning": "【前】 ～の媒介で ～経由で"
   },
   {
     "textbook": "ターゲット1400",
@@ -4497,7 +4497,7 @@
     "unit": 0,
     "word_number": 500,
     "word": "whereas",
-    "meaning": "【接】 ...だけれども；その一方で"
+    "meaning": "【接】 ...だけれども その一方で"
   },
   {
     "textbook": "ターゲット1400",
@@ -4506,7 +4506,7 @@
     "unit": 0,
     "word_number": 501,
     "word": "perceive",
-    "meaning": "を知覚する；がわかる"
+    "meaning": "を知覚する がわかる"
   },
   {
     "textbook": "ターゲット1400",
@@ -4542,7 +4542,7 @@
     "unit": 0,
     "word_number": 505,
     "word": "imply",
-    "meaning": "（...と）それとなく言う（that節）；を暗に示す"
+    "meaning": "（...と）それとなく言う（that節） を暗に示す"
   },
   {
     "textbook": "ターゲット1400",
@@ -4560,7 +4560,7 @@
     "unit": 0,
     "word_number": 507,
     "word": "demonstrate",
-    "meaning": "（...ということ）を証明する（that節）；を実演する；デモをする"
+    "meaning": "（...ということ）を証明する（that節） を実演する デモをする"
   },
   {
     "textbook": "ターゲット1400",
@@ -4569,7 +4569,7 @@
     "unit": 0,
     "word_number": 508,
     "word": "conclude",
-    "meaning": "（...だ）と結論づける（that節）；を締めくくる"
+    "meaning": "（...だ）と結論づける（that節） を締めくくる"
   },
   {
     "textbook": "ターゲット1400",
@@ -4587,7 +4587,7 @@
     "unit": 0,
     "word_number": 510,
     "word": "appeal",
-    "meaning": "（～の）心に訴える（to）；（人に；～を求めて；～するよう）懇願する（to；for；to do）；（力・手段に）訴える（to）"
+    "meaning": "（～の）心に訴える（to） （人に ～を求めて ～するよう）懇願する（to for to do） （力・手段に）訴える（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4596,7 +4596,7 @@
     "unit": 0,
     "word_number": 511,
     "word": "address",
-    "meaning": "（問題）に取り組む；（人）に演説をする；に宛名を書く"
+    "meaning": "（問題）に取り組む （人）に演説をする に宛名を書く"
   },
   {
     "textbook": "ターゲット1400",
@@ -4614,7 +4614,7 @@
     "unit": 0,
     "word_number": 513,
     "word": "invite",
-    "meaning": "を（～に）招待する（to）；に（...するよう）お願いする（to do）；（よくない事態）を引き起こす"
+    "meaning": "を（～に）招待する（to） に（...するよう）お願いする（to do） （よくない事態）を引き起こす"
   },
   {
     "textbook": "ターゲット1400",
@@ -4650,7 +4650,7 @@
     "unit": 0,
     "word_number": 517,
     "word": "belong",
-    "meaning": "（～に）所属している（to）；（～の）ものである（to）"
+    "meaning": "（～に）所属している（to） （～の）ものである（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4659,7 +4659,7 @@
     "unit": 0,
     "word_number": 518,
     "word": "conduct",
-    "meaning": "を行う；を導く；案内する"
+    "meaning": "を行う を導く 案内する"
   },
   {
     "textbook": "ターゲット1400",
@@ -4668,7 +4668,7 @@
     "unit": 0,
     "word_number": 519,
     "word": "behave",
-    "meaning": "振る舞う；行儀よくする"
+    "meaning": "振る舞う 行儀よくする"
   },
   {
     "textbook": "ターゲット1400",
@@ -4677,7 +4677,7 @@
     "unit": 0,
     "word_number": 520,
     "word": "operate",
-    "meaning": "を操作する；（人に；病気の）手術を行う（on；for）；作動する"
+    "meaning": "を操作する （人に 病気の）手術を行う（on for） 作動する"
   },
   {
     "textbook": "ターゲット1400",
@@ -4686,7 +4686,7 @@
     "unit": 0,
     "word_number": 521,
     "word": "organize",
-    "meaning": "を主催する，準備する；を組織する"
+    "meaning": "を主催する，準備する を組織する"
   },
   {
     "textbook": "ターゲット1400",
@@ -4695,7 +4695,7 @@
     "unit": 0,
     "word_number": 522,
     "word": "host",
-    "meaning": "を主催する；の主人役を務める"
+    "meaning": "を主催する の主人役を務める"
   },
   {
     "textbook": "ターゲット1400",
@@ -4713,7 +4713,7 @@
     "unit": 0,
     "word_number": 524,
     "word": "deliver",
-    "meaning": "（を）（～から；～に）配達する（from；to）；（意見など）を述べる"
+    "meaning": "（を）（～から ～に）配達する（from to） （意見など）を述べる"
   },
   {
     "textbook": "ターゲット1400",
@@ -4722,7 +4722,7 @@
     "unit": 0,
     "word_number": 525,
     "word": "locate",
-    "meaning": "を（場所に）置く（in）；（場所など）を突き止める"
+    "meaning": "を（場所に）置く（in） （場所など）を突き止める"
   },
   {
     "textbook": "ターゲット1400",
@@ -4731,7 +4731,7 @@
     "unit": 0,
     "word_number": 526,
     "word": "encounter",
-    "meaning": "に（偶然）出会う；に直面する"
+    "meaning": "に（偶然）出会う に直面する"
   },
   {
     "textbook": "ターゲット1400",
@@ -4749,7 +4749,7 @@
     "unit": 0,
     "word_number": 528,
     "word": "explore",
-    "meaning": "を探検する；を調査する"
+    "meaning": "を探検する を調査する"
   },
   {
     "textbook": "ターゲット1400",
@@ -4758,7 +4758,7 @@
     "unit": 0,
     "word_number": 529,
     "word": "stick",
-    "meaning": "（～に）くっつく，固執する（to）；を（～に）貼り付ける（on）；を突き刺す"
+    "meaning": "（～に）くっつく，固執する（to） を（～に）貼り付ける（on） を突き刺す"
   },
   {
     "textbook": "ターゲット1400",
@@ -4767,7 +4767,7 @@
     "unit": 0,
     "word_number": 530,
     "word": "strike",
-    "meaning": "に当たる；（人）に（～という）印象を与える（as）；（考えが）（人）の心に浮かぶ"
+    "meaning": "に当たる （人）に（～という）印象を与える（as） （考えが）（人）の心に浮かぶ"
   },
   {
     "textbook": "ターゲット1400",
@@ -4776,7 +4776,7 @@
     "unit": 0,
     "word_number": 531,
     "word": "hurt",
-    "meaning": "を痛める，傷つける；痛む"
+    "meaning": "を痛める，傷つける 痛む"
   },
   {
     "textbook": "ターゲット1400",
@@ -4812,7 +4812,7 @@
     "unit": 0,
     "word_number": 535,
     "word": "press",
-    "meaning": "を押す；に（～を）強要する（for）"
+    "meaning": "を押す に（～を）強要する（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4821,7 +4821,7 @@
     "unit": 0,
     "word_number": 536,
     "word": "burn",
-    "meaning": "を燃やす；燃える"
+    "meaning": "を燃やす 燃える"
   },
   {
     "textbook": "ターゲット1400",
@@ -4830,7 +4830,7 @@
     "unit": 0,
     "word_number": 537,
     "word": "flow",
-    "meaning": "（～へ；～から）流れる（into / to；from）"
+    "meaning": "（～へ ～から）流れる（into / to from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4839,7 +4839,7 @@
     "unit": 0,
     "word_number": 538,
     "word": "preserve",
-    "meaning": "を保存する；を（～から）保護する（from / against）"
+    "meaning": "を保存する を（～から）保護する（from / against）"
   },
   {
     "textbook": "ターゲット1400",
@@ -4866,7 +4866,7 @@
     "unit": 0,
     "word_number": 541,
     "word": "escape",
-    "meaning": "（～から）逃れる，脱出する（from）；を免れる"
+    "meaning": "（～から）逃れる，脱出する（from） を免れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -4884,7 +4884,7 @@
     "unit": 0,
     "word_number": 543,
     "word": "household",
-    "meaning": "世帯；家族"
+    "meaning": "世帯 家族"
   },
   {
     "textbook": "ターゲット1400",
@@ -4911,7 +4911,7 @@
     "unit": 0,
     "word_number": 546,
     "word": "wheel",
-    "meaning": "〔the ～〕（自動車の）ハンドル（＝ steering wheel）；車輪；歯車"
+    "meaning": "〔the ～〕（自動車の）ハンドル（＝ steering wheel） 車輪 歯車"
   },
   {
     "textbook": "ターゲット1400",
@@ -4947,7 +4947,7 @@
     "unit": 0,
     "word_number": 550,
     "word": "atmosphere",
-    "meaning": "雰囲気；〔the ～〕大気"
+    "meaning": "雰囲気 〔the ～〕大気"
   },
   {
     "textbook": "ターゲット1400",
@@ -4974,7 +4974,7 @@
     "unit": 0,
     "word_number": 553,
     "word": "plague",
-    "meaning": "疫病；厄介なもの［人］"
+    "meaning": "疫病 厄介なもの［人］"
   },
   {
     "textbook": "ターゲット1400",
@@ -4983,7 +4983,7 @@
     "unit": 0,
     "word_number": 554,
     "word": "threat",
-    "meaning": "恐れ，予兆；脅し"
+    "meaning": "恐れ，予兆 脅し"
   },
   {
     "textbook": "ターゲット1400",
@@ -4992,7 +4992,7 @@
     "unit": 0,
     "word_number": 555,
     "word": "flood",
-    "meaning": "洪水；（～の）殺到（of）"
+    "meaning": "洪水 （～の）殺到（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5010,7 +5010,7 @@
     "unit": 0,
     "word_number": 557,
     "word": "disaster",
-    "meaning": "災害；災難"
+    "meaning": "災害 災難"
   },
   {
     "textbook": "ターゲット1400",
@@ -5055,7 +5055,7 @@
     "unit": 0,
     "word_number": 562,
     "word": "capital",
-    "meaning": "資本；首都；大文字（＝ capital letter）"
+    "meaning": "資本 首都 大文字（＝ capital letter）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5064,7 +5064,7 @@
     "unit": 0,
     "word_number": 563,
     "word": "profit",
-    "meaning": "収益；〔しばしば～s〕利益（⇔ loss 損失）"
+    "meaning": "収益 〔しばしば～s〕利益（⇔ loss 損失）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5073,7 +5073,7 @@
     "unit": 0,
     "word_number": 564,
     "word": "talent",
-    "meaning": "才能；才能のある人"
+    "meaning": "才能 才能のある人"
   },
   {
     "textbook": "ターゲット1400",
@@ -5082,7 +5082,7 @@
     "unit": 0,
     "word_number": 565,
     "word": "capacity",
-    "meaning": "（...する）能力（to do）；収容力"
+    "meaning": "（...する）能力（to do） 収容力"
   },
   {
     "textbook": "ターゲット1400",
@@ -5091,7 +5091,7 @@
     "unit": 0,
     "word_number": 566,
     "word": "scholar",
-    "meaning": "（主に人文系の）学者；奨学生"
+    "meaning": "（主に人文系の）学者 奨学生"
   },
   {
     "textbook": "ターゲット1400",
@@ -5100,7 +5100,7 @@
     "unit": 0,
     "word_number": 567,
     "word": "tradition",
-    "meaning": "伝統；伝承"
+    "meaning": "伝統 伝承"
   },
   {
     "textbook": "ターゲット1400",
@@ -5109,7 +5109,7 @@
     "unit": 0,
     "word_number": 568,
     "word": "literature",
-    "meaning": "文学；文献"
+    "meaning": "文学 文献"
   },
   {
     "textbook": "ターゲット1400",
@@ -5127,7 +5127,7 @@
     "unit": 0,
     "word_number": 570,
     "word": "manner",
-    "meaning": "方法（≒ way）；〔～s〕行儀，作法；振舞い"
+    "meaning": "方法（≒ way） 〔～s〕行儀，作法 振舞い"
   },
   {
     "textbook": "ターゲット1400",
@@ -5136,7 +5136,7 @@
     "unit": 0,
     "word_number": 571,
     "word": "symbol",
-    "meaning": "（～の）象徴（of）；記号"
+    "meaning": "（～の）象徴（of） 記号"
   },
   {
     "textbook": "ターゲット1400",
@@ -5154,7 +5154,7 @@
     "unit": 0,
     "word_number": 573,
     "word": "version",
-    "meaning": "（製品などの）...版（of）；（作品・事件などの）解釈"
+    "meaning": "（製品などの）...版（of） （作品・事件などの）解釈"
   },
   {
     "textbook": "ターゲット1400",
@@ -5163,7 +5163,7 @@
     "unit": 0,
     "word_number": 574,
     "word": "perspective",
-    "meaning": "観点（≒ viewpoint）；見通し"
+    "meaning": "観点（≒ viewpoint） 見通し"
   },
   {
     "textbook": "ターゲット1400",
@@ -5172,7 +5172,7 @@
     "unit": 0,
     "word_number": 575,
     "word": "vision",
-    "meaning": "（将来の）展望；（将来を）見通す力；視力（≒ sight）"
+    "meaning": "（将来の）展望 （将来を）見通す力 視力（≒ sight）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5181,7 +5181,7 @@
     "unit": 0,
     "word_number": 576,
     "word": "sight",
-    "meaning": "見えること；光景；視力"
+    "meaning": "見えること 光景 視力"
   },
   {
     "textbook": "ターゲット1400",
@@ -5208,7 +5208,7 @@
     "unit": 0,
     "word_number": 579,
     "word": "capable",
-    "meaning": "（...する）能力がある（of doing）（⇔ incapable 無能の）；有能な（⇔ incompetent 無能な）"
+    "meaning": "（...する）能力がある（of doing）（⇔ incapable 無能の） 有能な（⇔ incompetent 無能な）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5226,7 +5226,7 @@
     "unit": 0,
     "word_number": 581,
     "word": "eager",
-    "meaning": "（～を；...することを）熱望して（for；to do）；熱心な"
+    "meaning": "（～を ...することを）熱望して（for to do） 熱心な"
   },
   {
     "textbook": "ターゲット1400",
@@ -5244,7 +5244,7 @@
     "unit": 0,
     "word_number": 583,
     "word": "calm",
-    "meaning": "冷静な；穏やかな"
+    "meaning": "冷静な 穏やかな"
   },
   {
     "textbook": "ターゲット1400",
@@ -5262,7 +5262,7 @@
     "unit": 0,
     "word_number": 585,
     "word": "senior",
-    "meaning": "高齢者の；（地位などが）上級の；年上の"
+    "meaning": "高齢者の （地位などが）上級の 年上の"
   },
   {
     "textbook": "ターゲット1400",
@@ -5280,7 +5280,7 @@
     "unit": 0,
     "word_number": 587,
     "word": "firm",
-    "meaning": "確固とした；（質が）堅い"
+    "meaning": "確固とした （質が）堅い"
   },
   {
     "textbook": "ターゲット1400",
@@ -5289,7 +5289,7 @@
     "unit": 0,
     "word_number": 588,
     "word": "severe",
-    "meaning": "（痛みなどが）ひどい；厳しい；深刻な"
+    "meaning": "（痛みなどが）ひどい 厳しい 深刻な"
   },
   {
     "textbook": "ターゲット1400",
@@ -5298,7 +5298,7 @@
     "unit": 0,
     "word_number": 589,
     "word": "tough",
-    "meaning": "困難な；頑丈な；厳しい"
+    "meaning": "困難な 頑丈な 厳しい"
   },
   {
     "textbook": "ターゲット1400",
@@ -5316,7 +5316,7 @@
     "unit": 0,
     "word_number": 591,
     "word": "immediate",
-    "meaning": "即座の；直接の"
+    "meaning": "即座の 直接の"
   },
   {
     "textbook": "ターゲット1400",
@@ -5325,7 +5325,7 @@
     "unit": 0,
     "word_number": 592,
     "word": "vast",
-    "meaning": "広大な；膨大な，莫大な"
+    "meaning": "広大な 膨大な，莫大な"
   },
   {
     "textbook": "ターゲット1400",
@@ -5343,7 +5343,7 @@
     "unit": 0,
     "word_number": 594,
     "word": "broad",
-    "meaning": "広範囲な；広い（⇔ narrow）；大ざっぱな"
+    "meaning": "広範囲な 広い（⇔ narrow） 大ざっぱな"
   },
   {
     "textbook": "ターゲット1400",
@@ -5352,7 +5352,7 @@
     "unit": 0,
     "word_number": 595,
     "word": "narrow",
-    "meaning": "（幅が）狭い（⇔ broad, wide）；やっとの"
+    "meaning": "（幅が）狭い（⇔ broad, wide） やっとの"
   },
   {
     "textbook": "ターゲット1400",
@@ -5370,7 +5370,7 @@
     "unit": 0,
     "word_number": 597,
     "word": "efficient",
-    "meaning": "効率のよい；有能な"
+    "meaning": "効率のよい 有能な"
   },
   {
     "textbook": "ターゲット1400",
@@ -5379,7 +5379,7 @@
     "unit": 0,
     "word_number": 598,
     "word": "constant",
-    "meaning": "絶え間ない；不変の"
+    "meaning": "絶え間ない 不変の"
   },
   {
     "textbook": "ターゲット1400",
@@ -5397,7 +5397,7 @@
     "unit": 0,
     "word_number": 600,
     "word": "distant",
-    "meaning": "遠い；（～に）よそよそしい（with）"
+    "meaning": "遠い （～に）よそよそしい（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5406,7 +5406,7 @@
     "unit": 0,
     "word_number": 601,
     "word": "insist",
-    "meaning": "（～を）断固要求する（on）；（～を）強く主張する（on）；（...ということ）を言い張る（that節）"
+    "meaning": "（～を）断固要求する（on） （～を）強く主張する（on） （...ということ）を言い張る（that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5442,7 +5442,7 @@
     "unit": 0,
     "word_number": 605,
     "word": "propose",
-    "meaning": "を提案する；（～に）結婚を申し込む（to）"
+    "meaning": "を提案する （～に）結婚を申し込む（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5460,7 +5460,7 @@
     "unit": 0,
     "word_number": 607,
     "word": "convince",
-    "meaning": "に（～を；...だと）納得［確信］させる（of；that節）"
+    "meaning": "に（～を ...だと）納得［確信］させる（of that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5469,7 +5469,7 @@
     "unit": 0,
     "word_number": 608,
     "word": "admit",
-    "meaning": "（...ということ）を（事実と）認める（that節）（⇔ den? ? 441）；（入場・入学）を認める"
+    "meaning": "（...ということ）を（事実と）認める（that節）（⇔ den? ? 441） （入場・入学）を認める"
   },
   {
     "textbook": "ターゲット1400",
@@ -5478,7 +5478,7 @@
     "unit": 0,
     "word_number": 609,
     "word": "favor",
-    "meaning": "に賛成する；を（～より）好む（over）"
+    "meaning": "に賛成する を（～より）好む（over）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5487,7 +5487,7 @@
     "unit": 0,
     "word_number": 610,
     "word": "excuse",
-    "meaning": "を大目に見る；の言い訳をする；（義務など）を免除する"
+    "meaning": "を大目に見る の言い訳をする （義務など）を免除する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5496,7 +5496,7 @@
     "unit": 0,
     "word_number": 611,
     "word": "interpret",
-    "meaning": "を（～と）解釈する（as）；を通訳する"
+    "meaning": "を（～と）解釈する（as） を通訳する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5514,7 +5514,7 @@
     "unit": 0,
     "word_number": 613,
     "word": "concentrate",
-    "meaning": "（～に）精神を集中する（on）；を（～に）集中させる（on）"
+    "meaning": "（～に）精神を集中する（on） を（～に）集中させる（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5532,7 +5532,7 @@
     "unit": 0,
     "word_number": 615,
     "word": "blame",
-    "meaning": "を（～のことで）責める（for）；を（～の）せいにする（on）"
+    "meaning": "を（～のことで）責める（for） を（～の）せいにする（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5550,7 +5550,7 @@
     "unit": 0,
     "word_number": 617,
     "word": "inform",
-    "meaning": "に（～を；...だと）知らせる（of / about；that節）"
+    "meaning": "に（～を ...だと）知らせる（of / about that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5559,7 +5559,7 @@
     "unit": 0,
     "word_number": 618,
     "word": "grant",
-    "meaning": "（人）に（物）を（求めに応じて）与える；と仮定する"
+    "meaning": "（人）に（物）を（求めに応じて）与える と仮定する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5586,7 +5586,7 @@
     "unit": 0,
     "word_number": 621,
     "word": "alter",
-    "meaning": "を変える（≒ change）；変わる"
+    "meaning": "を変える（≒ change） 変わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -5595,7 +5595,7 @@
     "unit": 0,
     "word_number": 622,
     "word": "arrange",
-    "meaning": "を（きちんと）並べる；（の）手はずを整える；（を）取り決める"
+    "meaning": "を（きちんと）並べる （の）手はずを整える （を）取り決める"
   },
   {
     "textbook": "ターゲット1400",
@@ -5604,7 +5604,7 @@
     "unit": 0,
     "word_number": 623,
     "word": "interact",
-    "meaning": "（～と）相互に作用する（with）；交流する"
+    "meaning": "（～と）相互に作用する（with） 交流する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5613,7 +5613,7 @@
     "unit": 0,
     "word_number": 624,
     "word": "handle",
-    "meaning": "（問題など）を処理する（≒ deal with）；を（手で）扱う"
+    "meaning": "（問題など）を処理する（≒ deal with） を（手で）扱う"
   },
   {
     "textbook": "ターゲット1400",
@@ -5622,7 +5622,7 @@
     "unit": 0,
     "word_number": 625,
     "word": "extend",
-    "meaning": "を延長する；を広げる；広がる，伸びる"
+    "meaning": "を延長する を広げる 広がる，伸びる"
   },
   {
     "textbook": "ターゲット1400",
@@ -5631,7 +5631,7 @@
     "unit": 0,
     "word_number": 626,
     "word": "settle",
-    "meaning": "（～に）定住する（in）；を決める（≒ decide）；を解決する"
+    "meaning": "（～に）定住する（in） を決める（≒ decide） を解決する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5640,7 +5640,7 @@
     "unit": 0,
     "word_number": 627,
     "word": "contribute",
-    "meaning": "（～に）貢献する（to）；を寄付する"
+    "meaning": "（～に）貢献する（to） を寄付する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5649,7 +5649,7 @@
     "unit": 0,
     "word_number": 628,
     "word": "construct",
-    "meaning": "を建設する（⇔ destroy ? 442）；を組み立てる"
+    "meaning": "を建設する（⇔ destroy ? 442） を組み立てる"
   },
   {
     "textbook": "ターゲット1400",
@@ -5658,7 +5658,7 @@
     "unit": 0,
     "word_number": 629,
     "word": "consist",
-    "meaning": "（～から）成る（of）；（～に）（本質が）ある（in）"
+    "meaning": "（～から）成る（of） （～に）（本質が）ある（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5667,7 +5667,7 @@
     "unit": 0,
     "word_number": 630,
     "word": "suit",
-    "meaning": "に（色・服などが）似合う；に都合がよい；を（～に）適合させる（to）【名】 スーツ；訴訟（≒ lawsuit）"
+    "meaning": "に（色・服などが）似合う に都合がよい を（～に）適合させる（to）【名】 スーツ 訴訟（≒ lawsuit）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5685,7 +5685,7 @@
     "unit": 0,
     "word_number": 632,
     "word": "differ",
-    "meaning": "（～と；～の点で）異なる（from；in）"
+    "meaning": "（～と ～の点で）異なる（from in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5712,7 +5712,7 @@
     "unit": 0,
     "word_number": 635,
     "word": "disagree",
-    "meaning": "（～と；～について）意見が合わない（with；on / about / over）；（記述などが）（～と）食い違う（with）"
+    "meaning": "（～と ～について）意見が合わない（with on / about / over） （記述などが）（～と）食い違う（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5721,7 +5721,7 @@
     "unit": 0,
     "word_number": 636,
     "word": "regret",
-    "meaning": "（...したこと；...ということ）を後悔する（doing；that節）；（...すること）を残念に思う（to do）"
+    "meaning": "（...したこと ...ということ）を後悔する（doing that節） （...すること）を残念に思う（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5730,7 +5730,7 @@
     "unit": 0,
     "word_number": 637,
     "word": "employ",
-    "meaning": "を雇用する；を（手段などに）用いる（for）"
+    "meaning": "を雇用する を（手段などに）用いる（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5739,7 +5739,7 @@
     "unit": 0,
     "word_number": 638,
     "word": "hire",
-    "meaning": "を雇う（≒ employ）（⇔ fire, dismiss ? 1138）；【主に英】 を賃借りする（【米】 rent ? 838）"
+    "meaning": "を雇う（≒ employ）（⇔ fire, dismiss ? 1138） 【主に英】 を賃借りする（【米】 rent ? 838）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5748,7 +5748,7 @@
     "unit": 0,
     "word_number": 639,
     "word": "absorb",
-    "meaning": "（人）を夢中にさせる；を吸収する"
+    "meaning": "（人）を夢中にさせる を吸収する"
   },
   {
     "textbook": "ターゲット1400",
@@ -5757,7 +5757,7 @@
     "unit": 0,
     "word_number": 640,
     "word": "expose",
-    "meaning": "を（～に）さらす（to）；をあばく"
+    "meaning": "を（～に）さらす（to） をあばく"
   },
   {
     "textbook": "ターゲット1400",
@@ -5766,7 +5766,7 @@
     "unit": 0,
     "word_number": 641,
     "word": "breathe",
-    "meaning": "呼吸する；を吸う"
+    "meaning": "呼吸する を吸う"
   },
   {
     "textbook": "ターゲット1400",
@@ -5775,7 +5775,7 @@
     "unit": 0,
     "word_number": 642,
     "word": "root",
-    "meaning": "〔～s〕起源，ルーツ；根源；根"
+    "meaning": "〔～s〕起源，ルーツ 根源 根"
   },
   {
     "textbook": "ターゲット1400",
@@ -5829,7 +5829,7 @@
     "unit": 0,
     "word_number": 648,
     "word": "mine",
-    "meaning": "鉱山；地雷（＝ landmine）"
+    "meaning": "鉱山 地雷（＝ landmine）"
   },
   {
     "textbook": "ターゲット1400",
@@ -5838,7 +5838,7 @@
     "unit": 0,
     "word_number": 649,
     "word": "mass",
-    "meaning": "〔the ～es〕大衆；〔the ～〕（～の）大多数（of）；たくさん；かたまり；質量"
+    "meaning": "〔the ～es〕大衆 〔the ～〕（～の）大多数（of） たくさん かたまり 質量"
   },
   {
     "textbook": "ターゲット1400",
@@ -5847,7 +5847,7 @@
     "unit": 0,
     "word_number": 650,
     "word": "quarter",
-    "meaning": "4分の1；15分；【米】 25セント（硬貨）；地区"
+    "meaning": "4分の1 15分 【米】 25セント（硬貨） 地区"
   },
   {
     "textbook": "ターゲット1400",
@@ -5883,7 +5883,7 @@
     "unit": 0,
     "word_number": 654,
     "word": "custom",
-    "meaning": "（社会の）慣習；〔～s〕関税；〔～s〕税関"
+    "meaning": "（社会の）慣習 〔～s〕関税 〔～s〕税関"
   },
   {
     "textbook": "ターゲット1400",
@@ -5910,7 +5910,7 @@
     "unit": 0,
     "word_number": 657,
     "word": "universe",
-    "meaning": "〔the ～，the U～〕宇宙；〔the ～〕全世界"
+    "meaning": "〔the ～，the U～〕宇宙 〔the ～〕全世界"
   },
   {
     "textbook": "ターゲット1400",
@@ -5919,7 +5919,7 @@
     "unit": 0,
     "word_number": 658,
     "word": "diversity",
-    "meaning": "多様性；差異"
+    "meaning": "多様性 差異"
   },
   {
     "textbook": "ターゲット1400",
@@ -5937,7 +5937,7 @@
     "unit": 0,
     "word_number": 660,
     "word": "review",
-    "meaning": "批評；再検討；【米】 復習"
+    "meaning": "批評 再検討 【米】 復習"
   },
   {
     "textbook": "ターゲット1400",
@@ -5946,7 +5946,7 @@
     "unit": 0,
     "word_number": 661,
     "word": "occasion",
-    "meaning": "場合，時；機会；行事"
+    "meaning": "場合，時 機会 行事"
   },
   {
     "textbook": "ターゲット1400",
@@ -5964,7 +5964,7 @@
     "unit": 0,
     "word_number": 663,
     "word": "board",
-    "meaning": "委員会，重役会；（特定の目的に使う）板；盤"
+    "meaning": "委員会，重役会 （特定の目的に使う）板 盤"
   },
   {
     "textbook": "ターゲット1400",
@@ -5973,7 +5973,7 @@
     "unit": 0,
     "word_number": 664,
     "word": "facility",
-    "meaning": "〔しばしば～ties〕施設；才能"
+    "meaning": "〔しばしば～ties〕施設 才能"
   },
   {
     "textbook": "ターゲット1400",
@@ -5982,7 +5982,7 @@
     "unit": 0,
     "word_number": 665,
     "word": "court",
-    "meaning": "法廷，裁判所；（テニスなどの）コート"
+    "meaning": "法廷，裁判所 （テニスなどの）コート"
   },
   {
     "textbook": "ターゲット1400",
@@ -5991,7 +5991,7 @@
     "unit": 0,
     "word_number": 666,
     "word": "trial",
-    "meaning": "裁判；（品質などの）試験"
+    "meaning": "裁判 （品質などの）試験"
   },
   {
     "textbook": "ターゲット1400",
@@ -6009,7 +6009,7 @@
     "unit": 0,
     "word_number": 668,
     "word": "instrument",
-    "meaning": "道具，機器；楽器"
+    "meaning": "道具，機器 楽器"
   },
   {
     "textbook": "ターゲット1400",
@@ -6018,7 +6018,7 @@
     "unit": 0,
     "word_number": 669,
     "word": "instruction",
-    "meaning": "〔普通～s〕指示；教えること"
+    "meaning": "〔普通～s〕指示 教えること"
   },
   {
     "textbook": "ターゲット1400",
@@ -6027,7 +6027,7 @@
     "unit": 0,
     "word_number": 670,
     "word": "document",
-    "meaning": "書類；記録"
+    "meaning": "書類 記録"
   },
   {
     "textbook": "ターゲット1400",
@@ -6036,7 +6036,7 @@
     "unit": 0,
     "word_number": 671,
     "word": "target",
-    "meaning": "目標；標的"
+    "meaning": "目標 標的"
   },
   {
     "textbook": "ターゲット1400",
@@ -6054,7 +6054,7 @@
     "unit": 0,
     "word_number": 673,
     "word": "muscle",
-    "meaning": "筋肉；威力"
+    "meaning": "筋肉 威力"
   },
   {
     "textbook": "ターゲット1400",
@@ -6081,7 +6081,7 @@
     "unit": 0,
     "word_number": 676,
     "word": "confidence",
-    "meaning": "（～に対する）自信（in）；信頼"
+    "meaning": "（～に対する）自信（in） 信頼"
   },
   {
     "textbook": "ターゲット1400",
@@ -6090,7 +6090,7 @@
     "unit": 0,
     "word_number": 677,
     "word": "credit",
-    "meaning": "信用；名誉；信用貸し"
+    "meaning": "信用 名誉 信用貸し"
   },
   {
     "textbook": "ターゲット1400",
@@ -6099,7 +6099,7 @@
     "unit": 0,
     "word_number": 678,
     "word": "conscious",
-    "meaning": "（～を）意識して，自覚して（of）；意識がある（⇔ unconscious 無意識の）"
+    "meaning": "（～を）意識して，自覚して（of） 意識がある（⇔ unconscious 無意識の）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6108,7 +6108,7 @@
     "unit": 0,
     "word_number": 679,
     "word": "anxious",
-    "meaning": "（～を）心配して（about）；（～を；...することを）切望して（for；to do）"
+    "meaning": "（～を）心配して（about） （～を ...することを）切望して（for to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6144,7 +6144,7 @@
     "unit": 0,
     "word_number": 683,
     "word": "excellent",
-    "meaning": "（～に）秀でている（at / in）；すばらしい"
+    "meaning": "（～に）秀でている（at / in） すばらしい"
   },
   {
     "textbook": "ターゲット1400",
@@ -6153,7 +6153,7 @@
     "unit": 0,
     "word_number": 684,
     "word": "odd",
-    "meaning": "奇妙な；奇数の（⇔ even 偶数の）"
+    "meaning": "奇妙な 奇数の（⇔ even 偶数の）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6171,7 +6171,7 @@
     "unit": 0,
     "word_number": 686,
     "word": "sensible",
-    "meaning": "賢明な；分別のある"
+    "meaning": "賢明な 分別のある"
   },
   {
     "textbook": "ターゲット1400",
@@ -6180,7 +6180,7 @@
     "unit": 0,
     "word_number": 687,
     "word": "violent",
-    "meaning": "暴力的な；（自然現象などが）激しい"
+    "meaning": "暴力的な （自然現象などが）激しい"
   },
   {
     "textbook": "ターゲット1400",
@@ -6207,7 +6207,7 @@
     "unit": 0,
     "word_number": 690,
     "word": "contemporary",
-    "meaning": "現代の（≒ modern）；（～と）同時代の（with）"
+    "meaning": "現代の（≒ modern） （～と）同時代の（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6216,7 +6216,7 @@
     "unit": 0,
     "word_number": 691,
     "word": "elementary",
-    "meaning": "【米】 初等（教育）の；初歩の；基本の"
+    "meaning": "【米】 初等（教育）の 初歩の 基本の"
   },
   {
     "textbook": "ターゲット1400",
@@ -6225,7 +6225,7 @@
     "unit": 0,
     "word_number": 692,
     "word": "annual",
-    "meaning": "年1回の；1年間の"
+    "meaning": "年1回の 1年間の"
   },
   {
     "textbook": "ターゲット1400",
@@ -6252,7 +6252,7 @@
     "unit": 0,
     "word_number": 695,
     "word": "virtual",
-    "meaning": "仮想の；事実上の"
+    "meaning": "仮想の 事実上の"
   },
   {
     "textbook": "ターゲット1400",
@@ -6270,7 +6270,7 @@
     "unit": 0,
     "word_number": 697,
     "word": "multiple",
-    "meaning": "多くの（部分から成る）；さまざまな"
+    "meaning": "多くの（部分から成る） さまざまな"
   },
   {
     "textbook": "ターゲット1400",
@@ -6297,7 +6297,7 @@
     "unit": 0,
     "word_number": 700,
     "word": "empty",
-    "meaning": "空の（⇔ full いっぱいの）；空いている"
+    "meaning": "空の（⇔ full いっぱいの） 空いている"
   },
   {
     "textbook": "ターゲット1400",
@@ -6315,7 +6315,7 @@
     "unit": 0,
     "word_number": 702,
     "word": "illustrate",
-    "meaning": "（～を使って）を説明する（with）；を例証する"
+    "meaning": "（～を使って）を説明する（with） を例証する"
   },
   {
     "textbook": "ターゲット1400",
@@ -6333,7 +6333,7 @@
     "unit": 0,
     "word_number": 704,
     "word": "bother",
-    "meaning": "を困らせる；〔普通否定文・疑問文で〕わざわざ（...する）（to do / doing）"
+    "meaning": "を困らせる 〔普通否定文・疑問文で〕わざわざ（...する）（to do / doing）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6351,7 +6351,7 @@
     "unit": 0,
     "word_number": 706,
     "word": "disturb",
-    "meaning": "を邪魔する；を乱す"
+    "meaning": "を邪魔する を乱す"
   },
   {
     "textbook": "ターゲット1400",
@@ -6360,7 +6360,7 @@
     "unit": 0,
     "word_number": 707,
     "word": "discourage",
-    "meaning": "に思いとどまらせる；を落胆させる（⇔ encourage ? 106）"
+    "meaning": "に思いとどまらせる を落胆させる（⇔ encourage ? 106）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6396,7 +6396,7 @@
     "unit": 0,
     "word_number": 711,
     "word": "upset",
-    "meaning": "を動揺させる；をひっくり返す"
+    "meaning": "を動揺させる をひっくり返す"
   },
   {
     "textbook": "ターゲット1400",
@@ -6405,7 +6405,7 @@
     "unit": 0,
     "word_number": 712,
     "word": "stimulate",
-    "meaning": "を刺激する；を激励する"
+    "meaning": "を刺激する を激励する"
   },
   {
     "textbook": "ターゲット1400",
@@ -6414,7 +6414,7 @@
     "unit": 0,
     "word_number": 713,
     "word": "beat",
-    "meaning": "を打ち負かす（≒ defeat）；（を）（続けざまに）打つ；を殴る"
+    "meaning": "を打ち負かす（≒ defeat） （を）（続けざまに）打つ を殴る"
   },
   {
     "textbook": "ターゲット1400",
@@ -6423,7 +6423,7 @@
     "unit": 0,
     "word_number": 714,
     "word": "blow",
-    "meaning": "（風が）吹く；を吹き飛ばす"
+    "meaning": "（風が）吹く を吹き飛ばす"
   },
   {
     "textbook": "ターゲット1400",
@@ -6450,7 +6450,7 @@
     "unit": 0,
     "word_number": 717,
     "word": "recover",
-    "meaning": "（～から）回復する（from）；を取り戻す"
+    "meaning": "（～から）回復する（from） を取り戻す"
   },
   {
     "textbook": "ターゲット1400",
@@ -6459,7 +6459,7 @@
     "unit": 0,
     "word_number": 718,
     "word": "overcome",
-    "meaning": "を克服する；に打ち勝つ"
+    "meaning": "を克服する に打ち勝つ"
   },
   {
     "textbook": "ターゲット1400",
@@ -6477,7 +6477,7 @@
     "unit": 0,
     "word_number": 720,
     "word": "transfer",
-    "meaning": "を（～から；～へ）移す（from；to）；移る；（電車などを）乗り換える"
+    "meaning": "を（～から ～へ）移す（from to） 移る （電車などを）乗り換える"
   },
   {
     "textbook": "ターゲット1400",
@@ -6522,7 +6522,7 @@
     "unit": 0,
     "word_number": 725,
     "word": "investigate",
-    "meaning": "を調査する；を捜査する"
+    "meaning": "を調査する を捜査する"
   },
   {
     "textbook": "ターゲット1400",
@@ -6585,7 +6585,7 @@
     "unit": 0,
     "word_number": 732,
     "word": "abandon",
-    "meaning": "を捨てる；を断念する（≒ give up）"
+    "meaning": "を捨てる を断念する（≒ give up）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6594,7 +6594,7 @@
     "unit": 0,
     "word_number": 733,
     "word": "freeze",
-    "meaning": "凍る；を凍らせる"
+    "meaning": "凍る を凍らせる"
   },
   {
     "textbook": "ターゲット1400",
@@ -6612,7 +6612,7 @@
     "unit": 0,
     "word_number": 735,
     "word": "hang",
-    "meaning": "を（～に）掛ける（on）；ぶら下がる"
+    "meaning": "を（～に）掛ける（on） ぶら下がる"
   },
   {
     "textbook": "ターゲット1400",
@@ -6621,7 +6621,7 @@
     "unit": 0,
     "word_number": 736,
     "word": "shake",
-    "meaning": "を振る；を動揺させる；揺れる"
+    "meaning": "を振る を動揺させる 揺れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -6630,7 +6630,7 @@
     "unit": 0,
     "word_number": 737,
     "word": "stretch",
-    "meaning": "を（引っ張って）伸ばす，広げる；伸びる"
+    "meaning": "を（引っ張って）伸ばす，広げる 伸びる"
   },
   {
     "textbook": "ターゲット1400",
@@ -6639,7 +6639,7 @@
     "unit": 0,
     "word_number": 738,
     "word": "lay",
-    "meaning": "を置く（≒ put），敷く；（卵）を産む"
+    "meaning": "を置く（≒ put），敷く （卵）を産む"
   },
   {
     "textbook": "ターゲット1400",
@@ -6675,7 +6675,7 @@
     "unit": 0,
     "word_number": 742,
     "word": "breed",
-    "meaning": "を繁殖させる，飼育する；（動物が）子を産む"
+    "meaning": "を繁殖させる，飼育する （動物が）子を産む"
   },
   {
     "textbook": "ターゲット1400",
@@ -6711,7 +6711,7 @@
     "unit": 0,
     "word_number": 746,
     "word": "infant",
-    "meaning": "乳児；幼児"
+    "meaning": "乳児 幼児"
   },
   {
     "textbook": "ターゲット1400",
@@ -6729,7 +6729,7 @@
     "unit": 0,
     "word_number": 748,
     "word": "web",
-    "meaning": "〔the W～ / the w～〕（ワールドワイド）ウェブ；クモの巣（状のもの）"
+    "meaning": "〔the W～ / the w～〕（ワールドワイド）ウェブ クモの巣（状のもの）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6747,7 +6747,7 @@
     "unit": 0,
     "word_number": 750,
     "word": "battle",
-    "meaning": "（～との）戦闘（with / against）；争い"
+    "meaning": "（～との）戦闘（with / against） 争い"
   },
   {
     "textbook": "ターゲット1400",
@@ -6765,7 +6765,7 @@
     "unit": 0,
     "word_number": 752,
     "word": "weapon",
-    "meaning": "兵器；武器"
+    "meaning": "兵器 武器"
   },
   {
     "textbook": "ターゲット1400",
@@ -6774,7 +6774,7 @@
     "unit": 0,
     "word_number": 753,
     "word": "arm",
-    "meaning": "腕；〔普通～s〕武器，兵器"
+    "meaning": "腕 〔普通～s〕武器，兵器"
   },
   {
     "textbook": "ターゲット1400",
@@ -6783,7 +6783,7 @@
     "unit": 0,
     "word_number": 754,
     "word": "army",
-    "meaning": "〔普通 the ～〕陸軍；軍隊"
+    "meaning": "〔普通 the ～〕陸軍 軍隊"
   },
   {
     "textbook": "ターゲット1400",
@@ -6819,7 +6819,7 @@
     "unit": 0,
     "word_number": 758,
     "word": "philosophy",
-    "meaning": "哲学；（個人の）人生観"
+    "meaning": "哲学 （個人の）人生観"
   },
   {
     "textbook": "ターゲット1400",
@@ -6828,7 +6828,7 @@
     "unit": 0,
     "word_number": 759,
     "word": "psychology",
-    "meaning": "心理学；心理"
+    "meaning": "心理学 心理"
   },
   {
     "textbook": "ターゲット1400",
@@ -6837,7 +6837,7 @@
     "unit": 0,
     "word_number": 760,
     "word": "alarm",
-    "meaning": "警報（機）；目覚まし時計（＝ alarm clock）"
+    "meaning": "警報（機） 目覚まし時計（＝ alarm clock）"
   },
   {
     "textbook": "ターゲット1400",
@@ -6855,7 +6855,7 @@
     "unit": 0,
     "word_number": 762,
     "word": "depression",
-    "meaning": "うつ病；憂うつ；不景気"
+    "meaning": "うつ病 憂うつ 不景気"
   },
   {
     "textbook": "ターゲット1400",
@@ -6864,7 +6864,7 @@
     "unit": 0,
     "word_number": 763,
     "word": "disadvantage",
-    "meaning": "（～に）不利（な点）（to）（⇔ advantage ? 249）；不利益"
+    "meaning": "（～に）不利（な点）（to）（⇔ advantage ? 249） 不利益"
   },
   {
     "textbook": "ターゲット1400",
@@ -6882,7 +6882,7 @@
     "unit": 0,
     "word_number": 765,
     "word": "stock",
-    "meaning": "在庫品；株式（≒ share）；蓄え"
+    "meaning": "在庫品 株式（≒ share） 蓄え"
   },
   {
     "textbook": "ターゲット1400",
@@ -6900,7 +6900,7 @@
     "unit": 0,
     "word_number": 767,
     "word": "budget",
-    "meaning": "予算（案）；経費"
+    "meaning": "予算（案） 経費"
   },
   {
     "textbook": "ターゲット1400",
@@ -6918,7 +6918,7 @@
     "unit": 0,
     "word_number": 769,
     "word": "union",
-    "meaning": "組合；連合"
+    "meaning": "組合 連合"
   },
   {
     "textbook": "ターゲット1400",
@@ -6927,7 +6927,7 @@
     "unit": 0,
     "word_number": 770,
     "word": "unit",
-    "meaning": "（最小）単位；構成部分"
+    "meaning": "（最小）単位 構成部分"
   },
   {
     "textbook": "ターゲット1400",
@@ -6936,7 +6936,7 @@
     "unit": 0,
     "word_number": 771,
     "word": "material",
-    "meaning": "材料，原料；資料；生地"
+    "meaning": "材料，原料 資料 生地"
   },
   {
     "textbook": "ターゲット1400",
@@ -6945,7 +6945,7 @@
     "unit": 0,
     "word_number": 772,
     "word": "substance",
-    "meaning": "物質；実質"
+    "meaning": "物質 実質"
   },
   {
     "textbook": "ターゲット1400",
@@ -6954,7 +6954,7 @@
     "unit": 0,
     "word_number": 773,
     "word": "stuff",
-    "meaning": "持ち物；材料；（漠然と）物"
+    "meaning": "持ち物 材料 （漠然と）物"
   },
   {
     "textbook": "ターゲット1400",
@@ -6963,7 +6963,7 @@
     "unit": 0,
     "word_number": 774,
     "word": "proportion",
-    "meaning": "（～の；～に対する）割合（of；to）；〔普通～s〕均衡"
+    "meaning": "（～の ～に対する）割合（of to） 〔普通～s〕均衡"
   },
   {
     "textbook": "ターゲット1400",
@@ -6972,7 +6972,7 @@
     "unit": 0,
     "word_number": 775,
     "word": "edge",
-    "meaning": "へり；（刃物の）刃"
+    "meaning": "へり （刃物の）刃"
   },
   {
     "textbook": "ターゲット1400",
@@ -6981,7 +6981,7 @@
     "unit": 0,
     "word_number": 776,
     "word": "code",
-    "meaning": "規範；暗号，コード"
+    "meaning": "規範 暗号，コード"
   },
   {
     "textbook": "ターゲット1400",
@@ -6990,7 +6990,7 @@
     "unit": 0,
     "word_number": 777,
     "word": "mystery",
-    "meaning": "なぞ，神秘；推理小説"
+    "meaning": "なぞ，神秘 推理小説"
   },
   {
     "textbook": "ターゲット1400",
@@ -6999,7 +6999,7 @@
     "unit": 0,
     "word_number": 778,
     "word": "curious",
-    "meaning": "（～に関して）好奇心の強い（about）；（物事が）奇妙な"
+    "meaning": "（～に関して）好奇心の強い（about） （物事が）奇妙な"
   },
   {
     "textbook": "ターゲット1400",
@@ -7008,7 +7008,7 @@
     "unit": 0,
     "word_number": 779,
     "word": "strict",
-    "meaning": "（規則などが）厳しい；（人が）（人に；事柄に）厳格な（with；about）"
+    "meaning": "（規則などが）厳しい （人が）（人に 事柄に）厳格な（with about）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7017,7 +7017,7 @@
     "unit": 0,
     "word_number": 780,
     "word": "frank",
-    "meaning": "（人に；～について）率直な（with；about）"
+    "meaning": "（人に ～について）率直な（with about）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7035,7 +7035,7 @@
     "unit": 0,
     "word_number": 782,
     "word": "aggressive",
-    "meaning": "攻撃的な；積極的な"
+    "meaning": "攻撃的な 積極的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -7071,7 +7071,7 @@
     "unit": 0,
     "word_number": 786,
     "word": "brief",
-    "meaning": "短時間の（≒ short）；簡潔な"
+    "meaning": "短時間の（≒ short） 簡潔な"
   },
   {
     "textbook": "ターゲット1400",
@@ -7080,7 +7080,7 @@
     "unit": 0,
     "word_number": 787,
     "word": "extraordinary",
-    "meaning": "並はずれた（⇔ ordinary ? 89）；異常な"
+    "meaning": "並はずれた（⇔ ordinary ? 89） 異常な"
   },
   {
     "textbook": "ターゲット1400",
@@ -7089,7 +7089,7 @@
     "unit": 0,
     "word_number": 788,
     "word": "flexible",
-    "meaning": "（～について）柔軟な（about）；（物が）曲げやすい"
+    "meaning": "（～について）柔軟な（about） （物が）曲げやすい"
   },
   {
     "textbook": "ターゲット1400",
@@ -7098,7 +7098,7 @@
     "unit": 0,
     "word_number": 789,
     "word": "pleasant",
-    "meaning": "（物事が）快い，楽しい；（人が）感じのよい"
+    "meaning": "（物事が）快い，楽しい （人が）感じのよい"
   },
   {
     "textbook": "ターゲット1400",
@@ -7107,7 +7107,7 @@
     "unit": 0,
     "word_number": 790,
     "word": "comfortable",
-    "meaning": "（家具・衣服などが）心地よい，快適な；（人が）心地よく感じる（⇔ uncomfortable 不快に感じる）"
+    "meaning": "（家具・衣服などが）心地よい，快適な （人が）心地よく感じる（⇔ uncomfortable 不快に感じる）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7125,7 +7125,7 @@
     "unit": 0,
     "word_number": 792,
     "word": "thick",
-    "meaning": "分厚い（⇔ thin）；濃い"
+    "meaning": "分厚い（⇔ thin） 濃い"
   },
   {
     "textbook": "ターゲット1400",
@@ -7134,7 +7134,7 @@
     "unit": 0,
     "word_number": 793,
     "word": "thin",
-    "meaning": "やせた；細い；薄い（⇔ thick）"
+    "meaning": "やせた 細い 薄い（⇔ thick）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7152,7 +7152,7 @@
     "unit": 0,
     "word_number": 795,
     "word": "concrete",
-    "meaning": "具体的な（⇔ abstract）；コンクリート製の"
+    "meaning": "具体的な（⇔ abstract） コンクリート製の"
   },
   {
     "textbook": "ターゲット1400",
@@ -7161,7 +7161,7 @@
     "unit": 0,
     "word_number": 796,
     "word": "absolute",
-    "meaning": "絶対的な（⇔ relative 相対的な）；まったくの"
+    "meaning": "絶対的な（⇔ relative 相対的な） まったくの"
   },
   {
     "textbook": "ターゲット1400",
@@ -7179,7 +7179,7 @@
     "unit": 0,
     "word_number": 798,
     "word": "vital",
-    "meaning": "極めて重要な（≒ essential）；生命の"
+    "meaning": "極めて重要な（≒ essential） 生命の"
   },
   {
     "textbook": "ターゲット1400",
@@ -7224,7 +7224,7 @@
     "unit": 0,
     "word_number": 803,
     "word": "pursue",
-    "meaning": "を追求する；（仕事など）に従事する；を追跡する"
+    "meaning": "を追求する （仕事など）に従事する を追跡する"
   },
   {
     "textbook": "ターゲット1400",
@@ -7233,7 +7233,7 @@
     "unit": 0,
     "word_number": 804,
     "word": "pretend",
-    "meaning": "（...する；...という）ふりをする（to do；that節）"
+    "meaning": "（...する ...という）ふりをする（to do that節）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7260,7 +7260,7 @@
     "unit": 0,
     "word_number": 807,
     "word": "acknowledge",
-    "meaning": "を認める；に礼を言う"
+    "meaning": "を認める に礼を言う"
   },
   {
     "textbook": "ターゲット1400",
@@ -7278,7 +7278,7 @@
     "unit": 0,
     "word_number": 809,
     "word": "urge",
-    "meaning": "を熱心に勧める；を強く促す"
+    "meaning": "を熱心に勧める を強く促す"
   },
   {
     "textbook": "ターゲット1400",
@@ -7287,7 +7287,7 @@
     "unit": 0,
     "word_number": 810,
     "word": "convey",
-    "meaning": "を（～に）伝達する（to）；を運ぶ（≒ carry）"
+    "meaning": "を（～に）伝達する（to） を運ぶ（≒ carry）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7305,7 +7305,7 @@
     "unit": 0,
     "word_number": 812,
     "word": "admire",
-    "meaning": "に（～のことで）感嘆する（for）；を称賛する（≒ praise）"
+    "meaning": "に（～のことで）感嘆する（for） を称賛する（≒ praise）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7350,7 +7350,7 @@
     "unit": 0,
     "word_number": 817,
     "word": "isolate",
-    "meaning": "を（～から）切り離す（from）；を（～から）孤立させる（from）"
+    "meaning": "を（～から）切り離す（from） を（～から）孤立させる（from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7368,7 +7368,7 @@
     "unit": 0,
     "word_number": 819,
     "word": "secure",
-    "meaning": "を確保する；を守る"
+    "meaning": "を確保する を守る"
   },
   {
     "textbook": "ターゲット1400",
@@ -7377,7 +7377,7 @@
     "unit": 0,
     "word_number": 820,
     "word": "reserve",
-    "meaning": "を予約する；をとっておく"
+    "meaning": "を予約する をとっておく"
   },
   {
     "textbook": "ターゲット1400",
@@ -7386,7 +7386,7 @@
     "unit": 0,
     "word_number": 821,
     "word": "possess",
-    "meaning": "（性質・能力など）を持っている；を所有している（≒ have, own）"
+    "meaning": "（性質・能力など）を持っている を所有している（≒ have, own）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7395,7 +7395,7 @@
     "unit": 0,
     "word_number": 822,
     "word": "launch",
-    "meaning": "を始める；（ロケットなど）を発射する"
+    "meaning": "を始める （ロケットなど）を発射する"
   },
   {
     "textbook": "ターゲット1400",
@@ -7422,7 +7422,7 @@
     "unit": 0,
     "word_number": 825,
     "word": "convert",
-    "meaning": "を（～に）変える（into / to）；を転向させる"
+    "meaning": "を（～に）変える（into / to） を転向させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -7431,7 +7431,7 @@
     "unit": 0,
     "word_number": 826,
     "word": "hurry",
-    "meaning": "（～へと）急ぐ（to）；をせき立てる"
+    "meaning": "（～へと）急ぐ（to） をせき立てる"
   },
   {
     "textbook": "ターゲット1400",
@@ -7449,7 +7449,7 @@
     "unit": 0,
     "word_number": 828,
     "word": "roll",
-    "meaning": "転がる；を転がす"
+    "meaning": "転がる を転がす"
   },
   {
     "textbook": "ターゲット1400",
@@ -7458,7 +7458,7 @@
     "unit": 0,
     "word_number": 829,
     "word": "crash",
-    "meaning": "（大きな音を立てて）衝突する；墜落する；（企業などが）破綻する"
+    "meaning": "（大きな音を立てて）衝突する 墜落する （企業などが）破綻する"
   },
   {
     "textbook": "ターゲット1400",
@@ -7467,7 +7467,7 @@
     "unit": 0,
     "word_number": 830,
     "word": "bury",
-    "meaning": "を埋める（⇔ dig）；を埋葬する"
+    "meaning": "を埋める（⇔ dig） を埋葬する"
   },
   {
     "textbook": "ターゲット1400",
@@ -7485,7 +7485,7 @@
     "unit": 0,
     "word_number": 832,
     "word": "attach",
-    "meaning": "を（～に）付ける（to）；を（～に）添付する（to）；?〔受身形で〕（～に）愛着を抱いている（to）"
+    "meaning": "を（～に）付ける（to） を（～に）添付する（to） ?〔受身形で〕（～に）愛着を抱いている（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7494,7 +7494,7 @@
     "unit": 0,
     "word_number": 833,
     "word": "melt",
-    "meaning": "（熱で）溶ける；を溶かす"
+    "meaning": "（熱で）溶ける を溶かす"
   },
   {
     "textbook": "ターゲット1400",
@@ -7503,7 +7503,7 @@
     "unit": 0,
     "word_number": 834,
     "word": "accompany",
-    "meaning": "と一緒に行く；に伴って起こる；の伴奏をする"
+    "meaning": "と一緒に行く に伴って起こる の伴奏をする"
   },
   {
     "textbook": "ターゲット1400",
@@ -7512,7 +7512,7 @@
     "unit": 0,
     "word_number": 835,
     "word": "assist",
-    "meaning": "（人）を手伝う（≒ help）；援助する"
+    "meaning": "（人）を手伝う（≒ help） 援助する"
   },
   {
     "textbook": "ターゲット1400",
@@ -7539,7 +7539,7 @@
     "unit": 0,
     "word_number": 838,
     "word": "rent",
-    "meaning": "【主に米】 を賃借りする；を賃貸しする"
+    "meaning": "【主に米】 を賃借りする を賃貸しする"
   },
   {
     "textbook": "ターゲット1400",
@@ -7548,7 +7548,7 @@
     "unit": 0,
     "word_number": 839,
     "word": "owe",
-    "meaning": "（人）に（金など）を借りている；は（～の）おかげである（to）"
+    "meaning": "（人）に（金など）を借りている は（～の）おかげである（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7575,7 +7575,7 @@
     "unit": 0,
     "word_number": 842,
     "word": "tongue",
-    "meaning": "言語；舌；言葉遣い"
+    "meaning": "言語 舌 言葉遣い"
   },
   {
     "textbook": "ターゲット1400",
@@ -7593,7 +7593,7 @@
     "unit": 0,
     "word_number": 844,
     "word": "accent",
-    "meaning": "なまり，方言；アクセント"
+    "meaning": "なまり，方言 アクセント"
   },
   {
     "textbook": "ターゲット1400",
@@ -7602,7 +7602,7 @@
     "unit": 0,
     "word_number": 845,
     "word": "colony",
-    "meaning": "植民（地）；集団"
+    "meaning": "植民（地） 集団"
   },
   {
     "textbook": "ターゲット1400",
@@ -7611,7 +7611,7 @@
     "unit": 0,
     "word_number": 846,
     "word": "grain",
-    "meaning": "穀物；（砂などの）粒"
+    "meaning": "穀物 （砂などの）粒"
   },
   {
     "textbook": "ターゲット1400",
@@ -7629,7 +7629,7 @@
     "unit": 0,
     "word_number": 848,
     "word": "ingredient",
-    "meaning": "（料理の）材料；（成功などの）要素"
+    "meaning": "（料理の）材料 （成功などの）要素"
   },
   {
     "textbook": "ターゲット1400",
@@ -7638,7 +7638,7 @@
     "unit": 0,
     "word_number": 849,
     "word": "portion",
-    "meaning": "部分；（食べ物の）1人前；分け前（≒ share）"
+    "meaning": "部分 （食べ物の）1人前 分け前（≒ share）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7647,7 +7647,7 @@
     "unit": 0,
     "word_number": 850,
     "word": "hunger",
-    "meaning": "飢え；〔a ～〕（～に対する）渇望（for）"
+    "meaning": "飢え 〔a ～〕（～に対する）渇望（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7683,7 +7683,7 @@
     "unit": 0,
     "word_number": 854,
     "word": "debt",
-    "meaning": "借金；恩義"
+    "meaning": "借金 恩義"
   },
   {
     "textbook": "ターゲット1400",
@@ -7692,7 +7692,7 @@
     "unit": 0,
     "word_number": 855,
     "word": "contract",
-    "meaning": "（～との；～のための）契約（with；for）；契約書"
+    "meaning": "（～との ～のための）契約（with for） 契約書"
   },
   {
     "textbook": "ターゲット1400",
@@ -7701,7 +7701,7 @@
     "unit": 0,
     "word_number": 856,
     "word": "client",
-    "meaning": "得意客；（弁護士などへの）依頼人"
+    "meaning": "得意客 （弁護士などへの）依頼人"
   },
   {
     "textbook": "ターゲット1400",
@@ -7710,7 +7710,7 @@
     "unit": 0,
     "word_number": 857,
     "word": "therapy",
-    "meaning": "（心理）療法；治療"
+    "meaning": "（心理）療法 治療"
   },
   {
     "textbook": "ターゲット1400",
@@ -7728,7 +7728,7 @@
     "unit": 0,
     "word_number": 859,
     "word": "democracy",
-    "meaning": "民主主義；民主政治"
+    "meaning": "民主主義 民主政治"
   },
   {
     "textbook": "ターゲット1400",
@@ -7746,7 +7746,7 @@
     "unit": 0,
     "word_number": 861,
     "word": "vote",
-    "meaning": "投票；〔普通 the ～〕選挙権"
+    "meaning": "投票 〔普通 the ～〕選挙権"
   },
   {
     "textbook": "ターゲット1400",
@@ -7755,7 +7755,7 @@
     "unit": 0,
     "word_number": 862,
     "word": "candidate",
-    "meaning": "（～の）候補者（for）；志願者"
+    "meaning": "（～の）候補者（for） 志願者"
   },
   {
     "textbook": "ターゲット1400",
@@ -7764,7 +7764,7 @@
     "unit": 0,
     "word_number": 863,
     "word": "minister",
-    "meaning": "〔しばしば M～〕大臣；聖職者"
+    "meaning": "〔しばしば M～〕大臣 聖職者"
   },
   {
     "textbook": "ターゲット1400",
@@ -7773,7 +7773,7 @@
     "unit": 0,
     "word_number": 864,
     "word": "conference",
-    "meaning": "会議；会合（≒ meeting）"
+    "meaning": "会議 会合（≒ meeting）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7791,7 +7791,7 @@
     "unit": 0,
     "word_number": 866,
     "word": "institution",
-    "meaning": "機関；制度"
+    "meaning": "機関 制度"
   },
   {
     "textbook": "ターゲット1400",
@@ -7818,7 +7818,7 @@
     "unit": 0,
     "word_number": 869,
     "word": "authority",
-    "meaning": "〔普通 the ～ties〕当局；権威；権限"
+    "meaning": "〔普通 the ～ties〕当局 権威 権限"
   },
   {
     "textbook": "ターゲット1400",
@@ -7836,7 +7836,7 @@
     "unit": 0,
     "word_number": 871,
     "word": "notion",
-    "meaning": "考え；概念"
+    "meaning": "考え 概念"
   },
   {
     "textbook": "ターゲット1400",
@@ -7854,7 +7854,7 @@
     "unit": 0,
     "word_number": 873,
     "word": "discipline",
-    "meaning": "規律，しつけ；訓練；（学問の）一分野"
+    "meaning": "規律，しつけ 訓練 （学問の）一分野"
   },
   {
     "textbook": "ターゲット1400",
@@ -7863,7 +7863,7 @@
     "unit": 0,
     "word_number": 874,
     "word": "route",
-    "meaning": "道（筋）；方法"
+    "meaning": "道（筋） 方法"
   },
   {
     "textbook": "ターゲット1400",
@@ -7890,7 +7890,7 @@
     "unit": 0,
     "word_number": 877,
     "word": "domestic",
-    "meaning": "国内の；家庭内の"
+    "meaning": "国内の 家庭内の"
   },
   {
     "textbook": "ターゲット1400",
@@ -7908,7 +7908,7 @@
     "unit": 0,
     "word_number": 879,
     "word": "alien",
-    "meaning": "（～にとって）異質の（to）；外国の（≒ foreign）"
+    "meaning": "（～にとって）異質の（to） 外国の（≒ foreign）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7917,7 +7917,7 @@
     "unit": 0,
     "word_number": 880,
     "word": "visible",
-    "meaning": "目に見える；目立った"
+    "meaning": "目に見える 目立った"
   },
   {
     "textbook": "ターゲット1400",
@@ -7944,7 +7944,7 @@
     "unit": 0,
     "word_number": 883,
     "word": "conventional",
-    "meaning": "従来の；ありきたりの"
+    "meaning": "従来の ありきたりの"
   },
   {
     "textbook": "ターゲット1400",
@@ -7953,7 +7953,7 @@
     "unit": 0,
     "word_number": 884,
     "word": "relevant",
-    "meaning": "（～に）関係のある（to）；適切な，妥当な"
+    "meaning": "（～に）関係のある（to） 適切な，妥当な"
   },
   {
     "textbook": "ターゲット1400",
@@ -7962,7 +7962,7 @@
     "unit": 0,
     "word_number": 885,
     "word": "rational",
-    "meaning": "合理的な；理性のある（⇔ irrational 不合理な）"
+    "meaning": "合理的な 理性のある（⇔ irrational 不合理な）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7971,7 +7971,7 @@
     "unit": 0,
     "word_number": 886,
     "word": "precise",
-    "meaning": "正確な；緻密な（≒ exact）"
+    "meaning": "正確な 緻密な（≒ exact）"
   },
   {
     "textbook": "ターゲット1400",
@@ -7980,7 +7980,7 @@
     "unit": 0,
     "word_number": 887,
     "word": "principal",
-    "meaning": "主要な（≒ chief）；第1位の"
+    "meaning": "主要な（≒ chief） 第1位の"
   },
   {
     "textbook": "ターゲット1400",
@@ -7998,7 +7998,7 @@
     "unit": 0,
     "word_number": 889,
     "word": "permanent",
-    "meaning": "永続的な；永久の；常任の（⇔ temporary ? 894）"
+    "meaning": "永続的な 永久の 常任の（⇔ temporary ? 894）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8016,7 +8016,7 @@
     "unit": 0,
     "word_number": 891,
     "word": "equivalent",
-    "meaning": "相当する；同等の（≒ equal）"
+    "meaning": "相当する 同等の（≒ equal）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8052,7 +8052,7 @@
     "unit": 0,
     "word_number": 895,
     "word": "internal",
-    "meaning": "内部の（⇔ external）；国内の（≒ domestic）"
+    "meaning": "内部の（⇔ external） 国内の（≒ domestic）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8061,7 +8061,7 @@
     "unit": 0,
     "word_number": 896,
     "word": "external",
-    "meaning": "外部の（⇔ internal）；国外の（≒ foreign）"
+    "meaning": "外部の（⇔ internal） 国外の（≒ foreign）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8070,7 +8070,7 @@
     "unit": 0,
     "word_number": 897,
     "word": "distinct",
-    "meaning": "（～と）まったく異なる（from）；はっきりした"
+    "meaning": "（～と）まったく異なる（from） はっきりした"
   },
   {
     "textbook": "ターゲット1400",
@@ -8079,7 +8079,7 @@
     "unit": 0,
     "word_number": 898,
     "word": "extinct",
-    "meaning": "絶滅した；（火などが）消えた"
+    "meaning": "絶滅した （火などが）消えた"
   },
   {
     "textbook": "ターゲット1400",
@@ -8088,7 +8088,7 @@
     "unit": 0,
     "word_number": 899,
     "word": "exhausted",
-    "meaning": "疲れ果てた（≒ tired）；使い尽くされた"
+    "meaning": "疲れ果てた（≒ tired） 使い尽くされた"
   },
   {
     "textbook": "ターゲット1400",
@@ -8106,7 +8106,7 @@
     "unit": 0,
     "word_number": 901,
     "word": "greet",
-    "meaning": "（人）に（言葉・動作で）挨拶する（with）；（人）を（～で）迎える（with）"
+    "meaning": "（人）に（言葉・動作で）挨拶する（with） （人）を（～で）迎える（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8124,7 +8124,7 @@
     "unit": 0,
     "word_number": 903,
     "word": "remark",
-    "meaning": "（...だ）と述べる，言う（that節）；に気づく"
+    "meaning": "（...だ）と述べる，言う（that節） に気づく"
   },
   {
     "textbook": "ターゲット1400",
@@ -8142,7 +8142,7 @@
     "unit": 0,
     "word_number": 905,
     "word": "command",
-    "meaning": "を命ずる（≒ order）；（景色など）を見渡せる"
+    "meaning": "を命ずる（≒ order） （景色など）を見渡せる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8151,7 +8151,7 @@
     "unit": 0,
     "word_number": 906,
     "word": "declare",
-    "meaning": "を宣言する；を断言する；（課税品）を申告する"
+    "meaning": "を宣言する を断言する （課税品）を申告する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8160,7 +8160,7 @@
     "unit": 0,
     "word_number": 907,
     "word": "pronounce",
-    "meaning": "を発音する；を明言する，宣言する"
+    "meaning": "を発音する を明言する，宣言する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8169,7 +8169,7 @@
     "unit": 0,
     "word_number": 908,
     "word": "correspond",
-    "meaning": "（～に）一致する（with / to）；（～と）（手紙などで）連絡を取り合う（with）"
+    "meaning": "（～に）一致する（with / to） （～と）（手紙などで）連絡を取り合う（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8178,7 +8178,7 @@
     "unit": 0,
     "word_number": 909,
     "word": "imitate",
-    "meaning": "をまねる；を手本とする"
+    "meaning": "をまねる を手本とする"
   },
   {
     "textbook": "ターゲット1400",
@@ -8196,7 +8196,7 @@
     "unit": 0,
     "word_number": 911,
     "word": "exhibit",
-    "meaning": "を（展覧会などに）展示する（≒ display）；（感情・兆候など）を示す【名】 展示品；【米】 展覧会"
+    "meaning": "を（展覧会などに）展示する（≒ display） （感情・兆候など）を示す【名】 展示品 【米】 展覧会"
   },
   {
     "textbook": "ターゲット1400",
@@ -8205,7 +8205,7 @@
     "unit": 0,
     "word_number": 912,
     "word": "distribute",
-    "meaning": "を分配する；を（～に）配達する（to）"
+    "meaning": "を分配する を（～に）配達する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8232,7 +8232,7 @@
     "unit": 0,
     "word_number": 915,
     "word": "assess",
-    "meaning": "を評価する（≒ evaluate）；を査定する"
+    "meaning": "を評価する（≒ evaluate） を査定する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8250,7 +8250,7 @@
     "unit": 0,
     "word_number": 917,
     "word": "weigh",
-    "meaning": "の重さがある；の重さを量る"
+    "meaning": "の重さがある の重さを量る"
   },
   {
     "textbook": "ターゲット1400",
@@ -8259,7 +8259,7 @@
     "unit": 0,
     "word_number": 918,
     "word": "strengthen",
-    "meaning": "を強くする（⇔ weaken）；強くなる"
+    "meaning": "を強くする（⇔ weaken） 強くなる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8268,7 +8268,7 @@
     "unit": 0,
     "word_number": 919,
     "word": "weaken",
-    "meaning": "を弱める（⇔ strengthen）；弱まる"
+    "meaning": "を弱める（⇔ strengthen） 弱まる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8277,7 +8277,7 @@
     "unit": 0,
     "word_number": 920,
     "word": "approve",
-    "meaning": "（～に）賛成する（of）；を承認する（⇔ disapprove 反対する）"
+    "meaning": "（～に）賛成する（of） を承認する（⇔ disapprove 反対する）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8286,7 +8286,7 @@
     "unit": 0,
     "word_number": 921,
     "word": "assign",
-    "meaning": "（仕事など）を割り当てる；（人）を（～に）配属する（to）"
+    "meaning": "（仕事など）を割り当てる （人）を（～に）配属する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8295,7 +8295,7 @@
     "unit": 0,
     "word_number": 922,
     "word": "sustain",
-    "meaning": "を持続させる；を（精神的に）支える"
+    "meaning": "を持続させる を（精神的に）支える"
   },
   {
     "textbook": "ターゲット1400",
@@ -8322,7 +8322,7 @@
     "unit": 0,
     "word_number": 925,
     "word": "frustrate",
-    "meaning": "に不満を抱かせる；を挫折させる"
+    "meaning": "に不満を抱かせる を挫折させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8340,7 +8340,7 @@
     "unit": 0,
     "word_number": 927,
     "word": "resist",
-    "meaning": "〔普通否定文で〕を我慢する；に抵抗する"
+    "meaning": "〔普通否定文で〕を我慢する に抵抗する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8358,7 +8358,7 @@
     "unit": 0,
     "word_number": 929,
     "word": "shut",
-    "meaning": "を閉める（≒ close）；閉まる"
+    "meaning": "を閉める（≒ close） 閉まる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8376,7 +8376,7 @@
     "unit": 0,
     "word_number": 931,
     "word": "neglect",
-    "meaning": "を怠る；を無視［軽視］する"
+    "meaning": "を怠る を無視［軽視］する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8385,7 +8385,7 @@
     "unit": 0,
     "word_number": 932,
     "word": "retire",
-    "meaning": "（～から）引退する（from）；引き下がる"
+    "meaning": "（～から）引退する（from） 引き下がる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8403,7 +8403,7 @@
     "unit": 0,
     "word_number": 934,
     "word": "collapse",
-    "meaning": "崩壊する；倒れる；（事業などが）破綻する"
+    "meaning": "崩壊する 倒れる （事業などが）破綻する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8412,7 +8412,7 @@
     "unit": 0,
     "word_number": 935,
     "word": "ruin",
-    "meaning": "を台無しにする；を破滅させる"
+    "meaning": "を台無しにする を破滅させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8421,7 +8421,7 @@
     "unit": 0,
     "word_number": 936,
     "word": "sink",
-    "meaning": "沈む（⇔ float ? 1041）；を沈める"
+    "meaning": "沈む（⇔ float ? 1041） を沈める"
   },
   {
     "textbook": "ターゲット1400",
@@ -8430,7 +8430,7 @@
     "unit": 0,
     "word_number": 937,
     "word": "pile",
-    "meaning": "を積み重ねる；積み重なる"
+    "meaning": "を積み重ねる 積み重なる"
   },
   {
     "textbook": "ターゲット1400",
@@ -8439,7 +8439,7 @@
     "unit": 0,
     "word_number": 938,
     "word": "derive",
-    "meaning": "（～から）を得る，引き出す（from）；（～に）由来する（from）"
+    "meaning": "（～から）を得る，引き出す（from） （～に）由来する（from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8448,7 +8448,7 @@
     "unit": 0,
     "word_number": 939,
     "word": "yield",
-    "meaning": "を産出する（≒ produce），（利益など）を生む；（～に）屈する（to）"
+    "meaning": "を産出する（≒ produce），（利益など）を生む （～に）屈する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8457,7 +8457,7 @@
     "unit": 0,
     "word_number": 940,
     "word": "occupy",
-    "meaning": "を占める；を占領する"
+    "meaning": "を占める を占領する"
   },
   {
     "textbook": "ターゲット1400",
@@ -8475,7 +8475,7 @@
     "unit": 0,
     "word_number": 942,
     "word": "embrace",
-    "meaning": "を抱き締める（≒ hug）；（申し出など）を受け入れる；を含む"
+    "meaning": "を抱き締める（≒ hug） （申し出など）を受け入れる を含む"
   },
   {
     "textbook": "ターゲット1400",
@@ -8493,7 +8493,7 @@
     "unit": 0,
     "word_number": 944,
     "word": "height",
-    "meaning": "高度；身長；高さ"
+    "meaning": "高度 身長 高さ"
   },
   {
     "textbook": "ターゲット1400",
@@ -8502,7 +8502,7 @@
     "unit": 0,
     "word_number": 945,
     "word": "volume",
-    "meaning": "（総）量；体積，容積；音量；（本などの）巻"
+    "meaning": "（総）量 体積，容積 音量 （本などの）巻"
   },
   {
     "textbook": "ターゲット1400",
@@ -8511,7 +8511,7 @@
     "unit": 0,
     "word_number": 946,
     "word": "sum",
-    "meaning": "金額；〔the ～〕合計；〔the ～〕要点"
+    "meaning": "金額 〔the ～〕合計 〔the ～〕要点"
   },
   {
     "textbook": "ターゲット1400",
@@ -8520,7 +8520,7 @@
     "unit": 0,
     "word_number": 947,
     "word": "frame",
-    "meaning": "額縁；枠；骨組み"
+    "meaning": "額縁 枠 骨組み"
   },
   {
     "textbook": "ターゲット1400",
@@ -8529,7 +8529,7 @@
     "unit": 0,
     "word_number": 948,
     "word": "boundary",
-    "meaning": "境界（線）；〔普通～ries〕限界"
+    "meaning": "境界（線） 〔普通～ries〕限界"
   },
   {
     "textbook": "ターゲット1400",
@@ -8538,7 +8538,7 @@
     "unit": 0,
     "word_number": 949,
     "word": "district",
-    "meaning": "（行政などの）地区；地域，地方"
+    "meaning": "（行政などの）地区 地域，地方"
   },
   {
     "textbook": "ターゲット1400",
@@ -8547,7 +8547,7 @@
     "unit": 0,
     "word_number": 950,
     "word": "territory",
-    "meaning": "領土；縄張り"
+    "meaning": "領土 縄張り"
   },
   {
     "textbook": "ターゲット1400",
@@ -8556,7 +8556,7 @@
     "unit": 0,
     "word_number": 951,
     "word": "square",
-    "meaning": "正方形；広場；平方，2乗"
+    "meaning": "正方形 広場 平方，2乗"
   },
   {
     "textbook": "ターゲット1400",
@@ -8583,7 +8583,7 @@
     "unit": 0,
     "word_number": 954,
     "word": "fee",
-    "meaning": "料金；（専門職への）謝礼（for）；〔～s〕授業料"
+    "meaning": "料金 （専門職への）謝礼（for） 〔～s〕授業料"
   },
   {
     "textbook": "ターゲット1400",
@@ -8601,7 +8601,7 @@
     "unit": 0,
     "word_number": 956,
     "word": "charity",
-    "meaning": "慈善事業；慈善行為"
+    "meaning": "慈善事業 慈善行為"
   },
   {
     "textbook": "ターゲット1400",
@@ -8610,7 +8610,7 @@
     "unit": 0,
     "word_number": 957,
     "word": "mission",
-    "meaning": "使命，任務；使節（団）"
+    "meaning": "使命，任務 使節（団）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8637,7 +8637,7 @@
     "unit": 0,
     "word_number": 960,
     "word": "witness",
-    "meaning": "（～の）目撃者（to / of）；証人；証言"
+    "meaning": "（～の）目撃者（to / of） 証人 証言"
   },
   {
     "textbook": "ターゲット1400",
@@ -8646,7 +8646,7 @@
     "unit": 0,
     "word_number": 961,
     "word": "incident",
-    "meaning": "出来事；事件"
+    "meaning": "出来事 事件"
   },
   {
     "textbook": "ターゲット1400",
@@ -8655,7 +8655,7 @@
     "unit": 0,
     "word_number": 962,
     "word": "insurance",
-    "meaning": "保険；保険料"
+    "meaning": "保険 保険料"
   },
   {
     "textbook": "ターゲット1400",
@@ -8664,7 +8664,7 @@
     "unit": 0,
     "word_number": 963,
     "word": "welfare",
-    "meaning": "福祉；幸福；【主に米】 生活保護"
+    "meaning": "福祉 幸福 【主に米】 生活保護"
   },
   {
     "textbook": "ターゲット1400",
@@ -8673,7 +8673,7 @@
     "unit": 0,
     "word_number": 964,
     "word": "treasure",
-    "meaning": "宝物；〔普通～s〕大切なもの"
+    "meaning": "宝物 〔普通～s〕大切なもの"
   },
   {
     "textbook": "ターゲット1400",
@@ -8691,7 +8691,7 @@
     "unit": 0,
     "word_number": 966,
     "word": "priority",
-    "meaning": "優先事項；優先"
+    "meaning": "優先事項 優先"
   },
   {
     "textbook": "ターゲット1400",
@@ -8700,7 +8700,7 @@
     "unit": 0,
     "word_number": 967,
     "word": "reputation",
-    "meaning": "評判；名声"
+    "meaning": "評判 名声"
   },
   {
     "textbook": "ターゲット1400",
@@ -8709,7 +8709,7 @@
     "unit": 0,
     "word_number": 968,
     "word": "honor",
-    "meaning": "光栄；名誉（⇔ dishonor 不名誉）；敬意"
+    "meaning": "光栄 名誉（⇔ dishonor 不名誉） 敬意"
   },
   {
     "textbook": "ターゲット1400",
@@ -8727,7 +8727,7 @@
     "unit": 0,
     "word_number": 970,
     "word": "architecture",
-    "meaning": "建築（学）；建築様式；構造（≒ structure）"
+    "meaning": "建築（学） 建築様式 構造（≒ structure）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8736,7 +8736,7 @@
     "unit": 0,
     "word_number": 971,
     "word": "logic",
-    "meaning": "論理；論理学"
+    "meaning": "論理 論理学"
   },
   {
     "textbook": "ターゲット1400",
@@ -8745,7 +8745,7 @@
     "unit": 0,
     "word_number": 972,
     "word": "mechanism",
-    "meaning": "仕組み；機械装置"
+    "meaning": "仕組み 機械装置"
   },
   {
     "textbook": "ターゲット1400",
@@ -8781,7 +8781,7 @@
     "unit": 0,
     "word_number": 976,
     "word": "trick",
-    "meaning": "策略；いたずら；秘訣；芸当"
+    "meaning": "策略 いたずら 秘訣 芸当"
   },
   {
     "textbook": "ターゲット1400",
@@ -8790,7 +8790,7 @@
     "unit": 0,
     "word_number": 977,
     "word": "guard",
-    "meaning": "警戒；護衛者"
+    "meaning": "警戒 護衛者"
   },
   {
     "textbook": "ターゲット1400",
@@ -8799,7 +8799,7 @@
     "unit": 0,
     "word_number": 978,
     "word": "innocent",
-    "meaning": "無罪の（⇔ guilty）；無邪気な"
+    "meaning": "無罪の（⇔ guilty） 無邪気な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8808,7 +8808,7 @@
     "unit": 0,
     "word_number": 979,
     "word": "guilty",
-    "meaning": "（～について）罪悪感のある（about）；有罪の（⇔ innocent）"
+    "meaning": "（～について）罪悪感のある（about） 有罪の（⇔ innocent）"
   },
   {
     "textbook": "ターゲット1400",
@@ -8817,7 +8817,7 @@
     "unit": 0,
     "word_number": 980,
     "word": "rude",
-    "meaning": "無礼な（⇔ polite ? 781）；粗雑な"
+    "meaning": "無礼な（⇔ polite ? 781） 粗雑な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8835,7 +8835,7 @@
     "unit": 0,
     "word_number": 982,
     "word": "liberal",
-    "meaning": "寛大な；自由主義の；気前のよい"
+    "meaning": "寛大な 自由主義の 気前のよい"
   },
   {
     "textbook": "ターゲット1400",
@@ -8844,7 +8844,7 @@
     "unit": 0,
     "word_number": 983,
     "word": "stupid",
-    "meaning": "愚かな；ばかげた"
+    "meaning": "愚かな ばかげた"
   },
   {
     "textbook": "ターゲット1400",
@@ -8862,7 +8862,7 @@
     "unit": 0,
     "word_number": 985,
     "word": "generous",
-    "meaning": "気前のよい；（～に対して）寛大な（to）；豊富な"
+    "meaning": "気前のよい （～に対して）寛大な（to） 豊富な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8889,7 +8889,7 @@
     "unit": 0,
     "word_number": 988,
     "word": "pure",
-    "meaning": "純粋な；まったくの"
+    "meaning": "純粋な まったくの"
   },
   {
     "textbook": "ターゲット1400",
@@ -8898,7 +8898,7 @@
     "unit": 0,
     "word_number": 989,
     "word": "grand",
-    "meaning": "豪華な；雄大な；すばらしい"
+    "meaning": "豪華な 雄大な すばらしい"
   },
   {
     "textbook": "ターゲット1400",
@@ -8907,7 +8907,7 @@
     "unit": 0,
     "word_number": 990,
     "word": "adequate",
-    "meaning": "十分な（≒ sufficient）（⇔ inadequate 不十分な）；適切な"
+    "meaning": "十分な（≒ sufficient）（⇔ inadequate 不十分な） 適切な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8916,7 +8916,7 @@
     "unit": 0,
     "word_number": 991,
     "word": "apparent",
-    "meaning": "（見て）明らかな；見たところ～らしい"
+    "meaning": "（見て）明らかな 見たところ～らしい"
   },
   {
     "textbook": "ターゲット1400",
@@ -8925,7 +8925,7 @@
     "unit": 0,
     "word_number": 992,
     "word": "classic",
-    "meaning": "（芸術などが）最高水準の；典型的な"
+    "meaning": "（芸術などが）最高水準の 典型的な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8943,7 +8943,7 @@
     "unit": 0,
     "word_number": 994,
     "word": "solid",
-    "meaning": "固体の；しっかりした；中身のある"
+    "meaning": "固体の しっかりした 中身のある"
   },
   {
     "textbook": "ターゲット1400",
@@ -8952,7 +8952,7 @@
     "unit": 0,
     "word_number": 995,
     "word": "raw",
-    "meaning": "生の；加工していない"
+    "meaning": "生の 加工していない"
   },
   {
     "textbook": "ターゲット1400",
@@ -8961,7 +8961,7 @@
     "unit": 0,
     "word_number": 996,
     "word": "plain",
-    "meaning": "平易な；明白な；質素な"
+    "meaning": "平易な 明白な 質素な"
   },
   {
     "textbook": "ターゲット1400",
@@ -8970,7 +8970,7 @@
     "unit": 0,
     "word_number": 997,
     "word": "primitive",
-    "meaning": "原始の；初期段階の"
+    "meaning": "原始の 初期段階の"
   },
   {
     "textbook": "ターゲット1400",
@@ -8979,7 +8979,7 @@
     "unit": 0,
     "word_number": 998,
     "word": "steady",
-    "meaning": "着実な，一定した（⇔ irregular 不規則な）；安定した"
+    "meaning": "着実な，一定した（⇔ irregular 不規則な） 安定した"
   },
   {
     "textbook": "ターゲット1400",
@@ -8997,7 +8997,7 @@
     "unit": 0,
     "word_number": 1000,
     "word": "subtle",
-    "meaning": "微妙な；繊細な"
+    "meaning": "微妙な 繊細な"
   },
   {
     "textbook": "ターゲット1400",
@@ -9015,7 +9015,7 @@
     "unit": 0,
     "word_number": 1002,
     "word": "entertain",
-    "meaning": "（人）を（～で）楽しませる（with）；をもてなす；を心に抱く"
+    "meaning": "（人）を（～で）楽しませる（with） をもてなす を心に抱く"
   },
   {
     "textbook": "ターゲット1400",
@@ -9024,7 +9024,7 @@
     "unit": 0,
     "word_number": 1003,
     "word": "fulfill",
-    "meaning": "（要求・希望など）を満たす；（役割・義務など）を果たす"
+    "meaning": "（要求・希望など）を満たす （役割・義務など）を果たす"
   },
   {
     "textbook": "ターゲット1400",
@@ -9033,7 +9033,7 @@
     "unit": 0,
     "word_number": 1004,
     "word": "cheer",
-    "meaning": "を元気づける；（に）歓声をあげる"
+    "meaning": "を元気づける （に）歓声をあげる"
   },
   {
     "textbook": "ターゲット1400",
@@ -9042,7 +9042,7 @@
     "unit": 0,
     "word_number": 1005,
     "word": "amuse",
-    "meaning": "を笑わせる；を楽しませる"
+    "meaning": "を笑わせる を楽しませる"
   },
   {
     "textbook": "ターゲット1400",
@@ -9051,7 +9051,7 @@
     "unit": 0,
     "word_number": 1006,
     "word": "anticipate",
-    "meaning": "を予期［予想］する；を楽しみに待つ"
+    "meaning": "を予期［予想］する を楽しみに待つ"
   },
   {
     "textbook": "ターゲット1400",
@@ -9060,7 +9060,7 @@
     "unit": 0,
     "word_number": 1007,
     "word": "confront",
-    "meaning": "（問題などが）に立ちはだかる；（問題など）に立ち向かう"
+    "meaning": "（問題などが）に立ちはだかる （問題など）に立ち向かう"
   },
   {
     "textbook": "ターゲット1400",
@@ -9069,7 +9069,7 @@
     "unit": 0,
     "word_number": 1008,
     "word": "undergo",
-    "meaning": "（変化・試練など）を経験する；（試験・検査など）を受ける"
+    "meaning": "（変化・試練など）を経験する （試験・検査など）を受ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -9087,7 +9087,7 @@
     "unit": 0,
     "word_number": 1010,
     "word": "overwhelm",
-    "meaning": "をまいらせる；を圧倒する"
+    "meaning": "をまいらせる を圧倒する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9096,7 +9096,7 @@
     "unit": 0,
     "word_number": 1011,
     "word": "shoot",
-    "meaning": "（人や動物）を撃つ；（弾丸など）を発射する；（映像など）を撮影する；（ボールなど）をシュートする"
+    "meaning": "（人や動物）を撃つ （弾丸など）を発射する （映像など）を撮影する （ボールなど）をシュートする"
   },
   {
     "textbook": "ターゲット1400",
@@ -9114,7 +9114,7 @@
     "unit": 0,
     "word_number": 1013,
     "word": "rob",
-    "meaning": "（人）から奪う（≒ deprive）；（銀行など）を襲う"
+    "meaning": "（人）から奪う（≒ deprive） （銀行など）を襲う"
   },
   {
     "textbook": "ターゲット1400",
@@ -9141,7 +9141,7 @@
     "unit": 0,
     "word_number": 1016,
     "word": "interrupt",
-    "meaning": "を（～で）さえぎる（with）；を中断させる"
+    "meaning": "を（～で）さえぎる（with） を中断させる"
   },
   {
     "textbook": "ターゲット1400",
@@ -9150,7 +9150,7 @@
     "unit": 0,
     "word_number": 1017,
     "word": "interfere",
-    "meaning": "（～の）邪魔をする（with）；（～に）干渉する（in）"
+    "meaning": "（～の）邪魔をする（with） （～に）干渉する（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9186,7 +9186,7 @@
     "unit": 0,
     "word_number": 1021,
     "word": "accuse",
-    "meaning": "を非難する；を告訴する"
+    "meaning": "を非難する を告訴する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9231,7 +9231,7 @@
     "unit": 0,
     "word_number": 1026,
     "word": "submit",
-    "meaning": "を（～に）提出する（to）；（～に）服従する，屈する（to）（≒ give in to）"
+    "meaning": "を（～に）提出する（to） （～に）服従する，屈する（to）（≒ give in to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9249,7 +9249,7 @@
     "unit": 0,
     "word_number": 1028,
     "word": "resolve",
-    "meaning": "を解決する；（...すること）を決意する（to do）"
+    "meaning": "を解決する （...すること）を決意する（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9285,7 +9285,7 @@
     "unit": 0,
     "word_number": 1032,
     "word": "impose",
-    "meaning": "を（～に）押しつける（on）；を課す"
+    "meaning": "を（～に）押しつける（on） を課す"
   },
   {
     "textbook": "ターゲット1400",
@@ -9294,7 +9294,7 @@
     "unit": 0,
     "word_number": 1033,
     "word": "compose",
-    "meaning": "を構成する；（曲など）を創作する"
+    "meaning": "を構成する （曲など）を創作する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9321,7 +9321,7 @@
     "unit": 0,
     "word_number": 1036,
     "word": "shrink",
-    "meaning": "縮む；縮小する；を減らす"
+    "meaning": "縮む 縮小する を減らす"
   },
   {
     "textbook": "ターゲット1400",
@@ -9330,7 +9330,7 @@
     "unit": 0,
     "word_number": 1037,
     "word": "lean",
-    "meaning": "（～に）寄りかかる（against / on）；傾く；を傾ける"
+    "meaning": "（～に）寄りかかる（against / on） 傾く を傾ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -9339,7 +9339,7 @@
     "unit": 0,
     "word_number": 1038,
     "word": "fold",
-    "meaning": "を折り畳む；（両腕）を組む"
+    "meaning": "を折り畳む （両腕）を組む"
   },
   {
     "textbook": "ターゲット1400",
@@ -9357,7 +9357,7 @@
     "unit": 0,
     "word_number": 1040,
     "word": "pour",
-    "meaning": "を（～に）注ぐ（into）；流れ出る；（雨が）激しく降る"
+    "meaning": "を（～に）注ぐ（into） 流れ出る （雨が）激しく降る"
   },
   {
     "textbook": "ターゲット1400",
@@ -9366,7 +9366,7 @@
     "unit": 0,
     "word_number": 1041,
     "word": "float",
-    "meaning": "浮かぶ（⇔ sink ? 936）；を浮かべる"
+    "meaning": "浮かぶ（⇔ sink ? 936） を浮かべる"
   },
   {
     "textbook": "ターゲット1400",
@@ -9375,7 +9375,7 @@
     "unit": 0,
     "word_number": 1042,
     "word": "shine",
-    "meaning": "輝く；を磨いて光らせる（≒ polish）"
+    "meaning": "輝く を磨いて光らせる（≒ polish）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9411,7 +9411,7 @@
     "unit": 0,
     "word_number": 1046,
     "word": "sector",
-    "meaning": "（産業などの）部門，分野；（都市内の）地域"
+    "meaning": "（産業などの）部門，分野 （都市内の）地域"
   },
   {
     "textbook": "ターゲット1400",
@@ -9420,7 +9420,7 @@
     "unit": 0,
     "word_number": 1047,
     "word": "span",
-    "meaning": "期間；全長"
+    "meaning": "期間 全長"
   },
   {
     "textbook": "ターゲット1400",
@@ -9429,7 +9429,7 @@
     "unit": 0,
     "word_number": 1048,
     "word": "literacy",
-    "meaning": "読み書き能力；（ある分野の）知識"
+    "meaning": "読み書き能力 （ある分野の）知識"
   },
   {
     "textbook": "ターゲット1400",
@@ -9438,7 +9438,7 @@
     "unit": 0,
     "word_number": 1049,
     "word": "symptom",
-    "meaning": "症状；（よくないことの）兆候"
+    "meaning": "症状 （よくないことの）兆候"
   },
   {
     "textbook": "ターゲット1400",
@@ -9447,7 +9447,7 @@
     "unit": 0,
     "word_number": 1050,
     "word": "phase",
-    "meaning": "（変化などの）段階；（問題などの）面"
+    "meaning": "（変化などの）段階 （問題などの）面"
   },
   {
     "textbook": "ターゲット1400",
@@ -9456,7 +9456,7 @@
     "unit": 0,
     "word_number": 1051,
     "word": "surgery",
-    "meaning": "（外科）手術（≒ operation）；外科"
+    "meaning": "（外科）手術（≒ operation） 外科"
   },
   {
     "textbook": "ターゲット1400",
@@ -9474,7 +9474,7 @@
     "unit": 0,
     "word_number": 1053,
     "word": "poison",
-    "meaning": "毒；有害なもの"
+    "meaning": "毒 有害なもの"
   },
   {
     "textbook": "ターゲット1400",
@@ -9510,7 +9510,7 @@
     "unit": 0,
     "word_number": 1057,
     "word": "globe",
-    "meaning": "〔普通 the ～〕世界；地球儀；球体"
+    "meaning": "〔普通 the ～〕世界 地球儀 球体"
   },
   {
     "textbook": "ターゲット1400",
@@ -9519,7 +9519,7 @@
     "unit": 0,
     "word_number": 1058,
     "word": "pole",
-    "meaning": "極（地）；棒"
+    "meaning": "極（地） 棒"
   },
   {
     "textbook": "ターゲット1400",
@@ -9537,7 +9537,7 @@
     "unit": 0,
     "word_number": 1060,
     "word": "conservation",
-    "meaning": "（自然環境などの）保護；保存（≒ preservation）"
+    "meaning": "（自然環境などの）保護 保存（≒ preservation）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9546,7 +9546,7 @@
     "unit": 0,
     "word_number": 1061,
     "word": "channel",
-    "meaning": "〔しばしば～s〕（情報などの）伝達経路；（テレビの）チャンネル；水路"
+    "meaning": "〔しばしば～s〕（情報などの）伝達経路 （テレビの）チャンネル 水路"
   },
   {
     "textbook": "ターゲット1400",
@@ -9564,7 +9564,7 @@
     "unit": 0,
     "word_number": 1063,
     "word": "pioneer",
-    "meaning": "（～の）先駆者，パイオニア（of / in）；（未開地の）開拓者"
+    "meaning": "（～の）先駆者，パイオニア（of / in） （未開地の）開拓者"
   },
   {
     "textbook": "ターゲット1400",
@@ -9573,7 +9573,7 @@
     "unit": 0,
     "word_number": 1064,
     "word": "prospect",
-    "meaning": "（～の；...という）見込み，可能性（of / for；that節）；〔～s〕将来性"
+    "meaning": "（～の ...という）見込み，可能性（of / for that節） 〔～s〕将来性"
   },
   {
     "textbook": "ターゲット1400",
@@ -9591,7 +9591,7 @@
     "unit": 0,
     "word_number": 1066,
     "word": "passion",
-    "meaning": "情熱；（～への）熱中（for）"
+    "meaning": "情熱 （～への）熱中（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9600,7 +9600,7 @@
     "unit": 0,
     "word_number": 1067,
     "word": "fortune",
-    "meaning": "財産；幸運（⇔ misfortune 不運）；運勢"
+    "meaning": "財産 幸運（⇔ misfortune 不運） 運勢"
   },
   {
     "textbook": "ターゲット1400",
@@ -9618,7 +9618,7 @@
     "unit": 0,
     "word_number": 1069,
     "word": "prejudice",
-    "meaning": "（～に対する）偏見（against）；先入観"
+    "meaning": "（～に対する）偏見（against） 先入観"
   },
   {
     "textbook": "ターゲット1400",
@@ -9627,7 +9627,7 @@
     "unit": 0,
     "word_number": 1070,
     "word": "justice",
-    "meaning": "正義；公正（⇔ injustice 不正）；司法"
+    "meaning": "正義 公正（⇔ injustice 不正） 司法"
   },
   {
     "textbook": "ターゲット1400",
@@ -9636,7 +9636,7 @@
     "unit": 0,
     "word_number": 1071,
     "word": "opponent",
-    "meaning": "（試合などの）相手，敵；（～への）反対［敵対］者（of）"
+    "meaning": "（試合などの）相手，敵 （～への）反対［敵対］者（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9645,7 +9645,7 @@
     "unit": 0,
     "word_number": 1072,
     "word": "sacrifice",
-    "meaning": "犠牲（的行為）；いけにえ"
+    "meaning": "犠牲（的行為） いけにえ"
   },
   {
     "textbook": "ターゲット1400",
@@ -9654,7 +9654,7 @@
     "unit": 0,
     "word_number": 1073,
     "word": "fault",
-    "meaning": "〔普通 the ～, one's ～〕（過失の）責任；欠点"
+    "meaning": "〔普通 the ～, one's ～〕（過失の）責任 欠点"
   },
   {
     "textbook": "ターゲット1400",
@@ -9672,7 +9672,7 @@
     "unit": 0,
     "word_number": 1075,
     "word": "shelter",
-    "meaning": "避難（所）；収容所；住まい"
+    "meaning": "避難（所） 収容所 住まい"
   },
   {
     "textbook": "ターゲット1400",
@@ -9681,7 +9681,7 @@
     "unit": 0,
     "word_number": 1076,
     "word": "committee",
-    "meaning": "委員会；（全）委員"
+    "meaning": "委員会 （全）委員"
   },
   {
     "textbook": "ターゲット1400",
@@ -9690,7 +9690,7 @@
     "unit": 0,
     "word_number": 1077,
     "word": "ritual",
-    "meaning": "儀式；習慣的行為"
+    "meaning": "儀式 習慣的行為"
   },
   {
     "textbook": "ターゲット1400",
@@ -9699,7 +9699,7 @@
     "unit": 0,
     "word_number": 1078,
     "word": "mature",
-    "meaning": "大人になった（⇔ immature 未熟の）；熟した"
+    "meaning": "大人になった（⇔ immature 未熟の） 熟した"
   },
   {
     "textbook": "ターゲット1400",
@@ -9708,7 +9708,7 @@
     "unit": 0,
     "word_number": 1079,
     "word": "moderate",
-    "meaning": "適度な；並みの；穏やかな"
+    "meaning": "適度な 並みの 穏やかな"
   },
   {
     "textbook": "ターゲット1400",
@@ -9744,7 +9744,7 @@
     "unit": 0,
     "word_number": 1083,
     "word": "radical",
-    "meaning": "根本的な；過激な（⇔ conservative 保守的な）"
+    "meaning": "根本的な 過激な（⇔ conservative 保守的な）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9753,7 +9753,7 @@
     "unit": 0,
     "word_number": 1084,
     "word": "rough",
-    "meaning": "（表面が）粗い（⇔ smooth）；大まかな；粗野な；荒っぽい"
+    "meaning": "（表面が）粗い（⇔ smooth） 大まかな 粗野な 荒っぽい"
   },
   {
     "textbook": "ターゲット1400",
@@ -9762,7 +9762,7 @@
     "unit": 0,
     "word_number": 1085,
     "word": "smooth",
-    "meaning": "滑らかな（⇔ rough）；円滑な"
+    "meaning": "滑らかな（⇔ rough） 円滑な"
   },
   {
     "textbook": "ターゲット1400",
@@ -9771,7 +9771,7 @@
     "unit": 0,
     "word_number": 1086,
     "word": "fluent",
-    "meaning": "流ちょうな；（外国語に）堪能な（in）"
+    "meaning": "流ちょうな （外国語に）堪能な（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9780,7 +9780,7 @@
     "unit": 0,
     "word_number": 1087,
     "word": "casual",
-    "meaning": "形式ばらない，打ち解けた（≒ informal）（⇔ formal 正式の）；何気ない；偶然の"
+    "meaning": "形式ばらない，打ち解けた（≒ informal）（⇔ formal 正式の） 何気ない 偶然の"
   },
   {
     "textbook": "ターゲット1400",
@@ -9825,7 +9825,7 @@
     "unit": 0,
     "word_number": 1092,
     "word": "prominent",
-    "meaning": "重要な，著名な；突き出ている"
+    "meaning": "重要な，著名な 突き出ている"
   },
   {
     "textbook": "ターゲット1400",
@@ -9834,7 +9834,7 @@
     "unit": 0,
     "word_number": 1093,
     "word": "blind",
-    "meaning": "目が見えない；（～に）気づかない（to）"
+    "meaning": "目が見えない （～に）気づかない（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9843,7 +9843,7 @@
     "unit": 0,
     "word_number": 1094,
     "word": "deaf",
-    "meaning": "耳が聞こえない；（～を）聞こうとしない（to）"
+    "meaning": "耳が聞こえない （～を）聞こうとしない（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9852,7 +9852,7 @@
     "unit": 0,
     "word_number": 1095,
     "word": "harsh",
-    "meaning": "厳しい；容赦ない（≒ severe）"
+    "meaning": "厳しい 容赦ない（≒ severe）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9861,7 +9861,7 @@
     "unit": 0,
     "word_number": 1096,
     "word": "prompt",
-    "meaning": "迅速な（⇔ slow 遅い）；（人が）機敏な"
+    "meaning": "迅速な（⇔ slow 遅い） （人が）機敏な"
   },
   {
     "textbook": "ターゲット1400",
@@ -9906,7 +9906,7 @@
     "unit": 0,
     "word_number": 1101,
     "word": "forecast",
-    "meaning": "（天気）を予報する；を予測［予想］する"
+    "meaning": "（天気）を予報する を予測［予想］する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9915,7 +9915,7 @@
     "unit": 0,
     "word_number": 1102,
     "word": "speculate",
-    "meaning": "（～について）（あれこれ）思索する，推測する（on / about）；投機する"
+    "meaning": "（～について）（あれこれ）思索する，推測する（on / about） 投機する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9924,7 +9924,7 @@
     "unit": 0,
     "word_number": 1103,
     "word": "bet",
-    "meaning": "きっと（...だ）と思う（that節）；（を）賭ける"
+    "meaning": "きっと（...だ）と思う（that節） （を）賭ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -9942,7 +9942,7 @@
     "unit": 0,
     "word_number": 1105,
     "word": "consult",
-    "meaning": "（専門家）に（～について）意見を求める（on / about）；（辞書など）を調べる；（～と）相談する（with）"
+    "meaning": "（専門家）に（～について）意見を求める（on / about） （辞書など）を調べる （～と）相談する（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -9951,7 +9951,7 @@
     "unit": 0,
     "word_number": 1106,
     "word": "dispute",
-    "meaning": "に異議を唱える；論争する"
+    "meaning": "に異議を唱える 論争する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9960,7 +9960,7 @@
     "unit": 0,
     "word_number": 1107,
     "word": "accumulate",
-    "meaning": "を集める，蓄積する；たまる"
+    "meaning": "を集める，蓄積する たまる"
   },
   {
     "textbook": "ターゲット1400",
@@ -9969,7 +9969,7 @@
     "unit": 0,
     "word_number": 1108,
     "word": "grasp",
-    "meaning": "をぎゅっとつかむ（≒ grip）；を理解する"
+    "meaning": "をぎゅっとつかむ（≒ grip） を理解する"
   },
   {
     "textbook": "ターゲット1400",
@@ -9987,7 +9987,7 @@
     "unit": 0,
     "word_number": 1110,
     "word": "seize",
-    "meaning": "を（ぐいと）つかむ（≒ grab）；（機会など）を素早く捕らえる"
+    "meaning": "を（ぐいと）つかむ（≒ grab） （機会など）を素早く捕らえる"
   },
   {
     "textbook": "ターゲット1400",
@@ -10032,7 +10032,7 @@
     "unit": 0,
     "word_number": 1115,
     "word": "donate",
-    "meaning": "（金品など）を（～に）寄付する（to）；（臓器など）を提供する"
+    "meaning": "（金品など）を（～に）寄付する（to） （臓器など）を提供する"
   },
   {
     "textbook": "ターゲット1400",
@@ -10059,7 +10059,7 @@
     "unit": 0,
     "word_number": 1118,
     "word": "transmit",
-    "meaning": "を伝える；を送る"
+    "meaning": "を伝える を送る"
   },
   {
     "textbook": "ターゲット1400",
@@ -10077,7 +10077,7 @@
     "unit": 0,
     "word_number": 1120,
     "word": "bind",
-    "meaning": "を（～で）縛る（with）（≒ tie）；を結び付ける"
+    "meaning": "を（～で）縛る（with）（≒ tie） を結び付ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -10086,7 +10086,7 @@
     "unit": 0,
     "word_number": 1121,
     "word": "pose",
-    "meaning": "（問題など）を（～に）投げかける（to）；ポーズ［姿勢］をとる"
+    "meaning": "（問題など）を（～に）投げかける（to） ポーズ［姿勢］をとる"
   },
   {
     "textbook": "ターゲット1400",
@@ -10113,7 +10113,7 @@
     "unit": 0,
     "word_number": 1124,
     "word": "split",
-    "meaning": "を分割する；を分裂させる；縦に割れる"
+    "meaning": "を分割する を分裂させる 縦に割れる"
   },
   {
     "textbook": "ターゲット1400",
@@ -10122,7 +10122,7 @@
     "unit": 0,
     "word_number": 1125,
     "word": "bend",
-    "meaning": "を曲げる；曲がる；を（～に）従わせる（to）"
+    "meaning": "を曲げる 曲がる を（～に）従わせる（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10131,7 +10131,7 @@
     "unit": 0,
     "word_number": 1126,
     "word": "tap",
-    "meaning": "を軽くたたく，タップする；（資源など）を活用する"
+    "meaning": "を軽くたたく，タップする （資源など）を活用する"
   },
   {
     "textbook": "ターゲット1400",
@@ -10140,7 +10140,7 @@
     "unit": 0,
     "word_number": 1127,
     "word": "boil",
-    "meaning": "を沸かす；をゆでる；沸騰する"
+    "meaning": "を沸かす をゆでる 沸騰する"
   },
   {
     "textbook": "ターゲット1400",
@@ -10158,7 +10158,7 @@
     "unit": 0,
     "word_number": 1129,
     "word": "conceal",
-    "meaning": "を隠す（≒ hide）；を（～に）秘密にする（from）"
+    "meaning": "を隠す（≒ hide） を（～に）秘密にする（from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10176,7 +10176,7 @@
     "unit": 0,
     "word_number": 1131,
     "word": "cheat",
-    "meaning": "をだます；カンニングをする"
+    "meaning": "をだます カンニングをする"
   },
   {
     "textbook": "ターゲット1400",
@@ -10194,7 +10194,7 @@
     "unit": 0,
     "word_number": 1133,
     "word": "exclude",
-    "meaning": "を（～から）締め出す（from）；を（～から）除外する（from）（⇔ include ? 117）"
+    "meaning": "を（～から）締め出す（from） を（～から）除外する（from）（⇔ include ? 117）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10212,7 +10212,7 @@
     "unit": 0,
     "word_number": 1135,
     "word": "thrill",
-    "meaning": "を（興奮・快感などで）わくわく［ぞくぞく］させる；（～で）わくわくする（at）"
+    "meaning": "を（興奮・快感などで）わくわく［ぞくぞく］させる （～で）わくわくする（at）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10239,7 +10239,7 @@
     "unit": 0,
     "word_number": 1138,
     "word": "dismiss",
-    "meaning": "を解雇する（≒ fire）；（集会など）を解散させる；（意見など）を退ける"
+    "meaning": "を解雇する（≒ fire） （集会など）を解散させる （意見など）を退ける"
   },
   {
     "textbook": "ターゲット1400",
@@ -10257,7 +10257,7 @@
     "unit": 0,
     "word_number": 1140,
     "word": "withdraw",
-    "meaning": "（～から）退く（from）；（預金）を下ろす；（支持など）を取りやめる；を撤回する"
+    "meaning": "（～から）退く（from） （預金）を下ろす （支持など）を取りやめる を撤回する"
   },
   {
     "textbook": "ターゲット1400",
@@ -10266,7 +10266,7 @@
     "unit": 0,
     "word_number": 1141,
     "word": "fade",
-    "meaning": "（徐々に）消えていく；（色が）あせる"
+    "meaning": "（徐々に）消えていく （色が）あせる"
   },
   {
     "textbook": "ターゲット1400",
@@ -10275,7 +10275,7 @@
     "unit": 0,
     "word_number": 1142,
     "word": "vanish",
-    "meaning": "消え失せる；（急に）見えなくなる（≒ disappear ? 336）"
+    "meaning": "消え失せる （急に）見えなくなる（≒ disappear ? 336）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10293,7 +10293,7 @@
     "unit": 0,
     "word_number": 1144,
     "word": "geography",
-    "meaning": "地理；地理学"
+    "meaning": "地理 地理学"
   },
   {
     "textbook": "ターゲット1400",
@@ -10302,7 +10302,7 @@
     "unit": 0,
     "word_number": 1145,
     "word": "ecology",
-    "meaning": "生態系；生態学；環境保護"
+    "meaning": "生態系 生態学 環境保護"
   },
   {
     "textbook": "ターゲット1400",
@@ -10311,7 +10311,7 @@
     "unit": 0,
     "word_number": 1146,
     "word": "inhabitant",
-    "meaning": "住民；生息動物"
+    "meaning": "住民 生息動物"
   },
   {
     "textbook": "ターゲット1400",
@@ -10374,7 +10374,7 @@
     "unit": 0,
     "word_number": 1153,
     "word": "trace",
-    "meaning": "名残；（通った）跡；わずかな量"
+    "meaning": "名残 （通った）跡 わずかな量"
   },
   {
     "textbook": "ターゲット1400",
@@ -10392,7 +10392,7 @@
     "unit": 0,
     "word_number": 1155,
     "word": "core",
-    "meaning": "〔普通 the ～〕核心，中心（部）；（果物の）芯"
+    "meaning": "〔普通 the ～〕核心，中心（部） （果物の）芯"
   },
   {
     "textbook": "ターゲット1400",
@@ -10410,7 +10410,7 @@
     "unit": 0,
     "word_number": 1157,
     "word": "galaxy",
-    "meaning": "銀河；〔the G～〕銀河系；〔a ～〕華やかな集まり"
+    "meaning": "銀河 〔the G～〕銀河系 〔a ～〕華やかな集まり"
   },
   {
     "textbook": "ターゲット1400",
@@ -10419,7 +10419,7 @@
     "unit": 0,
     "word_number": 1158,
     "word": "myth",
-    "meaning": "神話；（根拠のない）通説"
+    "meaning": "神話 （根拠のない）通説"
   },
   {
     "textbook": "ターゲット1400",
@@ -10428,7 +10428,7 @@
     "unit": 0,
     "word_number": 1159,
     "word": "faith",
-    "meaning": "（～に対する）信頼（in）；信仰（心）"
+    "meaning": "（～に対する）信頼（in） 信仰（心）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10437,7 +10437,7 @@
     "unit": 0,
     "word_number": 1160,
     "word": "wisdom",
-    "meaning": "知恵；賢いこと"
+    "meaning": "知恵 賢いこと"
   },
   {
     "textbook": "ターゲット1400",
@@ -10446,7 +10446,7 @@
     "unit": 0,
     "word_number": 1161,
     "word": "obligation",
-    "meaning": "（～に対する；...する）義務（to；to do）"
+    "meaning": "（～に対する ...する）義務（to to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10455,7 +10455,7 @@
     "unit": 0,
     "word_number": 1162,
     "word": "privilege",
-    "meaning": "特典，特権；（特別な）栄誉"
+    "meaning": "特典，特権 （特別な）栄誉"
   },
   {
     "textbook": "ターゲット1400",
@@ -10464,7 +10464,7 @@
     "unit": 0,
     "word_number": 1163,
     "word": "discrimination",
-    "meaning": "（～に対する）差別（against）；識別（力）"
+    "meaning": "（～に対する）差別（against） 識別（力）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10473,7 +10473,7 @@
     "unit": 0,
     "word_number": 1164,
     "word": "ambition",
-    "meaning": "（～への；...したいという）願望，野望（for；to do）；野心"
+    "meaning": "（～への ...したいという）願望，野望（for to do） 野心"
   },
   {
     "textbook": "ターゲット1400",
@@ -10482,7 +10482,7 @@
     "unit": 0,
     "word_number": 1165,
     "word": "illusion",
-    "meaning": "錯覚；幻想"
+    "meaning": "錯覚 幻想"
   },
   {
     "textbook": "ターゲット1400",
@@ -10491,7 +10491,7 @@
     "unit": 0,
     "word_number": 1166,
     "word": "instinct",
-    "meaning": "（～への；...する）本能（for；to do）"
+    "meaning": "（～への ...する）本能（for to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10500,7 +10500,7 @@
     "unit": 0,
     "word_number": 1167,
     "word": "shame",
-    "meaning": "〔a ～〕残念なこと；恥，不名誉"
+    "meaning": "〔a ～〕残念なこと 恥，不名誉"
   },
   {
     "textbook": "ターゲット1400",
@@ -10527,7 +10527,7 @@
     "unit": 0,
     "word_number": 1170,
     "word": "sympathy",
-    "meaning": "（～への）同情（for / with）；共感"
+    "meaning": "（～への）同情（for / with） 共感"
   },
   {
     "textbook": "ターゲット1400",
@@ -10536,7 +10536,7 @@
     "unit": 0,
     "word_number": 1171,
     "word": "tragedy",
-    "meaning": "悲惨な出来事；悲劇（⇔ comedy 喜劇）"
+    "meaning": "悲惨な出来事 悲劇（⇔ comedy 喜劇）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10563,7 +10563,7 @@
     "unit": 0,
     "word_number": 1174,
     "word": "abuse",
-    "meaning": "乱用；虐待"
+    "meaning": "乱用 虐待"
   },
   {
     "textbook": "ターゲット1400",
@@ -10572,7 +10572,7 @@
     "unit": 0,
     "word_number": 1175,
     "word": "wound",
-    "meaning": "傷（≒ injury）；（精神的な）痛手"
+    "meaning": "傷（≒ injury） （精神的な）痛手"
   },
   {
     "textbook": "ターゲット1400",
@@ -10581,7 +10581,7 @@
     "unit": 0,
     "word_number": 1176,
     "word": "fever",
-    "meaning": "熱，発熱；（～に対する）熱狂（for）"
+    "meaning": "熱，発熱 （～に対する）熱狂（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10590,7 +10590,7 @@
     "unit": 0,
     "word_number": 1177,
     "word": "infection",
-    "meaning": "伝染病；伝染，感染"
+    "meaning": "伝染病 伝染，感染"
   },
   {
     "textbook": "ターゲット1400",
@@ -10608,7 +10608,7 @@
     "unit": 0,
     "word_number": 1179,
     "word": "brilliant",
-    "meaning": "すばらしい；光り輝く；（～の）才能にあふれた（at）"
+    "meaning": "すばらしい 光り輝く （～の）才能にあふれた（at）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10617,7 +10617,7 @@
     "unit": 0,
     "word_number": 1180,
     "word": "gentle",
-    "meaning": "（～に）優しい（with）；穏やかな"
+    "meaning": "（～に）優しい（with） 穏やかな"
   },
   {
     "textbook": "ターゲット1400",
@@ -10626,7 +10626,7 @@
     "unit": 0,
     "word_number": 1181,
     "word": "noble",
-    "meaning": "高貴な；気高い"
+    "meaning": "高貴な 気高い"
   },
   {
     "textbook": "ターゲット1400",
@@ -10653,7 +10653,7 @@
     "unit": 0,
     "word_number": 1184,
     "word": "holy",
-    "meaning": "神聖な（≒ sacred）；信心深い"
+    "meaning": "神聖な（≒ sacred） 信心深い"
   },
   {
     "textbook": "ターゲット1400",
@@ -10662,7 +10662,7 @@
     "unit": 0,
     "word_number": 1185,
     "word": "decent",
-    "meaning": "きちんとした；かなりの；上品な"
+    "meaning": "きちんとした かなりの 上品な"
   },
   {
     "textbook": "ターゲット1400",
@@ -10671,7 +10671,7 @@
     "unit": 0,
     "word_number": 1186,
     "word": "grateful",
-    "meaning": "（人に；～のことを）感謝している（to；for）"
+    "meaning": "（人に ～のことを）感謝している（to for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10698,7 +10698,7 @@
     "unit": 0,
     "word_number": 1189,
     "word": "awkward",
-    "meaning": "（立場などが）厄介な；ぎこちない；気まずい"
+    "meaning": "（立場などが）厄介な ぎこちない 気まずい"
   },
   {
     "textbook": "ターゲット1400",
@@ -10707,7 +10707,7 @@
     "unit": 0,
     "word_number": 1190,
     "word": "awful",
-    "meaning": "ひどい（≒ terrible）；恐ろしい"
+    "meaning": "ひどい（≒ terrible） 恐ろしい"
   },
   {
     "textbook": "ターゲット1400",
@@ -10725,7 +10725,7 @@
     "unit": 0,
     "word_number": 1192,
     "word": "dynamic",
-    "meaning": "（人が）活動的な，精力的な；（物が）活発な；動的な（⇔ static ? 1398）"
+    "meaning": "（人が）活動的な，精力的な （物が）活発な 動的な（⇔ static ? 1398）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10743,7 +10743,7 @@
     "unit": 0,
     "word_number": 1194,
     "word": "abundant",
-    "meaning": "豊富な（≒ rich）；（～に）富む（in）"
+    "meaning": "豊富な（≒ rich） （～に）富む（in）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10752,7 +10752,7 @@
     "unit": 0,
     "word_number": 1195,
     "word": "dull",
-    "meaning": "退屈な（≒ boring）；鈍い（⇔ sharp 鋭い）"
+    "meaning": "退屈な（≒ boring） 鈍い（⇔ sharp 鋭い）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10770,7 +10770,7 @@
     "unit": 0,
     "word_number": 1197,
     "word": "spare",
-    "meaning": "余分の；予備の"
+    "meaning": "余分の 予備の"
   },
   {
     "textbook": "ターゲット1400",
@@ -10779,7 +10779,7 @@
     "unit": 0,
     "word_number": 1198,
     "word": "tight",
-    "meaning": "（服・靴などが）きつい（⇔ loose ? 1296）；しっかりした；（予定が）詰まった；（金が）不足した"
+    "meaning": "（服・靴などが）きつい（⇔ loose ? 1296） しっかりした （予定が）詰まった （金が）不足した"
   },
   {
     "textbook": "ターゲット1400",
@@ -10788,7 +10788,7 @@
     "unit": 0,
     "word_number": 1199,
     "word": "shallow",
-    "meaning": "浅い（⇔ deep 深い）；浅はかな"
+    "meaning": "浅い（⇔ deep 深い） 浅はかな"
   },
   {
     "textbook": "ターゲット1400",
@@ -10833,7 +10833,7 @@
     "unit": 0,
     "word_number": 1204,
     "word": "nod",
-    "meaning": "（～に）うなずく（to）；うとうとする"
+    "meaning": "（～に）うなずく（to） うとうとする"
   },
   {
     "textbook": "ターゲット1400",
@@ -10878,7 +10878,7 @@
     "unit": 0,
     "word_number": 1209,
     "word": "sweep",
-    "meaning": "を掃く，掃除する；を押し流す；を一掃する"
+    "meaning": "を掃く，掃除する を押し流す を一掃する"
   },
   {
     "textbook": "ターゲット1400",
@@ -10905,7 +10905,7 @@
     "unit": 0,
     "word_number": 1212,
     "word": "shed",
-    "meaning": "（涙・血など）を流す；（光など）を当てる"
+    "meaning": "（涙・血など）を流す （光など）を当てる"
   },
   {
     "textbook": "ターゲット1400",
@@ -10914,7 +10914,7 @@
     "unit": 0,
     "word_number": 1213,
     "word": "drag",
-    "meaning": "を引きずる；を無理やり連れて行く"
+    "meaning": "を引きずる を無理やり連れて行く"
   },
   {
     "textbook": "ターゲット1400",
@@ -10923,7 +10923,7 @@
     "unit": 0,
     "word_number": 1214,
     "word": "spoil",
-    "meaning": "を台無しにする（≒ ruin）；を甘やかしてだめにする"
+    "meaning": "を台無しにする（≒ ruin） を甘やかしてだめにする"
   },
   {
     "textbook": "ターゲット1400",
@@ -10932,7 +10932,7 @@
     "unit": 0,
     "word_number": 1215,
     "word": "burst",
-    "meaning": "破裂する；（～を）急に始める（into）"
+    "meaning": "破裂する （～を）急に始める（into）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10950,7 +10950,7 @@
     "unit": 0,
     "word_number": 1217,
     "word": "compromise",
-    "meaning": "（～と；～について）妥協する（with；on）"
+    "meaning": "（～と ～について）妥協する（with on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -10968,7 +10968,7 @@
     "unit": 0,
     "word_number": 1219,
     "word": "exploit",
-    "meaning": "を搾取する；（資源など）を開発する"
+    "meaning": "を搾取する （資源など）を開発する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11013,7 +11013,7 @@
     "unit": 0,
     "word_number": 1224,
     "word": "violate",
-    "meaning": "（法など）に違反する；（権利など）を侵害する"
+    "meaning": "（法など）に違反する （権利など）を侵害する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11040,7 +11040,7 @@
     "unit": 0,
     "word_number": 1227,
     "word": "tolerate",
-    "meaning": "に耐える；を大目に見る"
+    "meaning": "に耐える を大目に見る"
   },
   {
     "textbook": "ターゲット1400",
@@ -11049,7 +11049,7 @@
     "unit": 0,
     "word_number": 1228,
     "word": "suspend",
-    "meaning": "を一時的に中止する；をつるす"
+    "meaning": "を一時的に中止する をつるす"
   },
   {
     "textbook": "ターゲット1400",
@@ -11058,7 +11058,7 @@
     "unit": 0,
     "word_number": 1229,
     "word": "cease",
-    "meaning": "（...すること）をやめる（doing）；（...し）なくなる（to do）；終わる"
+    "meaning": "（...すること）をやめる（doing） （...し）なくなる（to do） 終わる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11067,7 +11067,7 @@
     "unit": 0,
     "word_number": 1230,
     "word": "appoint",
-    "meaning": "（人）を任命する；（日時・場所など）を指定する"
+    "meaning": "（人）を任命する （日時・場所など）を指定する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11076,7 +11076,7 @@
     "unit": 0,
     "word_number": 1231,
     "word": "undertake",
-    "meaning": "を引き受ける；（事業など）に着手する"
+    "meaning": "を引き受ける （事業など）に着手する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11085,7 +11085,7 @@
     "unit": 0,
     "word_number": 1232,
     "word": "overtake",
-    "meaning": "【米】 に追いつく（≒ catch up with）；【英】 を追い抜く；〔しばしば受身形で〕（災難などが）を襲う"
+    "meaning": "【米】 に追いつく（≒ catch up with） 【英】 を追い抜く 〔しばしば受身形で〕（災難などが）を襲う"
   },
   {
     "textbook": "ターゲット1400",
@@ -11094,7 +11094,7 @@
     "unit": 0,
     "word_number": 1233,
     "word": "proceed",
-    "meaning": "（～へ）移る（to）；（～を）続行する（with）；続けて（...する）（to do）"
+    "meaning": "（～へ）移る（to） （～を）続行する（with） 続けて（...する）（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11112,7 +11112,7 @@
     "unit": 0,
     "word_number": 1235,
     "word": "flourish",
-    "meaning": "繁盛する；繁殖する"
+    "meaning": "繁盛する 繁殖する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11121,7 +11121,7 @@
     "unit": 0,
     "word_number": 1236,
     "word": "thrive",
-    "meaning": "（事業などが）栄える，繁栄する（≒ flourish）；（人・動植物などが）成長する"
+    "meaning": "（事業などが）栄える，繁栄する（≒ flourish） （人・動植物などが）成長する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11130,7 +11130,7 @@
     "unit": 0,
     "word_number": 1237,
     "word": "venture",
-    "meaning": "思い切って（～に）着手する（into / on）；を（～に）賭ける（on）"
+    "meaning": "思い切って（～に）着手する（into / on） を（～に）賭ける（on）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11148,7 +11148,7 @@
     "unit": 0,
     "word_number": 1239,
     "word": "rear",
-    "meaning": "を育てる（≒ raise, bring up）；を飼育する"
+    "meaning": "を育てる（≒ raise, bring up） を飼育する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11157,7 +11157,7 @@
     "unit": 0,
     "word_number": 1240,
     "word": "inherit",
-    "meaning": "を（～から）相続する（from）；を（～から）（遺伝的に）受け継ぐ（from）"
+    "meaning": "を（～から）相続する（from） を（～から）（遺伝的に）受け継ぐ（from）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11166,7 +11166,7 @@
     "unit": 0,
     "word_number": 1241,
     "word": "blossom",
-    "meaning": "開花する；（～へと）成長する（into）"
+    "meaning": "開花する （～へと）成長する（into）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11202,7 +11202,7 @@
     "unit": 0,
     "word_number": 1245,
     "word": "voyage",
-    "meaning": "航海；宇宙旅行"
+    "meaning": "航海 宇宙旅行"
   },
   {
     "textbook": "ターゲット1400",
@@ -11247,7 +11247,7 @@
     "unit": 0,
     "word_number": 1250,
     "word": "dawn",
-    "meaning": "夜明け；〔the ～〕始まり"
+    "meaning": "夜明け 〔the ～〕始まり"
   },
   {
     "textbook": "ターゲット1400",
@@ -11265,7 +11265,7 @@
     "unit": 0,
     "word_number": 1252,
     "word": "statistics",
-    "meaning": "統計（の数字，データ）；統計学"
+    "meaning": "統計（の数字，データ） 統計学"
   },
   {
     "textbook": "ターゲット1400",
@@ -11274,7 +11274,7 @@
     "unit": 0,
     "word_number": 1253,
     "word": "dimension",
-    "meaning": "局面，面（≒ aspect）；（長さ・幅・厚さの）寸法；次元"
+    "meaning": "局面，面（≒ aspect） （長さ・幅・厚さの）寸法 次元"
   },
   {
     "textbook": "ターゲット1400",
@@ -11283,7 +11283,7 @@
     "unit": 0,
     "word_number": 1254,
     "word": "faculty",
-    "meaning": "（～の）才能（of / for）；（身体の・精神の）機能（of）；学部"
+    "meaning": "（～の）才能（of / for） （身体の・精神の）機能（of） 学部"
   },
   {
     "textbook": "ターゲット1400",
@@ -11292,7 +11292,7 @@
     "unit": 0,
     "word_number": 1255,
     "word": "scheme",
-    "meaning": "計画（≒ plan）；陰謀"
+    "meaning": "計画（≒ plan） 陰謀"
   },
   {
     "textbook": "ターゲット1400",
@@ -11310,7 +11310,7 @@
     "unit": 0,
     "word_number": 1257,
     "word": "output",
-    "meaning": "生産（高）；出力（⇔ input 入力）"
+    "meaning": "生産（高） 出力（⇔ input 入力）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11319,7 +11319,7 @@
     "unit": 0,
     "word_number": 1258,
     "word": "outlook",
-    "meaning": "（～の）見通し（for）；眺め"
+    "meaning": "（～の）見通し（for） 眺め"
   },
   {
     "textbook": "ターゲット1400",
@@ -11328,7 +11328,7 @@
     "unit": 0,
     "word_number": 1259,
     "word": "tuition",
-    "meaning": "【主に米】 授業料；（個人）指導"
+    "meaning": "【主に米】 授業料 （個人）指導"
   },
   {
     "textbook": "ターゲット1400",
@@ -11355,7 +11355,7 @@
     "unit": 0,
     "word_number": 1262,
     "word": "narrative",
-    "meaning": "話；物語（≒ story, tale）"
+    "meaning": "話 物語（≒ story, tale）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11373,7 +11373,7 @@
     "unit": 0,
     "word_number": 1264,
     "word": "string",
-    "meaning": "ひも，糸；（～の）一続き（of）；（～の）一つなぎ（of）"
+    "meaning": "ひも，糸 （～の）一続き（of） （～の）一つなぎ（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11382,7 +11382,7 @@
     "unit": 0,
     "word_number": 1265,
     "word": "tag",
-    "meaning": "札；値札"
+    "meaning": "札 値札"
   },
   {
     "textbook": "ターゲット1400",
@@ -11472,7 +11472,7 @@
     "unit": 0,
     "word_number": 1275,
     "word": "luxury",
-    "meaning": "ぜいたく品；ぜいたく"
+    "meaning": "ぜいたく品 ぜいたく"
   },
   {
     "textbook": "ターゲット1400",
@@ -11499,7 +11499,7 @@
     "unit": 0,
     "word_number": 1278,
     "word": "keen",
-    "meaning": "（～に）熱中して，（～が）大好きで（on / about）；【主に英】 熱心な， （...することを）熱望して（to do）；（感覚などが）鋭い"
+    "meaning": "（～に）熱中して，（～が）大好きで（on / about） 【主に英】 熱心な， （...することを）熱望して（to do） （感覚などが）鋭い"
   },
   {
     "textbook": "ターゲット1400",
@@ -11508,7 +11508,7 @@
     "unit": 0,
     "word_number": 1279,
     "word": "inclined",
-    "meaning": "（...し）たいと思う（to do）；（...する）傾向がある（to do）"
+    "meaning": "（...し）たいと思う（to do） （...する）傾向がある（to do）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11517,7 +11517,7 @@
     "unit": 0,
     "word_number": 1280,
     "word": "competent",
-    "meaning": "有能な（≒ able, capable）；満足できる"
+    "meaning": "有能な（≒ able, capable） 満足できる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11571,7 +11571,7 @@
     "unit": 0,
     "word_number": 1286,
     "word": "bold",
-    "meaning": "大胆な；勇敢な"
+    "meaning": "大胆な 勇敢な"
   },
   {
     "textbook": "ターゲット1400",
@@ -11589,7 +11589,7 @@
     "unit": 0,
     "word_number": 1288,
     "word": "ugly",
-    "meaning": "醜い（⇔ beautiful 美しい），不格好な；不愉快な"
+    "meaning": "醜い（⇔ beautiful 美しい），不格好な 不愉快な"
   },
   {
     "textbook": "ターゲット1400",
@@ -11598,7 +11598,7 @@
     "unit": 0,
     "word_number": 1289,
     "word": "pale",
-    "meaning": "青白い；（色が）淡い"
+    "meaning": "青白い （色が）淡い"
   },
   {
     "textbook": "ターゲット1400",
@@ -11616,7 +11616,7 @@
     "unit": 0,
     "word_number": 1291,
     "word": "manual",
-    "meaning": "手による；手動（式）の；体を使う"
+    "meaning": "手による 手動（式）の 体を使う"
   },
   {
     "textbook": "ターゲット1400",
@@ -11625,7 +11625,7 @@
     "unit": 0,
     "word_number": 1292,
     "word": "mutual",
-    "meaning": "相互の；共通の（≒ common）"
+    "meaning": "相互の 共通の（≒ common）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11634,7 +11634,7 @@
     "unit": 0,
     "word_number": 1293,
     "word": "delicate",
-    "meaning": "取り扱いの難しい；繊細な"
+    "meaning": "取り扱いの難しい 繊細な"
   },
   {
     "textbook": "ターゲット1400",
@@ -11643,7 +11643,7 @@
     "unit": 0,
     "word_number": 1294,
     "word": "deliberate",
-    "meaning": "故意の（≒ intentional）；慎重な（≒ careful）"
+    "meaning": "故意の（≒ intentional） 慎重な（≒ careful）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11652,7 +11652,7 @@
     "unit": 0,
     "word_number": 1295,
     "word": "gradual",
-    "meaning": "徐々の（⇔ sudden ? 893）；緩やかな"
+    "meaning": "徐々の（⇔ sudden ? 893） 緩やかな"
   },
   {
     "textbook": "ターゲット1400",
@@ -11661,7 +11661,7 @@
     "unit": 0,
     "word_number": 1296,
     "word": "loose",
-    "meaning": "緩い（⇔ tight ? 1198）；解き放たれた"
+    "meaning": "緩い（⇔ tight ? 1198） 解き放たれた"
   },
   {
     "textbook": "ターゲット1400",
@@ -11670,7 +11670,7 @@
     "unit": 0,
     "word_number": 1297,
     "word": "bitter",
-    "meaning": "つらい；苦い（⇔ sweet 甘い）；痛烈な"
+    "meaning": "つらい 苦い（⇔ sweet 甘い） 痛烈な"
   },
   {
     "textbook": "ターゲット1400",
@@ -11679,7 +11679,7 @@
     "unit": 0,
     "word_number": 1298,
     "word": "mild",
-    "meaning": "（気候などが）温暖な；（性質などが）穏やかな；（程度が）軽い"
+    "meaning": "（気候などが）温暖な （性質などが）穏やかな （程度が）軽い"
   },
   {
     "textbook": "ターゲット1400",
@@ -11688,7 +11688,7 @@
     "unit": 0,
     "word_number": 1299,
     "word": "dense",
-    "meaning": "密集した；（霧などが）濃い"
+    "meaning": "密集した （霧などが）濃い"
   },
   {
     "textbook": "ターゲット1400",
@@ -11697,7 +11697,7 @@
     "unit": 0,
     "word_number": 1300,
     "word": "tense",
-    "meaning": "張り詰めた；ぴんと張った"
+    "meaning": "張り詰めた ぴんと張った"
   },
   {
     "textbook": "ターゲット1400",
@@ -11706,7 +11706,7 @@
     "unit": 0,
     "word_number": 1301,
     "word": "conceive",
-    "meaning": "（考えなど）を抱く，思いつく；〔普通疑問文・否定文で〕（を）想像する；（子）を妊娠する"
+    "meaning": "（考えなど）を抱く，思いつく 〔普通疑問文・否定文で〕（を）想像する （子）を妊娠する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11715,7 +11715,7 @@
     "unit": 0,
     "word_number": 1302,
     "word": "confess",
-    "meaning": "を（～に）告白する（to）；（...ということ）を認める（that節）（≒ admit）；（～を）告白する（to）"
+    "meaning": "を（～に）告白する（to） （...ということ）を認める（that節）（≒ admit） （～を）告白する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11724,7 +11724,7 @@
     "unit": 0,
     "word_number": 1303,
     "word": "conform",
-    "meaning": "（規則・習慣などに）従う（to / with）；（～と）一致する（to / with）"
+    "meaning": "（規則・習慣などに）従う（to / with） （～と）一致する（to / with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11733,7 +11733,7 @@
     "unit": 0,
     "word_number": 1304,
     "word": "offend",
-    "meaning": "を怒らせる；罪を犯す"
+    "meaning": "を怒らせる 罪を犯す"
   },
   {
     "textbook": "ターゲット1400",
@@ -11769,7 +11769,7 @@
     "unit": 0,
     "word_number": 1308,
     "word": "confine",
-    "meaning": "を限定する；〔普通受身形で〕閉じ込められる"
+    "meaning": "を限定する 〔普通受身形で〕閉じ込められる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11778,7 +11778,7 @@
     "unit": 0,
     "word_number": 1309,
     "word": "contradict",
-    "meaning": "と矛盾する；を（間違っていると）否定する"
+    "meaning": "と矛盾する を（間違っていると）否定する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11787,7 +11787,7 @@
     "unit": 0,
     "word_number": 1310,
     "word": "compensate",
-    "meaning": "（人）に（～に対して）補償する（for）；（～に対して）埋め合わせる（for）（≒ make up for）"
+    "meaning": "（人）に（～に対して）補償する（for） （～に対して）埋め合わせる（for）（≒ make up for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11796,7 +11796,7 @@
     "unit": 0,
     "word_number": 1311,
     "word": "coincide",
-    "meaning": "（～と）同時に起こる（with）；（～と）一致する（with）"
+    "meaning": "（～と）同時に起こる（with） （～と）一致する（with）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11805,7 +11805,7 @@
     "unit": 0,
     "word_number": 1312,
     "word": "assure",
-    "meaning": "に（～だと言って）安心させる（of / that節）；に（～を）保証する（of）"
+    "meaning": "に（～だと言って）安心させる（of / that節） に（～を）保証する（of）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11814,7 +11814,7 @@
     "unit": 0,
     "word_number": 1313,
     "word": "attain",
-    "meaning": "を達成する；（ある地点）に到達する"
+    "meaning": "を達成する （ある地点）に到達する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11823,7 +11823,7 @@
     "unit": 0,
     "word_number": 1314,
     "word": "inquire",
-    "meaning": "を尋ねる；（～について）尋ねる（about）"
+    "meaning": "を尋ねる （～について）尋ねる（about）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11832,7 +11832,7 @@
     "unit": 0,
     "word_number": 1315,
     "word": "invade",
-    "meaning": "を侵略する，に侵攻する；（を）侵害する"
+    "meaning": "を侵略する，に侵攻する （を）侵害する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11850,7 +11850,7 @@
     "unit": 0,
     "word_number": 1317,
     "word": "persist",
-    "meaning": "（～に）固執する，（～を）しつこく続ける（in / with）；持続する"
+    "meaning": "（～に）固執する，（～を）しつこく続ける（in / with） 持続する"
   },
   {
     "textbook": "ターゲット1400",
@@ -11859,7 +11859,7 @@
     "unit": 0,
     "word_number": 1318,
     "word": "last",
-    "meaning": "（一定期間）続く（≒ continue）；長持ちする"
+    "meaning": "（一定期間）続く（≒ continue） 長持ちする"
   },
   {
     "textbook": "ターゲット1400",
@@ -11868,7 +11868,7 @@
     "unit": 0,
     "word_number": 1319,
     "word": "surrender",
-    "meaning": "を（～に）引き渡す（to）；（～に）降伏する（to）"
+    "meaning": "を（～に）引き渡す（to） （～に）降伏する（to）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11877,7 +11877,7 @@
     "unit": 0,
     "word_number": 1320,
     "word": "betray",
-    "meaning": "を裏切る；（秘密など）を漏らす"
+    "meaning": "を裏切る （秘密など）を漏らす"
   },
   {
     "textbook": "ターゲット1400",
@@ -11886,7 +11886,7 @@
     "unit": 0,
     "word_number": 1321,
     "word": "strain",
-    "meaning": "をぴんと張る；（身体の一部）を痛める；（身体の一部）を最大限に働かせる"
+    "meaning": "をぴんと張る （身体の一部）を痛める （身体の一部）を最大限に働かせる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11913,7 +11913,7 @@
     "unit": 0,
     "word_number": 1324,
     "word": "spill",
-    "meaning": "（液体など）を（～に）こぼす（over / on）；こぼれる"
+    "meaning": "（液体など）を（～に）こぼす（over / on） こぼれる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11922,7 +11922,7 @@
     "unit": 0,
     "word_number": 1325,
     "word": "prevail",
-    "meaning": "（～に）普及する（among / in）；（～に）勝る（over / against）"
+    "meaning": "（～に）普及する（among / in） （～に）勝る（over / against）"
   },
   {
     "textbook": "ターゲット1400",
@@ -11931,7 +11931,7 @@
     "unit": 0,
     "word_number": 1326,
     "word": "starve",
-    "meaning": "飢えに苦しむ；（～を）渇望する（for）；を飢えさせる"
+    "meaning": "飢えに苦しむ （～を）渇望する（for） を飢えさせる"
   },
   {
     "textbook": "ターゲット1400",
@@ -11949,7 +11949,7 @@
     "unit": 0,
     "word_number": 1328,
     "word": "disguise",
-    "meaning": "を変装させる；（事実など）を包み隠す"
+    "meaning": "を変装させる （事実など）を包み隠す"
   },
   {
     "textbook": "ターゲット1400",
@@ -11958,7 +11958,7 @@
     "unit": 0,
     "word_number": 1329,
     "word": "strip",
-    "meaning": "から（～を）剥奪する（of）；を（～から）取り去る（from / off）；を脱ぐ"
+    "meaning": "から（～を）剥奪する（of） を（～から）取り去る（from / off） を脱ぐ"
   },
   {
     "textbook": "ターゲット1400",
@@ -11967,7 +11967,7 @@
     "unit": 0,
     "word_number": 1330,
     "word": "scratch",
-    "meaning": "をかく；を引っかく"
+    "meaning": "をかく を引っかく"
   },
   {
     "textbook": "ターゲット1400",
@@ -11976,7 +11976,7 @@
     "unit": 0,
     "word_number": 1331,
     "word": "bathe",
-    "meaning": "【米】 を入浴させる；を浸す"
+    "meaning": "【米】 を入浴させる を浸す"
   },
   {
     "textbook": "ターゲット1400",
@@ -11985,7 +11985,7 @@
     "unit": 0,
     "word_number": 1332,
     "word": "soak",
-    "meaning": "を（～に）浸す（in）；をずぶぬれにする"
+    "meaning": "を（～に）浸す（in） をずぶぬれにする"
   },
   {
     "textbook": "ターゲット1400",
@@ -11994,7 +11994,7 @@
     "unit": 0,
     "word_number": 1333,
     "word": "stir",
-    "meaning": "をかき回す；（記憶などを）呼び起こす"
+    "meaning": "をかき回す （記憶などを）呼び起こす"
   },
   {
     "textbook": "ターゲット1400",
@@ -12003,7 +12003,7 @@
     "unit": 0,
     "word_number": 1334,
     "word": "wind",
-    "meaning": "曲がりくねる；を巻く，巻きつける"
+    "meaning": "曲がりくねる を巻く，巻きつける"
   },
   {
     "textbook": "ターゲット1400",
@@ -12012,7 +12012,7 @@
     "unit": 0,
     "word_number": 1335,
     "word": "heal",
-    "meaning": "を治す，癒やす（≒ cure）；癒える"
+    "meaning": "を治す，癒やす（≒ cure） 癒える"
   },
   {
     "textbook": "ターゲット1400",
@@ -12030,7 +12030,7 @@
     "unit": 0,
     "word_number": 1337,
     "word": "sew",
-    "meaning": "を（～に）縫いつける（on）；を縫う"
+    "meaning": "を（～に）縫いつける（on） を縫う"
   },
   {
     "textbook": "ターゲット1400",
@@ -12057,7 +12057,7 @@
     "unit": 0,
     "word_number": 1340,
     "word": "pray",
-    "meaning": "（～を）祈る（for）；（...であること）を祈る（that節）；（に）（～のことで）懇願する（for）"
+    "meaning": "（～を）祈る（for） （...であること）を祈る（that節） （に）（～のことで）懇願する（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12075,7 +12075,7 @@
     "unit": 0,
     "word_number": 1342,
     "word": "summit",
-    "meaning": "頂上；（先進国）首脳会談［会議］"
+    "meaning": "頂上 （先進国）首脳会談［会議］"
   },
   {
     "textbook": "ターゲット1400",
@@ -12093,7 +12093,7 @@
     "unit": 0,
     "word_number": 1344,
     "word": "secretary",
-    "meaning": "秘書；〔S～〕 【米】 長官；〔S～〕 【英】 大臣"
+    "meaning": "秘書 〔S～〕 【米】 長官 〔S～〕 【英】 大臣"
   },
   {
     "textbook": "ターゲット1400",
@@ -12102,7 +12102,7 @@
     "unit": 0,
     "word_number": 1345,
     "word": "council",
-    "meaning": "（地方自治体の）議会；評議会"
+    "meaning": "（地方自治体の）議会 評議会"
   },
   {
     "textbook": "ターゲット1400",
@@ -12111,7 +12111,7 @@
     "unit": 0,
     "word_number": 1346,
     "word": "panel",
-    "meaning": "委員会［団］；（公開討論などの）討論者，パネリスト；羽目板；計器盤"
+    "meaning": "委員会［団］ （公開討論などの）討論者，パネリスト 羽目板 計器盤"
   },
   {
     "textbook": "ターゲット1400",
@@ -12156,7 +12156,7 @@
     "unit": 0,
     "word_number": 1351,
     "word": "refuge",
-    "meaning": "（～からの）避難（from）；避難所"
+    "meaning": "（～からの）避難（from） 避難所"
   },
   {
     "textbook": "ターゲット1400",
@@ -12174,7 +12174,7 @@
     "unit": 0,
     "word_number": 1353,
     "word": "caution",
-    "meaning": "用心，注意；警告"
+    "meaning": "用心，注意 警告"
   },
   {
     "textbook": "ターゲット1400",
@@ -12183,7 +12183,7 @@
     "unit": 0,
     "word_number": 1354,
     "word": "pity",
-    "meaning": "残念なこと；哀れみ"
+    "meaning": "残念なこと 哀れみ"
   },
   {
     "textbook": "ターゲット1400",
@@ -12201,7 +12201,7 @@
     "unit": 0,
     "word_number": 1356,
     "word": "grief",
-    "meaning": "深い悲しみ；悲しみの原因"
+    "meaning": "深い悲しみ 悲しみの原因"
   },
   {
     "textbook": "ターゲット1400",
@@ -12255,7 +12255,7 @@
     "unit": 0,
     "word_number": 1362,
     "word": "virtue",
-    "meaning": "美徳（⇔ vice 悪徳）；長所"
+    "meaning": "美徳（⇔ vice 悪徳） 長所"
   },
   {
     "textbook": "ターゲット1400",
@@ -12282,7 +12282,7 @@
     "unit": 0,
     "word_number": 1365,
     "word": "glory",
-    "meaning": "栄光（を与えるもの）；全盛"
+    "meaning": "栄光（を与えるもの） 全盛"
   },
   {
     "textbook": "ターゲット1400",
@@ -12291,7 +12291,7 @@
     "unit": 0,
     "word_number": 1366,
     "word": "dignity",
-    "meaning": "尊厳；威厳"
+    "meaning": "尊厳 威厳"
   },
   {
     "textbook": "ターゲット1400",
@@ -12300,7 +12300,7 @@
     "unit": 0,
     "word_number": 1367,
     "word": "worship",
-    "meaning": "崇拝；礼拝"
+    "meaning": "崇拝 礼拝"
   },
   {
     "textbook": "ターゲット1400",
@@ -12327,7 +12327,7 @@
     "unit": 0,
     "word_number": 1370,
     "word": "triumph",
-    "meaning": "（～に対する）（大きな）勝利（over）（≒ victory）；（勝利による）歓喜"
+    "meaning": "（～に対する）（大きな）勝利（over）（≒ victory） （勝利による）歓喜"
   },
   {
     "textbook": "ターゲット1400",
@@ -12336,7 +12336,7 @@
     "unit": 0,
     "word_number": 1371,
     "word": "circulation",
-    "meaning": "血行；（貨幣の）流通；（新聞などの）発行部数"
+    "meaning": "血行 （貨幣の）流通 （新聞などの）発行部数"
   },
   {
     "textbook": "ターゲット1400",
@@ -12345,7 +12345,7 @@
     "unit": 0,
     "word_number": 1372,
     "word": "merit",
-    "meaning": "優秀さ；長所（⇔ demerit 短所）；価値"
+    "meaning": "優秀さ 長所（⇔ demerit 短所） 価値"
   },
   {
     "textbook": "ターゲット1400",
@@ -12354,7 +12354,7 @@
     "unit": 0,
     "word_number": 1373,
     "word": "appetite",
-    "meaning": "食欲；（～への）欲求（for）"
+    "meaning": "食欲 （～への）欲求（for）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12363,7 +12363,7 @@
     "unit": 0,
     "word_number": 1374,
     "word": "nutrition",
-    "meaning": "栄養摂取；栄養（物）"
+    "meaning": "栄養摂取 栄養（物）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12372,7 +12372,7 @@
     "unit": 0,
     "word_number": 1375,
     "word": "decay",
-    "meaning": "虫歯（になった部分）；衰退，荒廃；腐敗"
+    "meaning": "虫歯（になった部分） 衰退，荒廃 腐敗"
   },
   {
     "textbook": "ターゲット1400",
@@ -12390,7 +12390,7 @@
     "unit": 0,
     "word_number": 1377,
     "word": "boom",
-    "meaning": "好況，ブーム；（人気などの）急上昇"
+    "meaning": "好況，ブーム （人気などの）急上昇"
   },
   {
     "textbook": "ターゲット1400",
@@ -12399,7 +12399,7 @@
     "unit": 0,
     "word_number": 1378,
     "word": "valid",
-    "meaning": "正当な根拠のある；（法的に）有効な（⇔ invalid 無効な）"
+    "meaning": "正当な根拠のある （法的に）有効な（⇔ invalid 無効な）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12408,7 +12408,7 @@
     "unit": 0,
     "word_number": 1379,
     "word": "due",
-    "meaning": "（...する）予定で（to do）；締め切りの"
+    "meaning": "（...する）予定で（to do） 締め切りの"
   },
   {
     "textbook": "ターゲット1400",
@@ -12426,7 +12426,7 @@
     "unit": 0,
     "word_number": 1381,
     "word": "bare",
-    "meaning": "裸の（≒ naked, nude）；露出した"
+    "meaning": "裸の（≒ naked, nude） 露出した"
   },
   {
     "textbook": "ターゲット1400",
@@ -12435,7 +12435,7 @@
     "unit": 0,
     "word_number": 1382,
     "word": "naked",
-    "meaning": "裸の（≒ bare, nude）；草木の生えない"
+    "meaning": "裸の（≒ bare, nude） 草木の生えない"
   },
   {
     "textbook": "ターゲット1400",
@@ -12444,7 +12444,7 @@
     "unit": 0,
     "word_number": 1383,
     "word": "obscure",
-    "meaning": "（意味などが）わかりにくい（⇔ clear ? 82）；ぼんやりした"
+    "meaning": "（意味などが）わかりにくい（⇔ clear ? 82） ぼんやりした"
   },
   {
     "textbook": "ターゲット1400",
@@ -12453,7 +12453,7 @@
     "unit": 0,
     "word_number": 1384,
     "word": "peculiar",
-    "meaning": "（～に）特有の（to）；風変わりな"
+    "meaning": "（～に）特有の（to） 風変わりな"
   },
   {
     "textbook": "ターゲット1400",
@@ -12462,7 +12462,7 @@
     "unit": 0,
     "word_number": 1385,
     "word": "tidy",
-    "meaning": "（場所などが）整然とした（⇔ messy 散らかった）, きれいにしてある（≒ neat）；（身なりなどが）きちんとした（⇔ untidy だらしない）"
+    "meaning": "（場所などが）整然とした（⇔ messy 散らかった）, きれいにしてある（≒ neat） （身なりなどが）きちんとした（⇔ untidy だらしない）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12489,7 +12489,7 @@
     "unit": 0,
     "word_number": 1388,
     "word": "steep",
-    "meaning": "（斜面が）急な；（増減が）急激な"
+    "meaning": "（斜面が）急な （増減が）急激な"
   },
   {
     "textbook": "ターゲット1400",
@@ -12534,7 +12534,7 @@
     "unit": 0,
     "word_number": 1393,
     "word": "idle",
-    "meaning": "使われていない；（人が）仕事がない；怠けた（≒ lazy）"
+    "meaning": "使われていない （人が）仕事がない 怠けた（≒ lazy）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12579,7 +12579,7 @@
     "unit": 0,
     "word_number": 1398,
     "word": "static",
-    "meaning": "変化のない；静止状態の（⇔ dynamic ? 1192）"
+    "meaning": "変化のない 静止状態の（⇔ dynamic ? 1192）"
   },
   {
     "textbook": "ターゲット1400",
@@ -12588,7 +12588,7 @@
     "unit": 0,
     "word_number": 1399,
     "word": "thorough",
-    "meaning": "徹底的な；完全な"
+    "meaning": "徹底的な 完全な"
   },
   {
     "textbook": "ターゲット1400",
@@ -12597,6 +12597,6 @@
     "unit": 0,
     "word_number": 1400,
     "word": "immense",
-    "meaning": "計り知れない；膨大な（≒ enormous）"
+    "meaning": "計り知れない 膨大な（≒ enormous）"
   }
 ]
