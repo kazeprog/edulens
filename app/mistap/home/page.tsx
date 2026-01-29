@@ -11,6 +11,7 @@ import { getActiveAnnouncements, Announcement } from '@/lib/mistap/announcements
 import Background from '@/components/mistap/Background';
 import GroupRanking from '@/components/GroupRanking';
 import ProgressDashboard from '@/components/mistap/ProgressDashboard';
+import ContributionGrid from '@/components/mistap/ContributionGrid';
 import MistapFooter from '@/components/mistap/Footer';
 
 type BeforeInstallPromptEvent = Event & {
@@ -767,6 +768,9 @@ export default function HomePage() {
                                     </div>
                                 </div>
                             )}
+
+                            {/* 草（Contribution Graph） */}
+                            <ContributionGrid />
 
                             {/* Today's Goal Card */}
                             {todayGoal ? (
