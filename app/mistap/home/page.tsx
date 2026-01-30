@@ -153,16 +153,16 @@ function UserCountDisplay() {
     return (
         <div ref={elementRef} className="mt-8 relative group">
             {/* 背景の装飾効果 */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
 
             <div className="relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100 overflow-hidden">
                 {/* 背景パターン */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-50 to-indigo-50 rounded-full -ml-8 -mb-8 opacity-50"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-orange-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-red-50 to-orange-50 rounded-full -ml-8 -mb-8 opacity-50"></div>
 
                 <div className="relative flex items-center justify-between">
                     <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200 transform group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg shadow-red-200 transform group-hover:scale-110 transition-transform duration-300">
                             <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
@@ -170,7 +170,7 @@ function UserCountDisplay() {
                         <div>
                             <p className="text-sm font-semibold text-gray-500 mb-0.5">Mistap メンバー数</p>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                                <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-orange-600">
                                     {displayCount.toLocaleString()}
                                 </span>
                                 <span className="text-sm font-bold text-gray-400">人</span>
@@ -179,7 +179,7 @@ function UserCountDisplay() {
                     </div>
 
                     {/* 参加ボタン的な装飾 */}
-                    <div className="hidden md:flex items-center gap-2 text-blue-600 bg-blue-50 px-4 py-2 rounded-xl text-sm font-bold group-hover:bg-blue-100 transition-colors">
+                    <div className="hidden md:flex items-center gap-2 text-red-600 bg-red-50 px-4 py-2 rounded-xl text-sm font-bold group-hover:bg-red-100 transition-colors">
                         <span>現在拡大中!</span>
                         <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -690,7 +690,7 @@ export default function HomePage() {
                                     <Link
                                         href="/upgrade"
                                         prefetch={false}
-                                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors group"
+                                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-red-600 transition-colors group"
                                     >
                                         <span>広告非表示はこちら</span>
                                         <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -899,7 +899,7 @@ export default function HomePage() {
                             <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
                                 <div className="flex items-center justify-between mb-6">
                                     <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                                        <span className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                                        <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
@@ -956,7 +956,7 @@ export default function HomePage() {
                                         <p className="mb-4">まだ履歴がありません</p>
                                         <button
                                             onClick={() => router.push('/mistap/test-setup')}
-                                            className="text-blue-600 font-medium hover:underline"
+                                            className="text-red-600 font-medium hover:underline"
                                         >
                                             最初のテストに挑戦！
                                         </button>
@@ -1021,10 +1021,10 @@ export default function HomePage() {
                                             </div>
                                             <div className="p-5 flex-1 flex flex-col">
                                                 <div className="text-xs text-gray-500 mb-2">{formatDate(post.publishedAt).split(' ')[0]}</div>
-                                                <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                                                <h4 className="font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2 mb-2">
                                                     {post.title}
                                                 </h4>
-                                                <div className="mt-auto pt-2 text-sm text-blue-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                <div className="mt-auto pt-2 text-sm text-red-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                                                     詳細を見る
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
