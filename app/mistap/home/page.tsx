@@ -792,8 +792,8 @@ export default function HomePage() {
                                 </button>
                             </div>
 
-                            {/* User Count Display (Restored) */}
-                            <UserCountDisplay />
+                            {/* User Count Display (Moved) */}
+
                         </div>
 
                         {/* Right Column: Recent Activity */}
@@ -987,6 +987,9 @@ export default function HomePage() {
                             </div>
                         </div>
                     </div>
+
+                    {/* User Count Display (Moved here) */}
+                    <UserCountDisplay />
 
                     {/* Blog Section (Restored) */}
                     {!blogLoading && blogPosts.length > 0 && (
