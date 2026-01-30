@@ -36,15 +36,18 @@ interface UserProfile {
     lastLoginAt: string | null;
     consecutiveLoginDays: number;
     totalTestsTaken: number;
+    // 旧フィールドは互換性のために残すが、目標表示には使用しない
     dailyGoal?: number;
     startDate?: string;
     selectedTextbook?: string;
 }
 
 interface TodayGoal {
+    id: string;
     textbook: string;
     start: number;
     end: number;
+    daily_goal: number;
 }
 
 interface IncorrectWord {
@@ -203,7 +206,10 @@ export default function HomePage() {
         startDate: authProfile?.start_date || undefined,
         selectedTextbook: authProfile?.selected_textbook || undefined
     });
-    const [todayGoal, setTodayGoal] = useState<TodayGoal | null>(null);
+
+    // 複数の目標を管理
+    const [todayGoals, setTodayGoals] = useState<TodayGoal[]>([]);
+
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -397,58 +403,95 @@ export default function HomePage() {
                 });
             }
 
-            // 2. 今日の目標計算 (プロフィール情報が必要)
-            // AuthContextの最新プロフィールを使用
-            const currentProfile = authProfile;
-            if (currentProfile?.daily_goal && currentProfile?.start_date && currentProfile?.selected_textbook) {
-                try {
-                    const { data: maxWordData } = await supabase
-                        .from('words')
-                        .select('word_number')
-                        .eq('text', currentProfile.selected_textbook)
-                        .order('word_number', { ascending: false })
-                        .limit(1)
-                        .single();
+            // 2. 今日の目標計算（複数対応）
+            try {
+                // まず goals テーブルから全ての目標を取得
+                const { data: goalsData, error: goalsError } = await supabase
+                    .from('mistap_textbook_goals')
+                    .select('*')
+                    .eq('user_id', userId);
 
-                    if (maxWordData && mounted) {
-                        const maxWords = maxWordData.word_number;
-                        const dailyGoal = currentProfile.daily_goal;
-                        const startDate = new Date(currentProfile.start_date);
-                        const today = new Date();
-                        startDate.setHours(0, 0, 0, 0);
-                        today.setHours(0, 0, 0, 0);
+                if (goalsError) {
+                    console.error('Goals fetch error:', goalsError);
+                    // テーブルがないなどのエラーの場合は、旧方式へのフォールバックを検討するか、単に表示しないか
+                    // ここでは旧方式（authProfile）をフォールバックとして使用することも検討できるが、
+                    // 移行SQLが実行されている前提で進める
+                }
 
-                        const diffTime = today.getTime() - startDate.getTime();
-                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                if (mounted && goalsData && goalsData.length > 0) {
+                    const todayGoalsList: TodayGoal[] = [];
 
-                        if (diffDays >= 0) {
-                            let currentStartNum = 1;
-                            for (let i = 0; i <= diffDays; i++) {
-                                let endNum = currentStartNum + dailyGoal - 1;
-                                if (endNum > maxWords) {
-                                    endNum = maxWords;
-                                }
+                    // 並列で最大単語数を取得して計算
+                    await Promise.all(goalsData.map(async (goal) => {
+                        try {
+                            // 単語帳の最大数を取得
+                            const { data: maxWordData } = await supabase
+                                .from('words')
+                                .select('word_number')
+                                .eq('text', goal.textbook_name)
+                                .order('word_number', { ascending: false })
+                                .limit(1)
+                                .single();
 
-                                if (i === diffDays) {
-                                    setTodayGoal({
-                                        textbook: currentProfile.selected_textbook!,
-                                        start: currentStartNum,
-                                        end: endNum
-                                    });
-                                    break;
-                                }
+                            if (maxWordData) {
+                                const maxWords = maxWordData.word_number;
+                                const dailyGoal = goal.daily_goal;
+                                const startDate = new Date(goal.start_date);
+                                const today = new Date();
+                                startDate.setHours(0, 0, 0, 0);
+                                today.setHours(0, 0, 0, 0);
 
-                                if (endNum === maxWords) {
-                                    currentStartNum = 1;
-                                } else {
-                                    currentStartNum = endNum + 1;
+                                const diffTime = today.getTime() - startDate.getTime();
+                                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                                // 設定範囲
+                                const rangeStart = goal.goal_start_word ?? 1;
+                                const rangeEnd = (goal.goal_end_word && goal.goal_end_word > 0) ? goal.goal_end_word : maxWords;
+
+                                if (diffDays >= 0) {
+                                    let currentStartNum = rangeStart;
+
+                                    // ループ計算（簡易シミュレーション）
+                                    // もっと効率的な数式があるが、ループで十分
+                                    for (let i = 0; i <= diffDays; i++) {
+                                        let endNum = currentStartNum + dailyGoal - 1;
+                                        if (endNum > rangeEnd) {
+                                            endNum = rangeEnd;
+                                        }
+
+                                        if (i === diffDays) {
+                                            todayGoalsList.push({
+                                                id: goal.id,
+                                                textbook: goal.textbook_name,
+                                                start: currentStartNum,
+                                                end: endNum,
+                                                daily_goal: dailyGoal
+                                            });
+                                            break;
+                                        }
+
+                                        if (endNum === rangeEnd) {
+                                            currentStartNum = rangeStart;
+                                        } else {
+                                            currentStartNum = endNum + 1;
+                                        }
+                                    }
                                 }
                             }
+                        } catch (e) {
+                            console.error(`Error calculating goal for ${goal.textbook_name}:`, e);
                         }
-                    }
-                } catch (e) {
-                    console.error('Goal calculation error:', e);
+                    }));
+
+                    setTodayGoals(todayGoalsList);
+                } else if (mounted) {
+                    // goalsDataが空の場合（まだ移行されていない、または設定がない）
+                    // authProfile からのフォールバックは、移行SQLが動いていれば不要だが、念のため残す？
+                    // いや、UIが混乱するので、GoalsPageに誘導する形式にする
+                    setTodayGoals([]);
                 }
+            } catch (e) {
+                console.error('Goal calculation error:', e);
             }
 
             // 3. 最近の成績取得
@@ -785,277 +828,173 @@ export default function HomePage() {
                             {/* 草（Contribution Graph） */}
                             <ContributionGrid />
 
-                            {/* Today's Goal Card */}
-                            {todayGoal ? (
-                                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-3xl shadow-xl shadow-red-200 p-6 md:p-8 text-white relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
-                                    <div className="relative z-10">
-                                        <div className="flex items-center gap-2 mb-4 opacity-90">
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                            </svg>
-                                            <span className="font-bold tracking-wide">今日の目標</span>
-                                        </div>
+                            {/* Today's Goal Cards (Multiple) */}
+                            {todayGoals.length > 0 ? (
+                                <div className="space-y-4">
+                                    <h3 className="text-lg font-bold text-gray-900 px-1">今日の目標</h3>
+                                    {todayGoals.map((goal) => (
+                                        <div key={goal.id} className="bg-gradient-to-br from-red-500 to-red-600 rounded-3xl shadow-xl shadow-red-200 p-6 md:p-8 text-white relative overflow-hidden hover:scale-[1.01] transition-transform">
+                                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
+                                            <div className="relative z-10">
+                                                <div className="flex items-center gap-2 mb-4 opacity-90">
+                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                                    </svg>
+                                                    <span className="font-bold tracking-wide">{goal.textbook}</span>
+                                                </div>
 
-                                        <h3 className="text-2xl md:text-3xl font-bold mb-2">{todayGoal.textbook}</h3>
-                                        <div className="flex items-baseline gap-3 mb-6">
-                                            <span className="text-lg opacity-90">No.</span>
-                                            <span className="text-4xl font-bold">{todayGoal.start}</span>
-                                            <span className="text-xl opacity-80">〜</span>
-                                            <span className="text-4xl font-bold">{todayGoal.end}</span>
-                                            <span className="ml-2 bg-white/20 px-3 py-1 rounded-full text-sm">
-                                                全{todayGoal.end - todayGoal.start + 1}語
-                                            </span>
-                                        </div>
+                                                <div className="flex items-center gap-6">
+                                                    <div>
+                                                        <p className="text-sm opacity-80 mb-1">本日の範囲</p>
+                                                        <p className="text-3xl font-bold tracking-tight">
+                                                            No. {goal.start} <span className="text-xl mx-1 font-normal opacity-80">〜</span> {goal.end}
+                                                        </p>
+                                                    </div>
+                                                    <div className="hidden sm:block h-12 w-px bg-white/30"></div>
+                                                    <div className="hidden sm:block">
+                                                        <p className="text-sm opacity-80 mb-1">目標語数</p>
+                                                        <p className="text-2xl font-bold">{goal.end - goal.start + 1}<span className="text-base font-normal ml-1 opacity-80">words</span></p>
+                                                    </div>
+                                                </div>
 
-                                        <button
-                                            onClick={() => {
-                                                const query = new URLSearchParams({
-                                                    selectedText: todayGoal.textbook,
-                                                    startNum: todayGoal.start.toString(),
-                                                    endNum: todayGoal.end.toString(),
-                                                    count: Math.min(10, todayGoal.end - todayGoal.start + 1).toString()
-                                                }).toString();
-                                                router.push(`/mistap/test-setup?${query}`);
-                                            }}
-                                            className="bg-white text-red-600 hover:bg-red-50 font-bold py-3 px-6 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
-                                        >
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            テストを開始する
-                                        </button>
-                                    </div>
+                                                <div className="mt-6 flex gap-3">
+                                                    <button
+                                                        onClick={() => router.push(`/mistap/test/${goal.textbook}/${goal.start}-${goal.end}`)}
+                                                        className="flex-1 bg-white text-red-600 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors shadow-lg"
+                                                    >
+                                                        テストする
+                                                    </button>
+                                                    <button
+                                                        onClick={() => router.push('/mistap/goals')}
+                                                        className="bg-white/20 hover:bg-white/30 text-white font-medium py-3 px-4 rounded-xl transition-colors backdrop-blur-md"
+                                                    >
+                                                        設定
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             ) : (
-                                <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl shadow-lg p-6 md:p-8 text-gray-700 relative overflow-hidden border border-gray-300">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
-                                    <div className="relative z-10">
-                                        <div className="flex items-center gap-2 mb-4 opacity-70">
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                            </svg>
-                                            <span className="font-bold tracking-wide">今日の目標</span>
-                                        </div>
-
-                                        <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">目標がまだ設定されていません</h3>
-                                        <p className="text-sm md:text-base text-gray-600 mb-6 leading-relaxed">
-                                            学習目標を設定すると、毎日の進捗が自動で計算され、効率的な学習ができます。
-                                        </p>
-
-                                        <button
-                                            onClick={() => router.push('/mistap/goals')}
-                                            className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
-                                        >
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                            目標を設定する
-                                        </button>
+                                <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center">
+                                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
                                     </div>
+                                    <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">目標がまだ設定されていません</h3>
+                                    <p className="text-gray-500 mb-6">
+                                        学習目標を設定すると、毎日の進捗が自動で計算され、<br className="hidden md:block" />
+                                        効率的な学習ができます。まずは1つ目標を作ってみましょう！
+                                    </p>
+                                    <button
+                                        onClick={() => router.push('/mistap/goals')}
+                                        className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2"
+                                    >
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        目標を設定する
+                                    </button>
                                 </div>
                             )}
 
-                            {/* Learning Progress Dashboard */}
-                            <ProgressDashboard />
-
-                            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6 md:p-8">
+                            {/* Recent Results */}
+                            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
                                 <div className="flex items-center justify-between mb-6">
                                     <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                                        <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
+                                        <span className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </span>
-                                        最近の学習
+                                        最近の学習記録
                                     </h2>
-                                    {recentResults.length > 0 && (
-                                        <button
-                                            onClick={() => router.push('/mistap/history')}
-                                            className="text-sm text-gray-500 hover:text-red-600 font-medium flex items-center gap-1 transition-colors"
-                                        >
-                                            すべて見る
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
-                                    )}
+                                    <Link href="/mistap/history" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1">
+                                        すべて見る
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </Link>
                                 </div>
 
-                                {recentResults.length === 0 ? (
-                                    <div className="flex flex-col items-center justify-center py-12 text-center">
-                                        <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
-                                            <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                        </div>
-                                        <h3 className="text-lg font-semibold text-gray-900 mb-2">まだ履歴がありません</h3>
-                                        <p className="text-gray-500 mb-8 max-w-xs mx-auto">最初のテストを受けて、学習の第一歩を踏み出しましょう！</p>
-                                        <button
-                                            onClick={() => router.push('/mistap/test-setup')}
-                                            className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-red-200 hover:shadow-red-300 transform hover:-translate-y-0.5"
-                                        >
-                                            テストを始める
-                                        </button>
-                                    </div>
-                                ) : (
+                                {recentResults.length > 0 ? (
                                     <div className="space-y-4">
-                                        {recentResults.map((result) => {
-                                            const scorePercentage = Math.round((result.correct / result.total) * 100);
-                                            const isHighScore = scorePercentage >= 80;
-
-                                            return (
-                                                <div
-                                                    key={result.id}
-                                                    className="group bg-white rounded-2xl p-5 border border-gray-100 hover:border-red-100 hover:shadow-md transition-all duration-300 cursor-pointer"
-                                                    onClick={() => router.push('/mistap/history')}
-                                                >
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold ${isHighScore ? 'bg-red-50 text-red-600' : 'bg-gray-50 text-gray-600'
-                                                                }`}>
-                                                                {scorePercentage}<span className="text-xs ml-0.5">%</span>
-                                                            </div>
-                                                            <div className="flex flex-col gap-1">
-                                                                <h4 className="font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">
-                                                                    {result.selected_text || '小テスト'}
-                                                                </h4>
-                                                                <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                                                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                                    </svg>
-                                                                    {new Date(result.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' })}
-                                                                </div>
-                                                                <div className="flex items-center">
-                                                                    {result.unit ? (
-                                                                        <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium">
-                                                                            {result.unit}
-                                                                        </span>
-                                                                    ) : (result.start_num !== null && result.end_num !== null ? (
-                                                                        <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium">
-                                                                            No. {result.start_num} - {result.end_num}
-                                                                        </span>
-                                                                    ) : null)}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right">
-                                                            <div className="text-sm font-medium text-gray-900">
-                                                                <span className="text-lg">{result.correct}</span>
-                                                                <span className="text-gray-400 mx-1">/</span>
-                                                                <span className="text-gray-500">{result.total}</span>
-                                                            </div>
-                                                            <div className="text-xs text-gray-500 mt-1">正解</div>
+                                        {recentResults.map((result) => (
+                                            <div key={result.id} className="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 transition-colors border border-gray-100 group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg ${result.correct === result.total ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-600'}`}>
+                                                        {Math.round((result.correct / result.total) * 100)}%
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-gray-900 text-sm md:text-base mb-0.5">
+                                                            {result.selected_text || 'Unknown Textbook'}
+                                                        </h4>
+                                                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                                                            <span>
+                                                                {result.start_num && result.end_num
+                                                                    ? `No. ${result.start_num} - ${result.end_num}`
+                                                                    : result.unit}
+                                                            </span>
+                                                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                                            <span>{formatDate(result.created_at)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            );
-                                        })}
+                                                <div className="text-right">
+                                                    {result.incorrect_count > 0 ? (
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                            waiting: {result.incorrect_count}
+                                                        </span>
+                                                    ) : (
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                            Perfect!
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-8 text-gray-500">
+                                        <p className="mb-4">まだ履歴がありません</p>
+                                        <button
+                                            onClick={() => router.push('/mistap/test-setup')}
+                                            className="text-blue-600 font-medium hover:underline"
+                                        >
+                                            最初のテストに挑戦！
+                                        </button>
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    </div>
 
-                    {/* Mobile Quick Actions (Bottom Fixed or just below) */}
-                    <div className="lg:hidden mt-8 grid grid-cols-2 gap-4">
-                        <button
-                            onClick={() => router.push('/mistap/test-setup')}
-                            className="col-span-2 bg-gray-900 text-white p-4 rounded-2xl font-semibold shadow-lg flex items-center justify-center gap-2"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                            </svg>
-                            テストを作成
-                        </button>
-                        <button
-                            onClick={() => router.push('/mistap/history')}
-                            className="bg-white text-gray-700 border border-gray-200 p-3 rounded-xl font-medium flex flex-col items-center justify-center gap-1 shadow-sm"
-                        >
-                            <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                            <span className="text-sm">履歴</span>
-                        </button>
-                        <button
-                            onClick={() => router.push('/mistap/goals')}
-                            className="bg-white text-gray-700 border border-gray-200 p-3 rounded-xl font-medium flex flex-col items-center justify-center gap-1 shadow-sm"
-                        >
-                            <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                            <span className="text-sm">目標管理</span>
-                        </button>
-                    </div>
-
-                    {/* Group Ranking Section */}
-                    <div className="mt-8">
-                        <GroupRanking />
-                    </div>
-
-                    {/* Total Users Card */}
-                    <UserCountDisplay />
-
-                    {/* Blog Section */}
-                    {!blogLoading && blogPosts.length > 0 && (
-                        <div className="mt-12 mb-8">
-                            <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                                    <span className="text-2xl">📝</span>
-                                    おすすめの記事
-                                </h3>
-                                <Link
-                                    href="/mistap/blog"
-                                    prefetch={false}
-                                    className="text-sm text-gray-500 hover:text-red-600 font-medium flex items-center gap-1 transition-colors"
+                            {/* Mobile Quick Actions */}
+                            <div className="lg:hidden grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => router.push('/mistap/test-setup')}
+                                    className="flex flex-col items-center justify-center gap-2 bg-gray-900 text-white p-4 rounded-2xl shadow-md active:scale-95 transition-transform"
                                 >
-                                    すべて見る
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                                     </svg>
-                                </Link>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {blogPosts.map((post) => (
-                                    <Link
-                                        key={post.id}
-                                        href={`/mistap/blog/${post.id}`}
-                                        prefetch={false}
-                                        className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-sm border border-white/50 overflow-hidden hover:shadow-md transition-all group flex flex-col h-full"
-                                    >
-                                        {post.eyecatch && (
-                                            <div className="relative w-full aspect-video overflow-hidden">
-                                                <Image
-                                                    src={post.eyecatch.url}
-                                                    alt={post.title}
-                                                    fill
-                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="p-5 flex flex-col flex-grow">
-                                            <h4 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors">
-                                                {post.title}
-                                            </h4>
-                                            <div className="mt-auto pt-2">
-                                                <p className="text-xs text-gray-500">
-                                                    {new Date(post.publishedAt).toLocaleDateString("ja-JP", {
-                                                        year: 'numeric',
-                                                        month: 'long',
-                                                        day: 'numeric',
-                                                    })}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                ))}
+                                    <span className="font-bold text-sm">作成</span>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/mistap/history')}
+                                    className="flex flex-col items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 p-4 rounded-2xl active:scale-95 transition-transform"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                    <span className="font-bold text-sm">履歴</span>
+                                </button>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
             </Background>
             <MistapFooter />
         </main>
     );
 }
+
