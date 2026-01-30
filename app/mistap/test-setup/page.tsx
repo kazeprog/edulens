@@ -165,6 +165,7 @@ export default function TestSetupPage() {
     "読んで見て聞いて覚える 重要古文単語315",
     "Key＆Point古文単語330", // 全角アンパサンドに修正
     "ベストセレクション古文単語325",
+    "理解を深める核心古文単語351",
   ], []);
 
   // 大学生・社会人向け教材リスト（固定）
@@ -1010,14 +1011,14 @@ export default function TestSetupPage() {
                                 ))}
                             </optgroup>
                             <optgroup label="📜 古文単語">
-                              {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"]
+                              {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"]
                                 .filter(text => texts.includes(text))
                                 .map(text => (
                                   <option key={text} value={text} translate="no">{text}</option>
                                 ))}
                             </optgroup>
                             {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                            {(!["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325"].some(t => texts.includes(t))) && (
+                            {(!["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"].some(t => texts.includes(t))) && (
                               <>
                                 {texts.map(text => (
                                   <option key={text} value={text} translate="no">{text}</option>

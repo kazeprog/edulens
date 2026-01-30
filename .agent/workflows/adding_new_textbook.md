@@ -56,7 +56,31 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     ], []);
     ```
 
-2.  **Verify `fetchTexts` / State Initialization**:
+2.  **Verify UI Logic (JSX)**:
+    -   In both files, the `select` element groups textbooks. You must update these groups.
+    -   **Add to `optgroup`**: Locate the `<optgroup label="📖 英単語">` or `<optgroup label="📜 古文単語">` and add your new book to the array being mapped.
+    ```tsx
+    <optgroup label="📜 古文単語">
+      {["既存1", "既存2", "正式な単語帳名"] // ここに追加
+        .filter(text => texts.includes(text))
+        .map(text => (
+          <option key={text} value={text}>{text}</option>
+        ))}
+    </optgroup>
+    ```
+    -   **Update Fallback Condition**: Scroll down to the condition that displays all available textbooks if none of the predefined ones are found. You must add your textbook to the `.some()` check.
+    ```tsx
+    {(!["LEAP", ...].some(t => texts.includes(t)) && 
+      !["既存1", "既存2", "正式な単語帳名"].some(t => texts.includes(t))) && ( // ここにも追加
+      <>
+        {texts.map(text => (
+          <option key={text} value={text}>{text}</option>
+        ))}
+      </>
+    )}
+    ```
+
+3.  **Verify `fetchTexts` / State Initialization**:
     -   Ensure the strictly governed `texts` state includes valid local textbooks even if Supabase doesn't return them yet.
     -   *Self-Correction from past errors*: The logic currently merges `AVAILABLE_TEXTBOOKS` (derived from `jsonTextbookData.ts`) into the state. **Verify that `AVAILABLE_TEXTBOOKS` is properly imported and used in the `useState` initialization.**
     ```typescript
