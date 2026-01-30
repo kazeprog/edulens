@@ -413,9 +413,6 @@ export default function HomePage() {
 
                 if (goalsError) {
                     console.error('Goals fetch error:', goalsError);
-                    // テーブルがないなどのエラーの場合は、旧方式へのフォールバックを検討するか、単に表示しないか
-                    // ここでは旧方式（authProfile）をフォールバックとして使用することも検討できるが、
-                    // 移行SQLが実行されている前提で進める
                 }
 
                 if (mounted && goalsData && goalsData.length > 0) {
@@ -452,7 +449,6 @@ export default function HomePage() {
                                     let currentStartNum = rangeStart;
 
                                     // ループ計算（簡易シミュレーション）
-                                    // もっと効率的な数式があるが、ループで十分
                                     for (let i = 0; i <= diffDays; i++) {
                                         let endNum = currentStartNum + dailyGoal - 1;
                                         if (endNum > rangeEnd) {
@@ -485,9 +481,6 @@ export default function HomePage() {
 
                     setTodayGoals(todayGoalsList);
                 } else if (mounted) {
-                    // goalsDataが空の場合（まだ移行されていない、または設定がない）
-                    // authProfile からのフォールバックは、移行SQLが動いていれば不要だが、念のため残す？
-                    // いや、UIが混乱するので、GoalsPageに誘導する形式にする
                     setTodayGoals([]);
                 }
             } catch (e) {
@@ -798,6 +791,9 @@ export default function HomePage() {
                                     学習履歴を確認
                                 </button>
                             </div>
+
+                            {/* User Count Display (Restored) */}
+                            <UserCountDisplay />
                         </div>
 
                         {/* Right Column: Recent Activity */}
@@ -991,6 +987,56 @@ export default function HomePage() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Blog Section (Restored) */}
+                    {!blogLoading && blogPosts.length > 0 && (
+                        <div className="mt-12 mb-8">
+                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <span className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                    </svg>
+                                </span>
+                                最新の学習情報
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {blogPosts.map((post) => (
+                                    <Link key={post.id} href={`/mistap/blog/${post.id}`} prefetch={false} className="group cursor-pointer">
+                                        <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md h-full flex flex-col">
+                                            <div className="aspect-video relative overflow-hidden bg-gray-100">
+                                                {post.eyecatch ? (
+                                                    <Image
+                                                        src={post.eyecatch.url}
+                                                        alt={post.title}
+                                                        fill
+                                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                                        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="p-5 flex-1 flex flex-col">
+                                                <div className="text-xs text-gray-500 mb-2">{formatDate(post.publishedAt).split(' ')[0]}</div>
+                                                <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                                                    {post.title}
+                                                </h4>
+                                                <div className="mt-auto pt-2 text-sm text-blue-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                    詳細を見る
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </Background>
             <MistapFooter />
