@@ -354,16 +354,16 @@ export default function AdminDashboardPage() {
                     <h3 className="text-lg font-bold text-slate-800">📈 アクティブユーザー推移</h3>
                     <div className="flex gap-4 text-xs">
                         <div className="flex items-center gap-1">
-                            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                            <span className="text-slate-600">DAU</span>
+                            <div className="w-3 h-3 rounded-full bg-slate-400"></div>
+                            <span className="text-slate-600">MAU</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <div className="w-3 h-3 rounded-full bg-indigo-500"></div>
                             <span className="text-slate-600">WAU</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <div className="w-3 h-3 rounded-full bg-slate-400"></div>
-                            <span className="text-slate-600">MAU</span>
+                            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <span className="text-slate-600">DAU</span>
                         </div>
                     </div>
                 </div>
@@ -392,9 +392,9 @@ export default function AdminDashboardPage() {
                                     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
                                 }}
                             />
-                            <Line type="monotone" dataKey="dau" name="DAU" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                            <Line type="monotone" dataKey="wau" name="WAU" stroke="#6366f1" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                             <Line type="monotone" dataKey="mau" name="MAU" stroke="#94a3b8" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="wau" name="WAU" stroke="#6366f1" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="dau" name="DAU" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
