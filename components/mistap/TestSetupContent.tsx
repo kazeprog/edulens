@@ -479,27 +479,17 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   }, [selectedText, filteredTexts, isInitialized, texts]);
 
   const fetchTexts = useCallback(async () => {
-    // LP用: 静的データが渡されている場合はAPIを叩かずに即座にセット
-    if (initialData && initialData.length > 0) {
-      // initialData内のtextbook名をユニークにする
-      const texts = Array.from(new Set(initialData.map(d => d.textbook))).filter(Boolean);
-      setTexts(texts);
-
-      if (texts.length > 0) {
-        if (presetTextbook && texts.includes(presetTextbook)) {
-          setSelectedText(presetTextbook);
-        } else {
-          setSelectedText(texts[0]);
-        }
-      }
-      return;
-    }
+    // LP用: 静的データが渡されていても、他の単語帳も選択肢に含めるためにAPIまたはキャッシュから全リストを取得する
+    // ただし、初期選択はLPの対象単語帳にする
 
     // キャッシュをチェック（5分間有効）
     const cacheKey = 'mistap_textbooks_cache';
     const cacheTimestampKey = 'mistap_textbooks_cache_timestamp';
     const cacheExpiry = 5 * 60 * 1000; // 5分
 
+    let loadedTexts: string[] = [];
+
+    // 1. まずキャッシュまたはAPIから全リストを取得しようとする
     try {
       const cachedData = localStorage.getItem(cacheKey);
       const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
@@ -507,33 +497,77 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       if (cachedData && cachedTimestamp) {
         const timestamp = parseInt(cachedTimestamp, 10);
         if (Date.now() - timestamp < cacheExpiry) {
-          const uniqueTexts = JSON.parse(cachedData);
+          loadedTexts = JSON.parse(cachedData);
           // Hotfix: Ensure Target 1400 is included in cached data
-          if (!uniqueTexts.includes("ターゲット1400")) {
-            uniqueTexts.push("ターゲット1400");
+          if (!loadedTexts.includes("ターゲット1400")) {
+            loadedTexts.push("ターゲット1400");
           }
-
-          setTexts(uniqueTexts);
-          if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-            // keep existing logic
-          } else if (uniqueTexts.length > 0) {
-            // ensure selection is valid
-            if (selectedText && !uniqueTexts.includes(selectedText)) {
-              setSelectedText(uniqueTexts[0]);
-            }
-          }
-          return;
         }
       }
     } catch {
-      // キャッシュ読み込みエラー - 無視
+      // ignore
     }
 
-    // Use fallback empty array if AVAILABLE_TEXTBOOKS is undefined
-    const baseList = AVAILABLE_TEXTBOOKS || [];
-    let uniqueTexts = Array.from(new Set([...baseList, "ターゲット1400"]));
+    // キャッシュがない場合、フォールバックリストを使用
+    if (loadedTexts.length === 0) {
+      const baseList = AVAILABLE_TEXTBOOKS || [];
+      loadedTexts = Array.from(new Set([...baseList, "ターゲット1400"]));
+    }
 
-    // If local list is suspiciously empty (only has forced 1400), try fallback methods
+    // initialDataに含まれる単語帳がリストになければ追加する
+    if (initialData && initialData.length > 0) {
+      const initialTexts = Array.from(new Set(initialData.map(d => d.textbook))).filter(Boolean);
+      loadedTexts = Array.from(new Set([...loadedTexts, ...initialTexts]));
+    }
+
+    // APIフェッチを行う (キャッシュがない、または要素が少ない場合)
+    if (loadedTexts.length <= 1 && (!initialData || initialData.length === 0)) {
+      // ... (API fetch logic will fall through to below if we don't return here)
+    }
+
+    // セットする
+    setTexts(loadedTexts);
+
+    // 初期選択の設定
+    if (presetTextbook && loadedTexts.includes(presetTextbook)) {
+      setSelectedText(presetTextbook);
+    } else if (initialData && initialData.length > 0) {
+      // initialDataがある場合はその中の最初のものを優先
+      const initialTexts = Array.from(new Set(initialData.map(d => d.textbook))).filter(Boolean);
+      if (initialTexts.length > 0) setSelectedText(initialTexts[0]);
+      else if (loadedTexts.length > 0) setSelectedText(loadedTexts[0]);
+    } else if (loadedTexts.length > 0) {
+      // デフォルト
+      if (!loadedTexts.includes("ターゲット1900")) {
+        setSelectedText(loadedTexts[0]);
+      }
+      // else 1900 is default via useState usually, or handled in useEffect
+    }
+
+    // APIフェッチが必要なケース（LPでも全リストを取りに行くため、ここでreturnせず続行させるか、あるいはLPの場合はこれ以上フェッチしないか）
+    // LPの場合は initialData があるので、ここで return しても良いが、他の単語帳を選ばせたいなら続行すべき。
+    // しかし、APIを叩くと重くなるので、LPでは `AVAILABLE_TEXTBOOKS` ベースのリストで十分かもしれない。
+
+    if (initialData && initialData.length > 0) {
+      return; // LPの場合はここで終了（ロードされた静的リスト + AVAILABLE_TEXTBOOKS で十分とみなす）
+    }
+
+    // 2. 通常のフェッチロジック（重複コードを避けるため、既存ロジックをリファクタリングして統合）
+    // NOTE: variables cacheKey, cacheTimestampKey, cacheExpiry are already declared above.
+
+    // If we reached here without returning, we need to try fetching more data if not sufficient
+    // Start fresh for uniqueTexts logic, merging with what we already have
+    let uniqueTexts = [...loadedTexts];
+
+    // If we already have a decent list from Step 1 (cache or local constant), we might be good.
+    // However, the original logic had an explicit check for cache expiry again which is redundant if we did it above.
+    // But importantly, if we are NOT in LP mode (no initialData), we definitely want to ensure we have data.
+    // Above we tried reading cache. If we found it, loadedTexts has it.
+
+    // If loadedTexts only has default fallback items, try fetching from RPC
+    // Note: baseList usually has more than 1 item, so this check might be too strict if baseList is large.
+    // Let's stick to the original logic: "Suspiciously empty" check.
+
     if (uniqueTexts.length <= 1) {
       // RPCを使用してユニークなtext値を直接取得
       const { data, error } = await supabase.rpc('get_unique_texts');
@@ -569,10 +603,21 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
 
     setTexts(uniqueTexts);
+
     // デフォルト値（ターゲット1900）が存在する場合は維持、なければ最初の教材を選択
-    if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-      setSelectedText(uniqueTexts[0]);
+    // ただし、すでに setSelectedText されている場合（LPなどで presetTextbook がある場合）は上書きしたくない
+    // selectedText が未設定、または有効な選択肢でない場合のみ更新
+    if (!selectedText || !uniqueTexts.includes(selectedText)) {
+      if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
+        setSelectedText(uniqueTexts[0]);
+      } else if (uniqueTexts.length > 0 && !selectedText) {
+        // Default to 1900 is implicitly handled by initial state, but if we are here and selectedText is somehow invalid
+        // we might want to reset?
+        // Actually, keep safe:
+        // if (uniqueTexts.includes("ターゲット1900")) setSelectedText("ターゲット1900");
+      }
     }
+
 
     // キャッシュに保存
     try {
@@ -581,7 +626,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     } catch {
       // キャッシュ保存エラー - 無視
     }
-  }, []);
+  }, [presetTextbook, initialData, selectedText]);
 
   // 小テスト作成処理
   // extractable implementation so demo auto-start can pass overrides

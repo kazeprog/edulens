@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ターゲット1400（Target 1400）英単語テスト｜大学受験・共通テスト 無料',
-    description: '大学受験の必須単語「英単語ターゲット1400」対応の英単語テスト。Part/Sectionごとの頻出単語を無料でテスト・単語カード形式で学習できます。共通テスト・中堅大対策に最適。',
+    description: '旺文社「英単語ターゲット1400」の無料テスト・暗記カード。セクション・パートごとに小テストを作成でき、間違えた単語は自動でリスト化。共通テストや大学受験の英単語を効率よくマスターできる学習ツールです。',
     keywords: [
         'ターゲット1400',
         '英単語ターゲット1400',
@@ -54,7 +54,7 @@ export default function Target1400Page() {
             textbookName="Target 1400"
             textbookNameJa="英単語ターゲット1400"
             publisherName="旺文社"
-            themeColor="blue"
+            themeColor="green"
             presetTextbook="ターゲット1400"
             canonicalUrl="https://edulens.jp/mistap/textbook/target-1400"
             unitLabel="Section"
@@ -63,9 +63,9 @@ export default function Target1400Page() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-blue-600 mb-4 tracking-normal">ターゲット1400（Target1400）テスト完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-green-600 mb-4 tracking-normal">ターゲット1400（Target1400）テスト完全対応</span>
                         必須英単語を<br />
-                        <span className="text-blue-500">ゲーム感覚で完全攻略</span>
+                        <span className="text-green-500">ゲーム感覚で完全攻略</span>
                     </h1>
                 ),
                 heroDescription: "大学受験の必須単語「英単語ターゲット1400」の無料テスト・単語カード形式アプリ（サイト）。Part/Sectionごとに小テストを作成でき、共通テストや中堅大の英単語対策に最適です。登録不要で今すぐテスト作成・実施が可能！",

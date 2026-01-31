@@ -7,18 +7,18 @@ import GoogleAdsense from "@/components/GoogleAdsense";
 
 // メタデータ
 export const metadata: Metadata = {
-  title: "ブログ | Mistap - 英単語学習アプリ",
-  description: "Mistapの公式ブログ。英単語学習のコツ、効果的な暗記法、ターゲット1900やシステム英単語の活用方法などを紹介します。",
+  title: "ブログ | 英単語学習のコツ",
+  description: "Mistap公式ブログ。ターゲット1900やシステム英単語を120%活用する勉強法、AIを活用した新しい暗記術、間違えた単語を効率よく覚えるためのコツを詳しく紹介。英単語学習の悩みを解決します。",
   openGraph: {
-    title: "ブログ | Mistap - 英単語学習アプリ",
-    description: "Mistapの公式ブログ。英単語学習のコツ、効果的な暗記法、ターゲット1900やシステム英単語の活用方法などを紹介します。",
+    title: "ブログ | Mistap",
+    description: "英単語学習の効率を劇的に高めるコツや、最新のアプリ活用法をMistapが詳しく紹介します。",
     type: "website",
-    url: "https://mistap.app/blog",
+    url: "https://edulens.jp/mistap/blog",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ブログ | Mistap - 英単語学習アプリ",
-    description: "Mistapの公式ブログ。英単語学習のコツ、効果的な暗記法、ターゲット1900やシステム英単語の活用方法などを紹介します。",
+    title: "ブログ | Mistap",
+    description: "英単語学習の効率を劇的に高めるコツや、最新のアプリ活用術を詳しく紹介します。",
   },
 };
 

@@ -22,6 +22,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             `ターゲット1400 Section${section}`,
             `Target 1400 Section${section}`,
             `ターゲット1400 セクション${section}`,
+            'ターゲット1400',
+            '英単語ターゲット1400',
+            'Target 1400',
+            'ターゲット1400 テスト',
+            '大学受験 英単語',
+            '共通テスト 英単語',
+            '旺文社 英単語',
+            '英単語 アプリ 高校生',
+            'ターゲット 練習',
+            'ターゲット1400 一覧',
+            'ターゲット1400 Section',
+            'ターゲット1400 Part',
+            'ターゲット1400 無料',
+            '英単語 テスト 大学受験',
+            '単語カード',
+            '共通テスト 単語',
+            '中堅大 英単語',
+            '英単語 テスト 作成',
+            '英単語 テスト 無料',
+            '英単語 クイズ サイト',
             '英単語テスト 無料',
             '単語カード',
             '大学受験 英語'
@@ -50,7 +70,7 @@ export default async function Page({ params }: PageProps) {
             textbookName="Target 1400"
             textbookNameJa="英単語ターゲット1400"
             publisherName="旺文社"
-            themeColor="blue"
+            themeColor="green"
             presetTextbook="ターゲット1400"
             unitLabel="Section"
             unitValue={section}

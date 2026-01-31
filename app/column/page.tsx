@@ -8,18 +8,18 @@ import SiteFooter from "@/components/SiteFooter";
 
 // メタデータ
 export const metadata: Metadata = {
-    title: "コラム | EduLens",
-    description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
+    title: "コラム",
+    description: "EduLens公式コラム。効率的な英単語の暗記法、定期テスト対策のコツ、大学受験に向けた学習計画の立て方など、受験生や学生に役立つ情報を専門講師の視点で詳しく解説します。",
     openGraph: {
         title: "コラム | EduLens",
-        description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
+        description: "EduLens公式コラム。学習効率を最大化する暗記のテクニックや試験対策情報を詳しくお届けします。",
         type: "website",
         url: "https://edulens.jp/column",
     },
     twitter: {
         card: "summary_large_image",
         title: "コラム | EduLens",
-        description: "EduLensの公式コラム。効果的な学習方法や試験対策情報を発信します。",
+        description: "学習効率を最大化する暗記のテクニックや試験対策情報を詳しくお届けします。",
     },
 };
 

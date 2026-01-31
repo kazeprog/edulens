@@ -14,7 +14,7 @@ interface TextbookLPTemplateProps {
     textbookName: string;
     textbookNameJa: string;
     publisherName: string;
-    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo';
+    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo' | 'green' | 'yellow';
     presetTextbook: string;
     canonicalUrl: string;
     unitLabel?: string;
@@ -122,6 +122,40 @@ export default function TextbookLPTemplate({
                     faqQ: 'bg-indigo-500',
                     ctaGradient: 'from-indigo-600 to-blue-700',
                     ctaText: 'text-indigo-100',
+                };
+            case 'green':
+                return {
+                    bgGradient: 'from-green-50 to-white',
+                    bgGradientAccent: 'from-green-100/50 to-transparent',
+                    badgeBg: 'bg-green-100',
+                    badgeText: 'text-green-700',
+                    ping: 'bg-green-400',
+                    dot: 'bg-green-500',
+                    textAccent: 'text-green-600',
+                    textHighlight: 'text-green-500',
+                    buttonGradient: 'from-green-500 to-emerald-600',
+                    buttonShadow: 'shadow-green-200',
+                    iconColor: 'text-green-500',
+                    faqQ: 'bg-green-500',
+                    ctaGradient: 'from-green-600 to-emerald-700',
+                    ctaText: 'text-green-100',
+                };
+            case 'yellow':
+                return {
+                    bgGradient: 'from-yellow-50 to-white',
+                    bgGradientAccent: 'from-yellow-100/50 to-transparent',
+                    badgeBg: 'bg-yellow-100',
+                    badgeText: 'text-yellow-700',
+                    ping: 'bg-yellow-400',
+                    dot: 'bg-yellow-500',
+                    textAccent: 'text-yellow-600',
+                    textHighlight: 'text-yellow-500',
+                    buttonGradient: 'from-yellow-500 to-orange-600',
+                    buttonShadow: 'shadow-yellow-200',
+                    iconColor: 'text-yellow-500',
+                    faqQ: 'bg-yellow-500',
+                    ctaGradient: 'from-yellow-500 to-orange-600',
+                    ctaText: 'text-yellow-100',
                 };
             case 'sky':
             default:
