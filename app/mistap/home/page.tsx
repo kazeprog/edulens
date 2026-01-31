@@ -805,7 +805,7 @@ export default function HomePage() {
 
                                                 <div className="mt-6 flex gap-3">
                                                     <button
-                                                        onClick={() => router.push(`/mistap/test/${goal.textbook}/${goal.start}-${goal.end}`)}
+                                                        onClick={() => router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${goal.end - goal.start + 1}`)}
                                                         className="flex-1 bg-white text-red-600 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors shadow-lg"
                                                     >
                                                         テストする
