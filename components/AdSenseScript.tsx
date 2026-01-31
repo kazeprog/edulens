@@ -37,9 +37,9 @@ export default function AdSenseScript() {
 
     // 広告を表示すべきユーザーのみスクリプトを読み込む
     const adScript = !shouldHideAds && !loading ? (
-        <Script
+        <script
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
-            strategy="afterInteractive"
+            async
             crossOrigin="anonymous"
         />
     ) : null;

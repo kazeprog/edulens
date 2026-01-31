@@ -7,11 +7,7 @@ import Background from "@/components/mistap/Background";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
 import { TextbookWord, AVAILABLE_TEXTBOOKS, getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
-// PWAインストールプロンプト用の型定義
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform?: string }>;
-};
+
 
 interface WeakWord {
   word_number: number;
@@ -116,13 +112,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   } | null>(null);
   const [showDemoConfirm, setShowDemoConfirm] = useState(false);
 
-  // iOS/Android検出とホーム画面追加用
-  const [isIos, setIsIos] = useState(false);
-  const [isAndroid, setIsAndroid] = useState(false);
-  const [isStandalone, setIsStandalone] = useState(false);
-  const [showAddToHomeModal, setShowAddToHomeModal] = useState(false);
-  // Android向けPWAインストールプロンプト
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+
 
   // ユーザープロフィールを取得してレベルを自動設定（初回のみ）
   const loadUserProfile = useCallback(async () => {
@@ -1099,31 +1089,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     loadWeakWords();
   }, [fetchTexts, loadUserProfile, loadWeakWords]);
 
-  // iOS/Android検出
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const ua = navigator.userAgent || '';
-    const isiOS = /iPad|iPhone|iPod/.test(ua) && !('MSStream' in window);
-    const isAndroidDevice = /Android/.test(ua);
-    setIsIos(isiOS);
-    setIsAndroid(isAndroidDevice);
 
-    // スタンドアロンモード（既にホーム画面から開かれている）かどうかチェック
-    const standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
-    setIsStandalone(standalone);
-
-    // PWAインストールプロンプトのキャプチャ（Android Chrome向け）
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
 
   const mainContent = (
     <div
@@ -1465,40 +1431,6 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             </div>
 
             {/* iOS/Android向け「ホーム画面に追加」ボタン */}
-            {(isIos || isAndroid) && !isStandalone && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <button
-                  onClick={async () => {
-                    // Androidでインストールプロンプトが利用可能な場合は直接表示
-                    if (deferredPrompt) {
-                      try {
-                        await deferredPrompt.prompt();
-                        const choiceResult = await deferredPrompt.userChoice;
-                        if (choiceResult.outcome === 'accepted') {
-                          // ユーザーがインストールを承諾
-                          setDeferredPrompt(null);
-                        }
-                      } catch {
-                        // プロンプト表示エラー - フォールバックでモーダルを表示
-                        setShowAddToHomeModal(true);
-                      }
-                    } else {
-                      // iOS またはプロンプトが利用不可の場合は手順を表示
-                      setShowAddToHomeModal(true);
-                    }
-                  }}
-                  className="w-full py-3 px-4 rounded-xl border-2 border-dashed border-gray-300 text-gray-600 font-medium flex items-center justify-center gap-2 hover:border-gray-400 hover:text-gray-700 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  テスト作成をホーム画面に追加
-                </button>
-                <p className="text-xs text-gray-500 text-center mt-2">
-                  ホーム画面からワンタップでテスト作成画面を開けます
-                </p>
-              </div>
-            )}
 
             {/* 共有デモ確認モーダル */}
             {showDemoConfirm && pendingDemo && (
@@ -1546,395 +1478,281 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             )}
           </>
         </div>
-      )}
+      )
+      }
 
       {/* 復習テストのフォーム */}
-      {activeTab === 'review' && (
-        <div className="animate-fadeIn space-y-6">
-          <>
-            {loading ? (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600 font-medium">データを読み込んでいます...</p>
-              </div>
-            ) : textbooks.length === 0 ? (
-              <div className="text-center py-12 px-4">
-                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+      {
+        activeTab === 'review' && (
+          <div className="animate-fadeIn space-y-6">
+            <>
+              {loading ? (
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600 font-medium">データを読み込んでいます...</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">復習する単語がありません</h3>
-                <p className="text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
-                  素晴らしい！現在、復習が必要な単語はありません。<br />
-                  新しいテストを受けて学習を進めましょう。
-                </p>
-                <button
-                  onClick={() => setActiveTab('normal')}
-                  className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-xl font-semibold shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5"
-                >
-                  通常テストを作成
-                </button>
-              </div>
-            ) : (
-              <>
-                {/* 教材選択 */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-bold text-gray-700">復習する単語帳</label>
-                  <div className="relative">
-                    <select
-                      value={selectedTextbook}
-                      onChange={(e) => setSelectedTextbook(e.target.value)}
-                      className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900"
-                    >
-                      {textbooks.map((tb) => (
-                        <option key={tb.textbook} value={tb.textbook}>
-                          {tb.textbook}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
+              ) : textbooks.length === 0 ? (
+                <div className="text-center py-12 px-4">
+                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                   </div>
-                  <p className="text-right text-sm text-gray-500">
-                    対象単語数: <span className="font-bold text-gray-900">{textbooks.find(t => t.textbook === selectedTextbook)?.words.length || 0}</span> 語
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">復習する単語がありません</h3>
+                  <p className="text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
+                    素晴らしい！現在、復習が必要な単語はありません。<br />
+                    新しいテストを受けて学習を進めましょう。
                   </p>
-                </div>
-
-                {/* 苦手度フィルター */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-bold text-gray-700">出題する単語の種類</label>
-                  <div className="grid grid-cols-1 gap-3">
-                    {/* 最近間違えた単語 */}
-                    <div
-                      onClick={() => setIncludeRecent(!includeRecent)}
-                      className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeRecent
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                        }`}
-                    >
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeRecent ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-400'
-                        }`}>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center mb-1 pr-10">
-                          <span className={`font-bold ${includeRecent ? 'text-red-900' : 'text-gray-700'}`}>最近間違えた単語</span>
-                          <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeRecent ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500'
-                            }`}>
-                            {textbooks.find(t => t.textbook === selectedTextbook)?.recentCount || 0}語
-                          </span>
-                        </div>
-                        <p className={`text-xs ${includeRecent ? 'text-red-700' : 'text-gray-500'}`}>30日以内に間違えた単語</p>
-                      </div>
-                      <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeRecent ? 'bg-red-500 border-red-500' : 'border-gray-300'
-                        }`}>
-                        {includeRecent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                      </div>
-                    </div>
-
-                    {/* 何度も間違える単語 */}
-                    <div
-                      onClick={() => setIncludeFrequent(!includeFrequent)}
-                      className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeFrequent
-                        ? 'border-gray-800 bg-gray-50'
-                        : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                        }`}
-                    >
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-400'
-                        }`}>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center mb-1 pr-10">
-                          <span className={`font-bold ${includeFrequent ? 'text-gray-900' : 'text-gray-700'}`}>何度も間違える単語</span>
-                          <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-500'
-                            }`}>
-                            {textbooks.find(t => t.textbook === selectedTextbook)?.frequentCount || 0}語
-                          </span>
-                        </div>
-                        <p className={`text-xs ${includeFrequent ? 'text-gray-700' : 'text-gray-500'}`}>2回以上間違えた単語</p>
-                      </div>
-                      <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeFrequent ? 'bg-gray-800 border-gray-800' : 'border-gray-300'
-                        }`}>
-                        {includeFrequent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                      </div>
-                    </div>
-
-                    {/* 1回だけ間違えた単語 */}
-                    <div
-                      onClick={() => setIncludeSingle(!includeSingle)}
-                      className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeSingle
-                        ? 'border-gray-400 bg-white'
-                        : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                        }`}
-                    >
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeSingle ? 'bg-gray-100 text-gray-600' : 'bg-gray-100 text-gray-400'
-                        }`}>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center mb-1 pr-10">
-                          <span className={`font-bold ${includeSingle ? 'text-gray-800' : 'text-gray-700'}`}>1回だけ間違えた単語</span>
-                          <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeSingle ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-500'
-                            }`}>
-                            {textbooks.find(t => t.textbook === selectedTextbook)?.singleCount || 0}語
-                          </span>
-                        </div>
-                        <p className={`text-xs ${includeSingle ? 'text-gray-600' : 'text-gray-500'}`}>過去に1度だけ間違えた単語</p>
-                      </div>
-                      <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeSingle ? 'bg-gray-500 border-gray-500' : 'border-gray-300'
-                        }`}>
-                        {includeSingle && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* オプション設定（範囲・出題数） */}
-                <div className="bg-gray-50 rounded-2xl p-5 space-y-5">
-                  {/* 範囲指定トグル */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <span className="font-bold text-gray-700">範囲を指定する</span>
-                    </div>
-                    <button
-                      onClick={() => setUseRange(!useRange)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${useRange ? 'bg-red-600' : 'bg-gray-200'
-                        }`}
-                    >
-                      <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${useRange ? 'translate-x-6' : 'translate-x-1'
-                        }`} />
-                    </button>
-                  </div>
-
-                  {/* 範囲入力フィールド */}
-                  {useRange && (
-                    <div className="flex items-center gap-3 animate-fadeIn">
-                      <div className="relative flex-1">
-                        <input
-                          type="number"
-                          value={reviewStartNum === 0 ? '' : reviewStartNum}
-                          onChange={(e) => setReviewStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                          className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                          placeholder="開始"
-                        />
-                        <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
-                      </div>
-                      <span className="text-gray-400 font-bold">〜</span>
-                      <div className="relative flex-1">
-                        <input
-                          type="number"
-                          value={reviewEndNum === 0 ? '' : reviewEndNum}
-                          onChange={(e) => setReviewEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                          className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                          placeholder="終了"
-                        />
-                        <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="border-t border-gray-200 my-2"></div>
-
-                  {/* 出題数 */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                        </svg>
-                      </div>
-                      <span className="font-bold text-gray-700">出題数</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="number"
-                        value={testCount === 0 ? '' : testCount}
-                        onChange={(e) => setTestCount(e.target.value === '' ? 0 : Number(e.target.value))}
-                        className="w-20 border border-gray-300 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                        min="1"
-                      />
-                      <span className="text-gray-500 font-medium">語</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* アクションボタン */}
-                <div className="pt-4">
                   <button
-                    onClick={createReviewTest}
-                    disabled={isCreatingReviewTest || !selectedTextbook}
-                    className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 ${isCreatingReviewTest || !selectedTextbook
-                      ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
-                      : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
-                      }`}
+                    onClick={() => setActiveTab('normal')}
+                    className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-xl font-semibold shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5"
                   >
-                    {isCreatingReviewTest ? (
-                      <>
-                        <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        作成中...
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        復習テストを開始
-                      </>
-                    )}
-                  </button>
-                  <button
-                    onClick={() => router.back()}
-                    className="w-full mt-3 text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors"
-                  >
-                    キャンセル
+                    通常テストを作成
                   </button>
                 </div>
-              </>
-            )}
-          </>
-        </div>
-      )}
-
-      {/* ホーム画面に追加モーダル */}
-      {showAddToHomeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowAddToHomeModal(false)}
-          />
-          <div className="bg-white rounded-2xl shadow-2xl p-6 z-10 w-full max-w-sm animate-fadeIn">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-gray-900">ホーム画面に追加</h3>
-              <button
-                onClick={() => setShowAddToHomeModal(false)}
-                className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <p className="text-gray-600 text-sm mb-6">
-              以下の手順で「テスト作成」をホーム画面に追加できます。
-            </p>
-
-            <div className="space-y-4">
-              {isIos ? (
-                <>
-                  {/* iOS手順 - ステップ1 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">1</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">画面下の共有ボタンをタップ</p>
-                      <div className="mt-2 inline-flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2">
-                        <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                        <span className="text-sm text-gray-600">共有</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* iOS手順 - ステップ2 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">2</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">「ホーム画面に追加」を選択</p>
-                      <div className="mt-2 inline-flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2">
-                        <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                        </svg>
-                        <span className="text-sm text-gray-600">ホーム画面に追加</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* iOS手順 - ステップ3 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">3</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">右上の「追加」をタップ</p>
-                    </div>
-                  </div>
-                </>
               ) : (
                 <>
-                  {/* Android手順 - ステップ1 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">1</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">右上のメニュー（⋮）をタップ</p>
-                      <div className="mt-2 inline-flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2">
-                        <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                          <circle cx="12" cy="5" r="2" />
-                          <circle cx="12" cy="12" r="2" />
-                          <circle cx="12" cy="19" r="2" />
+                  {/* 教材選択 */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-bold text-gray-700">復習する単語帳</label>
+                    <div className="relative">
+                      <select
+                        value={selectedTextbook}
+                        onChange={(e) => setSelectedTextbook(e.target.value)}
+                        className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900"
+                      >
+                        {textbooks.map((tb) => (
+                          <option key={tb.textbook} value={tb.textbook}>
+                            {tb.textbook}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
-                        <span className="text-sm text-gray-600">メニュー</span>
+                      </div>
+                    </div>
+                    <p className="text-right text-sm text-gray-500">
+                      対象単語数: <span className="font-bold text-gray-900">{textbooks.find(t => t.textbook === selectedTextbook)?.words.length || 0}</span> 語
+                    </p>
+                  </div>
+
+                  {/* 苦手度フィルター */}
+                  <div className="space-y-3">
+                    <label className="block text-sm font-bold text-gray-700">出題する単語の種類</label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {/* 最近間違えた単語 */}
+                      <div
+                        onClick={() => setIncludeRecent(!includeRecent)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeRecent
+                          ? 'border-red-500 bg-red-50'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeRecent ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeRecent ? 'text-red-900' : 'text-gray-700'}`}>最近間違えた単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeRecent ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.recentCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeRecent ? 'text-red-700' : 'text-gray-500'}`}>30日以内に間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeRecent ? 'bg-red-500 border-red-500' : 'border-gray-300'
+                          }`}>
+                          {includeRecent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                      </div>
+
+                      {/* 何度も間違える単語 */}
+                      <div
+                        onClick={() => setIncludeFrequent(!includeFrequent)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeFrequent
+                          ? 'border-gray-800 bg-gray-50'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeFrequent ? 'text-gray-900' : 'text-gray-700'}`}>何度も間違える単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.frequentCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeFrequent ? 'text-gray-700' : 'text-gray-500'}`}>2回以上間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeFrequent ? 'bg-gray-800 border-gray-800' : 'border-gray-300'
+                          }`}>
+                          {includeFrequent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                      </div>
+
+                      {/* 1回だけ間違えた単語 */}
+                      <div
+                        onClick={() => setIncludeSingle(!includeSingle)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeSingle
+                          ? 'border-gray-400 bg-white'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeSingle ? 'bg-gray-100 text-gray-600' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeSingle ? 'text-gray-800' : 'text-gray-700'}`}>1回だけ間違えた単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeSingle ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.singleCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeSingle ? 'text-gray-600' : 'text-gray-500'}`}>過去に1度だけ間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeSingle ? 'bg-gray-500 border-gray-500' : 'border-gray-300'
+                          }`}>
+                          {includeSingle && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Android手順 - ステップ2 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">2</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">「ホーム画面に追加」または<br />「アプリをインストール」を選択</p>
-                      <div className="mt-2 inline-flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2">
-                        <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                        </svg>
-                        <span className="text-sm text-gray-600">ホーム画面に追加</span>
+                  {/* オプション設定（範囲・出題数） */}
+                  <div className="bg-gray-50 rounded-2xl p-5 space-y-5">
+                    {/* 範囲指定トグル */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <span className="font-bold text-gray-700">範囲を指定する</span>
+                      </div>
+                      <button
+                        onClick={() => setUseRange(!useRange)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${useRange ? 'bg-red-600' : 'bg-gray-200'
+                          }`}
+                      >
+                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${useRange ? 'translate-x-6' : 'translate-x-1'
+                          }`} />
+                      </button>
+                    </div>
+
+                    {/* 範囲入力フィールド */}
+                    {useRange && (
+                      <div className="flex items-center gap-3 animate-fadeIn">
+                        <div className="relative flex-1">
+                          <input
+                            type="number"
+                            value={reviewStartNum === 0 ? '' : reviewStartNum}
+                            onChange={(e) => setReviewStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                            className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                            placeholder="開始"
+                          />
+                          <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
+                        </div>
+                        <span className="text-gray-400 font-bold">〜</span>
+                        <div className="relative flex-1">
+                          <input
+                            type="number"
+                            value={reviewEndNum === 0 ? '' : reviewEndNum}
+                            onChange={(e) => setReviewEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                            className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                            placeholder="終了"
+                          />
+                          <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="border-t border-gray-200 my-2"></div>
+
+                    {/* 出題数 */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                          </svg>
+                        </div>
+                        <span className="font-bold text-gray-700">出題数</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          value={testCount === 0 ? '' : testCount}
+                          onChange={(e) => setTestCount(e.target.value === '' ? 0 : Number(e.target.value))}
+                          className="w-20 border border-gray-300 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                          min="1"
+                        />
+                        <span className="text-gray-500 font-medium">語</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Android手順 - ステップ3 */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-sm">3</div>
-                    <div>
-                      <p className="text-gray-900 font-medium">「追加」または「インストール」をタップ</p>
-                    </div>
+                  {/* アクションボタン */}
+                  <div className="pt-4">
+                    <button
+                      onClick={createReviewTest}
+                      disabled={isCreatingReviewTest || !selectedTextbook}
+                      className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 ${isCreatingReviewTest || !selectedTextbook
+                        ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
+                        : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
+                        }`}
+                    >
+                      {isCreatingReviewTest ? (
+                        <>
+                          <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          作成中...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          復習テストを開始
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => router.back()}
+                      className="w-full mt-3 text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors"
+                    >
+                      キャンセル
+                    </button>
                   </div>
                 </>
               )}
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-gray-100">
-              <button
-                onClick={() => setShowAddToHomeModal(false)}
-                className="w-full py-3 px-4 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors"
-              >
-                閉じる
-              </button>
-            </div>
+            </>
           </div>
-        </div>
-      )}
+        )
+      }
+
       {/* End of Component */}
-    </div>
+    </div >
   );
 
   if (embedMode) {
