@@ -364,11 +364,11 @@ function ResultsContent() {
           </div>
 
           {/* 広告エリア（間違えた単語の下） */}
-          <div className="flex justify-center my-6">
+          <div className="flex justify-center items-center my-6 w-full text-center">
             <GoogleAdsense
               slot="9969163744"
               format="rectangle"
-              style={{ display: 'block', width: '100%', maxWidth: '336px', height: '280px' }}
+              style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
               responsive="false"
             />
           </div>
