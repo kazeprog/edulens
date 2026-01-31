@@ -769,62 +769,12 @@ export default function HomePage() {
                                 </div>
                             </div>
 
-                            {/* Quick Actions (Desktop/Tablet) */}
-                            <div className="hidden lg:block space-y-3">
-                                <button
-                                    onClick={() => router.push('/mistap/test-setup')}
-                                    className="w-full group relative flex items-center justify-center gap-3 bg-gray-900 hover:bg-gray-800 text-white p-4 rounded-2xl transition-all shadow-md hover:shadow-lg overflow-hidden"
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    <span className="relative font-semibold">新しいテストを作成</span>
-                                    <svg className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                                <button
-                                    onClick={() => router.push('/mistap/history')}
-                                    className="w-full flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-3 rounded-xl transition-colors font-medium"
-                                >
-                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                    </svg>
-                                    学習履歴を確認
-                                </button>
+                            {/* Mobile: 1 Year Record (Contribution Graph) */}
+                            <div className="lg:hidden">
+                                <ContributionGrid />
                             </div>
 
-                            {/* User Count Display (Moved) */}
-
-                        </div>
-
-                        {/* Right Column: Recent Activity */}
-                        <div className="lg:col-span-2 flex flex-col gap-6">
-
-                            {/* Referral Banner */}
-                            {referralEnabled && (
-                                <div
-                                    onClick={() => router.push('/mistap/referral')}
-                                    className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-3xl shadow-lg shadow-pink-200 p-6 text-white relative overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
-                                >
-                                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
-                                    <div className="relative z-10 flex items-center justify-between">
-                                        <div>
-                                            <div className="flex items-center gap-2 mb-2 bg-white/20 w-fit px-3 py-1 rounded-full text-xs font-bold">
-                                                <span>🎁 キャンペーン中</span>
-                                            </div>
-                                            <h3 className="text-xl font-bold mb-1">友達招待でProプラン無料！</h3>
-                                            <p className="text-pink-100 text-sm">3人招待すると1ヶ月分プレゼント。<br />タップして招待リンクをコピー。</p>
-                                        </div>
-                                        <div className="bg-white/20 p-3 rounded-full">
-                                            <span className="text-2xl">🚀</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* 草（Contribution Graph） */}
-                            <ContributionGrid />
-
-                            {/* Today's Goal Cards (Multiple) */}
+                            {/* Today's Goals (Visible on both desktop and mobile) */}
                             {todayGoals.length > 0 ? (
                                 <div className="space-y-4">
                                     <h3 className="text-lg font-bold text-gray-900 px-1">今日の目標</h3>
@@ -895,6 +845,91 @@ export default function HomePage() {
                                 </div>
                             )}
 
+                            {/* Mobile Quick Actions (lg:hidden) */}
+                            <div className="lg:hidden grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => router.push('/mistap/test-setup')}
+                                    className="flex flex-col items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white p-4 rounded-2xl shadow-md active:scale-95 transition-all"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    <span className="font-bold text-sm">作成</span>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/mistap/history')}
+                                    className="flex flex-col items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-4 rounded-2xl active:scale-95 transition-all"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                    <span className="font-bold text-sm">履歴</span>
+                                </button>
+                            </div>
+
+
+                            {/* Quick Actions (Desktop/Tablet) */}
+                            <div className="hidden lg:block space-y-3">
+                                <button
+                                    onClick={() => router.push('/mistap/test-setup')}
+                                    className="w-full group relative flex items-center justify-center gap-3 bg-gray-900 hover:bg-gray-800 text-white p-4 rounded-2xl transition-all shadow-md hover:shadow-lg overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <span className="relative font-semibold">新しいテストを作成</span>
+                                    <svg className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/mistap/history')}
+                                    className="w-full flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-3 rounded-xl transition-colors font-medium"
+                                >
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                    学習履歴を確認
+                                </button>
+                            </div>
+
+                        </div>
+
+                        {/* Right Column: Recent Activity */}
+                        <div className="lg:col-span-2 flex flex-col gap-6">
+
+                            {/* デスクトップ版: 左カラムから移動した「過去1年間の学習記録」を最上部に配置 */}
+                            <div className="hidden lg:block">
+                                <ContributionGrid />
+                            </div>
+
+                            {/* Referral Banner */}
+                            {referralEnabled && (
+                                <div
+                                    onClick={() => router.push('/mistap/referral')}
+                                    className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-3xl shadow-lg shadow-pink-200 p-6 text-white relative overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
+                                >
+                                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
+                                    <div className="relative z-10 flex items-center justify-between">
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-2 bg-white/20 w-fit px-3 py-1 rounded-full text-xs font-bold">
+                                                <span>🎁 キャンペーン中</span>
+                                            </div>
+                                            <h3 className="text-xl font-bold mb-1">友達招待でProプラン無料！</h3>
+                                            <p className="text-pink-100 text-sm">3人招待すると1ヶ月分プレゼント。<br />タップして招待リンクをコピー。</p>
+                                        </div>
+                                        <div className="bg-white/20 p-3 rounded-full">
+                                            <span className="text-2xl">🚀</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 学習進捗ダッシュボード */}
+                            <ProgressDashboard />
+
+
+
+
+
                             {/* Recent Results */}
                             <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
                                 <div className="flex items-center justify-between mb-6">
@@ -962,28 +997,6 @@ export default function HomePage() {
                                         </button>
                                     </div>
                                 )}
-                            </div>
-
-                            {/* Mobile Quick Actions */}
-                            <div className="lg:hidden grid grid-cols-2 gap-4">
-                                <button
-                                    onClick={() => router.push('/mistap/test-setup')}
-                                    className="flex flex-col items-center justify-center gap-2 bg-gray-900 text-white p-4 rounded-2xl shadow-md active:scale-95 transition-transform"
-                                >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                                    </svg>
-                                    <span className="font-bold text-sm">作成</span>
-                                </button>
-                                <button
-                                    onClick={() => router.push('/mistap/history')}
-                                    className="flex flex-col items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 p-4 rounded-2xl active:scale-95 transition-transform"
-                                >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                    </svg>
-                                    <span className="font-bold text-sm">履歴</span>
-                                </button>
                             </div>
                         </div>
                     </div>
