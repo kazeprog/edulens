@@ -1,7 +1,7 @@
 {
     "name": "Mistap",
     "short_name": "Mistap",
-    "description": "間違えた単語に集中できる英単語テストアプリ",
+    "description": "間違えた単語に集中できる単語テストアプリ",
     "start_url": "/mistap/home",
     "display": "standalone",
     "background_color": "#ffffff",
