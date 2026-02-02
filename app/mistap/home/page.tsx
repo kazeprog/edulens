@@ -12,6 +12,7 @@ import Background from '@/components/mistap/Background';
 import GroupRanking from '@/components/GroupRanking';
 import ProgressDashboard from '@/components/mistap/ProgressDashboard';
 import ContributionGrid from '@/components/mistap/ContributionGrid';
+import AddToHomeScreen from '@/components/mistap/AddToHomeScreen';
 import MistapFooter from '@/components/mistap/Footer';
 import GoogleAdsense from '@/components/GoogleAdsense';
 
@@ -937,7 +938,13 @@ export default function HomePage() {
                             )}
 
                             {/* 学習進捗ダッシュボード */}
-                            <ProgressDashboard />
+                            <div>
+                                <AddToHomeScreen />
+                                <h2 className="text-lg font-bold text-gray-900 px-1 mb-4">
+                                    学習単語の管理
+                                </h2>
+                                <ProgressDashboard />
+                            </div>
 
 
 
