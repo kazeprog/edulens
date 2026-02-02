@@ -50,6 +50,7 @@ interface TodayGoal {
     start: number;
     end: number;
     daily_goal: number;
+    words_per_test?: number;
 }
 
 interface IncorrectWord {
@@ -463,7 +464,8 @@ export default function HomePage() {
                                                 textbook: goal.textbook_name,
                                                 start: currentStartNum,
                                                 end: endNum,
-                                                daily_goal: dailyGoal
+                                                daily_goal: dailyGoal,
+                                                words_per_test: goal.words_per_test
                                             });
                                             break;
                                         }
@@ -813,13 +815,19 @@ export default function HomePage() {
                                                     <div className="hidden sm:block h-12 w-px bg-white/30"></div>
                                                     <div className="hidden sm:block">
                                                         <p className="text-sm opacity-80 mb-1">目標語数</p>
-                                                        <p className="text-2xl font-bold">{goal.end - goal.start + 1}<span className="text-base font-normal ml-1 opacity-80">words</span></p>
+                                                        <p className="text-2xl font-bold">
+                                                            {(goal.words_per_test && goal.words_per_test > 0) ? goal.words_per_test : (goal.end - goal.start + 1)}
+                                                            <span className="text-base font-normal ml-1 opacity-80">words</span>
+                                                            {(goal.words_per_test && goal.words_per_test > 0 && goal.words_per_test < (goal.end - goal.start + 1)) && (
+                                                                <span className="text-sm font-normal ml-2 opacity-70">/ 全{goal.end - goal.start + 1}語から</span>
+                                                            )}
+                                                        </p>
                                                     </div>
                                                 </div>
 
                                                 <div className="mt-6 flex gap-3">
                                                     <button
-                                                        onClick={() => router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${goal.end - goal.start + 1}`)}
+                                                        onClick={() => router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${(goal.words_per_test && goal.words_per_test > 0) ? goal.words_per_test : (goal.end - goal.start + 1)}`)}
                                                         className="flex-1 bg-white text-red-600 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors shadow-lg"
                                                     >
                                                         テストする

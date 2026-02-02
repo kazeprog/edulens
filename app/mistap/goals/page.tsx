@@ -13,6 +13,7 @@ interface Goal {
   start_date: string;
   goal_start_word: number;
   goal_end_word: number;
+  words_per_test?: number;
 }
 
 export default function GoalsPage() {
@@ -20,6 +21,7 @@ export default function GoalsPage() {
 
   // フォーム状態
   const [dailyGoal, setDailyGoal] = useState<string>('100');
+  const [wordsPerTest, setWordsPerTest] = useState<string>('');
   const [startDate, setStartDate] = useState<string>(() => {
     const today = new Date();
     const year = today.getFullYear();
@@ -142,6 +144,7 @@ export default function GoalsPage() {
     setEditingGoalId(goal.id);
     setSelectedTextbook(goal.textbook_name);
     setDailyGoal(goal.daily_goal.toString());
+    setWordsPerTest(goal.words_per_test ? goal.words_per_test.toString() : '');
     setStartDate(goal.start_date);
     setStartWord(goal.goal_start_word.toString());
     setEndWord(goal.goal_end_word.toString());
@@ -153,6 +156,7 @@ export default function GoalsPage() {
   const handleCreateNew = () => {
     setEditingGoalId(null);
     setDailyGoal('100');
+    setWordsPerTest('');
     // 日付リセット
     const today = new Date();
     const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
@@ -241,7 +245,8 @@ export default function GoalsPage() {
         daily_goal: parseInt(dailyGoal) || 0,
         start_date: startDate,
         goal_start_word: startWordNum,
-        goal_end_word: endWordNum
+        goal_end_word: endWordNum,
+        words_per_test: wordsPerTest ? parseInt(wordsPerTest) : null
       };
 
       let result;
@@ -459,6 +464,28 @@ export default function GoalsPage() {
                             語
                           </div>
                         </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          1回あたりのテスト語数 <span className="text-xs font-normal text-gray-500 ml-1">(任意)</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={wordsPerTest}
+                            onChange={(e) => setWordsPerTest(e.target.value)}
+                            placeholder={dailyGoal ? `${dailyGoal} (全問)` : '未設定'}
+                            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
+                            min="1"
+                          />
+                          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+                            語
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">
+                          設定しない場合は、その日の目標範囲すべてが出題されます。
+                        </p>
                       </div>
 
                       <div>
