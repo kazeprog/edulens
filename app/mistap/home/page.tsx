@@ -13,6 +13,7 @@ import GroupRanking from '@/components/GroupRanking';
 import ProgressDashboard from '@/components/mistap/ProgressDashboard';
 import ContributionGrid from '@/components/mistap/ContributionGrid';
 import MistapFooter from '@/components/mistap/Footer';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -772,6 +773,17 @@ export default function HomePage() {
                             {/* Mobile: 1 Year Record (Contribution Graph) */}
                             <div className="lg:hidden">
                                 <ContributionGrid />
+                            </div>
+
+
+                            {/* Mobile: AdSense above Today's Goals */}
+                            <div className="lg:hidden">
+                                <GoogleAdsense
+                                    slot="9969163744"
+                                    format="rectangle"
+                                    responsive="true"
+                                    style={{ display: 'block', width: '100%', minHeight: '250px' }}
+                                />
                             </div>
 
                             {/* Today's Goals (Visible on both desktop and mobile) */}
