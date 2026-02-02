@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getSupabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -27,6 +27,10 @@ export default function EduLensLoginForm({
     const [mode, setMode] = useState<'login' | 'signup' | 'forgot'>(initialMode);
     const [showEmailSignup, setShowEmailSignup] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        setMode(initialMode);
+    }, [initialMode]);
 
     const supabase = getSupabase();
 
