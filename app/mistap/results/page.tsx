@@ -344,6 +344,17 @@ function ResultsContent() {
             </div>
           </div>
 
+
+          {/* 広告エリア（間違えた単語の上） */}
+          <div className="flex justify-center items-center mb-6 w-full text-center">
+            <GoogleAdsense
+              slot="9969163744"
+              format="rectangle"
+              style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
+              responsive="false"
+            />
+          </div>
+
           <h2 className="font-semibold mb-2">間違えた単語</h2>
           <div className="space-y-3 mb-6">
             {Array.isArray(tappedWords) && tappedWords.length > 0 ? (

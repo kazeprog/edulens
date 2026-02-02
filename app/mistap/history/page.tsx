@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 interface IncorrectWord {
   word_number: number;
@@ -218,6 +219,16 @@ export default function HistoryPage() {
               </svg>
               戻る
             </button>
+          </div>
+
+          {/* 広告エリア */}
+          <div className="w-full mb-8">
+            <GoogleAdsense
+              slot="9969163744"
+              format="auto"
+              responsive="true"
+              style={{ display: 'block' }}
+            />
           </div>
 
           {loading && (
