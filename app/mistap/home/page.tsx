@@ -783,6 +783,7 @@ export default function HomePage() {
                                     format="rectangle"
                                     responsive="true"
                                     style={{ display: 'block', width: '100%', minHeight: '250px' }}
+                                    className="mb-0"
                                 />
                             </div>
 
