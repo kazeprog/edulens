@@ -25,6 +25,7 @@ export default function EduLensLoginForm({
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [mode, setMode] = useState<'login' | 'signup' | 'forgot'>(initialMode);
+    const [showEmailSignup, setShowEmailSignup] = useState(false);
     const router = useRouter();
 
     const supabase = getSupabase();
@@ -196,9 +197,15 @@ export default function EduLensLoginForm({
                     </div>
                 )}
 
-                {/* Googleログインボタン */}
                 {!message && (mode === 'login' || mode === 'signup') && (
-                    <div className="mb-6">
+                    <div className="mb-6 relative">
+                        {mode === 'signup' && (
+                            <div className="absolute -top-3 left-2 z-10">
+                                <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
+                                    おすすめ
+                                </span>
+                            </div>
+                        )}
                         <button
                             type="button"
                             onClick={handleGoogleLogin}
@@ -228,8 +235,34 @@ export default function EduLensLoginForm({
                     </div>
                 )}
 
-                {/* 区切り線 */}
-                {!message && (mode === 'login' || mode === 'signup') && (
+                {/* 区切り線とメール登録フォーム切り替え */}
+                {!message && mode === 'signup' && !showEmailSignup && (
+                    <>
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="h-px bg-slate-200 flex-1"></div>
+                            <span className="text-xs text-slate-400 font-medium">または</span>
+                            <div className="h-px bg-slate-200 flex-1"></div>
+                        </div>
+                        <button
+                            onClick={() => setShowEmailSignup(true)}
+                            className="w-full py-3 px-4 border border-slate-200 text-slate-600 font-medium rounded-xl hover:bg-slate-50 transition-colors"
+                        >
+                            メールアドレスで登録
+                        </button>
+                        <div className="mt-4 text-center">
+                            <button
+                                type="button"
+                                onClick={() => setMode('login')}
+                                className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
+                            >
+                                すでにアカウントをお持ちの方はこちら
+                            </button>
+                        </div>
+                    </>
+                )}
+
+                {/* 区切り線 (ログイン時またはメール登録表示時) */}
+                {!message && (mode === 'login' || (mode === 'signup' && showEmailSignup)) && (
                     <div className="flex items-center gap-4 mb-6">
                         <div className="h-px bg-slate-200 flex-1"></div>
                         <span className="text-xs text-slate-400 font-medium">または</span>
@@ -238,7 +271,7 @@ export default function EduLensLoginForm({
                 )}
 
                 {/* フォーム */}
-                {!message && (
+                {!message && (mode === 'login' || (mode === 'signup' && showEmailSignup) || mode === 'forgot') && (
                     <form onSubmit={
                         mode === 'signup' ? handleSignup :
                             mode === 'forgot' ? handleForgotPassword :
