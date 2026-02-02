@@ -391,6 +391,10 @@ export default function AdminDashboardPage() {
                                     const d = new Date(value);
                                     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
                                 }}
+                                itemSorter={(a: any, b: any) => {
+                                    const order: { [key: string]: number } = { 'MAU': 0, 'WAU': 1, 'DAU': 2 };
+                                    return (order[a.name] ?? 99) - (order[b.name] ?? 99);
+                                }}
                             />
                             <Line type="monotone" dataKey="mau" name="MAU" stroke="#94a3b8" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                             <Line type="monotone" dataKey="wau" name="WAU" stroke="#6366f1" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
