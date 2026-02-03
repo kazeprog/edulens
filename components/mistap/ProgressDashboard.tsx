@@ -328,7 +328,8 @@ export default function ProgressDashboard() {
                 selectedText: `${targetTextbook} (${selectedCategory})`,
                 startNum: null,
                 endNum: null,
-                isReview: true
+                isReview: true,
+                mode: selectedMode || shuffled[0]?.mode || 'word-meaning'
             };
 
             const supabase = getSupabase();
@@ -397,8 +398,8 @@ export default function ProgressDashboard() {
                 <button
                     onClick={() => setSelectedMode(null)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === null
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-gray-800 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                 >
                     すべて
@@ -406,8 +407,8 @@ export default function ProgressDashboard() {
                 <button
                     onClick={() => setSelectedMode('word-meaning')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === 'word-meaning'
-                            ? 'bg-green-600 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-green-600 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                 >
                     単語→意味
@@ -415,8 +416,8 @@ export default function ProgressDashboard() {
                 <button
                     onClick={() => setSelectedMode('meaning-word')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === 'meaning-word'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                 >
                     意味→単語
