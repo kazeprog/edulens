@@ -71,7 +71,7 @@ export default function Target1200Page() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。PartやSectionを選ぶだけで、誰でも無料でターゲット1200の小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>英単語ターゲット1200</strong>を選択してください。
+                        <strong>英単語ターゲット1200</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "ターゲット1200の暗記効率を最大化",

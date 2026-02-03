@@ -69,7 +69,7 @@ export default function LeapPage() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。Partを選ぶだけで、誰でも無料でLEAPの小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>LEAP</strong>を選択してください。
+                        <strong>LEAP</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "LEAPの学習効果を最大化",

@@ -8,6 +8,7 @@ import { CheckCircle, BookOpen, Zap, Trophy, ChevronRight, GraduationCap, School
 import SiteFooter from '@/components/SiteFooter';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
+import AmazonTextbookLink from '@/components/mistap/AmazonTextbookLink';
 import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 interface TextbookLPTemplateProps {
@@ -258,9 +259,12 @@ export default function TextbookLPTemplate({
                                         今すぐテストしてみる (無料)
                                     </Link>
                                 </div>
-                                <p className="text-sm text-slate-400 font-medium">
-                                    ※ 登録不要で試せます
-                                </p>
+                                <div className="flex flex-col items-center md:items-start gap-2">
+                                    <AmazonTextbookLink textbookName={textbookNameJa} />
+                                    <p className="text-sm text-slate-400 font-medium">
+                                        ※ 登録不要で試せます
+                                    </p>
+                                </div>
                             </div>
 
                             <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
