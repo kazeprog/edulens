@@ -149,6 +149,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
   }, []);
 
+  const [showCopyrightModal, setShowCopyrightModal] = useState(false);
   const [referralEnabled, setReferralEnabled] = useState(true);
 
   // Check campaign status
@@ -1465,6 +1466,15 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
               </button>
             </div>
 
+            <div className="flex justify-center md:justify-end mt-4">
+              <button
+                onClick={() => setShowCopyrightModal(true)}
+                className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
+              >
+                著作権について
+              </button>
+            </div>
+
             {/* iOS/Android向け「ホーム画面に追加」ボタン */}
 
             {/* 共有デモ確認モーダル */}
@@ -1810,6 +1820,42 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
           </div>
         )
       }
+
+      {/* 著作権についてモーダル */}
+      {showCopyrightModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowCopyrightModal(false)} />
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                著作権について
+              </h3>
+              <div className="text-slate-600 text-sm leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <p>
+                  当サービス「Mistap」で提供される単語データや問題内容は、教育目的での利用を想定して作成されています。
+                </p>
+                <p>
+                  各単語帳の名称（システム英単語、ターゲット1900等）は各出版社の登録商標です。当サービスはこれらの出版社とは一切関係なく、独自に作成した問題を提供しています。
+                </p>
+                <p>
+                  問題の作成にあたっては、著作権法で認められる範囲内での引用や、独自の改変を行っておりますが、万が一権利上の問題がある場合は、お問い合わせフォームよりご連絡ください。速やかに対応いたします。
+                </p>
+              </div>
+              <div className="mt-8 flex justify-end">
+                <button
+                  onClick={() => setShowCopyrightModal(false)}
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-colors"
+                >
+                  閉じる
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* End of Component */}
     </div >
