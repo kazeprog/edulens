@@ -1833,23 +1833,30 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 </svg>
                 著作権について
               </h3>
-              <div className="text-slate-600 text-sm leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+              <div className="text-slate-600 text-sm leading-relaxed space-y-3">
                 <p>
-                  当サービス「Mistap」で提供される単語データや問題内容は、教育目的での利用を想定して作成されています。
+                  当アプリでは独自の単語データベースを構築しており、市販書籍の日本語訳とは同一ではありません。
                 </p>
                 <p>
-                  各単語帳の名称（システム英単語、ターゲット1900等）は各出版社の登録商標です。当サービスはこれらの出版社とは一切関係なく、独自に作成した問題を提供しています。
+                  各書籍の著作権を尊重し、学習をサポートするツールとして提供しています。
+                  <strong className="text-slate-700">効果的な学習のため、必ず書籍本体をご購入ください。</strong>
                 </p>
-                <p>
-                  問題の作成にあたっては、著作権法で認められる範囲内での引用や、独自の改変を行っておりますが、万が一権利上の問題がある場合は、お問い合わせフォームよりご連絡ください。速やかに対応いたします。
+                <p className="text-xs text-slate-400">
+                  万が一問題がある場合は、お問い合わせフォームよりご連絡ください。
                 </p>
               </div>
-              <div className="mt-8 flex justify-end">
+              <div className="mt-6 flex justify-between items-center">
+                <a
+                  href="/terms"
+                  className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
+                >
+                  利用規約を見る
+                </a>
                 <button
                   onClick={() => setShowCopyrightModal(false)}
                   className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-colors"
                 >
-                  閉じる
+                  OK
                 </button>
               </div>
             </div>
