@@ -25,6 +25,7 @@ interface TestResult {
   incorrect_words: IncorrectWord[] | null;
   created_at: string;
   unit: string | null;
+  mode: 'word-meaning' | 'meaning-word' | null;
 }
 
 interface TextbookStats {
@@ -350,6 +351,14 @@ export default function HistoryPage() {
                                     ))}
                                     <span className="mx-2 text-gray-300">|</span>
                                     <span className="text-gray-600 text-sm">{result.correct}/{result.total}問正解</span>
+                                    {result.mode && (
+                                      <>
+                                        <span className="mx-2 text-gray-300">|</span>
+                                        <span className={`text-xs px-2 py-0.5 rounded-full ${result.mode === 'meaning-word' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
+                                          {result.mode === 'meaning-word' ? '意味→単語' : '単語→意味'}
+                                        </span>
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                               </div>

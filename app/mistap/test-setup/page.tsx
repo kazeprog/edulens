@@ -36,6 +36,7 @@ export default function TestSetupPage() {
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review' | 'textbook'>('normal');
+  const [testMode, setTestMode] = useState<'word-meaning' | 'meaning-word'>('word-meaning');
 
   // 教科書テスト用の状態
   const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>('');
@@ -223,6 +224,11 @@ export default function TestSetupPage() {
       const savedSchoolTextbook = localStorage.getItem('mistap_selected_school_textbook');
       const savedSchoolGrade = localStorage.getItem('mistap_selected_school_grade');
       const savedUnit = localStorage.getItem('mistap_selected_unit');
+      const savedTestMode = localStorage.getItem('mistap_test_mode');
+
+      if (savedTestMode === 'word-meaning' || savedTestMode === 'meaning-word') {
+        setTestMode(savedTestMode);
+      }
 
       if (savedLevel) {
         setLevel(savedLevel);
@@ -490,18 +496,19 @@ export default function TestSetupPage() {
         if (level === 'junior') {
           localStorage.setItem('mistap_junior_test_type', 'wordbook');
         }
+        localStorage.setItem('mistap_test_mode', testMode);
       } catch {
         // localStorage保存エラー - 無視
       }
 
       // 範囲情報のみをURLに含める（短いURL）
       // 友達が同じURLでアクセスすると、同じ範囲から異なる単語がランダムに出題される
-      router.push(`/mistap/test?text=${encodeURIComponent(sText)}&start=${sStart}&end=${sEnd}&count=${sCount}`);
+      router.push(`/mistap/test?text=${encodeURIComponent(sText)}&start=${sStart}&end=${sEnd}&count=${sCount}&mode=${testMode}`);
     } catch {
       isCreatingTestRef.current = false;
       setIsCreatingTest(false);
     }
-  }, [filteredTexts, texts, startNum, endNum, count, selectedText, router]);
+  }, [filteredTexts, texts, startNum, endNum, count, selectedText, router, level, testMode]);
 
   // 教科書テスト作成処理
   const createTextbookTest = useCallback(async () => {
@@ -537,7 +544,8 @@ export default function TestSetupPage() {
         selectedText: `${selectedSchoolTextbook} ${selectedSchoolGrade} - ${unitLabel}`,
         startNum: null,
         endNum: null,
-        isTextbookTest: true
+        isTextbookTest: true,
+        mode: testMode
       };
 
       // profiles.test_count を増やす
@@ -570,7 +578,7 @@ export default function TestSetupPage() {
       setIsCreatingTextbookTest(false);
       isCreatingTextbookTestRef.current = false;
     }
-  }, [selectedSchoolTextbook, selectedSchoolGrade, selectedUnit, textbookUnits, count, router]);
+  }, [selectedSchoolTextbook, selectedSchoolGrade, selectedUnit, textbookUnits, count, router, testMode]);
 
   // public wrapper that uses current state (keeps compatibility)
   const createTest = useCallback(async () => {
@@ -818,7 +826,8 @@ export default function TestSetupPage() {
         selectedText: `${selectedTextbook} (復習テスト)`,
         startNum: null,
         endNum: null,
-        isReview: true
+        isReview: true,
+        mode: testMode
       };
 
       // ここで profiles.test_count を増やす（非同期で安全に回数を記録）
@@ -935,6 +944,31 @@ export default function TestSetupPage() {
                         {l.label}
                       </button>
                     ))}
+                  </div>
+                </div>
+
+                {/* テストモード選択 */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-gray-700">出題モード</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => setTestMode('word-meaning')}
+                      className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
+                        ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                        : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                        }`}
+                    >
+                      単語 → 意味
+                    </button>
+                    <button
+                      onClick={() => setTestMode('meaning-word')}
+                      className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
+                        ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                        : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                        }`}
+                    >
+                      意味 → 単語
+                    </button>
                   </div>
                 </div>
 
@@ -1352,6 +1386,31 @@ export default function TestSetupPage() {
                       <p className="text-right text-sm text-gray-500">
                         対象単語数: <span className="font-bold text-gray-900">{textbooks.find(t => t.textbook === selectedTextbook)?.words.length || 0}</span> 語
                       </p>
+                    </div>
+
+                    {/* テストモード選択 */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-bold text-gray-700">出題モード</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setTestMode('word-meaning')}
+                          className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
+                            ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                            : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                            }`}
+                        >
+                          単語 → 意味
+                        </button>
+                        <button
+                          onClick={() => setTestMode('meaning-word')}
+                          className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
+                            ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                            : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                            }`}
+                        >
+                          意味 → 単語
+                        </button>
+                      </div>
                     </div>
 
                     {/* 苦手度フィルター */}

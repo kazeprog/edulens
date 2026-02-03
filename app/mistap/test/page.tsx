@@ -23,8 +23,9 @@ interface Word {
 interface TestData {
   words: Word[];
   selectedText: string;
-  startNum: number;
-  endNum: number;
+  startNum: number | null;
+  endNum: number | null;
+  mode?: 'word-meaning' | 'meaning-word';
 }
 
 function TestContent() {
@@ -207,6 +208,8 @@ function TestContent() {
     const startParam = searchParams.get('start');
     const endParam = searchParams.get('end');
     const countParam = searchParams.get('count');
+    const modeParam = searchParams.get('mode');
+    const mode = (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning';
 
     if (textParam && startParam && endParam && countParam) {
       const generateTest = async () => {
@@ -249,7 +252,7 @@ function TestContent() {
           }
 
           const shuffled = data.sort(() => Math.random() - 0.5).slice(0, count);
-          setTestData({ selectedText, words: shuffled, startNum, endNum });
+          setTestData({ selectedText, words: shuffled, startNum, endNum, mode });
         } catch {
           router.push('/mistap/test-setup');
         }
@@ -541,9 +544,9 @@ function TestContent() {
 
   function recreateWith20Words() {
     if (!testData) return;
-    const { selectedText, startNum } = testData;
+    const { selectedText, startNum, mode } = testData;
     const newEndNum = startNum != null ? startNum + 19 : 20;
-    router.push(`/mistap/test?text=${encodeURIComponent(selectedText)}&start=${startNum || 1}&end=${newEndNum}&count=20`);
+    router.push(`/mistap/test?text=${encodeURIComponent(selectedText)}&start=${startNum || 1}&end=${newEndNum}&count=20&mode=${mode || 'word-meaning'}`);
   }
 
   function handleToggleAnswers() {
@@ -572,7 +575,7 @@ function TestContent() {
       console.error('Failed to increment test count:', err);
     }
 
-    const { selectedText, startNum, endNum, words } = testData;
+    const { selectedText, startNum, endNum, words, mode } = testData;
 
     // 教科書テストの場合（startNum/endNumがnull）は、単語データを直接渡す
     const isTextbookTest = (testData as { isTextbookTest?: boolean }).isTextbookTest || (startNum == null && endNum == null);
@@ -589,7 +592,8 @@ function TestContent() {
         total: words.length,
         selectedText,
         startNum: null,
-        endNum: null
+        endNum: null,
+        mode: mode || 'word-meaning'
       };
       const dataParam = encodeURIComponent(JSON.stringify(resultData));
       router.push(`/mistap/results?data=${dataParam}&t=${Date.now()}`);
@@ -600,7 +604,7 @@ function TestContent() {
         .filter((w: Word) => !tappedIds.has(w.word_number))
         .map((w: Word) => w.word_number)
         .join(',');
-      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&t=${Date.now()}`);
+      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&mode=${mode || 'word-meaning'}&t=${Date.now()}`);
     }
   }
 
@@ -614,9 +618,21 @@ function TestContent() {
     );
   }
 
-  const { words, selectedText, startNum, endNum } = testData;
-  const leftWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 0) : [];
-  const rightWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 1) : [];
+  const { words, selectedText, startNum, endNum, mode } = testData;
+  const isMeaningToWord = mode === 'meaning-word';
+
+  // Prepare words for display based on mode
+  const displayWords = words.map(w => ({
+    ...w,
+    originalWord: w.word, // Keep original English word for audio and back face
+    originalMeaning: w.meaning, // Keep original meaning for back face
+    word: isMeaningToWord ? w.meaning : w.word, // Display Meaning as Word
+    meaning: isMeaningToWord ? w.word : w.meaning, // Display Word as Meaning (Answer)
+  })) as (Word & { originalWord: string; originalMeaning: string })[];
+
+
+  const leftWords = Array.isArray(displayWords) ? displayWords.filter((_, i) => i % 2 === 0) : [];
+  const rightWords = Array.isArray(displayWords) ? displayWords.filter((_, i) => i % 2 === 1) : [];
 
 
 
@@ -631,19 +647,27 @@ function TestContent() {
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
             <div ref={mobileCardsRef} className="block md:hidden px-3" style={{ maxWidth: '100%' }}>
-              {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word, idx: number) => (
-                <FlippableCard
-                  key={`${item.word_number}-${idx}`}
-                  word={item.word}
-                  meaning={item.meaning}
-                  wordNumber={item.word_number}
-                  isFlipped={flippedIds.has(item.word_number)}
-                  isTapped={tappedIds.has(item.word_number)}
-                  onFlip={() => toggleFlipped(item.word_number)}
-                  onTap={() => toggleTapped(item.word_number)}
-                  minHeight={item.requiredMinHeight}
-                />
-              ))}
+              {displayWords.map((item, idx: number) => {
+                // Merge height data from wordsWithHeights if available
+                const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
+                const minHeight = heightData?.requiredMinHeight;
+                return (
+                  <FlippableCard
+                    key={`${item.word_number}-${idx}`}
+                    word={item.word}
+                    meaning={item.meaning}
+                    wordNumber={item.word_number}
+                    isFlipped={flippedIds.has(item.word_number)}
+                    isTapped={tappedIds.has(item.word_number)}
+                    onFlip={() => toggleFlipped(item.word_number)}
+                    onTap={() => toggleTapped(item.word_number)}
+                    minHeight={minHeight}
+                    audioText={item.originalWord}
+                    originalWord={item.originalWord}
+                    originalMeaning={item.originalMeaning}
+                  />
+                );
+              })}
 
 
             </div>
@@ -651,25 +675,27 @@ function TestContent() {
             {/* Desktop: 2-column layout */}
             <div ref={desktopGridRef} className="hidden md:grid md:grid-cols-2 md:gap-6">
               <ul>
-                {leftWords.map((item: Word, idx: number) => (
+                {leftWords.map((item, idx: number) => (
                   <li key={`${item.word_number}-left-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}
                       showAnswers={showAnswers}
                       onTap={() => toggleTapped(item.word_number)}
+                      audioText={item.originalWord}
                     />
                   </li>
                 ))}
               </ul>
               <ul>
-                {rightWords.map((item: Word, idx: number) => (
+                {rightWords.map((item, idx: number) => (
                   <li key={`${item.word_number}-right-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}
                       showAnswers={showAnswers}
                       onTap={() => toggleTapped(item.word_number)}
+                      audioText={item.originalWord}
                     />
                   </li>
                 ))}

@@ -12,6 +12,9 @@ interface FlippableCardProps {
   onFlip: () => void;
   onTap: () => void;
   minHeight?: number; // カードごとの最適な高さ（ピクセル）
+  audioText?: string; // 読み上げ用のテキスト（表示テキストと異なる場合）
+  originalWord?: string; // 元の英単語（裏面表示用）
+  originalMeaning?: string; // 元の日本語意味（裏面表示用）
 }
 
 export default function FlippableCard({
@@ -22,14 +25,18 @@ export default function FlippableCard({
   isTapped,
   onFlip,
   onTap,
-  minHeight = 128 // デフォルトは8rem相当
+  minHeight = 128, // デフォルトは8rem相当
+  audioText,
+  originalWord,
+  originalMeaning
 }: FlippableCardProps) {
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       // 既存の読み上げをキャンセル
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(word);
+      const textToSpeak = audioText || word;
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.lang = 'en-US';
 
       // 英語の音声を明示的に取得して設定（ローマ字読み回避のため）
@@ -169,10 +176,10 @@ export default function FlippableCard({
             </span>
             <div className="flex-1 min-w-0">
               <div className="font-semibold text-lg text-gray-900 mb-1 break-words">
-                {word}
+                {originalWord || word}
               </div>
               <div className="text-sm text-gray-700 leading-tight break-words">
-                {meaning}
+                {originalMeaning || meaning}
               </div>
             </div>
             <button

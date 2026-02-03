@@ -35,6 +35,7 @@ interface WordData {
     correct_count: number;
     last_wrong_date: string;
     textbook: string;
+    mode: 'word-meaning' | 'meaning-word' | null; // テストモード
 }
 
 interface ProgressItem {
@@ -75,6 +76,9 @@ export default function ProgressDashboard() {
     // 日別統計（教材ごと）
     const [dailyStatsMap, setDailyStatsMap] = useState<DailyStatsMap>({});
 
+    // 選択中のモード（null = 全て）
+    const [selectedMode, setSelectedMode] = useState<'word-meaning' | 'meaning-word' | null>(null);
+
     // データ取得
     const loadWordData = useCallback(async () => {
         if (!user) {
@@ -92,7 +96,7 @@ export default function ProgressDashboard() {
             // 全テスト結果を取得（correct_wordsも含む）
             const { data: results, error } = await supabase
                 .from('results')
-                .select('incorrect_words, correct_words, correct, total, selected_text, created_at')
+                .select('incorrect_words, correct_words, correct, total, selected_text, created_at, mode')
                 .eq('user_id', user.id)
                 .order('created_at', { ascending: true });
 
@@ -110,6 +114,7 @@ export default function ProgressDashboard() {
             results?.forEach(result => {
                 const dateKey = new Date(result.created_at).toISOString().split('T')[0];
                 const textbookRaw = result.selected_text || '不明';
+                const resultMode = result.mode || 'word-meaning'; // デフォルトは word-meaning
                 // カテゴリ名や復習テストのサフィックスを除去して、元の教材名（レッスン情報含む）に寄せる
                 const textbook = textbookRaw
                     .replace(/[\s]*[（(][^）)]*復習[^)）]*[)）][\s]*$/u, '')
@@ -131,7 +136,7 @@ export default function ProgressDashboard() {
                 // 不正解の単語を処理
                 if (result.incorrect_words && Array.isArray(result.incorrect_words)) {
                     result.incorrect_words.forEach((word: { word_number: number; word: string; meaning: string }) => {
-                        const key = `${textbook}|${word.word_number}`;
+                        const key = `${textbook}|${word.word_number}|${resultMode}`;
 
                         if (wordMap.has(key)) {
                             const existing = wordMap.get(key)!;
@@ -146,6 +151,7 @@ export default function ProgressDashboard() {
                                 correct_count: 0,
                                 last_wrong_date: result.created_at,
                                 textbook: textbook,
+                                mode: resultMode,
                             });
                         }
                     });
@@ -155,7 +161,7 @@ export default function ProgressDashboard() {
                 // 正解の単語を処理（correct_wordsから直接取得）
                 if (result.correct_words && Array.isArray(result.correct_words)) {
                     result.correct_words.forEach((word: { word_number: number; word: string; meaning: string }) => {
-                        const key = `${textbook}|${word.word_number}`;
+                        const key = `${textbook}|${word.word_number}|${resultMode}`;
 
                         if (wordMap.has(key)) {
                             wordMap.get(key)!.correct_count += 1;
@@ -168,6 +174,7 @@ export default function ProgressDashboard() {
                                 correct_count: 1,
                                 last_wrong_date: '',
                                 textbook: textbook,
+                                mode: resultMode,
                             });
                         }
                     });
@@ -198,12 +205,19 @@ export default function ProgressDashboard() {
         return Array.from(baseNames).sort();
     }, [textbooks]);
 
-    // 選択された教材でフィルタリングされた単語
+    // 選択された教材とモードでフィルタリングされた単語
     const filteredWords = useMemo(() => {
-        if (!selectedTextbook) return allWords;
-        // 基本教科書名が一致する全てのレッスンの単語を含める
-        return allWords.filter(w => normalizeTextbookName(w.textbook) === selectedTextbook);
-    }, [allWords, selectedTextbook]);
+        let words = allWords;
+        // 教材フィルタ
+        if (selectedTextbook) {
+            words = words.filter(w => normalizeTextbookName(w.textbook) === selectedTextbook);
+        }
+        // モードフィルタ
+        if (selectedMode) {
+            words = words.filter(w => w.mode === selectedMode);
+        }
+        return words;
+    }, [allWords, selectedTextbook, selectedMode]);
 
     // フィルタリングされた単語を分類
     const { wordLists, progressData } = useMemo(() => {
@@ -377,6 +391,37 @@ export default function ProgressDashboard() {
                     </div>
                 </div>
             )}
+
+            {/* モードタブ */}
+            <div className="flex gap-2 px-1">
+                <button
+                    onClick={() => setSelectedMode(null)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === null
+                            ? 'bg-gray-800 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                >
+                    すべて
+                </button>
+                <button
+                    onClick={() => setSelectedMode('word-meaning')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === 'word-meaning'
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                >
+                    単語→意味
+                </button>
+                <button
+                    onClick={() => setSelectedMode('meaning-word')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedMode === 'meaning-word'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                >
+                    意味→単語
+                </button>
+            </div>
 
             {/* 0. サマリーカード */}
             <div className="grid grid-cols-3 gap-3 md:gap-4">

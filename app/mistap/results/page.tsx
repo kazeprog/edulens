@@ -21,6 +21,7 @@ interface ResultData {
   selectedText: string;
   startNum: number;
   endNum: number;
+  mode?: 'word-meaning' | 'meaning-word';
 }
 
 function ResultsContent() {
@@ -44,6 +45,7 @@ function ResultsContent() {
     const totalParam = searchParams.get('total');
     const wrongParam = searchParams.get('wrong');
     const correctParam = searchParams.get('correct');
+    const modeParam = searchParams.get('mode');
 
     if (textParam && totalParam !== null) {
       // URLパラメータから結果データを復元
@@ -93,7 +95,8 @@ function ResultsContent() {
             total,
             selectedText,
             startNum,
-            endNum
+            endNum,
+            mode: (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning'
           });
         } catch {
           router.push('/mistap/test-setup');
@@ -128,7 +131,7 @@ function ResultsContent() {
       setSaving(true);
       setError(null);
 
-      const { tappedWords = [], correctWords = [], total = 0, selectedText, startNum, endNum } = resultData || {};
+      const { tappedWords = [], correctWords = [], total = 0, selectedText, startNum, endNum, mode = 'word-meaning' } = resultData || {};
       const correct = total - tappedWords.length;
 
       try {
@@ -192,6 +195,7 @@ function ResultsContent() {
           incorrect_words: tappedWords ?? [],
           correct_words: correctWords ?? [],
           test_key: testKey,
+          mode: mode, // テストモードを保存
         };
 
         // try upsert by unique index (user_id, test_key) to avoid duplicates
