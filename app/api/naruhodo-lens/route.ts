@@ -1,6 +1,7 @@
-import { streamText, convertToModelMessages, UIMessage } from 'ai';
+import { streamText, convertToModelMessages } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { NextRequest } from 'next/server';
+import { Buffer } from 'buffer';
 
 // Initialize Google AI with existing API key
 const google = createGoogleGenerativeAI({
@@ -86,6 +87,7 @@ const SYSTEM_PROMPT = `# あなたの役割
 export const maxDuration = 60;
 
 import { createServerSupabaseClient } from '@/utils/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 import { redis } from '@/lib/redis';
 import { Ratelimit } from '@upstash/ratelimit';
 import { cookies } from 'next/headers';
@@ -120,9 +122,6 @@ export async function POST(req: NextRequest) {
         // 2. Burst Rate Limiting (IP based) - Prevent DDoS/Spam
         // Limit to 10 requests per minute per IP (regardless of user status)
         const ipForBurst = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown_ip';
-
-        // Skip burst limit for unknown_ip in dev environment to avoid blocking developer? 
-        // No, apply it to everyone.
         const burstLimit = new Ratelimit({
             redis,
             limiter: Ratelimit.slidingWindow(10, '1 m'), // 10 requests / 1 min
@@ -134,6 +133,8 @@ export async function POST(req: NextRequest) {
         if (!burstSuccess) {
             return new Response(JSON.stringify({ error: 'Too Many Requests (Burst Limit)' }), { status: 429 });
         }
+
+        // --- Data Preparation ---
 
         // Check if the latest message has images (Count usage only for image uploads)
         const lastMessage = messages[messages.length - 1];
@@ -154,37 +155,60 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // --- User Identification (Early Resolution) ---
+        let userId: string | null = null;
+        let isPro = false;
+        const supabase = createServerSupabaseClient();
+
+        // Create Admin Client for fetching profile (Bypass RLS)
+        const supabaseUrl = process.env.NEXT_PUBLIC_EDULENS_SUPABASE_URL || process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.MISTAP_SUPABASE_SERVICE_ROLE_KEY;
+
+        // Fallback to anonymous client if service key is missing (though profile fetch might fail)
+        const adminClient = (supabaseUrl && supabaseServiceKey)
+            ? createClient(supabaseUrl, supabaseServiceKey, { auth: { persistSession: false } })
+            : supabase;
+
+        if (token) {
+            const { data: { user } } = await supabase.auth.getUser(token);
+            if (user) {
+                userId = user.id;
+                // Check Pro status & Get Name using Admin Client
+                const { data: profile } = await adminClient
+                    .from('profiles')
+                    .select('is_pro, full_name')
+                    .eq('id', userId)
+                    .single();
+
+                isPro = !!profile?.is_pro;
+                const userName = profile?.full_name;
+                (req as any).userName = userName;
+            }
+        }
+
+        // Guest ID Logic
+        const cookieStore = await cookies();
+        let guestId = cookieStore.get('naruhodo_guest_id')?.value;
         let shouldSetGuestCookie = false;
         let newGuestId = '';
-        let limitExceeded = false;
+
+        if (!guestId) {
+            guestId = crypto.randomUUID();
+            shouldSetGuestCookie = true;
+            newGuestId = guestId;
+        } else {
+            newGuestId = guestId; // keep existing
+        }
+
+        // Anonymize IP for logging
+        const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
+        const ipHash = ip !== 'unknown' ? Buffer.from(ip).toString('base64') : null;
 
         // --- Usage Limit Logic (Upstash Redis) ---
         // Only enforce limit if image is attached
+        let success = true;
+
         if (hasImage) {
-            let userId: string | null = null;
-            let isPro = false;
-
-            // Supabase Client for User Identification
-            const supabase = createServerSupabaseClient();
-
-            // 1. Identify User
-            if (token) {
-                const { data: { user } } = await supabase.auth.getUser(token);
-                if (user) {
-                    userId = user.id;
-                    // Check Pro status
-                    const { data: profile } = await supabase
-                        .from('profiles')
-                        .select('is_pro')
-                        .eq('id', userId)
-                        .single();
-                    isPro = !!profile?.is_pro;
-                }
-            }
-
-            // 2. Determine Rate Limit based on User Role & Check
-            let success = true;
-
             if (userId) {
                 let ratelimit: Ratelimit;
                 if (isPro) {
@@ -209,16 +233,7 @@ export async function POST(req: NextRequest) {
 
             } else {
                 // Guest User: 1 req / 24h (Cookie AND IP Hybrid Limit)
-                const cookieStore = await cookies();
-                let guestId = cookieStore.get('naruhodo_guest_id')?.value;
-
-                if (!guestId) {
-                    guestId = crypto.randomUUID();
-                    shouldSetGuestCookie = true;
-                    newGuestId = guestId;
-                }
-
-                const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown_ip';
+                const currentGuestId = guestId || newGuestId; // Use resolved guestId
 
                 const ratelimitCookie = new Ratelimit({
                     redis,
@@ -236,79 +251,101 @@ export async function POST(req: NextRequest) {
 
                 // Check BOTH. If EITHER is exceeded, block.
                 const [cookieResult, ipResult] = await Promise.all([
-                    ratelimitCookie.limit(guestId),
+                    ratelimitCookie.limit(currentGuestId),
                     ratelimitIP.limit(ip)
                 ]);
 
                 success = cookieResult.success && ipResult.success;
             }
-
-            if (!success) {
-                limitExceeded = true;
-
-                // Rate limit exceeded message with upgrade link for Free users
-                let limitMessage: string;
-                let upgradeUrl: string | null = null;
-
-                if (userId && !isPro) {
-                    // Free User - show upgrade link
-                    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mistap.jp';
-                    upgradeUrl = `${baseUrl}/upgrade?source=naruhodo`;
-                    limitMessage = `今日の無料回数はおしまいだよ！Proアカウントに変更で1日20問まで質問できるよ！\n\n👉 Proプランはこちら: ${upgradeUrl}`;
-                } else if (isPro) {
-                    // Pro User
-                    limitMessage = "今日の質問回数はおしまいだよ！また明日質問してね！";
-                } else {
-                    // Guest User - show login link
-                    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mistap.jp';
-                    const loginUrl = `${baseUrl}/login?mode=signup&redirect=%2Fnaruhodo-lens`;
-                    limitMessage = `今日の無料回数はおしまいだよ！ログインすると1日2回まで質問できるよ！\n\n👉 [今すぐ新規登録](${loginUrl})`;
-                }
-
-                const result = streamText({
-                    model: google('gemini-2.0-flash'),
-                    system: `あなたは学習支援AI「ナルホドレンズ」です。ユーザーに対して「${limitMessage}」とだけ伝えてください。親しみやすい口調で、それ以外のことは絶対に話さないでください。URLはそのまま表示してください。`,
-                    messages: [
-                        { role: 'user', content: 'limit check' }
-                    ],
-                });
-
-                const response = result.toUIMessageStreamResponse();
-                if (shouldSetGuestCookie) {
-                    response.headers.set('Set-Cookie', `naruhodo_guest_id=${newGuestId}; Path=/; Max-Age=31536000; SameSite=Lax`);
-                }
-                return response;
-            }
         }
+
+        // Handle Limit Exceeded
+        if (!success) {
+            let limitMessage: string;
+            let upgradeUrl: string | null = null;
+
+            if (userId && !isPro) {
+                // Free User
+                const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mistap.jp';
+                upgradeUrl = `${baseUrl}/upgrade?source=naruhodo`;
+                limitMessage = `今日の無料回数はおしまいだよ！Proアカウントに変更で1日20問まで質問できるよ！\n\n👉 Proプランはこちら: ${upgradeUrl}`;
+            } else if (isPro) {
+                // Pro User
+                limitMessage = "今日の質問回数はおしまいだよ！また明日質問してね！";
+            } else {
+                // Guest User
+                const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mistap.jp';
+                const loginUrl = `${baseUrl}/login?mode=signup&redirect=%2Fnaruhodo-lens`;
+                limitMessage = `今日の無料回数はおしまいだよ！ログインすると1日2回まで質問できるよ！\n\n👉 [今すぐ新規登録](${loginUrl})`;
+            }
+
+            const result = streamText({
+                model: google('gemini-2.0-flash'),
+                system: `あなたは学習支援AI「ナルホドレンズ」です。ユーザーに対して「${limitMessage}」とだけ伝えてください。親しみやすい口調で、それ以外のことは絶対に話さないでください。URLはそのまま表示してください。`,
+                messages: [
+                    { role: 'user', content: 'limit check' }
+                ],
+            });
+
+            const response = result.toUIMessageStreamResponse();
+            if (shouldSetGuestCookie) {
+                response.headers.set('Set-Cookie', `naruhodo_guest_id=${newGuestId}; Path=/; Max-Age=31536000; SameSite=Lax`);
+            }
+            return response;
+        }
+
+        // --- Generate Response ---
 
         // Pre-convert messages once to reuse
         const coreMessages = await convertToModelMessages(messages);
 
+        // Define logging callback
+        // Logging: Execute synchronously before streaming to ensure persistence
+        // Only log if an image is attached (User requirement: Count "image explanation" sessions, not chat turns)
+        if (hasImage) {
+            try {
+                // Use adminClient (or recreate if scope issue) for logging to ensure insert permissions
+                const supabaseUrl = process.env.NEXT_PUBLIC_EDULENS_SUPABASE_URL || process.env.NEXT_PUBLIC_MISTAP_SUPABASE_URL;
+                const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.MISTAP_SUPABASE_SERVICE_ROLE_KEY;
+                const logger = (supabaseUrl && supabaseServiceKey)
+                    ? createClient(supabaseUrl, supabaseServiceKey, { auth: { persistSession: false } })
+                    : createServerSupabaseClient();
+
+                await logger.from('naruhodo_usage_logs').insert({
+                    user_id: userId,
+                    guest_id: userId ? null : (guestId || newGuestId),
+                    has_image: hasImage,
+                    is_pro: isPro,
+                    user_name: (req as any).userName,
+                    user_agent: userAgent,
+                    ip_hash: ipHash
+                });
+            } catch (err) {
+                console.error('Failed to log Naruhodo usage:', err);
+            }
+        }
+
         let result;
 
         try {
-            // Create streaming response using Vercel AI SDK v6
-            // Attempt 1: Primary Model (gemini-2.0-flash) with 5 retries
+            // Attempt 1: Primary Model (gemini-2.0-flash)
             result = streamText({
                 model: google('gemini-2.0-flash'),
                 system: SYSTEM_PROMPT,
                 messages: coreMessages,
-                maxRetries: 5, // 応答が返ってこないことがあるため、リトライ回数を5回に増やす
+                maxRetries: 5,
             });
         } catch (error) {
-            console.warn('Primary model (gemini-2.0-flash) failed. Switching to fallback (gemini-2.5-flash-lite).', error);
+            console.warn('Primary model failed. Switching to fallback.', error);
 
-            // Attempt 2: Fallback Model (gemini-2.5-flash-lite)
-            // Note: Fallback also has default retries (or we can specify fewer if desired)
+            // Attempt 2: Fallback Model
             result = streamText({
                 model: google('gemini-2.5-flash-lite'),
                 system: SYSTEM_PROMPT,
                 messages: coreMessages,
-                maxRetries: 2, // フォールバックも念の為リトライ
             });
         }
 
-        // Return UI message stream response
         const response = result.toUIMessageStreamResponse();
         if (shouldSetGuestCookie) {
             response.headers.set('Set-Cookie', `naruhodo_guest_id=${newGuestId}; Path=/; Max-Age=31536000; SameSite=Lax`);

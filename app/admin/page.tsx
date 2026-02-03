@@ -21,6 +21,8 @@ interface DashboardStats {
     dau: number;
     wau: number;
     mau: number;
+    engagement?: DashboardEngagementStats;
+    naruhodoUsage?: NaruhodoStats;
 }
 
 // 月別登録データの型
@@ -44,6 +46,21 @@ interface ActiveUserTrend {
     wau: number;
     mau: number;
 }
+
+// エンゲージメント指標の型
+interface DashboardEngagementStats {
+    retention_rate_7d: number;
+    first_test_rate: number;
+    heavy_user_rate: number;
+}
+
+// ナルホドレンズ利用状況
+interface NaruhodoStats {
+    today: number;
+    total: number;
+}
+
+
 
 // アクティビティの型定義
 interface RecentActivity {
@@ -135,12 +152,16 @@ export default function AdminDashboardPage() {
                 { data: recentUsers },
                 { data: recentExams },
                 { data: recentPosts },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 { data: allProfiles },
                 { data: configResponse },
                 { data: dauCount },
                 { data: wauCount },
                 { data: mauCount },
                 { data: trendData },
+                { data: engagementStats },
+                { count: naruhodoToday },
+                { count: naruhodoTotal },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -161,8 +182,10 @@ export default function AdminDashboardPage() {
                 supabase.rpc('get_active_test_user_count', { p_days: 7 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 30 }),
                 supabase.rpc('get_active_user_trends', { p_days: 30 }),
+                supabase.rpc('get_dashboard_engagement_stats'),
+                supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
+                supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }),
             ]);
-
             // 月別登録データを集計（過去12ヶ月）
             if (allProfiles) {
                 const monthlyData: { [key: string]: number } = {};
@@ -224,6 +247,11 @@ export default function AdminDashboardPage() {
                 dau: dauCount || 0,
                 wau: wauCount || 0,
                 mau: mauCount || 0,
+                engagement: engagementStats || undefined,
+                naruhodoUsage: {
+                    today: naruhodoToday || 0,
+                    total: naruhodoTotal || 0
+                }
             });
 
             if (trendData) {
@@ -391,6 +419,7 @@ export default function AdminDashboardPage() {
                                     const d = new Date(value);
                                     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
                                 }}
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                 itemSorter={(item: any) => {
                                     const order: { [key: string]: number } = { 'MAU': 0, 'WAU': 1, 'DAU': 2 };
                                     return order[item.name] ?? 99;
@@ -404,6 +433,53 @@ export default function AdminDashboardPage() {
                 </div>
                 <p className="text-xs text-slate-400 text-center mt-2">過去30日間のアクティブユーザー推移</p>
             </div>
+
+            {/* エンゲージメント指標 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">📊 エンゲージメント詳細</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">7日後継続率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-emerald-600">
+                            {stats.engagement?.retention_rate_7d != null ? `${stats.engagement.retention_rate_7d.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">登録7日後に利用</span>
+                    </div>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">初回テスト完了率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-blue-600">
+                            {stats.engagement?.first_test_rate != null ? `${stats.engagement.first_test_rate.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">最低1回完了</span>
+                    </div>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">ヘビーユーザー率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-indigo-600">
+                            {stats.engagement?.heavy_user_rate != null ? `${stats.engagement.heavy_user_rate.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">10回以上完了</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* ナルホドレンズ利用状況 */}{/* ナルホドレンズ利用状況 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">🔍 ナルホドレンズ利用状況</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium mb-1">今日の利用数</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.naruhodoUsage?.today ?? '-'}</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium mb-1">総利用数</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.naruhodoUsage?.total ?? '-'}</p>
+                </div>
+            </div>
+
+
 
             {/* サブ統計カード */}
             <div className="grid grid-cols-3 gap-4 mb-8">
@@ -604,6 +680,6 @@ export default function AdminDashboardPage() {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
