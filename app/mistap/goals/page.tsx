@@ -545,7 +545,7 @@ export default function GoalsPage() {
                           </h3>
                           <button
                             onClick={(e) => handleDeleteClick(goal.id, e)}
-                            className="text-gray-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="text-gray-400 hover:text-red-500 p-2 transition-colors"
                             title="削除"
                           >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
