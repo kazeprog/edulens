@@ -93,7 +93,7 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     });
     ```
 
-## 4. Verify Test Creation Logic
+## 5. Verify Test Creation Logic
 **Target Files**: `components/mistap/TestSetupContent.tsx` & `app/mistap/test-setup/page.tsx`
 
 1.  **Check `createTestImpl`**:
@@ -113,7 +113,40 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     }
     ```
 
-## 5. Verification
+## 4. Update Textbook Hub
+**Target Files**: 
+- `app/mistap/textbook/page.tsx` (Index Page)
+- `app/mistap/textbook/[slug]/page.tsx` (Individual LP)
+
+1.  **Create LP Page**:
+    -   Create a new directory `app/mistap/textbook/[slug]` (e.g., `app/mistap/textbook/my-new-book`).
+    -   Create `page.tsx` inside it.
+    -   Copy content from `app/mistap/textbook/target-1900/page.tsx` or similar as a template.
+    -   Update `metadata` (title, description).
+    -   **Update `metadata.keywords`:** Add the following SEO keywords to `metadata.keywords`. Replace `(単語帳名)` with the specific textbook name (including variations like "正式名称", "略称", and "Alphabet Notation").
+        ```typescript
+        keywords: [
+          '(単語帳名)',
+          '(単語帳名) アプリ',
+          '(単語帳名) テスト アプリ',
+          '(単語帳名) 単語テスト',
+          '(単語帳名) 単語テスト アプリ',
+          '(単語帳名) 小テスト',
+          '(単語帳名) 小テスト アプリ',
+          '(単語帳名) 小テスト メーカー',
+          '(単語帳名) 小テスト ジェネレーター',
+          // ... other relevant keywords
+        ],
+        ```
+    -   Update `TextbookLPTemplate` props (`textbookName`, `presetTextbook`, `seoSettings`, etc.).
+    -   **Important**: `presetTextbook` must match the name used in `jsonTextbookData.ts` and `TestSetupContent.tsx`.
+
+2.  **Add to Index List**:
+    -   Open `app/mistap/textbook/page.tsx`.
+    -   Add an entry to the appropriate array (e.g., `universityTextbooks`).
+    -   Ensure `path` matches your new directory structure.
+
+## 5. Verify Test Creation Logic
 1.  **Start Dev Server**: `npm run dev`
 2.  **Check Homepage (`/mistap`)**:
     -   Is the new textbook visible in the dropdown?
