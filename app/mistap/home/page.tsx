@@ -688,21 +688,7 @@ export default function HomePage() {
                                 </p>
                             )}
 
-                            {/* Pro plan promotion link */}
-                            {!authProfile?.is_pro && (
-                                <div className="mt-3">
-                                    <Link
-                                        href="/upgrade"
-                                        prefetch={false}
-                                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-red-600 transition-colors group"
-                                    >
-                                        <span>広告非表示はこちら</span>
-                                        <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </Link>
-                                </div>
-                            )}
+
                         </div>
                     )}
 
@@ -731,6 +717,34 @@ export default function HomePage() {
                                         </button>
                                     </div>
                                 </div>
+                            )}
+
+                            {/* Pro plan promotion button */}
+                            {!authProfile?.is_pro && !authLoading && (
+                                <Link
+                                    href="/upgrade"
+                                    prefetch={false}
+                                    className="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white p-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-between group relative overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+
+                                    <div className="flex items-center gap-4 relative z-10 w-full">
+                                        <div className="bg-white/20 p-2.5 rounded-lg backdrop-blur-sm shrink-0">
+                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                            </svg>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-bold text-lg leading-tight truncate">広告を非表示にする</p>
+                                            <p className="text-white/90 text-xs font-medium mt-0.5 truncate">集中力を高めて学習効率UP</p>
+                                        </div>
+                                    </div>
+                                    <div className="relative z-10 bg-white/20 rounded-full p-1 group-hover:translate-x-1 transition-transform ml-2 shrink-0">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </Link>
                             )}
 
                             {/* Stats Cards */}

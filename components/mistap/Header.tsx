@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import ManageSubscriptionButton from '@/components/ManageSubscriptionButton';
 
 export default function Header() {
   const router = useRouter();
@@ -149,6 +150,24 @@ export default function Header() {
                   お問い合わせ
                 </Link>
                 <div className="border-t border-slate-100 my-1"></div>
+
+                {/* Proプランへのリンク (Proユーザー以外に表示) */}
+                {!profile?.is_pro && (
+                  <Link
+                    href="/upgrade"
+                    prefetch={false}
+                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Proプラン登録
+                  </Link>
+                )}
+
+                {/* Proユーザーのみプラン管理ボタンを表示 */}
+                {profile?.is_pro && profile.stripe_customer_id && (
+                  <ManageSubscriptionButton customerId={profile.stripe_customer_id} />
+                )}
+
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
