@@ -1,7 +1,7 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mistap.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://edulens.jp';
 
 export default function Head() {
-  const url = `${siteUrl}/history`;
+  const url = `${siteUrl}/mistap/history`;
   return (
     <>
       <title>学習履歴 — Mistap</title>

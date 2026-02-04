@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
+import GoogleAdsense from '@/components/GoogleAdsense';
 
 interface IncorrectWord {
   word_number: number;
@@ -24,6 +25,7 @@ interface TestResult {
   incorrect_words: IncorrectWord[] | null;
   created_at: string;
   unit: string | null;
+  mode: 'word-meaning' | 'meaning-word' | null;
 }
 
 interface TextbookStats {
@@ -220,6 +222,16 @@ export default function HistoryPage() {
             </button>
           </div>
 
+          {/* 広告エリア */}
+          <div className="w-full mb-8">
+            <GoogleAdsense
+              slot="9969163744"
+              format="auto"
+              responsive="true"
+              style={{ display: 'block' }}
+            />
+          </div>
+
           {loading && (
             <div className="flex justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
@@ -339,6 +351,14 @@ export default function HistoryPage() {
                                     ))}
                                     <span className="mx-2 text-gray-300">|</span>
                                     <span className="text-gray-600 text-sm">{result.correct}/{result.total}問正解</span>
+                                    {result.mode && (
+                                      <>
+                                        <span className="mx-2 text-gray-300">|</span>
+                                        <span className={`text-xs px-2 py-0.5 rounded-full ${result.mode === 'meaning-word' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
+                                          {result.mode === 'meaning-word' ? '意味→単語' : '単語→意味'}
+                                        </span>
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                               </div>

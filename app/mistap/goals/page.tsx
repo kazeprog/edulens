@@ -6,9 +6,22 @@ import { useRouter } from 'next/navigation';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
 
+interface Goal {
+  id: string;
+  textbook_name: string;
+  daily_goal: number;
+  start_date: string;
+  goal_start_word: number;
+  goal_end_word: number;
+  words_per_test?: number;
+}
+
 export default function GoalsPage() {
   const router = useRouter();
+
+  // フォーム状態
   const [dailyGoal, setDailyGoal] = useState<string>('100');
+  const [wordsPerTest, setWordsPerTest] = useState<string>('');
   const [startDate, setStartDate] = useState<string>(() => {
     const today = new Date();
     const year = today.getFullYear();
@@ -16,18 +29,25 @@ export default function GoalsPage() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   });
+  const [selectedTextbook, setSelectedTextbook] = useState<string>('');
+  const [startWord, setStartWord] = useState<string>('1');
+  const [endWord, setEndWord] = useState<string>('');
+
+  // アプリ状態
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isGoalSaved, setIsGoalSaved] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // 新規作成 or 編集モード
   const [textbooks, setTextbooks] = useState<string[]>([]);
-  const [selectedTextbook, setSelectedTextbook] = useState<string>('');
   const [maxWords, setMaxWords] = useState<number>(0);
-  const [startWord, setStartWord] = useState<string>('1');
-  const [endWord, setEndWord] = useState<string>('');
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
+  // データ
+  const [myGoals, setMyGoals] = useState<Goal[]>([]);
+  const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
+
+  // 初期ロード：ユーザー確認 & 教材リスト取得 & 既存目標取得
   useEffect(() => {
     let mounted = true;
     async function load() {
@@ -40,7 +60,7 @@ export default function GoalsPage() {
           return;
         }
 
-        // 教材リストの取得
+        // 1. 教材リストの取得
         const { data: textsData, error: textsError } = await supabase.rpc('get_unique_texts');
         let uniqueTexts: string[] = [];
         if (!textsError && textsData) {
@@ -63,55 +83,30 @@ export default function GoalsPage() {
 
         if (mounted) {
           setTextbooks(uniqueTexts);
-          if (uniqueTexts.length > 0 && !selectedTextbook) {
-            // デフォルトはターゲット1900、なければ最初
-            if (uniqueTexts.includes('ターゲット1900')) {
-              setSelectedTextbook('ターゲット1900');
-            } else {
-              setSelectedTextbook(uniqueTexts[0]);
-            }
+          // デフォルト選択
+          if (uniqueTexts.length > 0) {
+            setSelectedTextbook(uniqueTexts.includes('ターゲット1900') ? 'ターゲット1900' : uniqueTexts[0]);
           }
         }
 
-        const { data, error } = await supabase.from('profiles').select('daily_goal, start_date, selected_textbook, goal_start_word, goal_end_word').eq('id', userId).single();
-        if (error) {
-          console.error('Error fetching profile:', error);
-          // カラムが存在しない場合でも基本データは取得
-          const { data: basicData } = await supabase.from('profiles').select('daily_goal, start_date, selected_textbook').eq('id', userId).single();
-          if (basicData && mounted) {
-            setDailyGoal(basicData?.daily_goal?.toString() ?? '100');
-            const today = new Date();
-            const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-            setStartDate(basicData?.start_date ?? defaultDate);
-            if (basicData?.selected_textbook && uniqueTexts.includes(basicData.selected_textbook)) {
-              setSelectedTextbook(basicData.selected_textbook);
-            }
-            if (basicData?.daily_goal && basicData?.start_date) {
-              setIsGoalSaved(true);
-            }
-          }
+        // 2. 既存の目標を取得（新テーブルから）
+        const { data: goalsData, error: goalsError } = await supabase
+          .from('mistap_textbook_goals')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false });
+
+        if (goalsError) {
+          console.error('Error fetching goals:', goalsError);
+          // テーブルがまだないなどのエラーハンドリング（旧データの移行はSQLで行われる前提）
         } else if (mounted) {
-          setDailyGoal(data?.daily_goal?.toString() ?? '100');
-          const today = new Date();
-          const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-          setStartDate(data?.start_date ?? defaultDate);
-          if (data?.selected_textbook && uniqueTexts.includes(data.selected_textbook)) {
-            setSelectedTextbook(data.selected_textbook);
-          }
-          setStartWord(data?.goal_start_word?.toString() ?? '1');
-          // endWordは保存済みの値があればそれを使う、なければmaxWords取得後に設定
-          if (data?.goal_end_word) {
-            setEndWord(data.goal_end_word.toString());
-          }
-          // 目標が既に保存されているか確認（daily_goalとstart_dateが両方存在する場合）
-          if (data?.daily_goal && data?.start_date) {
-            setIsGoalSaved(true);
-          }
+          setMyGoals(goalsData || []);
         }
+
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : String(e));
       } finally {
-        setLoading(false);
+        if (mounted) setLoading(false);
       }
     }
 
@@ -134,68 +129,82 @@ export default function GoalsPage() {
 
       if (!error && data) {
         setMaxWords(data.word_number);
-        // 単語帳変更時は常に範囲をリセット
-        setStartWord('1');
-        setEndWord(data.word_number.toString());
+        // 新規作成モードで、かつ手動入力されていない場合のみリセット
+        if (isEditing && !editingGoalId && !endWord) {
+          // setStartWord('1'); // startWordはユーザーが入力している可能性があるので維持
+          setEndWord(data.word_number.toString());
+        }
       }
     }
     fetchMaxWords();
-  }, [selectedTextbook]);
+  }, [selectedTextbook, isEditing, editingGoalId, endWord]);
 
-  async function handleClear() {
-    setShowClearConfirm(true);
-  }
-
-  async function confirmClear() {
-    setShowClearConfirm(false);
-    setSaving(true);
+  // 目標の編集を開始
+  const handleEdit = (goal: Goal) => {
+    setEditingGoalId(goal.id);
+    setSelectedTextbook(goal.textbook_name);
+    setDailyGoal(goal.daily_goal.toString());
+    setWordsPerTest(goal.words_per_test ? goal.words_per_test.toString() : '');
+    setStartDate(goal.start_date);
+    setStartWord(goal.goal_start_word.toString());
+    setEndWord(goal.goal_end_word.toString());
+    setIsEditing(true);
     setError(null);
+  };
+
+  // 新規作成モードへ
+  const handleCreateNew = () => {
+    setEditingGoalId(null);
+    setDailyGoal('100');
+    setWordsPerTest('');
+    // 日付リセット
+    const today = new Date();
+    const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    setStartDate(defaultDate);
+
+    setStartWord('1');
+    setEndWord(''); // maxWords取得時にセットされる
+    setIsEditing(true);
+    setError(null);
+  };
+
+  // 削除確認
+  const handleDeleteClick = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDeleteTargetId(id);
+    setShowDeleteConfirm(true);
+  };
+
+  // 削除実行
+  const confirmDelete = async () => {
+    if (!deleteTargetId) return;
+
+    setSaving(true);
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const userId = userData?.user?.id ?? null;
-      if (!userId) {
-        setError('未ログインです');
-        setSaving(false);
-        return;
+      const { error } = await supabase
+        .from('mistap_textbook_goals')
+        .delete()
+        .eq('id', deleteTargetId);
+
+      if (error) throw error;
+
+      setMyGoals(prev => prev.filter(g => g.id !== deleteTargetId));
+
+      // もし編集中のものが削除されたらリセット
+      if (editingGoalId === deleteTargetId) {
+        setIsEditing(false);
+        setEditingGoalId(null);
       }
-
-      const payload = {
-        id: userId,
-        daily_goal: null,
-        start_date: null,
-        selected_textbook: null,
-        goal_start_word: null,
-        goal_end_word: null
-      };
-
-      const { error } = await supabase.from('profiles').upsert(payload).select();
-
-      if (error) {
-        console.error('Supabase upsert error:', error);
-        setError(error.message || 'クリアに失敗しました');
-        setSaving(false);
-        return;
-      }
-
-      // stateもリセット
-      setDailyGoal('100');
-      const today = new Date();
-      const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-      setStartDate(defaultDate);
-      setStartWord('1');
-      setEndWord('');
-      setIsGoalSaved(false);
-      setIsEditing(false);
-
-      router.push('/mistap/home');
     } catch (e: unknown) {
-      console.error('clear goals error', e);
-      setError(e instanceof Error ? e.message : String(e));
+      setError(e instanceof Error ? e.message : '削除に失敗しました');
     } finally {
       setSaving(false);
+      setShowDeleteConfirm(false);
+      setDeleteTargetId(null);
     }
-  }
+  };
 
+  // 保存（新規・更新）
   async function handleSave() {
     setSaving(true);
     setError(null);
@@ -208,7 +217,7 @@ export default function GoalsPage() {
         return;
       }
 
-      // バリデーション: 終了番号が最大語数を超えていないかチェック
+      // バリデーション
       const endWordNum = endWord ? parseInt(endWord) : 0;
       const startWordNum = startWord ? parseInt(startWord) : 1;
 
@@ -231,35 +240,59 @@ export default function GoalsPage() {
       }
 
       const payload = {
-        id: userId,
+        user_id: userId,
+        textbook_name: selectedTextbook,
         daily_goal: parseInt(dailyGoal) || 0,
-        start_date: startDate || null,
-        selected_textbook: selectedTextbook || null,
+        start_date: startDate,
         goal_start_word: startWordNum,
-        goal_end_word: endWordNum
+        goal_end_word: endWordNum,
+        words_per_test: wordsPerTest ? parseInt(wordsPerTest) : null
       };
 
-      const { error } = await supabase.from('profiles').upsert(payload).select();
-
-      if (error) {
-        console.error('Supabase upsert error:', error);
-        setError(error.message || '保存に失敗しました');
-        setSaving(false);
-        return;
+      let result;
+      if (editingGoalId) {
+        // 更新
+        result = await supabase
+          .from('mistap_textbook_goals')
+          .update(payload)
+          .eq('id', editingGoalId)
+          .select()
+          .single();
+      } else {
+        // 新規作成 (upsertにして重複を防ぐ)
+        result = await supabase
+          .from('mistap_textbook_goals')
+          .upsert(payload, { onConflict: 'user_id, textbook_name' })
+          .select()
+          .single();
       }
 
-      setIsGoalSaved(true);
+      if (result.error) throw result.error;
+
+      // ローカル更新
+      if (editingGoalId) {
+        setMyGoals(prev => prev.map(g => g.id === editingGoalId ? result.data : g));
+      } else {
+        // 新規追加（または上書き）
+        setMyGoals(prev => {
+          // 同じ教科書があれば削除してから追加（最新を上に）
+          const filtered = prev.filter(g => g.textbook_name !== selectedTextbook);
+          return [result.data, ...filtered];
+        });
+      }
+
       setIsEditing(false);
-      // 画面を更新（router.push削除）
+      setEditingGoalId(null);
+
     } catch (e: unknown) {
       console.error('save goals error', e);
-      setError(e instanceof Error ? e.message : String(e));
+      setError(e instanceof Error ? e.message : '保存に失敗しました');
     } finally {
       setSaving(false);
     }
   }
 
-  // スケジュール計算
+  // スケジュール計算（現在編集中の内容に基づく）
   const schedule = [];
   const goalNum = parseInt(dailyGoal) || 0;
   const rangeStart = startWord ? parseInt(startWord) : 1;
@@ -275,7 +308,6 @@ export default function GoalsPage() {
 
       let endNum = currentStartNum + goalNum - 1;
 
-      // 範囲が目標範囲を超える場合の処理
       if (endNum > rangeEnd) {
         endNum = rangeEnd;
       }
@@ -286,7 +318,6 @@ export default function GoalsPage() {
         end: endNum
       });
 
-      // 次の開始番号を設定（範囲内でループ）
       if (endNum === rangeEnd) {
         currentStartNum = rangeStart;
       } else {
@@ -299,7 +330,7 @@ export default function GoalsPage() {
     <main className="min-h-screen bg-gray-50">
       <Background className="min-h-screen">
         <div className="max-w-5xl mx-auto px-4 pb-8" style={{ marginTop: '25px' }}>
-          {/* Header with Back Button */}
+          {/* Header */}
           <div className="mb-8 md:mb-12">
             <button
               onClick={() => router.push('/mistap/home')}
@@ -310,187 +341,247 @@ export default function GoalsPage() {
               </svg>
               ホームに戻る
             </button>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
-              目標管理
-            </h1>
-            <p className="text-gray-600 text-lg">
-              毎日の学習目標を設定して、継続的な学習習慣を身につけましょう。
-            </p>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
+                  目標管理
+                </h1>
+                <p className="text-gray-600 text-lg">
+                  複数の教材で学習目標を設定し、毎日の習慣を作りましょう。
+                </p>
+              </div>
+              {!isEditing && (
+                <button
+                  onClick={handleCreateNew}
+                  className="hidden md:flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg whitespace-nowrap"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  新しい目標を追加
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-            {/* Left Column: Settings */}
+            {/* Left Column: List or Settings */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
-                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </span>
-                  設定
-                </h2>
 
-                {loading ? (
-                  <div className="text-center py-8 text-gray-600">読み込み中...</div>
-                ) : (
-                  <div className="space-y-6">
-                    {error && (
-                      <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
-                        {error}
+              {/* モバイル用追加ボタン */}
+              {!isEditing && (
+                <button
+                  onClick={handleCreateNew}
+                  className="md:hidden w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-3 rounded-xl font-bold transition-all shadow-md"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  新しい目標を追加
+                </button>
+              )}
+
+              {/* 編集モード: 設定フォーム */}
+              {isEditing ? (
+                <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6 max-h-[calc(100vh-200px)] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 duration-300">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                    <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </span>
+                    {editingGoalId ? '目標の編集' : '新しい目標'}
+                  </h2>
+
+                  {loading ? (
+                    <div className="text-center py-8 text-gray-600">読み込み中...</div>
+                  ) : (
+                    <div className="space-y-6">
+                      {error && (
+                        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                          {error}
+                        </div>
+                      )}
+
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          単語帳
+                        </label>
+                        <select
+                          value={selectedTextbook}
+                          onChange={(e) => setSelectedTextbook(e.target.value)}
+                          disabled={!!editingGoalId} // 編集時は変更不可
+                          className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50 disabled:bg-gray-100 disabled:text-gray-500"
+                        >
+                          {textbooks.map((text) => (
+                            <option key={text} value={text}>
+                              {text}
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                    )}
 
-                    {isGoalSaved && !isEditing ? (
-                      <div className="text-center py-4">
-                        <div className="mb-6">
-                          <p className="text-sm text-gray-500 mb-1">選択中の単語帳</p>
-                          <p className="text-lg font-bold text-gray-900">{selectedTextbook || '未設定'}</p>
-                        </div>
-                        {(startWord || endWord) && (
-                          <div className="mb-6">
-                            <p className="text-sm text-gray-500 mb-1">目標範囲</p>
-                            <p className="text-lg font-bold text-gray-900">
-                              {startWord || '1'} 〜 {endWord || maxWords}
-                            </p>
-                          </div>
-                        )}
-                        <div className="mb-6">
-                          <p className="text-sm text-gray-500 mb-1">現在の目標</p>
-                          <p className="text-3xl font-bold text-gray-900">{dailyGoal}<span className="text-base font-normal text-gray-500 ml-1">語 / 日</span></p>
-                        </div>
-                        <div className="mb-6">
-                          <p className="text-sm text-gray-500 mb-1">開始日</p>
-                          <p className="text-lg font-bold text-gray-900">{startDate}</p>
-                        </div>
-                        <div className="space-y-3">
-                          <button
-                            onClick={() => setIsEditing(true)}
-                            className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-6 rounded-xl font-medium transition-colors shadow-lg"
-                          >
-                            目標を変更
-                          </button>
-                          <button
-                            onClick={handleClear}
-                            className="w-full bg-white border border-red-300 hover:bg-red-50 text-red-600 py-3 px-6 rounded-xl font-medium transition-colors"
-                            disabled={saving}
-                          >
-                            目標をクリア
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-2">
-                            単語帳
-                          </label>
-                          <select
-                            value={selectedTextbook}
-                            onChange={(e) => setSelectedTextbook(e.target.value)}
-                            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
-                          >
-                            {textbooks.map((text) => (
-                              <option key={text} value={text}>
-                                {text}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-2">
-                            目標範囲
-                          </label>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="number"
-                              value={startWord}
-                              onChange={(e) => setStartWord(e.target.value)}
-                              className="w-24 border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50 text-center"
-                              min="1"
-                            />
-                            <span className="text-gray-500 font-medium flex-shrink-0">〜</span>
-                            <input
-                              type="number"
-                              value={endWord}
-                              onChange={(e) => setEndWord(e.target.value)}
-                              className="w-24 border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50 text-center"
-                              min="1"
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            この範囲内で毎日の目標をループします
-                          </p>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-2">
-                            1日の目標語数
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="number"
-                              value={dailyGoal}
-                              onChange={(e) => setDailyGoal(e.target.value)}
-                              className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
-                              min="1"
-                            />
-                            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
-                              語
-                            </div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            推奨: 50〜100語
-                          </p>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-2">
-                            スタート日
-                          </label>
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          目標範囲
+                        </label>
+                        <div className="flex items-center gap-2">
                           <input
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
+                            type="number"
+                            value={startWord}
+                            onChange={(e) => setStartWord(e.target.value)}
+                            className="w-24 border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50 text-center"
+                            min="1"
                           />
-                          <p className="text-xs text-gray-500 mt-1">
-                            学習を開始する日、または目標の基準日を設定します
-                          </p>
+                          <span className="text-gray-500 font-medium flex-shrink-0">〜</span>
+                          <input
+                            type="number"
+                            value={endWord}
+                            onChange={(e) => setEndWord(e.target.value)}
+                            className="w-24 border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50 text-center"
+                            min="1"
+                          />
                         </div>
+                        <p className="text-xs text-gray-500 mt-1">
+                          最大: {maxWords}語 まで
+                        </p>
+                      </div>
 
-                        <div className="pt-4 flex gap-3">
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          1日の目標語数
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={dailyGoal}
+                            onChange={(e) => setDailyGoal(e.target.value)}
+                            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
+                            min="1"
+                          />
+                          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+                            語
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          1回あたりのテスト語数 <span className="text-xs font-normal text-gray-500 ml-1">(任意)</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={wordsPerTest}
+                            onChange={(e) => setWordsPerTest(e.target.value)}
+                            placeholder={dailyGoal ? `${dailyGoal} (全問)` : '未設定'}
+                            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
+                            min="1"
+                          />
+                          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+                            語
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">
+                          設定しない場合は、その日の目標範囲すべてが出題されます。
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                          スタート日
+                        </label>
+                        <input
+                          type="date"
+                          value={startDate}
+                          onChange={(e) => setStartDate(e.target.value)}
+                          className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
+                        />
+                      </div>
+
+                      <div className="pt-4 flex gap-3">
+                        <button
+                          onClick={() => {
+                            setIsEditing(false);
+                            setEditingGoalId(null);
+                          }}
+                          className="flex-1 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-xl font-medium transition-colors"
+                          disabled={saving}
+                        >
+                          キャンセル
+                        </button>
+                        <button
+                          onClick={handleSave}
+                          className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-medium transition-colors shadow-lg shadow-red-200 disabled:opacity-70"
+                          disabled={saving}
+                        >
+                          {saving ? '保存中...' : '保存する'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                // 一覧モード: 目標リスト
+                <div className="space-y-4">
+                  {loading ? (
+                    <div className="text-center py-10 text-gray-500">読み込み中...</div>
+                  ) : myGoals.length === 0 ? (
+                    <div className="bg-white/80 rounded-3xl p-8 text-center text-gray-500 border border-white/50 shadow-sm">
+                      <p className="mb-4">目標がまだ設定されていません。</p>
+                      <p className="text-sm">「新しい目標を追加」から<br />学習を始めましょう！</p>
+                    </div>
+                  ) : (
+                    myGoals.map(goal => (
+                      <div
+                        key={goal.id}
+                        onClick={() => handleEdit(goal)}
+                        className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-red-100 transition-all cursor-pointer group relative"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-bold text-gray-900 group-hover:text-red-700 transition-colors">
+                            {goal.textbook_name}
+                          </h3>
                           <button
-                            onClick={() => {
-                              if (isGoalSaved) {
-                                setIsEditing(false);
-                              } else {
-                                router.back();
-                              }
-                            }}
-                            className="flex-1 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-xl font-medium transition-colors"
-                            disabled={saving}
+                            onClick={(e) => handleDeleteClick(goal.id, e)}
+                            className="text-gray-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            title="削除"
                           >
-                            キャンセル
-                          </button>
-                          <button
-                            onClick={handleSave}
-                            className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-medium transition-colors shadow-lg shadow-red-200 disabled:opacity-70"
-                            disabled={saving}
-                          >
-                            {saving ? '保存中...' : '保存する'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
                           </button>
                         </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
+                        <div className="flex gap-4 text-sm text-gray-600">
+                          <div className="flex flex-col">
+                            <span className="text-xs text-gray-400">1日の目標</span>
+                            <span className="font-semibold text-red-600">{goal.daily_goal}語</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-xs text-gray-400">範囲</span>
+                            <span className="font-semibold">{goal.goal_start_word} 〜 {goal.goal_end_word}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-xs text-gray-400">開始日</span>
+                            <span className="font-semibold">{goal.start_date.replace(/-/g, '/')}</span>
+                          </div>
+                        </div>
+                        <div className="absolute right-4 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="bg-gray-100 p-2 rounded-full text-gray-600">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
-            {/* Right Column: Schedule */}
+            {/* Right Column: Schedule Visualization */}
             <div className="lg:col-span-2">
               <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6 md:p-8 h-full">
                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
@@ -499,10 +590,19 @@ export default function GoalsPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </span>
-                  学習スケジュール（30日分）
+                  {isEditing ? `「${selectedTextbook}」のスケジュール` : '選択中の目標スケジュール'}
                 </h2>
 
-                {schedule.length > 0 ? (
+                {(!isEditing && myGoals.length === 0) ? (
+                  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                    <p>目標がありません。</p>
+                  </div>
+                ) : (!isEditing && !editingGoalId) ? (
+                  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                    <p>左のリストから目標を選択すると、スケジュールが表示されます。</p>
+                    <p className="text-sm mt-2 opacity-70">（編集モードで確認できます）</p>
+                  </div>
+                ) : schedule.length > 0 ? (
                   <div className="bg-white/60 rounded-2xl overflow-hidden border border-gray-200 max-h-[600px] overflow-y-auto">
                     <table className="w-full text-sm text-left">
                       <thead className="bg-gray-50 text-gray-700 font-medium border-b border-gray-200 sticky top-0 z-10">
@@ -538,27 +638,30 @@ export default function GoalsPage() {
         </div>
       </Background>
 
-      {/* クリア確認モーダル */}
-      {showClearConfirm && (
+      {/* 削除確認モーダル */}
+      {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">目標クリアの確認</h3>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">目標を削除しますか？</h3>
             <p className="text-gray-600 mb-6">
-              目標設定をクリアしますか？<br />
-              この操作は取り消せません。
+              この目標設定を削除します。<br />
+              学習履歴は削除されません。
             </p>
             <div className="flex gap-3">
               <button
-                onClick={() => setShowClearConfirm(false)}
+                onClick={() => {
+                  setShowDeleteConfirm(false);
+                  setDeleteTargetId(null);
+                }}
                 className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-xl font-medium transition-colors"
               >
                 キャンセル
               </button>
               <button
-                onClick={confirmClear}
+                onClick={confirmDelete}
                 className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
               >
-                クリアする
+                削除する
               </button>
             </div>
           </div>

@@ -68,7 +68,7 @@ export default function ToeicGoldPage() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。レベルを選ぶだけで、誰でも無料で金フレの小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>TOEIC金のフレーズ</strong>を選択してください。
+                        <strong>TOEIC金のフレーズ</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "金フレの暗記効率を最大化",

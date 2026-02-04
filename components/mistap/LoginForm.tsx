@@ -184,6 +184,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
                         {error && <p className="text-red-600 mb-4 text-sm md:text-base">{error}</p>}
                         {awaitingConfirmation && (
                             <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                                <p className="text-gray-700 mb-2 text-sm md:text-base font-bold text-red-600">※ メールが届かない場合は、迷惑メールフォルダもご確認ください。</p>
                                 <p className="text-gray-700 mb-2 text-sm md:text-base">登録ありがとうございます。確認メールを送信しました。メールのリンクをクリックしてアカウントを有効化してください。</p>
                                 <button type="button" className="text-sm text-red-600 underline hover:text-red-700 block mb-2" onClick={resendConfirmation} disabled={loading}>
                                     確認メールを再送する

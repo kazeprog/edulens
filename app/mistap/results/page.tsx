@@ -21,6 +21,7 @@ interface ResultData {
   selectedText: string;
   startNum: number;
   endNum: number;
+  mode?: 'word-meaning' | 'meaning-word';
 }
 
 function ResultsContent() {
@@ -44,6 +45,7 @@ function ResultsContent() {
     const totalParam = searchParams.get('total');
     const wrongParam = searchParams.get('wrong');
     const correctParam = searchParams.get('correct');
+    const modeParam = searchParams.get('mode');
 
     if (textParam && totalParam !== null) {
       // URLパラメータから結果データを復元
@@ -93,7 +95,8 @@ function ResultsContent() {
             total,
             selectedText,
             startNum,
-            endNum
+            endNum,
+            mode: (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning'
           });
         } catch {
           router.push('/mistap/test-setup');
@@ -128,7 +131,7 @@ function ResultsContent() {
       setSaving(true);
       setError(null);
 
-      const { tappedWords = [], correctWords = [], total = 0, selectedText, startNum, endNum } = resultData || {};
+      const { tappedWords = [], correctWords = [], total = 0, selectedText, startNum, endNum, mode = 'word-meaning' } = resultData || {};
       const correct = total - tappedWords.length;
 
       try {
@@ -171,6 +174,9 @@ function ResultsContent() {
             suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
           }
 
+          // 学習状況カテゴリの括弧を除去
+          suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();
+
           // 内部のハイフンをスペースに置換して見やすくする
           if (suffix) {
             unitName = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -189,6 +195,7 @@ function ResultsContent() {
           incorrect_words: tappedWords ?? [],
           correct_words: correctWords ?? [],
           test_key: testKey,
+          mode: mode, // テストモードを保存
         };
 
         // try upsert by unique index (user_id, test_key) to avoid duplicates
@@ -341,6 +348,17 @@ function ResultsContent() {
             </div>
           </div>
 
+
+          {/* 広告エリア（間違えた単語の上） */}
+          <div className="flex justify-center items-center mb-6 w-full text-center">
+            <GoogleAdsense
+              slot="9969163744"
+              format="rectangle"
+              style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
+              responsive="false"
+            />
+          </div>
+
           <h2 className="font-semibold mb-2">間違えた単語</h2>
           <div className="space-y-3 mb-6">
             {Array.isArray(tappedWords) && tappedWords.length > 0 ? (
@@ -361,11 +379,11 @@ function ResultsContent() {
           </div>
 
           {/* 広告エリア（間違えた単語の下） */}
-          <div className="flex justify-center my-6">
+          <div className="flex justify-center items-center my-6 w-full text-center">
             <GoogleAdsense
               slot="9969163744"
               format="rectangle"
-              style={{ display: 'block', width: '100%', maxWidth: '336px', height: '280px' }}
+              style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
               responsive="false"
             />
           </div>

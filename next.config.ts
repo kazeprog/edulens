@@ -57,17 +57,6 @@ const nextConfig: NextConfig = {
         destination: '/mistap/textbook/kobun-325',
         permanent: true,
       },
-      // Moved Junior Textbooks
-      {
-        source: '/mistap/textbook/new-crown',
-        destination: '/mistap/textbook/junior/new-crown',
-        permanent: true,
-      },
-      {
-        source: '/mistap/textbook/new-horizon',
-        destination: '/mistap/textbook/junior/new-horizon',
-        permanent: true,
-      },
     ];
   },
 };

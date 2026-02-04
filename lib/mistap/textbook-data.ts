@@ -16,12 +16,47 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         totalUnits: 19,
         getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
     },
+    'target-1400': {
+        name: 'Target 1400',
+        jpName: 'ターゲット1400',
+        unitLabel: 'Section',
+        totalUnits: 14,
+        getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
+    },
     'target-1200': {
         name: 'Target 1200',
         jpName: 'ターゲット1200',
         unitLabel: 'Section',
         totalUnits: 20,
         getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
+    },
+    'target-1800': {
+        name: 'Target 1800',
+        jpName: 'ターゲット1800',
+        unitLabel: 'Section',
+        totalUnits: 18,
+        getRange: (unit) => ({ start: (unit - 1) * 100 + 1, end: unit * 100 }),
+    },
+    'absolute-150': {
+        name: 'Words 150',
+        jpName: '絶対覚える英単語150',
+        unitLabel: 'Part',
+        totalUnits: 3,
+        getRange: (unit) => ({ start: (unit - 1) * 50 + 1, end: unit * 50 }),
+    },
+    'past-tense': {
+        name: 'Past Tense',
+        jpName: '過去形',
+        unitLabel: 'Part',
+        totalUnits: 1,
+        getRange: () => ({ start: 1, end: 100 }),
+    },
+    'past-participle': {
+        name: 'Past Participle',
+        jpName: '過去形、過去分詞形',
+        unitLabel: 'Part',
+        totalUnits: 1,
+        getRange: () => ({ start: 1, end: 100 }),
     },
     'system-words': {
         name: 'System English Word',
@@ -84,6 +119,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         unitLabel: '章',
         totalUnits: 5,
         getRange: (unit) => ({ start: (unit - 1) * 60 + 1, end: unit * 60 }),
+    },
+    'kobun-351': {
+        name: '理解を深める核心古文単語351',
+        jpName: '核心古文単語351',
+        unitLabel: '章',
+        totalUnits: 7,
+        getRange: (unit) => ({ start: (unit - 1) * 50 + 1, end: Math.min(unit * 50, 351) }),
     },
 };
 

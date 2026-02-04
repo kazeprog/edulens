@@ -68,7 +68,7 @@ export default function Duo30Page() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。Sectionを選ぶだけで、誰でも無料でDUO 3.0の小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>DUO 3.0例文</strong>を選択してください。
+                        <strong>DUO 3.0例文</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "DUO 3.0の暗記効率を最大化",

@@ -168,8 +168,7 @@ export default function ChatInterface() {
             if (msg.parts && msg.parts.length > 0) hasContent = true;
 
             if (!hasContent) {
-                alert('応答が空でした。通信エラーの可能性があります。もう一度お試しください。');
-                // Optional: remove the empty message or trigger reload
+                console.warn('応答が空でした。');
             }
         },
         onError: (error) => {
@@ -536,7 +535,7 @@ export default function ChatInterface() {
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder={files?.length ? "質問を追加（任意）" : "問題の画像をアップロードしてね"}
+                                placeholder={files?.length ? "質問があれば入力してね" : "問題の画像をアップロードしてね"}
                                 disabled={status !== 'ready' || isChatEnded}
                                 className="w-full bg-transparent text-slate-800 placeholder:text-slate-400 focus:outline-none text-sm font-medium"
                             />

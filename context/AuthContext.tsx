@@ -144,8 +144,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     setUser(null);
                     setProfile(null);
                 }
-            } catch (err) {
+            } catch (err: any) {
                 console.warn('Init session critical error:', err);
+
+                // リフレッシュトークンが無効な場合は強制ログアウトして無限ループを防ぐ
+                const msg = err?.message || '';
+                if (msg.includes('Invalid Refresh Token') || msg.includes('Refresh Token Not Found') || (err?.code === 'AuthApiError' && msg.includes('refresh_token_not_found'))) {
+                    console.warn('Invalid refresh token detected. Force signing out...');
+                    await supabase!.auth.signOut();
+                }
+
                 if (mounted) {
                     setUser(null);
                     setProfile(null);

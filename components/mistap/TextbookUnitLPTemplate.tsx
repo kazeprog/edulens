@@ -11,7 +11,7 @@ interface TextbookUnitLPTemplateProps {
     textbookName: string;
     textbookNameJa?: string;
     publisherName?: string;
-    themeColor: 'sky' | 'emerald' | 'orange' | 'blue';
+    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo' | 'green' | 'yellow';
     presetTextbook: string;
     unitLabel: string;
     unitValue: number | string;
@@ -48,6 +48,9 @@ export default function TextbookUnitLPTemplate({
             case 'emerald': return { bg: 'bg-emerald-50', text: 'text-emerald-600', button: 'bg-emerald-500', border: 'border-emerald-200' };
             case 'orange': return { bg: 'bg-orange-50', text: 'text-orange-600', button: 'bg-orange-500', border: 'border-orange-200' };
             case 'blue': return { bg: 'bg-blue-50', text: 'text-blue-600', button: 'bg-blue-500', border: 'border-blue-200' };
+            case 'indigo': return { bg: 'bg-indigo-50', text: 'text-indigo-600', button: 'bg-indigo-500', border: 'border-indigo-200' };
+            case 'green': return { bg: 'bg-green-50', text: 'text-green-600', button: 'bg-green-500', border: 'border-green-200' };
+            case 'yellow': return { bg: 'bg-yellow-50', text: 'text-yellow-600', button: 'bg-yellow-500', border: 'border-yellow-200' };
             default: return { bg: 'bg-blue-50', text: 'text-blue-600', button: 'bg-blue-500', border: 'border-blue-200' };
         }
     };

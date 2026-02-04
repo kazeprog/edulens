@@ -6,7 +6,7 @@ import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import FlippableCard from "@/components/mistap/FlippableCard";
 import TestCard from "@/components/mistap/TestCard";
-import PrintWarningModal from "@/components/mistap/PrintWarningModal";
+// import PrintWarningModal from "@/components/mistap/PrintWarningModal"; // Removed
 import { MobileActionButtons, DesktopActionButtons } from "@/components/mistap/TestActionButtons";
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
@@ -23,8 +23,9 @@ interface Word {
 interface TestData {
   words: Word[];
   selectedText: string;
-  startNum: number;
-  endNum: number;
+  startNum: number | null;
+  endNum: number | null;
+  mode?: 'word-meaning' | 'meaning-word';
 }
 
 function TestContent() {
@@ -34,7 +35,7 @@ function TestContent() {
   const [showAnswers, setShowAnswers] = useState<boolean>(false);
   const [tappedIds, setTappedIds] = useState<Set<number>>(new Set());
   const [flippedIds, setFlippedIds] = useState<Set<number>>(new Set());
-  const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false);
+  // const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false); // Removed
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
@@ -62,6 +63,9 @@ function TestContent() {
       if (suffix.includes('復習テスト')) {
         suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
       }
+
+      // 学習状況カテゴリの括弧を除去
+      suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();
 
       if (suffix) {
         unitLabel = suffix.replace(/[-–—]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -204,6 +208,8 @@ function TestContent() {
     const startParam = searchParams.get('start');
     const endParam = searchParams.get('end');
     const countParam = searchParams.get('count');
+    const modeParam = searchParams.get('mode');
+    const mode = (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning';
 
     if (textParam && startParam && endParam && countParam) {
       const generateTest = async () => {
@@ -246,7 +252,7 @@ function TestContent() {
           }
 
           const shuffled = data.sort(() => Math.random() - 0.5).slice(0, count);
-          setTestData({ selectedText, words: shuffled, startNum, endNum });
+          setTestData({ selectedText, words: shuffled, startNum, endNum, mode });
         } catch {
           router.push('/mistap/test-setup');
         }
@@ -290,11 +296,6 @@ function TestContent() {
   }
 
   function handlePrint() {
-    if (!testData) return;
-    if (testData.words.length > 20) {
-      setShowPrintWarning(true);
-      return;
-    }
     executePrint();
   }
 
@@ -311,6 +312,51 @@ function TestContent() {
     const leftWords = words.filter((_: Word, i: number) => i % 2 === 0);
     const rightWords = words.filter((_: Word, i: number) => i % 2 === 1);
 
+    // Dynamic Scaling Logic
+    const rowCount = Math.ceil(words.length / 2);
+
+    // Base values for standard 20 words (10 rows)
+    // A4 printable height approx 250mm-260mm for content excluding title
+    // Let's calculate based on density.
+
+    let fontSizeWord = 16;
+    let fontSizeMeaning = 14;
+    let itemPaddingV = 5;
+    let itemPaddingH = 12;
+    let gap = 10;
+
+    // Scale down if rows increase
+    if (rowCount > 10) {
+      // Slightly reduce as rows increase
+      const scaleFactor = Math.max(0.4, 1 - ((rowCount - 10) * 0.03));
+      // Decaying scale factor: 0.03 per extra row is a rough guess
+      // 20 rows (40 words) -> 1 - 0.3 = 0.7 
+      // 50 rows (100 words) -> 1 - 1.2 = negative -> need better curve or floor
+
+      // Alternative: Calculate max height per row
+      // Available height for list approx 240mm
+      const availableHeightMm = 240;
+      const heightPerRowMm = availableHeightMm / rowCount;
+
+      // Heuristic mapping from height per row to font size/padding
+      if (heightPerRowMm < 8) { // Very dense
+        fontSizeWord = Math.max(9, heightPerRowMm * 1.2);
+        fontSizeMeaning = Math.max(8, heightPerRowMm * 1.0);
+        itemPaddingV = Math.max(1, heightPerRowMm * 0.2);
+        gap = Math.max(2, heightPerRowMm * 0.3);
+      } else if (heightPerRowMm < 12) { // Dense
+        fontSizeWord = 12;
+        fontSizeMeaning = 10;
+        itemPaddingV = 3;
+        gap = 5;
+      } else if (heightPerRowMm < 18) { // Middle
+        fontSizeWord = 14;
+        fontSizeMeaning = 12;
+        itemPaddingV = 4;
+        gap = 8;
+      }
+    }
+
     const printWindow = window.open('', '', 'width=800,height=600');
     if (!printWindow) return;
 
@@ -321,34 +367,167 @@ function TestContent() {
   <meta charset="utf-8">
   <title>${title}</title>
   <style>
-    @media print { @page { margin: 15mm 20mm; size: A4; } .page-break { page-break-after: always; } }
+    /* リセットと基本設定 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Yu Gothic', 'Hiragino Sans', sans-serif; line-height: 1.6; color: #333; padding: 0; }
-    .page { min-height: 100vh; display: flex; flex-direction: column; }
-    h1 { text-align: center; font-size: 22px; margin-bottom: 16px; border-bottom: 2px solid #333; padding-bottom: 8px; flex-shrink: 0; }
-    .two-column-container { display: flex; gap: 20px; flex: 1; align-items: stretch; }
-    .column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-    .word-item { padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; min-height: 60px; display: flex; flex-direction: column; justify-content: center; }
-    .word-number { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
-    .meaning { color: #555; font-size: 13px; line-height: 1.5; }
+    body { 
+      font-family: 'Yu Gothic', 'Hiragino Sans', sans-serif; 
+      line-height: 1.3; 
+      color: #333;
+      background: #f0f0f0; 
+    }
+
+    /* ページの基本スタイル */
+    .page {
+      background: white;
+      width: 210mm; 
+      height: 297mm; 
+      padding: 15mm 25mm;
+      margin: 20px auto; 
+      display: flex; 
+      flex-direction: column; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 { 
+      text-align: center; 
+      font-size: 20px; 
+      margin-bottom: 10px; 
+      border-bottom: 2px solid #333; 
+      padding-bottom: 5px; 
+      flex-shrink: 0; 
+    }
+    
+    .two-column-container { 
+      display: flex; 
+      gap: 15px; 
+      flex: 1; 
+      overflow: hidden; 
+    }
+    
+    .column { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      gap: ${gap}px; 
+    }
+    
+    .word-item { 
+      flex: 1;
+      padding: ${itemPaddingV}px ${itemPaddingH}px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px; 
+      background: transparent; /* 背景色なし */
+      display: flex; 
+      flex-direction: row; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 10px;
+      min-height: 0;
+    }
+    
+    .word-number { 
+      font-weight: bold; 
+      font-size: ${fontSizeWord}px; 
+      margin-bottom: 0; 
+      flex-shrink: 0; 
+    }
+    
+    .meaning { 
+      color: #333; 
+      font-size: ${fontSizeMeaning}px; 
+      line-height: 1.2; 
+      text-align: right; 
+      font-weight: 500; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 65%;
+    }
+    
     .answer-section .meaning { display: block; }
     .problem-section .meaning { display: none; }
+
+    /* フッター設定 */
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-top: auto; /* 下部に押し下げ */
+      padding-top: 15px;
+      gap: 15px;
+      border-top: 1px solid #eee;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .footer-logo {
+      height: 24px;
+      margin-bottom: 2px;
+    }
+    .footer-url {
+      font-size: 10px;
+      color: #666;
+    }
+    .footer-qr {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* 印刷時の設定 */
+    @media print { 
+      @page { margin: 0; size: A4; }
+      html, body { 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        background: white !important; 
+        width: 100%;
+        height: 100%;
+      }
+      .page { 
+        width: 100% !important; 
+        margin: 0 !important; 
+        padding: 15mm 25mm !important; 
+        box-shadow: none !important; 
+        page-break-after: always;
+        height: 100%; 
+        min-height: 297mm;
+        overflow: hidden !important; 
+      }
+      .page-break { display: none; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
   </style>
 </head>
 <body>
   <div class="page problem-section">
     <h1>${title}</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+    </div>
+    <div class="footer">
+      <div class="footer-left">
+        <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
+        <div class="footer-url">https://edulens.jp/mistap</div>
+      </div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
-  <div class="page-break"></div>
+  
   <div class="page answer-section">
     <h1>${title} - 解答</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word}（${w.word_number}）</div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+    </div>
+    <div class="footer">
+      <div class="footer-left">
+        <img src="${window.location.origin}/mistap-logo.png" class="footer-logo" alt="Mistap Logo">
+        <div class="footer-url">https://edulens.jp/mistap</div>
+      </div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://edulens.jp/mistap" class="footer-qr" alt="QR Code">
     </div>
   </div>
 </body>
@@ -365,10 +544,9 @@ function TestContent() {
 
   function recreateWith20Words() {
     if (!testData) return;
-    const { selectedText, startNum } = testData;
+    const { selectedText, startNum, mode } = testData;
     const newEndNum = startNum != null ? startNum + 19 : 20;
-    router.push(`/mistap/test?text=${encodeURIComponent(selectedText)}&start=${startNum || 1}&end=${newEndNum}&count=20`);
-    setShowPrintWarning(false);
+    router.push(`/mistap/test?text=${encodeURIComponent(selectedText)}&start=${startNum || 1}&end=${newEndNum}&count=20&mode=${mode || 'word-meaning'}`);
   }
 
   function handleToggleAnswers() {
@@ -381,9 +559,23 @@ function TestContent() {
     }
   }
 
-  function handleFinish() {
+  async function handleFinish() {
     if (!testData) return;
-    const { selectedText, startNum, endNum, words } = testData;
+
+    // Increment test count for authenticated users
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        // Fire and forget, or await? 
+        // Await to ensure reliability, but keep UI responsive?
+        // Let's await to be safe, it shouldn't take long.
+        await supabase.rpc('increment_profile_test_count', { p_user_id: user.id });
+      }
+    } catch (err) {
+      console.error('Failed to increment test count:', err);
+    }
+
+    const { selectedText, startNum, endNum, words, mode } = testData;
 
     // 教科書テストの場合（startNum/endNumがnull）は、単語データを直接渡す
     const isTextbookTest = (testData as { isTextbookTest?: boolean }).isTextbookTest || (startNum == null && endNum == null);
@@ -400,7 +592,8 @@ function TestContent() {
         total: words.length,
         selectedText,
         startNum: null,
-        endNum: null
+        endNum: null,
+        mode: mode || 'word-meaning'
       };
       const dataParam = encodeURIComponent(JSON.stringify(resultData));
       router.push(`/mistap/results?data=${dataParam}&t=${Date.now()}`);
@@ -411,7 +604,7 @@ function TestContent() {
         .filter((w: Word) => !tappedIds.has(w.word_number))
         .map((w: Word) => w.word_number)
         .join(',');
-      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&t=${Date.now()}`);
+      router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&mode=${mode || 'word-meaning'}&t=${Date.now()}`);
     }
   }
 
@@ -425,9 +618,21 @@ function TestContent() {
     );
   }
 
-  const { words, selectedText, startNum, endNum } = testData;
-  const leftWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 0) : [];
-  const rightWords = Array.isArray(words) ? words.filter((_, i) => i % 2 === 1) : [];
+  const { words, selectedText, startNum, endNum, mode } = testData;
+  const isMeaningToWord = mode === 'meaning-word';
+
+  // Prepare words for display based on mode
+  const displayWords = words.map(w => ({
+    ...w,
+    originalWord: w.word, // Keep original English word for audio and back face
+    originalMeaning: w.meaning, // Keep original meaning for back face
+    word: isMeaningToWord ? w.meaning : w.word, // Display Meaning as Word
+    meaning: isMeaningToWord ? w.word : w.meaning, // Display Word as Meaning (Answer)
+  })) as (Word & { originalWord: string; originalMeaning: string })[];
+
+
+  const leftWords = Array.isArray(displayWords) ? displayWords.filter((_, i) => i % 2 === 0) : [];
+  const rightWords = Array.isArray(displayWords) ? displayWords.filter((_, i) => i % 2 === 1) : [];
 
 
 
@@ -442,19 +647,27 @@ function TestContent() {
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
             <div ref={mobileCardsRef} className="block md:hidden px-3" style={{ maxWidth: '100%' }}>
-              {(wordsWithHeights.length > 0 ? wordsWithHeights : words).map((item: Word) => (
-                <FlippableCard
-                  key={item.word_number}
-                  word={item.word}
-                  meaning={item.meaning}
-                  wordNumber={item.word_number}
-                  isFlipped={flippedIds.has(item.word_number)}
-                  isTapped={tappedIds.has(item.word_number)}
-                  onFlip={() => toggleFlipped(item.word_number)}
-                  onTap={() => toggleTapped(item.word_number)}
-                  minHeight={item.requiredMinHeight}
-                />
-              ))}
+              {displayWords.map((item, idx: number) => {
+                // Merge height data from wordsWithHeights if available
+                const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
+                const minHeight = heightData?.requiredMinHeight;
+                return (
+                  <FlippableCard
+                    key={`${item.word_number}-${idx}`}
+                    word={item.word}
+                    meaning={item.meaning}
+                    wordNumber={item.word_number}
+                    isFlipped={flippedIds.has(item.word_number)}
+                    isTapped={tappedIds.has(item.word_number)}
+                    onFlip={() => toggleFlipped(item.word_number)}
+                    onTap={() => toggleTapped(item.word_number)}
+                    minHeight={minHeight}
+                    audioText={item.originalWord}
+                    originalWord={item.originalWord}
+                    originalMeaning={item.originalMeaning}
+                  />
+                );
+              })}
 
 
             </div>
@@ -462,25 +675,27 @@ function TestContent() {
             {/* Desktop: 2-column layout */}
             <div ref={desktopGridRef} className="hidden md:grid md:grid-cols-2 md:gap-6">
               <ul>
-                {leftWords.map((item: Word) => (
-                  <li key={item.word_number} className="mb-6">
+                {leftWords.map((item, idx: number) => (
+                  <li key={`${item.word_number}-left-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}
                       showAnswers={showAnswers}
                       onTap={() => toggleTapped(item.word_number)}
+                      audioText={item.originalWord}
                     />
                   </li>
                 ))}
               </ul>
               <ul>
-                {rightWords.map((item: Word) => (
-                  <li key={item.word_number} className="mb-6">
+                {rightWords.map((item, idx: number) => (
+                  <li key={`${item.word_number}-right-${idx}`} className="mb-6">
                     <TestCard
                       word={item}
                       isTapped={tappedIds.has(item.word_number)}
                       showAnswers={showAnswers}
                       onTap={() => toggleTapped(item.word_number)}
+                      audioText={item.originalWord}
                     />
                   </li>
                 ))}

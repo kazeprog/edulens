@@ -49,7 +49,7 @@ export default async function Page({ params }: PageProps) {
             textbookName="Target 1200"
             textbookNameJa="英単語ターゲット1200"
             publisherName="旺文社"
-            themeColor="emerald"
+            themeColor="yellow"
             presetTextbook="ターゲット1200"
             unitLabel="Section"
             unitValue={section}

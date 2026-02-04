@@ -52,7 +52,7 @@ export default function Target1200Page() {
             textbookName="Target 1200"
             textbookNameJa="英単語ターゲット1200"
             publisherName="旺文社"
-            themeColor="emerald"
+            themeColor="yellow"
             presetTextbook="ターゲット1200"
             canonicalUrl="https://edulens.jp/mistap/textbook/target-1200"
             unitLabel="Section"
@@ -61,9 +61,9 @@ export default function Target1200Page() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-emerald-600 mb-4 tracking-normal">ターゲット1200（Target1200）テスト完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-yellow-600 mb-4 tracking-normal">ターゲット1200（Target1200）テスト完全対応</span>
                         高校基礎英単語を<br />
-                        <span className="text-emerald-500">ゲーム感覚で完全攻略</span>
+                        <span className="text-yellow-500">ゲーム感覚で完全攻略</span>
                     </h1>
                 ),
                 heroDescription: "高校英語の基礎固め「英単語ターゲット1200」の無料テスト・クイズアプリ（サイト）。Part/Sectionごとに小テストを作成でき、定期テストや共通テスト基礎の対策に最適です。登録不要で今すぐテスト作成・実施が可能！",
@@ -71,7 +71,7 @@ export default function Target1200Page() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。PartやSectionを選ぶだけで、誰でも無料でターゲット1200の小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>英単語ターゲット1200</strong>を選択してください。
+                        <strong>英単語ターゲット1200</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "ターゲット1200の暗記効率を最大化",

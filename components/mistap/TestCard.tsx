@@ -11,14 +11,16 @@ interface TestCardProps {
     isTapped: boolean;
     showAnswers: boolean;
     onTap: () => void;
+    audioText?: string;
 }
 
-export default function TestCard({ word, isTapped, showAnswers, onTap }: TestCardProps) {
+export default function TestCard({ word, isTapped, showAnswers, onTap, audioText }: TestCardProps) {
     const handleSpeak = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (typeof window !== 'undefined' && window.speechSynthesis) {
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(word.word);
+            const textToSpeak = audioText || word.word;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.lang = 'en-US';
 
             // 英語の音声を明示的に取得して設定（ローマ字読み回避のため）
@@ -43,9 +45,9 @@ export default function TestCard({ word, isTapped, showAnswers, onTap }: TestCar
             className={`test-card border rounded-xl p-4 shadow-sm min-h-[120px] h-auto flex flex-col transition-colors duration-150 cursor-pointer ${isTapped ? "bg-red-100 border-red-400 text-red-800" : "bg-white hover:bg-gray-50"
                 }`}
         >
-            <div className="flex items-center gap-2 md:whitespace-nowrap">
-                <span className="text-lg md:text-xl text-gray-900">•</span>
-                <span className="font-medium text-lg md:text-xl text-gray-900">
+            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+                <span className="text-lg md:text-xl text-gray-900 flex-shrink-0">•</span>
+                <span className="font-medium text-lg md:text-xl text-gray-900 break-words overflow-wrap-anywhere min-w-0">
                     {word.word}（{word.word_number}）
                 </span>
                 <button

@@ -1,18 +1,21 @@
 'use client';
 
+import GoogleAdsense from '@/components/GoogleAdsense';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, BookOpen, Zap, Trophy, ChevronRight, GraduationCap, School, ClipboardList, CheckSquare } from 'lucide-react';
 import SiteFooter from '@/components/SiteFooter';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
+import AmazonTextbookLink from '@/components/mistap/AmazonTextbookLink';
 import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 interface TextbookLPTemplateProps {
     textbookName: string;
     textbookNameJa: string;
     publisherName: string;
-    themeColor: 'sky' | 'emerald' | 'orange' | 'blue';
+    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo' | 'green' | 'yellow';
     presetTextbook: string;
     canonicalUrl: string;
     unitLabel?: string;
@@ -103,6 +106,57 @@ export default function TextbookLPTemplate({
                     faqQ: 'bg-blue-500',
                     ctaGradient: 'from-blue-600 to-indigo-700',
                     ctaText: 'text-blue-100',
+                };
+            case 'indigo':
+                return {
+                    bgGradient: 'from-indigo-50 to-white',
+                    bgGradientAccent: 'from-indigo-100/50 to-transparent',
+                    badgeBg: 'bg-indigo-100',
+                    badgeText: 'text-indigo-700',
+                    ping: 'bg-indigo-400',
+                    dot: 'bg-indigo-500',
+                    textAccent: 'text-indigo-600',
+                    textHighlight: 'text-indigo-500',
+                    buttonGradient: 'from-indigo-500 to-blue-600',
+                    buttonShadow: 'shadow-indigo-200',
+                    iconColor: 'text-indigo-500',
+                    faqQ: 'bg-indigo-500',
+                    ctaGradient: 'from-indigo-600 to-blue-700',
+                    ctaText: 'text-indigo-100',
+                };
+            case 'green':
+                return {
+                    bgGradient: 'from-green-50 to-white',
+                    bgGradientAccent: 'from-green-100/50 to-transparent',
+                    badgeBg: 'bg-green-100',
+                    badgeText: 'text-green-700',
+                    ping: 'bg-green-400',
+                    dot: 'bg-green-500',
+                    textAccent: 'text-green-600',
+                    textHighlight: 'text-green-500',
+                    buttonGradient: 'from-green-500 to-emerald-600',
+                    buttonShadow: 'shadow-green-200',
+                    iconColor: 'text-green-500',
+                    faqQ: 'bg-green-500',
+                    ctaGradient: 'from-green-600 to-emerald-700',
+                    ctaText: 'text-green-100',
+                };
+            case 'yellow':
+                return {
+                    bgGradient: 'from-yellow-50 to-white',
+                    bgGradientAccent: 'from-yellow-100/50 to-transparent',
+                    badgeBg: 'bg-yellow-100',
+                    badgeText: 'text-yellow-700',
+                    ping: 'bg-yellow-400',
+                    dot: 'bg-yellow-500',
+                    textAccent: 'text-yellow-600',
+                    textHighlight: 'text-yellow-500',
+                    buttonGradient: 'from-yellow-500 to-orange-600',
+                    buttonShadow: 'shadow-yellow-200',
+                    iconColor: 'text-yellow-500',
+                    faqQ: 'bg-yellow-500',
+                    ctaGradient: 'from-yellow-500 to-orange-600',
+                    ctaText: 'text-yellow-100',
                 };
             case 'sky':
             default:
@@ -205,9 +259,12 @@ export default function TextbookLPTemplate({
                                         今すぐテストしてみる (無料)
                                     </Link>
                                 </div>
-                                <p className="text-sm text-slate-400 font-medium">
-                                    ※ 登録不要で試せます
-                                </p>
+                                <div className="flex flex-col items-center md:items-start gap-2">
+                                    <AmazonTextbookLink textbookName={textbookNameJa} />
+                                    <p className="text-sm text-slate-400 font-medium">
+                                        ※ 登録不要で試せます
+                                    </p>
+                                </div>
                             </div>
 
                             <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
@@ -331,6 +388,15 @@ export default function TextbookLPTemplate({
                                 description={seoSettings?.feature3?.description || "分からなかった単語をタップするだけで、あなただけの復習リストが自動で完成。覚えた単語はリストから消していくことで、効率的に学習できます。"}
                             />
                         </div>
+                    </div>
+                </section>
+
+                {/* AdSense Section */}
+                <section className="py-8 bg-slate-50 flex justify-center border-t border-slate-100">
+                    <div className="w-full max-w-4xl px-4">
+                        <GoogleAdsense
+                            style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
+                        />
                     </div>
                 </section>
 

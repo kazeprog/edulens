@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = `ターゲット1900 Section ${section} 英単語テスト｜大学受験対応 無料`;
     return {
         title: title,
-        description: `英単語ターゲット1900（Target 1900）Section ${section} の英単語テスト。無料で即座にテストできます。共通テスト・難関大受験対策に。`,
+        description: `【ターゲット1900 Section ${section} 専用テスト】旺文社「英単語ターゲット1900」のセクション${section}に対応した無料単語テスト。間違えた単語を自動記録し、志望校合格に向けた効率的な暗記をサポート。共通テスト・難関大受験対策に。`,
         keywords: [
             `ターゲット1900 Section${section}`,
             `Target 1900 Section${section}`,

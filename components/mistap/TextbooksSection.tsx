@@ -54,6 +54,10 @@ export default function TextbooksSection() {
                                 </li>
                                 <li className="flex items-center">
                                     <span className="text-green-500 mr-3">✓</span>
+                                    <span className="text-gray-700 text-sm md:text-base">ターゲット1400 小テスト</span>
+                                </li>
+                                <li className="flex items-center">
+                                    <span className="text-green-500 mr-3">✓</span>
                                     <span className="text-gray-700 text-sm md:text-base">システム英単語 小テスト</span>
                                 </li>
                                 <li className="flex items-center">
@@ -78,6 +82,10 @@ export default function TextbooksSection() {
                                 <li className="flex items-center">
                                     <span className="text-green-500 mr-3">✓</span>
                                     <span className="text-gray-700 text-sm md:text-base">ベストセレクション古文単語325</span>
+                                </li>
+                                <li className="flex items-center">
+                                    <span className="text-green-500 mr-3">✓</span>
+                                    <span className="text-gray-700 text-sm md:text-base">理解を深める核心古文単語351</span>
                                 </li>
                             </ul>
                         </div>

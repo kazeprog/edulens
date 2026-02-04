@@ -74,7 +74,7 @@ export default function SystemWordsPage() {
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。Chapterを選ぶだけで、誰でも無料でシス単の小テストが作れます。<br />
-                        選択肢から「教科書テスト」を選んで、<strong>システム英単語</strong>を選択してください。
+                        <strong>システム英単語</strong>を選択してテストを作成してください。
                     </p>
                 ),
                 featuresTitle: "システム英単語（シス単）の暗記効率を最大化",

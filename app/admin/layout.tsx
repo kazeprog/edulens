@@ -69,6 +69,12 @@ export default function AdminLayout({
                     <Link href="/admin" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         ダッシュボード
                     </Link>
+                    <Link href="/admin/naruhodo-logs" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        ナルホドレンズ履歴
+                    </Link>
+                    <Link href="/admin/contacts" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        お問い合わせ
+                    </Link>
                     <Link href="/admin/exams" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         試験日程管理
                     </Link>
@@ -77,6 +83,9 @@ export default function AdminLayout({
                     </Link>
                     <Link href="/admin/affiliates" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         アフィリエイト管理
+                    </Link>
+                    <Link href="/admin#referral-settings" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        招待キャンペーン管理
                     </Link>
                 </nav>
                 <div className="absolute bottom-0 w-full p-4 border-t border-slate-700">

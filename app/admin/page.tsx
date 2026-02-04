@@ -17,6 +17,12 @@ interface DashboardStats {
     weeklyNewExams: number;
     thisMonthNewUsers: number;
     lastMonthNewUsers: number;
+    referralEnabled: boolean;
+    dau: number;
+    wau: number;
+    mau: number;
+    engagement?: DashboardEngagementStats;
+    naruhodoUsage?: NaruhodoStats;
 }
 
 // 月別登録データの型
@@ -32,6 +38,29 @@ interface DailyRegistration {
 }
 
 type ChartViewMode = 'daily' | 'monthly';
+
+// アクティブユーザー推移の型
+interface ActiveUserTrend {
+    trend_date: string;
+    dau: number;
+    wau: number;
+    mau: number;
+}
+
+// エンゲージメント指標の型
+interface DashboardEngagementStats {
+    retention_rate_7d: number;
+    first_test_rate: number;
+    heavy_user_rate: number;
+}
+
+// ナルホドレンズ利用状況
+interface NaruhodoStats {
+    today: number;
+    total: number;
+}
+
+
 
 // アクティビティの型定義
 interface RecentActivity {
@@ -69,10 +98,15 @@ export default function AdminDashboardPage() {
         weeklyNewExams: 0,
         thisMonthNewUsers: 0,
         lastMonthNewUsers: 0,
+        referralEnabled: true,
+        dau: 0,
+        wau: 0,
+        mau: 0,
     });
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
     const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
     const [dailyRegistrations, setDailyRegistrations] = useState<DailyRegistration[]>([]);
+    const [activeUserTrends, setActiveUserTrends] = useState<ActiveUserTrend[]>([]);
     const [chartViewMode, setChartViewMode] = useState<ChartViewMode>('monthly');
     const [loading, setLoading] = useState(true);
 
@@ -118,7 +152,16 @@ export default function AdminDashboardPage() {
                 { data: recentUsers },
                 { data: recentExams },
                 { data: recentPosts },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 { data: allProfiles },
+                { data: configResponse },
+                { data: dauCount },
+                { data: wauCount },
+                { data: mauCount },
+                { data: trendData },
+                { data: engagementStats },
+                { count: naruhodoToday },
+                { count: naruhodoTotal },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -134,8 +177,15 @@ export default function AdminDashboardPage() {
                 supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
+                supabase.from('app_config').select('value').eq('key', 'referral_campaign_enabled').single(),
+                supabase.rpc('get_active_test_user_count', { p_days: 1 }),
+                supabase.rpc('get_active_test_user_count', { p_days: 7 }),
+                supabase.rpc('get_active_test_user_count', { p_days: 30 }),
+                supabase.rpc('get_active_user_trends', { p_days: 30 }),
+                supabase.rpc('get_dashboard_engagement_stats'),
+                supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
+                supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }),
             ]);
-
             // 月別登録データを集計（過去12ヶ月）
             if (allProfiles) {
                 const monthlyData: { [key: string]: number } = {};
@@ -193,7 +243,20 @@ export default function AdminDashboardPage() {
                 weeklyNewExams: weeklyNewExams || 0,
                 thisMonthNewUsers: thisMonthNewUsers || 0,
                 lastMonthNewUsers: lastMonthNewUsers || 0,
+                referralEnabled: configResponse ? (configResponse.value as boolean) : true,
+                dau: dauCount || 0,
+                wau: wauCount || 0,
+                mau: mauCount || 0,
+                engagement: engagementStats || undefined,
+                naruhodoUsage: {
+                    today: naruhodoToday || 0,
+                    total: naruhodoTotal || 0
+                }
             });
+
+            if (trendData) {
+                setActiveUserTrends(trendData);
+            }
 
             // アクティビティをマージ&ソート
             const activities: RecentActivity[] = [];
@@ -295,6 +358,128 @@ export default function AdminDashboardPage() {
                     <p className="text-2xl font-bold text-slate-800">{stats.testResultCount}</p>
                 </div>
             </div>
+
+            {/* アクティブユーザー統計 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">📈 アクティブユーザー（単語テスト）</h3>
+            <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">DAU (24時間内)</p>
+                    <p className="text-2xl font-bold text-blue-600">{stats.dau}人</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">WAU (7日間内)</p>
+                    <p className="text-2xl font-bold text-indigo-600">{stats.wau}人</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1 truncate">MAU (30日間内)</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.mau}人</p>
+                </div>
+            </div>
+
+            {/* アクティブユーザー推移グラフ */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold text-slate-800">📈 アクティブユーザー推移</h3>
+                    <div className="flex gap-4 text-xs">
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-slate-400"></div>
+                            <span className="text-slate-600">MAU</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-indigo-500"></div>
+                            <span className="text-slate-600">WAU</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <span className="text-slate-600">DAU</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                            data={activeUserTrends}
+                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                        >
+                            <XAxis
+                                dataKey="trend_date"
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={false}
+                                tickFormatter={(value) => {
+                                    const d = new Date(value);
+                                    return `${d.getMonth() + 1}/${d.getDate()}`;
+                                }}
+                            />
+                            <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                labelFormatter={(value) => {
+                                    const d = new Date(value);
+                                    return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+                                }}
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                itemSorter={(item: any) => {
+                                    const order: { [key: string]: number } = { 'MAU': 0, 'WAU': 1, 'DAU': 2 };
+                                    return order[item.name] ?? 99;
+                                }}
+                            />
+                            <Line type="monotone" dataKey="mau" name="MAU" stroke="#94a3b8" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="wau" name="WAU" stroke="#6366f1" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                            <Line type="monotone" dataKey="dau" name="DAU" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-2">過去30日間のアクティブユーザー推移</p>
+            </div>
+
+            {/* エンゲージメント指標 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">📊 エンゲージメント詳細</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">7日後継続率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-emerald-600">
+                            {stats.engagement?.retention_rate_7d != null ? `${stats.engagement.retention_rate_7d.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">登録7日後に利用</span>
+                    </div>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">初回テスト完了率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-blue-600">
+                            {stats.engagement?.first_test_rate != null ? `${stats.engagement.first_test_rate.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">最低1回完了</span>
+                    </div>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">ヘビーユーザー率</p>
+                    <div className="flex items-baseline gap-2">
+                        <p className="text-2xl font-bold text-indigo-600">
+                            {stats.engagement?.heavy_user_rate != null ? `${stats.engagement.heavy_user_rate.toFixed(1)}%` : '-'}
+                        </p>
+                        <span className="text-xs text-slate-400">10回以上完了</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* ナルホドレンズ利用状況 */}{/* ナルホドレンズ利用状況 */}
+            <h3 className="text-lg font-bold mb-4 text-slate-800">🔍 ナルホドレンズ利用状況</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium mb-1">今日の利用数</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.naruhodoUsage?.today ?? '-'}</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p className="text-xs text-slate-500 font-medium mb-1">総利用数</p>
+                    <p className="text-2xl font-bold text-slate-800">{stats.naruhodoUsage?.total ?? '-'}</p>
+                </div>
+            </div>
+
+
 
             {/* サブ統計カード */}
             <div className="grid grid-cols-3 gap-4 mb-8">
@@ -424,9 +609,50 @@ export default function AdminDashboardPage() {
                     <Link href="/admin/tests" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📊 テスト履歴
                     </Link>
+                    <button
+                        onClick={() => document.getElementById('referral-settings')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm"
+                    >
+                        🎁 招待キャンペーン
+                    </button>
                     <Link href="/countdown" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm" target="_blank">
                         🔗 サイトを見る
                     </Link>
+                </div>
+            </div>
+
+            {/* システム設定 */}
+            <div id="referral-settings" className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+                <h3 className="text-lg font-bold mb-4 text-slate-800">⚙️ システム設定</h3>
+                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                    <div>
+                        <p className="font-bold text-slate-800">友達招待キャンペーン</p>
+                        <p className="text-xs text-slate-500">キャンペーンを有効にすると、ユーザーは招待コードを発行・入力できます。</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={stats.referralEnabled}
+                            onChange={async (e) => {
+                                const newValue = e.target.checked;
+                                // Optimistic update
+                                setStats(prev => ({ ...prev, referralEnabled: newValue }));
+                                try {
+                                    const { error } = await supabase
+                                        .from('app_config')
+                                        .upsert({ key: 'referral_campaign_enabled', value: newValue });
+
+                                    if (error) throw error;
+                                } catch (err) {
+                                    console.error('Failed to update config', err);
+                                    setStats(prev => ({ ...prev, referralEnabled: !newValue }));
+                                    alert('設定の更新に失敗しました');
+                                }
+                            }}
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
                 </div>
             </div>
 
@@ -454,6 +680,6 @@ export default function AdminDashboardPage() {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

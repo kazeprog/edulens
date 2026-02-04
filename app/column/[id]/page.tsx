@@ -50,18 +50,23 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         };
     }
 
+    const description = post.content.replace(/<[^>]*>/g, "").trim().substring(0, 160);
+    const imageUrl = post.eyecatch?.url || "https://edulens.jp/Xcard.png";
+
     return {
-        title: `${post.title} | EduLens コラム`,
-        description: post.content.replace(/<[^>]*>/g, "").substring(0, 160),
+        title: `${post.title} | コラム`,
+        description: description,
         openGraph: {
             title: post.title,
+            description: description,
             type: "article",
             url: `https://edulens.jp/column/${id}`,
             images: [
                 {
-                    url: post.eyecatch?.url || "https://edulens.jp/Xcard.png",
+                    url: imageUrl,
                     width: post.eyecatch?.width || 1200,
                     height: post.eyecatch?.height || 630,
+                    alt: post.title,
                 },
             ],
         },

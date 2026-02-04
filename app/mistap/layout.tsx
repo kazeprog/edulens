@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import ClientHeader from '@/components/mistap/ClientHeader';
-import AddToHomePrompt from '@/components/mistap/AddToHomePrompt';
 
 export const metadata: Metadata = {
   title: {
@@ -84,7 +83,6 @@ export default function MistapLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ClientHeader />
-      <AddToHomePrompt />
       {children}
     </>
   );

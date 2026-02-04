@@ -35,11 +35,17 @@ export default function ReviewTestSetupPage() {
   const [startNum, setStartNum] = useState<number>(1);
   const [endNum, setEndNum] = useState<number>(100);
   const [testCount, setTestCount] = useState<number>(10);
+  const [testMode, setTestMode] = useState<'word-meaning' | 'meaning-word'>('word-meaning');
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
     document.title = '復習テスト作成 - Mistap';
+    // Load saved test mode from localStorage
+    const savedTestMode = localStorage.getItem('mistap_test_mode');
+    if (savedTestMode === 'word-meaning' || savedTestMode === 'meaning-word') {
+      setTestMode(savedTestMode);
+    }
     loadWeakWords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -184,7 +190,8 @@ export default function ReviewTestSetupPage() {
       selectedText: `${selectedTextbook} (復習テスト)`,
       startNum: null,
       endNum: null,
-      isReview: true
+      isReview: true,
+      mode: testMode
     };
 
     const dataParam = encodeURIComponent(JSON.stringify(testData));
@@ -369,7 +376,7 @@ export default function ReviewTestSetupPage() {
         )}
 
         {/* 出題数設定 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block mb-2 text-gray-700 font-medium">
             出題数: (選択中: {availableWords.length}個)
           </label>
@@ -381,6 +388,39 @@ export default function ReviewTestSetupPage() {
             max={availableWords.length}
             className="w-full border border-gray-300 p-3 rounded-xl text-base"
           />
+        </div>
+
+        {/* テストモード選択 */}
+        <div className="mb-6">
+          <label className="block mb-2 text-gray-700 font-medium">テストモード:</label>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setTestMode('word-meaning');
+                localStorage.setItem('mistap_test_mode', 'word-meaning');
+              }}
+              className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${testMode === 'word-meaning'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+            >
+              単語→意味
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setTestMode('meaning-word');
+                localStorage.setItem('mistap_test_mode', 'meaning-word');
+              }}
+              className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${testMode === 'meaning-word'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+            >
+              意味→単語
+            </button>
+          </div>
         </div>
 
         {/* アクションボタン */}

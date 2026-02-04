@@ -63,10 +63,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         title: "記事が見つかりません | Mistap",
         description: "Mistapのブログ記事。英単語学習のコツ、効果的な暗記法を紹介します。",
         type: "website",
-        url: `https://mistap.app/blog/${contentId}`,
+        url: `https://edulens.jp/mistap/blog/${contentId}`,
         images: [
           {
-            url: "https://mistap.app/mistap/ogp.png",
+            url: "https://edulens.jp/mistap/ogp.png",
             width: 1200,
             height: 630,
             alt: "Mistap",
@@ -77,22 +77,22 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         card: "summary_large_image",
         title: "記事が見つかりません | Mistap",
         description: "Mistapのブログ記事。英単語学習のコツ、効果的な暗記法を紹介します。",
-        images: ["https://mistap.app/mistap/ogp.png"],
+        images: ["https://edulens.jp/mistap/ogp.png"],
       },
     };
   }
 
-  const description = post.content.replace(/<[^>]*>/g, "").substring(0, 160);
-  const imageUrl = post.eyecatch?.url || "https://mistap.app/mistap/ogp.png";
+  const description = post.content.replace(/<[^>]*>/g, "").trim().substring(0, 160);
+  const imageUrl = post.eyecatch?.url || "https://edulens.jp/mistap/ogp.png";
 
   return {
-    title: `${post.title} | Mistap ブログ`,
+    title: `${post.title} | ブログ`,
     description,
     openGraph: {
       title: post.title,
       description,
       type: "article",
-      url: `https://mistap.app/blog/${contentId}`,
+      url: `https://edulens.jp/mistap/blog/${contentId}`,
       images: [
         {
           url: imageUrl,
@@ -141,26 +141,26 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
               headline: post.title,
-              image: post.eyecatch?.url || "https://mistap.app/mistap/ogp.png",
+              image: post.eyecatch?.url || "https://edulens.jp/mistap/ogp.png",
               datePublished: post.publishedAt,
               dateModified: post.updatedAt,
               author: {
                 "@type": "Organization",
                 name: "Mistap",
-                url: "https://mistap.app",
+                url: "https://edulens.jp/mistap",
               },
               publisher: {
                 "@type": "Organization",
                 name: "Mistap",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://mistap.app/mistap/logo.png",
+                  url: "https://edulens.jp/logo.png",
                 },
               },
-              description: post.content.replace(/<[^>]*>/g, "").substring(0, 160),
+              description: post.content.replace(/<[^>]*>/g, "").trim().substring(0, 160),
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": `https://mistap.app/blog/${contentId}`,
+                "@id": `https://edulens.jp/mistap/blog/${contentId}`,
               },
             }),
           }}
