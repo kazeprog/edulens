@@ -7,6 +7,7 @@ import Background from "@/components/mistap/Background";
 import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
+import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 interface TappedWord {
   word_number: number;
@@ -61,31 +62,58 @@ function ResultsContent() {
           // "(復習テスト)" などのサフィックスを除去して検索
           const normalizedTextName = selectedText.replace(/[\s]*[（(][^）)]*復習[^)）]*[)）][\s]*$/u, '').trim();
 
+          // ローカルJSONデータを取得してみる
+          const localJsonWords = getJsonTextbookData(normalizedTextName);
+
           // 間違えた単語の詳細を単語番号から取得
           let tappedWords: TappedWord[] = [];
           if (wrongNumbers.length > 0) {
-            const { data, error } = await supabase
-              .from("words")
-              .select("word, word_number, meaning")
-              .eq("text", normalizedTextName)
-              .in("word_number", wrongNumbers);
+            // ローカルデータがあればそこから検索
+            if (localJsonWords && localJsonWords.length > 0) {
+              tappedWords = localJsonWords
+                .filter(w => wrongNumbers.includes(w.word_number))
+                .map(w => ({
+                  word_number: w.word_number,
+                  word: w.word,
+                  meaning: w.meaning
+                }));
+            } else {
+              // なければSupabaseから取得
+              const { data, error } = await supabase
+                .from("words")
+                .select("word, word_number, meaning")
+                .eq("text", normalizedTextName)
+                .in("word_number", wrongNumbers);
 
-            if (!error && data) {
-              tappedWords = data;
+              if (!error && data) {
+                tappedWords = data;
+              }
             }
           }
 
           // 正解した単語の詳細を単語番号から取得
           let correctWords: TappedWord[] = [];
           if (correctNumbers.length > 0) {
-            const { data, error } = await supabase
-              .from("words")
-              .select("word, word_number, meaning")
-              .eq("text", normalizedTextName)
-              .in("word_number", correctNumbers);
+            // ローカルデータがあればそこから検索
+            if (localJsonWords && localJsonWords.length > 0) {
+              correctWords = localJsonWords
+                .filter(w => correctNumbers.includes(w.word_number))
+                .map(w => ({
+                  word_number: w.word_number,
+                  word: w.word,
+                  meaning: w.meaning
+                }));
+            } else {
+              // なければSupabaseから取得
+              const { data, error } = await supabase
+                .from("words")
+                .select("word, word_number, meaning")
+                .eq("text", normalizedTextName)
+                .in("word_number", correctNumbers);
 
-            if (!error && data) {
-              correctWords = data;
+              if (!error && data) {
+                correctWords = data;
+              }
             }
           }
 
