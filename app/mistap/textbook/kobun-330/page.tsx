@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '古文単語330（Key & Point）対応テスト｜大学受験 無料',
+    title: '古文単語330（Key & Point）単語テスト｜大学受験 無料',
     description: '「Key & Point 古文単語330」対応の古文単語テスト。キーポイントで覚える単語帳の内容を無料でテストできます。共通テスト・大学受験の古文対策に。',
     keywords: [
         '古文単語330',
@@ -19,7 +19,15 @@ export const metadata: Metadata = {
         '古文単語 クイズ',
         '古文単語 テスト 作成',
         '古文単語 無料',
-        '古文単語 学習 アプリ'
+        '古文単語 学習 アプリ',
+        '古文単語330 アプリ',
+        '古文単語330 単語テスト',
+        '古文単語330 単語テスト アプリ',
+        '古文単語330 テスト アプリ',
+        '古文単語330 小テスト',
+        '古文単語330 小テスト アプリ',
+        '古文単語330 小テスト メーカー',
+        '古文単語330 小テスト ジェネレーター',
     ],
     openGraph: {
         title: '古文単語330（Key & Point）対応テスト｜大学受験・無料',

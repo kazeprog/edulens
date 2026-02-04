@@ -21,6 +21,14 @@ export const metadata: Metadata = {
         '難関大 英単語',
         '英単語 テスト 作成',
         '英単語 テスト 無料',
+        'LEAP アプリ',
+        'LEAP テスト アプリ',
+        'LEAP 単語テスト',
+        'LEAP 単語テスト アプリ',
+        'LEAP 小テスト',
+        'LEAP 小テスト アプリ',
+        'LEAP 小テスト メーカー',
+        'LEAP 小テスト ジェネレーター',
         '英単語 クイズ サイト'
     ],
     openGraph: {

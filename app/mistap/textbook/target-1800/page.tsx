@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'ターゲット1800 対応テスト｜中学生 英単語 無料',
+    title: 'ターゲット1800 単語テスト｜中学生 英単語 無料',
     description: '「ターゲット1800」対応の英単語テスト。中学必修・頻出英単語を無料でテスト・単語カード形式で学習できます。高校入試対策に最適。',
     keywords: [
         'ターゲット1800',
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
         '高校入試 英単語',
         '中学 英語 暗記',
         'ターゲット1800 無料',
+        'ターゲット1800 単語テスト',
+        'ターゲット1800 単語テスト アプリ',
+        'ターゲット1800 テスト アプリ',
+        'ターゲット1800 小テスト',
+        'ターゲット1800 小テスト アプリ',
+        'ターゲット1800 小テスト メーカー',
+        'ターゲット1800 小テスト ジェネレーター',
         'ターゲット1800 一覧',
     ],
     openGraph: {

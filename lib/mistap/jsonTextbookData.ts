@@ -15,6 +15,7 @@ import kobun351Data from "@/lib/data/json/理解を深める核心古文単語35
 import words150Data from "@/lib/data/json/絶対覚える英単語150.json";
 import pastTenseData from "@/lib/data/json/過去形.json";
 import pastParticipleData from "@/lib/data/json/過去形、過去分詞形.json";
+import teppekiData from "@/lib/data/json/teppeki.json";
 
 // 型定義
 export interface TextbookWord {
@@ -53,6 +54,9 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "duo-30": duo30Data as TextbookWord[],
     "duo 3.0": duo30Data as TextbookWord[],
     "duo-30例文": duo30Data as TextbookWord[],
+    "teppeki": teppekiData as TextbookWord[],
+    "改訂版 鉄緑会東大英単語熟語 鉄壁": teppekiData as TextbookWord[],
+    "東大英単語熟語 鉄壁": teppekiData as TextbookWord[],
 
     // 古文単語
     "kobun-315": kobun315Data as TextbookWord[],
@@ -98,6 +102,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("325")) return DATA_MAP["kobun-325"];
     if (normalized.includes("330")) return DATA_MAP["kobun-330"];
     if (normalized.includes("351")) return DATA_MAP["kobun-351"];
+    if (normalized.includes("teppeki") || textbookName.includes("鉄壁")) return DATA_MAP["teppeki"];
 
 
     return null;

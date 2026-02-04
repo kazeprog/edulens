@@ -15,7 +15,7 @@ interface TextbookLPTemplateProps {
     textbookName: string;
     textbookNameJa: string;
     publisherName: string;
-    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo' | 'green' | 'yellow';
+    themeColor: 'sky' | 'emerald' | 'orange' | 'blue' | 'indigo' | 'green' | 'yellow' | 'rose';
     presetTextbook: string;
     canonicalUrl: string;
     unitLabel?: string;
@@ -157,6 +157,23 @@ export default function TextbookLPTemplate({
                     faqQ: 'bg-yellow-500',
                     ctaGradient: 'from-yellow-500 to-orange-600',
                     ctaText: 'text-yellow-100',
+                };
+            case 'rose':
+                return {
+                    bgGradient: 'from-rose-50 to-white',
+                    bgGradientAccent: 'from-rose-100/50 to-transparent',
+                    badgeBg: 'bg-rose-100',
+                    badgeText: 'text-rose-700',
+                    ping: 'bg-rose-400',
+                    dot: 'bg-rose-500',
+                    textAccent: 'text-rose-600',
+                    textHighlight: 'text-rose-500',
+                    buttonGradient: 'from-rose-500 to-pink-600',
+                    buttonShadow: 'shadow-rose-200',
+                    iconColor: 'text-rose-500',
+                    faqQ: 'bg-rose-500',
+                    ctaGradient: 'from-rose-600 to-pink-700',
+                    ctaText: 'text-rose-100',
                 };
             case 'sky':
             default:

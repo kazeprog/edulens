@@ -25,6 +25,13 @@ interface Textbook {
 // データ定義（JSON-LDと描画の両方で使用）
 const universityTextbooks: Textbook[] = [
     {
+        name: "鉄緑会 鉄壁",
+        description: "東大受験生のバイブル。鉄緑会のメソッドで難関大英単語を完全攻略。",
+        path: "/mistap/textbook/teppeki",
+        color: "rose",
+        badge: "東大必須"
+    },
+    {
         name: "システム英単語",
         description: "共通テストから難関大まで対応。頻出順に効率よく学習できます。",
         path: "/mistap/textbook/system-words",

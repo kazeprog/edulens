@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '理解を深める核心古文単語351 対応テスト｜大学受験 無料',
+    title: '理解を深める核心古文単語351 単語テスト｜大学受験 無料',
     description: '「理解を深める核心古文単語351」対応の古文単語テスト。尚文出版の入試必修・頻出古文単語を無料でテスト・単語カード形式で学習できます。',
     keywords: [
         '核心古文単語351',
@@ -17,6 +17,14 @@ export const metadata: Metadata = {
         '核心古文単語351 無料',
         '核心古文単語351 一覧',
         '古文単語 クイズ',
+        '核心古文単語351 アプリ',
+        '核心古文単語351 単語テスト',
+        '核心古文単語351 単語テスト アプリ',
+        '核心古文単語351 テスト アプリ',
+        '核心古文単語351 小テスト',
+        '核心古文単語351 小テスト アプリ',
+        '核心古文単語351 小テスト メーカー',
+        '核心古文単語351 小テスト ジェネレーター',
     ],
     openGraph: {
         title: '理解を深める核心古文単語351 対応テスト｜大学受験・無料',
