@@ -215,32 +215,44 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
 
         {/* ▼▼▼ 追加: 推定地域の提案バナー ▼▼▼ */}
         {/* 地域が特定できた場合のみ表示されます（Vercel環境でのみ動作） */}
-        {detectedPref && (
-          <div className="mb-12 max-w-xl mx-auto transform hover:scale-[1.02] transition-transform duration-300">
-            <div className="bg-white rounded-2xl shadow-md border-2 border-blue-100 p-6 text-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+        <div className="min-h-[200px] flex items-center justify-center">
+          {detectedPref ? (
+            <div className="mb-12 max-w-xl mx-auto transform hover:scale-[1.02] transition-transform duration-300 w-full">
+              <div className="bg-white rounded-2xl shadow-md border-2 border-blue-100 p-6 text-center relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
 
-              <div className="flex items-center justify-center gap-2 mb-3 text-blue-600 font-bold text-xs uppercase tracking-widest">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                あなたにおすすめのカウントダウン
+                <div className="flex items-center justify-center gap-2 mb-3 text-blue-600 font-bold text-xs uppercase tracking-widest">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  あなたにおすすめのカウントダウン
+                </div>
+
+                <h2 className="text-xl font-bold text-slate-800 mb-6">
+                  <span className="text-blue-600 text-2xl mr-1">{detectedPref.name}</span>
+                  の入試日程を見ますか？
+                </h2>
+
+                <Link
+                  href={`/countdown/highschool/${detectedPref.slug}/${targetYear}`}
+                  prefetch={false}
+                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-700 hover:shadow-lg transition-all"
+                >
+                  {detectedPref.name}のカウントダウンへ
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </Link>
               </div>
-
-              <h2 className="text-xl font-bold text-slate-800 mb-6">
-                <span className="text-blue-600 text-2xl mr-1">{detectedPref.name}</span>
-                の入試日程を見ますか？
-              </h2>
-
-              <Link
-                href={`/countdown/highschool/${detectedPref.slug}/${targetYear}`}
-                prefetch={false}
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-700 hover:shadow-lg transition-all"
-              >
-                {detectedPref.name}のカウントダウンへ
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-              </Link>
             </div>
-          </div>
-        )}
+          ) : (
+            // プレースホルダーまたは何も表示しないが、高さは確保しないとCLSになる？
+            // しかしdetectedPrefがない場合は「表示しない」のが正解なので、
+            // 逆に「あとから表示される」のが問題。
+            // サーバーサイドレンダリングなら headers() はサーバーで解決されるので
+            // クライアントで遅れて表示されることはないはず。
+            // Next.jsのServer Componentなら問題ないか？
+            // headers() を使っているのでDynamic Renderingになる。
+            // もしSuspenseを使っていたらフォールバックが必要だが、ここでは使っていない。
+            null
+          )}
+        </div>
         {/* ▲▲▲ 追加ここまで ▲▲▲ */}
         <div className="flex justify-center w-full text-center">
           <GoogleAdsense />

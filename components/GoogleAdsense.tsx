@@ -97,8 +97,22 @@ const GoogleAdsense = ({
 
     // Proユーザーまたはログイン/新規登録画面では広告を表示しない
     // プロフィール未取得(isPendingProfile)の場合も表示しない
+    // Proユーザーの場合は広告を表示しない（nullを返してDOMから削除）
+    // ただし、ロード中はCLSを防ぐためにスペースを確保する（またはスケルトンを表示）
+    // ここでは「デフォルトで広告あり」として振る舞い、Proの場合のみ削除する方針だが、
+    // CLSを防ぐなら「Proでもスペースを維持」するか「ロード中はスペース確保→Proなら消す」の2択。
+    // 「Proなら消す」はProユーザー体験でガタつくが、SEO（CrawlerはProではない）的には
+    // 「ロード中にスペースがあること」が重要。
     const isPendingProfile = !!user && !profile;
+
+    // fix: ロード中はnullではなく、コンテナ（高さ確保）を返すようにする。
+    // Pro確定後にnullを返す。
     if (!loading && (profile?.is_pro || isPendingProfile)) {
+        return null; // Proユーザーには何も表示しない（ここでレイアウトシフトは起きるが許容範囲、または別途対策）
+    }
+
+    // ログイン/新規登録画面では広告を表示しない
+    if (pathname === '/login') {
         return null;
     }
 
@@ -108,16 +122,18 @@ const GoogleAdsense = ({
     }
 
     return (
-        <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
-            <ins
-                ref={adRef}
-                className="adsbygoogle"
-                style={style}
-                data-ad-client={client}
-                data-ad-slot={slot}
-                data-ad-format={format}
-                data-full-width-responsive={responsive}
-            />
+        <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden', backgroundColor: loading ? '#f0f0f0' : 'transparent' }}>
+            {!loading && (
+                <ins
+                    ref={adRef}
+                    className="adsbygoogle"
+                    style={style}
+                    data-ad-client={client}
+                    data-ad-slot={slot}
+                    data-ad-format={format}
+                    data-full-width-responsive={responsive}
+                />
+            )}
         </div>
     );
 };

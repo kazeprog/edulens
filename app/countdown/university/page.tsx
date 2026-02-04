@@ -60,7 +60,33 @@ export default function UniversityTopPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">読み込み中...</div>}>
+      <Suspense fallback={
+        <div className="min-h-[calc(100vh-80px)] bg-slate-50 py-12 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            {/* Breadcrumb Skeleton */}
+            <div className="flex justify-center mb-8 h-5 bg-slate-200 rounded animate-pulse w-64 mx-auto"></div>
+            {/* Tabs Skeleton */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-white p-1 rounded-lg border border-slate-200 shadow-sm inline-flex gap-1">
+                <div className="w-20 h-10 bg-slate-100 rounded animate-pulse"></div>
+                <div className="w-20 h-10 bg-slate-100 rounded animate-pulse"></div>
+              </div>
+            </div>
+            {/* Title Skeleton */}
+            <div className="text-center mb-12">
+              <div className="h-8 w-64 bg-slate-200 rounded animate-pulse mx-auto mb-4"></div>
+              <div className="h-10 w-48 bg-slate-200 rounded animate-pulse mx-auto mt-2"></div>
+              <div className="h-4 w-96 bg-slate-200 rounded animate-pulse mx-auto mt-4"></div>
+            </div>
+            {/* Ad Placeholder (matches GoogleAdsense min-height) */}
+            <div className="flex justify-center w-full text-center mt-8 mb-12">
+              <div className="w-full max-w-[100%] h-[280px] bg-slate-100 animate-pulse rounded"></div>
+            </div>
+            {/* Content Loading */}
+            <div className="text-center py-12 text-slate-400">読み込み中...</div>
+          </div>
+        </div>
+      }>
         <UniversityClient />
       </Suspense>
     </>
