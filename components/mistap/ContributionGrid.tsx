@@ -7,8 +7,7 @@ import {
     eachDayOfInterval,
     startOfWeek,
     endOfWeek,
-    parseISO,
-    startOfMonth
+    parseISO
 } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { getSupabase } from '@/lib/supabase';
@@ -20,11 +19,18 @@ interface ContributionDay {
     level: 0 | 1 | 2 | 3 | 4;
 }
 
-export default function ContributionGrid() {
+interface ContributionGridProps {
+    colorTheme?: 'red' | 'blue' | 'green';
+    filterSubject?: 'english' | 'math' | 'all';
+}
+
+export default function ContributionGrid({ colorTheme = 'red', filterSubject = 'all' }: ContributionGridProps) {
     const { user } = useAuth();
     const [contributions, setContributions] = useState<Record<string, number>>({});
     const [totalCount, setTotalCount] = useState(0);
     const [loading, setLoading] = useState(true);
+
+    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchContributions = async () => {
@@ -35,11 +41,21 @@ export default function ContributionGrid() {
             try {
                 // Fetch for the last 365 days
                 const oneYearAgo = subDays(new Date(), 365).toISOString();
-                const { data, error } = await supabase
+                let query = supabase
                     .from('results')
-                    .select('created_at')
+                    .select('created_at, selected_text')
                     .eq('user_id', user.id)
                     .gte('created_at', oneYearAgo);
+
+                if (filterSubject === 'math') {
+                    // Mathtap only
+                    query = query.like('selected_text', 'Mathtap:%');
+                } else if (filterSubject === 'english') {
+                    // Mistap (English) only - exclude Mathtap
+                    query = query.not('selected_text', 'like', 'Mathtap:%');
+                }
+
+                const { data, error } = await query;
 
                 if (error) throw error;
 
@@ -60,7 +76,7 @@ export default function ContributionGrid() {
         };
 
         fetchContributions();
-    }, [user]);
+    }, [user, filterSubject]);
 
     const days = useMemo(() => {
         const end = new Date();
@@ -96,6 +112,25 @@ export default function ContributionGrid() {
     }, [gridData]);
 
     const getColorClass = (level: number) => {
+        if (colorTheme === 'blue') {
+            switch (level) {
+                case 1: return 'bg-blue-100';
+                case 2: return 'bg-blue-300';
+                case 3: return 'bg-blue-500';
+                case 4: return 'bg-blue-700';
+                default: return 'bg-gray-100';
+            }
+        }
+        if (colorTheme === 'green') {
+            switch (level) {
+                case 1: return 'bg-green-100';
+                case 2: return 'bg-green-300';
+                case 3: return 'bg-green-500';
+                case 4: return 'bg-green-700';
+                default: return 'bg-gray-100';
+            }
+        }
+        // Default Red
         switch (level) {
             case 1: return 'bg-red-100';
             case 2: return 'bg-red-300';
@@ -105,7 +140,11 @@ export default function ContributionGrid() {
         }
     };
 
-    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+    const getHoverRingClass = () => {
+        if (colorTheme === 'blue') return 'hover:ring-blue-200';
+        if (colorTheme === 'green') return 'hover:ring-green-200';
+        return 'hover:ring-red-200';
+    };
 
     useEffect(() => {
         if (!loading && scrollContainerRef.current) {
@@ -188,7 +227,7 @@ export default function ContributionGrid() {
                                     <div
                                         key={dayIdx}
                                         title={`${format(day.date, 'yyyy/MM/dd')}: ${day.count}回実施`}
-                                        className={`w-3 h-3 rounded-[2px] ${getColorClass(day.level)} transition-all duration-300 hover:ring-2 hover:ring-red-200 hover:z-10 cursor-pointer`}
+                                        className={`w-3 h-3 rounded-[2px] ${getColorClass(day.level)} transition-all duration-300 hover:ring-2 ${getHoverRingClass()} hover:z-10 cursor-pointer`}
                                     />
                                 ))}
                             </div>
@@ -200,10 +239,10 @@ export default function ContributionGrid() {
             <div className="mt-2 flex items-center justify-end gap-1.5 text-[10px] text-gray-400 select-none">
                 <span>Less</span>
                 <div className="w-2.5 h-2.5 rounded-[2px] bg-gray-100"></div>
-                <div className="w-2.5 h-2.5 rounded-[2px] bg-red-100"></div>
-                <div className="w-2.5 h-2.5 rounded-[2px] bg-red-300"></div>
-                <div className="w-2.5 h-2.5 rounded-[2px] bg-red-500"></div>
-                <div className="w-2.5 h-2.5 rounded-[2px] bg-red-700"></div>
+                <div className={`w-2.5 h-2.5 rounded-[2px] ${getColorClass(1)}`}></div>
+                <div className={`w-2.5 h-2.5 rounded-[2px] ${getColorClass(2)}`}></div>
+                <div className={`w-2.5 h-2.5 rounded-[2px] ${getColorClass(3)}`}></div>
+                <div className={`w-2.5 h-2.5 rounded-[2px] ${getColorClass(4)}`}></div>
                 <span>More</span>
             </div>
 

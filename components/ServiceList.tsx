@@ -30,6 +30,12 @@ const SERVICES: {
             description: '単語学習システム',
         },
         {
+            name: 'Mathtap',
+            href: '/mathtap',
+            image: '/Mathtapicon.png',
+            description: '計算問題練習アプリ',
+        },
+        {
             name: 'EduTimer',
             href: '/EduTimer',
             image: '/EdutimerLogo.png',

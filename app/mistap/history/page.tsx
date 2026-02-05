@@ -138,6 +138,7 @@ export default function HistoryPage() {
           .from('results')
           .select('*')
           .eq('user_id', userId)
+          .not('selected_text', 'like', 'Mathtap:%')
           .order('created_at', { ascending: false });
 
         if (error) {

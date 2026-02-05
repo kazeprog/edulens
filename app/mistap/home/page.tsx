@@ -789,7 +789,7 @@ export default function HomePage() {
 
                             {/* Mobile: 1 Year Record (Contribution Graph) */}
                             <div className="lg:hidden">
-                                <ContributionGrid />
+                                <ContributionGrid filterSubject="english" />
                             </div>
 
 
@@ -934,7 +934,7 @@ export default function HomePage() {
 
                             {/* デスクトップ版: 左カラムから移動した「過去1年間の学習記録」を最上部に配置 */}
                             <div className="hidden lg:block">
-                                <ContributionGrid />
+                                <ContributionGrid filterSubject="english" />
                             </div>
 
                             {/* Referral Banner */}
