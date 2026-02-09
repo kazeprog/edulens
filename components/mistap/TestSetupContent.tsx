@@ -1155,7 +1155,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
             }`}
         >
-          復習（苦手）
+          復習テスト
         </button>
         <button
           onClick={() => setActiveTab('word-stock')}

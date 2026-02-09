@@ -65,14 +65,14 @@ export default function UpgradePage() {
                                     <ul className="space-y-4">
                                         {[
                                             'サイト内の広告非表示',
-                                            'Mistapのすべての機能を使えるようになる',
+                                            'Mistapのすべての機能を利用可能',
                                             'ナルホドレンズ質問回数 1日20回',
                                             '英検AI添削 回数無制限',
                                             '大学入試英作文添削 無制限',
                                             '優先的なサポート',
                                             '新機能への早期アクセス'
                                         ].map((item, idx) => {
-                                            const isHighlight = item === 'サイト内の広告非表示' || item === 'Mistapのすべての機能を使えるようになる';
+                                            const isHighlight = item === 'サイト内の広告非表示' || item === 'Mistapのすべての機能を利用可能';
                                             return (
                                                 <li key={idx} className={`flex items-center gap-3 font-medium ${isHighlight ? 'text-blue-600 text-xl font-bold' : 'text-slate-700'}`}>
                                                     <div className={`flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center ${isHighlight ? 'w-8 h-8' : 'w-6 h-6'}`}>
