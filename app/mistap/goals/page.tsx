@@ -5,6 +5,7 @@ import { supabase } from '@/lib/mistap/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
+import { useAuth } from '@/context/AuthContext';
 
 interface Goal {
   id: string;
@@ -18,6 +19,7 @@ interface Goal {
 
 export default function GoalsPage() {
   const router = useRouter();
+  const { profile } = useAuth();
 
   // フォーム状態
   const [dailyGoal, setDailyGoal] = useState<string>('100');
@@ -475,7 +477,7 @@ export default function GoalsPage() {
                             type="number"
                             value={wordsPerTest}
                             onChange={(e) => setWordsPerTest(e.target.value)}
-                            placeholder={dailyGoal ? `${dailyGoal} (全問)` : '未設定'}
+                            placeholder={dailyGoal ? (profile?.is_pro ? `${dailyGoal} (全問)` : (parseInt(dailyGoal) > 50 ? '50 (Proプラン制限)' : `${dailyGoal} (全問)`)) : '未設定'}
                             className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white/50"
                             min="1"
                           />
@@ -484,7 +486,7 @@ export default function GoalsPage() {
                           </div>
                         </div>
                         <p className="text-xs text-gray-500 mt-1">
-                          設定しない場合は、その日の目標範囲すべてが出題されます。
+                          {profile?.is_pro ? "設定しない場合は、その日の目標範囲すべてが出題されます。" : "設定しない場合は、その日の目標範囲から（最大50語）出題されます。"}
                         </p>
                       </div>
 
