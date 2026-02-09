@@ -40,7 +40,7 @@ function TestContent() {
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
-  const { profile } = useAuth();
+  const { profile, loading } = useAuth();
 
   const testTitle = useMemo(() => {
     const selectedText = testData?.selectedText;
@@ -213,6 +213,8 @@ function TestContent() {
     const modeParam = searchParams.get('mode');
     const mode = (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning';
 
+    if (loading) return;
+
     if (textParam && startParam && endParam && countParam) {
       const generateTest = async () => {
         try {
@@ -288,7 +290,7 @@ function TestContent() {
     } else {
       router.push('/mistap/test-setup');
     }
-  }, [searchParams, router]);
+  }, [searchParams, router, loading, profile]);
 
   function toggleTapped(id: number) {
     setTappedIds((prev) => {
