@@ -15,6 +15,7 @@ import ContributionGrid from '@/components/mistap/ContributionGrid';
 import AddToHomeScreen from '@/components/mistap/AddToHomeScreen';
 import MistapFooter from '@/components/mistap/Footer';
 import GoogleAdsense from '@/components/GoogleAdsense';
+import { BookMarked } from 'lucide-react';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -894,25 +895,47 @@ export default function HomePage() {
                             )}
 
                             {/* Mobile Quick Actions (lg:hidden) */}
-                            <div className="lg:hidden grid grid-cols-2 gap-4">
+                            <div className="md:hidden grid grid-cols-1 gap-3 mb-8">
                                 <button
-                                    onClick={() => router.push('/mistap/test-setup')}
-                                    className="flex flex-col items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white p-4 rounded-2xl shadow-md active:scale-95 transition-all"
+                                    onClick={() => router.push('/mistap/word-stock')}
+                                    className="bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
                                 >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-orange-100 p-2 rounded-xl text-orange-600">
+                                            <BookMarked className="w-6 h-6" />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className="font-bold text-lg flex items-center gap-2">
+                                                Word Stock
+                                                {!authProfile?.is_pro && <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded font-medium border border-gray-200">Pro</span>}
+                                            </div>
+                                            <div className="text-xs text-gray-500">育てる単語帳</div>
+                                        </div>
+                                    </div>
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
-                                    <span className="font-bold text-sm">作成</span>
                                 </button>
-                                <button
-                                    onClick={() => router.push('/mistap/history')}
-                                    className="flex flex-col items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-4 rounded-2xl active:scale-95 transition-all"
-                                >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                    </svg>
-                                    <span className="font-bold text-sm">履歴</span>
-                                </button>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button
+                                        onClick={() => router.push('/mistap/test-setup')}
+                                        className="flex flex-col items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white p-4 rounded-2xl shadow-md active:scale-95 transition-all"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        <span className="font-bold text-sm">作成</span>
+                                    </button>
+                                    <button
+                                        onClick={() => router.push('/mistap/history')}
+                                        className="flex flex-col items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-4 rounded-2xl active:scale-95 transition-all"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                        <span className="font-bold text-sm">履歴</span>
+                                    </button>
+                                </div>
                             </div>
 
 
@@ -947,6 +970,26 @@ export default function HomePage() {
                             {/* デスクトップ版: 左カラムから移動した「過去1年間の学習記録」を最上部に配置 */}
                             <div className="hidden lg:block">
                                 <ContributionGrid />
+                            </div>
+
+                            <div className="hidden md:block mb-8">
+                                <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-white/50">
+                                    <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                        <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
+                                            <BookMarked className="w-5 h-5" />
+                                        </span>
+                                        Word Stock
+                                    </h2>
+                                    <p className="text-gray-600 mb-4 text-sm">
+                                        日々の学習で気になった単語をストックして、あなただけの単語帳を作りましょう。
+                                    </p>
+                                    <button
+                                        onClick={() => router.push('/mistap/word-stock')}
+                                        className="w-full bg-white hover:bg-orange-50 text-orange-600 border border-orange-200 font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        単語帳を開く
+                                    </button>
+                                </div>
                             </div>
 
                             {/* Referral Banner */}

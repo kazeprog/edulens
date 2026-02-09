@@ -26,7 +26,7 @@ interface TestData {
   selectedText: string;
   startNum: number | null;
   endNum: number | null;
-  mode?: 'word-meaning' | 'meaning-word';
+  mode?: 'word-meaning' | 'meaning-word' | 'word-stock';
 }
 
 function TestContent() {
@@ -211,9 +211,54 @@ function TestContent() {
     const endParam = searchParams.get('end');
     const countParam = searchParams.get('count');
     const modeParam = searchParams.get('mode');
-    const mode = (modeParam === 'meaning-word') ? 'meaning-word' : 'word-meaning';
+    const mode = (modeParam === 'meaning-word') ? 'meaning-word' : (modeParam === 'word-stock' ? 'word-stock' : 'word-meaning');
 
     if (loading) return;
+
+    // Handle Word Stock Mode
+    if (mode === 'word-stock') {
+      const fetchWordStock = async () => {
+        if (!profile?.is_pro) {
+          alert("この機能を使用するにはProプランへのアップグレードが必要です。");
+          router.push('/upgrade');
+          return;
+        }
+
+        const countParam = searchParams.get('count');
+        const count = countParam ? parseInt(countParam) : 10;
+
+        const { data, error } = await supabase
+          .from('mistap_word_stocks')
+          .select('*');
+
+        if (error || !data || data.length === 0) {
+          alert("ストックされた単語がありません。");
+          router.push('/mistap/word-stock');
+          return;
+        }
+
+        // Shuffle and limit
+        const shuffled = data.sort(() => Math.random() - 0.5).slice(0, count);
+
+        // Map to Word interface
+        const words: Word[] = shuffled.map((item, index) => ({
+          word_number: index + 1, // Dummy number
+          word: item.word,
+          meaning: item.meaning || '',
+        }));
+
+        setTestData({
+          selectedText: 'Word Stock',
+          words: words,
+          startNum: null,
+          endNum: null,
+          mode: 'word-stock'
+        });
+      };
+
+      fetchWordStock();
+      return;
+    }
 
     if (textParam && startParam && endParam && countParam) {
       const generateTest = async () => {
