@@ -1215,461 +1215,146 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
         {/* Normal Tab (Corrected from Review) */}
         {activeTab === 'normal' && (
-          <div className="space-y-8">
-            <label className="block text-sm font-bold text-gray-700">学習レベル</label>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { id: 'junior', label: '中学' },
-                { id: 'senior', label: '高校' },
-                { id: 'university', label: '大学・社会人' }
-              ].map((l) => (
+          <>
+            <div className="space-y-8">
+              <label className="block text-sm font-bold text-gray-700">学習レベル</label>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { id: 'junior', label: '中学' },
+                  { id: 'senior', label: '高校' },
+                  { id: 'university', label: '大学・社会人' }
+                ].map((l) => (
+                  <button
+                    key={l.id}
+                    onClick={() => setLevel(l.id)}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${level === l.id
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+
+            {/* Review Tab Form Start */}
+
+            {/* テストモード選択 */}
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">出題モード</label>
+              <div className="grid grid-cols-2 gap-2">
                 <button
-                  key={l.id}
-                  onClick={() => setLevel(l.id)}
-                  className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${level === l.id
+                  onClick={() => setTestMode('word-meaning')}
+                  className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
                     ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
                     : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
                     }`}
                 >
-                  {l.label}
+                  単語 → 意味
                 </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Review Tab Form Start */}
-
-        {/* テストモード選択 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-bold text-gray-700">出題モード</label>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setTestMode('word-meaning')}
-              className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
-                ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                }`}
-            >
-              単語 → 意味
-            </button>
-            <button
-              onClick={() => setTestMode('meaning-word')}
-              className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
-                ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                }`}
-            >
-              意味 → 単語
-            </button>
-          </div>
-        </div>
-
-        {/* 中学の場合のテストタイプ選択 */}
-        {level === 'junior' && (
-          <div className="space-y-2">
-            <label className="block text-sm font-bold text-gray-700">テストの種類</label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => setJuniorTestType('wordbook')}
-                className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'wordbook'
-                  ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                  : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                  }`}
-              >
-                単語帳テスト
-              </button>
-              <button
-                onClick={() => setJuniorTestType('textbook')}
-                className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'textbook'
-                  ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                  : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                  }`}
-              >
-                教科書テスト
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 教材選択 */}
-        {!(level === 'junior' && juniorTestType === 'textbook') ? (
-          <div className="space-y-2">
-            <label className="block text-sm font-bold text-gray-700">単語帳</label>
-            <div className="relative">
-              <select
-                value={selectedText}
-                onChange={(e) => setSelectedText(e.target.value)}
-                className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900 [&>optgroup]:text-gray-900"
-                translate="no"
-              >
-                {level === "junior" ? (
-                  // 中学向けは従来通り。filteredTexts が空の場合は texts を代替表示する
-                  (filteredTexts.length > 0 ? filteredTexts : texts).map((text) => (
-                    <option key={text} value={text} translate="no">
-                      {text}
-                    </option>
-                  ))
-                ) : level === "university" ? (
-                  // 大学生・社会人向け
-                  <>
-                    {universityTexts
-                      .filter(text => texts.includes(text))
-                      .map(text => (
-                        <option key={text} value={text} translate="no">{text}</option>
-                      ))}
-                    {/* もし定義済み教材がなければ、DB の教材一覧を代替で表示 */}
-                    {universityTexts.filter(text => texts.includes(text)).length === 0 && (
-                      <>
-                        {texts.map(text => (
-                          <option key={text} value={text} translate="no">{text}</option>
-                        ))}
-                      </>
-                    )}
-                  </>
-                ) : (
-                  // 高校向けはグループ化（データベースに存在するもののみ）
-                  <>
-                    <optgroup label="📖 英単語">
-                      {["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
-                        .filter(text => texts.includes(text))
-                        .map(text => (
-                          <option key={text} value={text} translate="no">{text}</option>
-                        ))}
-                    </optgroup>
-                    <optgroup label="📜 古文単語">
-                      {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"]
-                        .filter(text => texts.includes(text))
-                        .map(text => (
-                          <option key={text} value={text} translate="no">{text}</option>
-                        ))}
-                    </optgroup>
-                    {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                    {(!["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"].some(t => texts.includes(t))) && (
-                      <>
-                        {texts.map(text => (
-                          <option key={text} value={text} translate="no">{text}</option>
-                        ))}
-                      </>
-                    )}
-                  </>
-                )}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <label className="block text-xs font-bold text-gray-500 ml-1">教科書</label>
-                <select
-                  value={selectedSchoolTextbook}
-                  onChange={(e) => setSelectedSchoolTextbook(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                <button
+                  onClick={() => setTestMode('meaning-word')}
+                  className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
+                    ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                    : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                    }`}
                 >
-                  {Array.from(new Set(TEXTBOOK_LIST.map(t => t.name))).map(name => (
-                    <option key={name} value={name}>{name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="space-y-1">
-                <label className="block text-xs font-bold text-gray-500 ml-1">学年</label>
-                <select
-                  value={selectedSchoolGrade}
-                  onChange={(e) => setSelectedSchoolGrade(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
-                >
-                  {['中1', '中2', '中3'].map(grade => (
-                    <option key={grade} value={grade}>{grade}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="space-y-1">
-              <label className="block text-xs font-bold text-gray-500 ml-1">単元</label>
-              <select
-                value={selectedUnit ? `${selectedUnit.section}-${selectedUnit.unit}` : ''}
-                onChange={(e) => {
-                  const [section, unit] = e.target.value.split('-').map(Number);
-                  setSelectedUnit({ section, unit });
-                }}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
-              >
-                {textbookUnits.map(u => (
-                  <option key={`${u.section}-${u.unit}`} value={`${u.section}-${u.unit}`}>
-                    {u.label} ({u.wordCount}語)
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-
-        {missingTexts.length > 0 && process.env.NODE_ENV === 'development' && (
-          <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 rounded-lg">
-            <p className="text-yellow-800 text-sm">
-              <strong>開発用警告:</strong> 以下の教材がデータベースに存在しません：
-            </p>
-            <ul className="text-yellow-700 text-xs mt-1">
-              {missingTexts.map(text => (
-                <li key={text}>• {text}</li>
-              ))}
-            </ul>
-            <details className="mt-2 text-xs text-yellow-600">
-              <summary>読み込まれた教材リスト ({texts.length})</summary>
-              <p className="mt-1 break-all">{texts.join(', ')}</p>
-            </details>
-          </div>
-        )}
-
-        {/* 設定エリア（範囲・出題数） */}
-        <div className="bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
-
-          {/* 範囲指定 */}
-          {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="p-1.5 bg-white rounded-lg text-gray-500 shadow-sm">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <span className="font-bold text-gray-700 text-sm">出題範囲 (No.)</span>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="relative flex-1">
-                  <input
-                    type="number"
-                    value={startNum === 0 ? '' : startNum}
-                    onChange={(e) => setStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                    className="w-full border border-gray-200 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
-                    placeholder="開始"
-                  />
-                </div>
-                <span className="text-gray-400 font-bold">〜</span>
-                <div className="relative flex-1">
-                  <input
-                    type="number"
-                    value={endNum === 0 ? '' : endNum}
-                    onChange={(e) => setEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                    className="w-full border border-gray-200 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
-                    placeholder="終了"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="border-t border-gray-200"></div>
-
-          {/* 出題数 */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-white rounded-lg text-gray-500 shadow-sm">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-                </div>
-                <span className="font-bold text-gray-700 text-sm">出題数</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  value={count === 0 ? '' : count}
-                  onChange={(e) => {
-                    let val = e.target.value === '' ? 0 : Number(e.target.value);
-                    if (!profile?.is_pro && val > 50) val = 50;
-                    setCount(val);
-                  }}
-                  className="w-20 border border-gray-200 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
-                  max={profile?.is_pro ? undefined : 50}
-                />
-                <span className="text-gray-500 font-medium text-sm">語</span>
+                  意味 → 単語
+                </button>
               </div>
             </div>
 
-            {/* プリセットボタン */}
-            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-              {[10, 20, 30, 50, 100].map(num => {
-                const isLocked = !profile?.is_pro && num > 50;
-                return (
+            {/* 中学の場合のテストタイプ選択 */}
+            {level === 'junior' && (
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700">テストの種類</label>
+                <div className="grid grid-cols-2 gap-2">
                   <button
-                    key={num}
-                    onClick={() => {
-                      if (isLocked) {
-                        alert("50語以上のテストを作成するにはProプランが必要です。");
-                        return;
-                      }
-                      setCount(num);
-                    }}
-                    className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${count === num
-                      ? 'bg-gray-800 text-white'
-                      : isLocked
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    onClick={() => setJuniorTestType('wordbook')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'wordbook'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
                       }`}
                   >
-                    {num}語 {isLocked && <span className="text-xs ml-1">🔒</span>}
+                    単語帳テスト
                   </button>
-                );
-              })}
-            </div>
-            {!profile?.is_pro && (
-              <p className="text-xs text-red-500 mt-2 font-medium">
-                ※ 50語以上のテスト作成にはProプランが必要です。
-              </p>
+                  <button
+                    onClick={() => setJuniorTestType('textbook')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'textbook'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    教科書テスト
+                  </button>
+                </div>
+              </div>
             )}
-          </div>
-        </div>
 
-        {/* アクションボタン */}
-        <div className="pt-2 flex flex-col md:flex-row gap-3 md:justify-between">
-          <button
-            onClick={level === 'junior' && juniorTestType === 'textbook' ? createTextbookTest : createTest}
-            disabled={(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)}
-            className={`w-full md:w-auto py-4 px-8 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 md:order-2 ${(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)
-              ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
-              : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
-              }`}
-          >
-            {(isCreatingTest || isCreatingTextbookTest) ? (
-              <>
-                <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                作成中...
-              </>
-            ) : (
-              <>
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                テストを開始
-              </>
-            )}
-          </button>
-          <button
-            onClick={() => router.back()}
-            className="w-full md:w-auto mt-2 md:mt-0 text-gray-500 hover:text-gray-700 font-medium py-2 px-4 transition-colors md:order-1"
-          >
-            キャンセル
-          </button>
-        </div>
-
-        <div className="flex justify-center md:justify-end mt-4">
-          <button
-            onClick={() => setShowCopyrightModal(true)}
-            className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
-          >
-            著作権について
-          </button>
-        </div>
-
-        {/* iOS/Android向け「ホーム画面に追加」ボタン */}
-
-        {/* 共有デモ確認モーダル */}
-        {showDemoConfirm && pendingDemo && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/40" onClick={() => {
-              setShowDemoConfirm(false);
-              setPendingDemo(null);
-              // Use history API instead of router.replace to avoid redirect detection
-              if (typeof window !== 'undefined') window.history.replaceState({}, '', '/test-setup');
-            }} />
-            <div className="bg-white rounded-xl shadow-lg p-6 z-10 w-[90%] max-w-md">
-              <h3 className="text-lg font-semibold mb-3">テスト開始の確認</h3>
-              <p className="text-sm text-gray-700 mb-4">以下の内容でテストを開始します。よろしければ「開始」を押してください。</p>
-              <div className="mb-4">
-                <div className="text-sm text-gray-600">教材: <span className="font-semibold text-gray-800">{pendingDemo.selectedText}</span></div>
-                <div className="text-sm text-gray-600">範囲: <span className="font-semibold text-gray-800">{(pendingDemo.startNum != null && pendingDemo.endNum != null) ? `${pendingDemo.startNum}〜${pendingDemo.endNum}` : '全範囲'}</span></div>
-                <div className="text-sm text-gray-600">出題数: <span className="font-semibold text-gray-800">{pendingDemo.count ?? count}</span></div>
-              </div>
-              <div className="flex gap-3">
-                <button
-                  onClick={async () => {
-                    // call createTestImpl with overrides from pendingDemo
-                    setShowDemoConfirm(false);
-                    const overridesArg: { selectedText?: string; startNum?: number; endNum?: number; count?: number } = {};
-                    overridesArg.selectedText = pendingDemo.selectedText;
-                    if (pendingDemo.startNum != null) overridesArg.startNum = pendingDemo.startNum;
-                    if (pendingDemo.endNum != null) overridesArg.endNum = pendingDemo.endNum;
-                    if (pendingDemo.count != null) overridesArg.count = pendingDemo.count;
-                    setPendingDemo(null);
-                    await createTestImpl(overridesArg);
-                  }}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                >
-                  開始
-                </button>
-                <button
-                  onClick={() => { setShowDemoConfirm(false); setPendingDemo(null); window.history.replaceState({}, '', '/test-setup'); }}
-                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded"
-                >
-                  キャンセル
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </>
-    </div>
-  )
-
-
-  {/* 復習テストのフォーム */ }
-  {
-    activeTab === 'review' && (
-      <div className="animate-fadeIn space-y-6">
-        <>
-          {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600 font-medium">データを読み込んでいます...</p>
-            </div>
-          ) : textbooks.length === 0 ? (
-            <div className="text-center py-12 px-4">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">復習する単語がありません</h3>
-              <p className="text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
-                素晴らしい！現在、復習が必要な単語はありません。<br />
-                新しいテストを受けて学習を進めましょう。
-              </p>
-              <button
-                onClick={() => setActiveTab('normal')}
-                className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-xl font-semibold shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5"
-              >
-                通常テストを作成
-              </button>
-            </div>
-          ) : (
-            <>
-              {/* 教材選択 */}
+            {/* 教材選択 */}
+            {!(level === 'junior' && juniorTestType === 'textbook') ? (
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">復習する単語帳</label>
+                <label className="block text-sm font-bold text-gray-700">単語帳</label>
                 <div className="relative">
                   <select
-                    value={selectedTextbook}
-                    onChange={(e) => setSelectedTextbook(e.target.value)}
-                    className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900"
+                    value={selectedText}
+                    onChange={(e) => setSelectedText(e.target.value)}
+                    className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900 [&>optgroup]:text-gray-900"
+                    translate="no"
                   >
-                    {textbooks.map((tb) => (
-                      <option key={tb.textbook} value={tb.textbook}>
-                        {tb.textbook}
-                      </option>
-                    ))}
+                    {level === "junior" ? (
+                      // 中学向けは従来通り。filteredTexts が空の場合は texts を代替表示する
+                      (filteredTexts.length > 0 ? filteredTexts : texts).map((text) => (
+                        <option key={text} value={text} translate="no">
+                          {text}
+                        </option>
+                      ))
+                    ) : level === "university" ? (
+                      // 大学生・社会人向け
+                      <>
+                        {universityTexts
+                          .filter(text => texts.includes(text))
+                          .map(text => (
+                            <option key={text} value={text} translate="no">{text}</option>
+                          ))}
+                        {/* もし定義済み教材がなければ、DB の教材一覧を代替で表示 */}
+                        {universityTexts.filter(text => texts.includes(text)).length === 0 && (
+                          <>
+                            {texts.map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      // 高校向けはグループ化（データベースに存在するもののみ）
+                      <>
+                        <optgroup label="📖 英単語">
+                          {["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
+                            .filter(text => texts.includes(text))
+                            .map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                        </optgroup>
+                        <optgroup label="📜 古文単語">
+                          {["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"]
+                            .filter(text => texts.includes(text))
+                            .map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                        </optgroup>
+                        {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
+                        {(!["LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "ターゲット1900", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351"].some(t => texts.includes(t))) && (
+                          <>
+                            {texts.map(text => (
+                              <option key={text} value={text} translate="no">{text}</option>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    )}
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1677,313 +1362,634 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                     </svg>
                   </div>
                 </div>
-                <p className="text-right text-sm text-gray-500">
-                  対象単語数: <span className="font-bold text-gray-900">{textbooks.find(t => t.textbook === selectedTextbook)?.words.length || 0}</span> 語
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-gray-500 ml-1">教科書</label>
+                    <select
+                      value={selectedSchoolTextbook}
+                      onChange={(e) => setSelectedSchoolTextbook(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                    >
+                      {Array.from(new Set(TEXTBOOK_LIST.map(t => t.name))).map(name => (
+                        <option key={name} value={name}>{name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-gray-500 ml-1">学年</label>
+                    <select
+                      value={selectedSchoolGrade}
+                      onChange={(e) => setSelectedSchoolGrade(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                    >
+                      {['中1', '中2', '中3'].map(grade => (
+                        <option key={grade} value={grade}>{grade}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-gray-500 ml-1">単元</label>
+                  <select
+                    value={selectedUnit ? `${selectedUnit.section}-${selectedUnit.unit}` : ''}
+                    onChange={(e) => {
+                      const [section, unit] = e.target.value.split('-').map(Number);
+                      setSelectedUnit({ section, unit });
+                    }}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3 font-medium cursor-pointer"
+                  >
+                    {textbookUnits.map(u => (
+                      <option key={`${u.section}-${u.unit}`} value={`${u.section}-${u.unit}`}>
+                        {u.label} ({u.wordCount}語)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {missingTexts.length > 0 && process.env.NODE_ENV === 'development' && (
+              <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 rounded-lg">
+                <p className="text-yellow-800 text-sm">
+                  <strong>開発用警告:</strong> 以下の教材がデータベースに存在しません：
                 </p>
+                <ul className="text-yellow-700 text-xs mt-1">
+                  {missingTexts.map(text => (
+                    <li key={text}>• {text}</li>
+                  ))}
+                </ul>
+                <details className="mt-2 text-xs text-yellow-600">
+                  <summary>読み込まれた教材リスト ({texts.length})</summary>
+                  <p className="mt-1 break-all">{texts.join(', ')}</p>
+                </details>
               </div>
+            )}
 
-              {/* テストモード選択 */}
-              <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">出題モード</label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => setTestMode('word-meaning')}
-                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
-                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                      }`}
-                  >
-                    単語 → 意味
-                  </button>
-                  <button
-                    onClick={() => setTestMode('meaning-word')}
-                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
-                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                      }`}
-                  >
-                    意味 → 単語
-                  </button>
-                </div>
-              </div>
+            {/* 設定エリア（範囲・出題数） */}
+            <div className="bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
 
-              {/* 苦手度フィルター */}
-              <div className="space-y-3">
-                <label className="block text-sm font-bold text-gray-700">出題する単語の種類</label>
-                <div className="grid grid-cols-1 gap-3">
-                  {/* 最近間違えた単語 */}
-                  <div
-                    onClick={() => setIncludeRecent(!includeRecent)}
-                    className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeRecent
-                      ? 'border-red-500 bg-red-50'
-                      : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                      }`}
-                  >
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeRecent ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-400'
-                      }`}>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="flex-grow">
-                      <div className="flex justify-between items-center mb-1 pr-10">
-                        <span className={`font-bold ${includeRecent ? 'text-red-900' : 'text-gray-700'}`}>最近間違えた単語</span>
-                        <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeRecent ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500'
-                          }`}>
-                          {textbooks.find(t => t.textbook === selectedTextbook)?.recentCount || 0}語
-                        </span>
-                      </div>
-                      <p className={`text-xs ${includeRecent ? 'text-red-700' : 'text-gray-500'}`}>30日以内に間違えた単語</p>
-                    </div>
-                    <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeRecent ? 'bg-red-500 border-red-500' : 'border-gray-300'
-                      }`}>
-                      {includeRecent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                    </div>
-                  </div>
-
-                  {/* 何度も間違える単語 */}
-                  <div
-                    onClick={() => setIncludeFrequent(!includeFrequent)}
-                    className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeFrequent
-                      ? 'border-gray-800 bg-gray-50'
-                      : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                      }`}
-                  >
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-400'
-                      }`}>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
-                      </svg>
-                    </div>
-                    <div className="flex-grow">
-                      <div className="flex justify-between items-center mb-1 pr-10">
-                        <span className={`font-bold ${includeFrequent ? 'text-gray-900' : 'text-gray-700'}`}>何度も間違える単語</span>
-                        <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-500'
-                          }`}>
-                          {textbooks.find(t => t.textbook === selectedTextbook)?.frequentCount || 0}語
-                        </span>
-                      </div>
-                      <p className={`text-xs ${includeFrequent ? 'text-gray-700' : 'text-gray-500'}`}>2回以上間違えた単語</p>
-                    </div>
-                    <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeFrequent ? 'bg-gray-800 border-gray-800' : 'border-gray-300'
-                      }`}>
-                      {includeFrequent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                    </div>
-                  </div>
-
-                  {/* 1回だけ間違えた単語 */}
-                  <div
-                    onClick={() => setIncludeSingle(!includeSingle)}
-                    className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeSingle
-                      ? 'border-gray-400 bg-white'
-                      : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
-                      }`}
-                  >
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeSingle ? 'bg-gray-100 text-gray-600' : 'bg-gray-100 text-gray-400'
-                      }`}>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                      </svg>
-                    </div>
-                    <div className="flex-grow">
-                      <div className="flex justify-between items-center mb-1 pr-10">
-                        <span className={`font-bold ${includeSingle ? 'text-gray-800' : 'text-gray-700'}`}>1回だけ間違えた単語</span>
-                        <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeSingle ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-500'
-                          }`}>
-                          {textbooks.find(t => t.textbook === selectedTextbook)?.singleCount || 0}語
-                        </span>
-                      </div>
-                      <p className={`text-xs ${includeSingle ? 'text-gray-600' : 'text-gray-500'}`}>過去に1度だけ間違えた単語</p>
-                    </div>
-                    <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeSingle ? 'bg-gray-500 border-gray-500' : 'border-gray-300'
-                      }`}>
-                      {includeSingle && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* オプション設定（範囲・出題数） */}
-              <div className="bg-gray-50 rounded-2xl p-5 space-y-5">
-                {/* 範囲指定トグル */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 範囲指定 */}
+              {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="p-1.5 bg-white rounded-lg text-gray-500 shadow-sm">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <span className="font-bold text-gray-700">範囲を指定する</span>
+                    <span className="font-bold text-gray-700 text-sm">出題範囲 (No.)</span>
                   </div>
-                  <button
-                    onClick={() => setUseRange(!useRange)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${useRange ? 'bg-red-600' : 'bg-gray-200'
-                      }`}
-                  >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${useRange ? 'translate-x-6' : 'translate-x-1'
-                      }`} />
-                  </button>
-                </div>
 
-                {/* 範囲入力フィールド */}
-                {useRange && (
-                  <div className="flex items-center gap-3 animate-fadeIn">
+                  <div className="flex items-center gap-3">
                     <div className="relative flex-1">
                       <input
                         type="number"
-                        value={reviewStartNum === 0 ? '' : reviewStartNum}
-                        onChange={(e) => setReviewStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                        className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                        value={startNum === 0 ? '' : startNum}
+                        onChange={(e) => setStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                        className="w-full border border-gray-200 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
                         placeholder="開始"
                       />
-                      <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
                     </div>
                     <span className="text-gray-400 font-bold">〜</span>
                     <div className="relative flex-1">
                       <input
                         type="number"
-                        value={reviewEndNum === 0 ? '' : reviewEndNum}
-                        onChange={(e) => setReviewEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
-                        className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                        value={endNum === 0 ? '' : endNum}
+                        onChange={(e) => setEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                        className="w-full border border-gray-200 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
                         placeholder="終了"
                       />
-                      <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
                     </div>
                   </div>
-                )}
+                </div>
+              )}
 
-                <div className="border-t border-gray-200 my-2"></div>
+              <div className="border-t border-gray-200"></div>
 
-                {/* 出題数 */}
+              {/* 出題数 */}
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="p-1.5 bg-white rounded-lg text-gray-500 shadow-sm">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                       </svg>
                     </div>
-                    <span className="font-bold text-gray-700">出題数</span>
+                    <span className="font-bold text-gray-700 text-sm">出題数</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
-                      value={testCount === 0 ? '' : testCount}
+                      value={count === 0 ? '' : count}
                       onChange={(e) => {
                         let val = e.target.value === '' ? 0 : Number(e.target.value);
                         if (!profile?.is_pro && val > 50) val = 50;
-                        setTestCount(val);
+                        setCount(val);
                       }}
-                      className="w-20 border border-gray-300 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                      min="1"
+                      className="w-20 border border-gray-200 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
                       max={profile?.is_pro ? undefined : 50}
                     />
-                    <span className="text-gray-500 font-medium">語</span>
+                    <span className="text-gray-500 font-medium text-sm">語</span>
                   </div>
                 </div>
+
+                {/* プリセットボタン */}
+                <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+                  {[10, 20, 30, 50, 100].map(num => {
+                    const isLocked = !profile?.is_pro && num > 50;
+                    return (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          if (isLocked) {
+                            alert("50語以上のテストを作成するにはProプランが必要です。");
+                            return;
+                          }
+                          setCount(num);
+                        }}
+                        className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${count === num
+                          ? 'bg-gray-800 text-white'
+                          : isLocked
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                          }`}
+                      >
+                        {num}語 {isLocked && <span className="text-xs ml-1">🔒</span>}
+                      </button>
+                    );
+                  })}
+                </div>
                 {!profile?.is_pro && (
-                  <p className="text-xs text-red-500 font-medium text-right">
+                  <p className="text-xs text-red-500 mt-2 font-medium">
                     ※ 50語以上のテスト作成にはProプランが必要です。
                   </p>
                 )}
               </div>
-
-              {/* アクションボタン */}
-              <div className="pt-4">
-                <button
-                  onClick={createReviewTest}
-                  disabled={isCreatingReviewTest || !selectedTextbook}
-                  className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 ${isCreatingReviewTest || !selectedTextbook
-                    ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
-                    : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
-                    }`}
-                >
-                  {isCreatingReviewTest ? (
-                    <>
-                      <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      作成中...
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      復習テストを開始
-                    </>
-                  )}
-                </button>
-                <button
-                  onClick={() => router.back()}
-                  className="w-full mt-3 text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors"
-                >
-                  キャンセル
-                </button>
-              </div>
-          )}
             </div>
 
-          {/* 著作権についてモーダル */}
-          {
-            showCopyrightModal && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowCopyrightModal(false)} />
-                <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                      <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      著作権について
-                    </h3>
-                    <div className="text-slate-600 text-sm leading-relaxed space-y-3">
-                      <p>
-                        当アプリでは独自の単語データベースを構築しており、市販書籍の日本語訳とは同一ではありません。
-                      </p>
-                      <p>
-                        各書籍の著作権を尊重し、学習をサポートするツールとして提供しています。
-                        <strong className="text-slate-700">効果的な学習のため、必ず書籍本体をご購入ください。</strong>
-                      </p>
-                      <p className="text-xs text-slate-400">
-                        万が一問題がある場合は、お問い合わせフォームよりご連絡ください。
-                      </p>
-                    </div>
-                    <div className="mt-6 flex justify-between items-center">
-                      <a
-                        href="/terms"
-                        className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
-                      >
-                        利用規約を見る
-                      </a>
-                      <button
-                        onClick={() => setShowCopyrightModal(false)}
-                        className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-colors"
-                      >
-                        OK
-                      </button>
-                    </div>
+            {/* アクションボタン */}
+            <div className="pt-2 flex flex-col md:flex-row gap-3 md:justify-between">
+              <button
+                onClick={level === 'junior' && juniorTestType === 'textbook' ? createTextbookTest : createTest}
+                disabled={(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)}
+                className={`w-full md:w-auto py-4 px-8 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 md:order-2 ${(isCreatingTest || isCreatingTextbookTest) || !isInitialized || (!(level === 'junior' && juniorTestType === 'textbook') && !selectedText) || ((level === 'junior' && juniorTestType === 'textbook') && !selectedUnit)
+                  ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
+                  : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
+                  }`}
+              >
+                {(isCreatingTest || isCreatingTextbookTest) ? (
+                  <>
+                    <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    作成中...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    テストを開始
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => router.back()}
+                className="w-full md:w-auto mt-2 md:mt-0 text-gray-500 hover:text-gray-700 font-medium py-2 px-4 transition-colors md:order-1"
+              >
+                キャンセル
+              </button>
+            </div>
+
+            <div className="flex justify-center md:justify-end mt-4">
+              <button
+                onClick={() => setShowCopyrightModal(true)}
+                className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
+              >
+                著作権について
+              </button>
+            </div>
+
+            {/* iOS/Android向け「ホーム画面に追加」ボタン */}
+
+            {/* 共有デモ確認モーダル */}
+            {showDemoConfirm && pendingDemo && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/40" onClick={() => {
+                  setShowDemoConfirm(false);
+                  setPendingDemo(null);
+                  // Use history API instead of router.replace to avoid redirect detection
+                  if (typeof window !== 'undefined') window.history.replaceState({}, '', '/test-setup');
+                }} />
+                <div className="bg-white rounded-xl shadow-lg p-6 z-10 w-[90%] max-w-md">
+                  <h3 className="text-lg font-semibold mb-3">テスト開始の確認</h3>
+                  <p className="text-sm text-gray-700 mb-4">以下の内容でテストを開始します。よろしければ「開始」を押してください。</p>
+                  <div className="mb-4">
+                    <div className="text-sm text-gray-600">教材: <span className="font-semibold text-gray-800">{pendingDemo.selectedText}</span></div>
+                    <div className="text-sm text-gray-600">範囲: <span className="font-semibold text-gray-800">{(pendingDemo.startNum != null && pendingDemo.endNum != null) ? `${pendingDemo.startNum}〜${pendingDemo.endNum}` : '全範囲'}</span></div>
+                    <div className="text-sm text-gray-600">出題数: <span className="font-semibold text-gray-800">{pendingDemo.count ?? count}</span></div>
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={async () => {
+                        // call createTestImpl with overrides from pendingDemo
+                        setShowDemoConfirm(false);
+                        const overridesArg: { selectedText?: string; startNum?: number; endNum?: number; count?: number } = {};
+                        overridesArg.selectedText = pendingDemo.selectedText;
+                        if (pendingDemo.startNum != null) overridesArg.startNum = pendingDemo.startNum;
+                        if (pendingDemo.endNum != null) overridesArg.endNum = pendingDemo.endNum;
+                        if (pendingDemo.count != null) overridesArg.count = pendingDemo.count;
+                        setPendingDemo(null);
+                        await createTestImpl(overridesArg);
+                      }}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                    >
+                      開始
+                    </button>
+                    <button
+                      onClick={() => { setShowDemoConfirm(false); setPendingDemo(null); window.history.replaceState({}, '', '/test-setup'); }}
+                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded"
+                    >
+                      キャンセル
+                    </button>
                   </div>
                 </div>
               </div>
-            )
-          }
+            )}
+          </>
+        )}
 
-          {/* End of Component */}
-        </div >
-        );
+        {/* 復習テストのフォーム */}
+        {
+          activeTab === 'review' && (
+            <>
+              {loading && (
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600 font-medium">データを読み込んでいます...</p>
+                </div>
+              )}
 
-        if (embedMode) {
-  return mainContent;
-}
+              {!loading && textbooks.length === 0 && (
+                <div className="text-center py-12 px-4">
+                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">復習する単語がありません</h3>
+                  <p className="text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
+                    素晴らしい！現在、復習が必要な単語はありません。<br />
+                    新しいテストを受けて学習を進めましょう。
+                  </p>
+                  <button
+                    onClick={() => setActiveTab('normal')}
+                    className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-xl font-semibold shadow-lg shadow-red-200 transition-all transform hover:-translate-y-0.5"
+                  >
+                    通常テストを作成
+                  </button>
+                </div>
+              )}
 
-        return (
-        <main className="min-h-screen">
-          <Background className="flex justify-center items-start min-h-screen p-4">
-            {mainContent}
-          </Background>
-        </main>
-        );
+              {!loading && textbooks.length > 0 && (
+                <>
+                  {/* 教材選択 */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-bold text-gray-700">復習する単語帳</label>
+                    <div className="relative">
+                      <select
+                        value={selectedTextbook}
+                        onChange={(e) => setSelectedTextbook(e.target.value)}
+                        className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900"
+                      >
+                        {textbooks.map((tb) => (
+                          <option key={tb.textbook} value={tb.textbook}>
+                            {tb.textbook}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <p className="text-right text-sm text-gray-500">
+                      対象単語数: <span className="font-bold text-gray-900">{textbooks.find(t => t.textbook === selectedTextbook)?.words.length || 0}</span> 語
+                    </p>
+                  </div>
+
+                  {/* テストモード選択 */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-bold text-gray-700">出題モード</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => setTestMode('word-meaning')}
+                        className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
+                          ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                          : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                          }`}
+                      >
+                        単語 → 意味
+                      </button>
+                      <button
+                        onClick={() => setTestMode('meaning-word')}
+                        className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
+                          ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                          : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                          }`}
+                      >
+                        意味 → 単語
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 苦手度フィルター */}
+                  <div className="space-y-3">
+                    <label className="block text-sm font-bold text-gray-700">出題する単語の種類</label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {/* 最近間違えた単語 */}
+                      <div
+                        onClick={() => setIncludeRecent(!includeRecent)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeRecent
+                          ? 'border-red-500 bg-red-50'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeRecent ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeRecent ? 'text-red-900' : 'text-gray-700'}`}>最近間違えた単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeRecent ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.recentCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeRecent ? 'text-red-700' : 'text-gray-500'}`}>30日以内に間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeRecent ? 'bg-red-500 border-red-500' : 'border-gray-300'
+                          }`}>
+                          {includeRecent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                      </div>
+
+                      {/* 何度も間違える単語 */}
+                      <div
+                        onClick={() => setIncludeFrequent(!includeFrequent)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeFrequent
+                          ? 'border-gray-800 bg-gray-50'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeFrequent ? 'text-gray-900' : 'text-gray-700'}`}>何度も間違える単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeFrequent ? 'bg-gray-200 text-gray-800' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.frequentCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeFrequent ? 'text-gray-700' : 'text-gray-500'}`}>2回以上間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeFrequent ? 'bg-gray-800 border-gray-800' : 'border-gray-300'
+                          }`}>
+                          {includeFrequent && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                      </div>
+
+                      {/* 1回だけ間違えた単語 */}
+                      <div
+                        onClick={() => setIncludeSingle(!includeSingle)}
+                        className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${includeSingle
+                          ? 'border-gray-400 bg-white'
+                          : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+                          }`}
+                      >
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${includeSingle ? 'bg-gray-100 text-gray-600' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                          </svg>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1 pr-10">
+                            <span className={`font-bold ${includeSingle ? 'text-gray-800' : 'text-gray-700'}`}>1回だけ間違えた単語</span>
+                            <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${includeSingle ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-500'
+                              }`}>
+                              {textbooks.find(t => t.textbook === selectedTextbook)?.singleCount || 0}語
+                            </span>
+                          </div>
+                          <p className={`text-xs ${includeSingle ? 'text-gray-600' : 'text-gray-500'}`}>過去に1度だけ間違えた単語</p>
+                        </div>
+                        <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center ${includeSingle ? 'bg-gray-500 border-gray-500' : 'border-gray-300'
+                          }`}>
+                          {includeSingle && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* オプション設定（範囲・出題数） */}
+                  <div className="bg-gray-50 rounded-2xl p-5 space-y-5">
+                    {/* 範囲指定トグル */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <span className="font-bold text-gray-700">範囲を指定する</span>
+                      </div>
+                      <button
+                        onClick={() => setUseRange(!useRange)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${useRange ? 'bg-red-600' : 'bg-gray-200'
+                          }`}
+                      >
+                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${useRange ? 'translate-x-6' : 'translate-x-1'
+                          }`} />
+                      </button>
+                    </div>
+
+                    {/* 範囲入力フィールド */}
+                    {useRange && (
+                      <div className="flex items-center gap-3 animate-fadeIn">
+                        <div className="relative flex-1">
+                          <input
+                            type="number"
+                            value={reviewStartNum === 0 ? '' : reviewStartNum}
+                            onChange={(e) => setReviewStartNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                            className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                            placeholder="開始"
+                          />
+                          <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
+                        </div>
+                        <span className="text-gray-400 font-bold">〜</span>
+                        <div className="relative flex-1">
+                          <input
+                            type="number"
+                            value={reviewEndNum === 0 ? '' : reviewEndNum}
+                            onChange={(e) => setReviewEndNum(e.target.value === '' ? 0 : Number(e.target.value))}
+                            className="w-full border border-gray-300 p-3 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                            placeholder="終了"
+                          />
+                          <span className="absolute -top-2.5 left-3 bg-gray-50 px-1 text-xs font-medium text-gray-500">No.</span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="border-t border-gray-200 my-2"></div>
+
+                    {/* 出題数 */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-white rounded-lg text-gray-500 shadow-sm">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                          </svg>
+                        </div>
+                        <span className="font-bold text-gray-700">出題数</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          value={testCount === 0 ? '' : testCount}
+                          onChange={(e) => {
+                            let val = e.target.value === '' ? 0 : Number(e.target.value);
+                            if (!profile?.is_pro && val > 50) val = 50;
+                            setTestCount(val);
+                          }}
+                          className="w-20 border border-gray-300 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
+                          min="1"
+                          max={profile?.is_pro ? undefined : 50}
+                        />
+                        <span className="text-gray-500 font-medium">語</span>
+                      </div>
+                    </div>
+                    {!profile?.is_pro && (
+                      <p className="text-xs text-red-500 font-medium text-right">
+                        ※ 50語以上のテスト作成にはProプランが必要です。
+                      </p>
+                    )}
+                  </div>
+
+                  {/* アクションボタン */}
+                  <div className="pt-4">
+                    <button
+                      onClick={createReviewTest}
+                      disabled={isCreatingReviewTest || !selectedTextbook}
+                      className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-2 ${isCreatingReviewTest || !selectedTextbook
+                        ? 'bg-gray-400 cursor-not-allowed shadow-gray-200'
+                        : 'bg-red-600 hover:bg-red-700 text-white shadow-red-200 transform hover:-translate-y-0.5'
+                        }`}
+                    >
+                      {isCreatingReviewTest ? (
+                        <>
+                          <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          作成中...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          復習テストを開始
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => router.back()}
+                      className="w-full mt-3 text-gray-500 hover:text-gray-700 font-medium py-2 transition-colors"
+                    >
+                      キャンセル
+                    </button>
+                  </div>
+                </>
+              )}
+            </>
+          )
+        }
+
+        {/* 著作権についてモーダル */}
+        {
+          showCopyrightModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowCopyrightModal(false)} />
+              <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    著作権について
+                  </h3>
+                  <div className="text-slate-600 text-sm leading-relaxed space-y-3">
+                    <p>
+                      当アプリでは独自の単語データベースを構築しており、市販書籍の日本語訳とは同一ではありません。
+                    </p>
+                    <p>
+                      各書籍の著作権を尊重し、学習をサポートするツールとして提供しています。
+                      <strong className="text-slate-700">効果的な学習のため、必ず書籍本体をご購入ください。</strong>
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      万が一問題がある場合は、お問い合わせフォームよりご連絡ください。
+                    </p>
+                  </div>
+                  <div className="mt-6 flex justify-between items-center">
+                    <a
+                      href="/terms"
+                      className="text-xs text-slate-400 hover:text-slate-600 hover:underline transition-colors"
+                    >
+                      利用規約を見る
+                    </a>
+                    <button
+                      onClick={() => setShowCopyrightModal(false)}
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-colors"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        {/* End of Component */}
+      </div>
+    </div>
+  );
+
+  if (embedMode) {
+    return mainContent;
+  }
+
+  return (
+    <main className="min-h-screen">
+      <Background className="flex justify-center items-start min-h-screen p-4">
+        {mainContent}
+      </Background>
+    </main>
+  );
 }
