@@ -99,6 +99,15 @@ function UpgradeShareContent() {
                             <li className="flex items-start gap-3">
                                 <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <div>
+                                    <strong className="block text-slate-800">Mistapの全機能（出題数制限の解除など）</strong>
+                                    <span className="text-xs text-slate-500 leading-relaxed block mt-1">
+                                        単語テストアプリ「Mistap」の出題数制限が解除され、すべての機能が使い放題になります。
+                                    </span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                <div>
                                     <strong className="block text-slate-800">ナルホドレンズ 毎日20問質問可能</strong>
                                     <span className="text-xs text-slate-500 leading-relaxed block mt-1">
                                         24時間いつでもAIに質問可能。わからない問題をスマホで撮るだけで、詳細な解説が受けられます。
@@ -111,6 +120,15 @@ function UpgradeShareContent() {
                                     <strong className="block text-slate-800">AI英作文添削（英検®・大学入試）</strong>
                                     <span className="text-xs text-slate-500 leading-relaxed block mt-1">
                                         合格レベルの採点基準で何度でも添削。英検対策や難関大学の二次試験対策に最適です。
+                                    </span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                <div>
+                                    <strong className="block text-slate-800">サイト内の広告を非表示</strong>
+                                    <span className="text-xs text-slate-500 leading-relaxed block mt-1">
+                                        学習を妨げる全ての広告を非表示にし、集中できる環境を提供します。
                                     </span>
                                 </div>
                             </li>
