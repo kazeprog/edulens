@@ -545,6 +545,18 @@ export default function HomePage() {
         }
     };
 
+    const handleStartGoalTest = (goal: TodayGoal) => {
+        const count = (goal.words_per_test && goal.words_per_test > 0) ? goal.words_per_test : (goal.end - goal.start + 1);
+
+        // Pro limit check
+        if (!authProfile?.is_pro && count > 50) {
+            alert("目標設定テストで一度に出題できる単語数は50語までです。\n50語以上のテストを作成するにはProプランへのアップグレードが必要です。");
+            return;
+        }
+
+        router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${count}`);
+    };
+
     const handleInstallClick = async () => {
         if (deferredPrompt) {
             try {
@@ -841,7 +853,7 @@ export default function HomePage() {
 
                                                 <div className="mt-6 flex gap-3">
                                                     <button
-                                                        onClick={() => router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${(goal.words_per_test && goal.words_per_test > 0) ? goal.words_per_test : (goal.end - goal.start + 1)}`)}
+                                                        onClick={() => handleStartGoalTest(goal)}
                                                         className="flex-1 bg-white text-red-600 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors shadow-lg"
                                                     >
                                                         テストする

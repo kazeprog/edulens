@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
+import { useAuth } from "@/context/AuthContext";
 import { TextbookWord, AVAILABLE_TEXTBOOKS, getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 
 
@@ -38,6 +39,7 @@ interface TestSetupContentProps {
 }
 
 export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade, initialLesson, initialStartNum, initialEndNum, initialData }: TestSetupContentProps) {
+  const { profile } = useAuth();
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review'>('normal');
@@ -638,6 +640,12 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     const sEnd = overrides?.endNum ?? endNum;
     const sCount = overrides?.count ?? count;
 
+    // Proプランチェック
+    if (!profile?.is_pro && sCount > 50) {
+      alert("一度に出題できる単語数は50語までです。\n50語以上のテストを作成するにはProプランへのアップグレードが必要です。");
+      return;
+    }
+
     // 選択された教材が利用可能かチェック
     // NOTE: filteredTexts may be empty if our level-based filtering didn't match any DB entries.
     // In that case allow any textbook present in `texts` (DB-derived) to be used.
@@ -770,7 +778,15 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
       // ランダム抽出（全単語出題。必要に応じて制限も可能）
       // ユーザーが指定した語数（count）で制限する
-      const testWords = words.sort(() => Math.random() - 0.5).slice(0, count);
+      let finalCount = count;
+      if (!profile?.is_pro && finalCount > 50) {
+        alert("一度に出題できる単語数は50語までです。\n50語以上のテストを作成するにはProプランへのアップグレードが必要です。");
+        setIsCreatingTextbookTest(false);
+        isCreatingTextbookTestRef.current = false;
+        return;
+      }
+
+      const testWords = words.sort(() => Math.random() - 0.5).slice(0, finalCount);
 
       // 単元ラベルを取得
       const unitInfo = textbookUnits.find(u => u.section === selectedUnit.section && u.unit === selectedUnit.unit);
@@ -1012,6 +1028,12 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const createReviewTest = useCallback(async () => {
     // 処理中の場合は早期リターン
     if (isCreatingReviewTestRef.current) return;
+
+    // Proプランチェック
+    if (!profile?.is_pro && testCount > 50) {
+      alert("復習テストで一度に出題できる単語数は50語までです。\n50語以上のテストを作成するにはProプランへのアップグレードが必要です。");
+      return;
+    }
 
     const selectedTextbookData = textbooks.find(t => t.textbook === selectedTextbook);
     if (!selectedTextbookData) return;
@@ -1407,8 +1429,13 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                     <input
                       type="number"
                       value={count === 0 ? '' : count}
-                      onChange={(e) => setCount(e.target.value === '' ? 0 : Number(e.target.value))}
+                      onChange={(e) => {
+                        let val = e.target.value === '' ? 0 : Number(e.target.value);
+                        if (!profile?.is_pro && val > 50) val = 50;
+                        setCount(val);
+                      }}
                       className="w-20 border border-gray-200 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none bg-white shadow-sm"
+                      max={profile?.is_pro ? undefined : 50}
                     />
                     <span className="text-gray-500 font-medium text-sm">語</span>
                   </div>
@@ -1416,19 +1443,35 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
                 {/* プリセットボタン */}
                 <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                  {[10, 20, 30, 50, 100].map(num => (
-                    <button
-                      key={num}
-                      onClick={() => setCount(num)}
-                      className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${count === num
-                        ? 'bg-gray-800 text-white'
-                        : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-                        }`}
-                    >
-                      {num}語
-                    </button>
-                  ))}
+                  {[10, 20, 30, 50, 100].map(num => {
+                    const isLocked = !profile?.is_pro && num > 50;
+                    return (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          if (isLocked) {
+                            alert("50語以上のテストを作成するにはProプランが必要です。");
+                            return;
+                          }
+                          setCount(num);
+                        }}
+                        className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${count === num
+                          ? 'bg-gray-800 text-white'
+                          : isLocked
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                          }`}
+                      >
+                        {num}語 {isLocked && <span className="text-xs ml-1">🔒</span>}
+                      </button>
+                    );
+                  })}
                 </div>
+                {!profile?.is_pro && (
+                  <p className="text-xs text-red-500 mt-2 font-medium">
+                    ※ 50語以上のテスト作成にはProプランが必要です。
+                  </p>
+                )}
               </div>
             </div>
 
@@ -1772,13 +1815,23 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                         <input
                           type="number"
                           value={testCount === 0 ? '' : testCount}
-                          onChange={(e) => setTestCount(e.target.value === '' ? 0 : Number(e.target.value))}
+                          onChange={(e) => {
+                            let val = e.target.value === '' ? 0 : Number(e.target.value);
+                            if (!profile?.is_pro && val > 50) val = 50;
+                            setTestCount(val);
+                          }}
                           className="w-20 border border-gray-300 p-2 rounded-xl text-center font-bold text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
                           min="1"
+                          max={profile?.is_pro ? undefined : 50}
                         />
                         <span className="text-gray-500 font-medium">語</span>
                       </div>
                     </div>
+                    {!profile?.is_pro && (
+                      <p className="text-xs text-red-500 font-medium text-right">
+                        ※ 50語以上のテスト作成にはProプランが必要です。
+                      </p>
+                    )}
                   </div>
 
                   {/* アクションボタン */}

@@ -12,6 +12,7 @@ import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
 import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
+import { useAuth } from "@/context/AuthContext";
 
 interface Word {
   word_number: number;
@@ -39,6 +40,7 @@ function TestContent() {
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
+  const { profile } = useAuth();
 
   const testTitle = useMemo(() => {
     const selectedText = testData?.selectedText;
@@ -217,7 +219,12 @@ function TestContent() {
           const selectedText = decodeURIComponent(textParam);
           const startNum = parseInt(startParam);
           const endNum = parseInt(endParam);
-          const count = parseInt(countParam);
+          let count = parseInt(countParam);
+
+          // Force 50 word limit for non-pro
+          if (!profile?.is_pro && count > 50) {
+            count = 50;
+          }
 
           let data: any[] | null = null;
           let error = null;
@@ -268,6 +275,12 @@ function TestContent() {
         try { decodedData = decodeURIComponent(dataParam); }
         catch { decodedData = dataParam; }
         const parsedData = JSON.parse(decodedData);
+
+        // Force 50 word limit for non-pro
+        if (!profile?.is_pro && parsedData.words && parsedData.words.length > 50) {
+          parsedData.words = parsedData.words.slice(0, 50);
+        }
+
         setTestData(parsedData);
       } catch {
         router.push('/mistap/test-setup');
