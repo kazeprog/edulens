@@ -60,7 +60,6 @@ export async function POST(req: Request) {
                     .from('profiles')
                     .update({
                         is_pro: true,
-                        updated_at: new Date().toISOString(),
                     })
                     .eq('id', userId);
 
@@ -100,7 +99,7 @@ export async function POST(req: Request) {
                 // Downgrade user profile
                 const { error, count } = await supabaseAdmin
                     .from('profiles')
-                    .update({ is_pro: false, updated_at: new Date().toISOString() })
+                    .update({ is_pro: false })
                     .eq('stripe_subscription_id', subscription.id)
                     .select('id');
 
