@@ -16,6 +16,7 @@ import words150Data from "@/lib/data/json/絶対覚える英単語150.json";
 import pastTenseData from "@/lib/data/json/過去形.json";
 import pastParticipleData from "@/lib/data/json/過去形、過去分詞形.json";
 import teppekiData from "@/lib/data/json/teppeki.json";
+import systemWordsStage5Data from "@/lib/data/json/system-english-word-stage5.json";
 
 // 型定義
 export interface TextbookWord {
@@ -46,6 +47,9 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "ターゲット1400": target1400Data as TextbookWord[],
     "system-words": systemWordsData as TextbookWord[],
     "システム英単語": systemWordsData as TextbookWord[],
+    "system-words-stage5": systemWordsStage5Data as TextbookWord[],
+    "システム英単語 stage5": systemWordsStage5Data as TextbookWord[],
+    "システム英単語 Stage5": systemWordsStage5Data as TextbookWord[],
     "leap": leapData as TextbookWord[],
     "LEAP": leapData as TextbookWord[],
     "toeic-gold": toeicGoldData as TextbookWord[],
@@ -94,6 +98,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("target-1400") || textbookName.includes("ターゲット1400")) return DATA_MAP["target-1400"];
     if (normalized.includes("target-1800") || textbookName.includes("ターゲット1800")) return DATA_MAP["target-1800"];
     if (normalized.includes("target-1200") || textbookName.includes("ターゲット1200")) return DATA_MAP["target-1200"];
+    if (normalized.includes("stage5") && (normalized.includes("system") || textbookName.includes("システム英単語"))) return DATA_MAP["system-words-stage5"];
     if (normalized.includes("system") || textbookName.includes("システム英単語")) return DATA_MAP["system-words"];
     if (normalized.includes("leap")) return DATA_MAP["leap"];
     if (normalized.includes("toeic") || textbookName.includes("金のフレーズ")) return DATA_MAP["toeic-gold"];

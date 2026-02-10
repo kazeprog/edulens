@@ -56,36 +56,42 @@ export async function POST(req: Request) {
                 }
 
                 // Step 1: 最重要 - is_pro を true に更新（これは必ず成功させる）
-                const { error: proError } = await supabaseAdmin
+                const { data: proData, error: proError } = await supabaseAdmin
                     .from('profiles')
                     .update({
                         is_pro: true,
                     })
-                    .eq('id', userId);
+                    .eq('id', userId)
+                    .select('id, is_pro');
 
                 if (proError) {
                     console.error('[Webhook] Failed to update is_pro:', JSON.stringify(proError));
                     return NextResponse.json({ error: 'Failed to update is_pro' }, { status: 500 });
                 }
 
-                console.log(`[Webhook] Successfully set is_pro=true for user ${userId}`);
+                console.log(`[Webhook] is_pro update result: ${JSON.stringify(proData)}, rows affected: ${proData?.length ?? 0}`);
 
-                // Step 2: Stripe IDを保存（カラムが存在しない場合でもis_proは既に更新済み）
+                if (!proData || proData.length === 0) {
+                    console.error(`[Webhook] No profile found for userId: ${userId} - update matched 0 rows`);
+                    return NextResponse.json({ error: 'No profile found for user' }, { status: 404 });
+                }
+
+                // Step 2: Stripe IDを保存
                 if (customerId || subscriptionId) {
                     const stripeUpdate: Record<string, string> = {};
                     if (customerId) stripeUpdate.stripe_customer_id = customerId;
                     if (subscriptionId) stripeUpdate.stripe_subscription_id = subscriptionId;
 
-                    const { error: stripeError } = await supabaseAdmin
+                    const { data: stripeData, error: stripeError } = await supabaseAdmin
                         .from('profiles')
                         .update(stripeUpdate)
-                        .eq('id', userId);
+                        .eq('id', userId)
+                        .select('id, stripe_customer_id, stripe_subscription_id');
 
                     if (stripeError) {
-                        // Stripe IDの保存失敗はログに残すが、is_proは既に更新済みなのでOKとする
                         console.warn('[Webhook] Failed to save Stripe IDs (non-critical):', JSON.stringify(stripeError));
                     } else {
-                        console.log(`[Webhook] Saved Stripe IDs for user ${userId}`);
+                        console.log(`[Webhook] Stripe IDs update result: ${JSON.stringify(stripeData)}`);
                     }
                 }
 

@@ -39,6 +39,12 @@ const universityTextbooks: Textbook[] = [
         badge: "人気No.1"
     },
     {
+        name: "システム英単語 Stage5",
+        description: "多義語184語を集中攻略。知っている単語の「裏の意味」をマスター。",
+        path: "/mistap/textbook/system-words-stage5",
+        color: "sky"
+    },
+    {
         name: "ターゲット1900",
         description: "大学受験のド定番。頻出1900語をランク順にマスター。",
         path: "/mistap/textbook/target-1900",
