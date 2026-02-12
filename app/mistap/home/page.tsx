@@ -916,7 +916,7 @@ export default function HomePage() {
                                     </svg>
                                 </button>
                                 <button
-                                    onClick={() => router.push('/mistap/mistapers-mistake')}
+                                    onClick={() => router.push('/mistap/mistappers-mistake')}
                                     className="bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
                                 >
                                     <div className="flex items-center gap-3">
@@ -925,7 +925,7 @@ export default function HomePage() {
                                         </div>
                                         <div className="text-left">
                                             <div className="font-bold text-lg flex items-center gap-2">
-                                                Mistapers&apos; Mistake
+                                                Mistappers&apos; Mistake
                                             </div>
                                             <div className="text-xs text-gray-500">みんながミスる単語ランキング</div>
                                         </div>
@@ -979,12 +979,12 @@ export default function HomePage() {
                                     学習履歴を確認
                                 </button>
                                 <button
-                                    onClick={() => router.push('/mistap/mistapers-mistake')}
+                                    onClick={() => router.push('/mistap/mistappers-mistake')}
                                     className="w-full flex items-center justify-between gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-3 rounded-xl transition-colors"
                                 >
                                     <div className="flex items-center gap-2">
                                         <TrendingUp className="w-5 h-5 text-red-500" />
-                                        <span className="font-medium">Mistapers&apos; Mistake</span>
+                                        <span className="font-medium">Mistappers&apos; Mistake</span>
                                     </div>
                                     <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

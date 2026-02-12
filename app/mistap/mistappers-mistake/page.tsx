@@ -22,7 +22,7 @@ type CategoryTab = 'english' | 'kobun';
 
 const FREE_VISIBLE_RANKS = 5;
 
-export default function MistapersMistakePage() {
+export default function MistappersMistakePage() {
     const router = useRouter();
     const { user, profile, loading: authLoading } = useAuth();
     const [rankings, setRankings] = useState<RankingItem[]>([]);
@@ -136,7 +136,7 @@ export default function MistapersMistakePage() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Pro プラン限定機能</h3>
                 <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-                    Mistapers&apos; Mistakeは、全ユーザーのテスト結果を分析したプレミアムランキング機能です。<br />
+                    Mistappers&apos; Mistakeは、全ユーザーのテスト結果を分析したプレミアムランキング機能です。<br />
                     Proプランに加入して、みんながミスる単語をチェックしましょう！
                 </p>
                 <Link
@@ -198,7 +198,7 @@ export default function MistapersMistakePage() {
         }));
         const testData = {
             words: wordsForTest,
-            selectedText: `Mistapers' Mistake (${activeTab === 'kobun' ? '古文単語' : isJunior ? '中学英単語' : '高校英単語'})`,
+            selectedText: `Mistappers' Mistake (${activeTab === 'kobun' ? '古文単語' : isJunior ? '中学英単語' : '高校英単語'})`,
             startNum: null,
             endNum: null,
         };
@@ -228,7 +228,7 @@ export default function MistapersMistakePage() {
                             </div>
                             <div>
                                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                                    Mistapers&apos; Mistake
+                                    Mistappers&apos; Mistake
                                 </h1>
                                 <p className="text-sm text-gray-500">みんながミスる単語ランキング</p>
                             </div>
@@ -349,7 +349,7 @@ export default function MistapersMistakePage() {
                     <div className="mt-6 bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100">
                         <h2 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
                             <TrendingUp className="w-5 h-5 text-red-500" />
-                            Mistapers&apos; Mistakeとは？
+                            Mistappers&apos; Mistakeとは？
                         </h2>
                         <p className="text-sm text-gray-600 leading-relaxed">
                             Mistapを利用するすべてのユーザーのテスト結果を集計し、最も間違いが多い単語をランキング形式で表示する機能です。
