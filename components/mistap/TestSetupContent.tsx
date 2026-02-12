@@ -436,7 +436,11 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
 
   // selectedText を filteredTexts に合わせる（初期化完了後かつデータ取得後のみ）
+  // 教科書テストモード（New Crown/New Horizonなど）の場合は selectedText 同期をスキップ
+  const isSchoolTextbookMode = !!(presetTextbook && TEXTBOOK_LIST.some(t => t.name === presetTextbook));
   useEffect(() => {
+    // 教科書テストモードではselectedTextは使わないのでスキップ（無限ループ防止）
+    if (isSchoolTextbookMode) return;
     // 初期化が完了していない場合、またはデータがまだ読み込まれていない場合はスキップ
     if (!isInitialized || texts.length === 0) return;
 
@@ -460,10 +464,12 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       // filteredTexts が空でも DB に教材があれば選択肢として表示できるようにする
       setSelectedText((prev) => (texts.includes(prev) ? prev : texts[0]));
     }
-  }, [filteredTexts, texts, selectedText, isInitialized]);
+  }, [filteredTexts, texts, selectedText, isInitialized, isSchoolTextbookMode]);
 
   // 選択された教材がfilteredTextsに含まれているかチェック（初期化完了後かつデータ取得後のみ）
   useEffect(() => {
+    // 教科書テストモードではselectedTextは使わないのでスキップ（無限ループ防止）
+    if (isSchoolTextbookMode) return;
     // データがまだ読み込まれていない場合はスキップ
     if (!isInitialized || texts.length === 0) return;
 
@@ -477,7 +483,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         setSelectedText(filteredTexts[0]);
       }
     }
-  }, [selectedText, filteredTexts, isInitialized, texts]);
+  }, [selectedText, filteredTexts, isInitialized, texts, isSchoolTextbookMode]);
 
   const fetchTexts = useCallback(async () => {
     // LP用: 静的データが渡されていても、他の単語帳も選択肢に含めるためにAPIまたはキャッシュから全リストを取得する
@@ -529,8 +535,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     // セットする
     setTexts(loadedTexts);
 
-    // 初期選択の設定
-    if (presetTextbook && loadedTexts.includes(presetTextbook)) {
+    // 初期選択の設定（教科書テストモードの場合はselectedTextを設定しない）
+    if (presetTextbook && loadedTexts.includes(presetTextbook) && !isSchoolTextbookMode) {
       setSelectedText(presetTextbook);
     } else if (initialData && initialData.length > 0) {
       // initialDataがある場合はその中の最初のものを優先
