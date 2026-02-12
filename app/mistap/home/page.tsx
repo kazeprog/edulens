@@ -15,7 +15,7 @@ import ContributionGrid from '@/components/mistap/ContributionGrid';
 import AddToHomeScreen from '@/components/mistap/AddToHomeScreen';
 import MistapFooter from '@/components/mistap/Footer';
 import GoogleAdsense from '@/components/GoogleAdsense';
-import { BookMarked } from 'lucide-react';
+import { BookMarked, TrendingUp } from 'lucide-react';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -907,9 +907,27 @@ export default function HomePage() {
                                         <div className="text-left">
                                             <div className="font-bold text-lg flex items-center gap-2">
                                                 Word Stock
-                                                {!authProfile?.is_pro && <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded font-medium border border-gray-200">Pro</span>}
                                             </div>
                                             <div className="text-xs text-gray-500">育てる単語帳</div>
+                                        </div>
+                                    </div>
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/mistap/mistapers-mistake')}
+                                    className="bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-red-100 p-2 rounded-xl text-red-600">
+                                            <TrendingUp className="w-6 h-6" />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className="font-bold text-lg flex items-center gap-2">
+                                                Mistapers&apos; Mistake
+                                            </div>
+                                            <div className="text-xs text-gray-500">みんながミスる単語ランキング</div>
                                         </div>
                                     </div>
                                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -959,6 +977,18 @@ export default function HomePage() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                     学習履歴を確認
+                                </button>
+                                <button
+                                    onClick={() => router.push('/mistap/mistapers-mistake')}
+                                    className="w-full flex items-center justify-between gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-3 rounded-xl transition-colors"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <TrendingUp className="w-5 h-5 text-red-500" />
+                                        <span className="font-medium">Mistapers&apos; Mistake</span>
+                                    </div>
+                                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
                                 </button>
                             </div>
 
