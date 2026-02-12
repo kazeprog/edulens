@@ -895,10 +895,10 @@ export default function HomePage() {
                             )}
 
                             {/* Mobile Quick Actions (lg:hidden) */}
-                            <div className="md:hidden grid grid-cols-1 gap-3 mb-8">
+                            <div className="lg:hidden grid grid-cols-1 gap-3 mb-8">
                                 <button
                                     onClick={() => router.push('/mistap/word-stock')}
-                                    className="bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
+                                    className="md:hidden bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="bg-orange-100 p-2 rounded-xl text-orange-600">

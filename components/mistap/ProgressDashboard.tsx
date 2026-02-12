@@ -461,7 +461,7 @@ export default function ProgressDashboard() {
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center">
                     <h3 className="text-gray-700 font-bold mb-4">単語学習の進捗状況</h3>
                     <div className="w-full h-64 relative">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <PieChart>
                                 <Pie
                                     data={progressData}
@@ -521,7 +521,7 @@ export default function ProgressDashboard() {
                     className="w-full overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
                 >
                     <div className="h-72 min-w-[200%] sm:min-w-[1200px]">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <LineChart
                                 data={trendData}
                                 margin={{
