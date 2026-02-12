@@ -129,7 +129,7 @@ export default function MistappersMistakePage() {
 
     // Pro制限のぼかしオーバーレイ
     const ProLockOverlay = () => (
-        <div className="absolute inset-0 z-20 flex items-start justify-center pt-8" style={{ backdropFilter: 'blur(6px)' }}>
+        <div className="absolute inset-0 z-20 flex items-start justify-center pt-8">
             <div className="bg-white/95 rounded-2xl shadow-2xl p-8 max-w-sm mx-4 text-center border border-gray-100">
                 <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-red-200">
                     <Lock className="w-8 h-8 text-white" />
@@ -334,7 +334,7 @@ export default function MistappersMistakePage() {
                                 {proRankings.length > 0 && (
                                     <div className="relative">
                                         {!isPro && <ProLockOverlay />}
-                                        <div className={!isPro ? 'pointer-events-none select-none' : ''}>
+                                        <div className={!isPro ? 'pointer-events-none select-none' : ''} style={!isPro ? { filter: 'blur(6px)' } : undefined}>
                                             {proRankings.map((item) => (
                                                 <RankingRow key={`${item.rank}-${item.word}`} item={item} />
                                             ))}
