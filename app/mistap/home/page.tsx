@@ -917,7 +917,7 @@ export default function HomePage() {
                                 </button>
                                 <button
                                     onClick={() => router.push('/mistap/mistappers-mistake')}
-                                    className="bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
+                                    className="md:hidden bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="bg-red-100 p-2 rounded-xl text-red-600">
@@ -1018,6 +1018,27 @@ export default function HomePage() {
                                         className="w-full bg-white hover:bg-orange-50 text-orange-600 border border-orange-200 font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                                     >
                                         単語帳を開く
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Mistappers' Mistake Banner (Tablet/Desktop) */}
+                            <div className="hidden md:block mb-8">
+                                <div className="bg-red-50/80 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-red-100">
+                                    <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                        <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
+                                            <TrendingUp className="w-5 h-5" />
+                                        </span>
+                                        Mistappers&apos; Mistake
+                                    </h2>
+                                    <p className="text-gray-600 mb-4 text-sm">
+                                        みんなが間違いやすい単語をランキング形式で確認して、弱点を克服しましょう。
+                                    </p>
+                                    <button
+                                        onClick={() => router.push('/mistap/mistappers-mistake')}
+                                        className="w-full bg-white hover:bg-red-50 text-red-600 border border-red-200 font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        ランキングを見る
                                     </button>
                                 </div>
                             </div>
