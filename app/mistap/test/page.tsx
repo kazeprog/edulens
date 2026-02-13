@@ -706,7 +706,7 @@ function TestContent() {
 
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden px-3 max-w-md mx-auto" style={{ maxWidth: '100%' }}>
+            <div ref={mobileCardsRef} className="block md:hidden px-3 w-full max-w-md mx-auto">
               {displayWords.map((item, idx: number) => {
                 // Merge height data from wordsWithHeights if available
                 const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
