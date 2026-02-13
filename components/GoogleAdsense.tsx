@@ -20,7 +20,6 @@ type GoogleAdsenseProps = {
     className?: string;
     layout?: string;
     layoutKey?: string;
-    disableRefresh?: boolean;
 };
 
 const GoogleAdsense = ({
@@ -32,32 +31,17 @@ const GoogleAdsense = ({
     className = "mb-4",
     layout,
     layoutKey,
-    disableRefresh = false,
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
     const containerRef = useRef<HTMLDivElement>(null);
     const adRef = useRef<HTMLModElement>(null);
     const isAdLoaded = useRef(false);
-    const [refreshKey, setRefreshKey] = useState(0);
 
     // 広告表示可否の判定
     const isPendingProfile = !!user && !profile;
     const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
     const isNoAdPage = isNoAdsRoute(pathname) || isPro;
-
-    // 定期リフレッシュ機能 (60秒ごと)
-    useEffect(() => {
-        if (isNoAdPage || loading || disableRefresh) return;
-
-        const intervalId = setInterval(() => {
-            // console.log('Refreshing AdSense ad...');
-            setRefreshKey(prev => prev + 1);
-            isAdLoaded.current = false; // 次のuseEffectで通知するためにリセット
-        }, 60000); // 60秒
-
-        return () => clearInterval(intervalId);
-    }, [isNoAdPage, loading]);
 
     // パス変更時にフラグをリセットして強制再読込を促す
     useEffect(() => {
@@ -111,15 +95,15 @@ const GoogleAdsense = ({
         timerId = setTimeout(checkAndPush, 100);
 
         return () => clearTimeout(timerId);
-    }, [pathname, isNoAdPage, loading, refreshKey]);
+    }, [pathname, isNoAdPage, loading]);
 
     // 条件に合致する場合は完全にアンマウントする
     if (!loading && isNoAdPage) {
         return null;
     }
 
-    // keyにpathnameとrefreshKeyを含めることで、再レンダリング時にDOM要素を強制的に新しくする
-    const adKey = `${pathname}-${refreshKey}`;
+    // keyにpathnameを含めることで、再レンダリング時にDOM要素を強制的に新しくする
+    const adKey = `${pathname}`;
 
     return (
         <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden', backgroundColor: loading ? '#f0f0f0' : 'transparent' }}>
