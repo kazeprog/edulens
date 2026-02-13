@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
+import GoogleAdsense from "@/components/GoogleAdsense";
 import { TEXTBOOK_LIST, getUnitsForTextbook, getWordsForUnit } from "@/lib/data/textbook-vocabulary";
 import { useAuth } from "@/context/AuthContext";
 import { TextbookWord, AVAILABLE_TEXTBOOKS, getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
@@ -44,6 +45,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   // We'll read window.location.search inside an effect when running in the browser.
   const [activeTab, setActiveTab] = useState<'normal' | 'review' | 'word-stock'>('normal');
   const [testMode, setTestMode] = useState<'word-meaning' | 'meaning-word'>('word-meaning');
+  const pathname = usePathname();
+  const isTestSetupPage = pathname === '/mistap/test-setup';
 
   // 教科書テスト用の状態
   const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>(() => {
@@ -1208,6 +1211,13 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 >
                   <span>📚</span> 単語の管理・追加
                 </button>
+                {isTestSetupPage && (
+                  <GoogleAdsense
+                    slot="9969163744"
+                    className="my-4"
+                    style={{ display: 'block', minHeight: '100px' }}
+                  />
+                )}
                 <button
                   onClick={() => router.push('/mistap/test?mode=word-stock&count=10')}
                   className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 block text-center"
@@ -1535,6 +1545,14 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 )}
               </div>
             </div>
+
+            {isTestSetupPage && (
+              <GoogleAdsense
+                slot="9969163744"
+                className="mt-6 mb-2"
+                style={{ display: 'block', minHeight: '100px' }}
+              />
+            )}
 
             {/* アクションボタン */}
             <div className="pt-2 flex flex-col md:flex-row gap-3 md:justify-between">
@@ -1895,6 +1913,14 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                       </p>
                     )}
                   </div>
+
+                  {isTestSetupPage && (
+                    <GoogleAdsense
+                      slot="9969163744"
+                      className="mt-6 mb-2"
+                      style={{ display: 'block', minHeight: '100px' }}
+                    />
+                  )}
 
                   {/* アクションボタン */}
                   <div className="pt-4">
