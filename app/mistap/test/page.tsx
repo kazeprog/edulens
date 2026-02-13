@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense, useMemo } from "react";
+import { useState, useEffect, useRef, Suspense, useMemo, Fragment } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
@@ -711,21 +711,34 @@ function TestContent() {
                 // Merge height data from wordsWithHeights if available
                 const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
                 const minHeight = heightData?.requiredMinHeight;
+
                 return (
-                  <FlippableCard
-                    key={`${item.word_number}-${idx}`}
-                    word={item.word}
-                    meaning={item.meaning}
-                    wordNumber={item.word_number}
-                    isFlipped={flippedIds.has(item.word_number)}
-                    isTapped={tappedIds.has(item.word_number)}
-                    onFlip={() => toggleFlipped(item.word_number)}
-                    onTap={() => toggleTapped(item.word_number)}
-                    minHeight={minHeight}
-                    audioText={item.originalWord}
-                    originalWord={item.originalWord}
-                    originalMeaning={item.originalMeaning}
-                  />
+                  <Fragment key={`${item.word_number}-${idx}`}>
+                    <FlippableCard
+                      word={item.word}
+                      meaning={item.meaning}
+                      wordNumber={item.word_number}
+                      isFlipped={flippedIds.has(item.word_number)}
+                      isTapped={tappedIds.has(item.word_number)}
+                      onFlip={() => toggleFlipped(item.word_number)}
+                      onTap={() => toggleTapped(item.word_number)}
+                      minHeight={minHeight}
+                      audioText={item.originalWord}
+                      originalWord={item.originalWord}
+                      originalMeaning={item.originalMeaning}
+                    />
+                    {(idx + 1) % 5 === 0 && idx !== displayWords.length - 1 && (
+                      <div className="w-full my-4" style={{ minHeight: '120px' }}>
+                        <GoogleAdsense
+                          slot="2643309624"
+                          format="fluid"
+                          layoutKey="-f7+5u+4t-da+6l"
+                          responsive="true"
+                          style={{ display: 'block' }}
+                        />
+                      </div>
+                    )}
+                  </Fragment>
                 );
               })}
 
@@ -744,6 +757,15 @@ function TestContent() {
                       onTap={() => toggleTapped(item.word_number)}
                       audioText={item.originalWord}
                     />
+                    {(idx + 1) % 5 === 0 && idx !== leftWords.length - 1 && (
+                      <GoogleAdsense
+                        slot="2643309624"
+                        format="fluid"
+                        layoutKey="-f7+5u+4t-da+6l"
+                        className="my-8"
+                        style={{ display: 'block', minHeight: '100px' }}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
@@ -757,6 +779,15 @@ function TestContent() {
                       onTap={() => toggleTapped(item.word_number)}
                       audioText={item.originalWord}
                     />
+                    {(idx + 1) % 5 === 0 && idx !== rightWords.length - 1 && (
+                      <GoogleAdsense
+                        slot="2643309624"
+                        format="fluid"
+                        layoutKey="-f7+5u+4t-da+6l"
+                        className="my-8"
+                        style={{ display: 'block', minHeight: '100px' }}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>

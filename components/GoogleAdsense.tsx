@@ -18,6 +18,8 @@ type GoogleAdsenseProps = {
     format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
     responsive?: 'true' | 'false';
     className?: string;
+    layout?: string;
+    layoutKey?: string;
 };
 
 const GoogleAdsense = ({
@@ -27,6 +29,8 @@ const GoogleAdsense = ({
     format = 'auto',
     responsive = 'true',
     className = "mb-4",
+    layout,
+    layoutKey,
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
@@ -126,6 +130,8 @@ const GoogleAdsense = ({
                 data-ad-slot={slot}
                 data-ad-format={format}
                 data-full-width-responsive={responsive}
+                data-ad-layout={layout}
+                data-ad-layout-key={layoutKey}
             />
         </div>
     );
