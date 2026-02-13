@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { isNoAdsRoute } from '@/lib/ad-config';
 
 declare global {
     interface Window {
@@ -18,8 +20,6 @@ type GoogleAdsenseProps = {
     className?: string;
 };
 
-import { useAuth } from '@/context/AuthContext';
-
 const GoogleAdsense = ({
     slot = "9969163744",
     client = "ca-pub-6321932201615449",
@@ -33,15 +33,33 @@ const GoogleAdsense = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const adRef = useRef<HTMLModElement>(null);
     const isAdLoaded = useRef(false);
+    const [refreshKey, setRefreshKey] = useState(0);
 
+    // 広告表示可否の判定
+    const isPendingProfile = !!user && !profile;
+    const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
+    const isNoAdPage = isNoAdsRoute(pathname) || isPro;
 
-    // useEffect must be called before any conditional return (React Hooks rules)
+    // 定期リフレッシュ機能 (60秒ごと)
     useEffect(() => {
-        // Don't push ads if user is Pro or on login page
-        // Also skip if profile is pending (user exists but profile null)
-        const isPendingProfile = !!user && !profile;
-        if (profile?.is_pro || isPendingProfile || loading) return;
-        if (pathname === '/login') return;
+        if (isNoAdPage || loading) return;
+
+        const intervalId = setInterval(() => {
+            // console.log('Refreshing AdSense ad...');
+            setRefreshKey(prev => prev + 1);
+            isAdLoaded.current = false; // 次のuseEffectで通知するためにリセット
+        }, 60000); // 60秒
+
+        return () => clearInterval(intervalId);
+    }, [isNoAdPage, loading]);
+
+    // パス変更時にフラグをリセットして強制再読込を促す
+    useEffect(() => {
+        isAdLoaded.current = false;
+    }, [pathname]);
+
+    useEffect(() => {
+        if (isNoAdPage || loading) return;
 
         // 既に広告がロードされている場合はスキップ
         if (isAdLoaded.current) return;
@@ -52,17 +70,13 @@ const GoogleAdsense = ({
             return;
         }
 
-        // DOMが完全にレンダリングされ、幅が確保されるまでポーリングする
-        // リトライ回数制限：50回 (100ms * 50 = 5秒)
         let attempts = 0;
         const maxAttempts = 50;
         let timerId: NodeJS.Timeout;
 
         const checkAndPush = () => {
-            // コンポーネントがアンマウントされている、または既にロード済みの場合は終了
-            if (!containerRef.current || isAdLoaded.current) return;
+            if (!containerRef.current || isAdLoaded.current || isNoAdPage) return;
 
-            // Double check if ad is already loaded on the element itself
             if (adRef.current && adRef.current.getAttribute('data-adsbygoogle-status')) {
                 isAdLoaded.current = true;
                 return;
@@ -73,8 +87,8 @@ const GoogleAdsense = ({
                 try {
                     (window.adsbygoogle = window.adsbygoogle || []).push({});
                     isAdLoaded.current = true;
+                    // console.log('Ad pushed successfully');
                 } catch (err: any) {
-                    // Ignore "TagError" (already filled) to prevent console noise
                     const message = err?.message || '';
                     if (err?.name === 'TagError' || message.includes('already have ads')) {
                         isAdLoaded.current = true;
@@ -83,57 +97,36 @@ const GoogleAdsense = ({
                     console.error('Google AdSense error:', err);
                 }
             } else if (attempts < maxAttempts) {
-                // 幅が0の場合はリトライ
                 attempts++;
                 timerId = setTimeout(checkAndPush, 100);
             }
         };
 
-        // 初回実行
         timerId = setTimeout(checkAndPush, 100);
 
         return () => clearTimeout(timerId);
-    }, [pathname, profile?.is_pro, loading, user, profile]);
+    }, [pathname, isNoAdPage, loading, refreshKey]);
 
-    // Proユーザーまたはログイン/新規登録画面では広告を表示しない
-    // プロフィール未取得(isPendingProfile)の場合も表示しない
-    // Proユーザーの場合は広告を表示しない（nullを返してDOMから削除）
-    // ただし、ロード中はCLSを防ぐためにスペースを確保する（またはスケルトンを表示）
-    // ここでは「デフォルトで広告あり」として振る舞い、Proの場合のみ削除する方針だが、
-    // CLSを防ぐなら「Proでもスペースを維持」するか「ロード中はスペース確保→Proなら消す」の2択。
-    // 「Proなら消す」はProユーザー体験でガタつくが、SEO（CrawlerはProではない）的には
-    // 「ロード中にスペースがあること」が重要。
-    const isPendingProfile = !!user && !profile;
-
-    // fix: ロード中はnullではなく、コンテナ（高さ確保）を返すようにする。
-    // Pro確定後にnullを返す。
-    if (!loading && (profile?.is_pro || isPendingProfile)) {
-        return null; // Proユーザーには何も表示しない（ここでレイアウトシフトは起きるが許容範囲、または別途対策）
-    }
-
-    // ログイン/新規登録画面では広告を表示しない
-    if (pathname === '/login') {
+    // 条件に合致する場合は完全にアンマウントする
+    if (!loading && isNoAdPage) {
         return null;
     }
 
-    // ログイン/新規登録画面では広告を表示しない
-    if (pathname === '/login') {
-        return null;
-    }
+    // keyにpathnameとrefreshKeyを含めることで、再レンダリング時にDOM要素を強制的に新しくする
+    const adKey = `${pathname}-${refreshKey}`;
 
     return (
         <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden', backgroundColor: loading ? '#f0f0f0' : 'transparent' }}>
-            {!loading && (
-                <ins
-                    ref={adRef}
-                    className="adsbygoogle"
-                    style={style}
-                    data-ad-client={client}
-                    data-ad-slot={slot}
-                    data-ad-format={format}
-                    data-full-width-responsive={responsive}
-                />
-            )}
+            <ins
+                key={adKey}
+                ref={adRef}
+                className="adsbygoogle"
+                style={style}
+                data-ad-client={client}
+                data-ad-slot={slot}
+                data-ad-format={format}
+                data-full-width-responsive={responsive}
+            />
         </div>
     );
 };

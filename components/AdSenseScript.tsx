@@ -9,20 +9,16 @@ export default function AdSenseScript() {
     const { user, profile, loading } = useAuth();
     const pathname = usePathname();
 
-    // ... (comments simplified)
-
     // Proユーザー判定 (loading完了後)
     const isPendingProfile = !!user && !profile;
     const isPro = !!profile?.is_pro;
 
-    // 広告を非表示にする条件:
-    // 1. Auth読み込み中
-    // 2. プロフィール読み込み中 (ユーザーあり・プロフなし)
-    // 3. Proユーザー確定
-    // 4. 定義された広告禁止ルート
+    // 広告を非表示にする条件（CSSでの隠蔽用）
     const shouldHideAds = loading || isPendingProfile || isPro || isNoAdsRoute(pathname);
 
     // Proユーザーまたはログインページでは広告を非表示にするCSS
+    // note: コンポーネント自体を return null することに加え、
+    // Google純正の自動広告（アンカー広告など）も隠すためにCSSを併用します。
     const hideAdsStyle = shouldHideAds ? (
         <style jsx global>{`
             .adsbygoogle, .google-auto-placed, .ap_container, ins.adsbygoogle {
@@ -35,19 +31,18 @@ export default function AdSenseScript() {
         `}</style>
     ) : null;
 
-    // 広告を表示すべきユーザーのみスクリプトを読み込む
-    const adScript = !shouldHideAds && !loading ? (
-        <script
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
-            async
-            crossOrigin="anonymous"
-        />
-    ) : null;
-
     return (
         <>
             {hideAdsStyle}
-            {adScript}
+            <Script
+                id="adsense-init"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
+                strategy="afterInteractive"
+                crossOrigin="anonymous"
+                onLoad={() => {
+                    // console.log('AdSense script loaded');
+                }}
+            />
         </>
     );
 }
