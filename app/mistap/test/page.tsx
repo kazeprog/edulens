@@ -734,7 +734,7 @@ function TestContent() {
                           format="fluid"
                           layoutKey="-f7+5u+4t-da+6l"
                           responsive="true"
-                          style={{ display: 'block' }}
+                          style={{ display: 'block', minHeight: '120px' }}
                           disableRefresh={true}
                         />
                       </div>
@@ -764,7 +764,7 @@ function TestContent() {
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
-                        style={{ display: 'block', minHeight: '100px' }}
+                        style={{ display: 'block', minHeight: '120px' }}
                         disableRefresh={true}
                       />
                     )}
@@ -787,7 +787,7 @@ function TestContent() {
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
-                        style={{ display: 'block', minHeight: '100px' }}
+                        style={{ display: 'block', minHeight: '120px' }}
                         disableRefresh={true}
                       />
                     )}
