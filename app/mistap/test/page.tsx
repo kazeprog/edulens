@@ -735,7 +735,7 @@ function TestContent() {
                         responsive="true"
                         style={{ display: 'block' }}
                         disableRefresh={true}
-                        className="my-4"
+                        className="-mt-3 mb-3"
                       />
                     )}
                   </React.Fragment>
@@ -762,7 +762,7 @@ function TestContent() {
                         slot="2643309624"
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
-                        className="my-8"
+                        className="-mt-6 mb-6"
                         style={{ display: 'block' }}
                         disableRefresh={true}
                       />
@@ -785,7 +785,7 @@ function TestContent() {
                         slot="2643309624"
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
-                        className="my-8"
+                        className="-mt-6 mb-6"
                         style={{ display: 'block' }}
                         disableRefresh={true}
                       />
@@ -797,20 +797,16 @@ function TestContent() {
           </div>
 
           {/* AdSense - contain: layout paint でレイアウト隔離 */}
-          <div
+          <GoogleAdsense
             className="md:hidden mb-6 w-full overflow-hidden"
             style={{
-              maxWidth: '100%',
-              minHeight: '250px',
+              display: 'block',
+              width: '100%',
               contain: 'layout paint'
             }}
-          >
-            <GoogleAdsense
-              style={{ display: 'block', width: '100%', minHeight: '250px' }}
-              format="rectangle"
-              responsive="true"
-            />
-          </div>
+            format="rectangle"
+            responsive="true"
+          />
 
           <MobileActionButtons
             showAnswers={showAnswers}
