@@ -699,14 +699,14 @@ function TestContent() {
   return (
     <div className="min-h-screen">
       <Background className="flex justify-center items-start min-h-screen p-4">
-        <div className="bg-white/40 backdrop-blur-lg shadow-xl rounded-xl p-6 md:p-8 w-full md:max-w-6xl border border-white/50" style={{ marginTop: '25px' }}>
+        <div className="bg-white/40 backdrop-blur-lg shadow-xl rounded-xl p-6 md:p-8 w-full md:max-w-5xl border border-white/50" style={{ marginTop: '25px' }}>
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6" translate="no">
             {testTitle}
           </h1>
 
           <div className="mb-3 md:mb-8" translate="no">
             {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden px-3" style={{ maxWidth: '100%' }}>
+            <div ref={mobileCardsRef} className="block md:hidden px-3 max-w-md mx-auto" style={{ maxWidth: '100%' }}>
               {displayWords.map((item, idx: number) => {
                 // Merge height data from wordsWithHeights if available
                 const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
@@ -728,7 +728,7 @@ function TestContent() {
                       originalMeaning={item.originalMeaning}
                     />
                     {(idx + 1) % 5 === 0 && idx !== displayWords.length - 1 && (
-                      <div className="w-full my-4" style={{ minHeight: '120px' }}>
+                      <div className="w-full my-4">
                         <GoogleAdsense
                           slot="2643309624"
                           format="fluid"
