@@ -20,6 +20,7 @@ type GoogleAdsenseProps = {
     className?: string;
     layout?: string;
     layoutKey?: string;
+    disableRefresh?: boolean;
 };
 
 const GoogleAdsense = ({
@@ -31,6 +32,7 @@ const GoogleAdsense = ({
     className = "mb-4",
     layout,
     layoutKey,
+    disableRefresh = false,
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
@@ -46,7 +48,7 @@ const GoogleAdsense = ({
 
     // 定期リフレッシュ機能 (60秒ごと)
     useEffect(() => {
-        if (isNoAdPage || loading) return;
+        if (isNoAdPage || loading || disableRefresh) return;
 
         const intervalId = setInterval(() => {
             // console.log('Refreshing AdSense ad...');

@@ -735,6 +735,7 @@ function TestContent() {
                           layoutKey="-f7+5u+4t-da+6l"
                           responsive="true"
                           style={{ display: 'block' }}
+                          disableRefresh={true}
                         />
                       </div>
                     )}
@@ -764,6 +765,7 @@ function TestContent() {
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
                         style={{ display: 'block', minHeight: '100px' }}
+                        disableRefresh={true}
                       />
                     )}
                   </li>
@@ -786,6 +788,7 @@ function TestContent() {
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
                         style={{ display: 'block', minHeight: '100px' }}
+                        disableRefresh={true}
                       />
                     )}
                   </li>
