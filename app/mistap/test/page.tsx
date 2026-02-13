@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense, useMemo, Fragment } from "react";
+import React, { useState, useEffect, useRef, Suspense, useMemo, Fragment } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
@@ -713,7 +713,7 @@ function TestContent() {
                 const minHeight = heightData?.requiredMinHeight;
 
                 return (
-                  <Fragment key={`${item.word_number}-${idx}`}>
+                  <React.Fragment key={`${item.word_number}-${idx}`}>
                     <FlippableCard
                       word={item.word}
                       meaning={item.meaning}
@@ -735,10 +735,11 @@ function TestContent() {
                           layoutKey="-f7+5u+4t-da+6l"
                           responsive="true"
                           style={{ display: 'block' }}
+                          disableRefresh={true}
                         />
                       </div>
                     )}
-                  </Fragment>
+                  </React.Fragment>
                 );
               })}
 
@@ -764,6 +765,7 @@ function TestContent() {
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
                         style={{ display: 'block', minHeight: '100px' }}
+                        disableRefresh={true}
                       />
                     )}
                   </li>
@@ -786,6 +788,7 @@ function TestContent() {
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
                         style={{ display: 'block', minHeight: '100px' }}
+                        disableRefresh={true}
                       />
                     )}
                   </li>

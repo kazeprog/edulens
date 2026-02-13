@@ -20,6 +20,7 @@ type GoogleAdsenseProps = {
     className?: string;
     layout?: string;
     layoutKey?: string;
+    disableRefresh?: boolean;
 };
 
 const GoogleAdsense = ({
@@ -31,6 +32,7 @@ const GoogleAdsense = ({
     className = "mb-4",
     layout,
     layoutKey,
+    disableRefresh = false,
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
