@@ -728,16 +728,15 @@ function TestContent() {
                       originalMeaning={item.originalMeaning}
                     />
                     {(idx + 1) % 5 === 0 && idx !== displayWords.length - 1 && (
-                      <div className="w-full my-4">
-                        <GoogleAdsense
-                          slot="2643309624"
-                          format="fluid"
-                          layoutKey="-f7+5u+4t-da+6l"
-                          responsive="true"
-                          style={{ display: 'block', minHeight: '120px' }}
-                          disableRefresh={true}
-                        />
-                      </div>
+                      <GoogleAdsense
+                        slot="2643309624"
+                        format="fluid"
+                        layoutKey="-f7+5u+4t-da+6l"
+                        responsive="true"
+                        style={{ display: 'block' }}
+                        disableRefresh={true}
+                        className="my-4"
+                      />
                     )}
                   </React.Fragment>
                 );
@@ -764,7 +763,7 @@ function TestContent() {
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
-                        style={{ display: 'block', minHeight: '120px' }}
+                        style={{ display: 'block' }}
                         disableRefresh={true}
                       />
                     )}
@@ -787,7 +786,7 @@ function TestContent() {
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
                         className="my-8"
-                        style={{ display: 'block', minHeight: '120px' }}
+                        style={{ display: 'block' }}
                         disableRefresh={true}
                       />
                     )}

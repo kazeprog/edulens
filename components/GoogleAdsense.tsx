@@ -26,7 +26,7 @@ type GoogleAdsenseProps = {
 const GoogleAdsense = ({
     slot = "9969163744",
     client = "ca-pub-6321932201615449",
-    style = { display: 'block', minHeight: '280px' },
+    style = { display: 'block' },
     format = 'auto',
     responsive = 'true',
     className = "mb-4",
@@ -108,7 +108,7 @@ const GoogleAdsense = ({
     const adKey = `${pathname}`;
 
     return (
-        <div ref={containerRef} className={className} style={{ minHeight: style?.minHeight || '280px', width: '100%', maxWidth: '100%', overflow: 'hidden', backgroundColor: loading ? '#f0f0f0' : 'transparent' }}>
+        <div ref={containerRef} className={className} style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
             <ins
                 key={adKey}
                 ref={adRef}

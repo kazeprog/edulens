@@ -807,15 +807,13 @@ export default function HomePage() {
 
 
                             {/* Mobile: AdSense above Today's Goals */}
-                            <div className="lg:hidden">
-                                <GoogleAdsense
-                                    slot="9969163744"
-                                    format="rectangle"
-                                    responsive="true"
-                                    style={{ display: 'block', width: '100%', minHeight: '250px' }}
-                                    className="mb-0"
-                                />
-                            </div>
+                            <GoogleAdsense
+                                slot="9969163744"
+                                format="rectangle"
+                                responsive="true"
+                                style={{ display: 'block', width: '100%' }}
+                                className="lg:hidden mb-6"
+                            />
 
                             {/* Today's Goals (Visible on both desktop and mobile) */}
                             {todayGoals.length > 0 ? (
