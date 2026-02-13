@@ -34,14 +34,10 @@ export default function AdSenseScript() {
     return (
         <>
             {hideAdsStyle}
-            <Script
-                id="adsense-init"
+            <script
+                async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
-                strategy="afterInteractive"
                 crossOrigin="anonymous"
-                onLoad={() => {
-                    // console.log('AdSense script loaded');
-                }}
             />
         </>
     );
