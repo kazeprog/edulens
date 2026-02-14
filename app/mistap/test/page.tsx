@@ -735,7 +735,7 @@ function TestContent() {
                         responsive="true"
                         style={{ display: 'block' }}
                         disableRefresh={true}
-                        className="-mt-3 mb-3"
+                        className="-mt-3 mb-3 mx-auto text-center"
                       />
                     )}
                   </React.Fragment>
@@ -762,7 +762,7 @@ function TestContent() {
                         slot="2643309624"
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
-                        className="-mt-6 mb-6"
+                        className="-mt-6 mb-6 mx-auto text-center"
                         style={{ display: 'block' }}
                         disableRefresh={true}
                       />
@@ -785,7 +785,7 @@ function TestContent() {
                         slot="2643309624"
                         format="fluid"
                         layoutKey="-f7+5u+4t-da+6l"
-                        className="-mt-6 mb-6"
+                        className="-mt-6 mb-6 mx-auto text-center"
                         style={{ display: 'block' }}
                         disableRefresh={true}
                       />

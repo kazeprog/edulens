@@ -21,12 +21,15 @@ export default function AdSenseScript() {
     // Google純正の自動広告（アンカー広告など）も隠すためにCSSを併用します。
     const hideAdsStyle = shouldHideAds ? (
         <style jsx global>{`
-            .adsbygoogle, .google-auto-placed, .ap_container, ins.adsbygoogle {
+            .adsbygoogle, .google-auto-placed, .ap_container, ins.adsbygoogle,
+            iframe[id^="google_ads_iframe"], iframe[name^="google_ads_iframe"],
+            .google-revocation-link-placeholder {
                 display: none !important;
+                width: 0 !important;
                 height: 0 !important;
-                max-height: 0 !important;
                 overflow: hidden !important;
                 visibility: hidden !important;
+                pointer-events: none !important;
             }
         `}</style>
     ) : null;
