@@ -748,7 +748,7 @@ export default function HomePage() {
                                             </svg>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-bold text-lg leading-tight truncate">広告を非表示にする</p>
+                                            <p className="font-bold text-lg leading-tight truncate">広告を非表示＆有料機能解放</p>
                                             <p className="text-white/90 text-xs font-medium mt-0.5 truncate">集中力を高めて学習効率UP</p>
                                         </div>
                                     </div>
