@@ -1,4 +1,5 @@
 import { textbookVocabulary } from '@/lib/data/textbook-vocabulary';
+import { getJsonTextbookData, type TextbookWord } from '@/lib/mistap/jsonTextbookData';
 
 export interface WordbookConfig {
     name: string;
@@ -131,6 +132,38 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
 
 // 中学教科書のLesson一覧を取得する
 export function getAvailableLessons(textbookName: string, grade: string): number[] {
+    // 1. まずJSONデータからの取得を試みる
+    const jsonData: TextbookWord[] | null = getJsonTextbookData(textbookName);
+    if (jsonData && jsonData.length > 0) {
+        let rawUnits: number[] = [];
+
+        // 教科書ごとの特有のロジック
+        // New Horizonは section が 0 のことが多く、unit を使うべき
+        if (textbookName.toLowerCase().includes('horizon')) {
+            rawUnits = jsonData
+                .filter((w: TextbookWord) => w.grade === grade && w.unit > 0)
+                .map((w: TextbookWord) => w.unit);
+        }
+        // New Crown は section (Lesson) を使うのが一般的だが、section=0 (Let's Startなど) もある
+        // sitemapには section > 0 のみを含めるという既存ロジックを踏襲
+        else if (textbookName.toLowerCase().includes('crown')) {
+            rawUnits = jsonData
+                .filter((w: TextbookWord) => w.grade === grade && w.section > 0)
+                .map((w: TextbookWord) => w.section);
+        }
+        // その他（デフォルト）: section があれば section, なければ unit
+        else {
+            rawUnits = jsonData
+                .filter((w: TextbookWord) => w.grade === grade)
+                .map((w: TextbookWord) => w.section > 0 ? w.section : w.unit);
+        }
+
+        if (rawUnits.length > 0) {
+            return Array.from(new Set(rawUnits)).sort((a, b) => a - b);
+        }
+    }
+
+    // 2. JSONで取れなかった場合は、古い `textbookVocabulary` (`lib/data/textbook-vocabulary.ts`) から取得 (フォールバック)
     const rawUnits = textbookVocabulary
         .filter(w => w.textbook === textbookName && w.grade === grade)
         .map(w => w.section);
