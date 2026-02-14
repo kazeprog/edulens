@@ -37,11 +37,13 @@ export default function AdSenseScript() {
     return (
         <>
             {hideAdsStyle}
-            <script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
-                crossOrigin="anonymous"
-            />
+            {!shouldHideAds && (
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321932201615449"
+                    crossOrigin="anonymous"
+                />
+            )}
         </>
     );
 }
