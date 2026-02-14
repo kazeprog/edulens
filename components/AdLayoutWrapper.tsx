@@ -39,14 +39,13 @@ export default function AdLayoutWrapper({
         <div className="flex flex-col min-h-screen">
             {/* 上部広告 (横長) - アップグレードページでは非表示 */}
             {!isNoAdPage && (
-                <div className="w-full flex justify-center items-center my-4 text-center">
-                    <GoogleAdsense
-                        slot="9969163744"
-                        format="auto"
-                        style={{ display: 'block', minHeight: '100px', width: '100%', textAlign: 'center' }}
-                        key={`${pathname}-top`}
-                    />
-                </div>
+                <GoogleAdsense
+                    slot="9969163744"
+                    format="auto"
+                    style={{ display: 'block', width: '100%', textAlign: 'center' }}
+                    className="mx-auto text-center"
+                    key={`${pathname}-top`}
+                />
             )}
 
             {/* メインコンテンツ - モバイルで広告がある場合のみ下部に余白を追加 */}

@@ -29,7 +29,7 @@ const GoogleAdsense = ({
     style = { display: 'block' },
     format = 'auto',
     responsive = 'true',
-    className = "mb-4",
+    className = "mb-4 mx-auto text-center",
     layout,
     layoutKey,
     disableRefresh = false,
