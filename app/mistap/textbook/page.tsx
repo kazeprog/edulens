@@ -58,6 +58,13 @@ const universityTextbooks: Textbook[] = [
         color: "blue"
     },
     {
+        name: "改訂版 必携英単語LEAP",
+        description: "必修語彙を完璧にマスター。4技能を意識した学習で実戦力を養成。",
+        path: "/mistap/textbook/reform-leap",
+        color: "sky",
+        badge: "改訂版"
+    },
+    {
         name: "LEAP",
         description: "4技能対応の必修英単語。竹岡広信先生のメソッドを凝縮。",
         path: "/mistap/textbook/leap",
