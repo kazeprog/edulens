@@ -19,6 +19,7 @@ import teppekiData from "@/lib/data/json/teppeki.json";
 import systemWordsStage5Data from "@/lib/data/json/system-english-word-stage5.json";
 import reformLeapData from "@/lib/data/json/reform_leap.json";
 import madonnaKobun230Data from "@/lib/data/json/madonna-kobun-230.json";
+import group30Kobun600Data from "@/lib/data/json/group30-kobun-600.json";
 
 // 型定義
 export interface TextbookWord {
@@ -78,6 +79,8 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "理解を深める核心古文単語351": kobun351Data as TextbookWord[],
     "madonna-kobun-230": madonnaKobun230Data as TextbookWord[],
     "マドンナ古文単語230": madonnaKobun230Data as TextbookWord[],
+    "group30-kobun-600": group30Kobun600Data as unknown as TextbookWord[],
+    "GROUP30で覚える古文単語600": group30Kobun600Data as unknown as TextbookWord[],
 
     // 中学・基礎
     "absolute-150": words150Data as TextbookWord[],
@@ -115,6 +118,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("330")) return DATA_MAP["kobun-330"];
     if (normalized.includes("351")) return DATA_MAP["kobun-351"];
     if (normalized.includes("madonna") || textbookName.includes("マドンナ古文単語230")) return DATA_MAP["madonna-kobun-230"];
+    if (normalized.includes("group30") || textbookName.includes("GROUP30で覚える古文単語600")) return DATA_MAP["group30-kobun-600"];
     if (normalized.includes("teppeki") || textbookName.includes("鉄壁")) return DATA_MAP["teppeki"];
 
 

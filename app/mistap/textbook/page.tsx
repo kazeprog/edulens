@@ -131,6 +131,12 @@ const kobunTextbooks: Textbook[] = [
         description: "イラストと分かりやすい解説で人気の古文単語帳。",
         path: "/mistap/textbook/madonna-kobun-230",
         color: "rose"
+    },
+    {
+        name: "GROUP30で覚える古文単語600",
+        description: "語源や関連語とセットで効率よく覚える古文単語帳。",
+        path: "/mistap/textbook/group30-kobun-600",
+        color: "emerald"
     }
 ];
 

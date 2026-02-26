@@ -1,0 +1,3602 @@
+[
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 1,
+    "word": "ありく【歩く】",
+    "meaning": "①出歩く。歩く。移動する。②「動詞＋ありく」の形で、あちこちで～する。あれこれ～し続ける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 2,
+    "word": "かち【徒歩】",
+    "meaning": "①徒歩。歩行。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 3,
+    "word": "いぬ【往ぬ・去ぬ】",
+    "meaning": "①去る。行く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 4,
+    "word": "わたる【渡る】",
+    "meaning": "①行く。来る。通る。過ぎる。②「動詞＋わたる」の形で、（空間的に）ずっと～。一面に～。（時間的に）ずっと～し続ける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 5,
+    "word": "ぐす【具す】",
+    "meaning": "①連れる。伴う。連れ立つ。②備える。備わる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 6,
+    "word": "ゐる【率る】",
+    "meaning": "①連れる。伴う。②持って行く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 7,
+    "word": "ゐる【居る】",
+    "meaning": "①じっとしている。②座る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 8,
+    "word": "ついゐる【つい居る】",
+    "meaning": "①かしこまって座る。ひざまずく。②ちょっと腰をおろす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 9,
+    "word": "ゐなほる【居直る】",
+    "meaning": "①座りなおす。居ずまいを正す。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 10,
+    "word": "ゐざる【ゐざる】",
+    "meaning": "①立て膝で進む。膝行する。②船がのろのろ進む。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 11,
+    "word": "ふみ【文】",
+    "meaning": "①書物。特に漢籍。②漢詩。③学問。特に漢字。④手紙。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 12,
+    "word": "ざえ【才】",
+    "meaning": "①学才。学識。特に漢学の才能。②芸能。技能。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 13,
+    "word": "もとすゑ【本末】",
+    "meaning": "①（和歌の）上の句と下の句。②もとの方と末の方。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 14,
+    "word": "なん【難】",
+    "meaning": "①欠点。短所。②災難。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 15,
+    "word": "せうそく・せうそこ【消息】",
+    "meaning": "①手紙。②取り次ぎを頼むこと。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 16,
+    "word": "いらふ",
+    "meaning": "①答える。返事をする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 17,
+    "word": "そしる",
+    "meaning": "①非難する。悪口を言う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 18,
+    "word": "おもふ【思ふ】",
+    "meaning": "①愛しく思う。②不安に思う。③思う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 19,
+    "word": "よばふ【呼ばふ】",
+    "meaning": "①言い寄る。求婚する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 20,
+    "word": "みる【見る】",
+    "meaning": "①（男女が）交際する。結婚する。②見る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 21,
+    "word": "あふ【会ふ・逢ふ】",
+    "meaning": "①（男女が）交際する。結婚する。②出会う。対面する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 22,
+    "word": "かたらふ【語らふ】",
+    "meaning": "①（男女が）親しく言葉を交わす。②説得して味方に引き入れる。③語り合う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 23,
+    "word": "こころざし",
+    "meaning": "①心持ち。意向。②愛情。③贈り物。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 24,
+    "word": "ちぎり【契り】",
+    "meaning": "①約束。②前世からの縁。③（将来にわたる）愛の誓い。男女の縁。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 25,
+    "word": "よ・よのなか【世・世の中】",
+    "meaning": "①男女の仲。夫婦仲。②世間。世の中。時。③俗世。④この世。現世。人生。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 26,
+    "word": "かる【離る】",
+    "meaning": "①離れる。遠ざかる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 27,
+    "word": "かきくらす",
+    "meaning": "①（雨や雲などが）あたりを暗くする。②心を暗くする。（涙や悲しみが）目の前を暗くする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 28,
+    "word": "しほたる【潮垂る】",
+    "meaning": "①雨や海水などで濡れる。②涙で袖が濡れる。泣く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 29,
+    "word": "そでをしぼる【袖を絞る】",
+    "meaning": "①ひどく泣く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 30,
+    "word": "ねをなく【音を泣く】",
+    "meaning": "①声をあげて泣く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 31,
+    "word": "かしらをおろす【頭をおろす】",
+    "meaning": "①出家する"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 32,
+    "word": "よをそむく【世を背く】",
+    "meaning": "①出家する。隠遁する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 33,
+    "word": "おこなふ【行ふ】",
+    "meaning": "①仏道修行をする。②何かをする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 34,
+    "word": "つとむ【勤む】",
+    "meaning": "①仏道修行をする。②努力する。勤務する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 35,
+    "word": "ほだし【絆】",
+    "meaning": "①仏道修行の妨げになるもの。主に、家族。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 36,
+    "word": "うす【失す】",
+    "meaning": "①死ぬ。②（人が）いなくなる。③（物が）なくなる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 37,
+    "word": "かくる【隠る】",
+    "meaning": "①死ぬ。亡くなる。②隠れる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 38,
+    "word": "みまかる【身まかる】",
+    "meaning": "①死ぬ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 39,
+    "word": "むなしくなる",
+    "meaning": "①死ぬ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 40,
+    "word": "いたづらになる",
+    "meaning": "①死ぬ。②むだになる。役に立たなくなる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 41,
+    "word": "おくる【遅る・後る】",
+    "meaning": "①先立たれる。②遅れる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 42,
+    "word": "さらぬわかれ【避らぬ別れ】",
+    "meaning": "①死別。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 43,
+    "word": "たまのを【玉の緒】",
+    "meaning": "①（恋人と会う時の）少なさ・短さのたとえ。ほんの少しの間。②命。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 44,
+    "word": "すくせ【宿世】",
+    "meaning": "①前世からの宿命。運命。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 45,
+    "word": "さるべきにや（ありけむ）",
+    "meaning": "①そうなるはずの前世からの運命だったのだろうか。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 46,
+    "word": "みゆき【①行幸②御幸】",
+    "meaning": "①主に、天皇のおでかけ。②主に、上皇・法皇のおでかけ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 47,
+    "word": "ぎやうけい【行啓】",
+    "meaning": "①主に、中宮・東宮のおでかけ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 48,
+    "word": "てんき【天気】",
+    "meaning": "①天皇のご機嫌。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 49,
+    "word": "げきりん【逆鱗】",
+    "meaning": "①天皇・上皇・法皇のお怒り。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 50,
+    "word": "勅＋〇〇",
+    "meaning": "①天皇の～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 51,
+    "word": "叡＋〇〇",
+    "meaning": "①天皇の～。上皇の～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 52,
+    "word": "われ（かひとか）にもあらず【我（か人か）にもあらず】",
+    "meaning": "①茫然自失の状態である。前後不覚の状態である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 53,
+    "word": "われかのけしき【我かの気色】",
+    "meaning": "①茫然自失の様子。前後不覚の状態。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 54,
+    "word": "ものもおぼえず【物もおぼえず】",
+    "meaning": "①どうしてよいかわからない。正気を失っている。②道理をわきまえない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 55,
+    "word": "いへばさらなり【言へば更なり】",
+    "meaning": "①言うまでもない。もちろんだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 56,
+    "word": "さらなり【更なり】",
+    "meaning": "①言うまでもない。もちろんだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 57,
+    "word": "〇〇といふもおろかなり",
+    "meaning": "①～という言葉では不十分だ。～という言葉では言い尽くせない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 58,
+    "word": "〇〇といふ世の常なり",
+    "meaning": "①～という言葉ではありきたりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 59,
+    "word": "えもいはず",
+    "meaning": "①何とも表現できないほど～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 60,
+    "word": "えならず",
+    "meaning": "①何とも表現できないほど～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 61,
+    "word": "ひとやりならず【人遣りならず】",
+    "meaning": "①他人が（無理に）させるのではなく、自分の心から（～する）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 62,
+    "word": "かずならず【数ならず】",
+    "meaning": "①ものの数ではない。取るに足りない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 63,
+    "word": "けしからず",
+    "meaning": "①異様だ。奇怪だ。②度を超えてよくない。異常なほどだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 64,
+    "word": "けし",
+    "meaning": "①異様だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 65,
+    "word": "けしうはあらず",
+    "meaning": "①そう悪くはない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 66,
+    "word": "なにおふ【名に負ふ】",
+    "meaning": "①有名である。評判である。②名前として持つ。そういう名前である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 67,
+    "word": "な【名】",
+    "meaning": "①評判。名声。②名前。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 68,
+    "word": "れいならず【例ならず】",
+    "meaning": "①普通ではない。普段とは異なっている。②病気である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 69,
+    "word": "ただならず",
+    "meaning": "①普通ではない。②並々ではない。③妊娠している。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 70,
+    "word": "れいの【例の】＋用言",
+    "meaning": "①いつものように（～する）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 71,
+    "word": "させる〇〇～打消",
+    "meaning": "①たいした〇〇～ない。それほどの○○～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 72,
+    "word": "さらに～打消",
+    "meaning": "①全く～ない。少しも～ない。けっして～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 73,
+    "word": "たえて～打消",
+    "meaning": "①全く～ない。少しも～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 74,
+    "word": "つやつや～打消",
+    "meaning": "①全く～ない。少しも～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 75,
+    "word": "つゆ～打消",
+    "meaning": "①少しも～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 76,
+    "word": "をさをさ～打消",
+    "meaning": "①滅多に～ない。ほとんど～ない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 77,
+    "word": "よも～じ・まじ",
+    "meaning": "①まさか～ないだろう。よもや～まい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 78,
+    "word": "あなかしこ～禁止",
+    "meaning": "①けっして～するな。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 79,
+    "word": "ゆめゆめ～禁止",
+    "meaning": "①けっして～するな。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 80,
+    "word": "な～そ",
+    "meaning": "①～するな。～してはいけない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 81,
+    "word": "え～打消",
+    "meaning": "①～できない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 82,
+    "word": "やをら・やはら",
+    "meaning": "①そっと。静かに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 83,
+    "word": "なほ",
+    "meaning": "①やはり。依然として。②それでもやはり。なんと言ってもやはり。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 84,
+    "word": "やうやう",
+    "meaning": "①だんだん。しだいに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 85,
+    "word": "やや",
+    "meaning": "①だんだん。しだいに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 86,
+    "word": "かつ",
+    "meaning": "①一方では～（、もう一方では～）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 87,
+    "word": "はた",
+    "meaning": "①あるいはまた。もしかすると。②そうはいうものの。それでも。③そのうえまた。～もまた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 88,
+    "word": "おはす KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 89,
+    "word": "おはします KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 90,
+    "word": "ます KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 91,
+    "word": "まします KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 92,
+    "word": "います KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 93,
+    "word": "いますがり KST?",
+    "meaning": "S①いらっしゃる。②～でいらっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 94,
+    "word": "たまはす KST?",
+    "meaning": "S①お与えになる。くださる。②～なさる。お～になる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 95,
+    "word": "たぶ・たうぶ KST?",
+    "meaning": "S①お与えになる。くださる。②～なさる。お～になる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 96,
+    "word": "のたまふ【宣ふ】 KST?",
+    "meaning": "S①おっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 97,
+    "word": "のたまはす【宣はす】 KST?",
+    "meaning": "S①おっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 98,
+    "word": "おほす【仰す】 KST?",
+    "meaning": "S①おっしゃる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 99,
+    "word": "おぼす【思す】 KST?",
+    "meaning": "S①お思いになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 100,
+    "word": "おぼしめす【思し召す】 KST?",
+    "meaning": "S①お思いになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 101,
+    "word": "ごらんず【御覧ず】 KST?",
+    "meaning": "S①御覧になる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 102,
+    "word": "きこしめす【聞こし召す】 KST?",
+    "meaning": "S①お聞きになる。②召しあがる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 103,
+    "word": "あそばす KST?",
+    "meaning": "S①なさる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 104,
+    "word": "おほとのごもる【大殿籠もる】 KST?",
+    "meaning": "S①おやすみになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 105,
+    "word": "しろしめす KST?",
+    "meaning": "S①知っていらっしゃる。②お治めになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 106,
+    "word": "めす【召す】 KST?",
+    "meaning": "S①お呼びになる。②召しあがる。③お召しになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 107,
+    "word": "まゐらす【参らす】 KST?",
+    "meaning": "S①さしあげる。②～申しあげる。お～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 108,
+    "word": "まうす【申す】 KST?",
+    "meaning": "K①申しあげる。②～申しあげる。お～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 109,
+    "word": "きこゆ【聞こゆ】 KST?",
+    "meaning": "K①申しあげる。②～申しあげる。お～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 110,
+    "word": "きこえさす【聞こえさす】 KST?",
+    "meaning": "K①申しあげる。②～申しあげる。お～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 111,
+    "word": "そうす【奏す】 KST?",
+    "meaning": "K①（天皇に）申しあげる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 112,
+    "word": "けいす【啓す】 KST?",
+    "meaning": "K①（中宮または東宮に）申しあげる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 113,
+    "word": "たまはる【賜る】 KST?",
+    "meaning": "K①いただく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 114,
+    "word": "うけたまはる【承る】 KST?",
+    "meaning": "K①いただく。お受けする。②お聞きする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 115,
+    "word": "まうづ【詣づ】 KST?",
+    "meaning": "K①参上する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 116,
+    "word": "まかる KST?",
+    "meaning": "K①退出する。おいとまする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 117,
+    "word": "まかづ KST?",
+    "meaning": "K①退出する。おいとまする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 118,
+    "word": "つか（う）まつる【仕る】 KST?",
+    "meaning": "K①お仕えする。②いたす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 119,
+    "word": "たまふ KST?",
+    "meaning": "（S四段）①お与えになる。くださる。②～なさる。お～になる。（K下二）③～（ており）ます。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 120,
+    "word": "たてまつる【奉る】 KST?",
+    "meaning": "K①さしあげる。K②お～する。～申しあげる。S③召しあがる。S④お召しになる。S⑤お乗りになる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 121,
+    "word": "まゐる【参る】 KST?",
+    "meaning": "K①さしあげる。K②参上する。S③召しあがる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 122,
+    "word": "はべり【侍り】 KST?",
+    "meaning": "T①あります。います。T②～です。～ます。～ございます。K③お仕えする。お控えする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 123,
+    "word": "さぶらふ・さうらふ【候ふ】 KST?",
+    "meaning": "T①あります。います。T②～です。～ます。～ございます。K③お仕えする。お控えする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 124,
+    "word": "うへ",
+    "meaning": "①天皇。②奥様。③将軍。④上（↔下）"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 125,
+    "word": "きみ【君】",
+    "meaning": "①天皇。②主君。③高貴な人。④あなた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 126,
+    "word": "おほやけ【公】",
+    "meaning": "①天皇。②朝廷。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 127,
+    "word": "うち【内裏・内】",
+    "meaning": "①天皇。②宮中。内裏。③内側。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 128,
+    "word": "みや【宮】",
+    "meaning": "①皇族。②皇族の邸。③神社。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 129,
+    "word": "ゐん【院】",
+    "meaning": "①上皇。法皇。②上皇などの貴人の邸。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 130,
+    "word": "との【殿】",
+    "meaning": "①身分の高い男性貴族。②身分の高い男性貴族の邸。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 131,
+    "word": "おまへ【御前】",
+    "meaning": "①身分の高いお方。②身分の高いお方の前。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 132,
+    "word": "きたのかた【北の方】",
+    "meaning": "①正妻。夫人。②北の方角。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 133,
+    "word": "いちのひと【一の人】",
+    "meaning": "①最高権力者"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 134,
+    "word": "ぬし【主】",
+    "meaning": "①ご主人様。②「○○の主」の形で、～様。③本人。④あなた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 135,
+    "word": "はらから",
+    "meaning": "①（同じ母から生まれた）兄弟姉妹。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 136,
+    "word": "せうと【兄人】",
+    "meaning": "①（女性側から見た）男の兄弟。特に兄。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 137,
+    "word": "おとうと",
+    "meaning": "①弟または妹"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 138,
+    "word": "いも【妹】",
+    "meaning": "①妻や恋人・姉妹などの親しい女性。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 139,
+    "word": "まらうと",
+    "meaning": "①客人。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 140,
+    "word": "ただびと",
+    "meaning": "①普通の人。②臣下。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 141,
+    "word": "われ【我】",
+    "meaning": "①私。自分。②あなた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 142,
+    "word": "おのれ【己】",
+    "meaning": "①私。自分。②あなた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 143,
+    "word": "これ【此・是】",
+    "meaning": "①これ。②この人。③私。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 144,
+    "word": "かれ【彼】",
+    "meaning": "①あれ。②あの人。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 145,
+    "word": "こなた",
+    "meaning": "①こちら。ここ。②この人。③私。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 146,
+    "word": "そなた",
+    "meaning": "①そちら。そこ。②あなた。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 147,
+    "word": "あなた",
+    "meaning": "①あちら。あそこ。向こう。②あの人。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 148,
+    "word": "あした【朝】",
+    "meaning": "①朝。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 149,
+    "word": "つとめて",
+    "meaning": "①早朝。②翌朝。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 150,
+    "word": "ひねもす",
+    "meaning": "①一日中。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 151,
+    "word": "ひひとひ【日一日】",
+    "meaning": "①一日中。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 152,
+    "word": "よもすがら【夜もすがら】",
+    "meaning": "①一晩中。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 153,
+    "word": "よひとよ【夜一夜】",
+    "meaning": "①一晩中。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 154,
+    "word": "ついたち",
+    "meaning": "①月の上旬。月初め。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 155,
+    "word": "つごもり",
+    "meaning": "①月の下旬。月末。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 156,
+    "word": "ひごろ【日頃】",
+    "meaning": "①数日来。ここ数日間。②普段。平常。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 157,
+    "word": "つきごろ【月頃】",
+    "meaning": "①数か月来。ここ数か月間。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 158,
+    "word": "としごろ【年頃】",
+    "meaning": "①数年来。ここ数年間。②長年。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 159,
+    "word": "こしかた【来し方】",
+    "meaning": "①過去。②通って来た方向。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 160,
+    "word": "ゆくすゑ【行く末】",
+    "meaning": "①未来。将来。②進んで行く先。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 161,
+    "word": "あだなり",
+    "meaning": "①浮気だ。不誠実だ。②いいかげんだ。③一時的な様。はかない様。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 162,
+    "word": "あだあだし",
+    "meaning": "①浮気だ。不誠実だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 163,
+    "word": "まめなり",
+    "meaning": "①まじめだ。誠実だ。②実用的だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 164,
+    "word": "まめまめし",
+    "meaning": "①まじめだ。誠実だ。本気だ。②実用的だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 165,
+    "word": "まめやかなり",
+    "meaning": "①まじめだ。誠実だ。②本格的だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 166,
+    "word": "あてなり【貴なり】",
+    "meaning": "①高貴だ。身分が高い。②上品だ。優美だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 167,
+    "word": "あてはかなり【貴はかなり】",
+    "meaning": "①高貴だ。②上品だ。優美だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 168,
+    "word": "ただなり",
+    "meaning": "①ごく普通だ。ありきたりだ。②何もしない様子だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 169,
+    "word": "ひがごと【僻事】",
+    "meaning": "①間違ったこと。あやまり。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 170,
+    "word": "ひがおぼえ【僻覚え】",
+    "meaning": "①覚え間違い。記憶違い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 171,
+    "word": "ひがひがし【僻々し】",
+    "meaning": "①ひねくれている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 172,
+    "word": "をこなり",
+    "meaning": "①ばかげている。愚かだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 173,
+    "word": "をこがまし",
+    "meaning": "①ばからしい。愚かしい。②でしゃばりだ。さしでがましい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 174,
+    "word": "ことなり【異なり】",
+    "meaning": "①他と異なっている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 175,
+    "word": "ことごころ【異心】",
+    "meaning": "①浮気心。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 176,
+    "word": "そらなり【空なり】",
+    "meaning": "①上の空だ。②根拠がない。いいかげんだ。③かいがない。むなしい。④「そらに」の形で、そらで覚えて。暗記して。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 177,
+    "word": "そらごと【空言・虚言】",
+    "meaning": "①うそ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 178,
+    "word": "ひとひ【一日】",
+    "meaning": "①一日じゅう。②ある日。先日。③一日。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 179,
+    "word": "もの【物】＋〇〇",
+    "meaning": "①何となく～。どことなく～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 180,
+    "word": "なま【生】＋〇〇",
+    "meaning": "①未熟な～。新米の～。②何となく～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 181,
+    "word": "さ",
+    "meaning": "①そう。そのように。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 182,
+    "word": "さて",
+    "meaning": "①そうして。そのままで。②そして。ところで。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 183,
+    "word": "さて（しも）ありぬべし",
+    "meaning": "①そのままでかまわない。そのままで十分だろう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 184,
+    "word": "さてしもあらず",
+    "meaning": "①そのままでいるわけにはいかない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 185,
+    "word": "さる",
+    "meaning": "①そのような。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 186,
+    "word": "さるは",
+    "meaning": "①そうであるのは。実は。②そうではあるが、しかし。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 187,
+    "word": "さるものにて",
+    "meaning": "①それはそれとして。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 188,
+    "word": "さらぬ",
+    "meaning": "①そうではない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 189,
+    "word": "さるべし",
+    "meaning": "①そうなるはずだ。②ふさわしい。適当だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 190,
+    "word": "さればよ",
+    "meaning": "①やっぱりね。思ったとおりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 191,
+    "word": "さればこそ",
+    "meaning": "①やっぱりね。思ったとおりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 192,
+    "word": "しか【然】",
+    "meaning": "①そのように。そう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 193,
+    "word": "しかり【然り】",
+    "meaning": "①そうである。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 194,
+    "word": "と",
+    "meaning": "①あのように。ああ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 195,
+    "word": "かく",
+    "meaning": "①このように。こう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 196,
+    "word": "とかく",
+    "meaning": "①あれやこれやと。いろいろと。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 197,
+    "word": "いかに",
+    "meaning": "①どのように。どんなに。なぜ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 198,
+    "word": "いかが",
+    "meaning": "①どのように。どんなに。②どうして～か、いやない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 199,
+    "word": "いかがはせむ",
+    "meaning": "①どうしようか。②どうしようか、いやどうしようもない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 200,
+    "word": "いかで",
+    "meaning": "①どのように。なぜ。②どうして～か、いやない。③「いかで～願望・意志」の形で、どうにかして。何とかして。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 201,
+    "word": "なに",
+    "meaning": "①何。②なぜ。どうして～か、いやない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 202,
+    "word": "なぞ",
+    "meaning": "①なぜ。②どうして～か、いやない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 203,
+    "word": "など（て）",
+    "meaning": "①なぜ。②どうして～か、いやない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 204,
+    "word": "な（ん）でふ",
+    "meaning": "①何という。②どう。どうして～か、いやない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 205,
+    "word": "あふ【敢ふ】",
+    "meaning": "①こらえる。もちこたえる。②まあ、よしとする。さしつかえない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 206,
+    "word": "あへなし【敢へなし】",
+    "meaning": "①（もちこたえられずに）どうにもならない。②あっけない。はりあいがない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 207,
+    "word": "あへず【敢へず】",
+    "meaning": "①こらえきれない。②動詞の連用形について、（最後までは）～しきれない。（しようとするが）～できない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 208,
+    "word": "かたし【難し】",
+    "meaning": "①難しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 209,
+    "word": "ありがたし【有り難し】",
+    "meaning": "①めったにない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 210,
+    "word": "〇〇はつ【果つ】",
+    "meaning": "①～し終える。すっかり～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 211,
+    "word": "○○さす",
+    "meaning": "①～を（やりかけて）途中でやめる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 212,
+    "word": "○○そむ【初む】",
+    "meaning": "①～し始める。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 213,
+    "word": "○○げ（なり）",
+    "meaning": "①（見た感じ）～そうだ。～の様子だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 214,
+    "word": "○○（の）がり",
+    "meaning": "①～のもとへ。～の所に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 215,
+    "word": "うつろふ",
+    "meaning": "①移り変わる。②色づく。③色があせていく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 216,
+    "word": "かこつ",
+    "meaning": "①かこつける。他のせいにする。②不平不満を言う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 217,
+    "word": "かごと",
+    "meaning": "①口実。②不平。愚痴。恨みごと。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 218,
+    "word": "かごとがまし",
+    "meaning": "①いいわけがましい。恨みがましい。愚痴っぽい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 219,
+    "word": "かしこまる",
+    "meaning": "①恐縮する。②正座する。③謝罪する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 220,
+    "word": "こころゆく【心行く】",
+    "meaning": "①心が晴れ晴れする。②満足する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 221,
+    "word": "こころ（を）やる【心（を）遣る】",
+    "meaning": "①気を晴らす。心を慰める。②自分の心を満足させる。得意がる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 222,
+    "word": "まどふ【惑ふ】",
+    "meaning": "①心が乱れる。あれこれ悩む。②さまよう。途方にくれる。③あわてる。④動詞の連用形について、ひどく～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 223,
+    "word": "めづ【賞づ・愛づ】",
+    "meaning": "①ほめる。賞美する。②かわいがる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 224,
+    "word": "もどく",
+    "meaning": "①まねる。似せる。②非難する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 225,
+    "word": "わづらふ",
+    "meaning": "①面倒に思う。骨を折る。②病気で苦しむ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 226,
+    "word": "うとし【疎し】",
+    "meaning": "①親しくない。関係が浅い。②よく知らない。精通していない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 227,
+    "word": "うとまし【疎まし】",
+    "meaning": "①いやな感じだ。厭わしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 228,
+    "word": "うらなし",
+    "meaning": "①隔てがない。ざっくばらんだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 229,
+    "word": "くまなし【隈無し】",
+    "meaning": "①かげりがない。②抜け目がない。行き届いている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 230,
+    "word": "いふかひなし",
+    "meaning": "①言ってもどうにもならない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 231,
+    "word": "かひ",
+    "meaning": "①効果。効き目。②価値。値うち。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 232,
+    "word": "つたなし【拙し】",
+    "meaning": "①劣っている。②下手だ。未熟だ。③運が悪い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 233,
+    "word": "ゆくりなし",
+    "meaning": "①思いがけない。突然である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 234,
+    "word": "さかし【賢し】",
+    "meaning": "①賢い。②上手だ。すぐれている。③しっかりしている。気丈だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 235,
+    "word": "さかしだつ【賢し立つ】",
+    "meaning": "①利口ぶる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 236,
+    "word": "さかしら【賢しら】",
+    "meaning": "①利口ぶること。②でしゃばり。おせっかい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 237,
+    "word": "まばゆし",
+    "meaning": "①まぶしい。②（まぶしいほど）立派だ。③（まぶしくて目をそむけたいほど）ひどい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 238,
+    "word": "ねたし【妬し】",
+    "meaning": "①癪だ。妬ましい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 239,
+    "word": "めづらし",
+    "meaning": "①目新しい。②すばらしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 240,
+    "word": "けうなり【稀有なり】",
+    "meaning": "①めずらしい。めったにない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 241,
+    "word": "うちつけなり",
+    "meaning": "①突然だ。唐突だ。②軽率だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 242,
+    "word": "かたくななり",
+    "meaning": "①がんこである。②情趣を理解しない。粗野だ。教養がない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 243,
+    "word": "かりそめなり",
+    "meaning": "①一時的だ。はかないことだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 244,
+    "word": "こまやかなり",
+    "meaning": "①きめこまかい。②綿密だ。丁寧だ。③親密だ。④美しい様子だ。⑤小さい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 245,
+    "word": "すずろなり・そぞろなり",
+    "meaning": "①なんとなく～だ。あてもなく～だ。むやみやたらと～だ。②理由もなく～だ。無関係だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 246,
+    "word": "なほざりなり",
+    "meaning": "①いいかげんだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 247,
+    "word": "おほかた【大方】",
+    "meaning": "①大半。だいたい。一般。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 248,
+    "word": "ためし",
+    "meaning": "①前例。先例。事例。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 249,
+    "word": "あくがる",
+    "meaning": "①魂が体から抜け出る。②上の空になる。心がひかれて落ち着かない。③さまよい歩く。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 250,
+    "word": "あなづる【侮る】",
+    "meaning": "①侮る。侮辱する。軽んじる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 251,
+    "word": "あなづらはし【侮らはし】",
+    "meaning": "①侮ってよい感じだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 252,
+    "word": "こほつ・こぼつ",
+    "meaning": "①こわす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 253,
+    "word": "すぐす【過ぐす】",
+    "meaning": "①過ごす。②放りっぱなしにする。気にとめずに～流す。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 254,
+    "word": "まねぶ",
+    "meaning": "①まねをする。②見聞きしたままを伝える。③学ぶ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 255,
+    "word": "おこす",
+    "meaning": "①寄こす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 256,
+    "word": "やる【遣る】",
+    "meaning": "①人を派遣する。物を送る。②動詞の連用形に付いて、遠くに～する。③「○○やらず」の形で、完全には～しない。～しきれない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 257,
+    "word": "うしろめたし【後ろめたし】",
+    "meaning": "①気がかりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 258,
+    "word": "うしろやすし【後ろ安し】",
+    "meaning": "①安心できる。頼もしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 259,
+    "word": "ずちなし【術なし】",
+    "meaning": "①なすすべがない。どうしようもない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 260,
+    "word": "たづき",
+    "meaning": "①手段。方法。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 261,
+    "word": "とし【疾し】",
+    "meaning": "①早い。すばやい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 262,
+    "word": "またし【全し】",
+    "meaning": "①完全だ。全部整っている。②無事だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 263,
+    "word": "まだし",
+    "meaning": "①まだその時期ではない。時期尚早だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 264,
+    "word": "まだき（に）",
+    "meaning": "①まだその時期ではないのに。早くももう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 265,
+    "word": "あやにくなり",
+    "meaning": "①意地が悪い。②都合が悪い。折が悪い。あいにくだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 266,
+    "word": "せちなり【切なり】",
+    "meaning": "①ひたすらだ。しきりだ。②大切だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 267,
+    "word": "なのめなり",
+    "meaning": "①いいかげんだ。②平凡だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 268,
+    "word": "なのめならず",
+    "meaning": "①並ひととおりではない。格別だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 269,
+    "word": "はつかなり",
+    "meaning": "①わずかである。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 270,
+    "word": "みそかなり【密かなり】",
+    "meaning": "①ひそかである。こっそりとする様子だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 271,
+    "word": "あまた",
+    "meaning": "①たくさん。数多く。②とても。非常に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 272,
+    "word": "ここら",
+    "meaning": "①たくさん。数多く。②とても。非常に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 273,
+    "word": "そこら",
+    "meaning": "①たくさん。数多く。②とても。非常に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 274,
+    "word": "わたり【辺り】",
+    "meaning": "①あたり。付近。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 275,
+    "word": "あない【案内】",
+    "meaning": "①取り次ぎを頼むこと。来意を告げること。②事情。内容。③事情を明らかにすること。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 276,
+    "word": "ほい【本意】",
+    "meaning": "①本来の意志。かねてからの望み。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 277,
+    "word": "ほいなし【本意なし】",
+    "meaning": "①不本意だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 278,
+    "word": "うしろみる【後ろ見る】",
+    "meaning": "①世話をする。②補佐をする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 279,
+    "word": "かしづく",
+    "meaning": "①大切に育てる。②大切に世話をする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 280,
+    "word": "こうず【困ず】",
+    "meaning": "①疲れる。②困る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 281,
+    "word": "そんず【損ず】",
+    "meaning": "①傷つける。こわす。②いたむ。こわれる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 282,
+    "word": "たがふ【違ふ】",
+    "meaning": "①（四段）食い違う。②（四段）いれちがいになる。③（四段）変わる。④（四段）そむく。⑤（下二）間違える。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 283,
+    "word": "てうず【調ず】",
+    "meaning": "①調える。作る。②調理する。③調伏する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 284,
+    "word": "まうく【設く】",
+    "meaning": "①用意する。②身に備える。持つ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 285,
+    "word": "まもる・まぼる【守る】",
+    "meaning": "①じっと見つめる。②警戒する。守る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 286,
+    "word": "やすらふ【休らふ】",
+    "meaning": "①ためらう。躊躇する。②立ち止まる。休憩する。③滞在する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 287,
+    "word": "ひつ【漬つ】",
+    "meaning": "①（四段・上二）水につかる。濡れる。②（下二）水につける。濡らす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 288,
+    "word": "わく【分く】",
+    "meaning": "①（四段）理解する。判断する。②（下二）分ける。区別する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 289,
+    "word": "あつし【篤し】",
+    "meaning": "①病気が重い。危篤状態だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 290,
+    "word": "いぎたなし【寝汚し】",
+    "meaning": "①ぐっすり寝ていてなかなか起きない。寝坊である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 291,
+    "word": "おとなし【大人し】",
+    "meaning": "①大人びている。年配である。②思慮分別に富んでいる。③おもだっている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 292,
+    "word": "をさをさし【長々し】",
+    "meaning": "①大人びている。②しっかりしている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 293,
+    "word": "くちをし【口惜し・朽ち惜し】",
+    "meaning": "①残念だ。くやしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 294,
+    "word": "つきづきし【付き付きし】",
+    "meaning": "①ふさわしい。似つかわしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 295,
+    "word": "つきなし【付き無し】",
+    "meaning": "①ふさわしくない。似つかわしくない。②とりつきようがない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 296,
+    "word": "こころづきなし【心付き無し】",
+    "meaning": "①心がひかれない。気にくわない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 297,
+    "word": "たいだいし【怠々し】",
+    "meaning": "①もってのほかだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 298,
+    "word": "ところせし【所狭し】",
+    "meaning": "①場所が狭い。②狭く感じるぐらいたくさんある。③気詰まりだ。窮屈だ。④堂々としている。⑤仰々しい。おおげさだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 299,
+    "word": "になし【二無し】",
+    "meaning": "①二つとない。比べるものがない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 300,
+    "word": "またなし【又無し】",
+    "meaning": "①またとない。二つとない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 301,
+    "word": "にげなし【似げ無し】",
+    "meaning": "①似合わない。ふさわしくない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 302,
+    "word": "まさなし【正無し】",
+    "meaning": "①よくない。②みっともない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 303,
+    "word": "めざまし【目覚まし】",
+    "meaning": "①気にくわない。心外だ。②（意外と）よい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 304,
+    "word": "めやすし【目安し】",
+    "meaning": "①見ていて感じがよい。見苦しくない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 305,
+    "word": "やむごとなし【止む事無し】",
+    "meaning": "①捨ててはおけない。②尊い。高貴だ。③並々でない。格別だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 306,
+    "word": "ことわり【道理・理】",
+    "meaning": "①道理。筋道。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 307,
+    "word": "ことわる【理る】",
+    "meaning": "①判断する。②事情を説明する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 308,
+    "word": "ことわりなり【理なり】",
+    "meaning": "①もっともだ。当然だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 309,
+    "word": "わりなし【理無し】",
+    "meaning": "①道理に合わない。筋が通らない。むちゃくちゃだ。②耐え難い。つらい。③しかたがない。どうしようもない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 310,
+    "word": "あやなし【文無し】",
+    "meaning": "①道理に合わない。筋が通らない。わけがわからない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 311,
+    "word": "つれづれなり【徒然なり・連れ連れなり】",
+    "meaning": "①何もすることがなくて退屈だ。所在ない。②ひとりさびしい状態である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 312,
+    "word": "ねんごろなり【寧ろなり】",
+    "meaning": "①親切だ。丁寧だ。熱心だ。②仲がよい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 313,
+    "word": "むげなり【無下なり】",
+    "meaning": "①最低だ。最悪だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 314,
+    "word": "むげに【無下に】",
+    "meaning": "①むやみに。無性に。ひどく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 315,
+    "word": "なべて【並べて】",
+    "meaning": "①総じて。すべて。一般的に。②並ひととおり。普通。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 316,
+    "word": "なべてならず【並べてならず】",
+    "meaning": "①並ひととおりでない。格別だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 317,
+    "word": "かたへ【片辺】",
+    "meaning": "①片方。一方。②傍ら。そば。③仲間。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 318,
+    "word": "ひま【隙】",
+    "meaning": "①すきま。②合間。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 319,
+    "word": "あし【悪し】",
+    "meaning": "①悪い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 320,
+    "word": "わろし【悪し】",
+    "meaning": "①よくはない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 321,
+    "word": "よろし",
+    "meaning": "①悪くはない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 322,
+    "word": "よし【良し】",
+    "meaning": "①よい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 323,
+    "word": "いたはし",
+    "meaning": "①苦痛だ。②大切に世話したい感じだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 324,
+    "word": "いたはる",
+    "meaning": "①苦労する。②病気で患う。③大切に扱う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 325,
+    "word": "いはけなし",
+    "meaning": "①幼い。子どもっぽい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 326,
+    "word": "いとけなし",
+    "meaning": "①幼い。子どもっぽい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 327,
+    "word": "およすく",
+    "meaning": "①成長する。大人になる。②大人びる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 328,
+    "word": "ねぶ",
+    "meaning": "①年齢を重ねる。ふける。②大人びる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 329,
+    "word": "いまめかし【今めかし】",
+    "meaning": "①現代風だ。当世風ではなやかだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 330,
+    "word": "はかなし【果無し】",
+    "meaning": "①はかない。あっけない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 331,
+    "word": "はかばかし【果々し】",
+    "meaning": "①てきぱきはかどっている。②目立っている。はっきりしている。③しっかりしている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 332,
+    "word": "まほなり",
+    "meaning": "①完全だ。十分だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 333,
+    "word": "かたほなり",
+    "meaning": "①不完全だ。不十分だ。未熟だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 334,
+    "word": "あからめ",
+    "meaning": "①よそ見。わき目。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 335,
+    "word": "そばめ【側目】",
+    "meaning": "①横目。横顔。②横から見ること。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 336,
+    "word": "そばむ【側む】",
+    "meaning": "①横を向く。②すねる。ひがむ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 337,
+    "word": "うつつ【現】",
+    "meaning": "①現実。②正気。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 338,
+    "word": "けしき【気色】",
+    "meaning": "①（目で見てわかる）様子。②意向。機嫌。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 339,
+    "word": "けはい【気配】",
+    "meaning": "①（音や雰囲気でわかる）様子。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 340,
+    "word": "けしきばむ【気色ばむ】",
+    "meaning": "①様子が外にあらわれる。②思いが表にあらわれる。③気取る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 341,
+    "word": "けしきだつ【気色立つ】",
+    "meaning": "①様子が外にあらわれる。②思いが表にあらわれる。③気取る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 342,
+    "word": "おのづから【自ら】",
+    "meaning": "①自然と。②偶然。たまたま。③万一。ひょっとして。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 343,
+    "word": "みづから【自ら】",
+    "meaning": "①自分自身。②自分から。自分で。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 344,
+    "word": "てづから【手づから】",
+    "meaning": "①自分の手で。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 345,
+    "word": "こころづから【心づから】",
+    "meaning": "①自分の心から。自分から進んで。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 346,
+    "word": "むべ・うべ【諾・宜】",
+    "meaning": "①なるほど。いかにも。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 347,
+    "word": "いな【否】",
+    "meaning": "①いいえ。いや。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 348,
+    "word": "あきらむ【明らむ】",
+    "meaning": "①（内容や事情などを）あきらかにする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 349,
+    "word": "あきる【呆る】",
+    "meaning": "①途方にくれる。呆然とする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 350,
+    "word": "あつかふ【扱ふ】",
+    "meaning": "①世話をやく。看病をする。②もてあます。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 351,
+    "word": "うちとく【うち解く・うち溶く】",
+    "meaning": "①くつろぐ。②油断する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 352,
+    "word": "おきつ【掟つ】",
+    "meaning": "①指図する。②予定する。取り決める。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 353,
+    "word": "おきて【掟】",
+    "meaning": "①指図。②きまり。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 354,
+    "word": "くどく",
+    "meaning": "①くり返し言う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 355,
+    "word": "さはる【障る】",
+    "meaning": "①さしさわりがある。支障がある。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 356,
+    "word": "さはれ・さばれ",
+    "meaning": "①どうとでもなれ。えい、ままよ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 357,
+    "word": "すさぶ",
+    "meaning": "①気の向くままに何かをする。興じる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 358,
+    "word": "ときめく【時めく】",
+    "meaning": "①時流に乗って栄える。寵愛を受けて栄える。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 359,
+    "word": "ときめかす【時めかす】",
+    "meaning": "①時流に乗って栄えるようにする。寵愛する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 360,
+    "word": "ながむ【眺む】",
+    "meaning": "①物思いにふける。②（物思いに沈みながら）ぼんやり見る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 361,
+    "word": "なづむ",
+    "meaning": "①行き悩む。難渋する。②こだわる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 362,
+    "word": "なやむ【悩む】",
+    "meaning": "①病気で苦しむ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 363,
+    "word": "なやまし【悩まし】",
+    "meaning": "①病気などで体が苦しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 364,
+    "word": "ののしる",
+    "meaning": "①大騒ぎをする。大声をたてる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 365,
+    "word": "もてなす【もて成す】",
+    "meaning": "①とりおこなう。②ふるまう。③世話をする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 366,
+    "word": "やつす",
+    "meaning": "①目立たない格好にする。粗末な服装に着替える。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 367,
+    "word": "やつる",
+    "meaning": "①目立たない格好になる。粗末な服装になる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 368,
+    "word": "あやし",
+    "meaning": "①へんだ。不思議だ。②卑しい。身分が低い。③見苦しい。みすぼらしい。④不審だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 369,
+    "word": "いやし【卑し・賤し】",
+    "meaning": "①身分が低い。②みすぼらしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 370,
+    "word": "いたし【甚し】",
+    "meaning": "①はなはだしい。とても～だ。ひどく～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 371,
+    "word": "いとほし",
+    "meaning": "①気の毒だ。かわいそうだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 372,
+    "word": "いまいまし【忌ま忌まし】",
+    "meaning": "①縁起が悪い。不吉だ。②いまわしい。不快だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 373,
+    "word": "いむ【忌む】",
+    "meaning": "①不吉なものとして避ける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 374,
+    "word": "うるさし",
+    "meaning": "①わずらわしい。面倒だ。②よく気がつく。巧みだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 375,
+    "word": "うるせし",
+    "meaning": "①気がきく。巧みだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 376,
+    "word": "さうざうし",
+    "meaning": "①物足りなくて寂しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 377,
+    "word": "おぼつかなし",
+    "meaning": "①はっきりしない。②気がかりだ。③待ち遠しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 378,
+    "word": "かたはらいたし【傍ら痛し】",
+    "meaning": "①横で見ていていたたまれない。みっともない。②気の毒だ。③恥ずかしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 379,
+    "word": "すごし",
+    "meaning": "①ぞっとする。もの寂しい。おそろしい。②おそろしいほどすぐれている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 380,
+    "word": "すさまじ",
+    "meaning": "①つまらない。興ざめだ。②荒涼としている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 381,
+    "word": "つつまし【慎まし】",
+    "meaning": "①遠慮される。気が引ける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 382,
+    "word": "つつむ【慎む・包む】",
+    "meaning": "①遠慮する。気が引ける。②包む。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 383,
+    "word": "なつかし【懐かし】",
+    "meaning": "①親しみやすい。②心ひかれる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 384,
+    "word": "はしたなし【端なし】",
+    "meaning": "①中途半端だ。②みっともない。体裁が悪い。③（雨風などが）はげしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 385,
+    "word": "ひとわろし【人悪し】",
+    "meaning": "①外聞が悪い。体裁が悪い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 386,
+    "word": "むつかし",
+    "meaning": "①不快だ。うっとうしい。②わずらわしい。面倒だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 387,
+    "word": "むつかる",
+    "meaning": "①不快に思う。腹を立てる。②だだをこねる。ぐずる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 388,
+    "word": "めでたし",
+    "meaning": "①めずらしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 389,
+    "word": "あからさまなり",
+    "meaning": "①ついちょっと。ほんのしばらく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 390,
+    "word": "いたづらなり",
+    "meaning": "①無駄である。役に立たない。②むなしい。はかない。③「いたづらになる」で、むだになる。死ぬ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 391,
+    "word": "おぼえ",
+    "meaning": "①人望。信望。評判。②寵愛（を受けること）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 392,
+    "word": "ついで",
+    "meaning": "①機会。折。②順序。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 393,
+    "word": "ふるさと",
+    "meaning": "①昔、都があった所。②以前、自分が住んでいた所。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 394,
+    "word": "さと",
+    "meaning": "①実家。自宅。②人里。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 395,
+    "word": "さすが（に）",
+    "meaning": "①そうはいってもやはり。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 396,
+    "word": "さすがなり",
+    "meaning": "①そうはいってもそのままにはしていられない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 397,
+    "word": "すなはち",
+    "meaning": "①すぐに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 398,
+    "word": "なかなか（に）",
+    "meaning": "①なまじっか。②かえって。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 399,
+    "word": "なかなかなり",
+    "meaning": "①中途半端だ。どっちつかずだ。②かえって～しない方がましだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 400,
+    "word": "やがて",
+    "meaning": "①そのまま。②すぐに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 401,
+    "word": "わざと",
+    "meaning": "①わざわざ。②本格的に。正式に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 402,
+    "word": "いそぐ【急ぐ】",
+    "meaning": "①急ぐ。②用意する。支度する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 403,
+    "word": "とみなり",
+    "meaning": "①急ぎである。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 404,
+    "word": "おこたる【怠る】",
+    "meaning": "①なまける。②病気がよくなる。快方にむかう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 405,
+    "word": "おこたり【怠り】",
+    "meaning": "①怠慢。②過ち。失敗。③謝罪。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 406,
+    "word": "おどろく",
+    "meaning": "①はっとして気づく。②目が覚める。起きる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 407,
+    "word": "おどろかす",
+    "meaning": "①はっとさせる。②目を覚まさせる。起こす。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 408,
+    "word": "したたむ",
+    "meaning": "①整理する。まとめる。かたづける。②治める。③用意する。④書き記す。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 409,
+    "word": "しる【知る・領る】",
+    "meaning": "①わかる。理解する。②交際する。結婚する。③（土地を）持つ。治める。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 410,
+    "word": "たばかる",
+    "meaning": "①思案する。工夫する。②相談する。③だます。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 411,
+    "word": "ためらふ",
+    "meaning": "①ためらう。躊躇する。②気を静める。③静養する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 412,
+    "word": "つくろふ",
+    "meaning": "①修繕する。なおす。②とりつくろう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 413,
+    "word": "ならふ【慣らふ・馴らふ】",
+    "meaning": "①慣れる。習慣になる。②習う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 414,
+    "word": "なる【慣る・馴る】",
+    "meaning": "①慣れる。②習慣になる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 415,
+    "word": "にほふ",
+    "meaning": "①つややかに美しく輝く。②香る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 416,
+    "word": "ねんず【念ず】",
+    "meaning": "①祈る。②こらえる。我慢する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 417,
+    "word": "まさる【増さる・優る】",
+    "meaning": "①増える。②動詞の連用形について、ますます～する。どんどん程度が増していく。③優れる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 418,
+    "word": "ゆるす【緩す・許す】",
+    "meaning": "①ゆるくする。②公認する。③許す。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 419,
+    "word": "あたらし【惜し】",
+    "meaning": "①惜しい。②もったいない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 420,
+    "word": "かしこし【畏し・賢し】",
+    "meaning": "①おそれ多い。②賢い。③立派だ。④連用形「かしこく」の形で、好都合だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 421,
+    "word": "かたじけなし",
+    "meaning": "①おそれ多い。②ありがたい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 422,
+    "word": "からし【辛し】",
+    "meaning": "①からい。塩からい。②ひどい。残酷だ。③つらい。④あぶない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 423,
+    "word": "はづかし【恥づかし】",
+    "meaning": "①きまりが悪い。気後れする。②こちらが恥ずかしくなるほど相手が立派だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 424,
+    "word": "おろかなり【愚かなり】",
+    "meaning": "①いいかげんだ。②並ひととおりだ。③愚かだ。④「○○といふもおろかなり」などの形で、～という言葉では不十分だ。～という言葉では言い尽くせない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 425,
+    "word": "ふびんなり【不便なり】",
+    "meaning": "①不都合だ。具合が悪い。②気の毒だ。かわいそうだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 426,
+    "word": "びんなし【便無し】",
+    "meaning": "①不都合だ。具合が悪い。②気の毒だ。かわいそうだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 427,
+    "word": "さながら",
+    "meaning": "①そのまま。もとのまま。②すべて。③まるで。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 428,
+    "word": "つくづく（と）",
+    "meaning": "①しんみり。しみじみ。②よくよく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 429,
+    "word": "あるじ",
+    "meaning": "①主人。②もてなし。饗応。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 430,
+    "word": "あるじまうけ",
+    "meaning": "①もてなし。ごちそう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 431,
+    "word": "かげ【影・陰】",
+    "meaning": "①日光。月光。②（水面や鏡にうつる）姿。③陰影。④物陰。⑤お陰。庇護。恩恵。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 432,
+    "word": "とが【咎】",
+    "meaning": "①とがめるべき行為。過失。罪。②欠点。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 433,
+    "word": "とがむ【咎む】",
+    "meaning": "①とがめる。非難する。②気にとめる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 434,
+    "word": "ものがたり",
+    "meaning": "①世間話。おしゃべり。②物語。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 435,
+    "word": "ようい【用意】",
+    "meaning": "①心づかい。用心。②準備。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 436,
+    "word": "よろこび",
+    "meaning": "①喜ぶこと。②祝い事。③昇進。④お礼。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 437,
+    "word": "わざ",
+    "meaning": "①（人間がする）こと。②仕事。③仏事。④技術。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 438,
+    "word": "かづく【被く】",
+    "meaning": "（カ四）①かぶる。②ほうびとしていただく。（カ下二）①かぶせる。②ほうびとして与える。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 439,
+    "word": "ろく【禄】",
+    "meaning": "①ほうびの品。祝儀。②給与。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 440,
+    "word": "かづく【潜く】",
+    "meaning": "（カ四）①もぐる。（カ下二）①もぐらせる"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 441,
+    "word": "げんざんにいる【見参に入る】",
+    "meaning": "（ラ四）①お目にかかる。（ラ下二）①お目にかける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 442,
+    "word": "たのむ【頼む】",
+    "meaning": "（マ四）①頼りに思う。あてにする。期待する。（マ下二）①頼りに思わせる。あてにさせる。期待させる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 443,
+    "word": "たのもし【頼もし】",
+    "meaning": "①頼もしい。いかにも頼りに思われる。②期待される。③裕福だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 444,
+    "word": "ふる【古る】",
+    "meaning": "①古くなる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 445,
+    "word": "かたみに【互みに】",
+    "meaning": "①互いに"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 446,
+    "word": "かたみ【形見】",
+    "meaning": "①思い出の品。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 447,
+    "word": "かまへて",
+    "meaning": "①ぜひとも。必ず。②「かまへて～打消」の形で、けっして（～ない）"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 448,
+    "word": "かまふ【構ふ】",
+    "meaning": "①建てる。作る。②準備する。計画する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 449,
+    "word": "さだめて",
+    "meaning": "①きっと。必ず。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 450,
+    "word": "せめて",
+    "meaning": "①しいて。無理に。②非常に。きわめて。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 451,
+    "word": "せむ",
+    "meaning": "①攻める。②責める。③せがむ。ねだる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 452,
+    "word": "はやく・はやう【早く・早う】",
+    "meaning": "①すでに。とっくに。②「はやく（はやう）～けり」の形で、実は（～だったのだ）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 453,
+    "word": "よに",
+    "meaning": "①「よに＋形容詞・形容動詞」の形で、実に。非常に。②「よに～打消」の形で、けっして（～ない）。全然（～ない）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 454,
+    "word": "おぼゆ・おもほゆ",
+    "meaning": "①（自然とそう）思われる。感じる。②思い出される。③似ている。④記憶する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 455,
+    "word": "おぼし",
+    "meaning": "①いかにもそうだと思われる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 456,
+    "word": "たふ【堪ふ・耐ふ】",
+    "meaning": "①こらえる。我慢する。②能力がある。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 457,
+    "word": "みゆ【見ゆ】",
+    "meaning": "①見える。②会う。③見られる。④見せる。⑤（女が）結婚する。⑥思われる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 458,
+    "word": "みす【見す】",
+    "meaning": "①見せる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 459,
+    "word": "あらまほし",
+    "meaning": "①理想的だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 460,
+    "word": "あらまし",
+    "meaning": "①こうありたいという願い。予定。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 461,
+    "word": "こちなし【骨無し】",
+    "meaning": "①無骨だ。無風流だ。②無作法だ。ぶしつけだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 462,
+    "word": "こちたし【言痛し】",
+    "meaning": "①（人の口数が多くて）うるさい。②おおげさだ。仰々しい。③はなはだ多い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 463,
+    "word": "かまし",
+    "meaning": "①うるさい。やかましい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 464,
+    "word": "あなかま",
+    "meaning": "①ああ、やかましい。しっ、静かに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 465,
+    "word": "こころにくし【心憎し】",
+    "meaning": "①奥ゆかしい。心ひかれる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 466,
+    "word": "にくし【憎し】",
+    "meaning": "①憎らしい。気にいらない。②動詞の連用形について、～しにくい。～しづらい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 467,
+    "word": "あいぎやう【愛敬】",
+    "meaning": "①温和で優しい魅力。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 468,
+    "word": "このかみ",
+    "meaning": "①年長。年長者。②兄。姉。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 469,
+    "word": "そのかみ",
+    "meaning": "①昔。当時。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 470,
+    "word": "いと",
+    "meaning": "①非常に。とても。②「いと～打消」の形で、あまり（～ない）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 471,
+    "word": "いとど",
+    "meaning": "①いよいよ。ますます。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 472,
+    "word": "いとどし",
+    "meaning": "①ますます激しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 473,
+    "word": "けに",
+    "meaning": "①きわだって。まさって。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 474,
+    "word": "げに",
+    "meaning": "①なるほど。本当に。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 475,
+    "word": "いさ",
+    "meaning": "①さあ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 476,
+    "word": "いざ",
+    "meaning": "①さあ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 477,
+    "word": "いさしらず【いさ知らず】",
+    "meaning": "①さあどうだろうか。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 478,
+    "word": "いざたまへ",
+    "meaning": "①さあいらっしゃい。さあ行きましょう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 479,
+    "word": "いざさせたまへ",
+    "meaning": "①さあいらっしゃい。さあ行きましょう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 480,
+    "word": "うつくし",
+    "meaning": "①かわいらしい。②いとしい。③きれいだ。④立派だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 481,
+    "word": "うるはし",
+    "meaning": "①きちんと整っている。端正で美しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 482,
+    "word": "きよらなり【清らなり】",
+    "meaning": "①気品があって美しい様子だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 483,
+    "word": "きよげなり【清げなり】",
+    "meaning": "①さっぱりとしていて美しい様子だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 484,
+    "word": "きよし【清し】",
+    "meaning": "①けがれがなく美しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 485,
+    "word": "らうたし",
+    "meaning": "①かわいらしい。②可憐だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 486,
+    "word": "らうらうじ",
+    "meaning": "①洗練されている。才たけている。もの慣れしている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 487,
+    "word": "なまめかし",
+    "meaning": "①みずみずしくて美しい。若々しくて美しい。②優美だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 488,
+    "word": "なまめく",
+    "meaning": "①若々しくて美しい。②優美だ。③しっとり落ち着いている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 489,
+    "word": "いうなり【優なり】",
+    "meaning": "①優美だ。上品だ。②すぐれている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 490,
+    "word": "えんなり【艶なり】",
+    "meaning": "①優美だ。しっとり趣がある。②色っぽい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 491,
+    "word": "おいらかなり",
+    "meaning": "①おっとりしている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 492,
+    "word": "あはれなり",
+    "meaning": "①しみじみと～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 493,
+    "word": "あはれ",
+    "meaning": "①ああ。②しみじみとした思い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 494,
+    "word": "をかし",
+    "meaning": "①趣がある。おもしろい。②すばらしい。③滑稽だ。おかしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 495,
+    "word": "おもしろし",
+    "meaning": "①趣がある。②興味深い。おもしろい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 496,
+    "word": "うし【憂し】",
+    "meaning": "①つらい。②いやだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 497,
+    "word": "こころうし【心憂し】",
+    "meaning": "①つらい。情けない。②いやだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 498,
+    "word": "わびし",
+    "meaning": "①つらい。苦しい。やりきれない。②さびしい。③貧しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 499,
+    "word": "こころぐるし【心苦し】",
+    "meaning": "①（悲しみや不安で）心が痛い。苦しい。つらい。②（相手の不幸や苦痛が）気の毒だ。心配だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 500,
+    "word": "わぶ",
+    "meaning": "①つらく思う。思い悩む。②さびしく思う。③困る。おちぶれる。④動詞の連用形に付いて、どうしようもなく～する。～しかねる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 501,
+    "word": "うたて",
+    "meaning": "①いやなことに。②ますますひどく。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 502,
+    "word": "うたてあり",
+    "meaning": "①いやだ。嘆かわしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 503,
+    "word": "うたてし",
+    "meaning": "①いやだ。嘆かわしい。②情けない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 504,
+    "word": "つらし",
+    "meaning": "①薄情だ。②耐えがたい。つらい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 505,
+    "word": "つれなし",
+    "meaning": "①何の変化もない。②そしらぬ顔だ。平気な様子だ。③冷淡だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 506,
+    "word": "なめし",
+    "meaning": "①失礼だ。無作法だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 507,
+    "word": "らうがはし",
+    "meaning": "①乱雑だ。②無作法だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 508,
+    "word": "おほけなし",
+    "meaning": "①分不相応だ。身の程知らずだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 509,
+    "word": "あいなし",
+    "meaning": "①つまらない。おもしろくない。②気にくわない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 510,
+    "word": "あぢきなし",
+    "meaning": "①つまらない。おもしろくない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 511,
+    "word": "いぶせし",
+    "meaning": "①気が晴れない。うっとうしい。気がかりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 512,
+    "word": "いぶかし",
+    "meaning": "①気が晴れない。気がかりだ。②不審である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 513,
+    "word": "こころもとなし【心もとなし】",
+    "meaning": "①じれったい。待ち遠しい。②気がかりだ。③はっきりしない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 514,
+    "word": "さがなし",
+    "meaning": "①性格が悪い。たちが悪い。②口が悪い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 515,
+    "word": "おどろおどろし",
+    "meaning": "①気味が悪い。②おおげさだ。仰々しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 516,
+    "word": "ことごとし",
+    "meaning": "①おおげさだ。仰々しい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 517,
+    "word": "むくつけし",
+    "meaning": "①気味が悪い。恐ろしい。②無風流だ。むさくるしい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 518,
+    "word": "あく【飽く】",
+    "meaning": "①十分である。満足である。②飽きる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 519,
+    "word": "あかず【飽かず】",
+    "meaning": "①満足しない。物足りない。名残惜しい。②飽きない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 520,
+    "word": "あかなくに【飽かなくに】",
+    "meaning": "①まだ名残惜しいのに。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 521,
+    "word": "いみじ",
+    "meaning": "①とても～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 522,
+    "word": "ゆゆし",
+    "meaning": "①とても～だ。②不吉だ。縁起が悪い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 523,
+    "word": "あさまし",
+    "meaning": "①驚きあきれるほど～だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 524,
+    "word": "あさむ",
+    "meaning": "①驚きあきれる。びっくりする。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 525,
+    "word": "こよなし",
+    "meaning": "①はなはだしく異なる。②とても～だ。このうえない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 526,
+    "word": "けやけし",
+    "meaning": "①はなはだしく異なる。②際立ってはっきりしている。すばらしい。異様だ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 527,
+    "word": "かなし",
+    "meaning": "【愛し】①かわいい。いとしい。【悲し】①悲しい。②かわいそうだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 528,
+    "word": "かなしうす【愛しうす】",
+    "meaning": "①かわいがる。いとしく思う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 529,
+    "word": "しどけなし",
+    "meaning": "①乱雑だ。だらしない。②無造作でゆったりしている。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 530,
+    "word": "あながちなり【強ちなり】",
+    "meaning": "①無理矢理だ。一方的だ。②一途だ。ひたすらだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 531,
+    "word": "ひたぶるなり",
+    "meaning": "①一途だ。ひたすらだ。②向こう見ずだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 532,
+    "word": "おぼろけなり",
+    "meaning": "①並ひととおりだ。②並ひととおりでない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 533,
+    "word": "すき【好き】",
+    "meaning": "①色好み。好色。②風流。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 534,
+    "word": "すきずきし【好き好きし】",
+    "meaning": "①好色めいている。②風流である。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 535,
+    "word": "くもゐ【雲居・雲井】",
+    "meaning": "①大空。天空。②宮中。皇居。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 536,
+    "word": "いつしか",
+    "meaning": "①早く（～したい）。②いつのまにか。早くももう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 537,
+    "word": "すでに",
+    "meaning": "①すでに。とっくに。②いよいよ。まさに今から。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 538,
+    "word": "きこゆ【聞こゆ】",
+    "meaning": "①聞こえる。②噂される。③聞いて理解される。④申しあげる。⑤お～する。～申しあげる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 539,
+    "word": "きこえ【聞こえ】",
+    "meaning": "①噂。評判。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 540,
+    "word": "さす【鎖す・閉す】",
+    "meaning": "①鍵をかける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 541,
+    "word": "さらず【避らず】",
+    "meaning": "①避けることができなくて。やむを得ず。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 542,
+    "word": "しのぶ【忍ぶ】",
+    "meaning": "①こらえる。我慢する。②人目を避ける。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 543,
+    "word": "しのぶ【偲ぶ】",
+    "meaning": "①慕わしく思う。なつかしむ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 544,
+    "word": "すまふ",
+    "meaning": "【争ふ】①争う。張り合う。抵抗する。【辞ふ】①辞退する。断る。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 545,
+    "word": "たづぬ",
+    "meaning": "①質問する。②訪問する。③探し求める。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 546,
+    "word": "とふ【問ふ・訪ふ・弔ふ】",
+    "meaning": "①尋ねる。②見舞う。③訪問する。④弔う。供養する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 547,
+    "word": "とぶらふ【訪ふ・弔ふ】",
+    "meaning": "①訪問する。②見舞う。③探し求める。③弔問する。供養する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 548,
+    "word": "むすぶ【結ぶ】",
+    "meaning": "①固まる。ある形にまとまる。②結ぶ。③約束する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 549,
+    "word": "むすぶ【掬ぶ】",
+    "meaning": "①（水などを）手ですくう。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 550,
+    "word": "さうなし【双無し】",
+    "meaning": "①肩を並べるものがない。比べるものがない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 551,
+    "word": "さうなし【左右無し】",
+    "meaning": "①どちらとも決まらない。②あれこれ考えるまでもない。ためらわない。言うまでもない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 552,
+    "word": "やさし【優し】",
+    "meaning": "①優美だ。風流だ。上品だ。②けなげだ。殊勝だ。③はずかしい。たえがたい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 553,
+    "word": "やすし",
+    "meaning": "【易し】①容易だ。簡単だ。②動詞の連用形に付いて、～しやすい。～するのが簡単だ。【安し】①安らかだ。のどかだ。心おだやかだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 554,
+    "word": "け【故】",
+    "meaning": "①（～の）ため。（～の）せい。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 555,
+    "word": "け【褻】",
+    "meaning": "①日常。普段。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 556,
+    "word": "こと【言】",
+    "meaning": "①言葉。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 557,
+    "word": "こと【事】",
+    "meaning": "①出来事。事柄。事件。②（～という）こと。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 558,
+    "word": "だいじ【大事】",
+    "meaning": "①重大事。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 559,
+    "word": "さた【沙汰】",
+    "meaning": "①処置。②評議。訴訟。③指図。命令。④評判。噂。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 560,
+    "word": "しるし",
+    "meaning": "【徴・験】①前兆。②効果。効能。霊験。【印・証】①目印。②証拠。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 561,
+    "word": "しるし【著し】",
+    "meaning": "①際立っている。はっきりしている。②「○○もしるく」の形で、（～なのは）予想どおりだ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 562,
+    "word": "すゑ【末】",
+    "meaning": "①端。果て。②将来。③晩年。④子孫。⑤和歌の下の句。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 563,
+    "word": "たより【頼り】",
+    "meaning": "①頼りになるもの。よりどころ。②縁。縁者。③機会。ついで。きっかけ。④便宜。手がかり。⑤出来具合。⑥手紙。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 564,
+    "word": "よすが【寄す処】",
+    "meaning": "①頼りとする方法・手段。②頼りとなるもの。よりどころ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 565,
+    "word": "つま【端】",
+    "meaning": "①端。②端緒。糸口。きっかけ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 566,
+    "word": "つま【褄】",
+    "meaning": "①着物の端の部分。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 567,
+    "word": "つま",
+    "meaning": "【夫】①（妻からみて）夫。【妻】①（夫からみて）妻。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 568,
+    "word": "て【手】",
+    "meaning": "①手。②手下の人間。③文字。筆跡。④芸能の所作。手ぶり。⑤演奏法。曲。⑥負傷。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 569,
+    "word": "あり",
+    "meaning": "①ある。いる。②生きている。③「世にあり」の形で、栄えている。④（言葉が）ある。言う。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 570,
+    "word": "ありありて",
+    "meaning": "①生きながらえて。②結局。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 571,
+    "word": "あらぬ",
+    "meaning": "①それとは違った～。他の～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 572,
+    "word": "ありし",
+    "meaning": "①もとの～。昔の～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 573,
+    "word": "ありつる",
+    "meaning": "①さきほどの～。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 574,
+    "word": "す",
+    "meaning": "①する。②あらゆる動詞の代用品として用いる。～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 575,
+    "word": "ものす",
+    "meaning": "①する。②あらゆる動詞の代用品として用いる。～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 576,
+    "word": "ものし",
+    "meaning": "①不快だ。気にくわない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 577,
+    "word": "なす【為す】",
+    "meaning": "①する。②任命する。③動詞の連用形に付いて、あえて～する。意識的に～する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 578,
+    "word": "ゆかし",
+    "meaning": "①見たい。聞きたい。知りたい。心ひかれる。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 579,
+    "word": "あそび【遊び】",
+    "meaning": "①詩歌管弦の遊び。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 580,
+    "word": "いろ【色】",
+    "meaning": "①色彩。②顔色。③趣。風情。④恋愛。⑤（心の）優しさ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 581,
+    "word": "おと【音】",
+    "meaning": "①音声。②「音に聞く」の形で、噂（に聞く）。③音沙汰。音信。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 582,
+    "word": "おとづる【訪る】",
+    "meaning": "①音や声をたてる。②手紙で様子を尋ねる。③訪問する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 583,
+    "word": "おとなふ",
+    "meaning": "①音や声をたてる。②手紙で様子を尋ねる。③訪問する。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 584,
+    "word": "かぎり【限り】",
+    "meaning": "①限界。限度。②極限。③命の終わり。臨終。④範囲（の内の全部）。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 585,
+    "word": "かた【方】",
+    "meaning": "①方向。方角。②方面。③方法。④場所。人。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 586,
+    "word": "かたち【形・容貌】",
+    "meaning": "①形。姿。②容貌。容姿。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 587,
+    "word": "きは【際】",
+    "meaning": "①境目。端。②とき。場合。最後。最期。③辺り。④家柄。身分。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 588,
+    "word": "しな【品】",
+    "meaning": "①種類。等級。②家柄。身分。③品位。人柄。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 589,
+    "word": "ほど【程】",
+    "meaning": "①程度。②時。頃。③広さ。距離。深さ。長さ。高さ。④身分。年齢。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 590,
+    "word": "こころ【心】",
+    "meaning": "①気持ち。意向。精神。②意味。③事情。④物事の中心。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 591,
+    "word": "こころあり【心有り】",
+    "meaning": "①思慮分別がある。②情趣を理解している。風流（心）がある。③思いやりがある。④考えがある。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 592,
+    "word": "こころなし【心無し】",
+    "meaning": "①思慮分別がない。②情趣を理解しない。風流（心）がない。③思いやりがない。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 593,
+    "word": "こころづくし【心尽くし】",
+    "meaning": "①物思いをすること。いろいろと気を揉むこと。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 594,
+    "word": "こころばへ【心延へ】",
+    "meaning": "①心の様子。気質。性格。②配慮。心遣い。③物事の性質。趣。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 595,
+    "word": "こころばせ【心馳せ】",
+    "meaning": "①気質。性格。②配慮。心遣い。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 596,
+    "word": "なさけ【情】",
+    "meaning": "①人情。思いやり。②情趣を理解する心。風流心。③趣。風情。④男女間の愛情。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 597,
+    "word": "ゆゑ【故】",
+    "meaning": "①原因。理由。事情。②趣。風情。③由緒。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 598,
+    "word": "よし【由】",
+    "meaning": "①由緒。いわれ。②理由。③手段。方法。④縁。⑤趣。⑥だいたいの内容。趣旨。～ということ。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 599,
+    "word": "よしあり【由あり】",
+    "meaning": "①由緒がある。②趣がある。"
+  },
+  {
+    "textbook": "GROUP30で覚える古文単語600",
+    "wordNumber": 600,
+    "word": "よしなし【由なし】",
+    "meaning": "①理由・根拠がない。②手段・方法がない。③関係がない。④くだらない。つまらない。よくない。"
+  }
+]
