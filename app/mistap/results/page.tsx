@@ -254,8 +254,8 @@ function ResultsContent() {
           setSaved(true);
 
           if (isNewTest && total > 0) {
-            // EXP加算ロジック: 1正解=1EXP, パーフェクトボーナス=10EXP
-            const earnedExp = correct + (correct === total ? 10 : 0);
+            // EXP加算ロジック: 1正解=5EXP, パーフェクトボーナス=50EXP
+            const earnedExp = (correct * 5) + (correct === total ? 50 : 0);
 
             const { data: pData } = await supabase.from('profiles').select('exp, level').eq('id', userId).single();
             if (pData) {
