@@ -43,6 +43,8 @@ interface UserProfile {
     dailyGoal?: number;
     startDate?: string;
     selectedTextbook?: string;
+    exp: number;
+    level: number;
 }
 
 interface TodayGoal {
@@ -208,7 +210,9 @@ export default function HomePage() {
         totalTestsTaken: authProfile?.test_count || 0,
         dailyGoal: authProfile?.daily_goal,
         startDate: authProfile?.start_date || undefined,
-        selectedTextbook: authProfile?.selected_textbook || undefined
+        selectedTextbook: authProfile?.selected_textbook || undefined,
+        exp: authProfile?.exp || 0,
+        level: authProfile?.level || 1
     });
 
     // 複数の目標を管理
@@ -354,7 +358,9 @@ export default function HomePage() {
                 totalTestsTaken: authProfile.test_count || prev.totalTestsTaken,
                 dailyGoal: authProfile.daily_goal || prev.dailyGoal,
                 startDate: authProfile.start_date || prev.startDate,
-                selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook
+                selectedTextbook: authProfile.selected_textbook || prev.selectedTextbook,
+                exp: authProfile.exp !== undefined ? authProfile.exp : prev.exp,
+                level: authProfile.level !== undefined ? authProfile.level : prev.level
             }));
             // ここではロード完了としない（追加データの取得を待つ）
         }
@@ -762,6 +768,30 @@ export default function HomePage() {
 
                             {/* Stats Cards */}
                             <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
+                                {/* Level and EXP Card */}
+                                <div className="col-span-2 lg:col-span-1 bg-white rounded-2xl p-5 shadow-sm border border-gray-100 transition-transform hover:scale-[1.02] relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-full -mr-10 -mt-10 opacity-70 pointer-events-none"></div>
+                                    <div className="flex items-center gap-2 mb-2 text-gray-500">
+                                        <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                        </svg>
+                                        <span className="text-sm font-medium">現在のレベル</span>
+                                    </div>
+                                    <div className="relative z-10 flex justify-between items-end mb-3">
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-xl font-bold text-gray-400">Lv.</span>
+                                            <span className="text-4xl font-extrabold text-gray-800">{profile.level}</span>
+                                        </div>
+                                        <div className="text-xs font-semibold text-gray-500 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full shadow-sm mb-1">
+                                            次まで <span className="text-gray-800 px-0.5">{1000 - (profile.exp % 1000)}</span> <span className="text-gray-400">EXP</span>
+                                        </div>
+                                    </div>
+                                    <div className="w-full bg-gray-100 rounded-full h-3 mb-2 overflow-hidden shadow-inner">
+                                        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full transition-all duration-1000 ease-out" style={{ width: `${(profile.exp % 1000) / 10}%` }}></div>
+                                    </div>
+                                    <p className="text-right text-xs text-gray-400 font-semibold h-[18px]">累計 {profile.exp} EXP</p>
+                                </div>
+
                                 {/* Consecutive Days */}
                                 <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-5 text-white shadow-lg shadow-red-200 relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>

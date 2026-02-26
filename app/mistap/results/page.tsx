@@ -226,6 +226,16 @@ function ResultsContent() {
           mode: mode, // テストモードを保存
         };
 
+        // 既存のテスト結果がないか確認（リロード対策でEXPの二重付与を防ぐ）
+        const { data: existingData } = await supabase
+          .from('results')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('test_key', testKey)
+          .maybeSingle();
+
+        const isNewTest = !existingData;
+
         // try upsert by unique index (user_id, test_key) to avoid duplicates
         const { error: insertError } = await supabase
           .from("results")
@@ -242,6 +252,23 @@ function ResultsContent() {
           }
         } else {
           setSaved(true);
+
+          if (isNewTest && total > 0) {
+            // EXP加算ロジック: 1正解=1EXP, パーフェクトボーナス=10EXP
+            const earnedExp = correct + (correct === total ? 10 : 0);
+
+            const { data: pData } = await supabase.from('profiles').select('exp, level').eq('id', userId).single();
+            if (pData) {
+              const newExp = (pData.exp || 0) + earnedExp;
+              const newLevel = Math.floor(newExp / 1000) + 1;
+
+              await supabase.from('profiles').update({ exp: newExp, level: newLevel }).eq('id', userId);
+              try {
+                const ev = new CustomEvent('profile-updated', { detail: { exp: newExp, level: newLevel } });
+                window.dispatchEvent(ev);
+              } catch { }
+            }
+          }
         }
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : String(e));

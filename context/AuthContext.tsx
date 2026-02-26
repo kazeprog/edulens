@@ -19,6 +19,8 @@ type Profile = {
     stripe_customer_id?: string | null;
     stripe_subscription_id?: string | null;
     total_writing_checks?: number; // Total number of writing corrections taken
+    exp?: number;
+    level?: number;
 };
 
 type AuthContextType = {
@@ -203,7 +205,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // プロフィール更新イベントの監視
         function onProfileUpdated(e: CustomEvent) {
             if (mounted) {
-                setProfile(prev => prev ? { ...prev, full_name: e.detail?.full_name ?? prev.full_name } : null);
+                setProfile(prev => prev ? {
+                    ...prev,
+                    full_name: e.detail?.full_name ?? prev.full_name,
+                    exp: e.detail?.exp !== undefined ? e.detail.exp : prev.exp,
+                    level: e.detail?.level !== undefined ? e.detail.level : prev.level
+                } : null);
             }
         }
         window.addEventListener('profile-updated', onProfileUpdated as EventListener);
