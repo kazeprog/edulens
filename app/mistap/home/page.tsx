@@ -896,41 +896,51 @@ export default function HomePage() {
                             <div className="lg:hidden grid grid-cols-1 gap-3 mb-8">
                                 <button
                                     onClick={() => router.push('/mistap/word-stock')}
-                                    className="md:hidden bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
+                                    className="md:hidden group relative bg-white hover:bg-orange-50/50 p-4 rounded-3xl flex items-center justify-between shadow-sm hover:shadow-md border border-gray-100 transition-all active:scale-[0.98] hover:-translate-y-0.5 overflow-hidden"
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-orange-100 p-2 rounded-xl text-orange-600">
+                                    {/* Decoration */}
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-100 to-rose-50 rounded-full -mr-10 -mt-10 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-2xl"></div>
+
+                                    <div className="flex items-center gap-4 relative z-10 w-full">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-rose-500 rounded-2xl text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
                                             <BookMarked className="w-6 h-6" />
                                         </div>
-                                        <div className="text-left">
-                                            <div className="font-bold text-lg flex items-center gap-2">
+                                        <div className="text-left flex-1">
+                                            <div className="font-extrabold text-lg text-gray-800 flex items-center gap-2 tracking-tight">
                                                 Word Stock
                                             </div>
-                                            <div className="text-xs text-gray-500">育てる単語帳</div>
+                                            <div className="text-xs font-bold text-orange-500">育てる単語帳</div>
+                                        </div>
+                                        <div className="bg-orange-50 p-2 rounded-full group-hover:bg-orange-100 transition-colors group-hover:translate-x-1 duration-300">
+                                            <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                            </svg>
                                         </div>
                                     </div>
-                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
                                 </button>
                                 <button
                                     onClick={() => router.push('/mistap/mistappers-mistake')}
-                                    className="md:hidden bg-white hover:bg-gray-50 text-gray-800 p-4 rounded-2xl flex items-center justify-between shadow-sm border border-gray-100 transition-all active:scale-[0.98]"
+                                    className="md:hidden group relative bg-white hover:bg-red-50/50 p-4 rounded-3xl flex items-center justify-between shadow-sm hover:shadow-md border border-gray-100 transition-all active:scale-[0.98] hover:-translate-y-0.5 overflow-hidden"
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-red-100 p-2 rounded-xl text-red-600">
+                                    {/* Decoration */}
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-pink-50 rounded-full -mr-10 -mt-10 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-2xl"></div>
+
+                                    <div className="flex items-center gap-4 relative z-10 w-full">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                                             <TrendingUp className="w-6 h-6" />
                                         </div>
-                                        <div className="text-left">
-                                            <div className="font-bold text-lg flex items-center gap-2">
+                                        <div className="text-left flex-1">
+                                            <div className="font-extrabold text-lg text-gray-800 flex items-center gap-2 tracking-tight">
                                                 Mistappers&apos; Mistake
                                             </div>
-                                            <div className="text-xs text-gray-500">みんながミスる単語ランキング</div>
+                                            <div className="text-xs font-bold text-red-500">みんながミスる単語ランキング</div>
+                                        </div>
+                                        <div className="bg-red-50 p-2 rounded-full group-hover:bg-red-100 transition-colors group-hover:translate-x-1 duration-300">
+                                            <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                            </svg>
                                         </div>
                                     </div>
-                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
                                 </button>
                                 <div className="grid grid-cols-2 gap-3">
                                     <button
@@ -978,15 +988,20 @@ export default function HomePage() {
                                 </button>
                                 <button
                                     onClick={() => router.push('/mistap/mistappers-mistake')}
-                                    className="w-full flex items-center justify-between gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 p-3 rounded-xl transition-colors"
+                                    className="w-full group relative flex items-center justify-between gap-3 bg-white hover:bg-red-50/30 border border-gray-200 p-3 rounded-2xl transition-all shadow-sm hover:shadow hover:-translate-y-0.5 overflow-hidden"
                                 >
-                                    <div className="flex items-center gap-2">
-                                        <TrendingUp className="w-5 h-5 text-red-500" />
-                                        <span className="font-medium">Mistappers&apos; Mistake</span>
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-50 to-pink-50 rounded-full -mr-8 -mt-8 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-xl"></div>
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-pink-500 text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform shrink-0">
+                                            <TrendingUp className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-extrabold text-gray-800 tracking-tight">Mistappers&apos; Mistake</span>
                                     </div>
-                                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    <div className="relative z-10 bg-red-50 p-1.5 rounded-full group-hover:bg-red-100 group-hover:translate-x-1 transition-all">
+                                        <svg className="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
                                 </button>
                             </div>
 
@@ -1000,44 +1015,64 @@ export default function HomePage() {
                                 <ContributionGrid />
                             </div>
 
-                            <div className="hidden md:block mb-8">
-                                <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-white/50">
-                                    <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
-                                            <BookMarked className="w-5 h-5" />
-                                        </span>
-                                        Word Stock
-                                    </h2>
-                                    <p className="text-gray-600 mb-4 text-sm">
-                                        日々の学習で気になった単語をストックして、あなただけの単語帳を作りましょう。
-                                    </p>
-                                    <button
-                                        onClick={() => router.push('/mistap/word-stock')}
-                                        className="w-full bg-white hover:bg-orange-50 text-orange-600 border border-orange-200 font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
-                                    >
-                                        単語帳を開く
-                                    </button>
+                            <div className="hidden md:block mb-8 relative group cursor-pointer" onClick={() => router.push('/mistap/word-stock')}>
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-400 to-rose-500 rounded-3xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+                                <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-gray-100 overflow-hidden transform group-hover:-translate-y-1 transition-all duration-300">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-orange-100/50 to-rose-50/50 rounded-full -mr-20 -mt-20 opacity-50 group-hover:scale-150 transition-transform duration-700 blur-3xl"></div>
+
+                                    <div className="relative z-10">
+                                        <h2 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                                            <span className="w-10 h-10 bg-gradient-to-br from-orange-400 to-rose-500 rounded-xl flex items-center justify-center text-white shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                                                <BookMarked className="w-5 h-5" />
+                                            </span>
+                                            Word Stock
+                                        </h2>
+                                        <p className="text-gray-600 mb-5 text-sm font-medium">
+                                            日々の学習で気になった単語をストックして、あなただけの単語帳を作りましょう。
+                                        </p>
+                                        <button
+                                            className="w-full relative overflow-hidden bg-white text-orange-600 font-bold py-3.5 px-4 rounded-xl border-2 border-orange-100 group-hover:border-orange-500 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                        >
+                                            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-orange-400 to-rose-500 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-300 ease-out"></div>
+                                            <span className="relative z-10 flex items-center gap-2">
+                                                単語帳を開く
+                                                <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Mistappers' Mistake Banner (Tablet/Desktop) */}
-                            <div className="hidden md:block mb-8">
-                                <div className="bg-red-50/80 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-red-100">
-                                    <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
-                                            <TrendingUp className="w-5 h-5" />
-                                        </span>
-                                        Mistappers&apos; Mistake
-                                    </h2>
-                                    <p className="text-gray-600 mb-4 text-sm">
-                                        みんなが間違いやすい単語をランキング形式で確認して、弱点を克服しましょう。
-                                    </p>
-                                    <button
-                                        onClick={() => router.push('/mistap/mistappers-mistake')}
-                                        className="w-full bg-white hover:bg-red-50 text-red-600 border border-red-200 font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
-                                    >
-                                        ランキングを見る
-                                    </button>
+                            <div className="hidden md:block mb-8 relative group cursor-pointer" onClick={() => router.push('/mistap/mistappers-mistake')}>
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-pink-500 rounded-3xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+                                <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-gray-100 overflow-hidden transform group-hover:-translate-y-1 transition-all duration-300">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-red-100/50 to-pink-50/50 rounded-full -mr-20 -mt-20 opacity-50 group-hover:scale-150 transition-transform duration-700 blur-3xl"></div>
+
+                                    <div className="relative z-10">
+                                        <h2 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                                            <span className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center text-white shadow-inner shadow-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                                                <TrendingUp className="w-5 h-5" />
+                                            </span>
+                                            Mistappers&apos; Mistake
+                                        </h2>
+                                        <p className="text-gray-600 mb-5 text-sm font-medium">
+                                            みんなが間違いやすい単語をランキング形式で確認して、弱点を克服しましょう。
+                                        </p>
+                                        <button
+                                            className="w-full relative overflow-hidden bg-white text-red-600 font-bold py-3.5 px-4 rounded-xl border-2 border-red-100 group-hover:border-red-500 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                        >
+                                            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-500 to-pink-500 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-300 ease-out"></div>
+                                            <span className="relative z-10 flex items-center gap-2">
+                                                ランキングを見る
+                                                <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 

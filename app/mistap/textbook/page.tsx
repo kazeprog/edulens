@@ -125,6 +125,12 @@ const kobunTextbooks: Textbook[] = [
         description: "「意味のつながり」で理解を深める。尚文出版の入試必携単語帳。",
         path: "/mistap/textbook/kobun-351",
         color: "blue"
+    },
+    {
+        name: "マドンナ古文単語230",
+        description: "イラストと分かりやすい解説で人気の古文単語帳。",
+        path: "/mistap/textbook/madonna-kobun-230",
+        color: "rose"
     }
 ];
 
