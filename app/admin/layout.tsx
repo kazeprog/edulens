@@ -84,6 +84,9 @@ export default function AdminLayout({
                     <Link href="/admin/affiliates" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         アフィリエイト管理
                     </Link>
+                    <Link href="/admin/analytics" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
+                        📊 データ分析
+                    </Link>
                     <Link href="/admin#referral-settings" prefetch={false} className="block px-4 py-2 rounded hover:bg-slate-700 transition">
                         招待キャンペーン管理
                     </Link>
