@@ -9,7 +9,7 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
 ## 1. Data Preparation
 1.  **Prepare JSON Data**:
     -   Ensure the data is in the correct JSON format array of objects.
-    -   Required fields: `textbook` (exact name), `word_number`, `word`, `meaning`.
+    -   Required fields: `textbook` (exact name), `grade` (default: `""`), `section` (default: `0`), `unit` (default: `0`), `word_number` (must be snake_case, NOT `wordNumber`), `word`, `meaning`.
     -   Place the file in `lib/data/json/` (e.g., `lib/data/json/my-new-book.json`).
 2.  **Format Check**:
     -   Ensure meanings do not contain problematic characters (e.g., replace semicolons `;` or `；` with spaces if required).
@@ -163,3 +163,4 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
 -   **Syntax Errors during Edit**: When adding to `DATA_MAP` or `seniorTexts`, be careful with commas and brackets. Use `view_file` to understand the context before `replace_file_content`.
 -   **Misplaced Imports**: Do not add imports inside component functions. Always add them at the top of the file.
 -   **Supabase Dependency**: Do not assume data is in Supabase. Always implement the local JSON path for new content.
+-   **Incorrect JSON Property Names**: When writing Python scripts to parse textbooks, ensure the generated JSON strictly uses `word_number` (not `wordNumber`) and includes all properties defined in the `TextbookWord` interface (`grade`, `section`, `unit`, `word_number`, `word`, `meaning`). The application logic specifically looks for `word_number` to filter by range.

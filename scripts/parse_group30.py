@@ -15,7 +15,10 @@ def parse_group30_data(raw_text):
             
             result.append({
                 "textbook": "GROUP30で覚える古文単語600",
-                "wordNumber": i,
+                "grade": "",
+                "section": 0,
+                "unit": 0,
+                "word_number": i,
                 "word": word_part,
                 "meaning": meaning
             })
