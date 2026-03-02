@@ -13,6 +13,10 @@ def parse_group30_data(raw_text):
             word_part = parts[0].strip()
             meaning = parts[1].strip()
             
+            # Remove trailing honorific markers like " KST?", "KST", "S", etc.
+            import re
+            word_part = re.sub(r'\s*[KST\?]+$', '', word_part).strip()
+            
             result.append({
                 "textbook": "GROUP30で覚える古文単語600",
                 "grade": "",
