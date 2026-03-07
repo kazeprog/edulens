@@ -4,6 +4,7 @@ import target1900Data from "@/lib/data/json/ターゲット1900.json";
 import target1200Data from "@/lib/data/json/ターゲット1200.json";
 import target1400Data from "@/lib/data/json/ターゲット1400.json";
 import target1800Data from "@/lib/data/json/ターゲット1800.json";
+import target1800v5Data from "@/lib/data/json/ターゲット1800(5訂版).json";
 import systemWordsData from "@/lib/data/json/システム英単語.json";
 import leapData from "@/lib/data/json/leap.json";
 import toeicGoldData from "@/lib/data/json/toeic金のフレーズ.json";
@@ -44,6 +45,8 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "ターゲット1900": target1900Data as TextbookWord[],
     "target-1800": target1800Data as TextbookWord[],
     "ターゲット1800": target1800Data as TextbookWord[],
+    "target-1800-v5": target1800v5Data as TextbookWord[],
+    "ターゲット1800(5訂版)": target1800v5Data as TextbookWord[],
     "target-1200": target1200Data as TextbookWord[],
     "ターゲット1200": target1200Data as TextbookWord[],
     "target-1400": target1400Data as TextbookWord[],
@@ -105,6 +108,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("new-horizon")) return DATA_MAP["new-horizon"];
     if (normalized.includes("target-1900") || textbookName.includes("ターゲット1900")) return DATA_MAP["target-1900"];
     if (normalized.includes("target-1400") || textbookName.includes("ターゲット1400")) return DATA_MAP["target-1400"];
+    if (normalized.includes("target-1800-v5") || textbookName.includes("ターゲット1800(5訂版)")) return DATA_MAP["target-1800-v5"];
     if (normalized.includes("target-1800") || textbookName.includes("ターゲット1800")) return DATA_MAP["target-1800"];
     if (normalized.includes("target-1200") || textbookName.includes("ターゲット1200")) return DATA_MAP["target-1200"];
     if (normalized.includes("stage5") && (normalized.includes("system") || textbookName.includes("システム英単語"))) return DATA_MAP["system-words-stage5"];

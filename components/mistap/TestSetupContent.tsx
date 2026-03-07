@@ -220,6 +220,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   // 中学向け教材リスト（固定）
   const juniorTexts = useMemo(() => [
     "ターゲット1800",
+    "ターゲット1800(5訂版)",
     "過去形",
     "過去形、過去分詞形",
     "絶対覚える英単語150",

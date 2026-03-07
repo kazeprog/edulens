@@ -156,6 +156,13 @@ const juniorTextbooks: Textbook[] = [
         badge: "教科書"
     },
     {
+        name: "ターゲット1800(5訂版)",
+        description: "ターゲット1800の最新5訂版対応データ。中学から高校入試までの1800語を完全網羅。",
+        path: "/mistap/textbook/target-1800-v5",
+        color: "blue",
+        badge: "NEW"
+    },
+    {
         name: "ターゲット1800",
         description: "中学・高校入試合格のための1800語を完全収録。基礎から応用まで。",
         path: "/mistap/textbook/target-1800",
