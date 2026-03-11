@@ -198,11 +198,21 @@ export default function TextbookLPTemplate({
 
     const theme = getThemeClasses();
 
+    const educationalLevel =
+        audience === 'senior' ? "HighSchool" :
+            audience === 'general' ? "AdultEducation" :
+                "MiddleSchool";
+
+    const badgeLabel =
+        audience === 'senior' ? '大学受験・共通テスト対策に' :
+            audience === 'general' ? '資格試験・英語学習に' :
+                '中学生の定期テスト対策に';
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "EducationalApplication",
         "name": `Mistap ${textbookNameJa} 英単語テスト`,
-        "educationalLevel": audience === 'senior' ? "HighSchool" : "MiddleSchool",
+        "educationalLevel": educationalLevel,
         "about": `${textbookNameJa} 英単語 テスト`,
         "url": canonicalUrl,
         "applicationCategory": "EducationalApplication",
@@ -213,8 +223,6 @@ export default function TextbookLPTemplate({
             "priceCurrency": "JPY"
         }
     };
-
-    const badgeLabel = audience === 'senior' ? '大学受験・共通テスト対策に' : '中学生の定期テスト対策に';
 
     const isSameName = textbookName === textbookNameJa;
     const defaultSubject = isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`;
