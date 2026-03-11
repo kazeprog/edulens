@@ -27,13 +27,13 @@ export const metadata: Metadata = {
         url: 'https://edulens.jp/mistap/textbook/target-1400',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1400 英単語テスト｜共通テスト対策の単語を無料で小テスト',
         description: 'ターゲット1400の単語をSectionごとの小テストやアプリ感覚で復習できる無料英単語テストです。',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/target-1400'

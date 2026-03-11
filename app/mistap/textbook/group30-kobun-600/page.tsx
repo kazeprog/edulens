@@ -3,32 +3,35 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'GROUP30で覚える古文単語600 単語テスト｜大学受験 無料',
-    description: '「GROUP30で覚える古文単語600」対応の古文単語テスト。語源や関連語とセットで効率よく覚える内容を無料でテストできます。共通テスト・大学受験の古文対策に。',
+    title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+    description: 'GROUP30で覚える古文単語600対応の無料古文単語テスト。重要古語を小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         'GROUP30で覚える古文単語600',
         'GROUP30',
         '古文単語 600',
-        '語学春秋社',
+        'GROUP30で覚える古文単語600 単語テスト',
+        'GROUP30で覚える古文単語600 アプリ',
         '古文単語 テスト',
         '古文単語 アプリ',
         '大学受験 古文',
         '共通テスト 古文',
         'GROUP30 無料',
         '古文単語 クイズ',
-        '古文単語 テスト 作成',
+        '語学春秋社 古文単語600',
     ],
     openGraph: {
-        title: 'GROUP30で覚える古文単語600 対応テスト｜大学受験・無料',
-        description: '「GROUP30で覚える古文単語600」対応の古文単語テスト。頻出古文単語を無料で練習できます。',
+        title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+        description: 'GROUP30で覚える古文単語600の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/group30-kobun-600',
         type: 'website',
         siteName: 'Mistap 古文単語テスト',
+        images: ['/mistap-icon-v2.png'],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'GROUP30で覚える古文単語600 対応テスト｜大学受験・無料',
-        description: '「GROUP30で覚える古文単語600」対応の古文単語テスト。頻出古文単語を無料で練習できます。',
+        title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+        description: 'GROUP30で覚える古文単語600の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
+        images: ['/mistap-icon-v2.png'],
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/group30-kobun-600'
@@ -55,24 +58,24 @@ export default function Group30Kobun600Page() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-emerald-600 mb-4 tracking-normal">GROUP30で覚える古文単語600 完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-emerald-600 mb-4 tracking-normal">GROUP30で覚える古文単語600対応</span>
                         古文単語を<br />
                         <span className="text-emerald-500">ゲーム感覚で完全攻略</span>
                     </h1>
                 ),
-                heroDescription: "大学受験の古文対策「GROUP30で覚える古文単語600」の無料テスト・クイズアプリ（サイト）。単語番号を選ぶだけで小テストを作成でき、共通テストや二次試験の古文単語対策に最適です。登録不要で今すぐテスト作成・実施が可能！",
-                testSectionTitle: "GROUP30で覚える古文単語600のテスト作成",
+                heroDescription: "大学受験の古文対策に使える「GROUP30で覚える古文単語600」対応の無料古文単語テスト・学習アプリ感覚ページです。単語番号ごとに重要語を確認でき、登録不要ですぐ復習を始められます。",
+                testSectionTitle: "GROUP30で覚える古文単語600の古文単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。範囲を選ぶだけで、誰でも無料で古文単語の小テストが作れます。<br />
-                        選択肢から「単語帳テスト」を選んで、<strong>GROUP30で覚える古文単語600</strong>を選択してください。
+                        <strong>GROUP30で覚える古文単語600</strong>を選択して古文単語テストを始めてください。
                     </p>
                 ),
                 featuresTitle: "古文単語の暗記効率を最大化",
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        古文が苦手な人でも、語源や関連語で覚える600の単語を確実に定着させる「古文単語テスト作成サイト」です。
+                        古文が苦手な人でも、語源や関連語で覚える600語を小テストとアプリ感覚の反復で定着させる「古文単語テスト作成サイト」です。
                     </p>
                 ),
                 feature1: {
@@ -85,7 +88,7 @@ export default function Group30Kobun600Page() {
                 },
                 feature3: {
                     title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、ゲーム感覚で古文単語をマスターできます。"
+                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚で古文単語をマスターできます。"
                 }
             }}
         />

@@ -26,13 +26,13 @@ export const metadata: Metadata = {
         url: 'https://edulens.jp/mistap/textbook/target-1800-v5',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1800(5訂版) 英単語テスト｜高校入試の英単語を無料で小テスト',
         description: 'ターゲット1800(5訂版)の単語を無料の小テストやアプリ感覚で復習できる英単語テストです。',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/target-1800-v5'

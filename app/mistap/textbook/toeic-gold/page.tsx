@@ -25,13 +25,13 @@ export const metadata: Metadata = {
         url: 'https://edulens.jp/mistap/textbook/toeic-gold',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     twitter: {
         card: 'summary_large_image',
         title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
         description: '金フレの単語を無料の小テストやアプリ感覚で復習できるTOEIC英単語テストです。',
-        images: ['/MistapLP.png'],
+        images: ['/mistap-icon-v2.png'],
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/toeic-gold'
