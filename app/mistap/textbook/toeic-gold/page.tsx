@@ -3,44 +3,32 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'TOEIC L&R 金のフレーズ（金フレ）英単語テスト｜TOEIC対策 無料',
-    description: 'TOEIC対策のバイブル「出る単特急 金のフレーズ（金フレ）」対応の英単語テスト。スコアレベル別の頻出単語を無料でテストできます。',
+    title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+    description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）対応の無料英単語テスト。TOEIC頻出単語を小テスト形式で効率よく復習できます。',
     keywords: [
-        '金のフレーズ',
-        '金フレ',
-        'TOEIC 単語',
-        '金のフレーズ テスト',
-        '金フレ アプリ',
-        'TOEIC 頻出単語',
-        'TEX加藤',
-        '朝日新聞出版',
-        'TOEIC 無料 アプリ',
-        '金フレ 一覧',
-        '金フレ 無料',
-        'ビジネス英語',
-        '金のフレーズ アプリ',
         '金のフレーズ 単語テスト',
-        '金のフレーズ 単語テスト アプリ',
-        '金のフレーズ テスト アプリ',
+        '金フレ 単語テスト',
         '金のフレーズ 小テスト',
-        '金のフレーズ 小テスト アプリ',
-        '金のフレーズ 小テスト メーカー',
-        '金のフレーズ 小テスト ジェネレーター',
-        '英単語 テスト 作成',
-        '英単語 テスト 無料',
-        '英単語 クイズ サイト'
+        '金フレ 小テスト',
+        'TOEIC 金のフレーズ',
+        'TOEIC 単語 テスト',
+        'TOEIC 頻出単語',
+        '出る単特急 金のフレーズ',
+        'TEX加藤 金のフレーズ'
     ],
     openGraph: {
-        title: 'TOEIC L&R 金のフレーズ（金フレ）英単語テスト｜TOEIC対策',
-        description: 'TOEIC対策の決定版「金のフレーズ（金フレ）」の単語テスト。レベル別に無料で練習できます。',
+        title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+        description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）の単語を、無料の小テスト形式で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/toeic-gold',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
+        images: ['/MistapLP.png'],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'TOEIC L&R 金のフレーズ（金フレ）英単語テスト｜TOEIC対策',
-        description: 'TOEIC対策の決定版「金のフレーズ（金フレ）」の単語テスト。レベル別に無料で練習できます。',
+        title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+        description: '金フレの単語を無料の小テスト形式で復習できるTOEIC英単語テストです。',
+        images: ['/MistapLP.png'],
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/toeic-gold'
@@ -66,29 +54,29 @@ export default function ToeicGoldPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-orange-600 mb-4 tracking-normal">金のフレーズ（金フレ）テスト完全対応</span>
-                        TOEIC頻出単語を<br />
-                        <span className="text-orange-500">ゲーム感覚で完全攻略</span>
+                        <span className="block text-xl md:text-2xl font-bold text-orange-600 mb-4 tracking-normal">TOEIC L&R 金のフレーズ（金フレ）対応</span>
+                        金フレの英単語テストで<br />
+                        <span className="text-orange-500">TOEIC頻出語を効率よく定着</span>
                     </h1>
                 ),
-                heroDescription: "TOEIC対策のバイブル「出る単特急 金のフレーズ（金フレ）」の無料テスト・クイズアプリ（サイト）。目標スコアレベルごとに小テストを作成でき、効率的に600点〜990点を目指せます。登録不要で今すぐテスト作成・実施が可能！",
-                testSectionTitle: "金フレのテストを今すぐ作成",
+                heroDescription: "TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）に対応した無料の英単語テストページです。TOEIC頻出単語を小テスト形式で、登録不要ですぐ復習できます。",
+                testSectionTitle: "金フレの英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
-                        面倒な会員登録は不要。レベルを選ぶだけで、誰でも無料で金フレの小テストが作れます。<br />
-                        <strong>TOEIC金のフレーズ</strong>を選択してテストを作成してください。
+                        面倒な会員登録は不要。誰でも無料で金フレの小テストを作れます。<br />
+                        <strong>TOEIC金のフレーズ</strong>を選択して、英単語テストを始めてください。
                     </p>
                 ),
                 featuresTitle: "金フレの暗記効率を最大化",
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        TOEICスコアアップに直結する語彙力を、最短距離で身につけるための「英単語テスト作成サイト」です。
+                        TOEICスコアアップに直結する語彙力を、小テスト形式で効率よく身につけるための「英単語テスト作成サイト」です。
                     </p>
                 ),
                 feature1: {
-                    title: "レベル別小テスト",
-                    description: "600点・730点・860点・990点のレベルごとにテストが可能。自分の目標に合わせて効率よく学習できます。"
+                    title: "金フレ対応の小テスト",
+                    description: "金のフレーズに対応した英単語テストをすぐに作成可能。TOEIC頻出単語の定着確認に使えます。"
                 },
                 feature2: {
                     title: "苦手単語を自動でリスト化",

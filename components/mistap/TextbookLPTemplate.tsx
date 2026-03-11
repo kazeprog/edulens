@@ -232,6 +232,16 @@ export default function TextbookLPTemplate({
         ? `${subject}は、${publisherName}の英単語帳です。`
         : `${subject}は、${publisherName}の中学英語教科書です。`);
 
+    const faqQuestion =
+        audience === 'general'
+            ? `${textbookNameJa}に対応していますか？`
+            : `${textbookNameJa}の全学年に対応していますか？`;
+
+    const faqAnswer =
+        audience === 'general'
+            ? `はい、${textbookNameJa}に対応しています。収録英単語の復習や定着確認に使える小テストを無料で作成できます。`
+            : `はい、中学1年生から3年生までのすべての${textbookNameJa}に対応しています。${unitLabel}ごとに細かく分かれているので、テスト範囲だけをピンポイントで学習できます。`;
+
     // ローカルJSONからデータを取得
     const localWords = presetTextbook ? getJsonTextbookData(presetTextbook) : null;
     const initialData = localWords ? localWords : undefined;
@@ -432,8 +442,8 @@ export default function TextbookLPTemplate({
 
                         <div className="space-y-6">
                             <FAQItem
-                                question={`${textbookNameJa}の全学年に対応していますか？`}
-                                answer={`はい、中学1年生から3年生までのすべての${textbookNameJa}に対応しています。${unitLabel}ごとに細かく分かれているので、テスト範囲だけをピンポイントで学習できます。`}
+                                question={faqQuestion}
+                                answer={faqAnswer}
                                 badgeColor={theme.faqQ}
                             />
                             <FAQItem
