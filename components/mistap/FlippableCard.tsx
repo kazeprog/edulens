@@ -191,7 +191,7 @@ export default function FlippableCard({
             </button>
           </div>
           <div className="text-xs text-gray-400 text-right mt-auto">
-            スワイプで戻る
+            覚えていなかったらタップ！
           </div>
         </div>
       </div>

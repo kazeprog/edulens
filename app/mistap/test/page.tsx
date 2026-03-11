@@ -129,7 +129,7 @@ function TestContent() {
               <div style="font-size: 0.875rem; line-height: 1.25rem; word-wrap: break-word; overflow-wrap: break-word;">${word.meaning}</div>
             </div>
           </div>
-          <div style="font-size: 0.75rem; text-align: right; margin-top: auto;">スワイプで戻る</div>
+          <div style="font-size: 0.75rem; text-align: right; margin-top: auto;">覚えていなかったらタップ！</div>
         `;
         tempContainer.appendChild(backCard);
         const backHeight = backCard.getBoundingClientRect().height;
