@@ -279,7 +279,7 @@ function ResultsContent() {
 
     // save once on mount
     saveResult();
-  }, [resultData]);
+  }, [resultData, searchParams]);
 
   if (!resultData) {
     return (
@@ -324,6 +324,11 @@ function ResultsContent() {
       : '全範囲');
   // (correct already computed above in saveResult scope) — compute for display
   const correct = total - tappedWords.length;
+  const scorePercent = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const currentResultsPath = typeof window !== 'undefined'
+    ? `${window.location.pathname}${window.location.search}`
+    : '/mistap/results';
+  const signupHref = `/login?mode=signup&redirect=${encodeURIComponent(currentResultsPath)}`;
 
   // X (Twitter) 共有用ハンドラ
   const shareToX = () => {
@@ -382,7 +387,7 @@ function ResultsContent() {
           {/* 正答率の大きな表示 */}
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full shadow-lg mb-4">
-              <span className="text-3xl font-bold text-white">{Math.round((correct / total) * 100)}%</span>
+              <span className="text-3xl font-bold text-white">{scorePercent}%</span>
             </div>
             <p className="text-lg font-semibold text-gray-700">正答率</p>
           </div>
@@ -402,6 +407,50 @@ function ResultsContent() {
               <div className="text-sm text-gray-600">誤答数</div>
             </div>
           </div>
+
+          {!isLoggedIn && (
+            <div className="mb-8 rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-rose-50 p-5 md:p-6 shadow-lg">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                <div className="max-w-xl">
+                  <div className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-amber-700">
+                    今回の結果を次回から自動で積み上げられます
+                  </div>
+                  <h2 className="mt-3 text-2xl font-bold text-slate-800">
+                    この結果、登録すると次回から残せます
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-600 md:text-base">
+                    今回の正答率は <span className="font-semibold text-slate-800">{scorePercent}%</span>。
+                    無料登録すると、テスト履歴の保存、苦手単語の自動蓄積、成績の見える化が使えるようになります。
+                  </p>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-2xl bg-white/90 p-3 shadow-sm ring-1 ring-amber-100">
+                      <div className="text-sm font-bold text-slate-800">学習履歴</div>
+                      <div className="mt-1 text-xs leading-5 text-slate-500">今回の結果から、あとで振り返れます。</div>
+                    </div>
+                    <div className="rounded-2xl bg-white/90 p-3 shadow-sm ring-1 ring-amber-100">
+                      <div className="text-sm font-bold text-slate-800">苦手単語</div>
+                      <div className="mt-1 text-xs leading-5 text-slate-500">間違えた単語を自動で蓄積して復習できます。</div>
+                    </div>
+                    <div className="rounded-2xl bg-white/90 p-3 shadow-sm ring-1 ring-amber-100">
+                      <div className="text-sm font-bold text-slate-800">成長の見える化</div>
+                      <div className="mt-1 text-xs leading-5 text-slate-500">正答率や学習量の推移を確認できます。</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="md:min-w-[240px]">
+                  <button
+                    onClick={() => router.push(signupHref)}
+                    className="w-full rounded-2xl bg-red-600 px-5 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-red-700"
+                  >
+                    無料登録して今回の結果を保存する
+                  </button>
+                  <p className="mt-3 text-center text-xs text-slate-500">
+                    30秒で開始。登録後にこの画面へ戻り、今回の結果から保存されます。
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
 
           {/* 広告エリア（間違えた単語の上） */}
@@ -484,7 +533,7 @@ function ResultsContent() {
                                   await navigator.clipboard.writeText(demoUrl);
                                   copied = true;
                                 }
-                              } catch (err) {
+                              } catch {
                                 copied = false;
                               }
                               if (!copied && typeof document !== 'undefined') {
@@ -494,7 +543,7 @@ function ResultsContent() {
                                     const ok = document.execCommand('copy');
                                     copied = !!ok;
                                   }
-                                } catch (err) {
+                                } catch {
                                   copied = false;
                                 }
                               }
@@ -539,10 +588,10 @@ function ResultsContent() {
             <div className="block md:hidden space-y-3">
               {!isLoggedIn && (
                 <button
-                  onClick={() => router.push('/login?mode=signup&redirect=/mistap/home')}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl text-lg font-semibold"
+                  onClick={() => router.push(signupHref)}
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-4 px-4 rounded-xl text-lg font-bold shadow-lg"
                 >
-                  アカウント登録
+                  無料登録して今回の結果を保存する
                 </button>
               )}
               <button
@@ -584,10 +633,10 @@ function ResultsContent() {
             <div className="hidden md:flex md:justify-center md:space-x-4">
               {!isLoggedIn && (
                 <button
-                  onClick={() => router.push('/login?mode=signup&redirect=/mistap/home')}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl"
+                  onClick={() => router.push(signupHref)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg"
                 >
-                  アカウント登録
+                  無料登録して今回の結果を保存する
                 </button>
               )}
               <button
