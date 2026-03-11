@@ -233,12 +233,12 @@ export default function TextbookLPTemplate({
         : `${subject}は、${publisherName}の中学英語教科書です。`);
 
     const faqQuestion =
-        audience === 'general'
+        bookType === 'wordbook' || audience === 'general'
             ? `${textbookNameJa}に対応していますか？`
             : `${textbookNameJa}の全学年に対応していますか？`;
 
     const faqAnswer =
-        audience === 'general'
+        bookType === 'wordbook' || audience === 'general'
             ? `はい、${textbookNameJa}に対応しています。収録英単語の復習や定着確認に使える小テストを無料で作成できます。`
             : `はい、中学1年生から3年生までのすべての${textbookNameJa}に対応しています。${unitLabel}ごとに細かく分かれているので、テスト範囲だけをピンポイントで学習できます。`;
 

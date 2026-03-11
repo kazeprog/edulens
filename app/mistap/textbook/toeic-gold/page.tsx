@@ -10,6 +10,9 @@ export const metadata: Metadata = {
         '金フレ 単語テスト',
         '金のフレーズ 小テスト',
         '金フレ 小テスト',
+        '金のフレーズ アプリ',
+        '金フレ アプリ',
+        'TOEIC 単語 アプリ',
         'TOEIC 金のフレーズ',
         'TOEIC 単語 テスト',
         'TOEIC 頻出単語',
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
-        description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）の単語を、無料の小テスト形式で復習できます。',
+        description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）の単語を、無料の小テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/toeic-gold',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
-        description: '金フレの単語を無料の小テスト形式で復習できるTOEIC英単語テストです。',
+        description: '金フレの単語を無料の小テストやアプリ感覚で復習できるTOEIC英単語テストです。',
         images: ['/MistapLP.png'],
     },
     alternates: {
@@ -59,7 +62,7 @@ export default function ToeicGoldPage() {
                         <span className="text-orange-500">TOEIC頻出語を効率よく定着</span>
                     </h1>
                 ),
-                heroDescription: "TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）に対応した無料の英単語テストページです。TOEIC頻出単語を小テスト形式で、登録不要ですぐ復習できます。",
+                heroDescription: "TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）に対応した無料の英単語テスト・学習アプリ感覚ページです。TOEIC頻出単語を小テスト形式で、登録不要ですぐ復習できます。",
                 testSectionTitle: "金フレの英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -71,7 +74,7 @@ export default function ToeicGoldPage() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        TOEICスコアアップに直結する語彙力を、小テスト形式で効率よく身につけるための「英単語テスト作成サイト」です。
+                        TOEICスコアアップに直結する語彙力を、小テストとアプリ感覚の学習体験で効率よく身につけるための「英単語テスト作成サイト」です。
                     </p>
                 ),
                 feature1: {
@@ -84,7 +87,7 @@ export default function ToeicGoldPage() {
                 },
                 feature3: {
                     title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通勤・通学中の電車やスキマ時間に、ゲーム感覚で金フレをマスターできます。"
+                    description: "スマホ・タブレット完全対応。通勤・通学中の電車やスキマ時間に、アプリ感覚で金フレをマスターできます。"
                 }
             }}
         />
