@@ -125,7 +125,7 @@ export default function WordStockPage() {
                             あなただけの単語帳を作って効率的に学習しましょう！
                         </p>
                         <button
-                            onClick={() => router.push('/upgrade')}
+                            onClick={() => router.push('/upgrademistap')}
                             className="w-full bg-gradient-to-r from-red-600 to-red-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
                         >
                             Proプランにアップグレード

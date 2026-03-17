@@ -1201,7 +1201,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                   Word Stock機能を利用するにはProプランへのアップグレードが必要です。
                 </p>
                 <button
-                  onClick={() => router.push('/upgrade')}
+                  onClick={() => router.push('/upgrademistap')}
                   className="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors"
                 >
                   アップグレードする

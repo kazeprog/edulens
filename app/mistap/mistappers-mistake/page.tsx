@@ -140,7 +140,7 @@ export default function MistappersMistakePage() {
                     Proプランに加入して、みんながミスる単語をチェックしましょう！
                 </p>
                 <Link
-                    href="/upgrade"
+                    href="/upgrademistap"
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-red-200 hover:shadow-xl hover:scale-[1.02]"
                 >
                     <Crown className="w-5 h-5" />
@@ -286,7 +286,7 @@ export default function MistappersMistakePage() {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => router.push('/upgrade')}
+                                    onClick={() => router.push('/upgrademistap')}
                                     className="flex-1 flex items-center justify-center gap-2 bg-gray-300 text-gray-500 font-bold py-2.5 px-5 rounded-xl cursor-pointer hover:bg-gray-400 hover:text-gray-600 transition-all"
                                 >
                                     <Lock className="w-4 h-4" />

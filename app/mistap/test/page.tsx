@@ -220,7 +220,7 @@ function TestContent() {
       const fetchWordStock = async () => {
         if (!profile?.is_pro) {
           alert("この機能を使用するにはProプランへのアップグレードが必要です。");
-          router.push('/upgrade');
+          router.push('/upgrademistap');
           return;
         }
 

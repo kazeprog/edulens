@@ -741,7 +741,7 @@ export default function HomePage() {
                             {/* Pro plan promotion button */}
                             {!authProfile?.is_pro && !authLoading && (
                                 <Link
-                                    href="/upgrade"
+                                    href="/upgrademistap"
                                     prefetch={false}
                                     className="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white p-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-between group relative overflow-hidden"
                                 >

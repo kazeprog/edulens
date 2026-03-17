@@ -450,7 +450,7 @@ export default function ListeningPage() {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                 <Link
-                                    href="/upgrade"
+                                    href="/upgrademistap"
                                     className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-sky-200"
                                 >
                                     <Headphones className="w-5 h-5" />

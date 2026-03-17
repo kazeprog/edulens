@@ -142,7 +142,7 @@ export default function Header() {
 
                 {!profile?.is_pro && (
                   <Link
-                    href="/upgrade"
+                    href="/upgrademistap"
                     prefetch={false}
                     className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
                     onClick={() => setIsMenuOpen(false)}
