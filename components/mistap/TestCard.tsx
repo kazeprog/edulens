@@ -5,6 +5,7 @@ interface Word {
 }
 
 import { Volume2 } from "lucide-react";
+import { detectSpeechLanguage, pickSpeechVoice, sanitizeSpeechText } from '@/lib/mistap/speech';
 
 interface TestCardProps {
     word: Word;
@@ -19,15 +20,16 @@ export default function TestCard({ word, isTapped, showAnswers, onTap, audioText
         e.stopPropagation();
         if (typeof window !== 'undefined' && window.speechSynthesis) {
             window.speechSynthesis.cancel();
-            const textToSpeak = audioText || word.word;
+            const textToSpeak = sanitizeSpeechText(audioText || word.word);
+            if (!textToSpeak) return;
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'en-US';
+            utterance.lang = detectSpeechLanguage(textToSpeak);
 
             // 英語の音声を明示的に取得して設定（ローマ字読み回避のため）
             const voices = window.speechSynthesis.getVoices();
-            const englishVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
-            if (englishVoice) {
-                utterance.voice = englishVoice;
+            const voice = pickSpeechVoice(voices, textToSpeak);
+            if (voice) {
+                utterance.voice = voice;
             }
 
             window.speechSynthesis.speak(utterance);

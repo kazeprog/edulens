@@ -10,13 +10,11 @@ import ManageSubscriptionButton from '@/components/ManageSubscriptionButton';
 export default function Header() {
   const router = useRouter();
   const { user, profile, loading, signOut } = useAuth();
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 認証状態から派生
   const isLoggedIn = !loading && !!user;
   const name = profile?.full_name ?? user?.email?.split('@')[0] ?? null;
 
-  // メニューの外側クリックで閉じる
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as HTMLElement;
@@ -39,19 +37,6 @@ export default function Header() {
     router.push('/mistap');
   }
 
-  const handleLoginClick = () => {
-    setIsMenuOpen(false);
-    if (isLoggedIn) {
-      // 既にログイン済みの場合はホームへ
-      router.push('/mistap/home');
-    } else {
-      // EduLensの統一ログイン画面へリダイレクト（ログイン後にMistapホームへ戻る）
-      router.push('/login?redirect=/mistap/home');
-    }
-  };
-
-  // Logo now links to the home page via Next.js Link below.
-
   return (
     <header className="w-full py-2 px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-sm z-50">
       <Link href="/mistap" prefetch={false} className="flex items-center group relative hover:opacity-80 transition-opacity" aria-label="Mistap Home">
@@ -67,7 +52,6 @@ export default function Header() {
         />
       </Link>
 
-      {/* ログイン済み: ハンバーガーメニュー / 未ログイン: ログイン・新規登録ボタン */}
       {isLoggedIn ? (
         <div className="relative">
           <button
@@ -80,11 +64,9 @@ export default function Header() {
             <span className={`block w-6 h-0.5 bg-slate-600 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
           </button>
 
-          {/* ドロップダウンメニュー（ハンバーガーメニューの下に表示） */}
           {isMenuOpen && (
             <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 z-50 overflow-hidden py-1">
               <div className="py-1">
-                {/* EduLens トップへ */}
                 <Link
                   href="/"
                   prefetch={false}
@@ -94,7 +76,7 @@ export default function Header() {
                   EduLens トップへ
                 </Link>
                 <div className="border-t border-slate-100 my-1"></div>
-                {/* ホーム */}
+
                 <Link
                   href="/mistap/home"
                   prefetch={false}
@@ -108,14 +90,13 @@ export default function Header() {
                 >
                   ホーム
                 </Link>
-                {/* Show profile link even when name is not set so users can edit their info */}
                 <Link
                   href="/mistap/profile"
                   prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {name ? `こんにちは ${name}さん` : 'プロフィールを編集'}
+                  {name ? `${name} さんのプロフィール` : 'プロフィールを設定'}
                 </Link>
                 <Link
                   href="/mistap/test-setup"
@@ -131,7 +112,7 @@ export default function Header() {
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  これまでの成績
+                  これまでの履歴
                 </Link>
                 <Link
                   href="/mistap/community"
@@ -140,6 +121,14 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Mistapコミュニティ
+                </Link>
+                <Link
+                  href="/mistap/listening"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-sky-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  聞き流し英単語
                 </Link>
                 <Link
                   href="/mistap/contact"
@@ -151,7 +140,6 @@ export default function Header() {
                 </Link>
                 <div className="border-t border-slate-100 my-1"></div>
 
-                {/* Proプランへのリンク (Proユーザー以外に表示) */}
                 {!profile?.is_pro && (
                   <Link
                     href="/upgrade"
@@ -163,7 +151,6 @@ export default function Header() {
                   </Link>
                 )}
 
-                {/* Proユーザーのみプラン管理ボタンを表示 */}
                 {profile?.is_pro && profile.stripe_customer_id && (
                   <ManageSubscriptionButton customerId={profile.stripe_customer_id} />
                 )}
@@ -182,10 +169,8 @@ export default function Header() {
           )}
         </div>
       ) : loading ? (
-        /* ローディング中 */
         <div className="w-20 h-8 bg-slate-100 rounded-lg animate-pulse" />
       ) : (
-        /* 未ログイン: ログイン・新規登録ボタン */
         <div className="flex items-center gap-3">
           <Link
             href="/login?redirect=/mistap/home"
@@ -209,7 +194,6 @@ export default function Header() {
 
 /*
 
--- 認証ユーザーが自分の profile を INSERT/UPDATE できるようにする例
 CREATE POLICY "Insert own profile" ON public.profiles
   FOR INSERT
   WITH CHECK (auth.uid() = id);
