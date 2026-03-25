@@ -234,6 +234,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     "ターゲット1200",
     "ターゲット1400",
     "システム英単語",
+    "システム英単語 Stage5",
     "ターゲット1900",
 
     "DUO 3.0例文",
