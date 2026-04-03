@@ -19,6 +19,7 @@ import pastParticipleData from "@/lib/data/json/過去形、過去分詞形.json
 import teppekiData from "@/lib/data/json/teppeki.json";
 import systemWordsStage5Data from "@/lib/data/json/system-english-word-stage5.json";
 import reformLeapData from "@/lib/data/json/reform_leap.json";
+import leapBasicData from "@/lib/data/json/leap-basic.json";
 import madonnaKobun230Data from "@/lib/data/json/madonna-kobun-230.json";
 import group30Kobun600Data from "@/lib/data/json/group30-kobun-600.json";
 
@@ -69,6 +70,8 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "東大英単語熟語 鉄壁": teppekiData as TextbookWord[],
     "reform-leap": reformLeapData as TextbookWord[],
     "改訂版 必携英単語LEAP": reformLeapData as TextbookWord[],
+    "leap-basic": leapBasicData as TextbookWord[],
+    "LEAP Basic": leapBasicData as TextbookWord[],
 
     // 古文単語
     "kobun-315": kobun315Data as TextbookWord[],
@@ -113,6 +116,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("target-1200") || textbookName.includes("ターゲット1200")) return DATA_MAP["target-1200"];
     if (normalized.includes("stage5") && (normalized.includes("system") || textbookName.includes("システム英単語"))) return DATA_MAP["system-words-stage5"];
     if (normalized.includes("system") || textbookName.includes("システム英単語")) return DATA_MAP["system-words"];
+    if (normalized.includes("leap-basic") || textbookName.includes("LEAP Basic")) return DATA_MAP["leap-basic"];
     if (normalized.includes("reform-leap") || textbookName.includes("改訂版 必携英単語LEAP")) return DATA_MAP["reform-leap"];
     if (normalized.includes("leap")) return DATA_MAP["leap"];
     if (normalized.includes("toeic") || textbookName.includes("金のフレーズ")) return DATA_MAP["toeic-gold"];

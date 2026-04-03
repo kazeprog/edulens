@@ -71,6 +71,13 @@ const universityTextbooks: Textbook[] = [
         color: "sky"
     },
     {
+        name: "LEAP Basic",
+        description: "LEAPの基礎1400語を厳選。共通テスト前の土台固めや英単語の初周に最適。",
+        path: "/mistap/textbook/leap-basic",
+        color: "emerald",
+        badge: "基礎1400"
+    },
+    {
         name: "DUO 3.0",
         description: "現代英語の重要単語・熟語を560本の例文で一気に攻略。",
         path: "/mistap/textbook/duo-30",

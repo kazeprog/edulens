@@ -50,6 +50,10 @@ export default function TextbooksSection() {
                                 </li>
                                 <li className="flex items-center">
                                     <span className="text-green-500 mr-3">✓</span>
+                                    <span className="text-gray-700 text-sm md:text-base">LEAP Basic 小テスト</span>
+                                </li>
+                                <li className="flex items-center">
+                                    <span className="text-green-500 mr-3">✓</span>
                                     <span className="text-gray-700 text-sm md:text-base">ターゲット1200 小テスト</span>
                                 </li>
                                 <li className="flex items-center">
