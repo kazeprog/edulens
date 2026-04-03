@@ -35,7 +35,7 @@ function TestContent() {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [showAnswers, setShowAnswers] = useState<boolean>(false);
   const [tappedIds, setTappedIds] = useState<Set<number>>(new Set());
-  const [flippedIds, setFlippedIds] = useState<Set<number>>(new Set());
+  const [flipRotations, setFlipRotations] = useState<Map<number, number>>(new Map());
   // const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false); // Removed
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
@@ -346,11 +346,11 @@ function TestContent() {
     });
   }
 
-  function toggleFlipped(id: number) {
-    setFlippedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+  function toggleFlipped(id: number, direction: 1 | -1) {
+    setFlipRotations((prev) => {
+      const next = new Map(prev);
+      const currentRotation = next.get(id) ?? 0;
+      next.set(id, currentRotation + (180 * direction));
       return next;
     });
   }
@@ -612,10 +612,9 @@ function TestContent() {
   function handleToggleAnswers() {
     setShowAnswers((s) => !s);
     if (!showAnswers && Array.isArray(testData?.words)) {
-      const allWordNumbers = new Set(testData.words.map((w: Word) => w.word_number));
-      setFlippedIds(allWordNumbers);
+      setFlipRotations(new Map(testData.words.map((w: Word) => [w.word_number, 180])));
     } else {
-      setFlippedIds(new Set());
+      setFlipRotations(new Map());
     }
   }
 
@@ -718,9 +717,9 @@ function TestContent() {
                       word={item.word}
                       meaning={item.meaning}
                       wordNumber={item.word_number}
-                      isFlipped={flippedIds.has(item.word_number)}
+                      rotationY={flipRotations.get(item.word_number) ?? 0}
                       isTapped={tappedIds.has(item.word_number)}
-                      onFlip={() => toggleFlipped(item.word_number)}
+                      onFlip={(direction) => toggleFlipped(item.word_number, direction)}
                       onTap={() => toggleTapped(item.word_number)}
                       minHeight={minHeight}
                       audioText={item.originalWord}

@@ -8,9 +8,9 @@ interface FlippableCardProps {
   word: string;
   meaning: string;
   wordNumber: number;
-  isFlipped: boolean;
+  rotationY: number;
   isTapped: boolean;
-  onFlip: () => void;
+  onFlip: (direction: 1 | -1) => void;
   onTap: () => void;
   minHeight?: number;
   audioText?: string;
@@ -22,7 +22,7 @@ export default function FlippableCard({
   word,
   meaning,
   wordNumber,
-  isFlipped,
+  rotationY,
   isTapped,
   onFlip,
   onTap,
@@ -69,7 +69,7 @@ export default function FlippableCard({
 
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
       e.preventDefault();
-      onFlip();
+      onFlip(diffX > 0 ? 1 : -1);
     }
 
     setStartX(null);
@@ -82,7 +82,7 @@ export default function FlippableCard({
         className="relative w-full cursor-pointer transition-transform duration-700 ease-out touch-pan-y"
         style={{
           transformStyle: 'preserve-3d',
-          transform: `rotateY(${isFlipped ? 180 : 0}deg)`,
+          transform: `rotateY(${rotationY}deg)`,
           minHeight: `${minHeight}px`
         }}
         onTouchStart={handleTouchStart}

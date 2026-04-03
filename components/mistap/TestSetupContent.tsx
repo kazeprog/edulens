@@ -1290,7 +1290,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
             {/* 中学の場合のテストタイプ選択 */}
             {level === 'junior' && (
-              <div className="space-y-2">
+              <div className="space-y-2 mb-4">
                 <label className="block text-sm font-bold text-gray-700">テストの種類</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -1317,7 +1317,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
             {/* 教材選択 */}
             {!(level === 'junior' && juniorTestType === 'textbook') ? (
-              <div className="space-y-2">
+              <div className="space-y-2 mb-5">
                 <label className="block text-sm font-bold text-gray-700">単語帳</label>
                 <div className="relative">
                   <select
@@ -1451,7 +1451,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             )}
 
             {/* 設定エリア（範囲・出題数） */}
-            <div className="bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
+            <div className="mt-4 bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
 
               {/* 範囲指定 */}
               {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
