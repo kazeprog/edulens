@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/mistap/supabaseClient';
+import {
+    GEMINI_MODEL_CONFIG_DEFINITIONS,
+    GEMINI_MODEL_CONFIG_KEYS,
+    getDefaultGeminiModelSettings,
+    resolveGeminiModelSettings,
+    type GeminiModelSettings,
+} from '@/lib/gemini-model-config';
 import Link from 'next/link';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -109,6 +116,8 @@ export default function AdminDashboardPage() {
     const [activeUserTrends, setActiveUserTrends] = useState<ActiveUserTrend[]>([]);
     const [chartViewMode, setChartViewMode] = useState<ChartViewMode>('monthly');
     const [loading, setLoading] = useState(true);
+    const [geminiModelSettings, setGeminiModelSettings] = useState<GeminiModelSettings>(getDefaultGeminiModelSettings());
+    const [isSavingGeminiSettings, setIsSavingGeminiSettings] = useState(false);
 
     // 月初を取得するヘルパー
     const getStartOfMonth = (date: Date) => {
@@ -152,9 +161,8 @@ export default function AdminDashboardPage() {
                 { data: recentUsers },
                 { data: recentExams },
                 { data: recentPosts },
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 { data: allProfiles },
-                { data: configResponse },
+                { data: configRows },
                 { data: dauCount },
                 { data: wauCount },
                 { data: mauCount },
@@ -177,7 +185,7 @@ export default function AdminDashboardPage() {
                 supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
-                supabase.from('app_config').select('value').eq('key', 'referral_campaign_enabled').single(),
+                supabase.from('app_config').select('key, value').in('key', ['referral_campaign_enabled', ...GEMINI_MODEL_CONFIG_KEYS]),
                 supabase.rpc('get_active_test_user_count', { p_days: 1 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 7 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 30 }),
@@ -232,6 +240,9 @@ export default function AdminDashboardPage() {
                 setDailyRegistrations(Object.entries(dailyData).map(([date, count]) => ({ date, count })));
             }
 
+            const referralConfig = configRows?.find((row) => row.key === 'referral_campaign_enabled');
+            const resolvedGeminiModelSettings = resolveGeminiModelSettings(configRows);
+
             setStats({
                 userCount: userCount || 0,
                 examCount: examCount || 0,
@@ -243,7 +254,7 @@ export default function AdminDashboardPage() {
                 weeklyNewExams: weeklyNewExams || 0,
                 thisMonthNewUsers: thisMonthNewUsers || 0,
                 lastMonthNewUsers: lastMonthNewUsers || 0,
-                referralEnabled: configResponse ? (configResponse.value as boolean) : true,
+                referralEnabled: referralConfig ? (referralConfig.value as boolean) : true,
                 dau: dauCount || 0,
                 wau: wauCount || 0,
                 mau: mauCount || 0,
@@ -253,6 +264,7 @@ export default function AdminDashboardPage() {
                     total: naruhodoTotal || 0
                 }
             });
+            setGeminiModelSettings(resolvedGeminiModelSettings);
 
             if (trendData) {
                 setActiveUserTrends(trendData);
@@ -318,9 +330,38 @@ export default function AdminDashboardPage() {
         }
     };
 
-    const getActivityColor = (type: RecentActivity['type']) => {
+    const getActivityColor = () => {
         // 全てニュートラルな色に統一
         return 'bg-slate-100 text-slate-600';
+    };
+
+    const saveGeminiModelSettings = async () => {
+        const defaultSettings = getDefaultGeminiModelSettings();
+        const sanitizedSettings = GEMINI_MODEL_CONFIG_DEFINITIONS.reduce<GeminiModelSettings>((acc, definition) => {
+            acc[definition.key] = geminiModelSettings[definition.key].trim() || defaultSettings[definition.key];
+            return acc;
+        }, getDefaultGeminiModelSettings());
+
+        setGeminiModelSettings(sanitizedSettings);
+        setIsSavingGeminiSettings(true);
+
+        try {
+            const { error } = await supabase
+                .from('app_config')
+                .upsert(
+                    GEMINI_MODEL_CONFIG_DEFINITIONS.map((definition) => ({
+                        key: definition.key,
+                        value: sanitizedSettings[definition.key],
+                    })),
+                );
+
+            if (error) throw error;
+        } catch (err) {
+            console.error('Failed to update Gemini model settings', err);
+            alert('Gemini settings could not be updated.');
+        } finally {
+            setIsSavingGeminiSettings(false);
+        }
     };
 
     if (loading) {
@@ -654,6 +695,42 @@ export default function AdminDashboardPage() {
                         <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
+                <div className="mt-4 rounded-lg border border-slate-200 p-4">
+                    <div className="mb-4">
+                        <p className="font-bold text-slate-800">Gemini モデル設定</p>
+                        <p className="text-xs text-slate-500">ナルホドレンズ、英作文採点、詳細分析、管理画面の URL 検索で使うモデルをここでまとめて変更できます。</p>
+                    </div>
+                    <div className="space-y-4">
+                        {GEMINI_MODEL_CONFIG_DEFINITIONS.map((definition) => (
+                            <div key={definition.key}>
+                                <label className="block text-sm font-medium text-slate-700 mb-1">{definition.label}</label>
+                                <p className="text-xs text-slate-500 mb-2">{definition.description}</p>
+                                <input
+                                    type="text"
+                                    value={geminiModelSettings[definition.key]}
+                                    onChange={(e) => {
+                                        const nextValue = e.target.value;
+                                        setGeminiModelSettings((prev) => ({
+                                            ...prev,
+                                            [definition.key]: nextValue,
+                                        }));
+                                    }}
+                                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                    placeholder="gemini-2.5-flash"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-4 flex justify-end">
+                        <button
+                            onClick={saveGeminiModelSettings}
+                            disabled={isSavingGeminiSettings}
+                            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
+                        >
+                            {isSavingGeminiSettings ? '保存中...' : 'Gemini設定を保存'}
+                        </button>
+                    </div>
+                </div>
             </div>
 
             {/* 最新アクティビティ */}
@@ -665,7 +742,7 @@ export default function AdminDashboardPage() {
                     <div className="space-y-3">
                         {recentActivity.map((activity, index) => (
                             <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${getActivityColor(activity.type)}`}>
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${getActivityColor()}`}>
                                     {getActivityIcon(activity.type)}
                                 </div>
                                 <div className="flex-1 min-w-0">

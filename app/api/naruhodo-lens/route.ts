@@ -89,6 +89,11 @@ export const maxDuration = 60;
 import { createServerSupabaseClient } from '@/utils/supabase/server';
 import { createClient } from '@supabase/supabase-js';
 import { redis } from '@/lib/redis';
+import {
+    GEMINI_MODEL_CONFIG_KEYS,
+    getDefaultGeminiModelSettings,
+    resolveGeminiModelSettings,
+} from '@/lib/gemini-model-config';
 import { Ratelimit } from '@upstash/ratelimit';
 import { cookies } from 'next/headers';
 // ... needed imports
@@ -138,25 +143,35 @@ export async function POST(req: NextRequest) {
 
         // Check if the latest message has images (Count usage only for image uploads)
         const lastMessage = messages[messages.length - 1];
+        const lastMessageRecord = typeof lastMessage === 'object' && lastMessage !== null
+            ? lastMessage as Record<string, unknown>
+            : {};
+        const messageParts = Array.isArray(lastMessageRecord.parts)
+            ? lastMessageRecord.parts.filter((part): part is Record<string, unknown> => typeof part === 'object' && part !== null)
+            : [];
+        const messageContent = Array.isArray(lastMessageRecord.content)
+            ? lastMessageRecord.content.filter((item): item is Record<string, unknown> => typeof item === 'object' && item !== null)
+            : [];
 
         // Robust Check for Images (Attachment or Multimodal Content)
-        let hasImage = (lastMessage as any).experimental_attachments?.length > 0;
+        let hasImage = Array.isArray(lastMessageRecord.experimental_attachments) && lastMessageRecord.experimental_attachments.length > 0;
 
         // Also check "parts" array which is used by Vercel AI SDK v6
-        if (!hasImage && Array.isArray((lastMessage as any).parts)) {
-            hasImage = (lastMessage as any).parts.some((part: any) =>
+        if (!hasImage) {
+            hasImage = messageParts.some((part) =>
                 part.type === 'file' || part.type === 'image'
             );
         }
 
-        if (!hasImage && Array.isArray(lastMessage.content)) {
-            hasImage = lastMessage.content.some((item: any) =>
-                item.type === 'image' || item?.mimeType?.startsWith('image/') || item.image
+        if (!hasImage) {
+            hasImage = messageContent.some((item) =>
+                item.type === 'image' || (typeof item.mimeType === 'string' && item.mimeType.startsWith('image/')) || Boolean(item.image)
             );
         }
 
         // --- User Identification (Early Resolution) ---
         let userId: string | null = null;
+        let userName: string | null = null;
         let isPro = false;
         const supabase = createServerSupabaseClient();
 
@@ -168,6 +183,21 @@ export async function POST(req: NextRequest) {
         const adminClient = (supabaseUrl && supabaseServiceKey)
             ? createClient(supabaseUrl, supabaseServiceKey, { auth: { persistSession: false } })
             : supabase;
+
+        let primaryModel = getDefaultGeminiModelSettings().gemini_model_naruhodo_primary;
+        let fallbackModel = getDefaultGeminiModelSettings().gemini_model_naruhodo_fallback;
+        try {
+            const { data: geminiConfigRows } = await adminClient
+                .from('app_config')
+                .select('key, value')
+                .in('key', GEMINI_MODEL_CONFIG_KEYS);
+
+            const geminiSettings = resolveGeminiModelSettings(geminiConfigRows);
+            primaryModel = geminiSettings.gemini_model_naruhodo_primary;
+            fallbackModel = geminiSettings.gemini_model_naruhodo_fallback;
+        } catch (configError) {
+            console.warn('Failed to load Gemini model config for Naruhodo Lens. Using default models.', configError);
+        }
 
         if (token) {
             const { data: { user } } = await supabase.auth.getUser(token);
@@ -181,8 +211,7 @@ export async function POST(req: NextRequest) {
                     .single();
 
                 isPro = !!profile?.is_pro;
-                const userName = profile?.full_name;
-                (req as any).userName = userName;
+                userName = profile?.full_name ?? null;
             }
         }
 
@@ -280,7 +309,7 @@ export async function POST(req: NextRequest) {
             }
 
             const result = streamText({
-                model: google('gemini-2.0-flash'),
+                model: google(primaryModel),
                 system: `あなたは学習支援AI「ナルホドレンズ」です。ユーザーに対して「${limitMessage}」とだけ伝えてください。親しみやすい口調で、それ以外のことは絶対に話さないでください。URLはそのまま表示してください。`,
                 messages: [
                     { role: 'user', content: 'limit check' }
@@ -316,7 +345,7 @@ export async function POST(req: NextRequest) {
                     guest_id: userId ? null : (guestId || newGuestId),
                     has_image: hasImage,
                     is_pro: isPro,
-                    user_name: (req as any).userName,
+                    user_name: userName,
                     user_agent: userAgent,
                     ip_hash: ipHash
                 });
@@ -328,9 +357,9 @@ export async function POST(req: NextRequest) {
         let result;
 
         try {
-            // Attempt 1: Primary Model (gemini-2.0-flash)
+            // Attempt 1: Configured primary model
             result = streamText({
-                model: google('gemini-2.0-flash'),
+                model: google(primaryModel),
                 system: SYSTEM_PROMPT,
                 messages: coreMessages,
                 maxRetries: 5,
@@ -340,7 +369,7 @@ export async function POST(req: NextRequest) {
 
             // Attempt 2: Fallback Model
             result = streamText({
-                model: google('gemini-2.5-flash-lite'),
+                model: google(fallbackModel),
                 system: SYSTEM_PROMPT,
                 messages: coreMessages,
             });
