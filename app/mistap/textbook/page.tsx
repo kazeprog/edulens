@@ -78,6 +78,20 @@ const universityTextbooks: Textbook[] = [
         badge: "基礎1400"
     },
     {
+        name: "Stock3000",
+        description: "頻出語を中心に押さえやすい構成。毎日の小テストで基礎から受験語彙まで反復できます。",
+        path: "/mistap/textbook/stock-3000",
+        color: "blue",
+        badge: "NEW"
+    },
+    {
+        name: "Stock4500",
+        description: "重要語から発展語までを広くカバー。1冊を細かく区切って反復しやすい英単語帳です。",
+        path: "/mistap/textbook/stock-4500",
+        color: "sky",
+        badge: "NEW"
+    },
+    {
         name: "DUO 3.0",
         description: "現代英語の重要単語・熟語を560本の例文で一気に攻略。",
         path: "/mistap/textbook/duo-30",

@@ -20,6 +20,8 @@ import teppekiData from "@/lib/data/json/teppeki.json";
 import systemWordsStage5Data from "@/lib/data/json/system-english-word-stage5.json";
 import reformLeapData from "@/lib/data/json/reform_leap.json";
 import leapBasicData from "@/lib/data/json/leap-basic.json";
+import stock3000Data from "@/lib/data/json/stock-3000.json";
+import stock4500Data from "@/lib/data/json/stock-4500.json";
 import madonnaKobun230Data from "@/lib/data/json/madonna-kobun-230.json";
 import group30Kobun600Data from "@/lib/data/json/group30-kobun-600.json";
 
@@ -72,6 +74,16 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "改訂版 必携英単語LEAP": reformLeapData as TextbookWord[],
     "leap-basic": leapBasicData as TextbookWord[],
     "LEAP Basic": leapBasicData as TextbookWord[],
+    "stock-3000": stock3000Data as TextbookWord[],
+    "stock3000": stock3000Data as TextbookWord[],
+    "stock 3000": stock3000Data as TextbookWord[],
+    "Stock3000": stock3000Data as TextbookWord[],
+    "Stock 3000": stock3000Data as TextbookWord[],
+    "stock-4500": stock4500Data as TextbookWord[],
+    "stock4500": stock4500Data as TextbookWord[],
+    "stock 4500": stock4500Data as TextbookWord[],
+    "Stock4500": stock4500Data as TextbookWord[],
+    "Stock 4500": stock4500Data as TextbookWord[],
 
     // 古文単語
     "kobun-315": kobun315Data as TextbookWord[],
@@ -119,6 +131,8 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("leap-basic") || textbookName.includes("LEAP Basic")) return DATA_MAP["leap-basic"];
     if (normalized.includes("reform-leap") || textbookName.includes("改訂版 必携英単語LEAP")) return DATA_MAP["reform-leap"];
     if (normalized.includes("leap")) return DATA_MAP["leap"];
+    if (normalized.includes("stock-3000") || normalized.includes("stock3000")) return DATA_MAP["stock-3000"];
+    if (normalized.includes("stock-4500") || normalized.includes("stock4500")) return DATA_MAP["stock-4500"];
     if (normalized.includes("toeic") || textbookName.includes("金のフレーズ")) return DATA_MAP["toeic-gold"];
     if (normalized.includes("duo")) return DATA_MAP["duo-30"];
     if (normalized.includes("315")) return DATA_MAP["kobun-315"];
