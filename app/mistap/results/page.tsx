@@ -412,11 +412,8 @@ function ResultsContent() {
             <div className="mb-8 rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-rose-50 p-5 md:p-6 shadow-lg">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-xl">
-                  <div className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-amber-700">
-                    今回の結果を次回から自動で積み上げられます
-                  </div>
                   <h2 className="mt-3 text-2xl font-bold text-slate-800">
-                    この結果、登録すると次回から残せます
+                    この結果、登録すると今回分から記録できます！
                   </h2>
                   <p className="mt-2 text-sm leading-6 text-slate-600 md:text-base">
                     今回の正答率は <span className="font-semibold text-slate-800">{scorePercent}%</span>。
