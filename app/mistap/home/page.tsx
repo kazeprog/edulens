@@ -219,6 +219,9 @@ export default function HomePage() {
     const [todayGoals, setTodayGoals] = useState<TodayGoal[]>([]);
 
     const [recentResults, setRecentResults] = useState<TestResult[]>([]);
+    const [overallRank, setOverallRank] = useState<number | null>(null);
+    const [totalUsers, setTotalUsers] = useState<number | null>(null);
+    const [isRankLoading, setIsRankLoading] = useState(true);
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
     // useRefを使用して最新の値を参照（依存配列に含めずに最新値を参照するため）
@@ -365,6 +368,76 @@ export default function HomePage() {
             // ここではロード完了としない（追加データの取得を待つ）
         }
     }, [authProfile]);
+
+    // 全ユーザー中の順位を取得
+    useEffect(() => {
+        if (authLoading || !user) {
+            return;
+        }
+
+        const supabase = getSupabase();
+        if (!supabase) {
+            setIsRankLoading(false);
+            return;
+        }
+
+        let mounted = true;
+
+        const loadOverallRank = async () => {
+            setIsRankLoading(true);
+
+            try {
+                const [totalUsersResult, higherExpUsersResult] = await Promise.all([
+                    supabase
+                        .from('profiles')
+                        .select('id', { count: 'exact', head: true }),
+                    supabase
+                        .from('profiles')
+                        .select('id', { count: 'exact', head: true })
+                        .gt('exp', profile.exp)
+                ]);
+
+                if (totalUsersResult.error) {
+                    throw totalUsersResult.error;
+                }
+
+                if (higherExpUsersResult.error) {
+                    throw higherExpUsersResult.error;
+                }
+
+                if (!mounted) {
+                    return;
+                }
+
+                const fetchedTotalUsers = totalUsersResult.count ?? null;
+                const fetchedOverallRank = higherExpUsersResult.count !== null
+                    ? higherExpUsersResult.count + 1
+                    : null;
+
+                setTotalUsers(fetchedTotalUsers);
+                setOverallRank(fetchedOverallRank);
+            } catch (rankError) {
+                console.error('Overall rank fetch error:', rankError);
+
+                if (!mounted) {
+                    return;
+                }
+
+                setTotalUsers(null);
+                setOverallRank(null);
+            } finally {
+                if (mounted) {
+                    setIsRankLoading(false);
+                }
+            }
+        };
+
+        loadOverallRank();
+
+        return () => {
+            mounted = false;
+        };
+    }, [authLoading, user, profile.exp]);
 
     // 追加データの読み込み（ストリーク更新、今日の目標、履歴）
     useEffect(() => {
@@ -789,7 +862,20 @@ export default function HomePage() {
                                     <div className="w-full bg-gray-100 rounded-full h-3 mb-2 overflow-hidden shadow-inner">
                                         <div className="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full transition-all duration-1000 ease-out" style={{ width: `${(profile.exp % 1000) / 10}%` }}></div>
                                     </div>
-                                    <p className="text-right text-xs text-gray-400 font-semibold h-[18px]">累計 {profile.exp} EXP</p>
+                                    <div className="flex items-center justify-between gap-3 min-h-[24px]">
+                                        <div className="text-xs font-semibold text-gray-500">
+                                            {isRankLoading ? (
+                                                <span>順位を集計中...</span>
+                                            ) : overallRank !== null && totalUsers !== null ? (
+                                                <span>
+                                                    <span className="text-orange-600 font-bold">{overallRank.toLocaleString()}位</span>/{totalUsers.toLocaleString()}人
+                                                </span>
+                                            ) : (
+                                                <span>順位を取得できませんでした</span>
+                                            )}
+                                        </div>
+                                        <p className="text-right text-xs text-gray-400 font-semibold">累計 {profile.exp} EXP</p>
+                                    </div>
                                 </div>
 
                                 {/* Consecutive Days */}
