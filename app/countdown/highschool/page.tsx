@@ -255,7 +255,7 @@ export default async function PrefectureSelectPage({ searchParams }: Props) {
         </div>
         {/* ▲▲▲ 追加ここまで ▲▲▲ */}
         <div className="flex justify-center w-full text-center">
-          <GoogleAdsense />
+          <GoogleAdsense reserveSpace reserveHeight={280} />
         </div>
 
         <div className="space-y-8">

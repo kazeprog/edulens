@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import Script from "next/script";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import AdLayoutWrapper from "@/components/AdLayoutWrapper";
@@ -64,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning data-ad-mode="ads">
       <head>
         {/* Favicon - explicit for maximum compatibility */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -83,6 +82,21 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-JQ63VXZTM4');
+            `,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var match = document.cookie.match(/(?:^|; )edulens_ad_mode=([^;]+)/);
+                  var mode = match ? decodeURIComponent(match[1]) : 'ads';
+                  document.documentElement.dataset.adMode = mode === 'pro' ? 'pro' : 'ads';
+                } catch (e) {
+                  document.documentElement.dataset.adMode = 'ads';
+                }
+              })();
             `,
           }}
         />

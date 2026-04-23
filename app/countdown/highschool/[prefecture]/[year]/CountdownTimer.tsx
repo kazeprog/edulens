@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 export default function CountdownTimer({ targetDate }: { targetDate: string }) {
   const [timeLeft, setTimeLeft] = useState({
@@ -46,11 +46,20 @@ export default function CountdownTimer({ targetDate }: { targetDate: string }) {
 
   if (!isClient) {
     return (
-      <div className="animate-pulse flex justify-center gap-4">
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
-        <div className="h-24 w-20 bg-slate-200 rounded-lg"></div>
+      <div className="flex flex-wrap justify-center items-start">
+        {['Days', 'Hours', 'Mins', 'Secs'].map((label, index) => (
+          <Fragment key={label}>
+            <div className="flex flex-col items-center mx-2 sm:mx-4">
+              <div className="min-w-[60px] sm:min-w-[80px] text-center">
+                <div className="h-[48px] sm:h-[72px] w-[60px] sm:w-[80px] bg-slate-200 rounded-lg animate-pulse"></div>
+              </div>
+              <div className="h-[12px] sm:h-[14px] w-10 bg-slate-200 rounded mt-2 animate-pulse"></div>
+            </div>
+            {index < 3 && (
+              <div className="text-3xl sm:text-5xl font-light text-transparent mt-2">:</div>
+            )}
+          </Fragment>
+        ))}
       </div>
     );
   }

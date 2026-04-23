@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { isNoAdsRoute } from '@/lib/ad-config';
 
 declare global {
     interface Window {
-        adsbygoogle: any[];
+        adsbygoogle: Array<Record<string, never>>;
     }
 }
 
@@ -21,6 +21,8 @@ type GoogleAdsenseProps = {
     layout?: string;
     layoutKey?: string;
     disableRefresh?: boolean;
+    reserveSpace?: boolean;
+    reserveHeight?: number | string;
 };
 
 const GoogleAdsense = ({
@@ -33,6 +35,8 @@ const GoogleAdsense = ({
     layout,
     layoutKey,
     disableRefresh = false,
+    reserveSpace = false,
+    reserveHeight = 280,
 }: GoogleAdsenseProps) => {
     const pathname = usePathname();
     const { user, profile, loading } = useAuth();
@@ -47,8 +51,9 @@ const GoogleAdsense = ({
 
     // パス変更時にフラグをリセットして強制再読込を促す
     useEffect(() => {
+        if (disableRefresh) return;
         isAdLoaded.current = false;
-    }, [pathname]);
+    }, [disableRefresh, pathname]);
 
     useEffect(() => {
         if (isNoAdPage || loading) return;
@@ -80,9 +85,9 @@ const GoogleAdsense = ({
                     (window.adsbygoogle = window.adsbygoogle || []).push({});
                     isAdLoaded.current = true;
                     // console.log('Ad pushed successfully');
-                } catch (err: any) {
-                    const message = err?.message || '';
-                    if (err?.name === 'TagError' || message.includes('already have ads')) {
+                } catch (err: unknown) {
+                    const message = err instanceof Error ? err.message : '';
+                    if ((err instanceof Error && err.name === 'TagError') || message.includes('already have ads')) {
                         isAdLoaded.current = true;
                         return;
                     }
@@ -106,9 +111,18 @@ const GoogleAdsense = ({
 
     // keyにpathnameを含めることで、再レンダリング時にDOM要素を強制的に新しくする
     const adKey = `${pathname}`;
+    const containerClassName = `${className}${reserveSpace ? ' ad-slot-reserve' : ''}`;
+    const containerStyle = {
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        ...(reserveSpace
+            ? { ['--ad-slot-min-height']: typeof reserveHeight === 'number' ? `${reserveHeight}px` : reserveHeight }
+            : {}),
+    } as React.CSSProperties;
 
     return (
-        <div ref={containerRef} className={className} style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
+        <div ref={containerRef} className={containerClassName} style={containerStyle}>
             <ins
                 key={adKey}
                 ref={adRef}

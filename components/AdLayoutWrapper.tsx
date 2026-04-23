@@ -44,6 +44,8 @@ export default function AdLayoutWrapper({
                     format="auto"
                     style={{ display: 'block', width: '100%', textAlign: 'center' }}
                     className="mx-auto text-center"
+                    reserveSpace
+                    reserveHeight={280}
                     key={`${pathname}-top`}
                 />
             )}

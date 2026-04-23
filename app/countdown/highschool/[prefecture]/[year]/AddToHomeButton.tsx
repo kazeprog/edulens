@@ -58,7 +58,7 @@ export default function AddToHomeButton() {
   };
 
   if (!isClient) {
-    return null; // SSR時は何も表示しない
+    return <div className="w-full h-12" aria-hidden="true" />;
   }
 
   return (

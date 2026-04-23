@@ -39,6 +39,14 @@ const AuthContext = createContext<AuthContextType>({
 
 export const useAuth = () => useContext(AuthContext);
 
+function syncAdMode(mode: 'ads' | 'pro') {
+    if (typeof document === 'undefined') return;
+
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `edulens_ad_mode=${mode}; Path=/; Max-Age=2592000; SameSite=Lax${secure}`;
+    document.documentElement.dataset.adMode = mode;
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -228,6 +236,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await supabase.auth.signOut();
         }
     };
+
+    useEffect(() => {
+        if (loading) return;
+
+        if (!user) {
+            syncAdMode('ads');
+            return;
+        }
+
+        if (!profile) {
+            syncAdMode('pro');
+            return;
+        }
+
+        syncAdMode(profile.is_pro ? 'pro' : 'ads');
+    }, [loading, user, profile]);
 
     return (
         <AuthContext.Provider value={{ user, profile, loading, signOut }}>
