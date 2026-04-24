@@ -27,6 +27,7 @@ interface TextbookLPTemplateProps {
     seoSettings?: {
         heroTitle?: React.ReactNode;
         heroDescription?: string;
+        heroSecondaryCta?: React.ReactNode;
         testSectionTitle?: string;
         testSectionDescription?: React.ReactNode;
         featuresTitle?: string;
@@ -294,6 +295,11 @@ export default function TextbookLPTemplate({
                                         今すぐテストしてみる (無料)
                                     </Link>
                                 </div>
+                                {seoSettings?.heroSecondaryCta && (
+                                    <div className="pt-4">
+                                        {seoSettings.heroSecondaryCta}
+                                    </div>
+                                )}
                                 <div className="flex flex-col items-center md:items-start gap-2">
                                     <AmazonTextbookLink textbookName={textbookNameJa} />
                                     <p className="text-sm text-slate-400 font-medium">

@@ -73,6 +73,14 @@ export default function LeapPage() {
                     </h1>
                 ),
                 heroDescription: "4技能対応英単語帳「必修英単語LEAP（リープ）」の無料テスト・クイズアプリ（サイト）。Partごとに小テストを作成でき、SpeakingやWritingにつながる実践的な語彙力が身につきます。登録不要で今すぐテスト作成・実施が可能！",
+                heroSecondaryCta: (
+                    <a
+                        href="/mistap/textbook/reform-leap"
+                        className="w-full sm:w-auto px-8 py-4 bg-white text-sky-700 border-2 border-sky-200 rounded-xl font-bold text-lg shadow-lg shadow-sky-100 hover:bg-sky-50 hover:border-sky-300 transition-all duration-300 flex items-center justify-center gap-2"
+                    >
+                        改訂版はこちら
+                    </a>
+                ),
                 testSectionTitle: "LEAPのテストを今すぐ作成",
                 testSectionDescription: (
                     <p>
