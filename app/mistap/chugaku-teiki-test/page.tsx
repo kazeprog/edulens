@@ -7,8 +7,8 @@ import MistapFooter from '@/components/mistap/Footer';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-    title: '中学生の定期テスト向け英単語テスト',
-    description: '中学生の英語定期テスト対策に使えるMistapの無料英単語テストページ。New Horizon・New Crownなどの教科書単語を、範囲指定と苦手復習で効率よく確認できます。',
+    title: '中学生の定期テスト向け英単語テストアプリ | Mistap',
+    description: '中学生の英語定期テスト対策に使えるMistapの無料英単語テストアプリ。New Horizon・New Crownなどの教科書単語を、範囲指定と苦手復習で効率よく確認できます。',
     keywords: [
         '中学 英語 定期テスト 単語',
         '中学生 英単語 テスト',
@@ -25,11 +25,12 @@ export const metadata: Metadata = {
         canonical: 'https://edulens.jp/mistap/chugaku-teiki-test'
     },
     openGraph: {
-        title: '中学生の定期テスト向け英単語テスト | Mistap',
-        description: '教科書対応の無料英単語テストで、中学英語の定期テスト対策を効率化。間違えた単語だけを復習できます。',
+        title: '中学生の定期テスト向け英単語テストアプリ | Mistap',
+        description: '教科書対応の無料英単語テストアプリで、中学英語の定期テスト対策を効率化。間違えた単語だけを復習できます。',
         url: 'https://edulens.jp/mistap/chugaku-teiki-test',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
+        locale: 'ja_JP',
         images: [
             {
                 url: 'https://edulens.jp/MistapLP.png',
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '中学生の定期テスト向け英単語テスト | Mistap',
+        title: '中学生の定期テスト向け英単語テストアプリ | Mistap',
         description: '中学英語の教科書単語を、無料の英単語テストで効率よく確認。',
         images: ['https://edulens.jp/MistapLP.png'],
     },
@@ -122,23 +123,69 @@ const faqs = [
 ];
 
 export default function ChugakuTeikiTestPage() {
+    const pageUrl = 'https://edulens.jp/mistap/chugaku-teiki-test';
+    const breadcrumbItems = [
+        { name: 'Mistap', url: 'https://edulens.jp/mistap' },
+        { name: '中学生の定期テスト向け英単語テスト', url: pageUrl },
+    ];
     const jsonLd = {
         '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: '中学生の定期テスト向け英単語テスト | Mistap',
-        url: 'https://edulens.jp/mistap/chugaku-teiki-test',
-        description: '中学生の英語定期テスト対策に使える、教科書対応の無料英単語テストページ。',
-        about: [
-            '中学英語 定期テスト対策',
-            '教科書対応 英単語テスト',
-            'New Horizon 単語テスト',
-            'New Crown 単語テスト'
-        ],
-        isPartOf: {
-            '@type': 'WebSite',
-            name: 'Mistap',
-            url: 'https://edulens.jp/mistap'
-        }
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                name: '中学生の定期テスト向け英単語テストアプリ | Mistap',
+                url: pageUrl,
+                description: '中学生の英語定期テスト対策に使える、教科書対応の無料英単語テストアプリ。',
+                about: [
+                    '中学英語 定期テスト対策',
+                    '教科書対応 英単語テスト',
+                    'New Horizon 単語テスト',
+                    'New Crown 単語テスト'
+                ],
+                isPartOf: {
+                    '@type': 'WebSite',
+                    name: 'Mistap',
+                    url: 'https://edulens.jp/mistap'
+                }
+            },
+            {
+                '@type': 'FAQPage',
+                mainEntity: faqs.map((faq) => ({
+                    '@type': 'Question',
+                    name: faq.q,
+                    acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: faq.a,
+                    }
+                }))
+            },
+            {
+                '@type': 'BreadcrumbList',
+                itemListElement: breadcrumbItems.map((item, index) => ({
+                    '@type': 'ListItem',
+                    position: index + 1,
+                    name: item.name,
+                    item: item.url,
+                }))
+            },
+            {
+                '@type': 'SoftwareApplication',
+                name: 'Mistap',
+                applicationCategory: 'EducationalApplication',
+                operatingSystem: 'Web',
+                offers: {
+                    '@type': 'Offer',
+                    price: '0',
+                    priceCurrency: 'JPY'
+                },
+                url: 'https://edulens.jp/mistap',
+                featureList: [
+                    '教科書対応の英単語テスト',
+                    '間違えた単語の自動記録',
+                    '苦手単語の復習'
+                ]
+            }
+        ]
     };
 
     return (
@@ -152,6 +199,17 @@ export default function ChugakuTeikiTestPage() {
                 <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,_rgba(251,146,60,0.18),_transparent_32%),linear-gradient(180deg,#fff7ed_0%,#ffffff_58%)] pt-20 pb-16 md:pt-28 md:pb-24">
                     <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-orange-100/50 to-transparent pointer-events-none" />
                     <div className="mx-auto max-w-6xl px-4 relative z-10">
+                        <nav aria-label="パンくず" className="mb-8 text-sm text-slate-500">
+                            <ol className="flex flex-wrap items-center gap-2">
+                                <li>
+                                    <Link href="/mistap" prefetch={false} className="hover:text-orange-600 transition-colors">
+                                        Mistap
+                                    </Link>
+                                </li>
+                                <li>/</li>
+                                <li className="text-slate-700">中学生の定期テスト向け英単語テスト</li>
+                            </ol>
+                        </nav>
                         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
                             <div>
                                 <div className="inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-2 text-sm font-bold text-orange-700">
