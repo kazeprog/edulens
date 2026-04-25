@@ -147,13 +147,18 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
         ```
     -   Update `TextbookLPTemplate` props (`textbookName`, `presetTextbook`, `seoSettings`, etc.).
     -   **Important**: `presetTextbook` must match the name used in `jsonTextbookData.ts` and `TestSetupContent.tsx`.
+    -   **Type-check LP props against `TextbookLPTemplate`:** Do not invent prop values from category names. For example, `audience` currently accepts only `junior`, `senior`, or `general`; use `general` for qualification/TOEIC-style books instead of `university`.
 
 2.  **Add to Index List**:
     -   Open `app/mistap/textbook/page.tsx`.
     -   Add an entry to the appropriate array (e.g., `universityTextbooks`).
     -   Ensure `path` matches your new directory structure.
 
-## 5. Verify Test Creation Logic
+## 5. Verify Build & Test Creation Logic
+1.  **Run Production Build Before Commit/Push**:
+    -   Run `npm run build` (or the project's deployment-equivalent command) after adding the textbook LP and data wiring.
+    -   Do not rely only on `eslint`; Next.js production build runs TypeScript and can catch prop type mismatches that lint may miss.
+    -   If the build exposes unrelated type errors, either fix them in the same commit only when they are required for the build to pass, or clearly separate them in a follow-up commit with a focused message.
 1.  **Start Dev Server**: `npm run dev`
 2.  **Check Homepage (`/mistap`)**:
     -   Is the new textbook visible in the dropdown?
@@ -172,3 +177,5 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
 -   **Supabase Dependency**: Do not assume data is in Supabase. Always implement the local JSON path for new content.
 -   **Schema drift between generator and consumer**: If a generation script outputs `wordNumber` while Mistap expects `word_number`, range filtering silently returns zero results and triggers the "Range not found" alert.
 -   **Skipping generated-data verification**: Do not stop after editing the parser. Always inspect the generated JSON and confirm that a simple range like `1-100` can actually be filtered.
+-   **Invalid LP template props**: Category labels in the UI do not always map to `TextbookLPTemplate` prop values. Confirm the template's TypeScript union types before setting props such as `audience`, `themeColor`, or `bookType`.
+-   **Skipping production build before push**: `eslint` may pass even when `next build` fails on TypeScript. Always run `npm run build` before committing/pushing a new textbook integration.
