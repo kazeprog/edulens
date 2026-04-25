@@ -1250,7 +1250,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 {[
                   { id: 'junior', label: '中学' },
                   { id: 'senior', label: '高校' },
-                  { id: 'university', label: '大学・社会人' }
+                  { id: 'university', label: '英検・TOEIC' }
                 ].map((l) => (
                   <button
                     key={l.id}
