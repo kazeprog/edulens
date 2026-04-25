@@ -24,6 +24,7 @@ import stock3000Data from "@/lib/data/json/stock-3000.json";
 import stock4500Data from "@/lib/data/json/stock-4500.json";
 import madonnaKobun230Data from "@/lib/data/json/madonna-kobun-230.json";
 import group30Kobun600Data from "@/lib/data/json/group30-kobun-600.json";
+import eikenPre1ExData from "@/lib/data/json/eiken-pre1-ex.json";
 
 // 型定義
 export interface TextbookWord {
@@ -84,6 +85,10 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "stock 4500": stock4500Data as TextbookWord[],
     "Stock4500": stock4500Data as TextbookWord[],
     "Stock 4500": stock4500Data as TextbookWord[],
+    "eiken-pre1-ex": eikenPre1ExData as TextbookWord[],
+    "英検準1級単熟語EX": eikenPre1ExData as TextbookWord[],
+    "英検準1級 単熟語ex": eikenPre1ExData as TextbookWord[],
+    "英検準1級 単熟語EX": eikenPre1ExData as TextbookWord[],
 
     // 古文単語
     "kobun-315": kobun315Data as TextbookWord[],
@@ -133,6 +138,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("leap")) return DATA_MAP["leap"];
     if (normalized.includes("stock-3000") || normalized.includes("stock3000")) return DATA_MAP["stock-3000"];
     if (normalized.includes("stock-4500") || normalized.includes("stock4500")) return DATA_MAP["stock-4500"];
+    if (normalized.includes("eiken-pre1-ex") || (normalized.includes("英検準1級") && normalized.includes("単熟語ex"))) return DATA_MAP["eiken-pre1-ex"];
     if (normalized.includes("toeic") || textbookName.includes("金のフレーズ")) return DATA_MAP["toeic-gold"];
     if (normalized.includes("duo")) return DATA_MAP["duo-30"];
     if (normalized.includes("315")) return DATA_MAP["kobun-315"];

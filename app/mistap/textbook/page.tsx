@@ -107,6 +107,13 @@ const universityTextbooks: Textbook[] = [
 
 const toeicTextbooks: Textbook[] = [
     {
+        name: "英検準1級単熟語EX",
+        description: "英検準1級の頻出単語・熟語を範囲指定で確認。一次試験の語彙対策をテンポよく回せます。",
+        path: "/mistap/textbook/eiken-pre1-ex",
+        color: "orange",
+        badge: "英検準1級"
+    },
+    {
         name: "TOEIC L&R 金のフレーズ",
         description: "TOEIC対策のバイブル。目標スコア別に頻出単語を攻略。",
         path: "/mistap/textbook/toeic-gold",

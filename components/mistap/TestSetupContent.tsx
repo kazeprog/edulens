@@ -39,6 +39,8 @@ interface TestSetupContentProps {
   initialData?: TextbookWord[];
 }
 
+type TestWord = Pick<TextbookWord, "word" | "word_number" | "meaning">;
+
 export default function TestSetupContent({ embedMode = false, presetTextbook, initialGrade, initialLesson, initialStartNum, initialEndNum, initialData }: TestSetupContentProps) {
   const { profile } = useAuth();
   // note: do not use next/navigation useSearchParams here to avoid CSR bailout during prerender.
@@ -239,6 +241,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     "ターゲット1900",
     "Stock3000",
     "Stock4500",
+    "英検準1級単熟語EX",
 
     "DUO 3.0例文",
     "改訂版 鉄緑会東大英単語熟語 鉄壁",
@@ -254,6 +257,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   // 大学生・社会人向け教材リスト（固定）
   const universityTexts = useMemo(() => [
     "TOEIC金のフレーズ",
+    "英検準1級単熟語EX",
     "DUO 3.0例文",
   ], []);
 
@@ -676,8 +680,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     setIsCreatingTest(true);
 
     try {
-      let data: any[] | null = null;
-      let error = null;
+      let data: TestWord[] | null = null;
+      let error: unknown = null;
 
       if (initialData && initialData.length > 0) {
         // テキスト名フィルタはfetchTextsで行われているので、範囲フィルタのみでOK
@@ -716,7 +720,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             .eq("text", sText)
             .gte("word_number", sStart)
             .lte("word_number", sEnd);
-          data = result.data;
+          data = result.data as TestWord[] | null;
           error = result.error;
         }
       }
@@ -795,7 +799,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
       // ランダム抽出（全単語出題。必要に応じて制限も可能）
       // ユーザーが指定した語数（count）で制限する
-      let finalCount = count;
+      const finalCount = count;
       if (!profile?.is_pro && finalCount > 50) {
         alert("一度に出題できる単語数は50語までです。\n50語以上のテストを作成するにはProプランへのアップグレードが必要です。");
         setIsCreatingTextbookTest(false);
@@ -1356,7 +1360,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                       // 高校向けはグループ化（データベースに存在するもののみ）
                       <>
                         <optgroup label="📖 英単語">
-                          {["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
+                          {["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
                             .filter(text => texts.includes(text))
                             .map(text => (
                               <option key={text} value={text} translate="no">{text}</option>
@@ -1370,7 +1374,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                             ))}
                         </optgroup>
                         {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                        {(!["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351", "マドンナ古文単語230", "GROUP30で覚える古文単語600"].some(t => texts.includes(t))) && (
+                        {(!["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351", "マドンナ古文単語230", "GROUP30で覚える古文単語600"].some(t => texts.includes(t))) && (
                           <>
                             {texts.map(text => (
                               <option key={text} value={text} translate="no">{text}</option>
