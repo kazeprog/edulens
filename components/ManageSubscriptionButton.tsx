@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Settings } from 'lucide-react';
+import { getSupabase } from '@/lib/supabase';
 
 interface ManageSubscriptionButtonProps {
     customerId: string;
@@ -13,10 +14,19 @@ export default function ManageSubscriptionButton({ customerId }: ManageSubscript
     const handlePortal = async () => {
         setLoading(true);
         try {
+            const supabase = getSupabase();
+            const session = supabase ? (await supabase.auth.getSession()).data.session : null;
+            const accessToken = session?.access_token;
+
+            if (!accessToken) {
+                throw new Error('Login session is required');
+            }
+
             const response = await fetch('/api/portal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify({ customerId }),
             });

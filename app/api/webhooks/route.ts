@@ -13,6 +13,14 @@ const supabaseAdmin = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+function getErrorMessage(error: unknown) {
+    return error instanceof Error ? error.message : 'Unknown error';
+}
+
+function getErrorStack(error: unknown) {
+    return error instanceof Error ? error.stack : undefined;
+}
+
 export async function POST(req: Request) {
     const body = await req.text();
     const headersList = await headers();
@@ -31,9 +39,10 @@ export async function POST(req: Request) {
             signature,
             process.env.STRIPE_WEBHOOK_SECRET!
         );
-    } catch (err: any) {
-        console.error(`[Webhook] Signature verification failed: ${err.message}`);
-        return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+    } catch (err: unknown) {
+        const message = getErrorMessage(err);
+        console.error(`[Webhook] Signature verification failed: ${message}`);
+        return NextResponse.json({ error: `Webhook Error: ${message}` }, { status: 400 });
     }
 
     console.log(`[Webhook] Received event: ${event.type} (${event.id})`);
@@ -43,14 +52,19 @@ export async function POST(req: Request) {
             case 'checkout.session.completed': {
                 const session = event.data.object as Stripe.Checkout.Session;
                 const userId = session.metadata?.userId;
-                const customerId = session.customer as string;
-                const subscriptionId = session.subscription as string;
+                const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id;
+                const subscriptionId = typeof session.subscription === 'string' ? session.subscription : session.subscription?.id;
 
                 console.log(`[Webhook] checkout.session.completed - userId: ${userId}, customer: ${customerId}, subscription: ${subscriptionId}`);
 
                 if (!userId) {
                     console.error('[Webhook] No userId found in session metadata');
                     return NextResponse.json({ error: 'No userId in metadata' }, { status: 400 });
+                }
+
+                if (!customerId || !subscriptionId) {
+                    console.error('[Webhook] Missing Stripe customer or subscription ID on completed checkout session');
+                    return NextResponse.json({ error: 'Missing Stripe IDs' }, { status: 500 });
                 }
 
                 // Step 1: 最重要 - is_pro を true に更新（これは必ず成功させる）
@@ -75,23 +89,26 @@ export async function POST(req: Request) {
                 }
 
                 // Step 2: Stripe IDを保存
-                if (customerId || subscriptionId) {
-                    const stripeUpdate: Record<string, string> = {};
-                    if (customerId) stripeUpdate.stripe_customer_id = customerId;
-                    if (subscriptionId) stripeUpdate.stripe_subscription_id = subscriptionId;
+                const { data: stripeData, error: stripeError } = await supabaseAdmin
+                    .from('profiles')
+                    .update({
+                        stripe_customer_id: customerId,
+                        stripe_subscription_id: subscriptionId,
+                    })
+                    .eq('id', userId)
+                    .select('id, stripe_customer_id, stripe_subscription_id');
 
-                    const { data: stripeData, error: stripeError } = await supabaseAdmin
-                        .from('profiles')
-                        .update(stripeUpdate)
-                        .eq('id', userId)
-                        .select('id, stripe_customer_id, stripe_subscription_id');
-
-                    if (stripeError) {
-                        console.warn('[Webhook] Failed to save Stripe IDs (non-critical):', JSON.stringify(stripeError));
-                    } else {
-                        console.log(`[Webhook] Stripe IDs update result: ${JSON.stringify(stripeData)}`);
-                    }
+                if (stripeError) {
+                    console.error('[Webhook] Failed to save Stripe IDs:', JSON.stringify(stripeError));
+                    return NextResponse.json({ error: 'Failed to save Stripe IDs' }, { status: 500 });
                 }
+
+                if (!stripeData || stripeData.length === 0) {
+                    console.error(`[Webhook] Stripe ID update matched 0 rows for userId: ${userId}`);
+                    return NextResponse.json({ error: 'Failed to save Stripe IDs' }, { status: 500 });
+                }
+
+                console.log(`[Webhook] Stripe IDs update result: ${JSON.stringify(stripeData)}`);
 
                 break;
             }
@@ -120,8 +137,8 @@ export async function POST(req: Request) {
                 console.log(`[Webhook] Unhandled event type: ${event.type}`);
                 break;
         }
-    } catch (error: any) {
-        console.error('[Webhook] Unexpected error:', error.message, error.stack);
+    } catch (error: unknown) {
+        console.error('[Webhook] Unexpected error:', getErrorMessage(error), getErrorStack(error));
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 
