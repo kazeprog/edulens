@@ -54,7 +54,7 @@ export default function EikenPre1ExPage() {
             presetTextbook="英検準1級単熟語EX"
             canonicalUrl="https://edulens.jp/mistap/textbook/eiken-pre1-ex"
             unitLabel="Range"
-            audience="university"
+            audience="general"
             bookType="wordbook"
             seoSettings={{
                 heroTitle: (

@@ -6,7 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 export const dynamic = 'force-dynamic';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2026-01-28.clover',
+    apiVersion: '2025-12-15.clover',
 });
 
 // Initialize Supabase Admin Client to bypass RLS
