@@ -54,6 +54,56 @@ type PeriodType = '30d' | '90d' | '1y' | 'all';
 
 // チャートのカラーパレット
 const COLORS = ['#3b82f6', '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#ef4444', '#06b6d4'];
+const PAGE_SIZE = 1000;
+const TOKYO_TIME_ZONE = 'Asia/Tokyo';
+
+type SupabaseListResponse<T> = {
+    data: T[] | null;
+    error: { message: string } | null;
+};
+
+async function fetchAllRows<T>(
+    queryForRange: (from: number, to: number) => PromiseLike<SupabaseListResponse<T>>
+): Promise<T[]> {
+    const rows: T[] = [];
+
+    for (let from = 0; ; from += PAGE_SIZE) {
+        const to = from + PAGE_SIZE - 1;
+        const { data, error } = await queryForRange(from, to);
+
+        if (error) {
+            console.error('Failed to fetch admin analytics rows:', error.message);
+            break;
+        }
+
+        if (!data || data.length === 0) break;
+
+        rows.push(...data);
+        if (data.length < PAGE_SIZE) break;
+    }
+
+    return rows;
+}
+
+const getTokyoDateParts = (date: Date | string) => {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: TOKYO_TIME_ZONE,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).formatToParts(new Date(date));
+
+    return {
+        year: parts.find(part => part.type === 'year')?.value ?? '0000',
+        month: parts.find(part => part.type === 'month')?.value ?? '01',
+        day: parts.find(part => part.type === 'day')?.value ?? '01',
+    };
+};
+
+const getTokyoDateKey = (date: Date | string) => {
+    const { year, month, day } = getTokyoDateParts(date);
+    return `${year}-${month}-${day}`;
+};
 
 export default function AnalyticsPage() {
     const [profiles, setProfiles] = useState<ProfileData[]>([]);
@@ -69,24 +119,34 @@ export default function AnalyticsPage() {
             setLoading(true);
 
             const [
-                { data: profilesData },
-                { data: resultsData },
-                { data: pomodoroData },
-                { data: naruhodoData },
-                { data: referralData },
+                profilesData,
+                resultsData,
+                pomodoroData,
+                naruhodoData,
+                referralData,
             ] = await Promise.all([
-                supabase.from('profiles').select('created_at, grade, role, test_count, level, pro_expires_at, referral_code').order('created_at', { ascending: true }),
-                supabase.from('results').select('user_id, selected_text, total, correct, mode, created_at').order('created_at', { ascending: true }),
-                supabase.from('pomodoro_sessions').select('user_id, work_duration, session_count, created_at').order('created_at', { ascending: true }),
-                supabase.from('naruhodo_usage_logs').select('user_id, guest_id, has_image, created_at').order('created_at', { ascending: true }),
-                supabase.from('referrals').select('referrer_id, referred_id, status, created_at').order('created_at', { ascending: true }),
+                fetchAllRows<ProfileData>((from, to) =>
+                    supabase.from('profiles').select('created_at, grade, role, test_count, level, pro_expires_at, referral_code').order('created_at', { ascending: true }).range(from, to)
+                ),
+                fetchAllRows<ResultData>((from, to) =>
+                    supabase.from('results').select('user_id, selected_text, total, correct, mode, created_at').order('created_at', { ascending: true }).range(from, to)
+                ),
+                fetchAllRows<PomodoroData>((from, to) =>
+                    supabase.from('pomodoro_sessions').select('user_id, work_duration, session_count, created_at').order('created_at', { ascending: true }).range(from, to)
+                ),
+                fetchAllRows<NaruhodoData>((from, to) =>
+                    supabase.from('naruhodo_usage_logs').select('user_id, guest_id, has_image, created_at').order('created_at', { ascending: true }).range(from, to)
+                ),
+                fetchAllRows<ReferralData>((from, to) =>
+                    supabase.from('referrals').select('referrer_id, referred_id, status, created_at').order('created_at', { ascending: true }).range(from, to)
+                ),
             ]);
 
-            setProfiles(profilesData || []);
-            setResults(resultsData || []);
-            setPomodoros(pomodoroData || []);
-            setNaruhodoLogs(naruhodoData || []);
-            setReferrals(referralData || []);
+            setProfiles(profilesData);
+            setResults(resultsData);
+            setPomodoros(pomodoroData);
+            setNaruhodoLogs(naruhodoData);
+            setReferrals(referralData);
             setLoading(false);
         }
 
@@ -108,8 +168,14 @@ export default function AnalyticsPage() {
         return data.filter(d => new Date(d.created_at) >= start);
     };
 
-    const formatDateShort = (d: Date) => `${d.getMonth() + 1}/${d.getDate()}`;
-    const formatMonthKey = (d: Date) => `${d.getFullYear()}/${d.getMonth() + 1}`;
+    const formatDateShort = (d: Date | string) => {
+        const { month, day } = getTokyoDateParts(d);
+        return `${Number(month)}/${Number(day)}`;
+    };
+    const formatMonthKey = (d: Date | string) => {
+        const { year, month } = getTokyoDateParts(d);
+        return `${year}/${Number(month)}`;
+    };
 
     // ===== セクション1: 登録者推移 =====
     const getRegistrationData = () => {
@@ -122,13 +188,13 @@ export default function AnalyticsPage() {
         const end = new Date();
 
         for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-            const key = d.toISOString().split('T')[0];
+            const key = getTokyoDateKey(d);
             dailyMap[key] = 0;
             allDates.push(key);
         }
 
         filtered.forEach(p => {
-            const key = new Date(p.created_at).toISOString().split('T')[0];
+            const key = getTokyoDateKey(p.created_at);
             if (dailyMap[key] !== undefined) dailyMap[key]++;
         });
 
@@ -138,8 +204,7 @@ export default function AnalyticsPage() {
 
         const cumulative = allDates.map(date => {
             cumTotal += dailyMap[date];
-            const d = new Date(date);
-            return { date: formatDateShort(d), cumulative: cumTotal };
+            return { date: formatDateShort(date), cumulative: cumTotal };
         });
 
         // 日別は間引き（長い場合は7日間隔、短い場合はそのまま）
@@ -147,8 +212,7 @@ export default function AnalyticsPage() {
         const daily = allDates
             .filter((_, i) => i % interval === 0 || i === allDates.length - 1)
             .map(date => {
-                const d = new Date(date);
-                return { date: formatDateShort(d), count: dailyMap[date] };
+                return { date: formatDateShort(date), count: dailyMap[date] };
             });
 
         return { cumulative, daily };
@@ -158,6 +222,10 @@ export default function AnalyticsPage() {
     const getPeriodComparison = () => {
         const now = new Date();
         let currentStart: Date, previousStart: Date, previousEnd: Date;
+
+        if (period === 'all') {
+            return { currentCount: profiles.length, previousCount: 0, changeRate: null };
+        }
 
         if (period === '30d') {
             currentStart = new Date(now); currentStart.setDate(now.getDate() - 30);
@@ -316,8 +384,8 @@ export default function AnalyticsPage() {
         for (let i = 29; i >= 0; i--) {
             const d = new Date(now);
             d.setDate(d.getDate() - i);
-            const dateStr = d.toISOString().split('T')[0];
-            const dayResults = results.filter(r => r.created_at.startsWith(dateStr));
+            const dateStr = getTokyoDateKey(d);
+            const dayResults = results.filter(r => getTokyoDateKey(r.created_at) === dateStr);
             const totalQ = dayResults.reduce((s, r) => s + r.total, 0);
             const totalC = dayResults.reduce((s, r) => s + r.correct, 0);
             accuracyTrend.push({
@@ -365,8 +433,8 @@ export default function AnalyticsPage() {
         for (let i = 29; i >= 0; i--) {
             const d = new Date(now);
             d.setDate(d.getDate() - i);
-            const dateStr = d.toISOString().split('T')[0];
-            const count = pomodoros.filter(p => p.created_at.startsWith(dateStr)).length;
+            const dateStr = getTokyoDateKey(d);
+            const count = pomodoros.filter(p => getTokyoDateKey(p.created_at) === dateStr).length;
             dailyTrend.push({ date: formatDateShort(d), count });
         }
 
@@ -381,8 +449,8 @@ export default function AnalyticsPage() {
         for (let i = 29; i >= 0; i--) {
             const d = new Date(now);
             d.setDate(d.getDate() - i);
-            const dateStr = d.toISOString().split('T')[0];
-            const count = naruhodoLogs.filter(l => l.created_at.startsWith(dateStr)).length;
+            const dateStr = getTokyoDateKey(d);
+            const count = naruhodoLogs.filter(l => getTokyoDateKey(l.created_at) === dateStr).length;
             dailyTrend.push({ date: formatDateShort(d), count });
         }
 
@@ -501,7 +569,7 @@ export default function AnalyticsPage() {
                                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval={Math.max(Math.floor(registrationData.cumulative.length / 10), 1)} />
+                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={28} tickMargin={8} />
                             <YAxis fontSize={12} tickLine={false} axisLine={false} />
                             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                             <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} formatter={(value) => [`${value}人`, '累計']} />
@@ -515,7 +583,7 @@ export default function AnalyticsPage() {
                 <div className="h-[200px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={registrationData.daily} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval={Math.max(Math.floor(registrationData.daily.length / 10), 1)} />
+                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={28} tickMargin={8} />
                             <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                             <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} formatter={(value) => [`${value}人`, '新規登録']} />
@@ -618,7 +686,7 @@ export default function AnalyticsPage() {
                         <div className="h-[150px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={userAttrs.levelData} margin={{ top: 0, right: 30, left: 0, bottom: 0 }}>
-                                    <XAxis dataKey="name" fontSize={11} tickLine={false} axisLine={false} />
+                                    <XAxis dataKey="name" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={16} tickMargin={8} />
                                     <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                                     <Tooltip formatter={(value) => [`${value}人`]} />
@@ -641,7 +709,7 @@ export default function AnalyticsPage() {
                         <div className="h-[250px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={testAnalysis.testDistribution} margin={{ top: 0, right: 30, left: 0, bottom: 0 }}>
-                                    <XAxis dataKey="name" fontSize={11} tickLine={false} axisLine={false} />
+                                    <XAxis dataKey="name" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={16} tickMargin={8} />
                                     <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                                     <Tooltip formatter={(value) => [`${value}人`]} />
@@ -678,7 +746,7 @@ export default function AnalyticsPage() {
                     <div className="h-[200px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={testAnalysis.accuracyTrend} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval={4} />
+                                <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={28} tickMargin={8} />
                                 <YAxis fontSize={12} tickLine={false} axisLine={false} domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
                                 <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                                 <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0' }} formatter={(value) => [`${value}%`, '平均正答率']} />
@@ -739,7 +807,7 @@ export default function AnalyticsPage() {
                 <div className="h-[200px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={pomodoroAnalysis.dailyTrend} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval={4} />
+                            <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={28} tickMargin={8} />
                             <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                             <Tooltip formatter={(value) => [`${value}回`, 'セッション数']} />
@@ -779,7 +847,7 @@ export default function AnalyticsPage() {
                         <div className="h-[200px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart data={naruhodoAnalysis.dailyTrend} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                    <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval={4} />
+                                    <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} interval="preserveStartEnd" minTickGap={28} tickMargin={8} />
                                     <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
                                     <Tooltip formatter={(value) => [`${value}回`, '利用回数']} />

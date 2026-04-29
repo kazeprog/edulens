@@ -45,6 +45,36 @@ interface DailyRegistration {
 }
 
 type ChartViewMode = 'daily' | 'monthly';
+const PAGE_SIZE = 1000;
+const TOKYO_UTC_OFFSET_HOURS = 9;
+
+type SupabaseListResponse<T> = {
+    data: T[] | null;
+    error: { message: string } | null;
+};
+
+async function fetchAllRows<T>(
+    queryForRange: (from: number, to: number) => PromiseLike<SupabaseListResponse<T>>
+): Promise<T[]> {
+    const rows: T[] = [];
+
+    for (let from = 0; ; from += PAGE_SIZE) {
+        const to = from + PAGE_SIZE - 1;
+        const { data, error } = await queryForRange(from, to);
+
+        if (error) {
+            console.error('Failed to fetch admin dashboard rows:', error.message);
+            break;
+        }
+
+        if (!data || data.length === 0) break;
+
+        rows.push(...data);
+        if (data.length < PAGE_SIZE) break;
+    }
+
+    return rows;
+}
 
 // アクティブユーザー推移の型
 interface ActiveUserTrend {
@@ -78,19 +108,35 @@ interface RecentActivity {
 }
 
 // 日付計算ヘルパー
+const getTokyoDateParts = (date = new Date()) => {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Tokyo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).formatToParts(date);
+
+    return {
+        year: Number(parts.find(part => part.type === 'year')?.value ?? date.getUTCFullYear()),
+        month: Number(parts.find(part => part.type === 'month')?.value ?? date.getUTCMonth() + 1),
+        day: Number(parts.find(part => part.type === 'day')?.value ?? date.getUTCDate()),
+    };
+};
+
+const getTokyoBoundaryIso = (year: number, month: number, day: number) => (
+    new Date(Date.UTC(year, month - 1, day, -TOKYO_UTC_OFFSET_HOURS, 0, 0, 0)).toISOString()
+);
+
 const getStartOfToday = () => {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    return now.toISOString();
+    const { year, month, day } = getTokyoDateParts();
+    return getTokyoBoundaryIso(year, month, day);
 };
 
 const getStartOfWeek = () => {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    const diff = now.getDate() - dayOfWeek;
-    now.setDate(diff);
-    now.setHours(0, 0, 0, 0);
-    return now.toISOString();
+    const { year, month, day } = getTokyoDateParts();
+    const today = new Date(Date.UTC(year, month - 1, day));
+    const startDay = day - today.getUTCDay();
+    return getTokyoBoundaryIso(year, month, startDay);
 };
 
 export default function AdminDashboardPage() {
@@ -119,27 +165,15 @@ export default function AdminDashboardPage() {
     const [geminiModelSettings, setGeminiModelSettings] = useState<GeminiModelSettings>(getDefaultGeminiModelSettings());
     const [isSavingGeminiSettings, setIsSavingGeminiSettings] = useState(false);
 
-    // 月初を取得するヘルパー
-    const getStartOfMonth = (date: Date) => {
-        const d = new Date(date);
-        d.setDate(1);
-        d.setHours(0, 0, 0, 0);
-        return d.toISOString();
+    // 月初を取得するヘルパー（管理画面の集計日は日本時間で揃える）
+    const getStartOfCurrentMonth = () => {
+        const { year, month } = getTokyoDateParts();
+        return getTokyoBoundaryIso(year, month, 1);
     };
 
     const getStartOfLastMonth = () => {
-        const now = new Date();
-        now.setMonth(now.getMonth() - 1);
-        now.setDate(1);
-        now.setHours(0, 0, 0, 0);
-        return now.toISOString();
-    };
-
-    const getEndOfLastMonth = () => {
-        const now = new Date();
-        now.setDate(0); // 先月の最終日
-        now.setHours(23, 59, 59, 999);
-        return now.toISOString();
+        const { year, month } = getTokyoDateParts();
+        return getTokyoBoundaryIso(year, month - 1, 1);
     };
 
     useEffect(() => {
@@ -161,7 +195,7 @@ export default function AdminDashboardPage() {
                 { data: recentUsers },
                 { data: recentExams },
                 { data: recentPosts },
-                { data: allProfiles },
+                allProfiles,
                 { data: configRows },
                 { data: dauCount },
                 { data: wauCount },
@@ -179,12 +213,14 @@ export default function AdminDashboardPage() {
                 supabase.from('results').select('*', { count: 'exact', head: true }),
                 supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfWeek()),
-                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfMonth(new Date())),
-                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfLastMonth()).lte('created_at', getEndOfLastMonth()),
+                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfCurrentMonth()),
+                supabase.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfLastMonth()).lt('created_at', getStartOfCurrentMonth()),
                 supabase.from('profiles').select('id, full_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('exam_schedules').select('id, exam_name, session_name, created_at').order('created_at', { ascending: false }).limit(15),
                 supabase.from('black_posts').select('id, nickname, content, created_at').order('created_at', { ascending: false }).limit(15),
-                supabase.from('profiles').select('created_at').order('created_at', { ascending: false }),
+                fetchAllRows<{ created_at: string }>((from, to) =>
+                    supabase.from('profiles').select('created_at').order('created_at', { ascending: false }).range(from, to)
+                ),
                 supabase.from('app_config').select('key, value').in('key', ['referral_campaign_enabled', ...GEMINI_MODEL_CONFIG_KEYS]),
                 supabase.rpc('get_active_test_user_count', { p_days: 1 }),
                 supabase.rpc('get_active_test_user_count', { p_days: 7 }),
@@ -373,14 +409,18 @@ export default function AdminDashboardPage() {
     }
 
     return (
-        <div>
+        <div className="w-full max-w-full min-w-0 overflow-x-hidden">
             <h2 className="text-2xl font-bold mb-6 text-slate-800">ダッシュボード</h2>
 
             {/* メイン統計カード */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 min-[380px]:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">総ユーザー数</p>
                     <p className="text-2xl font-bold text-slate-800">{stats.userCount}</p>
+                </div>
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <p className="text-xs text-slate-500 font-medium mb-1">今日の新規登録</p>
+                    <p className="text-2xl font-bold text-blue-600">{stats.todayNewUsers}</p>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">登録試験数</p>
@@ -402,7 +442,7 @@ export default function AdminDashboardPage() {
 
             {/* アクティブユーザー統計 */}
             <h3 className="text-lg font-bold mb-4 text-slate-800">📈 アクティブユーザー（単語テスト）</h3>
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 mb-8">
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1 truncate">DAU (24時間内)</p>
                     <p className="text-2xl font-bold text-blue-600">{stats.dau}人</p>
@@ -418,10 +458,10 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* アクティブユーザー推移グラフ */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
-                <div className="flex items-center justify-between mb-4">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 mb-8 min-w-0 overflow-hidden">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
                     <h3 className="text-lg font-bold text-slate-800">📈 アクティブユーザー推移</h3>
-                    <div className="flex gap-4 text-xs">
+                    <div className="flex flex-wrap gap-3 sm:gap-4 text-xs">
                         <div className="flex items-center gap-1">
                             <div className="w-3 h-3 rounded-full bg-slate-400"></div>
                             <span className="text-slate-600">MAU</span>
@@ -436,7 +476,7 @@ export default function AdminDashboardPage() {
                         </div>
                     </div>
                 </div>
-                <div className="h-[250px] w-full">
+                <div className="h-[250px] w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart
                             data={activeUserTrends}
@@ -445,6 +485,9 @@ export default function AdminDashboardPage() {
                             <XAxis
                                 dataKey="trend_date"
                                 fontSize={11}
+                                interval="preserveStartEnd"
+                                minTickGap={28}
+                                tickMargin={8}
                                 tickLine={false}
                                 axisLine={false}
                                 tickFormatter={(value) => {
@@ -480,7 +523,7 @@ export default function AdminDashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">7日後継続率</p>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex flex-wrap items-baseline gap-2">
                         <p className="text-2xl font-bold text-emerald-600">
                             {stats.engagement?.retention_rate_7d != null ? `${stats.engagement.retention_rate_7d.toFixed(1)}%` : '-'}
                         </p>
@@ -489,7 +532,7 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">初回テスト完了率</p>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex flex-wrap items-baseline gap-2">
                         <p className="text-2xl font-bold text-blue-600">
                             {stats.engagement?.first_test_rate != null ? `${stats.engagement.first_test_rate.toFixed(1)}%` : '-'}
                         </p>
@@ -498,7 +541,7 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                     <p className="text-xs text-slate-500 font-medium mb-1">ヘビーユーザー率</p>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex flex-wrap items-baseline gap-2">
                         <p className="text-2xl font-bold text-indigo-600">
                             {stats.engagement?.heavy_user_rate != null ? `${stats.engagement.heavy_user_rate.toFixed(1)}%` : '-'}
                         </p>
@@ -523,14 +566,10 @@ export default function AdminDashboardPage() {
 
 
             {/* サブ統計カード */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-4 mb-8">
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
                     <p className="text-xs text-slate-500 font-medium">ポモドーロ完了</p>
                     <p className="text-xl font-bold text-slate-700">{stats.pomodoroSessionCount}</p>
-                </div>
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <p className="text-xs text-slate-500 font-medium">本日の新規登録</p>
-                    <p className="text-xl font-bold text-slate-700">{stats.todayNewUsers}</p>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
                     <p className="text-xs text-slate-500 font-medium">今週追加の試験</p>
@@ -539,11 +578,11 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* 登録者推移 */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 mb-8 min-w-0 overflow-hidden">
                 <h3 className="text-lg font-bold mb-4 text-slate-800">📈 登録者推移</h3>
 
                 {/* 月次統計 */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 mb-6">
                     <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
                         <p className="text-xs text-blue-600 font-medium">今月の登録者</p>
                         <p className="text-xl font-bold text-blue-700">{stats.thisMonthNewUsers}人</p>
@@ -601,7 +640,7 @@ export default function AdminDashboardPage() {
                     </div>
                 </div>
 
-                <div className="h-[250px] w-full">
+                <div className="h-[250px] w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart
                             data={chartViewMode === 'monthly' ? monthlyRegistrations : dailyRegistrations}
@@ -612,7 +651,9 @@ export default function AdminDashboardPage() {
                                 fontSize={11}
                                 tickLine={false}
                                 axisLine={false}
-                                interval={chartViewMode === 'daily' ? 4 : 0}
+                                interval={chartViewMode === 'daily' ? 4 : 'preserveStartEnd'}
+                                minTickGap={28}
+                                tickMargin={8}
                             />
                             <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -632,9 +673,9 @@ export default function AdminDashboardPage() {
 
 
             {/* クイックメニュー */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 mb-8 min-w-0 overflow-hidden">
                 <h3 className="text-lg font-bold mb-4 text-slate-800">クイックメニュー</h3>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div className="grid grid-cols-1 min-[380px]:grid-cols-2 md:grid-cols-5 gap-3">
                     <Link href="/admin/exams" prefetch={false} className="bg-white border border-slate-200 text-slate-700 p-4 rounded-lg hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition text-center font-bold text-sm">
                         📝 試験日程管理
                     </Link>
@@ -662,10 +703,35 @@ export default function AdminDashboardPage() {
                 </div>
             </div>
 
+            {/* 最新アクティビティ */}
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 mb-8 min-w-0 overflow-hidden">
+                <h3 className="text-lg font-bold mb-4 text-slate-800">最新アクティビティ</h3>
+                {recentActivity.length === 0 ? (
+                    <p className="text-slate-500 text-center py-8">アクティビティがありません</p>
+                ) : (
+                    <div className="space-y-3">
+                        {recentActivity.map((activity, index) => (
+                            <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition min-w-0">
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${getActivityColor()}`}>
+                                    {getActivityIcon(activity.type)}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-medium text-slate-800 truncate">{activity.title}</p>
+                                    <p className="text-xs text-slate-500 truncate">{activity.subtitle}</p>
+                                </div>
+                                <div className="shrink-0 text-xs text-slate-400 whitespace-nowrap">
+                                    {formatDate(activity.timestamp)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
             {/* システム設定 */}
-            <div id="referral-settings" className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div id="referral-settings" className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 min-w-0 overflow-hidden">
                 <h3 className="text-lg font-bold mb-4 text-slate-800">⚙️ システム設定</h3>
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between p-4 bg-slate-50 rounded-lg">
                     <div>
                         <p className="font-bold text-slate-800">友達招待キャンペーン</p>
                         <p className="text-xs text-slate-500">キャンペーンを有効にすると、ユーザーは招待コードを発行・入力できます。</p>
@@ -731,31 +797,6 @@ export default function AdminDashboardPage() {
                         </button>
                     </div>
                 </div>
-            </div>
-
-            {/* 最新アクティビティ */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-bold mb-4 text-slate-800">最新アクティビティ</h3>
-                {recentActivity.length === 0 ? (
-                    <p className="text-slate-500 text-center py-8">アクティビティがありません</p>
-                ) : (
-                    <div className="space-y-3">
-                        {recentActivity.map((activity, index) => (
-                            <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${getActivityColor()}`}>
-                                    {getActivityIcon(activity.type)}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="font-medium text-slate-800 truncate">{activity.title}</p>
-                                    <p className="text-xs text-slate-500 truncate">{activity.subtitle}</p>
-                                </div>
-                                <div className="text-xs text-slate-400 whitespace-nowrap">
-                                    {formatDate(activity.timestamp)}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
             </div>
         </div >
     );
