@@ -241,6 +241,8 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     "ターゲット1900",
     "Stock3000",
     "Stock4500",
+    "速読英単語　必修編 ［改訂第８版］",
+    "速読英単語　上級編［改訂第５版］",
     "英検準1級単熟語EX",
 
     "DUO 3.0例文",
@@ -1360,7 +1362,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                       // 高校向けはグループ化（データベースに存在するもののみ）
                       <>
                         <optgroup label="📖 英単語">
-                          {["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
+                          {["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "速読英単語　必修編 ［改訂第８版］", "速読英単語　上級編［改訂第５版］", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"]
                             .filter(text => texts.includes(text))
                             .map(text => (
                               <option key={text} value={text} translate="no">{text}</option>
@@ -1374,7 +1376,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                             ))}
                         </optgroup>
                         {/* もし上のどれも空なら、DB の教材一覧を代替で表示 */}
-                        {(!["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351", "マドンナ古文単語230", "GROUP30で覚える古文単語600"].some(t => texts.includes(t))) && (
+                        {(!["LEAP", "LEAP Basic", "改訂版 必携英単語LEAP", "ターゲット1200", "ターゲット1400", "システム英単語", "システム英単語 Stage5", "ターゲット1900", "Stock3000", "Stock4500", "速読英単語　必修編 ［改訂第８版］", "速読英単語　上級編［改訂第５版］", "英検準1級単熟語EX", "DUO 3.0例文", "改訂版 鉄緑会東大英単語熟語 鉄壁"].some(t => texts.includes(t)) && !["読んで見て聞いて覚える 重要古文単語315", "Key＆Point古文単語330", "ベストセレクション古文単語325", "理解を深める核心古文単語351", "マドンナ古文単語230", "GROUP30で覚える古文単語600"].some(t => texts.includes(t))) && (
                           <>
                             {texts.map(text => (
                               <option key={text} value={text} translate="no">{text}</option>

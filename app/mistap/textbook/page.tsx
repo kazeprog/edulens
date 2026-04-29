@@ -92,6 +92,20 @@ const universityTextbooks: Textbook[] = [
         badge: "NEW"
     },
     {
+        name: "速読英単語　必修編 ［改訂第８版］",
+        description: "大学受験の必修語彙を範囲指定で確認。速読英単語　必修編 ［改訂第８版］を小テスト形式で反復できます。",
+        path: "/mistap/textbook/sokutan-hisshu-8th",
+        color: "blue",
+        badge: "NEW"
+    },
+    {
+        name: "速読英単語　上級編［改訂第５版］",
+        description: "難関大レベルの語彙を範囲指定で確認。速読英単語　上級編［改訂第５版］の単語を小テスト形式で反復できます。",
+        path: "/mistap/textbook/sokutan-jokyu-5th",
+        color: "indigo",
+        badge: "NEW"
+    },
+    {
         name: "DUO 3.0",
         description: "現代英語の重要単語・熟語を560本の例文で一気に攻略。",
         path: "/mistap/textbook/duo-30",
