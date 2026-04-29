@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 export default function SokutanJokyu5thPage() {
     return (
         <TextbookLPTemplate
-            textbookName="Sokutan Advanced"
+            textbookName="速読英単語　上級編［改訂第５版］"
             textbookNameJa="速読英単語　上級編［改訂第５版］"
             publisherName="Z会"
             themeColor="indigo"

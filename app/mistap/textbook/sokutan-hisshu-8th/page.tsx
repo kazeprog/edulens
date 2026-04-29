@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 export default function SokutanHisshu8thPage() {
     return (
         <TextbookLPTemplate
-            textbookName="Sokutan Essential"
+            textbookName="速読英単語　必修編 ［改訂第８版］"
             textbookNameJa="速読英単語　必修編 ［改訂第８版］"
             publisherName="Z会"
             themeColor="blue"
