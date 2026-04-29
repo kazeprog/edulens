@@ -384,6 +384,12 @@ export default async function CountdownPage({ params }: { params: Params }) {
 
         <SeoIntro />
 
+        <AmazonExamLink
+          keyword={`${displayPrefName}高校入試`}
+          suffix={`過去問 ${year}`}
+          daysLeft={diffDays}
+        />
+
         {exams.length > 0 && (
           <div>
             {/* @ts-ignore-next-line Server Component importing Client Component (allowed) */}
@@ -463,12 +469,6 @@ export default async function CountdownPage({ params }: { params: Params }) {
         <div className="w-full max-w-4xl mx-auto mt-12 mb-8">
           <ServiceList currentService="Countdown" />
         </div>
-
-        <AmazonExamLink
-          keyword={`${displayPrefName}高校入試`}
-          suffix={`過去問 ${year}`}
-          daysLeft={diffDays}
-        />
 
         {neighborPrefs.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mb-16 text-left mt-16">

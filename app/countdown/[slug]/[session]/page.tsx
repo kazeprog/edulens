@@ -293,6 +293,13 @@ export default async function QualificationCountdownPage({ params }: { params: P
           </div>
         </div>
 
+        {/* ▼▼▼ Amazonリンク（画像共有ボタンの上に表示） ▼▼▼ */}
+        <AmazonExamLink
+          keyword={displayExamName}
+          suffix={amazonSuffix}
+        />
+        {/* ▲▲▲ Amazonリンク終了 ▲▲▲ */}
+
         {/* アクションボタンエリア */}
         <ActionButtons
           examName={displayExamName}
@@ -362,13 +369,6 @@ export default async function QualificationCountdownPage({ params }: { params: P
           <ServiceList currentService="Countdown" />
         </div>
         {/* ▲▲▲ サービス一覧終了 ▲▲▲ */}
-
-        {/* ▼▼▼ 2. Amazonリンク追加（キーワードを工夫して表示） ▼▼▼ */}
-        <AmazonExamLink
-          keyword={displayExamName}
-          suffix={amazonSuffix}
-        />
-        {/* ▲▲▲ 追加エリア終了 ▲▲▲ */}
 
         {/* SEO用コンテンツエリア */}
         <div className="w-full max-w-3xl mx-auto mt-16 text-left border-t border-slate-200 pt-10">

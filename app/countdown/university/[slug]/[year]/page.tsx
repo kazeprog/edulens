@@ -194,6 +194,12 @@ export default async function UniversityExamPage({ params }: { params: Params })
 
         {countdownBottomContent && <BannerDisplay content={countdownBottomContent} />}
 
+        {/* Amazonリンク */}
+        <AmazonExamLink
+          keyword={cleanName}
+          suffix={`過去問 ${year}`}
+        />
+
         {/* ▼▼▼ ナルホドレンズ カード ▼▼▼ */}
         <div className="w-full max-w-2xl mx-auto mb-4 mt-8">
           <NaruhodoLensPromoCard />
@@ -269,12 +275,6 @@ export default async function UniversityExamPage({ params }: { params: Params })
           <ServiceList currentService="Countdown" />
         </div>
         {/* ▲▲▲ サービス一覧終了 ▲▲▲ */}
-
-        {/* Amazonリンク */}
-        <AmazonExamLink
-          keyword={cleanName}
-          suffix={`過去問 ${year}`}
-        />
 
         {/* SEO解説セクション */}
         <div className="mt-20 pt-10 border-t border-slate-100 text-left">
