@@ -40,7 +40,7 @@ function TestContent() {
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
   const [wordsWithHeights, setWordsWithHeights] = useState<Word[]>([]);
-  const { profile, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
 
   const testTitle = useMemo(() => {
     const selectedText = testData?.selectedText;
@@ -218,18 +218,20 @@ function TestContent() {
     // Handle Word Stock Mode
     if (mode === 'word-stock') {
       const fetchWordStock = async () => {
-        if (!profile?.is_pro) {
-          alert("この機能を使用するにはProプランへのアップグレードが必要です。");
-          router.push('/upgrademistap');
+        if (!user) {
+          alert("Word Stockを使うにはログインが必要です。");
+          router.push('/mistap');
           return;
         }
 
         const countParam = searchParams.get('count');
-        const count = countParam ? parseInt(countParam) : 10;
+        const requestedCount = countParam ? parseInt(countParam) : 10;
+        const count = profile?.is_pro ? requestedCount : Math.min(requestedCount, 30);
 
         const { data, error } = await supabase
           .from('mistap_word_stocks')
-          .select('*');
+          .select('*')
+          .eq('user_id', user.id);
 
         if (error || !data || data.length === 0) {
           alert("ストックされた単語がありません。");
@@ -336,7 +338,7 @@ function TestContent() {
     } else {
       router.push('/mistap/test-setup');
     }
-  }, [searchParams, router, loading, profile]);
+  }, [searchParams, router, loading, user, profile]);
 
   function toggleTapped(id: number) {
     setTappedIds((prev) => {

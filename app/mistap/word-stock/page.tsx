@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
 import { useAuth } from '@/context/AuthContext';
-import { Plus, Trash2, BookOpen, Search, ArrowLeft, Lock } from 'lucide-react';
+import { Plus, Trash2, BookOpen, Search, ArrowLeft } from 'lucide-react';
+
+const FREE_WORD_STOCK_LIMIT = 30;
 
 interface WordStock {
     id: string;
@@ -25,19 +27,11 @@ export default function WordStockPage() {
     const [newWord, setNewWord] = useState('');
     const [newMeaning, setNewMeaning] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const isFreeLimitReached = !profile?.is_pro && words.length >= FREE_WORD_STOCK_LIMIT;
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/mistap');
-            return;
-        }
+    const fetchWords = useCallback(async () => {
+        if (!user) return;
 
-        if (user) {
-            fetchWords();
-        }
-    }, [user, loading, router]);
-
-    const fetchWords = async () => {
         setIsLoadingWords(true);
         const { data, error } = await supabase
             .from('mistap_word_stocks')
@@ -49,13 +43,24 @@ export default function WordStockPage() {
             setWords(data);
         }
         setIsLoadingWords(false);
-    };
+    }, [user]);
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/mistap');
+            return;
+        }
+
+        if (user) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            fetchWords();
+        }
+    }, [user, loading, router, fetchWords]);
 
     const handleAddWord = async () => {
         if (!newWord.trim()) return;
-        if (!profile?.is_pro) {
-            // Should not happen if UI is blocked, but double check
-            alert('Proプランへのアップグレードが必要です。');
+        if (isFreeLimitReached) {
+            alert(`無料プランでは${FREE_WORD_STOCK_LIMIT}語まで登録できます。`);
             return;
         }
 
@@ -98,7 +103,8 @@ export default function WordStockPage() {
             return;
         }
 
-        const count = Math.min(words.length, 10); // Default to 10 or max available
+        const availableCount = profile?.is_pro ? words.length : Math.min(words.length, FREE_WORD_STOCK_LIMIT);
+        const count = Math.min(availableCount, 10); // Default to 10 or max available
         router.push(`/mistap/test?mode=word-stock&count=${count}`);
     };
 
@@ -108,40 +114,6 @@ export default function WordStockPage() {
     );
 
     if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center">読み込み中...</div>;
-
-    // Non-Pro user view (Access blocked or limited preview?)
-    // User requested authorized feature. Let's show upgrade prompt if not Pro.
-    if (!profile?.is_pro) {
-        return (
-            <main className="min-h-screen bg-gray-50 flex flex-col">
-                <Background className="flex-grow flex items-center justify-center p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-xl">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <Lock className="w-8 h-8 text-red-600" />
-                        </div>
-                        <h1 className="text-2xl font-bold text-gray-900 mb-4">Proプラン限定機能</h1>
-                        <p className="text-gray-600 mb-8">
-                            「育てる単語帳 Word Stock」はProプラン限定の機能です。<br />
-                            あなただけの単語帳を作って効率的に学習しましょう！
-                        </p>
-                        <button
-                            onClick={() => router.push('/upgrademistap')}
-                            className="w-full bg-gradient-to-r from-red-600 to-red-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
-                        >
-                            Proプランにアップグレード
-                        </button>
-                        <button
-                            onClick={() => router.back()}
-                            className="mt-4 text-gray-500 hover:text-gray-800 text-sm"
-                        >
-                            戻る
-                        </button>
-                    </div>
-                </Background>
-                <MistapFooter />
-            </main>
-        );
-    }
 
     return (
         <main className="min-h-screen bg-gray-50 flex flex-col">
@@ -164,11 +136,23 @@ export default function WordStockPage() {
                         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/50 flex flex-col justify-center">
                             <p className="text-gray-500 text-sm mb-1">ストック単語数</p>
                             <p className="text-4xl font-bold text-gray-900">{words.length}<span className="text-lg font-normal text-gray-400 ml-1">語</span></p>
+                            {!profile?.is_pro && (
+                                <p className="text-xs text-gray-500 mt-2">
+                                    無料プランは{FREE_WORD_STOCK_LIMIT}語まで登録できます
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col gap-3">
                             <button
-                                onClick={() => setShowAddModal(true)}
-                                className="flex-1 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-bold p-4 flex items-center justify-center gap-2 shadow-md transition-all"
+                                onClick={() => {
+                                    if (isFreeLimitReached) {
+                                        alert(`無料プランでは${FREE_WORD_STOCK_LIMIT}語まで登録できます。`);
+                                        return;
+                                    }
+                                    setShowAddModal(true);
+                                }}
+                                className="flex-1 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-bold p-4 flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={isFreeLimitReached}
                             >
                                 <Plus className="w-5 h-5" />
                                 単語を追加
@@ -182,6 +166,20 @@ export default function WordStockPage() {
                             </button>
                         </div>
                     </div>
+
+                    {!profile?.is_pro && (
+                        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-red-100 shadow-sm">
+                            <p className="text-sm text-gray-700">
+                                無料プランではWord Stockを{FREE_WORD_STOCK_LIMIT}語まで使えます。Proプランでは登録数の上限なく利用できます。
+                            </p>
+                            <button
+                                onClick={() => router.push('/upgrademistap')}
+                                className="mt-3 text-sm font-bold text-red-600 hover:text-red-700"
+                            >
+                                Proプランを見る
+                            </button>
+                        </div>
+                    )}
 
                     {/* Search */}
                     <div className="relative mb-6">

@@ -1208,42 +1208,32 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
               </p>
             </div>
 
-            {!profile?.is_pro ? (
-              <div className="bg-gray-50 rounded-xl p-6 text-center border border-gray-200">
-                <p className="font-bold text-gray-900 mb-2">Proプラン限定機能</p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Word Stock機能を利用するにはProプランへのアップグレードが必要です。
-                </p>
-                <button
-                  onClick={() => router.push('/upgrademistap')}
-                  className="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors"
-                >
-                  アップグレードする
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <button
-                  onClick={() => router.push('/mistap/word-stock')}
-                  className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
-                >
-                  <span>📚</span> 単語の管理・追加
-                </button>
-                {isTestSetupPage && (
-                  <GoogleAdsense
-                    slot="9969163744"
-                    className="my-4"
-                    style={{ display: 'block', minHeight: '100px' }}
-                  />
-                )}
-                <button
-                  onClick={() => router.push('/mistap/test?mode=word-stock&count=10')}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 block text-center"
-                >
-                  テストを開始 (10問)
-                </button>
-              </div>
-            )}
+            <div className="flex flex-col gap-4">
+              {!profile?.is_pro && (
+                <div className="bg-red-50 rounded-xl p-4 border border-red-100 text-sm text-red-700">
+                  無料プランではWord Stockを30語まで利用できます。
+                </div>
+              )}
+              <button
+                onClick={() => router.push('/mistap/word-stock')}
+                className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+              >
+                <span>📚</span> 単語の管理・追加
+              </button>
+              {isTestSetupPage && (
+                <GoogleAdsense
+                  slot="9969163744"
+                  className="my-4"
+                  style={{ display: 'block', minHeight: '100px' }}
+                />
+              )}
+              <button
+                onClick={() => router.push('/mistap/test?mode=word-stock&count=10')}
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 block text-center"
+              >
+                テストを開始 (10問)
+              </button>
+            </div>
           </div>
         )}
 
