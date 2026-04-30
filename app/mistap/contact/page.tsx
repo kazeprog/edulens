@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Background from '@/components/mistap/Background';
 import Link from 'next/link';
 import { supabase } from '@/lib/mistap/supabaseClient';
 import MistapFooter from '@/components/mistap/Footer';
+import { useAuth } from '@/context/AuthContext';
 
 export default function ContactPage() {
   // document.title removed for server-side metadata
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -40,6 +42,7 @@ export default function ContactPage() {
         .from('contact_requests')
         .insert([
           {
+            user_id: user?.id ?? null,
             name: formData.name,
             email: formData.email,
             category: formData.category,

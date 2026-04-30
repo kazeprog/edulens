@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/mistap/supabaseClient';
 
 interface ContactRequest {
     id: number;
+    user_id?: string | null;
     created_at: string;
     name: string;
     email: string;
@@ -18,11 +19,7 @@ export default function AdminContactsPage() {
     const [requests, setRequests] = useState<ContactRequest[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchRequests();
-    }, []);
-
-    const fetchRequests = async () => {
+    const fetchRequests = useCallback(async () => {
         setLoading(true);
         const { data, error } = await supabase
             .from('contact_requests')
@@ -35,7 +32,12 @@ export default function AdminContactsPage() {
             setRequests(data || []);
         }
         setLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchRequests();
+    }, [fetchRequests]);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -95,6 +97,11 @@ export default function AdminContactsPage() {
                                         <td className="px-6 py-4 align-top">
                                             <p className="font-medium text-slate-800">{req.name}</p>
                                             <p className="text-slate-500 text-xs mt-0.5">{req.email}</p>
+                                            {req.user_id && (
+                                                <p className="text-slate-400 text-[11px] mt-1 font-mono break-all">
+                                                    User ID: {req.user_id}
+                                                </p>
+                                            )}
                                         </td>
                                         <td className="px-6 py-4 align-top">
                                             {req.category === 'textbook-request' && (
