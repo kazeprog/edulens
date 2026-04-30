@@ -43,6 +43,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/textbook`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -61,42 +67,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 新・教科書＆単語帳特設ページ (SEO強化版)
   const textbookPaths = [
     'textbook/new-crown',
-    'textbook/new-crown/grade1',
-    'textbook/new-crown/grade2',
-    'textbook/new-crown/grade3',
     'textbook/new-horizon',
-    'textbook/new-horizon/grade1',
-    'textbook/new-horizon/grade2',
-    'textbook/new-horizon/grade3',
     'textbook/system-words',
+    'textbook/system-words-stage5',
     'textbook/target-1900',
+    'textbook/target-1900/print',
+    'textbook/target-1400',
     'textbook/target-1200',
+    'textbook/target-1800',
+    'textbook/target-1800-v5',
     'textbook/leap',
+    'textbook/leap/app',
+    'textbook/leap-basic',
+    'textbook/reform-leap',
+    'textbook/stock-3000',
+    'textbook/stock-4500',
+    'textbook/sokutan-hisshu-8th',
+    'textbook/sokutan-jokyu-5th',
+    'textbook/teppeki',
     'textbook/duo-30',
     'textbook/toeic-gold',
+    'textbook/eiken-pre2-passtan-5th',
+    'textbook/eiken-2-passtan-5th',
+    'textbook/eiken-pre1-ex',
     'textbook/kobun-315',
     'textbook/kobun-330',
     'textbook/kobun-325',
+    'textbook/kobun-351',
+    'textbook/madonna-kobun-230',
+    'textbook/group30-kobun-600',
+    'textbook/absolute-150',
+    'textbook/past-tense',
+    'textbook/past-participle',
   ];
 
   // 動的Unit/Lessonページの生成
-  const { getAvailableLessons, WORDBOOK_CONFIG } = await import('@/lib/mistap/textbook-data');
-
-  // School Textbooks
-  const schoolBookConfigs = [
-    { name: 'New Crown', slug: 'new-crown', maxGrade: 3 },
-    { name: 'New Horizon', slug: 'new-horizon', maxGrade: 3 },
-  ];
-
-  schoolBookConfigs.forEach(book => {
-    for (let g = 1; g <= book.maxGrade; g++) {
-      const gradeStr = `中${g}`;
-      const lessons = getAvailableLessons(book.name, gradeStr);
-      lessons.forEach(l => {
-        textbookPaths.push(`textbook/${book.slug}/grade${g}/${l}`);
-      });
-    }
-  });
+  const { WORDBOOK_CONFIG } = await import('@/lib/mistap/textbook-data');
 
   // Wordbooks
   Object.keys(WORDBOOK_CONFIG).forEach(key => {
@@ -106,7 +112,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   });
 
-  const textbookPages: MetadataRoute.Sitemap = textbookPaths.map((path) => ({
+  const uniqueTextbookPaths = Array.from(new Set(textbookPaths));
+
+  const textbookPages: MetadataRoute.Sitemap = uniqueTextbookPaths.map((path) => ({
     url: `${baseUrl}/${path}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

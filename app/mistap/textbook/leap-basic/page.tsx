@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'LEAP Basic英単語テスト｜基礎1400語を無料で演習',
+    title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
     description: 'LEAP Basic対応の英単語テスト。基礎1400語を無料で小テスト化でき、共通テスト前の語彙固めや高校英語の土台作りに役立ちます。',
     keywords: [
         'LEAP Basic',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         '英単語 小テスト 作成',
     ],
     openGraph: {
-        title: 'LEAP Basic英単語テスト｜基礎1400語を無料で演習',
+        title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
         description: 'LEAP Basicの基礎1400語を無料でテスト。高校英語の土台作りや共通テスト対策の最初の1冊に。 ',
         url: 'https://edulens.jp/mistap/textbook/leap-basic',
         type: 'website',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'LEAP Basic英単語テスト｜基礎1400語を無料で演習',
+        title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
         description: 'LEAP Basicの基礎1400語を無料で小テスト化。英単語の初周や共通テスト前の語彙固めに使えます。',
     },
     alternates: {

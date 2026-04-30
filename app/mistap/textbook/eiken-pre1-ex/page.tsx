@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '英検準1級単熟語EX テスト｜語彙と熟語を無料で反復',
+    title: '英検準1級単熟語EX テスト｜無料小テストアプリ - Mistap',
     description: '英検準1級単熟語EX対応の無料テストページです。単語・熟語を範囲指定で確認でき、英検準1級の語彙対策をテンポよく進められます。',
     keywords: [
         '英検準1級単熟語EX',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         'Eiken Pre-1',
     ],
     openGraph: {
-        title: '英検準1級単熟語EX テスト｜語彙と熟語を無料で反復',
+        title: '英検準1級単熟語EX テスト｜無料小テストアプリ - Mistap',
         description: '英検準1級単熟語EXの範囲指定テストをすぐ作成。一次試験の語彙対策に使いやすい無料ページです。',
         url: 'https://edulens.jp/mistap/textbook/eiken-pre1-ex',
         type: 'website',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '英検準1級単熟語EX テスト｜語彙と熟語を無料で反復',
+        title: '英検準1級単熟語EX テスト｜無料小テストアプリ - Mistap',
         description: '英検準1級単熟語EXの単語・熟語を範囲指定でテスト化。スキマ時間の反復に向いた無料ページです。',
         images: ['/mistap-icon-v2.png'],
     },

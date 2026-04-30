@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '英検2級 でる順パス単 5訂版 テスト｜語彙と熟語を無料で反復',
+    title: '英検2級 パス単5訂版 テスト｜無料小テストアプリ - Mistap',
     description: '英検2級 でる順パス単 5訂版対応の無料テストページです。単語・熟語を範囲指定で確認でき、英検2級の語彙対策をテンポよく進められます。',
     keywords: [
         '英検2級 でる順パス単 5訂版',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         'Eiken Grade 2',
     ],
     openGraph: {
-        title: '英検2級 でる順パス単 5訂版 テスト｜語彙と熟語を無料で反復',
+        title: '英検2級 パス単5訂版 テスト｜無料小テストアプリ - Mistap',
         description: '英検2級 でる順パス単 5訂版の範囲指定テストをすぐ作成。一次試験の語彙対策に使いやすい無料ページです。',
         url: 'https://edulens.jp/mistap/textbook/eiken-2-passtan-5th',
         type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '英検2級 でる順パス単 5訂版 テスト｜語彙と熟語を無料で反復',
+        title: '英検2級 パス単5訂版 テスト｜無料小テストアプリ - Mistap',
         description: '英検2級 でる順パス単 5訂版の単語・熟語を範囲指定でテスト化。スキマ時間の反復に向いた無料ページです。',
         images: ['/mistap-icon-v2.png'],
     },

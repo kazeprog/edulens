@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'システム英単語 Stage5 多義語テスト｜大学受験・共通テスト 無料',
+    title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
     description: 'システム英単語（シスタン）Stage5 多義語の英単語テスト。多義語184語を無料でテストできます。共通テスト・難関大対策に最適。',
     keywords: [
         'システム英単語 Stage5',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         'シス単 Stage5 小テスト',
     ],
     openGraph: {
-        title: 'システム英単語 Stage5 多義語テスト｜大学受験・無料',
+        title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
         description: 'システム英単語 Stage5 多義語184語の無料テスト。多義語の裏の意味を完全に覚えよう。',
         url: 'https://edulens.jp/mistap/textbook/system-words-stage5',
         type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'システム英単語 Stage5 多義語テスト｜大学受験・無料',
+        title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
         description: 'システム英単語 Stage5 多義語184語の無料テスト。多義語の裏の意味を完全に覚えよう。',
     },
     alternates: {

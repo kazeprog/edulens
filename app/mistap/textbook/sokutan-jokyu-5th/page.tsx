@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '速読英単語 上級編［改訂第5版］単語テスト｜難関大英単語を無料で演習',
+    title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
     description: '速読英単語 上級編［改訂第5版］対応の無料英単語テスト。範囲を指定して難関大レベルの語彙を小テスト形式で効率よく復習できます。',
     keywords: [
         '速読英単語 上級編',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         '大学受験 英単語 テスト',
     ],
     openGraph: {
-        title: '速読英単語 上級編［改訂第5版］単語テスト｜難関大英単語を無料で演習',
+        title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
         description: '速読英単語 上級編［改訂第5版］の単語を無料でテスト化。範囲指定と反復で難関大語彙を着実に定着させられます。',
         url: 'https://edulens.jp/mistap/textbook/sokutan-jokyu-5th',
         type: 'website',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '速読英単語 上級編［改訂第5版］単語テスト｜難関大英単語を無料で演習',
+        title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
         description: '速読英単語 上級編［改訂第5版］を範囲指定で小テスト化。スマホでも手早く復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

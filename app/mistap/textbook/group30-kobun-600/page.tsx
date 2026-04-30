@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+    title: 'GROUP30古文単語600 テスト｜無料小テストアプリ - Mistap',
     description: 'GROUP30で覚える古文単語600対応の無料古文単語テスト。重要古語を小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         'GROUP30で覚える古文単語600',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         '語学春秋社 古文単語600',
     ],
     openGraph: {
-        title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+        title: 'GROUP30古文単語600 テスト｜無料小テストアプリ - Mistap',
         description: 'GROUP30で覚える古文単語600の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/group30-kobun-600',
         type: 'website',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'GROUP30で覚える古文単語600 古文単語テスト｜大学受験対策を無料で復習',
+        title: 'GROUP30古文単語600 テスト｜無料小テストアプリ - Mistap',
         description: 'GROUP30で覚える古文単語600の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

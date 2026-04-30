@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '鉄緑会東大英単語熟語 鉄壁 単語テスト｜東大・難関大受験 無料',
+    title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
     description: '東大受験のバイブル「鉄緑会東大英単語熟語 鉄壁」対応の英単語テスト。Sectionごとの重要単語を無料でテストできます。東大・医学部・難関大対策に最適。',
     keywords: [
         '鉄壁',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         '英単語 クイズ サイト'
     ],
     openGraph: {
-        title: '鉄緑会東大英単語熟語 鉄壁 テスト｜東大・難関大対策',
+        title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
         description: '東大受験のバイブル「鉄壁」の単語テスト。Section別に無料で練習できます。',
         url: 'https://edulens.jp/mistap/textbook/teppeki',
         type: 'website',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '鉄壁 英単語テスト｜東大・難関大対策',
+        title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
         description: '東大受験のバイブル「鉄壁」の単語テスト。Section別に無料で練習できます。',
     },
     alternates: {

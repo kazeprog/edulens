@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '重要古文単語315 古文単語テスト｜大学受験対策を無料で復習',
+    title: '重要古文単語315 テスト｜無料小テストアプリ - Mistap',
     description: '重要古文単語315対応の無料古文単語テスト。大学受験で重要な古語を、章ごとの小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         '重要古文単語315',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         '桐原書店 重要古文単語315',
     ],
     openGraph: {
-        title: '重要古文単語315 古文単語テスト｜大学受験対策を無料で復習',
+        title: '重要古文単語315 テスト｜無料小テストアプリ - Mistap',
         description: '重要古文単語315の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/kobun-315',
         type: 'website',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '重要古文単語315 古文単語テスト｜大学受験対策を無料で復習',
+        title: '重要古文単語315 テスト｜無料小テストアプリ - Mistap',
         description: '重要古文単語315の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

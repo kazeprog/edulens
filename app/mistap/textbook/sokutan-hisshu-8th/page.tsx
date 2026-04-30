@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '速読英単語 必修編［改訂第8版］単語テスト｜大学受験英単語を無料で演習',
+    title: '速読英単語 必修編 テスト｜無料小テストアプリ - Mistap',
     description: '速読英単語 必修編［改訂第8版］対応の無料英単語テスト。範囲を指定して大学受験の必修語彙を小テスト形式で効率よく復習できます。',
     keywords: [
         '速読英単語 必修編',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         '大学受験 英単語 テスト',
     ],
     openGraph: {
-        title: '速読英単語 必修編［改訂第8版］単語テスト｜大学受験英単語を無料で演習',
+        title: '速読英単語 必修編 テスト｜無料小テストアプリ - Mistap',
         description: '速読英単語 必修編［改訂第8版］の単語を無料でテスト化。範囲指定と反復で受験語彙を着実に定着させられます。',
         url: 'https://edulens.jp/mistap/textbook/sokutan-hisshu-8th',
         type: 'website',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '速読英単語 必修編［改訂第8版］単語テスト｜大学受験英単語を無料で演習',
+        title: '速読英単語 必修編 テスト｜無料小テストアプリ - Mistap',
         description: '速読英単語 必修編［改訂第8版］を範囲指定で小テスト化。スマホでも手早く復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

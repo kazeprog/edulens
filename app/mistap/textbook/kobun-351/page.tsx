@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '核心古文単語351 古文単語テスト｜大学受験対策を無料で復習',
+    title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
     description: '理解を深める核心古文単語351対応の無料古文単語テスト。入試必修の古文単語を、章ごとの小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         '核心古文単語351',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         '尚文出版 核心古文単語351',
     ],
     openGraph: {
-        title: '核心古文単語351 古文単語テスト｜大学受験対策を無料で復習',
+        title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
         description: '核心古文単語351の入試必修語を、無料の古文単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/kobun-351',
         type: 'website',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '核心古文単語351 古文単語テスト｜大学受験対策を無料で復習',
+        title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
         description: '核心古文単語351の入試必修語を、無料の古文単語テストやアプリ感覚で復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

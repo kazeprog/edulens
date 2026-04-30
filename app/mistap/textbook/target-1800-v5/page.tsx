@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'ターゲット1800(5訂版) 英単語テスト｜高校入試の英単語を無料で小テスト',
+    title: 'ターゲット1800 5訂版 テスト｜無料小テストアプリ - Mistap',
     description: 'ターゲット1800(5訂版)対応の無料英単語テスト。高校入試に向けて中学重要単語を小テスト形式で確認でき、苦手語彙の復習にも使えます。',
     keywords: [
         'ターゲット1800(5訂版)',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         'ターゲット1800(5訂版) 一覧'
     ],
     openGraph: {
-        title: 'ターゲット1800(5訂版) 英単語テスト｜高校入試の英単語を無料で小テスト',
+        title: 'ターゲット1800 5訂版 テスト｜無料小テストアプリ - Mistap',
         description: 'ターゲット1800(5訂版)の単語を無料の小テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1800-v5',
         type: 'website',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'ターゲット1800(5訂版) 英単語テスト｜高校入試の英単語を無料で小テスト',
+        title: 'ターゲット1800 5訂版 テスト｜無料小テストアプリ - Mistap',
         description: 'ターゲット1800(5訂版)の単語を無料の小テストやアプリ感覚で復習できる英単語テストです。',
         images: ['/mistap-icon-v2.png'],
     },

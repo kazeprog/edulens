@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '不規則動詞の過去形 対応テスト｜中学英語 基礎 無料',
+    title: '不規則動詞 過去形 テスト｜無料小テストアプリ - Mistap',
     description: '英語の不規則動詞の過去形をマスターするための無料テスト・クイズ。中学・高校入試に必須の動詞活用を効率よく学習できます。',
     keywords: [
         '不規則動詞 過去形',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         '英語 基礎 暗記',
     ],
     openGraph: {
-        title: '不規則動詞の過去形 対応テスト｜中学生・無料',
+        title: '不規則動詞 過去形 テスト｜無料小テストアプリ - Mistap',
         description: '不規則動詞の過去形を完璧に。Mistapで効率的な暗記学習。',
         url: 'https://edulens.jp/mistap/textbook/past-tense',
         type: 'website',

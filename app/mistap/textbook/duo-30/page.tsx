@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'DUO 3.0（デュオ）英単語テスト｜大学受験・ビジネス英語 無料',
+    title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
     description: '現代英語の重要単語・熟語を網羅した「DUO 3.0」対応の英単語テスト。Sectionごとの例文頻出単語を無料でテストできます。',
     keywords: [
         'DUO 3.0',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         '英単語 クイズ サイト'
     ],
     openGraph: {
-        title: 'DUO 3.0（デュオ）英単語テスト｜大学受験・ビジネス英語',
+        title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
         description: '現代英語の重要単語・熟語「DUO 3.0」の単語テスト。Section別に無料で練習できます。',
         url: 'https://edulens.jp/mistap/textbook/duo-30',
         type: 'website',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'DUO 3.0（デュオ）英単語テスト｜大学受験・ビジネス英語',
+        title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
         description: '現代英語の重要単語・熟語「DUO 3.0」の単語テスト。Section別に無料で練習できます。',
     },
     alternates: {

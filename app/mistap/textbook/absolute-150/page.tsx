@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '絶対覚える英単語150 英単語テスト｜中学基礎を無料で復習',
+    title: '絶対覚える英単語150 テスト｜無料小テストアプリ - Mistap',
     description: '絶対覚える英単語150対応の無料英単語テスト。中学英語の基礎150語を、Partごとの小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         '絶対覚える英単語150',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         '絶対覚える英単語150 無料',
     ],
     openGraph: {
-        title: '絶対覚える英単語150 英単語テスト｜中学基礎を無料で復習',
+        title: '絶対覚える英単語150 テスト｜無料小テストアプリ - Mistap',
         description: '絶対覚える英単語150の基礎単語を、無料の英単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/absolute-150',
         type: 'website',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '絶対覚える英単語150 英単語テスト｜中学基礎を無料で復習',
+        title: '絶対覚える英単語150 テスト｜無料小テストアプリ - Mistap',
         description: '絶対覚える英単語150の基礎単語を、無料の英単語テストやアプリ感覚で復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

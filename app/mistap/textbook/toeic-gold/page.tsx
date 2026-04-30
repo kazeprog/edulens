@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+    title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
     description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）対応の無料英単語テスト。TOEIC頻出単語を小テスト形式で効率よく復習できます。',
     keywords: [
         '金のフレーズ 単語テスト',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         'TEX加藤 金のフレーズ'
     ],
     openGraph: {
-        title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+        title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
         description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）の単語を、無料の小テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/toeic-gold',
         type: 'website',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: '金のフレーズ（金フレ）英単語テスト｜TOEIC単語を無料で小テスト',
+        title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
         description: '金フレの単語を無料の小テストやアプリ感覚で復習できるTOEIC英単語テストです。',
         images: ['/mistap-icon-v2.png'],
     },

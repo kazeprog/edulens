@@ -3,9 +3,7 @@
 import GoogleAdsense from '@/components/GoogleAdsense';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { CheckCircle, BookOpen, Zap, Trophy, ChevronRight, GraduationCap, School, ClipboardList, CheckSquare } from 'lucide-react';
-import SiteFooter from '@/components/SiteFooter';
+import { Zap, ChevronRight, CheckSquare } from 'lucide-react';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
 import AmazonTextbookLink from '@/components/mistap/AmazonTextbookLink';
@@ -35,6 +33,7 @@ interface TextbookLPTemplateProps {
         feature1?: { title: string; description: string };
         feature2?: { title: string; description: string };
         feature3?: { title: string; description: string };
+        extraFaqs?: { question: string; answer: string }[];
     };
 }
 
@@ -243,6 +242,35 @@ export default function TextbookLPTemplate({
             ? `はい、${textbookNameJa}に対応しています。収録英単語の復習や定着確認に使える小テストを無料で作成できます。`
             : `はい、中学1年生から3年生までのすべての${textbookNameJa}に対応しています。${unitLabel}ごとに細かく分かれているので、テスト範囲だけをピンポイントで学習できます。`;
 
+    const faqItems = [
+        {
+            question: faqQuestion,
+            answer: faqAnswer,
+        },
+        {
+            question: "無料で使えますか？",
+            answer: "はい、すべての機能を無料でご利用いただけます。会員登録をしなくてもテストを試すことができますが、学習履歴の保存や苦手単語の管理には無料の会員登録をおすすめしています。",
+        },
+        {
+            question: "スマートフォン以外でも使えますか？",
+            answer: "はい、PC、タブレット、スマートフォンなど、ブラウザが使える端末であればどれでもご利用いただけます。自宅ではタブレット、通学中はスマホといった使い分けも可能です。",
+        },
+        ...(seoSettings?.extraFaqs || []),
+    ];
+
+    const faqJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map((item) => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer,
+            },
+        })),
+    };
+
     // ローカルJSONからデータを取得
     const localWords = presetTextbook ? getJsonTextbookData(presetTextbook) : null;
     const initialData = localWords ? localWords : undefined;
@@ -252,6 +280,10 @@ export default function TextbookLPTemplate({
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
             <main className="bg-white min-h-screen">
                 {/* Hero Section */}
@@ -447,21 +479,14 @@ export default function TextbookLPTemplate({
                         <h2 className="text-3xl font-bold text-center text-slate-800 mb-12">よくある質問</h2>
 
                         <div className="space-y-6">
-                            <FAQItem
-                                question={faqQuestion}
-                                answer={faqAnswer}
-                                badgeColor={theme.faqQ}
-                            />
-                            <FAQItem
-                                question="無料で使えますか？"
-                                answer="はい、すべての機能を無料でご利用いただけます。会員登録をしなくてもテストを試すことができますが、学習履歴の保存や苦手単語の管理には無料の会員登録をおすすめしています。"
-                                badgeColor={theme.faqQ}
-                            />
-                            <FAQItem
-                                question="スマートフォン以外でも使えますか？"
-                                answer="はい、PC、タブレット、スマートフォンなど、ブラウザが使える端末であればどれでもご利用いただけます。自宅ではタブレット、通学中はスマホといった使い分けも可能です。"
-                                badgeColor={theme.faqQ}
-                            />
+                            {faqItems.map((item) => (
+                                <FAQItem
+                                    key={item.question}
+                                    question={item.question}
+                                    answer={item.answer}
+                                    badgeColor={theme.faqQ}
+                                />
+                            ))}
                         </div>
                     </div>
                 </section>

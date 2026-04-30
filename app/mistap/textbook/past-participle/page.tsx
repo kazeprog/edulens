@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: '不規則動詞の過去形・過去分詞形 対応テスト｜中学英語 基礎 無料',
+    title: '不規則動詞 過去分詞 テスト｜無料小テストアプリ - Mistap',
     description: '不規則動詞の過去形と過去分詞形をセットでマスター。現在完了形や受け身に必須の活用を効率よく学習できます。',
     keywords: [
         '不規則動詞 過去分詞',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         '英語 完了形 基礎',
     ],
     openGraph: {
-        title: '不規則動詞の過去形・過去分詞形 対応テスト｜中学生・無料',
+        title: '不規則動詞 過去分詞 テスト｜無料小テストアプリ - Mistap',
         description: '不規則動詞の過去形・過去分詞形を完璧に。',
         url: 'https://edulens.jp/mistap/textbook/past-participle',
         type: 'website',

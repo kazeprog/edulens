@@ -3,8 +3,8 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'システム英単語（シスタン）英単語テスト｜大学受験・共通テスト 無料',
-    description: '大学受験対策の決定版「システム英単語（シスタン）」対応の英単語テスト。Chapter/Stageごとの頻出単語を無料でテストできます。共通テスト・難関大対策に最適。',
+    title: 'システム英単語 テスト｜無料小テストアプリ - Mistap',
+    description: 'システム英単語（シス単）対応の無料テストページ。Chapter/Stageごとの頻出単語を小テスト化でき、スマホでアプリ感覚に反復できます。共通テスト・大学受験対策に。',
     keywords: [
         'システム英単語',
         'シスタン',
@@ -39,16 +39,16 @@ export const metadata: Metadata = {
         '英単語 クイズ サイト'
     ],
     openGraph: {
-        title: 'システム英単語（シスタン）英単語テスト｜大学受験・無料',
-        description: '大学受験必須の英単語帳「システム英単語」の単語テスト。Chapter別に無料で練習できます。',
+        title: 'システム英単語 テスト｜無料小テストアプリ - Mistap',
+        description: 'システム英単語の単語テスト。Chapter別に無料で練習でき、スマホでアプリ感覚に反復できます。',
         url: 'https://edulens.jp/mistap/textbook/system-words',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'システム英単語（シスタン）英単語テスト｜大学受験・無料',
-        description: '大学受験必須の英単語帳「システム英単語」の単語テスト。Chapter別に無料で練習できます。',
+        title: 'システム英単語 テスト｜無料小テストアプリ - Mistap',
+        description: 'システム英単語の単語テスト。Chapter別に無料で練習でき、スマホでアプリ感覚に反復できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/system-words'
@@ -74,12 +74,12 @@ export default function SystemWordsPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">システム英単語（シス単）テスト完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">システム英単語（シス単）の無料テストアプリ感覚ページ</span>
                         収録英単語を<br />
-                        <span className="text-sky-500">ゲーム感覚で完全攻略</span>
+                        <span className="text-sky-500">Chapter別小テストで反復</span>
                     </h1>
                 ),
-                heroDescription: "大学受験のバイブル「システム英単語（シス単）」の無料テスト・クイズアプリ（サイト）。Chapter/Stageごとに小テストを作成でき、共通テストや難関大の英単語対策に最適です。登録不要で今すぐテスト作成・実施が可能！",
+                heroDescription: "大学受験のバイブル「システム英単語（シス単）」の無料テスト・クイズアプリ感覚ページです。Chapter/Stageごとに小テストを作成でき、共通テストや難関大の英単語対策に登録不要ですぐ使えます。",
                 testSectionTitle: "システム英単語（シス単）のテストを今すぐ作成",
                 testSectionDescription: (
                     <p>
@@ -104,7 +104,7 @@ export default function SystemWordsPage() {
                 },
                 feature3: {
                     title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、ゲーム感覚でシス単をマスターできます。"
+                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚でシス単をマスターできます。"
                 }
             }}
         />

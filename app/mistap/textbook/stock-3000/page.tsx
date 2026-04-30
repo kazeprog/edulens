@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'Stock3000英単語テスト｜基礎から受験頻出語まで無料で演習',
+    title: 'Stock3000 テスト｜無料小テストアプリ - Mistap',
     description: 'Stock3000対応の英単語テスト。覚えたい範囲だけ小テスト化できるので、日々の確認から受験対策までテンポよく進められます。',
     keywords: [
         'Stock3000',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         '英単語 範囲指定',
     ],
     openGraph: {
-        title: 'Stock3000英単語テスト｜基礎から受験頻出語まで無料で演習',
+        title: 'Stock3000 テスト｜無料小テストアプリ - Mistap',
         description: 'Stock3000の単語を無料でテスト化。必要な範囲だけを切り出して、スキマ時間でも反復できます。',
         url: 'https://edulens.jp/mistap/textbook/stock-3000',
         type: 'website',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Stock3000英単語テスト｜基礎から受験頻出語まで無料で演習',
+        title: 'Stock3000 テスト｜無料小テストアプリ - Mistap',
         description: 'Stock3000をそのまま小テスト化。短い範囲で区切りながら、着実に定着を進められます。',
     },
     alternates: {

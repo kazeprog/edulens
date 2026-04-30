@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'マドンナ古文単語230 古文単語テスト｜大学受験対策を無料で復習',
+    title: 'マドンナ古文単語230 テスト｜無料小テストアプリ - Mistap',
     description: 'マドンナ古文単語230対応の無料古文単語テスト。大学受験や共通テストで重要な古文単語を、小テストやアプリ感覚で効率よく復習できます。',
     keywords: [
         'マドンナ古文単語230',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         '学研 マドンナ古文単語230',
     ],
     openGraph: {
-        title: 'マドンナ古文単語230 古文単語テスト｜大学受験対策を無料で復習',
+        title: 'マドンナ古文単語230 テスト｜無料小テストアプリ - Mistap',
         description: 'マドンナ古文単語230の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/madonna-kobun-230',
         type: 'website',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'マドンナ古文単語230 古文単語テスト｜大学受験対策を無料で復習',
+        title: 'マドンナ古文単語230 テスト｜無料小テストアプリ - Mistap',
         description: 'マドンナ古文単語230の重要語を、無料の古文単語テストやアプリ感覚で復習できます。',
         images: ['/mistap-icon-v2.png'],
     },

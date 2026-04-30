@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'LEAP（リープ）英単語テスト｜大学受験・共通テスト 無料',
-    description: '4技能対応英単語帳「LEAP」対応の英単語テスト。Part/Sectionごとの頻出単語を無料でテストできます。竹岡広信先生監修の単語学習に最適。',
+    title: 'LEAP テスト｜無料小テストアプリ - Mistap',
+    description: '4技能対応英単語帳「LEAP」対応の無料単語テストページ。Partごとの頻出単語を小テスト化でき、スマホでアプリ感覚に反復できます。',
     keywords: [
         'LEAP 英単語',
         'リープ 英単語',
@@ -32,16 +33,16 @@ export const metadata: Metadata = {
         '英単語 クイズ サイト'
     ],
     openGraph: {
-        title: 'LEAP（リープ）英単語テスト｜大学受験・無料',
-        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習できます。',
+        title: 'LEAP テスト｜無料小テストアプリ - Mistap',
+        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習でき、スマホで反復できます。',
         url: 'https://edulens.jp/mistap/textbook/leap',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'LEAP（リープ）英単語テスト｜大学受験・無料',
-        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習できます。',
+        title: 'LEAP テスト｜無料小テストアプリ - Mistap',
+        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習でき、スマホで反復できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/leap'
@@ -67,19 +68,27 @@ export default function LeapPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">必修英単語LEAP（リープ）テスト完全対応</span>
-                        竹岡広信先生のメソッドを<br />
-                        <span className="text-sky-500">ゲーム感覚で完全攻略</span>
+                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">必修英単語LEAP（リープ）の無料テストアプリ感覚ページ</span>
+                        Part別に区切って<br />
+                        <span className="text-sky-500">小テストで着実に反復</span>
                     </h1>
                 ),
-                heroDescription: "4技能対応英単語帳「必修英単語LEAP（リープ）」の無料テスト・クイズアプリ（サイト）。Partごとに小テストを作成でき、SpeakingやWritingにつながる実践的な語彙力が身につきます。登録不要で今すぐテスト作成・実施が可能！",
+                heroDescription: "4技能対応英単語帳「必修英単語LEAP（リープ）」の無料テスト・クイズアプリ感覚ページです。Partごとに小テストを作成でき、SpeakingやWritingにつながる語彙をスマホでも反復できます。登録不要ですぐ使えます。",
                 heroSecondaryCta: (
-                    <a
-                        href="/mistap/textbook/reform-leap"
-                        className="w-full sm:w-auto px-8 py-4 bg-white text-sky-700 border-2 border-sky-200 rounded-xl font-bold text-lg shadow-lg shadow-sky-100 hover:bg-sky-50 hover:border-sky-300 transition-all duration-300 flex items-center justify-center gap-2"
-                    >
-                        改訂版はこちら
-                    </a>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Link
+                            href="/mistap/textbook/leap/app"
+                            className="w-full sm:w-auto px-8 py-4 bg-white text-sky-700 border-2 border-sky-200 rounded-xl font-bold text-lg shadow-lg shadow-sky-100 hover:bg-sky-50 hover:border-sky-300 transition-all duration-300 flex items-center justify-center gap-2"
+                        >
+                            アプリ感覚で使う
+                        </Link>
+                        <Link
+                            href="/mistap/textbook/reform-leap"
+                            className="w-full sm:w-auto px-8 py-4 bg-white text-sky-700 border-2 border-sky-200 rounded-xl font-bold text-lg shadow-lg shadow-sky-100 hover:bg-sky-50 hover:border-sky-300 transition-all duration-300 flex items-center justify-center gap-2"
+                        >
+                            改訂版はこちら
+                        </Link>
+                    </div>
                 ),
                 testSectionTitle: "LEAPのテストを今すぐ作成",
                 testSectionDescription: (
@@ -105,7 +114,7 @@ export default function LeapPage() {
                 },
                 feature3: {
                     title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、ゲーム感覚でLEAPをマスターできます。"
+                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚でLEAPをマスターできます。"
                 }
             }}
         />

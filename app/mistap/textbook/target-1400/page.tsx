@@ -3,7 +3,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 
 export const dynamic = "force-static";
 export const metadata: Metadata = {
-    title: 'ターゲット1400 英単語テスト｜共通テスト対策の単語を無料で小テスト',
+    title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
     description: '英単語ターゲット1400対応の無料英単語テスト。Sectionごとに重要単語を確認でき、共通テストや中堅大対策の語彙定着に役立ちます。',
     keywords: [
         'ターゲット1400 単語テスト',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         '旺文社 ターゲット1400'
     ],
     openGraph: {
-        title: 'ターゲット1400 英単語テスト｜共通テスト対策の単語を無料で小テスト',
+        title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
         description: '英単語ターゲット1400の重要単語を、Sectionごとの無料小テストやアプリ感覚で復習できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1400',
         type: 'website',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'ターゲット1400 英単語テスト｜共通テスト対策の単語を無料で小テスト',
+        title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
         description: 'ターゲット1400の単語をSectionごとの小テストやアプリ感覚で復習できる無料英単語テストです。',
         images: ['/mistap-icon-v2.png'],
     },
