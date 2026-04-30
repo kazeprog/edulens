@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense, useMemo, Fragment } from "react";
+import React, { useState, useEffect, useRef, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
@@ -152,7 +152,7 @@ function TestContent() {
   useEffect(() => {
     const adjustHeights = () => {
       if (!desktopGridRef.current) return;
-      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      if (typeof window !== 'undefined' && window.innerWidth < 1280) {
         Array.from(desktopGridRef.current.querySelectorAll<HTMLElement>('.test-card')).forEach((el: HTMLElement) => {
           el.style.height = '';
         });
@@ -273,7 +273,7 @@ function TestContent() {
             count = 50;
           }
 
-          let data: any[] | null = null;
+          let data: Word[] | null = null;
           let error = null;
 
           // ローカルJSONデータを試行
@@ -296,7 +296,7 @@ function TestContent() {
               .eq("text", selectedText)
               .gte("word_number", startNum)
               .lte("word_number", endNum);
-            data = result.data;
+            data = result.data as Word[] | null;
             error = result.error;
           }
 
@@ -328,7 +328,8 @@ function TestContent() {
           parsedData.words = parsedData.words.slice(0, 50);
         }
 
-        setTestData(parsedData);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setTestData(parsedData as TestData);
       } catch {
         router.push('/mistap/test-setup');
       }
@@ -371,6 +372,16 @@ function TestContent() {
 
     const leftWords = words.filter((_: Word, i: number) => i % 2 === 0);
     const rightWords = words.filter((_: Word, i: number) => i % 2 === 1);
+    const rowCountForColumns = Math.max(leftWords.length, rightWords.length);
+    const printLeftWords = Array.from({ length: rowCountForColumns }, (_, i) => leftWords[i] ?? null);
+    const printRightWords = Array.from({ length: rowCountForColumns }, (_, i) => rightWords[i] ?? null);
+    const renderPrintWordItem = (word: Word | null) => {
+      if (!word) {
+        return '<div class="word-item word-item-empty"></div>';
+      }
+
+      return `<div class="word-item"><div class="word-number">• ${word.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${word.word_number})</span></div><div class="meaning">${word.meaning}</div></div>`;
+    };
 
     // Dynamic Scaling Logic
     const rowCount = Math.ceil(words.length / 2);
@@ -382,7 +393,7 @@ function TestContent() {
     let fontSizeWord = 16;
     let fontSizeMeaning = 14;
     let itemPaddingV = 5;
-    let itemPaddingH = 12;
+    const itemPaddingH = 12;
     let gap = 10;
 
     // Scale down if rows increase
@@ -484,6 +495,11 @@ function TestContent() {
       gap: 10px;
       min-height: 0;
     }
+
+    .word-item-empty {
+      border-color: transparent;
+      background: transparent;
+    }
     
     .word-number { 
       font-weight: bold; 
@@ -564,8 +580,8 @@ function TestContent() {
   <div class="page problem-section">
     <h1>${title}</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${printLeftWords.map(renderPrintWordItem).join('')}</div>
+      <div class="column">${printRightWords.map(renderPrintWordItem).join('')}</div>
     </div>
     <div class="footer">
       <div class="footer-left">
@@ -579,8 +595,8 @@ function TestContent() {
   <div class="page answer-section">
     <h1>${title} - 解答</h1>
     <div class="two-column-container">
-      <div class="column">${leftWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
-      <div class="column">${rightWords.map(w => `<div class="word-item"><div class="word-number">• ${w.word} <span style="font-size: 0.85em; font-weight: normal; margin-left: 2px;">(${w.word_number})</span></div><div class="meaning">${w.meaning}</div></div>`).join('')}</div>
+      <div class="column">${printLeftWords.map(renderPrintWordItem).join('')}</div>
+      <div class="column">${printRightWords.map(renderPrintWordItem).join('')}</div>
     </div>
     <div class="footer">
       <div class="footer-left">
@@ -703,9 +719,9 @@ function TestContent() {
             {testTitle}
           </h1>
 
-          <div className="mb-3 md:mb-8" translate="no">
-            {/* Mobile: Flip cards */}
-            <div ref={mobileCardsRef} className="block md:hidden px-3 w-full max-w-md mx-auto">
+          <div className="mb-3 xl:mb-8" translate="no">
+            {/* Touch devices and tablets: Flip cards */}
+            <div ref={mobileCardsRef} className="block xl:hidden px-3 w-full max-w-md sm:max-w-xl lg:max-w-2xl mx-auto">
               {displayWords.map((item, idx: number) => {
                 // Merge height data from wordsWithHeights if available
                 const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
@@ -745,7 +761,7 @@ function TestContent() {
             </div>
 
             {/* Desktop: 2-column layout */}
-            <div ref={desktopGridRef} className="hidden md:grid md:grid-cols-2 md:gap-6">
+            <div ref={desktopGridRef} className="hidden xl:grid xl:grid-cols-2 xl:gap-6">
               <ul>
                 {leftWords.map((item, idx: number) => (
                   <li key={`${item.word_number}-left-${idx}`} className="mb-6">
@@ -797,7 +813,7 @@ function TestContent() {
 
           {/* AdSense - contain: layout paint でレイアウト隔離 */}
           <GoogleAdsense
-            className="md:hidden mb-6 w-full overflow-hidden"
+            className="xl:hidden mb-6 w-full overflow-hidden"
             style={{
               display: 'block',
               width: '100%',

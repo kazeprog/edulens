@@ -1,9 +1,3 @@
-interface Word {
-    word_number: number;
-    word: string;
-    meaning: string;
-}
-
 interface TestActionButtonsProps {
     showAnswers: boolean;
     onToggleAnswers: () => void;
@@ -19,7 +13,7 @@ export function MobileActionButtons({
     onCancel,
 }: TestActionButtonsProps) {
     return (
-        <div className="block md:hidden space-y-3">
+        <div className="block xl:hidden space-y-3">
             <button
                 onClick={onToggleAnswers}
                 className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 px-4 rounded-lg text-lg"
@@ -51,7 +45,7 @@ export function DesktopActionButtons({
     onPrint,
 }: TestActionButtonsProps) {
     return (
-        <div className="hidden md:flex md:justify-between md:items-center">
+        <div className="hidden xl:flex xl:justify-between xl:items-center">
             <button
                 onClick={onCancel}
                 className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
