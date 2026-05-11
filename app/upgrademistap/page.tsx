@@ -205,10 +205,10 @@ export default function UpgradeMistapPage() {
                                                     <ArrowRight className="w-4 h-4" />
                                                 </Link>
                                                 <Link
-                                                    href="/portal"
+                                                    href="/account"
                                                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-5 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                                                 >
-                                                    契約内容を確認する
+                                                    アカウント管理で契約を確認
                                                 </Link>
                                             </div>
                                         </div>

@@ -5,15 +5,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import ManageSubscriptionButton from '@/components/ManageSubscriptionButton';
 
 export default function Header() {
   const router = useRouter();
-  const { user, profile, loading, signOut } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isLoggedIn = !loading && !!user;
-  const name = profile?.full_name ?? user?.email?.split('@')[0] ?? null;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -91,14 +89,6 @@ export default function Header() {
                   ホーム
                 </Link>
                 <Link
-                  href="/mistap/profile"
-                  prefetch={false}
-                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {name ? `${name} さんのプロフィール` : 'プロフィールを設定'}
-                </Link>
-                <Link
                   href="/mistap/test-setup"
                   prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
@@ -140,21 +130,14 @@ export default function Header() {
                 </Link>
                 <div className="border-t border-slate-100 my-1"></div>
 
-                {!profile?.is_pro && (
-                  <Link
-                    href="/upgrademistap"
-                    prefetch={false}
-                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-indigo-500"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Proプラン登録
-                  </Link>
-                )}
-
-                {profile?.is_pro && profile.stripe_customer_id && (
-                  <ManageSubscriptionButton customerId={profile.stripe_customer_id} />
-                )}
-
+                <Link
+                  href="/account"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  アカウント管理
+                </Link>
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);

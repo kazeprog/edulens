@@ -22,7 +22,7 @@ function getErrorMessage(error: unknown, fallback: string) {
 
 export async function POST(req: Request) {
     try {
-        const { customerId } = await req.json().catch(() => ({ customerId: null }));
+        const { customerId, returnPath } = await req.json().catch(() => ({ customerId: null, returnPath: null }));
         const token = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
 
         if (!token) {
@@ -58,10 +58,14 @@ export async function POST(req: Request) {
         }
 
         const origin = getBaseUrl(req);
+        const safeReturnPath =
+            typeof returnPath === 'string' && returnPath.startsWith('/') && !returnPath.startsWith('//')
+                ? returnPath
+                : '/account';
 
         const session = await stripe.billingPortal.sessions.create({
             customer: ownedCustomerId,
-            return_url: `${origin}/`,
+            return_url: `${origin}${safeReturnPath}`,
         });
 
         return NextResponse.json({ url: session.url });

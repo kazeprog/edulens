@@ -216,6 +216,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setProfile(prev => prev ? {
                     ...prev,
                     full_name: e.detail?.full_name ?? prev.full_name,
+                    grade: e.detail?.grade !== undefined ? e.detail.grade : prev.grade,
                     exp: e.detail?.exp !== undefined ? e.detail.exp : prev.exp,
                     level: e.detail?.level !== undefined ? e.detail.level : prev.level
                 } : null);
