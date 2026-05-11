@@ -76,6 +76,11 @@ interface TestResult {
     created_at: string;
 }
 
+type MistapTestUserRankResult = {
+    total_test_users: number | null;
+    overall_rank: number | null;
+};
+
 // 登録ユーザー数表示コンポーネント
 function UserCountDisplay() {
     const [userCount, setUserCount] = useState<number | null>(null);
@@ -369,7 +374,7 @@ export default function HomePage() {
         }
     }, [authProfile]);
 
-    // 全ユーザー中の順位を取得
+    // Mistapでテストをしたことがあるユーザー中の順位を取得
     useEffect(() => {
         if (authLoading || !user) {
             return;
@@ -387,35 +392,30 @@ export default function HomePage() {
             setIsRankLoading(true);
 
             try {
-                const [totalUsersResult, higherExpUsersResult] = await Promise.all([
-                    supabase
-                        .from('profiles')
-                        .select('id', { count: 'exact', head: true }),
-                    supabase
-                        .from('profiles')
-                        .select('id', { count: 'exact', head: true })
-                        .gt('exp', profile.exp)
-                ]);
+                const session = (await supabase.auth.getSession()).data.session;
+                const accessToken = session?.access_token;
 
-                if (totalUsersResult.error) {
-                    throw totalUsersResult.error;
+                if (!accessToken) {
+                    throw new Error('Login session is required');
                 }
 
-                if (higherExpUsersResult.error) {
-                    throw higherExpUsersResult.error;
+                const response = await fetch('/api/mistap/user-rank', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const rankData = await response.json().catch(() => null) as (MistapTestUserRankResult & { error?: string }) | null;
+
+                if (!response.ok) {
+                    throw new Error(rankData?.error || 'Failed to load Mistap rank');
                 }
 
                 if (!mounted) {
                     return;
                 }
 
-                const fetchedTotalUsers = totalUsersResult.count ?? null;
-                const fetchedOverallRank = higherExpUsersResult.count !== null
-                    ? higherExpUsersResult.count + 1
-                    : null;
-
-                setTotalUsers(fetchedTotalUsers);
-                setOverallRank(fetchedOverallRank);
+                setTotalUsers(rankData?.total_test_users ?? null);
+                setOverallRank(rankData?.overall_rank ?? null);
             } catch (rankError) {
                 console.error('Overall rank fetch error:', rankError);
 
@@ -870,6 +870,8 @@ export default function HomePage() {
                                                 <span>
                                                     <span className="text-orange-600 font-bold">{overallRank.toLocaleString()}位</span>/{totalUsers.toLocaleString()}人
                                                 </span>
+                                            ) : totalUsers !== null ? (
+                                                <span>テスト後に順位を表示</span>
                                             ) : (
                                                 <span>順位を取得できませんでした</span>
                                             )}
