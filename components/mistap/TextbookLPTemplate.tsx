@@ -33,6 +33,7 @@ interface TextbookLPTemplateProps {
         feature1?: { title: string; description: string };
         feature2?: { title: string; description: string };
         feature3?: { title: string; description: string };
+        extraContent?: React.ReactNode;
         extraFaqs?: { question: string; answer: string }[];
     };
 }
@@ -428,6 +429,8 @@ export default function TextbookLPTemplate({
                         </div>
                     </div>
                 </section>
+
+                {seoSettings?.extraContent}
 
                 {/* Features Section */}
                 <section className="py-20 bg-white">
