@@ -100,6 +100,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         totalUnits: 4,
         getRange: (unit) => ({ start: (unit - 1) * 200 + 1, end: unit * 200 }),
     },
+    'toeic-silver': {
+        name: 'TOEIC銀のフレーズ',
+        jpName: '銀のフレーズ',
+        unitLabel: 'Level',
+        totalUnits: 5,
+        getRange: (unit) => ({ start: (unit - 1) * 200 + 1, end: unit * 200 }),
+    },
     'kobun-315': {
         name: '重要古文単語315',
         jpName: '重要古文単語315',

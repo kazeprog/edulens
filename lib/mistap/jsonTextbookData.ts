@@ -8,6 +8,7 @@ import target1800v5Data from "@/lib/data/json/ターゲット1800(5訂版).json"
 import systemWordsData from "@/lib/data/json/システム英単語.json";
 import leapData from "@/lib/data/json/leap.json";
 import toeicGoldData from "@/lib/data/json/toeic金のフレーズ.json";
+import toeicSilverData from "@/lib/data/json/toeic-silver.json";
 import duo30Data from "@/lib/data/json/duo-30例文.json";
 import kobun315Data from "@/lib/data/json/読んで見て聞いて覚える-重要古文単語315.json";
 import kobun325Data from "@/lib/data/json/ベストセレクション古文単語325.json";
@@ -70,6 +71,9 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "toeic-gold": toeicGoldData as TextbookWord[],
     "TOEIC L&R TEST 出る単特急 金のフレーズ": toeicGoldData as TextbookWord[],
     "toeic金のフレーズ": toeicGoldData as TextbookWord[],
+    "toeic-silver": toeicSilverData as TextbookWord[],
+    "TOEIC L&R TEST 出る単特急 銀のフレーズ": toeicSilverData as TextbookWord[],
+    "TOEIC銀のフレーズ": toeicSilverData as TextbookWord[],
     "duo-30": duo30Data as TextbookWord[],
     "duo 3.0": duo30Data as TextbookWord[],
     "duo-30例文": duo30Data as TextbookWord[],
@@ -171,6 +175,7 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("eiken-2-passtan-5th") || (textbookName.includes("英検2級") && textbookName.includes("パス単")) || textbookName.includes("パス単2級") || textbookName.includes("パス単２級")) return DATA_MAP["eiken-2-passtan-5th"];
     if (normalized.includes("sokutan-hisshu-8th") || (textbookName.includes("速読英単語") && textbookName.includes("必修編")) || textbookName.includes("速単必修")) return DATA_MAP["sokutan-hisshu-8th"];
     if (normalized.includes("sokutan-jokyu-5th") || (textbookName.includes("速読英単語") && textbookName.includes("上級編")) || textbookName.includes("速単上級編")) return DATA_MAP["sokutan-jokyu-5th"];
+    if (textbookName.includes("銀のフレーズ") || textbookName.includes("銀フレ") || normalized.includes("toeic-silver")) return DATA_MAP["toeic-silver"];
     if (normalized.includes("toeic") || textbookName.includes("金のフレーズ")) return DATA_MAP["toeic-gold"];
     if (normalized.includes("duo")) return DATA_MAP["duo-30"];
     if (normalized.includes("315")) return DATA_MAP["kobun-315"];

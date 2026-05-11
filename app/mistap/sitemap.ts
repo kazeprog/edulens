@@ -93,6 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'textbook/sokutan-jokyu-5th',
     'textbook/teppeki',
     'textbook/duo-30',
+    'textbook/toeic-silver',
     'textbook/toeic-gold',
     'textbook/eiken-pre2-passtan-5th',
     'textbook/eiken-2-passtan-5th',

@@ -61,6 +61,7 @@ const textbookGroups: TextbookGroup[] = [
             { name: '英検準2級 でる順パス単 5訂版', href: '/mistap/textbook/eiken-pre2-passtan-5th' },
             { name: '英検2級 でる順パス単 5訂版', href: '/mistap/textbook/eiken-2-passtan-5th' },
             { name: '英検準1級単熟語EX', href: '/mistap/textbook/eiken-pre1-ex' },
+            { name: 'TOEIC L&R TEST 出る単特急 銀のフレーズ', href: '/mistap/textbook/toeic-silver' },
             { name: 'TOEIC L&R TEST 出る単特急 金のフレーズ', href: '/mistap/textbook/toeic-gold' },
         ],
     },
