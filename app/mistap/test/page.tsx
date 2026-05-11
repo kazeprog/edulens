@@ -474,11 +474,13 @@ function TestContent() {
       display: flex; 
       gap: 15px; 
       flex: 1; 
-      overflow: hidden; 
+      overflow: visible;
+      min-width: 0;
     }
     
     .column { 
       flex: 1; 
+      min-width: 0;
       display: flex; 
       flex-direction: column; 
       gap: ${gap}px; 
@@ -494,8 +496,9 @@ function TestContent() {
       flex-direction: row; 
       align-items: center; 
       justify-content: space-between; 
-      gap: 10px;
+      gap: 8px;
       min-height: 0;
+      min-width: 0;
     }
 
     .word-item-empty {
@@ -507,7 +510,10 @@ function TestContent() {
       font-weight: bold; 
       font-size: ${fontSizeWord}px; 
       margin-bottom: 0; 
-      flex-shrink: 0; 
+      flex: 1 1 48%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     
     .meaning { 
@@ -516,10 +522,14 @@ function TestContent() {
       line-height: 1.2; 
       text-align: right; 
       font-weight: 500; 
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 65%;
+      flex: 1 1 52%;
+      min-width: 0;
+      max-width: none;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     
     .answer-section .meaning { display: block; }

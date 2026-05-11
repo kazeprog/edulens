@@ -2,7 +2,6 @@ export const NO_ADS_ROUTES_PREFIXES = [
     "/login",
     "/upgrade",
     "/upgrademistap",
-    "/mistap/textbook",
     "/admin",
     "/dashboard",
     "/pricing",
