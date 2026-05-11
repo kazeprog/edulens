@@ -53,6 +53,7 @@ const featuredTextbooks = [
     { name: 'LEAP', href: '/mistap/textbook/leap' },
     { name: '速読英単語 必修編', href: '/mistap/textbook/sokutan-hisshu-8th' },
     { name: '英検2級 でる順パス単', href: '/mistap/textbook/eiken-2-passtan-5th' },
+    { name: 'TOEIC 銀のフレーズ', href: '/mistap/textbook/toeic-silver' },
     { name: 'TOEIC 金のフレーズ', href: '/mistap/textbook/toeic-gold' },
 ];
 

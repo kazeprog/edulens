@@ -312,6 +312,22 @@ const books: BookRecommendation[] = [
         },
     },
     {
+        name: 'TOEIC L&R 銀のフレーズ',
+        shortName: '銀のフレーズ',
+        amazonQuery: 'TOEIC L&R TEST 出る単特急 銀のフレーズ',
+        mistapPath: '/mistap/textbook/toeic-silver',
+        levelLabel: 'TOEIC基礎語彙',
+        summary: 'TOEIC600点を目指して、まず頻出の基本語・表現を固めたい人向けです。',
+        strategy: '日本語から英語フレーズを思い出せるように、短い範囲で小テストを繰り返しましょう。',
+        strengths: ['TOEICの基礎固め', '600点対策に合う', '頻出フレーズで覚えやすい'],
+        rules: {
+            grade: { adult: 5, high3: 2 },
+            goal: { toeic: 5 },
+            level: { weak: 5, basic: 4, standard: 1 },
+            style: { quick: 4, coverage: 2 },
+        },
+    },
+    {
         name: 'TOEIC L&R 金のフレーズ',
         shortName: '金のフレーズ',
         amazonQuery: 'TOEIC L&R TEST 出る単特急 金のフレーズ',

@@ -261,6 +261,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
   // 大学生・社会人向け教材リスト（固定）
   const universityTexts = useMemo(() => [
+    "TOEIC銀のフレーズ",
     "TOEIC金のフレーズ",
     "英検準2級 でる順パス単 5訂版",
     "英検2級 でる順パス単 5訂版",

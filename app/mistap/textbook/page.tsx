@@ -121,6 +121,13 @@ const universityTextbooks: Textbook[] = [
 
 const toeicTextbooks: Textbook[] = [
     {
+        name: "TOEIC L&R 銀のフレーズ",
+        description: "TOEIC600点を目指す基礎固めに。頻出フレーズで基本語を確認。",
+        path: "/mistap/textbook/toeic-silver",
+        color: "silver",
+        badge: "基礎固め"
+    },
+    {
         name: "英検準2級 でる順パス単 5訂版",
         description: "英検準2級の頻出単語・熟語を範囲指定で確認。一次試験の語彙対策を小テスト形式で反復できます。",
         path: "/mistap/textbook/eiken-pre2-passtan-5th",
@@ -568,6 +575,7 @@ function TextbookCard({ name, description, path, color, badge }: Textbook) {
         orange: "border-l-4 border-orange-500 hover:shadow-orange-100",
         sky: "border-l-4 border-sky-500 hover:shadow-sky-100",
         indigo: "border-l-4 border-indigo-500 hover:shadow-indigo-100",
+        silver: "border-l-4 border-zinc-400 hover:shadow-zinc-100",
     };
 
     const className = colorClasses[color] || "border-l-4 border-slate-500";
