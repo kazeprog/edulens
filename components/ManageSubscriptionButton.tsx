@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Settings } from 'lucide-react';
 import { getSupabase } from '@/lib/supabase';
 
 interface ManageSubscriptionButtonProps {
     customerId: string;
+    returnPath?: string;
+    className?: string;
+    children?: ReactNode;
 }
 
-export default function ManageSubscriptionButton({ customerId }: ManageSubscriptionButtonProps) {
+export default function ManageSubscriptionButton({
+    customerId,
+    returnPath,
+    className,
+    children,
+}: ManageSubscriptionButtonProps) {
     const [loading, setLoading] = useState(false);
 
     const handlePortal = async () => {
@@ -28,7 +36,7 @@ export default function ManageSubscriptionButton({ customerId }: ManageSubscript
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,
                 },
-                body: JSON.stringify({ customerId }),
+                body: JSON.stringify({ customerId, returnPath }),
             });
 
             const data = await response.json();
@@ -54,11 +62,11 @@ export default function ManageSubscriptionButton({ customerId }: ManageSubscript
         <button
             onClick={handlePortal}
             disabled={loading}
-            className={`w-full text-left flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors border-l-4 border-transparent hover:border-slate-500 ${loading ? 'opacity-50 cursor-wait' : ''
+            className={className ?? `w-full text-left flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors border-l-4 border-transparent hover:border-slate-500 ${loading ? 'opacity-50 cursor-wait' : ''
                 }`}
         >
             <Settings className="w-4 h-4 mr-2" />
-            {loading ? '読み込み中...' : 'プランの管理・解約'}
+            {loading ? '読み込み中...' : (children ?? 'プランの管理・解約')}
         </button>
     );
 }

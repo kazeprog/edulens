@@ -1,28 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import UpgradeButton from '@/components/UpgradeButton';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
-import { CheckCircle2, Star, Zap, Share2, Copy } from 'lucide-react';
+import { CheckCircle2, Share2, Copy } from 'lucide-react';
 
 export default function UpgradePage() {
     const { user, profile, loading } = useAuth();
-    const router = useRouter();
-    const [isRedirecting, setIsRedirecting] = useState(false);
+    const shouldRedirectToLogin = !loading && !user;
 
     useEffect(() => {
-        if (!loading && !user) {
+        if (shouldRedirectToLogin) {
             // If not logged in, redirect to login page with return url
-            setIsRedirecting(true);
             const returnUrl = encodeURIComponent(window.location.pathname);
             window.location.href = `/login?redirect=${returnUrl}`;
         }
-    }, [user, loading, router]);
+    }, [shouldRedirectToLogin]);
 
-    if (loading || isRedirecting) {
+    if (loading || shouldRedirectToLogin) {
         return (
             <div className="min-h-screen flex flex-col bg-slate-50">
                 <SiteHeader />
@@ -100,9 +98,9 @@ export default function UpgradePage() {
                                                 <CheckCircle2 className="w-5 h-5" />
                                                 Proプラン契約中
                                             </div>
-                                            <a href="/portal" className="text-sm text-slate-500 hover:text-slate-800 hover:underline">
-                                                契約の管理はこちら
-                                            </a>
+                                            <Link href="/account" className="text-sm text-slate-500 hover:text-slate-800 hover:underline">
+                                                アカウント管理で契約を確認
+                                            </Link>
                                         </div>
                                     ) : (
                                         <div className="w-full">
@@ -155,9 +153,9 @@ export default function UpgradePage() {
                     </div>
 
                     <div className="text-center">
-                        <a href="/" className="text-slate-500 hover:text-slate-800 font-medium transition-colors">
+                        <Link href="/" className="text-slate-500 hover:text-slate-800 font-medium transition-colors">
                             ← ホームに戻る
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

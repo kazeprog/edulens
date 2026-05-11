@@ -802,7 +802,7 @@ export default function HomePage() {
                                         <h3 className="font-bold text-gray-900 mb-1">プロフィール未設定</h3>
                                         <p className="text-sm text-gray-600 mb-4">学年や名前を設定して、学習体験を向上させましょう。</p>
                                         <button
-                                            onClick={() => router.push('/mistap/profile')}
+                                            onClick={() => router.push('/account')}
                                             className="w-full bg-white border border-red-200 text-red-600 hover:bg-red-50 font-medium py-2 px-4 rounded-xl transition-colors text-sm"
                                         >
                                             設定する
