@@ -101,6 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'textbook/kobun-330',
     'textbook/kobun-325',
     'textbook/kobun-351',
+    'textbook/shin-kobun-336',
     'textbook/madonna-kobun-230',
     'textbook/group30-kobun-600',
     'textbook/absolute-150',

@@ -22,6 +22,7 @@ interface TextbookUnitLPTemplateProps {
     initialLesson?: number;
     description?: string;
     audience?: 'junior' | 'senior' | 'general';
+    parentHref?: string;
 }
 
 export default function TextbookUnitLPTemplate({
@@ -39,6 +40,7 @@ export default function TextbookUnitLPTemplate({
     initialLesson,
     description,
     audience = 'junior',
+    parentHref,
 }: TextbookUnitLPTemplateProps) {
 
     // テーマカラーの設定
@@ -111,7 +113,7 @@ export default function TextbookUnitLPTemplate({
 
                             <div className="text-center mt-8">
                                 <Link
-                                    href={`/mistap/textbook/${presetTextbook === 'New Crown' ? 'new-crown' : presetTextbook === 'New Horizon' ? 'new-horizon' : presetTextbook === 'Target 1900' ? 'target-1900' : 'system-words'}`} // 簡易的な戻るリンク生成（改善余地あり）
+                                    href={parentHref || `/mistap/textbook/${presetTextbook === 'New Crown' ? 'new-crown' : presetTextbook === 'New Horizon' ? 'new-horizon' : presetTextbook === 'Target 1900' ? 'target-1900' : 'system-words'}`}
                                     className="text-blue-600 hover:text-blue-800 underline"
                                 >
                                     教科書トップに戻る

@@ -203,6 +203,13 @@ export const AMAZON_TEXTBOOKS = {
     publisher: '尚文出版',
     edition: '新版',
   },
+  shinKobun336: {
+    title: '大学入試 新古文単語336',
+    searchQuery: '大学入試 新古文単語336',
+    asin: '4578271994',
+    isbn13: '9784578271994',
+    publisher: '文英堂',
+  },
   madonnaKobun230: {
     title: 'マドンナ古文単語230 パーフェクト版',
     searchQuery: 'マドンナ古文単語230 パーフェクト版',
@@ -315,6 +322,9 @@ const AMAZON_TEXTBOOK_ALIASES: Record<string, AmazonTextbookKey> = {
   '入試対策ベストセレクション 古文単語325': 'kobun325',
   理解を深める核心古文単語351: 'kobun351',
   核心古文単語351: 'kobun351',
+  '大学入試 新古文単語336': 'shinKobun336',
+  新古文単語336: 'shinKobun336',
+  古文単語336: 'shinKobun336',
   'マドンナ古文単語': 'madonnaKobun230',
   マドンナ古文単語230: 'madonnaKobun230',
   'マドンナ古文単語230 パーフェクト版': 'madonnaKobun230',

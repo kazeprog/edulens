@@ -128,6 +128,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         totalUnits: 7,
         getRange: (unit) => ({ start: (unit - 1) * 50 + 1, end: Math.min(unit * 50, 351) }),
     },
+    'shin-kobun-336': {
+        name: '大学入試 新古文単語336',
+        jpName: '新古文単語336',
+        unitLabel: '章',
+        totalUnits: 7,
+        getRange: (unit) => ({ start: (unit - 1) * 50 + 1, end: Math.min(unit * 50, 336) }),
+    },
 };
 
 // 中学教科書のLesson一覧を取得する
