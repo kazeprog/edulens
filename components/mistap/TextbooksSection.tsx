@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpen, BriefcaseBusiness, CheckCircle2, GraduationCap, LibraryBig } from 'lucide-react';
+import { ArrowRight, BookOpen, BriefcaseBusiness, CheckCircle2, GraduationCap, LibraryBig, Sparkles } from 'lucide-react';
 
 type TextbookItem = {
     name: string;
@@ -134,15 +134,26 @@ export default function TextbooksSection() {
 
                 <div className="mt-8 md:mt-12 text-center">
                     <p className="text-gray-600 text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-4">
-                        追加してほしい教材があれば、リクエストからお知らせください。
+                        どの教材から始めるか迷ったら、単語帳診断で目的に合う候補を確認できます。追加してほしい教材があれば、リクエストからお知らせください。
                     </p>
-                    <Link
-                        href="/mistap/contact"
-                        prefetch={false}
-                        className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-6 rounded-lg font-semibold transition-colors"
-                    >
-                        単語帳リクエスト
-                    </Link>
+                    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                        <Link
+                            href="/mistap/textbook-diagnosis"
+                            prefetch={false}
+                            className="inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white py-2.5 px-6 rounded-lg font-semibold transition-colors"
+                        >
+                            <Sparkles className="h-4 w-4" aria-hidden="true" />
+                            単語帳診断をする
+                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
+                        <Link
+                            href="/mistap/contact"
+                            prefetch={false}
+                            className="inline-flex items-center justify-center border border-slate-300 bg-white hover:border-blue-300 hover:text-blue-700 text-slate-700 py-2.5 px-6 rounded-lg font-semibold transition-colors"
+                        >
+                            単語帳リクエスト
+                        </Link>
+                    </div>
                 </div>
             </div>
         </section>

@@ -100,6 +100,52 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     });
     ```
 
+## 4. Register Amazon Associate Product Link
+**Target File**: `lib/mistap/amazon-textbooks.ts`
+
+1.  **Confirm the Product ASIN**:
+    -   For commercially available books, find the exact Amazon.co.jp product page for the edition Mistap supports.
+    -   Record the ASIN and, when available, ISBN-13. For printed books, the ASIN often matches ISBN-10, but always verify against the actual Amazon product page.
+    -   Do not use a search results URL as the final LP link when a product page exists.
+
+2.  **Add to `AMAZON_TEXTBOOKS`**:
+    -   Add a new entry with `title`, `searchQuery`, `asin`, `isbn13`, `publisher`, and `edition` where applicable.
+    ```typescript
+    myNewBook: {
+      title: '正式な単語帳名 改訂版',
+      searchQuery: '正式な単語帳名 改訂版',
+      asin: 'XXXXXXXXXX',
+      isbn13: '978XXXXXXXXXX',
+      publisher: '出版社名',
+      edition: '改訂版',
+    },
+    ```
+
+3.  **Add Aliases**:
+    -   Add all names that can be passed from LPs, setup dropdowns, and diagnosis cards to `AMAZON_TEXTBOOK_ALIASES`.
+    -   At minimum, include the exact `textbookNameJa` used in the LP and common variations such as abbreviations, spacing differences, and edition labels.
+    ```typescript
+    正式な単語帳名: 'myNewBook',
+    '正式な単語帳名 改訂版': 'myNewBook',
+    ```
+
+4.  **Handle Non-Products Explicitly**:
+    -   If the Mistap page is an original dataset, a grammar category, or anything without a real single product page, add it with `isPurchasable: false`.
+    -   Do not let non-products fall back to Amazon search from LPs.
+    ```typescript
+    originalDataset: {
+      title: 'Mistap独自教材名',
+      searchQuery: 'Mistap独自教材名',
+      isPurchasable: false,
+    },
+    ```
+
+5.  **Verify Link Behavior**:
+    -   The individual LP should render `https://www.amazon.co.jp/dp/[ASIN]?tag=edulens-22` for books with confirmed ASINs.
+    -   The LP should not render `amazon.co.jp/s?k=` search links.
+    -   Pages marked `isPurchasable: false` should not display an Amazon button.
+    -   If the book appears in the wordbook diagnosis, ensure the diagnosis card uses an `amazonQuery` that resolves to the same ASIN entry.
+
 ## 5. Verify Test Creation Logic
 **Target Files**: `components/mistap/TestSetupContent.tsx` & `app/mistap/test-setup/page.tsx`
 
@@ -120,7 +166,7 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     }
     ```
 
-## 4. Update Textbook Hub
+## 6. Update Textbook Hub
 **Target Files**: 
 - `app/mistap/textbook/page.tsx` (Index Page)
 - `app/mistap/textbook/[slug]/page.tsx` (Individual LP)
@@ -154,7 +200,7 @@ Follow this workflow to add a new textbook or wordbook to Mistap. This process e
     -   Add an entry to the appropriate array (e.g., `universityTextbooks`).
     -   Ensure `path` matches your new directory structure.
 
-## 5. Verify Build & Test Creation Logic
+## 7. Verify Build & Test Creation Logic
 1.  **Run Production Build Before Commit/Push**:
     -   Run `npm run build` (or the project's deployment-equivalent command) after adding the textbook LP and data wiring.
     -   Do not rely only on `eslint`; Next.js production build runs TypeScript and can catch prop type mismatches that lint may miss.
