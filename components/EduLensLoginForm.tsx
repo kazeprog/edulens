@@ -24,6 +24,8 @@ export default function EduLensLoginForm({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
+    const [pendingConfirmationEmail, setPendingConfirmationEmail] = useState<string | null>(null);
+    const [confirmationResendMessage, setConfirmationResendMessage] = useState<string | null>(null);
     const [mode, setMode] = useState<'login' | 'signup' | 'forgot'>(initialMode);
     const [showEmailSignup, setShowEmailSignup] = useState(false);
     const router = useRouter();
@@ -33,6 +35,13 @@ export default function EduLensLoginForm({
     }, [initialMode]);
 
     const supabase = getSupabase();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    function getEmailVerifyRedirect() {
+        return redirectUrl
+            ? `${window.location.origin}/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
+            : `${window.location.origin}/email-verified`;
+    }
 
     async function handleForgotPassword(e: React.FormEvent) {
         e.preventDefault();
@@ -41,15 +50,18 @@ export default function EduLensLoginForm({
             return;
         }
 
-        if (!email) {
+        if (!normalizedEmail) {
             setError('メールアドレスを入力してください');
             return;
         }
 
         setLoading(true);
         setError(null);
+        setMessage(null);
+        setPendingConfirmationEmail(null);
+        setConfirmationResendMessage(null);
 
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
             redirectTo: `${window.location.origin}/login?mode=reset`,
         });
 
@@ -71,6 +83,8 @@ export default function EduLensLoginForm({
 
         setLoading(true);
         setError(null);
+        setMessage(null);
+        setConfirmationResendMessage(null);
 
         // redirectUrlがあれば認証後のリダイレクト先として設定
         const redirectTo = redirectUrl
@@ -104,9 +118,12 @@ export default function EduLensLoginForm({
 
         setLoading(true);
         setError(null);
+        setMessage(null);
+        setPendingConfirmationEmail(null);
+        setConfirmationResendMessage(null);
 
         const { error } = await supabase.auth.signInWithPassword({
-            email,
+            email: normalizedEmail,
             password,
         });
 
@@ -115,6 +132,7 @@ export default function EduLensLoginForm({
         if (error) {
             if (/confirm/i.test(error.message || '')) {
                 setError('メールアドレスが未確認です。確認メールをご確認ください。');
+                setPendingConfirmationEmail(normalizedEmail);
                 return;
             }
             setError('ログインに失敗しました: ' + error.message);
@@ -147,20 +165,27 @@ export default function EduLensLoginForm({
             return;
         }
 
+        if (!normalizedEmail || !/\S+@\S+\.\S+/.test(normalizedEmail)) {
+            setError('有効なメールアドレスを入力してください');
+            return;
+        }
+
+        if (!password) {
+            setError('パスワードを入力してください');
+            return;
+        }
+
         setLoading(true);
         setError(null);
-
-        // メール認証後のリダイレクト先を設定
-        // redirectUrlが指定されている場合は、認証後にそのURLにリダイレクトするようにパラメータを付与
-        const emailVerifyRedirect = redirectUrl
-            ? `${window.location.origin}/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
-            : `${window.location.origin}/email-verified`;
+        setMessage(null);
+        setPendingConfirmationEmail(null);
+        setConfirmationResendMessage(null);
 
         const { data, error } = await supabase.auth.signUp({
-            email,
+            email: normalizedEmail,
             password,
             options: {
-                emailRedirectTo: emailVerifyRedirect,
+                emailRedirectTo: getEmailVerifyRedirect(),
                 data: {
                     full_name: fullName,
                     grade: grade,
@@ -174,8 +199,47 @@ export default function EduLensLoginForm({
             return;
         }
 
+        if (!data.session && Array.isArray(data.user?.identities) && data.user.identities.length === 0) {
+            setLoading(false);
+            setError('このメールアドレスは既に登録済みの可能性があります。ログインするか、パスワード再設定をお試しください。');
+            return;
+        }
+
         setLoading(false);
+        setPendingConfirmationEmail(normalizedEmail);
         setMessage('確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効化してください。');
+    }
+
+    async function resendConfirmation() {
+        if (!supabase) {
+            setError('認証サービスに接続できません');
+            return;
+        }
+
+        const targetEmail = pendingConfirmationEmail || normalizedEmail;
+        if (!targetEmail) {
+            setError('メールアドレスを入力してください');
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+        setConfirmationResendMessage(null);
+
+        const { error } = await supabase.auth.resend({
+            type: 'signup',
+            email: targetEmail,
+            options: { emailRedirectTo: getEmailVerifyRedirect() },
+        });
+
+        setLoading(false);
+
+        if (error) {
+            setError('確認メールの再送に失敗しました: ' + error.message);
+            return;
+        }
+
+        setConfirmationResendMessage('確認メールを再送しました。メール内のリンクで確認してください。');
     }
 
     return (
@@ -197,7 +261,27 @@ export default function EduLensLoginForm({
                 {/* 成功メッセージ */}
                 {message && (
                     <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        {pendingConfirmationEmail && (
+                            <p className="text-sm font-semibold text-red-600 mb-2">
+                                ※メールが届かない場合は、迷惑メールフォルダ・プロモーション・学校/携帯メールの受信制限をご確認ください。
+                            </p>
+                        )}
                         <p className="text-sm text-blue-800">{message}</p>
+                        {pendingConfirmationEmail && (
+                            <>
+                                <button
+                                    type="button"
+                                    className="mt-3 text-sm text-blue-700 underline hover:text-blue-900"
+                                    onClick={resendConfirmation}
+                                    disabled={loading}
+                                >
+                                    確認メールを再送する
+                                </button>
+                                {confirmationResendMessage && (
+                                    <p className="text-sm text-green-700 mt-2">{confirmationResendMessage}</p>
+                                )}
+                            </>
+                        )}
                     </div>
                 )}
 
@@ -368,6 +452,21 @@ export default function EduLensLoginForm({
                         {error && (
                             <div className="mb-4 p-3 bg-red-50 rounded-xl border border-red-200">
                                 <p className="text-sm text-red-600">{error}</p>
+                                {pendingConfirmationEmail && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            className="mt-2 text-sm text-red-700 underline hover:text-red-900"
+                                            onClick={resendConfirmation}
+                                            disabled={loading}
+                                        >
+                                            確認メールを再送する
+                                        </button>
+                                        {confirmationResendMessage && (
+                                            <p className="text-sm text-green-700 mt-2">{confirmationResendMessage}</p>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         )}
 
