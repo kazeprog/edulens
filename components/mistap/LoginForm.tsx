@@ -24,6 +24,14 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
     const [isSignup, setIsSignup] = useState(initialIsSignup);
     const router = useRouter();
 
+    const normalizedEmail = email.trim().toLowerCase();
+
+    function getEmailVerifyRedirect() {
+        return redirectUrl
+            ? `${window.location.origin}/mistap/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
+            : `${window.location.origin}/mistap/email-verified`;
+    }
+
     async function handleLogin(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
@@ -32,7 +40,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
         setResendMessage(null);
 
         const { data, error } = await supabase.auth.signInWithPassword({
-            email,
+            email: normalizedEmail,
             password,
         });
 
@@ -40,7 +48,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
 
         if (error) {
             if (/confirm/i.test(error.message || '')) {
-                setError('Email not confirmed. Please check your email.');
+                setError('メールアドレスが未確認です。確認メールをご確認ください。');
                 setAwaitingConfirmation(true);
                 return;
             }
@@ -72,7 +80,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
             setError('学年を選択してください');
             return;
         }
-        if (!email || !email.trim() || !/\S+@\S+\.\S+/.test(email)) {
+        if (!normalizedEmail || !/\S+@\S+\.\S+/.test(normalizedEmail)) {
             setError('有効なメールアドレスを入力してください');
             return;
         }
@@ -83,17 +91,13 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
 
         setLoading(true);
         setError(null);
-
-        // メール認証後のリダイレクト先を設定
-        const emailVerifyRedirect = redirectUrl
-            ? `${window.location.origin}/mistap/email-verified?redirect=${encodeURIComponent(redirectUrl)}`
-            : `${window.location.origin}/mistap/email-verified`;
+        setResendMessage(null);
 
         const { data, error } = await supabase.auth.signUp({
-            email,
+            email: normalizedEmail,
             password,
             options: {
-                emailRedirectTo: emailVerifyRedirect,
+                emailRedirectTo: getEmailVerifyRedirect(),
                 data: {
                     full_name: fullName,
                     grade: grade,
@@ -107,6 +111,12 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
             return;
         }
 
+        if (!data.session && Array.isArray(data.user?.identities) && data.user.identities.length === 0) {
+            setLoading(false);
+            setError('このメールアドレスは既に登録済みの可能性があります。ログインするか、パスワード再設定をお試しください。');
+            return;
+        }
+
         setLoading(false);
         setAwaitingConfirmation(true);
     }
@@ -114,10 +124,15 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
     async function resendConfirmation() {
         setResendMessage(null);
         setError(null);
+        if (!normalizedEmail) {
+            setError('メールアドレスを入力してください');
+            return;
+        }
         setLoading(true);
-        const { error } = await supabase.auth.signInWithOtp({
-            email,
-            options: { emailRedirectTo: `${window.location.origin}/mistap` },
+        const { error } = await supabase.auth.resend({
+            type: 'signup',
+            email: normalizedEmail,
+            options: { emailRedirectTo: getEmailVerifyRedirect() },
         });
         setLoading(false);
         if (error) {
@@ -184,8 +199,8 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
                         {error && <p className="text-red-600 mb-4 text-sm md:text-base">{error}</p>}
                         {awaitingConfirmation && (
                             <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
-                                <p className="text-gray-700 mb-2 text-sm md:text-base font-bold text-red-600">※ メールが届かない場合は、迷惑メールフォルダもご確認ください。</p>
-                                <p className="text-gray-700 mb-2 text-sm md:text-base">登録ありがとうございます。確認メールを送信しました。メールのリンクをクリックしてアカウントを有効化してください。</p>
+                                <p className="text-gray-700 mb-2 text-sm md:text-base font-bold text-red-600">※ メールが届かない場合は、迷惑メールフォルダ・プロモーション・学校/携帯メールの受信制限をご確認ください。</p>
+                                <p className="text-gray-700 mb-2 text-sm md:text-base">確認メール内のリンクをクリックしてアカウントを有効化してください。届かない場合は再送できます。</p>
                                 <button type="button" className="text-sm text-red-600 underline hover:text-red-700 block mb-2" onClick={resendConfirmation} disabled={loading}>
                                     確認メールを再送する
                                 </button>
