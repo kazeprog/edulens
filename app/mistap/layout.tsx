@@ -6,28 +6,24 @@ export const metadata: Metadata = {
     template: '%s',
     default: 'Mistap｜間違えた単語に集中できる英単語テストアプリ',
   },
-  description: 'Mistapはシステム英単語・ターゲット1900・New Horizonなどに対応した無料単語テストアプリ。間違えた単語を自動記録し、効率的に復習できます。大学受験や定期テスト対策に最適。',
+  description: 'Mistapは英単語テストで間違えた単語を自動記録し、苦手な単語だけを効率よく復習できる基本無料の学習アプリです。大学受験、定期テスト、資格試験の語彙学習に使えます。',
   keywords: [
     '英単語テスト 無料',
     '英単語アプリ 高校生',
-    'システム英単語 テスト',
-    'ターゲット1900 テスト',
-    'New Horizon 単語テスト',
-    '教科書 単語 テスト',
+    '苦手単語 復習',
+    '英単語 暗記 アプリ',
+    '英単語 小テスト',
     '大学受験 英単語 アプリ',
-    '古文単語 アプリ',
-    'システム英単語 無料 テスト',
-    'ターゲット1900 単語テスト',
-    'New Horizon 単語テスト 無料',
-    '古文単語 315 テスト',
+    '中学生 英単語 アプリ',
+    '定期テスト 英単語',
+    '資格試験 英単語',
     '英単語 クイズ 高校生',
-    '英単語 暗記 アプリ 無料',
     'Mistap',
     'ミスタップ'
   ],
   openGraph: {
     title: 'Mistap｜間違えた単語に集中できる英単語テストアプリ',
-    description: '間違えた単語を自動で記録し、効率的に復習できる無料単語学習システム。システム英単語、ターゲット、教科書に対応。',
+    description: '間違えた単語を自動で記録し、効率的に復習できる基本無料の英単語学習システム。',
     url: 'https://edulens.jp/mistap',
     siteName: 'Mistap (EduLens)',
     locale: 'ja_JP',
@@ -72,7 +68,7 @@ export default function MistapLayout({
       "price": "0",
       "priceCurrency": "JPY"
     },
-    "description": "間違えた単語を自動で記録し、効率的に復習できる単語学習システム。システム英単語、ターゲット1900、New Horizonなど主要な単語帳に対応。",
+    "description": "間違えた単語を自動で記録し、効率的に復習できる基本無料の単語学習システム。",
     "screenshot": "https://edulens.jp/MistapLP.png"
   };
 

@@ -118,7 +118,7 @@ export default function HomeClient() {
             window.removeEventListener('open-login-form', handleOpenLogin);
             window.removeEventListener('close-login-form', handleCloseLogin);
         };
-    }, []);
+    }, [router]);
 
     // ブログ記事を取得
     useEffect(() => {
@@ -143,8 +143,9 @@ export default function HomeClient() {
         router.push('/login?mode=signup&redirect=/mistap/home');
     };
 
-    // ローディング中またはリダイレクト中は統一したローディング画面を表示
-    if (authLoading || isRedirecting || (user && profile)) {
+    // 初期HTMLにLP本文を残すため、認証確認中はスピナーで全体を隠さない。
+    // ログイン済みと確定した後だけリダイレクト中の表示に切り替える。
+    if (isRedirecting || (user && profile)) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-rose-50">
                 <div className="flex flex-col items-center gap-4">
@@ -208,7 +209,7 @@ export default function HomeClient() {
                                 </h1>
 
                                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                                    『システム英単語』『ターゲット1900』『DUO3.0』などの主要な単語帳や『New Horizon』『New Crown』など中学教科書にも完全対応。<br />
+                                    主要な英単語帳や中学教科書に対応。教材ごとのページから、範囲を指定してすぐにテストできます。<br />
                                     知識の穴を埋めて、最短ルートで定着させます。
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
@@ -228,7 +229,7 @@ export default function HomeClient() {
                                     </Link>
                                 </div>
                                 <p className="text-sm text-slate-400 font-medium">
-                                    ※ クレジットカード登録不要・完全無料で利用開始
+                                    ※ クレジットカード登録不要・基本無料で利用開始
                                 </p>
                             </div>
 
@@ -332,7 +333,7 @@ export default function HomeClient() {
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-800 mb-4">豊富な教材対応</h3>
                                 <p className="text-slate-600 leading-relaxed">
-                                    システム英単語、ターゲット、DUO3.0など、受験生や学習者に人気の単語帳に完全対応しています。
+                                    受験生や学習者に人気の英単語帳、教科書、資格試験向け教材に幅広く対応しています。
                                 </p>
                             </div>
                         </div>
@@ -373,8 +374,7 @@ export default function HomeClient() {
                             <h3 className="text-2xl font-bold text-slate-800 text-center mb-6">Mistapについて</h3>
                             <p className="mb-4">
                                 Mistap（ミスタップ）は、市販の英単語帳や学校の教科書に対応した無料の単語テスト作成・学習アプリです。
-                                『システム英単語』や『ターゲット1900』、『DUO 3.0』といった大学受験対策の定番教材から、
-                                『New Horizon』『New Crown』などの中学校検定教科書まで幅広く対応しています。
+                                大学受験対策の定番教材から、中学校検定教科書、資格試験向け教材まで幅広く対応しています。
                             </p>
                             <p className="mb-4">
                                 最大の特徴は、「間違えた単語」だけを自動的に記録し、効率的に復習できる点です。
@@ -383,7 +383,10 @@ export default function HomeClient() {
                             <p>
                                 高校生の大学入試対策、中学生の定期テスト対策、そして社会人のTOEICや英語学習のやり直しまで。
                                 Mistapは、効率的に英単語を暗記したいすべての学習者をサポートします。
-                                登録は完全無料。今すぐあなたの持っている単語帳でテストを始めましょう。
+                                基本機能は無料で利用できます。今すぐあなたの持っている単語帳でテストを始めましょう。
+                            </p>
+                            <p className="mt-4 text-xs text-slate-500">
+                                各教材名は各出版社・権利者の商標または登録商標です。Mistapは各出版社の公式サービスではありません。
                             </p>
                         </div>
                     </div>

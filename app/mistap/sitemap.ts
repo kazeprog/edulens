@@ -3,50 +3,51 @@ import { mistapClient } from '@/lib/mistap/microcms';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://edulens.jp/mistap';
+  const contentUpdatedAt = new Date('2026-05-11');
 
   // 静的ページ
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/test-setup`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/chugaku-teiki-test`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/english-words-not-sticking`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/review-weak-words`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/textbook`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/textbook-diagnosis`,
@@ -56,13 +57,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: contentUpdatedAt,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
@@ -120,12 +121,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const uniqueTextbookPaths = Array.from(new Set(textbookPaths));
 
-  const textbookPages: MetadataRoute.Sitemap = uniqueTextbookPaths.map((path) => ({
-    url: `${baseUrl}/${path}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }));
+  const textbookPages: MetadataRoute.Sitemap = uniqueTextbookPaths.map((path) => {
+    const isUnitPage = path.split('/').length > 2;
+
+    return {
+      url: `${baseUrl}/${path}`,
+      lastModified: contentUpdatedAt,
+      changeFrequency: isUnitPage ? 'monthly' as const : 'weekly' as const,
+      priority: isUnitPage ? 0.6 : 0.75,
+    };
+  });
 
   // ブログ記事を取得
   try {
