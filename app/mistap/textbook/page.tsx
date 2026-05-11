@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import GoogleAdsense from '@/components/GoogleAdsense';
-import { BookOpen, ChevronRight, School, GraduationCap, Briefcase, HelpCircle, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ChevronRight, School, GraduationCap, Briefcase, HelpCircle, Sparkles } from 'lucide-react';
 import MistapFooter from '@/components/mistap/Footer';
 
 export const metadata: Metadata = {
@@ -363,8 +363,24 @@ export default function TextbookIndexPage() {
         "audienceType": "Student"
     };
 
+    const structuredData = [
+        { id: "item-list", data: itemListJsonLd },
+        { id: "faq", data: faqJsonLd },
+        { id: "breadcrumb", data: breadcrumbJsonLd },
+        { id: "system-words-app", data: systemWordsAppJsonLd },
+        { id: "target-1900-app", data: target1900AppJsonLd },
+        { id: "audience", data: audienceJsonLd },
+    ];
+
     return (
         <div className="bg-slate-50 min-h-screen font-sans">
+            {structuredData.map(({ id, data }) => (
+                <script
+                    key={id}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+                />
+            ))}
             <main>
                 {/* Hero Section */}
                 <section className="bg-white py-20 border-b border-slate-200">
@@ -381,6 +397,14 @@ export default function TextbookIndexPage() {
                             認知心理学に基づく記憶メカニズム応用し、<br />
                             「知識の定着」を最大化するために設計された学習プラットフォームです。
                         </p>
+                        <Link
+                            href="/mistap/textbook-diagnosis"
+                            className="inline-flex items-center justify-center gap-2 rounded-full bg-rose-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-rose-700"
+                        >
+                            <Sparkles className="h-4 w-4" aria-hidden="true" />
+                            あなたに合う単語帳を診断
+                            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
                     </div>
                 </section>
 

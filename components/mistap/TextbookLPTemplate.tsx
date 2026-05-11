@@ -334,7 +334,7 @@ export default function TextbookLPTemplate({
                                     </div>
                                 )}
                                 <div className="flex flex-col items-center md:items-start gap-2">
-                                    <AmazonTextbookLink textbookName={textbookNameJa} />
+                                    <AmazonTextbookLink textbookName={textbookNameJa} allowSearchFallback={false} />
                                     <p className="text-sm text-slate-400 font-medium">
                                         ※ 登録不要で試せます
                                     </p>
