@@ -37,3 +37,27 @@ body {
 html[data-ad-mode='ads'] .ad-slot-reserve {
   min-height: var(--ad-slot-min-height, 280px);
 }
+
+html[data-ad-mode='pro'] .adsbygoogle,
+html[data-ad-mode='pro'] .google-auto-placed,
+html[data-ad-mode='pro'] .adsbygoogle-noablate,
+html[data-ad-mode='pro'] .ap_container,
+html[data-ad-mode='pro'] ins.adsbygoogle,
+html[data-ad-mode='pro'] iframe[id^="google_ads_iframe"],
+html[data-ad-mode='pro'] iframe[name^="google_ads_iframe"],
+html[data-ad-mode='pro'] iframe[id^="aswift_"],
+html[data-ad-mode='pro'] iframe[name^="aswift_"],
+html[data-ad-mode='pro'] iframe[src*="googlesyndication.com"],
+html[data-ad-mode='pro'] iframe[src*="doubleclick.net"],
+html[data-ad-mode='pro'] [id^="google_ads_iframe"][id$="__container__"],
+html[data-ad-mode='pro'] [id^="aswift_"][id$="_host"],
+html[data-ad-mode='pro'] #google_esf,
+html[data-ad-mode='pro'] .google-revocation-link-placeholder {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
