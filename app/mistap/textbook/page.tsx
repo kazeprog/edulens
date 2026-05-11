@@ -183,6 +183,13 @@ const kobunTextbooks: Textbook[] = [
         color: "blue"
     },
     {
+        name: "新古文単語336",
+        description: "入試頻出の古文単語336語を、番号範囲で小さく確認。",
+        path: "/mistap/textbook/shin-kobun-336",
+        color: "emerald",
+        badge: "NEW"
+    },
+    {
         name: "マドンナ古文単語230",
         description: "イラストと分かりやすい解説で人気の古文単語帳。",
         path: "/mistap/textbook/madonna-kobun-230",

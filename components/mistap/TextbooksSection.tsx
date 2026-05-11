@@ -74,6 +74,7 @@ const textbookGroups: TextbookGroup[] = [
             { name: 'Key＆Point古文単語330', href: '/mistap/textbook/kobun-330' },
             { name: 'ベストセレクション古文単語325', href: '/mistap/textbook/kobun-325' },
             { name: '理解を深める核心古文単語351', href: '/mistap/textbook/kobun-351' },
+            { name: '大学入試 新古文単語336', href: '/mistap/textbook/shin-kobun-336' },
             { name: 'マドンナ古文単語230', href: '/mistap/textbook/madonna-kobun-230' },
             { name: 'GROUP30で覚える古文単語600', href: '/mistap/textbook/group30-kobun-600' },
         ],
