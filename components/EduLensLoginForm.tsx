@@ -22,6 +22,7 @@ export default function EduLensLoginForm({
     const [fullName, setFullName] = useState('');
     const [grade, setGrade] = useState('');
     const [loading, setLoading] = useState(false);
+    const [resendingConfirmation, setResendingConfirmation] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [pendingConfirmationEmail, setPendingConfirmationEmail] = useState<string | null>(null);
@@ -211,6 +212,10 @@ export default function EduLensLoginForm({
     }
 
     async function resendConfirmation() {
+        if (resendingConfirmation) {
+            return;
+        }
+
         if (!supabase) {
             setError('認証サービスに接続できません');
             return;
@@ -222,24 +227,29 @@ export default function EduLensLoginForm({
             return;
         }
 
-        setLoading(true);
+        setResendingConfirmation(true);
         setError(null);
         setConfirmationResendMessage(null);
 
-        const { error } = await supabase.auth.resend({
-            type: 'signup',
-            email: targetEmail,
-            options: { emailRedirectTo: getEmailVerifyRedirect() },
-        });
+        try {
+            const { error } = await supabase.auth.resend({
+                type: 'signup',
+                email: targetEmail,
+                options: { emailRedirectTo: getEmailVerifyRedirect() },
+            });
 
-        setLoading(false);
+            if (error) {
+                setError('確認メールの再送に失敗しました: ' + error.message);
+                return;
+            }
 
-        if (error) {
-            setError('確認メールの再送に失敗しました: ' + error.message);
-            return;
+            setConfirmationResendMessage('確認メールを再送しました。メール内のリンクで確認してください。');
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : '通信エラーが発生しました。';
+            setError('確認メールの再送に失敗しました: ' + errorMessage);
+        } finally {
+            setResendingConfirmation(false);
         }
-
-        setConfirmationResendMessage('確認メールを再送しました。メール内のリンクで確認してください。');
     }
 
     return (
@@ -267,15 +277,18 @@ export default function EduLensLoginForm({
                             </p>
                         )}
                         <p className="text-sm text-blue-800">{message}</p>
+                        {error && (
+                            <p className="text-sm text-red-700 mt-2">{error}</p>
+                        )}
                         {pendingConfirmationEmail && (
                             <>
                                 <button
                                     type="button"
                                     className="mt-3 text-sm text-blue-700 underline hover:text-blue-900"
                                     onClick={resendConfirmation}
-                                    disabled={loading}
+                                    disabled={loading || resendingConfirmation}
                                 >
-                                    確認メールを再送する
+                                    {resendingConfirmation ? '再送中...' : '確認メールを再送する'}
                                 </button>
                                 {confirmationResendMessage && (
                                     <p className="text-sm text-green-700 mt-2">{confirmationResendMessage}</p>
@@ -452,20 +465,24 @@ export default function EduLensLoginForm({
                         {error && (
                             <div className="mb-4 p-3 bg-red-50 rounded-xl border border-red-200">
                                 <p className="text-sm text-red-600">{error}</p>
-                                {pendingConfirmationEmail && (
-                                    <>
-                                        <button
-                                            type="button"
-                                            className="mt-2 text-sm text-red-700 underline hover:text-red-900"
-                                            onClick={resendConfirmation}
-                                            disabled={loading}
-                                        >
-                                            確認メールを再送する
-                                        </button>
-                                        {confirmationResendMessage && (
-                                            <p className="text-sm text-green-700 mt-2">{confirmationResendMessage}</p>
-                                        )}
-                                    </>
+                            </div>
+                        )}
+
+                        {pendingConfirmationEmail && (
+                            <div className="mb-4 p-3 bg-blue-50 rounded-xl border border-blue-200">
+                                <p className="text-sm font-semibold text-red-600 mb-2">
+                                    ※メールが届かない場合は、迷惑メールフォルダ・プロモーション・学校/携帯メールの受信制限をご確認ください。
+                                </p>
+                                <button
+                                    type="button"
+                                    className="text-sm text-blue-700 underline hover:text-blue-900 disabled:opacity-60"
+                                    onClick={resendConfirmation}
+                                    disabled={loading || resendingConfirmation}
+                                >
+                                    {resendingConfirmation ? '再送中...' : '確認メールを再送する'}
+                                </button>
+                                {confirmationResendMessage && (
+                                    <p className="text-sm text-green-700 mt-2">{confirmationResendMessage}</p>
                                 )}
                             </div>
                         )}

@@ -18,8 +18,10 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
     const [fullName, setFullName] = useState('');
     const [grade, setGrade] = useState('');
     const [loading, setLoading] = useState(false);
+    const [resendingConfirmation, setResendingConfirmation] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [awaitingConfirmation, setAwaitingConfirmation] = useState(false);
+    const [pendingConfirmationEmail, setPendingConfirmationEmail] = useState<string | null>(null);
     const [resendMessage, setResendMessage] = useState<string | null>(null);
     const [isSignup, setIsSignup] = useState(initialIsSignup);
     const router = useRouter();
@@ -37,6 +39,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
         setLoading(true);
         setError(null);
         setAwaitingConfirmation(false);
+        setPendingConfirmationEmail(null);
         setResendMessage(null);
 
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -50,6 +53,7 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
             if (/confirm/i.test(error.message || '')) {
                 setError('メールアドレスが未確認です。確認メールをご確認ください。');
                 setAwaitingConfirmation(true);
+                setPendingConfirmationEmail(normalizedEmail);
                 return;
             }
             setError(error.message);
@@ -91,6 +95,8 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
 
         setLoading(true);
         setError(null);
+        setAwaitingConfirmation(false);
+        setPendingConfirmationEmail(null);
         setResendMessage(null);
 
         const { data, error } = await supabase.auth.signUp({
@@ -119,27 +125,39 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
 
         setLoading(false);
         setAwaitingConfirmation(true);
+        setPendingConfirmationEmail(normalizedEmail);
     }
 
     async function resendConfirmation() {
+        if (resendingConfirmation) {
+            return;
+        }
+
         setResendMessage(null);
         setError(null);
-        if (!normalizedEmail) {
+        const targetEmail = pendingConfirmationEmail || normalizedEmail;
+        if (!targetEmail) {
             setError('メールアドレスを入力してください');
             return;
         }
-        setLoading(true);
-        const { error } = await supabase.auth.resend({
-            type: 'signup',
-            email: normalizedEmail,
-            options: { emailRedirectTo: getEmailVerifyRedirect() },
-        });
-        setLoading(false);
-        if (error) {
-            setError('確認メールの再送に失敗しました: ' + error.message);
-            return;
+        setResendingConfirmation(true);
+        try {
+            const { error } = await supabase.auth.resend({
+                type: 'signup',
+                email: targetEmail,
+                options: { emailRedirectTo: getEmailVerifyRedirect() },
+            });
+            if (error) {
+                setError('確認メールの再送に失敗しました: ' + error.message);
+                return;
+            }
+            setResendMessage('確認メールを再送しました。メール内のリンクで確認してください。');
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : '通信エラーが発生しました。';
+            setError('確認メールの再送に失敗しました: ' + errorMessage);
+        } finally {
+            setResendingConfirmation(false);
         }
-        setResendMessage('確認メールを再送しました。メール内のリンクで確認してください。');
     }
 
     return (
@@ -201,8 +219,8 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
                             <div className="mb-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
                                 <p className="text-gray-700 mb-2 text-sm md:text-base font-bold text-red-600">※ メールが届かない場合は、迷惑メールフォルダ・プロモーション・学校/携帯メールの受信制限をご確認ください。</p>
                                 <p className="text-gray-700 mb-2 text-sm md:text-base">確認メール内のリンクをクリックしてアカウントを有効化してください。届かない場合は再送できます。</p>
-                                <button type="button" className="text-sm text-red-600 underline hover:text-red-700 block mb-2" onClick={resendConfirmation} disabled={loading}>
-                                    確認メールを再送する
+                                <button type="button" className="text-sm text-red-600 underline hover:text-red-700 disabled:opacity-60 block mb-2" onClick={resendConfirmation} disabled={loading || resendingConfirmation}>
+                                    {resendingConfirmation ? '再送中...' : '確認メールを再送する'}
                                 </button>
                                 {resendMessage && <p className="text-sm text-green-600">{resendMessage}</p>}
                             </div>
