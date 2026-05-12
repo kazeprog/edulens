@@ -3,6 +3,7 @@
 import GoogleAdsense from '@/components/GoogleAdsense';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Zap, ChevronRight, CheckSquare } from 'lucide-react';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
@@ -359,10 +360,17 @@ export default function TextbookLPTemplate({
                             </div>
 
                             <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
+                                <div className="pointer-events-none absolute -right-3 -bottom-10 z-20 w-32 sm:w-40 md:-right-6 md:-bottom-14 md:w-52">
+                                    <Image
+                                        src="/mistap/mascot/mistap-mascot-pointing.png"
+                                        alt=""
+                                        width={447}
+                                        height={558}
+                                        className="h-auto w-full"
+                                        aria-hidden="true"
+                                    />
+                                </div>
                                 <div className="relative w-full max-w-lg mx-auto bg-white rounded-3xl shadow-2xl p-4 md:p-6 border border-slate-100">
-                                    <div className="absolute -top-6 -left-6 w-20 h-20 bg-yellow-400 rounded-full opacity-20 blur-xl animate-pulse"></div>
-                                    <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-sky-400 rounded-full opacity-20 blur-xl animate-pulse delay-700"></div>
-
                                     <div className="text-center mb-4">
                                         <h3 className="text-lg font-bold text-slate-700">対応教材</h3>
                                         {overrideCoverTitle ? (

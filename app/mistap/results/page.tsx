@@ -326,9 +326,11 @@ function ResultsContent() {
   // (correct already computed above in saveResult scope) — compute for display
   const correct = total - tappedWords.length;
   const scorePercent = total > 0 ? Math.round((correct / total) * 100) : 0;
-  const resultCharacterSrc = scorePercent >= 80
-    ? "/mistap/results/score-happy.png"
-    : "/mistap/results/score-encourage.png";
+  const resultCharacterSrc = scorePercent === 100
+    ? "/mistap/results/score-perfect.png"
+    : scorePercent >= 80
+      ? "/mistap/results/score-happy.png"
+      : "/mistap/results/score-encourage.png";
   const currentResultsPath = typeof window !== 'undefined'
     ? `${window.location.pathname}${window.location.search}`
     : '/mistap/results';
