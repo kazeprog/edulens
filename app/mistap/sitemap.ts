@@ -50,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/textbook-diagnosis`,
-      lastModified: contentUpdatedAt,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
