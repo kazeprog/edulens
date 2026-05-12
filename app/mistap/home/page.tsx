@@ -743,12 +743,27 @@ export default function HomePage() {
                     {/* Welcome Header */}
                     {profile.fullName !== 'ゲスト' && (
                         <div className="mb-8 md:mb-12">
-                            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
-                                おかえりなさい<br />
-                                <span className="text-gray-900">{profile.fullName}</span>さん
-                            </h1>
+                            <div className="flex items-center justify-between gap-4">
+                                <h1 className="min-w-0 text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+                                    おかえりなさい<br />
+                                    <span className="text-gray-900">{profile.fullName}</span>さん
+                                </h1>
+                                <div className="shrink-0 h-32 sm:h-40 md:h-48 aspect-[3/4] overflow-hidden rounded-2xl bg-white/60">
+                                    <video
+                                        className="h-full w-full object-cover object-center"
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        preload="metadata"
+                                        aria-hidden="true"
+                                    >
+                                        <source src="/mistap/mistap-character.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                            </div>
                             {announcements.length > 0 ? (
-                                <div className="space-y-1">
+                                <div className="mt-3 space-y-1">
                                     {announcements.slice(0, 2).map((announcement) => (
                                         <p key={announcement.id} className="text-gray-600 text-lg">
                                             {announcement.message.split(/\\n|\n/).map((line, i, arr) => {
@@ -774,13 +789,11 @@ export default function HomePage() {
                                     ))}
                                 </div>
                             ) : (
-                                <p className="text-gray-600 text-lg">
+                                <p className="mt-3 text-gray-600 text-lg">
                                     今日も目標に向かって頑張りましょう！
                                     {!isProfileIncomplete && <span className="ml-2 inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">{profile.grade}</span>}
                                 </p>
                             )}
-
-
                         </div>
                     )}
 
