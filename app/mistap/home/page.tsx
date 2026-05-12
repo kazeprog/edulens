@@ -736,8 +736,8 @@ export default function HomePage() {
     const isProfileIncomplete = profile.fullName === 'ゲスト' || profile.grade === '未設定';
 
     return (
-        <main className="min-h-screen bg-gray-50">
-            <Background className="min-h-screen">
+        <main className="min-h-screen bg-[#faf6fb]">
+            <Background className="min-h-screen !bg-none !bg-[#faf6fb]">
                 <div className="max-w-5xl mx-auto px-4 pb-8" style={{ marginTop: '25px' }}>
 
                     {/* Welcome Header */}
@@ -748,9 +748,9 @@ export default function HomePage() {
                                     おかえりなさい<br />
                                     <span className="text-gray-900">{profile.fullName}</span>さん
                                 </h1>
-                                <div className="shrink-0 h-32 sm:h-40 md:h-48 aspect-[3/4] overflow-hidden rounded-2xl bg-white/60">
+                                <div className="shrink-0 h-32 sm:h-40 md:h-48 aspect-[3/4] overflow-hidden rounded-2xl">
                                     <video
-                                        className="h-full w-full object-cover object-center"
+                                        className="h-full w-full object-cover object-center mix-blend-multiply"
                                         autoPlay
                                         loop
                                         muted
