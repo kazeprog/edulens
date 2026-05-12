@@ -235,7 +235,7 @@ export default function HomeClient() {
 
                             <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
                                 {/* メインビジュアル: スマホ画面風 or ロゴ */}
-                                <div className="relative w-full max-w-lg mx-auto">
+                                <div className="relative w-full max-w-xl mx-auto pb-12 pr-6 sm:pb-14 sm:pr-10">
                                     <div className="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-xl animate-pulse"></div>
                                     <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-rose-400 rounded-full opacity-20 blur-xl animate-pulse delay-700"></div>
                                     <div className="relative bg-white rounded-3xl shadow-2xl p-4 border border-rose-100 transform rotate-1 hover:rotate-0 transition-transform duration-500">
@@ -248,6 +248,16 @@ export default function HomeClient() {
                                             priority
                                         />
 
+                                    </div>
+                                    <div className="absolute bottom-0 right-0 z-20 w-36 sm:w-44 md:w-56 lg:w-64">
+                                        <Image
+                                            src="/mistap/mascot/mistap-mascot-encourage.png"
+                                            alt="Mistapのキャラクター"
+                                            width={447}
+                                            height={558}
+                                            className="h-auto w-full"
+                                            priority
+                                        />
                                     </div>
                                 </div>
                             </div>

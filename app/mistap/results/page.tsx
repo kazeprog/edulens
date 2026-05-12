@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, Suspense } from "react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/mistap/supabaseClient";
 import Background from "@/components/mistap/Background";
@@ -325,6 +326,9 @@ function ResultsContent() {
   // (correct already computed above in saveResult scope) — compute for display
   const correct = total - tappedWords.length;
   const scorePercent = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const resultCharacterSrc = scorePercent >= 80
+    ? "/mistap/results/score-happy.png"
+    : "/mistap/results/score-encourage.png";
   const currentResultsPath = typeof window !== 'undefined'
     ? `${window.location.pathname}${window.location.search}`
     : '/mistap/results';
@@ -371,9 +375,9 @@ function ResultsContent() {
   };
 
   return (
-    <main className="min-h-screen">
-      <Background className="flex items-start justify-center min-h-screen p-4">
-        <div className="bg-white/40 backdrop-blur-lg p-6 md:p-8 rounded-xl shadow-xl w-full max-w-3xl border border-white/50" style={{ marginTop: '25px' }}>
+    <main className="min-h-screen bg-[#faf6fb]">
+      <Background className="flex items-start justify-center min-h-screen p-4 !bg-none !bg-[#faf6fb]">
+        <div className="bg-[#faf6fb] p-6 md:p-8 rounded-xl w-full max-w-3xl" style={{ marginTop: '25px' }}>
           <h1 className="text-3xl font-bold mb-6 text-center">テスト結果</h1>
 
           {/* 実施した教材・範囲 */}
@@ -384,27 +388,52 @@ function ResultsContent() {
             )}
           </div>
 
-          {/* 正答率の大きな表示 */}
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full shadow-lg mb-4">
-              <span className="text-3xl font-bold text-white">{scorePercent}%</span>
+          {/* 結果サマリー */}
+          <div className="mb-6 overflow-hidden rounded-3xl bg-[#faf6fb] p-5 sm:p-6">
+            <div className="flex items-center justify-center gap-5 sm:gap-8">
+              <div className="h-40 sm:h-52 aspect-[3/4] overflow-hidden">
+                <Image
+                  src={resultCharacterSrc}
+                  alt=""
+                  width={447}
+                  height={558}
+                  className="h-full w-full object-contain"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-end gap-2">
+                  <span className="text-7xl sm:text-8xl font-black leading-none tracking-tight text-gray-900">{scorePercent}</span>
+                  <span className="pb-3 text-3xl sm:text-4xl font-extrabold text-gray-700">%</span>
+                </div>
+              </div>
             </div>
-            <p className="text-lg font-semibold text-gray-700">正答率</p>
-          </div>
-
-          {/* 詳細スコア */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="bg-gray-50 rounded-xl p-4 text-center border-2 border-red-200">
-              <div className="text-2xl font-bold text-gray-600">{total}</div>
-              <div className="text-sm text-gray-600">総問題数</div>
+            <p className="mt-4 text-sm font-medium leading-6 text-gray-600">
+              {scorePercent === 100
+                ? '満点です！この調子で次の範囲も進めよう！'
+                : scorePercent >= 80
+                  ? 'かなり良い仕上がりです！間違えた単語をしっかり確認しよう！'
+                  : '間違えた単語を確認して、再テストをしてみよう！'}
+            </p>
+            <div className="mt-5 h-3 overflow-hidden rounded-full border border-red-100 bg-white">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-red-500 to-rose-500 transition-all duration-700"
+                style={{ width: `${scorePercent}%` }}
+              />
             </div>
-            <div className="bg-red-50 rounded-xl p-4 text-center border-2 border-red-300">
-              <div className="text-2xl font-bold text-red-600">{correct}</div>
-              <div className="text-sm text-gray-600">正答数</div>
-            </div>
-            <div className="bg-red-100 rounded-xl p-4 text-center border-2 border-red-400">
-              <div className="text-2xl font-bold text-red-700">{tappedWords.length}</div>
-              <div className="text-sm text-gray-600">誤答数</div>
+            <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="rounded-2xl border border-gray-100 bg-white/80 p-3 text-center">
+                <div className="text-xl font-extrabold text-gray-800">{total}</div>
+                <div className="mt-1 text-xs font-medium text-gray-500">総問題数</div>
+              </div>
+              <div className="rounded-2xl border border-red-100 bg-white/80 p-3 text-center">
+                <div className="text-xl font-extrabold text-red-600">{correct}</div>
+                <div className="mt-1 text-xs font-medium text-gray-500">正答数</div>
+              </div>
+              <div className="rounded-2xl border border-rose-100 bg-white/80 p-3 text-center">
+                <div className="text-xl font-extrabold text-rose-700">{tappedWords.length}</div>
+                <div className="mt-1 text-xs font-medium text-gray-500">誤答数</div>
+              </div>
             </div>
           </div>
 

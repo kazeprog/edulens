@@ -81,6 +81,140 @@ type MistapTestUserRankResult = {
     overall_rank: number | null;
 };
 
+const LOGIN_STREAK_SHARE_MASCOT_SRC = '/mistap/mascot/mistap-mascot-happy.png';
+const LOGIN_STREAK_SHARE_LOGO_SRC = '/mistap-logo.png';
+
+const loadCanvasImage = (src: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+        const image = document.createElement('img');
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+        image.src = src;
+    });
+};
+
+const canvasToPngBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+            if (blob) {
+                resolve(blob);
+            } else {
+                reject(new Error('Failed to create image blob'));
+            }
+        }, 'image/png');
+    });
+};
+
+const drawRoundRect = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radius: number
+) => {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+};
+
+const generateLoginStreakShareImage = async (days: number): Promise<Blob> => {
+    const [mascot, logo] = await Promise.all([
+        loadCanvasImage(LOGIN_STREAK_SHARE_MASCOT_SRC),
+        loadCanvasImage(LOGIN_STREAK_SHARE_LOGO_SRC),
+    ]);
+    const canvas = document.createElement('canvas');
+    const width = 1080;
+    const height = 1920;
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+        throw new Error('Canvas is not available');
+    }
+
+    ctx.fillStyle = '#faf6fb';
+    ctx.fillRect(0, 0, width, height);
+
+    const accent = ctx.createLinearGradient(0, 0, width, height);
+    accent.addColorStop(0, '#fff1f2');
+    accent.addColorStop(1, '#ffe4e6');
+    ctx.fillStyle = accent;
+    drawRoundRect(ctx, 60, 120, 960, 1680, 64);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    drawRoundRect(ctx, 110, 180, 860, 1560, 52);
+    ctx.fill();
+
+    ctx.drawImage(logo, 155, 238, 300, 86);
+
+    ctx.fillStyle = '#111827';
+    ctx.font = '800 72px "Yu Gothic", "Hiragino Sans", sans-serif';
+    ctx.fillText('連続ログイン', 170, 520);
+
+    const dayText = String(days);
+    const dayUnit = '日';
+    const maxDayGroupWidth = 730;
+    const unitGap = 48;
+    const unitFontSize = 104;
+    let dayFontSize = 300;
+    let dayNumberWidth = 0;
+    while (dayFontSize >= 170) {
+        ctx.font = `900 ${dayFontSize}px "Yu Gothic", "Hiragino Sans", sans-serif`;
+        dayNumberWidth = ctx.measureText(dayText).width;
+        ctx.font = `900 ${unitFontSize}px "Yu Gothic", "Hiragino Sans", sans-serif`;
+        const dayUnitWidth = ctx.measureText(dayUnit).width;
+        if (dayNumberWidth + unitGap + dayUnitWidth <= maxDayGroupWidth) break;
+        dayFontSize -= 10;
+    }
+
+    const dayX = 160;
+    const dayBaseline = 850;
+    ctx.fillStyle = '#f43f5e';
+    ctx.font = `900 ${dayFontSize}px "Yu Gothic", "Hiragino Sans", sans-serif`;
+    ctx.fillText(dayText, dayX, dayBaseline);
+
+    ctx.fillStyle = '#111827';
+    ctx.font = `900 ${unitFontSize}px "Yu Gothic", "Hiragino Sans", sans-serif`;
+    ctx.fillText(dayUnit, dayX + dayNumberWidth + unitGap, dayBaseline - 24);
+
+    ctx.fillStyle = '#4b5563';
+    ctx.font = '700 44px "Yu Gothic", "Hiragino Sans", sans-serif';
+    ctx.fillText('今日もMistapで', 170, 1010);
+    ctx.fillText('単語の勉強継続中！', 170, 1072);
+
+    const mascotWidth = 430;
+    const mascotHeight = mascotWidth * (mascot.naturalHeight / mascot.naturalWidth);
+    ctx.drawImage(mascot, 540, 1030, mascotWidth, mascotHeight);
+
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '600 28px "Yu Gothic", "Hiragino Sans", sans-serif';
+    ctx.fillText('英単語テストアプリ Mistap', 170, 1600);
+
+    return canvasToPngBlob(canvas);
+};
+
+const downloadBlob = (blob: Blob, fileName: string) => {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+};
+
 // 登録ユーザー数表示コンポーネント
 function UserCountDisplay() {
     const [userCount, setUserCount] = useState<number | null>(null);
@@ -242,6 +376,8 @@ export default function HomePage() {
     const [blogLoading, setBlogLoading] = useState(true);
     const [announcements, setAnnouncements] = useState<Announcement[]>([]);
     const [referralEnabled, setReferralEnabled] = useState(true);
+    const [isSharingLoginStreak, setIsSharingLoginStreak] = useState(false);
+    const [loginStreakShareMessage, setLoginStreakShareMessage] = useState<string | null>(null);
 
     // お知らせを取得
     useEffect(() => {
@@ -637,6 +773,45 @@ export default function HomePage() {
         router.push(`/mistap/test?text=${encodeURIComponent(goal.textbook)}&start=${goal.start}&end=${goal.end}&count=${count}`);
     };
 
+    const handleShareLoginStreak = async () => {
+        if (isSharingLoginStreak) return;
+
+        setIsSharingLoginStreak(true);
+        setLoginStreakShareMessage(null);
+
+        try {
+            const days = Math.max(0, profile.consecutiveLoginDays || 0);
+            const blob = await generateLoginStreakShareImage(days);
+            const fileName = `mistap-login-streak-${days}days.png`;
+            const file = new File([blob], fileName, { type: 'image/png' });
+            const nav = navigator as Navigator & {
+                canShare?: (data: ShareData) => boolean;
+                share?: (data: ShareData) => Promise<void>;
+            };
+
+            if (nav.share && (!nav.canShare || nav.canShare({ files: [file] }))) {
+                await nav.share({
+                    title: 'Mistap 連続ログイン',
+                    text: `Mistapで${days}日連続ログイン中！`,
+                    files: [file],
+                });
+                setLoginStreakShareMessage('共有しました');
+            } else {
+                downloadBlob(blob, fileName);
+                setLoginStreakShareMessage('画像を保存しました');
+            }
+        } catch (shareError) {
+            if (shareError instanceof DOMException && shareError.name === 'AbortError') {
+                setLoginStreakShareMessage(null);
+            } else {
+                setLoginStreakShareMessage('共有画像を作成できませんでした');
+            }
+        } finally {
+            setIsSharingLoginStreak(false);
+            window.setTimeout(() => setLoginStreakShareMessage(null), 3000);
+        }
+    };
+
     const handleInstallClick = async () => {
         if (deferredPrompt) {
             try {
@@ -743,14 +918,10 @@ export default function HomePage() {
                     {/* Welcome Header */}
                     {profile.fullName !== 'ゲスト' && (
                         <div className="mb-8 md:mb-12">
-                            <div className="flex items-center justify-between gap-4">
-                                <h1 className="min-w-0 text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-                                    おかえりなさい<br />
-                                    <span className="text-gray-900">{profile.fullName}</span>さん
-                                </h1>
-                                <div className="shrink-0 h-32 sm:h-40 md:h-48 aspect-[3/4] overflow-hidden rounded-2xl">
+                            <div className="relative isolate flex min-h-[300px] items-center overflow-hidden md:min-h-[430px]">
+                                <div className="pointer-events-none absolute right-0 top-1/2 z-0 h-[300px] aspect-[3/4] -translate-y-1/2 sm:h-[350px] md:h-[430px]">
                                     <video
-                                        className="h-full w-full object-cover object-center mix-blend-multiply"
+                                        className="h-full w-full object-contain object-center mix-blend-multiply"
                                         autoPlay
                                         loop
                                         muted
@@ -760,6 +931,12 @@ export default function HomePage() {
                                     >
                                         <source src="/mistap/mistap-character.mp4" type="video/mp4" />
                                     </video>
+                                </div>
+                                <div className="relative z-10 max-w-[72%] md:max-w-[58%]">
+                                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+                                        おかえりなさい<br />
+                                        <span className="text-gray-900">{profile.fullName}</span>さん
+                                    </h1>
                                 </div>
                             </div>
                             {announcements.length > 0 ? (
@@ -894,7 +1071,13 @@ export default function HomePage() {
                                 </div>
 
                                 {/* Consecutive Days */}
-                                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-5 text-white shadow-lg shadow-red-200 relative overflow-hidden">
+                                <button
+                                    type="button"
+                                    onClick={handleShareLoginStreak}
+                                    disabled={isSharingLoginStreak}
+                                    aria-label={`連続ログイン${profile.consecutiveLoginDays}日を共有`}
+                                    className="w-full text-left bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-5 text-white shadow-lg shadow-red-200 relative overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.99] disabled:cursor-wait"
+                                >
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-2 mb-1 opacity-90">
@@ -908,13 +1091,21 @@ export default function HomePage() {
                                             <span className="text-4xl font-bold tracking-tight">{profile.consecutiveLoginDays}</span>
                                             <span className="text-lg opacity-80">日</span>
                                         </div>
+                                        <div className="mt-1 text-xs font-bold text-white/85 underline decoration-white/40 underline-offset-4">
+                                            {isSharingLoginStreak ? '画像を作成中...' : 'タップで共有'}
+                                        </div>
+                                        {loginStreakShareMessage && (
+                                            <div className="mt-2 text-xs font-semibold text-white/85">
+                                                {loginStreakShareMessage}
+                                            </div>
+                                        )}
                                         {profile.consecutiveLoginDays >= 7 && (
                                             <div className="mt-2 inline-flex items-center bg-white/20 rounded-full px-2 py-0.5 text-xs font-medium">
                                                 <span className="mr-1">🎉</span> Great Job!
                                             </div>
                                         )}
                                     </div>
-                                </div>
+                                </button>
 
                                 {/* Total Tests */}
                                 <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
