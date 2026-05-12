@@ -3,7 +3,7 @@ import ClientHeader from '@/components/mistap/ClientHeader';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Mistap',
+    template: '%s',
     default: 'Mistap｜間違えた単語に集中できる英単語テストアプリ',
   },
   description: 'Mistapはシステム英単語・ターゲット1900・New Horizonなどに対応した無料単語テストアプリ。間違えた単語を自動記録し、効率的に復習できます。大学受験や定期テスト対策に最適。',
