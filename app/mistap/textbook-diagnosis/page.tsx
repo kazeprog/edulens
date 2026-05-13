@@ -4,14 +4,16 @@ import { ArrowRight, BookOpen, CheckCircle2, ChevronRight, SearchCheck, Shopping
 import MistapFooter from '@/components/mistap/Footer';
 import TextbookDiagnosisClient from '@/components/mistap/TextbookDiagnosisClient';
 
-const pageTitle = '英単語帳診断｜あなたに合う単語帳をおすすめ - Mistap';
+const pageTitle = '英単語帳診断｜目的別おすすめ単語帳 - Mistap';
 const pageDescription =
     '学年・目的・単語力・覚え方から、大学受験、英検、TOEIC、定期テストに合う英単語帳を診断。Amazonで教材を確認し、Mistapでそのまま小テストを始められます。';
 const canonicalUrl = 'https://edulens.jp/mistap/textbook-diagnosis';
 const ogImageUrl = `${canonicalUrl}/opengraph-image`;
 
 export const metadata: Metadata = {
-    title: pageTitle,
+    title: {
+        absolute: pageTitle,
+    },
     description: pageDescription,
     alternates: {
         canonical: canonicalUrl,
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
         title: pageTitle,
         description: pageDescription,
         url: canonicalUrl,
-        siteName: 'EduLens',
+        siteName: 'Mistap',
         type: 'website',
         images: [
             {
@@ -274,7 +276,7 @@ export default function TextbookDiagnosisPage() {
                                 目的別に選べる単語帳診断
                             </div>
                             <h1 className="text-3xl font-extrabold leading-tight text-slate-950 md:text-5xl">
-                                あなたに合う英単語帳を診断
+                                英単語帳診断で目的別におすすめを提案
                             </h1>
                             <p className="mt-5 text-base leading-relaxed text-slate-600 md:text-lg">
                                 定期テスト、大学受験、英検、TOEICまで。今の単語力と覚え方に合わせて、候補の単語帳とMistapでの進め方を提案します。
