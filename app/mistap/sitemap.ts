@@ -44,6 +44,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/english-idiom-test`,
+      lastModified: new Date('2026-05-14'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/toeic-word-test`,
+      lastModified: new Date('2026-05-14'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/word-test-maker`,
+      lastModified: new Date('2026-05-14'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/textbook`,
       lastModified: contentUpdatedAt,
       changeFrequency: 'weekly',

@@ -360,7 +360,7 @@ export default function TextbookLPTemplate({
                             </div>
 
                             <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
-                                <div className="pointer-events-none absolute -right-3 -bottom-10 z-20 w-32 sm:w-40 md:-right-6 md:-bottom-14 md:w-52">
+                                <div className="pointer-events-none absolute -right-3 -bottom-10 z-20 w-32 sm:w-40 md:-right-6 md:-bottom-20 md:w-52 lg:-bottom-24">
                                     <Image
                                         src="/mistap/mascot/mistap-mascot-pointing.png"
                                         alt=""

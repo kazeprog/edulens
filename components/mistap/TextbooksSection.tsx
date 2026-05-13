@@ -12,6 +12,7 @@ type TextbookGroup = {
     icon: typeof BookOpen;
     accentClassName: string;
     items: TextbookItem[];
+    guide?: TextbookItem;
 };
 
 const textbookGroups: TextbookGroup[] = [
@@ -54,6 +55,7 @@ const textbookGroups: TextbookGroup[] = [
             { name: 'DUO 3.0例文', href: '/mistap/textbook/duo-30' },
             { name: '改訂版 鉄緑会東大英単語熟語 鉄壁', href: '/mistap/textbook/teppeki' },
         ],
+        guide: { name: '英熟語テストのまとめを見る', href: '/mistap/english-idiom-test' },
     },
     {
         title: '英検・TOEIC',
@@ -67,6 +69,7 @@ const textbookGroups: TextbookGroup[] = [
             { name: 'TOEIC L&R TEST 出る単特急 銀のフレーズ', href: '/mistap/textbook/toeic-silver' },
             { name: 'TOEIC L&R TEST 出る単特急 金のフレーズ', href: '/mistap/textbook/toeic-gold' },
         ],
+        guide: { name: 'TOEIC単語テストのまとめを見る', href: '/mistap/toeic-word-test' },
     },
     {
         title: '古文単語',
@@ -114,6 +117,16 @@ function TextbookCard({ group }: { group: TextbookGroup }) {
                     </li>
                 ))}
             </ul>
+            {group.guide && (
+                <Link
+                    href={group.guide.href}
+                    prefetch={false}
+                    className="mt-5 inline-flex items-center gap-2 rounded-md bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-blue-700"
+                >
+                    {group.guide.name}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+            )}
         </div>
     );
 }
@@ -142,6 +155,15 @@ export default function TextbooksSection() {
                         どの教材から始めるか迷ったら、単語帳診断で目的に合う候補を確認できます。追加してほしい教材があれば、リクエストからお知らせください。
                     </p>
                     <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                        <Link
+                            href="/mistap/word-test-maker"
+                            prefetch={false}
+                            className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-6 rounded-lg font-semibold transition-colors"
+                        >
+                            <BookOpen className="h-4 w-4" aria-hidden="true" />
+                            英単語テストメーカー
+                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
                         <Link
                             href="/mistap/textbook-diagnosis"
                             prefetch={false}
