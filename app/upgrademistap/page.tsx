@@ -10,6 +10,7 @@ import {
     ArrowRight,
     BookOpen,
     Brain,
+    CalendarCheck,
     CheckCircle2,
     Copy,
     Headphones,
@@ -31,6 +32,11 @@ const mistapBenefits = [
         description: '通学中やスキマ時間に、指定した範囲の単語を英語と日本語で流しっぱなしにできます。',
     },
     {
+        icon: CalendarCheck,
+        title: '今日の復習',
+        description: '忘却曲線に基づいてテスト履歴から復習すべき単語を自動で絞り込み、そのままテストできます。',
+    },
+    {
         icon: Brain,
         title: "Mistappers' Mistake",
         description: 'みんなが間違えた単語をランキングで表示し、そのままテストできる、ライバルに差をつけるための機能です。',
@@ -45,7 +51,8 @@ const mistapBenefits = [
 const broaderBenefits = [
     'サイト内の広告非表示',
     'Mistapのすべての機能を利用可能',
-    'ナルホドレンズ質問回数 1日20回',
+    '忘却曲線に基づく今日の復習リスト',
+    'ナルホドレンズで1日20回まで質問可能',
     '英検AI添削 回数無制限',
     '大学入試英作文添削 無制限',
     '新機能への優先アクセス',
@@ -90,7 +97,7 @@ export default function UpgradeMistapPage() {
                                 もっと便利に、もっと快適に。
                             </h1>
                             <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                                聞き流し英単語、Mistappers&apos; Mistake、Word Stockに加えて、
+                                今日の復習、聞き流し英単語、Mistappers&apos; Mistake、Word Stockに加えて、
                                 <br className="hidden sm:block" />
                                 英検AI添削やナルホドレンズなどの有料機能もまとめて利用できます。
                             </p>

@@ -13,11 +13,13 @@ import GoogleAdsense from "@/components/GoogleAdsense";
 import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
 import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
 import { useAuth } from "@/context/AuthContext";
+import { loadSessionPayload, saveSessionPayload } from "@/lib/mistap/sessionPayload";
 
 interface Word {
   word_number: number;
   word: string;
   meaning: string;
+  textbook?: string;
   requiredMinHeight?: number;
 }
 
@@ -29,13 +31,17 @@ interface TestData {
   mode?: 'word-meaning' | 'meaning-word' | 'word-stock';
 }
 
+function getWordInstanceKey(word: Word, index: number) {
+  return `${word.word_number}-${index}-${word.word}`;
+}
+
 function TestContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [testData, setTestData] = useState<TestData | null>(null);
   const [showAnswers, setShowAnswers] = useState<boolean>(false);
-  const [tappedIds, setTappedIds] = useState<Set<number>>(new Set());
-  const [flipRotations, setFlipRotations] = useState<Map<number, number>>(new Map());
+  const [tappedIds, setTappedIds] = useState<Set<string>>(new Set());
+  const [flipRotations, setFlipRotations] = useState<Map<string, number>>(new Map());
   // const [showPrintWarning, setShowPrintWarning] = useState<boolean>(false); // Removed
   const desktopGridRef = useRef<HTMLDivElement | null>(null);
   const mobileCardsRef = useRef<HTMLDivElement | null>(null);
@@ -65,6 +71,7 @@ function TestContent() {
       if (suffix.includes('復習テスト')) {
         suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
       }
+      suffix = suffix.replace(/[（(]([^）)]*復習[^)）]*)[)）]/u, '$1').trim();
 
       // 学習状況カテゴリの括弧を除去
       suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();
@@ -317,30 +324,55 @@ function TestContent() {
       return;
     }
 
+    const dataKeyParam = searchParams.get('dataKey');
+    if (dataKeyParam) {
+      const loadStoredTestData = async () => {
+        try {
+          const parsedData = loadSessionPayload<TestData>(dataKeyParam);
+          if (!parsedData) {
+            router.push('/mistap/test-setup');
+            return;
+          }
+
+          if (!profile?.is_pro && parsedData.words && parsedData.words.length > 50) {
+            parsedData.words = parsedData.words.slice(0, 50);
+          }
+
+          setTestData(parsedData);
+        } catch {
+          router.push('/mistap/test-setup');
+        }
+      };
+      loadStoredTestData();
+      return;
+    }
+
     const dataParam = searchParams.get('data');
     if (dataParam) {
-      try {
-        let decodedData: string;
-        try { decodedData = decodeURIComponent(dataParam); }
-        catch { decodedData = dataParam; }
-        const parsedData = JSON.parse(decodedData);
+      const loadInlineTestData = async () => {
+        try {
+          let decodedData: string;
+          try { decodedData = decodeURIComponent(dataParam); }
+          catch { decodedData = dataParam; }
+          const parsedData = JSON.parse(decodedData);
 
-        // Force 50 word limit for non-pro
-        if (!profile?.is_pro && parsedData.words && parsedData.words.length > 50) {
-          parsedData.words = parsedData.words.slice(0, 50);
+          // Force 50 word limit for non-pro
+          if (!profile?.is_pro && parsedData.words && parsedData.words.length > 50) {
+            parsedData.words = parsedData.words.slice(0, 50);
+          }
+
+          setTestData(parsedData as TestData);
+        } catch {
+          router.push('/mistap/test-setup');
         }
-
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setTestData(parsedData as TestData);
-      } catch {
-        router.push('/mistap/test-setup');
-      }
+      };
+      loadInlineTestData();
     } else {
       router.push('/mistap/test-setup');
     }
   }, [searchParams, router, loading, user, profile]);
 
-  function toggleTapped(id: number) {
+  function toggleTapped(id: string) {
     setTappedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
@@ -349,7 +381,7 @@ function TestContent() {
     });
   }
 
-  function toggleFlipped(id: number, direction: 1 | -1) {
+  function toggleFlipped(id: string, direction: 1 | -1) {
     setFlipRotations((prev) => {
       const next = new Map(prev);
       const currentRotation = next.get(id) ?? 0;
@@ -640,7 +672,7 @@ function TestContent() {
   function handleToggleAnswers() {
     setShowAnswers((s) => !s);
     if (!showAnswers && Array.isArray(testData?.words)) {
-      setFlipRotations(new Map(testData.words.map((w: Word) => [w.word_number, 180])));
+      setFlipRotations(new Map(testData.words.map((w: Word, index: number) => [getWordInstanceKey(w, index), 180])));
     } else {
       setFlipRotations(new Map());
     }
@@ -669,8 +701,8 @@ function TestContent() {
 
     if (isTextbookTest) {
       // 間違えた単語と正解した単語を抽出
-      const tappedWords = words.filter((w: Word) => tappedIds.has(w.word_number));
-      const correctWords = words.filter((w: Word) => !tappedIds.has(w.word_number));
+      const tappedWords = words.filter((w: Word, index: number) => tappedIds.has(getWordInstanceKey(w, index)));
+      const correctWords = words.filter((w: Word, index: number) => !tappedIds.has(getWordInstanceKey(w, index)));
 
       // 結果データをJSONで渡す
       const resultData = {
@@ -682,13 +714,16 @@ function TestContent() {
         endNum: null,
         mode: mode || 'word-meaning'
       };
-      const dataParam = encodeURIComponent(JSON.stringify(resultData));
-      router.push(`/mistap/results?data=${dataParam}&t=${Date.now()}`);
+      const dataKey = saveSessionPayload('mistap-result-data', resultData);
+      router.push(`/mistap/results?dataKey=${encodeURIComponent(dataKey)}&t=${Date.now()}`);
     } else {
       // 従来の単語帳テスト：単語番号のみ渡してSupabaseから取得
-      const wrongNumbers = Array.from(tappedIds).join(',');
+      const wrongNumbers = words
+        .filter((w: Word, index: number) => tappedIds.has(getWordInstanceKey(w, index)))
+        .map((w: Word) => w.word_number)
+        .join(',');
       const correctNumbers = words
-        .filter((w: Word) => !tappedIds.has(w.word_number))
+        .filter((w: Word, index: number) => !tappedIds.has(getWordInstanceKey(w, index)))
         .map((w: Word) => w.word_number)
         .join(',');
       router.push(`/mistap/results?text=${encodeURIComponent(selectedText)}&start=${startNum}&end=${endNum}&total=${words.length}&wrong=${wrongNumbers}&correct=${correctNumbers}&mode=${mode || 'word-meaning'}&t=${Date.now()}`);
@@ -709,13 +744,14 @@ function TestContent() {
   const isMeaningToWord = mode === 'meaning-word';
 
   // Prepare words for display based on mode
-  const displayWords = words.map(w => ({
+  const displayWords = words.map((w, index) => ({
     ...w,
+    instanceKey: getWordInstanceKey(w, index),
     originalWord: w.word, // Keep original English word for audio and back face
     originalMeaning: w.meaning, // Keep original meaning for back face
     word: isMeaningToWord ? w.meaning : w.word, // Display Meaning as Word
     meaning: isMeaningToWord ? w.word : w.meaning, // Display Word as Meaning (Answer)
-  })) as (Word & { originalWord: string; originalMeaning: string })[];
+  })) as (Word & { instanceKey: string; originalWord: string; originalMeaning: string })[];
 
 
   const leftWords = Array.isArray(displayWords) ? displayWords.filter((_, i) => i % 2 === 0) : [];
@@ -736,19 +772,19 @@ function TestContent() {
             <div ref={mobileCardsRef} className="block xl:hidden px-3 w-full max-w-md sm:max-w-xl lg:max-w-2xl mx-auto">
               {displayWords.map((item, idx: number) => {
                 // Merge height data from wordsWithHeights if available
-                const heightData = wordsWithHeights.find(w => w.word_number === item.word_number);
+                const heightData = wordsWithHeights[idx];
                 const minHeight = heightData?.requiredMinHeight;
 
                 return (
-                  <React.Fragment key={`${item.word_number}-${idx}`}>
+                  <React.Fragment key={item.instanceKey}>
                     <FlippableCard
                       word={item.word}
                       meaning={item.meaning}
                       wordNumber={item.word_number}
-                      rotationY={flipRotations.get(item.word_number) ?? 0}
-                      isTapped={tappedIds.has(item.word_number)}
-                      onFlip={(direction) => toggleFlipped(item.word_number, direction)}
-                      onTap={() => toggleTapped(item.word_number)}
+                      rotationY={flipRotations.get(item.instanceKey) ?? 0}
+                      isTapped={tappedIds.has(item.instanceKey)}
+                      onFlip={(direction) => toggleFlipped(item.instanceKey, direction)}
+                      onTap={() => toggleTapped(item.instanceKey)}
                       minHeight={minHeight}
                       audioText={item.originalWord}
                       originalWord={item.originalWord}
@@ -776,12 +812,12 @@ function TestContent() {
             <div ref={desktopGridRef} className="hidden xl:grid xl:grid-cols-2 xl:gap-6">
               <ul>
                 {leftWords.map((item, idx: number) => (
-                  <li key={`${item.word_number}-left-${idx}`} className="mb-6">
+                  <li key={item.instanceKey} className="mb-6">
                     <TestCard
                       word={item}
-                      isTapped={tappedIds.has(item.word_number)}
+                      isTapped={tappedIds.has(item.instanceKey)}
                       showAnswers={showAnswers}
-                      onTap={() => toggleTapped(item.word_number)}
+                      onTap={() => toggleTapped(item.instanceKey)}
                       audioText={item.originalWord}
                     />
                     {(idx + 1) % 5 === 0 && idx !== leftWords.length - 1 && (
@@ -799,12 +835,12 @@ function TestContent() {
               </ul>
               <ul>
                 {rightWords.map((item, idx: number) => (
-                  <li key={`${item.word_number}-right-${idx}`} className="mb-6">
+                  <li key={item.instanceKey} className="mb-6">
                     <TestCard
                       word={item}
-                      isTapped={tappedIds.has(item.word_number)}
+                      isTapped={tappedIds.has(item.instanceKey)}
                       showAnswers={showAnswers}
-                      onTap={() => toggleTapped(item.word_number)}
+                      onTap={() => toggleTapped(item.instanceKey)}
                       audioText={item.originalWord}
                     />
                     {(idx + 1) % 5 === 0 && idx !== rightWords.length - 1 && (

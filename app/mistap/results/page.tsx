@@ -9,11 +9,13 @@ import MistapFooter from "@/components/mistap/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { normalizeTextbookName } from "@/lib/mistap/textbookUtils";
 import { getJsonTextbookData } from "@/lib/mistap/jsonTextbookData";
+import { loadSessionPayload } from "@/lib/mistap/sessionPayload";
 
 interface TappedWord {
   word_number: number;
   word: string;
   meaning: string;
+  textbook?: string;
 }
 
 interface ResultData {
@@ -21,8 +23,8 @@ interface ResultData {
   correctWords: TappedWord[];
   total: number;
   selectedText: string;
-  startNum: number;
-  endNum: number;
+  startNum: number | null;
+  endNum: number | null;
   mode?: 'word-meaning' | 'meaning-word';
 }
 
@@ -136,6 +138,22 @@ function ResultsContent() {
       return;
     }
 
+    const dataKeyParam = searchParams.get('dataKey');
+    if (dataKeyParam) {
+      try {
+        const parsedData = loadSessionPayload<ResultData>(dataKeyParam);
+        if (!parsedData) {
+          router.push('/mistap/test-setup');
+          return;
+        }
+
+        setResultData(parsedData);
+      } catch {
+        router.push('/mistap/test-setup');
+      }
+      return;
+    }
+
     // フォールバック: 旧形式のdataパラメータをチェック
     const dataParam = searchParams.get('data');
     if (dataParam) {
@@ -202,6 +220,7 @@ function ResultsContent() {
           if (suffix.includes('復習テスト')) {
             suffix = suffix.replace(/[（(]復習テスト[)）]/, '復習テスト').trim();
           }
+          suffix = suffix.replace(/[（(]([^）)]*復習[^)）]*)[)）]/u, '$1').trim();
 
           // 学習状況カテゴリの括弧を除去
           suffix = suffix.replace(/[（(](覚えた|要チェック|覚えていない)[^)）]*[)）]/g, '$1単語').trim();

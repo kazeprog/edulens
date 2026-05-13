@@ -105,6 +105,14 @@ export default function Header() {
                   これまでの履歴
                 </Link>
                 <Link
+                  href="/mistap/today-review"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-emerald-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  今日の復習
+                </Link>
+                <Link
                   href="/mistap/community"
                   prefetch={false}
                   className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
