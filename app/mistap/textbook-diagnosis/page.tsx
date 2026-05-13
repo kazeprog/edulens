@@ -59,7 +59,10 @@ const useSteps = [
 
 const featuredTextbooks = [
     { name: 'システム英単語', href: '/mistap/textbook/system-words' },
+    { name: 'システム英単語Basic〈5訂版〉', href: '/mistap/textbook/system-words-basic-5th' },
+    { name: 'システム英熟語〈5訂版〉', href: '/mistap/textbook/system-english-idioms-5th' },
     { name: 'ターゲット1900', href: '/mistap/textbook/target-1900' },
+    { name: '英熟語ターゲット1000', href: '/mistap/textbook/idiom-target-1000-5th' },
     { name: 'LEAP', href: '/mistap/textbook/leap' },
     { name: '速読英単語 必修編', href: '/mistap/textbook/sokutan-hisshu-8th' },
     { name: '英検2級 でる順パス単', href: '/mistap/textbook/eiken-2-passtan-5th' },
@@ -92,7 +95,9 @@ const audienceGuides = [
             '共通テストから私大・国公立二次までを見据えるなら、頻出語の広さと復習しやすさを重視します。',
         textbooks: [
             { name: 'システム英単語', href: '/mistap/textbook/system-words', note: 'ミニマルフレーズで使い方まで確認しやすい定番。' },
+            { name: 'システム英熟語〈5訂版〉', href: '/mistap/textbook/system-english-idioms-5th', note: '句動詞や前置詞表現を体系的に固めたい人向け。' },
             { name: 'ターゲット1900', href: '/mistap/textbook/target-1900', note: '頻出順でテンポよく受験語彙を固めたい人向け。' },
+            { name: '英熟語ターゲット1000', href: '/mistap/textbook/idiom-target-1000-5th', note: '英熟語をでる順で短期間に確認したい人向け。' },
             { name: 'LEAP', href: '/mistap/textbook/leap', note: '語法やニュアンスも含めて受験英語を整理したい人向け。' },
         ],
     },
@@ -121,6 +126,7 @@ const audienceGuides = [
             '学校の進度や中学・高校初級の語彙に合わせて、短い範囲で反復しやすい教材から始めます。',
         textbooks: [
             { name: 'ターゲット1200', href: '/mistap/textbook/target-1200', note: '高校英語の基礎を最初から確認したい人向け。' },
+            { name: 'システム英単語Basic〈5訂版〉', href: '/mistap/textbook/system-words-basic-5th', note: '基礎語彙から受験標準へつなげたい人向け。' },
             { name: 'ターゲット1400', href: '/mistap/textbook/target-1400', note: '基礎から標準語彙へ進みたい高1・高2向け。' },
             { name: '中学教科書対応教材', href: '/mistap/textbook', note: '学校の教科書に合わせて小テストを作りたい人向け。' },
         ],
@@ -131,19 +137,19 @@ const comparisonRows = [
     {
         purpose: '高校英語の基礎',
         level: '中学語彙から高校初級に不安がある',
-        textbook: 'ターゲット1200',
+        textbook: 'ターゲット1200 / システム英単語Basic',
         point: '短い範囲で正答率を上げてから標準レベルへ進む',
     },
     {
         purpose: '共通テスト・中堅大',
         level: '学校レベルはある程度できる',
-        textbook: 'ターゲット1400 / システム英単語 / LEAP',
+        textbook: 'ターゲット1400 / システム英単語 / LEAP / 英熟語ターゲット1000',
         point: '頻出語を広く回し、間違えた単語を翌日に復習する',
     },
     {
         purpose: '難関大・発展語彙',
         level: '標準語彙は戦える',
-        textbook: '鉄緑会 東大英単語熟語 鉄壁 / 速読英単語 上級編',
+        textbook: '鉄緑会 東大英単語熟語 鉄壁 / 速読英単語 上級編 / システム英熟語',
         point: '多義語・派生語・文脈での意味まで確認する',
     },
     {

@@ -6,6 +6,9 @@ import target1400Data from "@/lib/data/json/ターゲット1400.json";
 import target1800Data from "@/lib/data/json/ターゲット1800.json";
 import target1800v5Data from "@/lib/data/json/ターゲット1800(5訂版).json";
 import systemWordsData from "@/lib/data/json/システム英単語.json";
+import systemWordsBasic5thData from "@/lib/data/json/system-words-basic-5th.json";
+import systemEnglishIdioms5thData from "@/lib/data/json/system-english-idioms-5th.json";
+import idiomTarget1000Data from "@/lib/data/json/idiom-target-1000-5th.json";
 import leapData from "@/lib/data/json/leap.json";
 import toeicGoldData from "@/lib/data/json/toeic金のフレーズ.json";
 import toeicSilverData from "@/lib/data/json/toeic-silver.json";
@@ -61,8 +64,20 @@ const DATA_MAP: Record<string, TextbookWord[]> = {
     "ターゲット1200": target1200Data as TextbookWord[],
     "target-1400": target1400Data as TextbookWord[],
     "ターゲット1400": target1400Data as TextbookWord[],
+    "idiom-target-1000-5th": idiomTarget1000Data as TextbookWord[],
+    "英熟語ターゲット1000 5訂版": idiomTarget1000Data as TextbookWord[],
+    "英熟語ターゲット1000［5訂版］": idiomTarget1000Data as TextbookWord[],
+    "英熟語ターゲット1000": idiomTarget1000Data as TextbookWord[],
     "system-words": systemWordsData as TextbookWord[],
     "システム英単語": systemWordsData as TextbookWord[],
+    "system-words-basic-5th": systemWordsBasic5thData as TextbookWord[],
+    "システム英単語Basic〈5訂版〉": systemWordsBasic5thData as TextbookWord[],
+    "システム英単語Basic": systemWordsBasic5thData as TextbookWord[],
+    "シス単Basic": systemWordsBasic5thData as TextbookWord[],
+    "system-english-idioms-5th": systemEnglishIdioms5thData as TextbookWord[],
+    "システム英熟語〈5訂版〉": systemEnglishIdioms5thData as TextbookWord[],
+    "システム英熟語": systemEnglishIdioms5thData as TextbookWord[],
+    "シス熟": systemEnglishIdioms5thData as TextbookWord[],
     "system-words-stage5": systemWordsStage5Data as TextbookWord[],
     "システム英単語 stage5": systemWordsStage5Data as TextbookWord[],
     "システム英単語 Stage5": systemWordsStage5Data as TextbookWord[],
@@ -163,6 +178,9 @@ export function getJsonTextbookData(textbookName: string): TextbookWord[] | null
     if (normalized.includes("target-1800-v5") || textbookName.includes("ターゲット1800(5訂版)")) return DATA_MAP["target-1800-v5"];
     if (normalized.includes("target-1800") || textbookName.includes("ターゲット1800")) return DATA_MAP["target-1800"];
     if (normalized.includes("target-1200") || textbookName.includes("ターゲット1200")) return DATA_MAP["target-1200"];
+    if (normalized.includes("idiom-target-1000") || textbookName.includes("英熟語ターゲット1000")) return DATA_MAP["idiom-target-1000-5th"];
+    if (normalized.includes("system-words-basic-5th") || normalized.includes("system-english-word-basic") || textbookName.includes("システム英単語Basic") || textbookName.includes("シス単Basic") || textbookName.includes("シスタンベーシック")) return DATA_MAP["system-words-basic-5th"];
+    if (normalized.includes("system-english-idioms-5th") || normalized.includes("system-idioms") || textbookName.includes("システム英熟語") || textbookName.includes("シス熟")) return DATA_MAP["system-english-idioms-5th"];
     if (normalized.includes("stage5") && (normalized.includes("system") || textbookName.includes("システム英単語"))) return DATA_MAP["system-words-stage5"];
     if (normalized.includes("system") || textbookName.includes("システム英単語")) return DATA_MAP["system-words"];
     if (normalized.includes("leap-basic") || textbookName.includes("LEAP Basic")) return DATA_MAP["leap-basic"];

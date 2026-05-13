@@ -39,6 +39,20 @@ const universityTextbooks: Textbook[] = [
         badge: "人気No.1"
     },
     {
+        name: "システム英単語Basic〈5訂版〉",
+        description: "高校英語の基礎から受験標準まで。シス単の基礎レベル編を小テストで反復できます。",
+        path: "/mistap/textbook/system-words-basic-5th",
+        color: "emerald",
+        badge: "基礎"
+    },
+    {
+        name: "システム英熟語〈5訂版〉",
+        description: "最頻出の句動詞・英熟語を体系的に確認。前置詞や副詞のイメージごとに反復できます。",
+        path: "/mistap/textbook/system-english-idioms-5th",
+        color: "orange",
+        badge: "英熟語"
+    },
+    {
         name: "システム英単語 Stage5",
         description: "多義語184語を集中攻略。知っている単語の「裏の意味」をマスター。",
         path: "/mistap/textbook/system-words-stage5",
@@ -56,6 +70,13 @@ const universityTextbooks: Textbook[] = [
         description: "大学受験の必須単語。共通テスト・中堅大対策に最適。",
         path: "/mistap/textbook/target-1400",
         color: "blue"
+    },
+    {
+        name: "英熟語ターゲット1000 5訂版",
+        description: "入試頻出の英熟語1000項目をでる順で確認。範囲指定の小テストで定着をチェックできます。",
+        path: "/mistap/textbook/idiom-target-1000-5th",
+        color: "orange",
+        badge: "英熟語"
     },
     {
         name: "改訂版 必携英単語LEAP",
