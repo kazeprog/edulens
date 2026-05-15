@@ -122,12 +122,33 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const [showDemoConfirm, setShowDemoConfirm] = useState(false);
 
 
+  const hasAppliedProfileDefaultRef = useRef(false);
+  const hasUserEditedSettingsRef = useRef(false);
+
+  const handleLevelChange = useCallback((nextLevel: string) => {
+    hasUserEditedSettingsRef.current = true;
+    setLevel(nextLevel);
+  }, []);
+
+  const handleSelectedTextChange = useCallback((nextText: string) => {
+    hasUserEditedSettingsRef.current = true;
+    lastTextbookRef.current = nextText;
+    setSelectedText(nextText);
+  }, []);
 
   // ユーザープロフィールを取得してレベルを自動設定（初回のみ）
   const loadUserProfile = useCallback(async () => {
+    if (hasAppliedProfileDefaultRef.current || presetTextbook) {
+      return;
+    }
+
     // 前回使用した単語帳がある場合は、学年によるレベル設定をスキップ
     // （前回の単語帳に基づくレベルがlocalStorage読み込み時に設定されるため）
-    if (typeof window !== 'undefined' && localStorage.getItem('mistap_last_textbook')) {
+    if (
+      typeof window !== 'undefined' &&
+      (localStorage.getItem('mistap_last_textbook') || localStorage.getItem('mistap_last_level'))
+    ) {
+      hasAppliedProfileDefaultRef.current = true;
       return; // 2回目以降は前回の単語帳を優先
     }
 
@@ -143,6 +164,11 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         .single();
 
       if (data?.grade) {
+        if (hasUserEditedSettingsRef.current) {
+          return;
+        }
+
+        hasAppliedProfileDefaultRef.current = true;
         if (['中1', '中2', '中3'].includes(data.grade)) {
           setLevel('junior');
         } else if (['大学生・社会人'].includes(data.grade)) {
@@ -155,7 +181,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     } catch {
       // プロフィール取得エラー - 無視
     }
-  }, []);
+  }, [presetTextbook]);
 
   const [showCopyrightModal, setShowCopyrightModal] = useState(false);
   const [referralEnabled, setReferralEnabled] = useState(true);
@@ -273,6 +299,18 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     "DUO 3.0例文",
   ], []);
 
+  const isTextbookInLevel = useCallback((textbook: string, targetLevel: string) => {
+    const targetTexts = targetLevel === "junior" ? juniorTexts : targetLevel === "university" ? universityTexts : seniorTexts;
+    return targetTexts.includes(textbook);
+  }, [juniorTexts, seniorTexts, universityTexts]);
+
+  const inferLevelFromTextbook = useCallback((textbook: string): string | null => {
+    if (juniorTexts.includes(textbook)) return 'junior';
+    if (universityTexts.includes(textbook)) return 'university';
+    if (seniorTexts.includes(textbook)) return 'senior';
+    return null;
+  }, [juniorTexts, seniorTexts, universityTexts]);
+
   // 表示する教材をレベルでフィルタ（データベースに存在するもののみ）
   const filteredTexts = useMemo(() => {
     const targetTexts = level === "junior" ? juniorTexts : level === "university" ? universityTexts : seniorTexts;
@@ -330,12 +368,9 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         lastTextbookRef.current = presetTextbook;
 
         // presetTextbookがどのレベルに属するか検出し、レベルを切り替え
-        if (juniorTexts.includes(presetTextbook)) {
-          setLevel('junior');
-        } else if (universityTexts.includes(presetTextbook)) {
-          setLevel('university');
-        } else if (seniorTexts.includes(presetTextbook)) {
-          setLevel('senior');
+        const presetLevel = inferLevelFromTextbook(presetTextbook);
+        if (presetLevel) {
+          setLevel(presetLevel);
         }
 
         setIsInitialized(true);
@@ -359,7 +394,13 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         setTestMode(savedTestMode);
       }
 
-      if (savedLevel) {
+      const isValidSavedLevel = savedLevel === 'junior' || savedLevel === 'senior' || savedLevel === 'university';
+      const inferredSavedLevel = savedTextbook ? inferLevelFromTextbook(savedTextbook) : null;
+      if (isValidSavedLevel && (!savedTextbook || isTextbookInLevel(savedTextbook, savedLevel))) {
+        setLevel(savedLevel);
+      } else if (inferredSavedLevel) {
+        setLevel(inferredSavedLevel);
+      } else if (isValidSavedLevel) {
         setLevel(savedLevel);
       }
 
@@ -367,15 +408,9 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         lastTextbookRef.current = savedTextbook;
         setSelectedText(savedTextbook);
 
-        // レベルが未保存の場合のみ、単語帳から推論
-        if (!savedLevel) {
-          if (juniorTexts.includes(savedTextbook)) {
-            setLevel('junior');
-          } else if (universityTexts.includes(savedTextbook)) {
-            setLevel('university');
-          } else if (seniorTexts.includes(savedTextbook)) {
-            setLevel('senior');
-          }
+        // 保存レベルが不正な場合のみ、単語帳から推論
+        if (!isValidSavedLevel && inferredSavedLevel) {
+          setLevel(inferredSavedLevel);
         }
       }
 
@@ -412,7 +447,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
       setIsInitialized(true);
     }
-  }, [juniorTexts, seniorTexts, universityTexts, presetTextbook]);
+  }, [inferLevelFromTextbook, isTextbookInLevel, presetTextbook]);
 
   // initialLessonが変更されたときに選択ユニットを更新
   useEffect(() => {
@@ -641,16 +676,19 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     // デフォルト値（ターゲット1900）が存在する場合は維持、なければ最初の教材を選択
     // ただし、すでに setSelectedText されている場合（LPなどで presetTextbook がある場合）は上書きしたくない
     // selectedText が未設定、または有効な選択肢でない場合のみ更新
-    if (!selectedText || !uniqueTexts.includes(selectedText)) {
-      if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
-        setSelectedText(uniqueTexts[0]);
-      } else if (uniqueTexts.length > 0 && !selectedText) {
-        // Default to 1900 is implicitly handled by initial state, but if we are here and selectedText is somehow invalid
-        // we might want to reset?
-        // Actually, keep safe:
-        // if (uniqueTexts.includes("ターゲット1900")) setSelectedText("ターゲット1900");
+    setSelectedText((currentText) => {
+      if (!currentText || !uniqueTexts.includes(currentText)) {
+        if (!uniqueTexts.includes("ターゲット1900") && uniqueTexts.length > 0) {
+          return uniqueTexts[0];
+        } else if (uniqueTexts.length > 0 && !currentText) {
+          // Default to 1900 is implicitly handled by initial state, but if we are here and selectedText is somehow invalid
+          // we might want to reset?
+          // Actually, keep safe:
+          // if (uniqueTexts.includes("ターゲット1900")) setSelectedText("ターゲット1900");
+        }
       }
-    }
+      return currentText;
+    });
 
 
     // キャッシュに保存
@@ -660,7 +698,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     } catch {
       // キャッシュ保存エラー - 無視
     }
-  }, [presetTextbook, initialData, selectedText]);
+  }, [presetTextbook, initialData, isSchoolTextbookMode]);
 
   // 小テスト作成処理
   // extractable implementation so demo auto-start can pass overrides
@@ -1149,13 +1187,21 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textbooks, selectedTextbook, includeRecent, includeFrequent, includeSingle, useRange, reviewStartNum, reviewEndNum, testCount, router]);
 
-  // 教材取得とユーザープロフィール取得
+  // 教材取得
   useEffect(() => {
     // document.title removed for server-side metadata
     fetchTexts();
+  }, [fetchTexts]);
+
+  // プロフィールによる初期レベル設定は初回だけ行う
+  useEffect(() => {
     loadUserProfile();
+  }, [loadUserProfile]);
+
+  // 復習テスト用データ取得
+  useEffect(() => {
     loadWeakWords();
-  }, [fetchTexts, loadUserProfile, loadWeakWords]);
+  }, [loadWeakWords]);
 
 
 
@@ -1256,7 +1302,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 ].map((l) => (
                   <button
                     key={l.id}
-                    onClick={() => setLevel(l.id)}
+                    onClick={() => handleLevelChange(l.id)}
                     className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${level === l.id
                       ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
                       : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
@@ -1330,7 +1376,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 <div className="relative">
                   <select
                     value={selectedText}
-                    onChange={(e) => setSelectedText(e.target.value)}
+                    onChange={(e) => handleSelectedTextChange(e.target.value)}
                     className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-lg rounded-xl focus:ring-red-500 focus:border-red-500 block p-4 pr-10 font-medium transition-colors cursor-pointer hover:bg-gray-100 [&>option]:text-gray-900 [&>optgroup]:text-gray-900"
                     translate="no"
                   >
