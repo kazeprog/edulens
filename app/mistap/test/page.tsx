@@ -790,17 +790,6 @@ function TestContent() {
                       originalWord={item.originalWord}
                       originalMeaning={item.originalMeaning}
                     />
-                    {(idx + 1) % 5 === 0 && idx !== displayWords.length - 1 && (
-                      <GoogleAdsense
-                        slot="2643309624"
-                        format="fluid"
-                        layoutKey="-f7+5u+4t-da+6l"
-                        responsive="true"
-                        style={{ display: 'block' }}
-                        disableRefresh={true}
-                        className="-mt-3 mb-3 mx-auto text-center"
-                      />
-                    )}
                   </React.Fragment>
                 );
               })}
@@ -811,7 +800,7 @@ function TestContent() {
             {/* Desktop: 2-column layout */}
             <div ref={desktopGridRef} className="hidden xl:grid xl:grid-cols-2 xl:gap-6">
               <ul>
-                {leftWords.map((item, idx: number) => (
+                {leftWords.map((item) => (
                   <li key={item.instanceKey} className="mb-6">
                     <TestCard
                       word={item}
@@ -820,21 +809,11 @@ function TestContent() {
                       onTap={() => toggleTapped(item.instanceKey)}
                       audioText={item.originalWord}
                     />
-                    {(idx + 1) % 5 === 0 && idx !== leftWords.length - 1 && (
-                      <GoogleAdsense
-                        slot="2643309624"
-                        format="fluid"
-                        layoutKey="-f7+5u+4t-da+6l"
-                        className="-mt-6 mb-6 mx-auto text-center"
-                        style={{ display: 'block' }}
-                        disableRefresh={true}
-                      />
-                    )}
                   </li>
                 ))}
               </ul>
               <ul>
-                {rightWords.map((item, idx: number) => (
+                {rightWords.map((item) => (
                   <li key={item.instanceKey} className="mb-6">
                     <TestCard
                       word={item}
@@ -843,16 +822,6 @@ function TestContent() {
                       onTap={() => toggleTapped(item.instanceKey)}
                       audioText={item.originalWord}
                     />
-                    {(idx + 1) % 5 === 0 && idx !== rightWords.length - 1 && (
-                      <GoogleAdsense
-                        slot="2643309624"
-                        format="fluid"
-                        layoutKey="-f7+5u+4t-da+6l"
-                        className="-mt-6 mb-6 mx-auto text-center"
-                        style={{ display: 'block' }}
-                        disableRefresh={true}
-                      />
-                    )}
                   </li>
                 ))}
               </ul>
