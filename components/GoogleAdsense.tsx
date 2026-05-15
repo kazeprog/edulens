@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { DEFAULT_ADSENSE_SLOT, getAdsensePlacementConfig, type AdsensePlacement } from '@/lib/adsense-placements';
+import { DEFAULT_ADSENSE_SLOT, getAdsensePlacementConfig, type AdsenseAdFormat, type AdsensePlacement } from '@/lib/adsense-placements';
 import { isNoAdsRoute } from '@/lib/ad-config';
 
 declare global {
@@ -18,7 +18,7 @@ type GoogleAdsenseProps = {
     channel?: string;
     client?: string;
     style?: React.CSSProperties;
-    format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
+    format?: AdsenseAdFormat;
     responsive?: 'true' | 'false';
     className?: string;
     layout?: string;
@@ -34,7 +34,7 @@ const GoogleAdsense = ({
     channel,
     client = "ca-pub-6321932201615449",
     style = { display: 'block' },
-    format = 'auto',
+    format,
     responsive = 'true',
     className = "mb-4 mx-auto text-center",
     layout,
@@ -56,6 +56,7 @@ const GoogleAdsense = ({
     const placementConfig = getAdsensePlacementConfig(placement);
     const resolvedSlot = slot || placementConfig.slot || DEFAULT_ADSENSE_SLOT;
     const resolvedChannel = channel || placementConfig.channel;
+    const resolvedFormat = format || placementConfig.format;
 
     // パス変更時にフラグをリセットして強制再読込を促す
     useEffect(() => {
@@ -139,7 +140,7 @@ const GoogleAdsense = ({
                 data-ad-client={client}
                 data-ad-slot={resolvedSlot}
                 data-ad-channel={resolvedChannel}
-                data-ad-format={format}
+                data-ad-format={resolvedFormat}
                 data-full-width-responsive={responsive}
                 data-ad-layout={layout}
                 data-ad-layout-key={layoutKey}

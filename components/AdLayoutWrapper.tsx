@@ -41,7 +41,6 @@ export default function AdLayoutWrapper({
             {!isNoAdPage && (
                 <GoogleAdsense
                     placement="site-top"
-                    format="auto"
                     style={{ display: 'block', width: '100%', textAlign: 'center' }}
                     className="mx-auto text-center"
                     reserveSpace

@@ -109,7 +109,7 @@ export default function HistoryPage() {
 
     // タイムアウトセーフティ: 5秒でローディング強制解除
     const safetyTimeout = setTimeout(() => {
-      if (mounted && loading) {
+      if (mounted) {
         console.warn('History page loading timeout');
         setLoading(false);
         setError('データの読み込みがタイムアウトしました。再読み込みしてください。');
@@ -226,7 +226,6 @@ export default function HistoryPage() {
           <div className="w-full mb-8">
             <GoogleAdsense
               placement="mistap-history-top"
-              format="auto"
               responsive="true"
               style={{ display: 'block' }}
             />
