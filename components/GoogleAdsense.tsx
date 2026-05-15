@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { DEFAULT_ADSENSE_SLOT, getAdsensePlacementConfig, type AdsensePlacement } from '@/lib/adsense-placements';
 import { isNoAdsRoute } from '@/lib/ad-config';
 
 declare global {
@@ -12,7 +13,9 @@ declare global {
 }
 
 type GoogleAdsenseProps = {
+    placement?: AdsensePlacement;
     slot?: string;
+    channel?: string;
     client?: string;
     style?: React.CSSProperties;
     format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
@@ -26,7 +29,9 @@ type GoogleAdsenseProps = {
 };
 
 const GoogleAdsense = ({
-    slot = "9969163744",
+    placement,
+    slot,
+    channel,
     client = "ca-pub-6321932201615449",
     style = { display: 'block' },
     format = 'auto',
@@ -48,6 +53,9 @@ const GoogleAdsense = ({
     const isPendingProfile = !!user && !profile;
     const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
     const isNoAdPage = isNoAdsRoute(pathname) || isPro;
+    const placementConfig = getAdsensePlacementConfig(placement);
+    const resolvedSlot = slot || placementConfig.slot || DEFAULT_ADSENSE_SLOT;
+    const resolvedChannel = channel || placementConfig.channel;
 
     // パス変更時にフラグをリセットして強制再読込を促す
     useEffect(() => {
@@ -110,7 +118,7 @@ const GoogleAdsense = ({
     }
 
     // keyにpathnameを含めることで、再レンダリング時にDOM要素を強制的に新しくする
-    const adKey = `${pathname}`;
+    const adKey = `${pathname}-${placement || resolvedSlot}`;
     const containerClassName = `${className}${reserveSpace ? ' ad-slot-reserve' : ''}`;
     const containerStyle = {
         width: '100%',
@@ -129,7 +137,8 @@ const GoogleAdsense = ({
                 className="adsbygoogle"
                 style={style}
                 data-ad-client={client}
-                data-ad-slot={slot}
+                data-ad-slot={resolvedSlot}
+                data-ad-channel={resolvedChannel}
                 data-ad-format={format}
                 data-full-width-responsive={responsive}
                 data-ad-layout={layout}

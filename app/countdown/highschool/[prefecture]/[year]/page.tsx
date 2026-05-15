@@ -416,7 +416,7 @@ export default async function CountdownPage({ params }: { params: Params }) {
         {columnPosts.length > 0 && (
           <div className="w-full max-w-4xl mx-auto mt-16 mb-8">
             <div className="w-full flex justify-center text-center">
-              <GoogleAdsense reserveSpace reserveHeight={280} />
+              <GoogleAdsense placement="countdown-highschool-detail" reserveSpace reserveHeight={280} />
             </div>
             <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-blue-600 rounded-full"></span>

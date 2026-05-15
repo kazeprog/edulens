@@ -40,7 +40,7 @@ export default function AdLayoutWrapper({
             {/* 上部広告 (横長) - アップグレードページでは非表示 */}
             {!isNoAdPage && (
                 <GoogleAdsense
-                    slot="9969163744"
+                    placement="site-top"
                     format="auto"
                     style={{ display: 'block', width: '100%', textAlign: 'center' }}
                     className="mx-auto text-center"

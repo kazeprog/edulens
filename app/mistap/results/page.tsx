@@ -503,7 +503,7 @@ function ResultsContent() {
           {/* 広告エリア（間違えた単語の上） */}
           <div className="flex justify-center items-center mb-6 w-full text-center">
             <GoogleAdsense
-              slot="9969163744"
+              placement="mistap-results-before-incorrect"
               format="rectangle"
               style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
               responsive="false"
@@ -532,7 +532,7 @@ function ResultsContent() {
           {/* 広告エリア（間違えた単語の下） */}
           <div className="flex justify-center items-center my-6 w-full text-center">
             <GoogleAdsense
-              slot="9969163744"
+              placement="mistap-results-after-incorrect"
               format="rectangle"
               style={{ display: 'block', margin: '0 auto', maxWidth: '336px', height: '280px' }}
               responsive="false"

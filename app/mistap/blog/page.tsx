@@ -91,7 +91,7 @@ export default async function BlogPage() {
       <div className="max-w-3xl mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-8 text-gray-800">ブログ一覧</h1>
 
-        <GoogleAdsense />
+        <GoogleAdsense placement="mistap-blog-list" />
 
         {/* 投稿がない場合の表示 */}
         {posts.length === 0 && (

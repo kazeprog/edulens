@@ -262,7 +262,7 @@ export default async function ExamListPage({ params }: { params: Params }) {
 
         {/* Google AdSense */}
         <div className="flex justify-center w-full text-center mt-12 mb-8">
-          <GoogleAdsense />
+          <GoogleAdsense placement="countdown-exam-detail" />
         </div>
 
         {/* SEO用テキストセクション */}

@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                     </article>
 
                     {/* 記事読み終わり直後の広告 */}
-                    <GoogleAdsense />
+                    <GoogleAdsense placement="column-article" />
 
                     {/* おすすめの記事セクション */}
                     {recommendedPosts.length > 0 && (

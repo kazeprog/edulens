@@ -225,7 +225,7 @@ export default function HistoryPage() {
           {/* 広告エリア */}
           <div className="w-full mb-8">
             <GoogleAdsense
-              slot="9969163744"
+              placement="mistap-history-top"
               format="auto"
               responsive="true"
               style={{ display: 'block' }}

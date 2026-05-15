@@ -830,6 +830,7 @@ function TestContent() {
 
           {/* AdSense - contain: layout paint でレイアウト隔離 */}
           <GoogleAdsense
+            placement="mistap-test-bottom"
             className="xl:hidden mb-6 w-full overflow-hidden"
             style={{
               display: 'block',

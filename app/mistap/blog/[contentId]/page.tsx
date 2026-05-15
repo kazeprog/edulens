@@ -196,7 +196,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
         />
 
         {/* 記事読み終わり直後の広告 */}
-        <GoogleAdsense />
+        <GoogleAdsense placement="mistap-blog-article" />
 
         {/* (2) CTA */}
         <hr className="border-gray-300" />

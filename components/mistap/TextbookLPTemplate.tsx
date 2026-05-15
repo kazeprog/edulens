@@ -496,6 +496,7 @@ export default function TextbookLPTemplate({
                 <section className="py-8 bg-slate-50 flex justify-center border-t border-slate-100">
                     <div className="w-full max-w-4xl px-4">
                         <GoogleAdsense
+                            placement="mistap-textbook-lp"
                             style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
                         />
                     </div>

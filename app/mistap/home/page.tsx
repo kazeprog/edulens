@@ -1130,7 +1130,7 @@ export default function HomePage() {
 
                             {/* Mobile: AdSense above Today's Goals */}
                             <GoogleAdsense
-                                slot="9969163744"
+                                placement="mistap-home"
                                 format="rectangle"
                                 responsive="true"
                                 style={{ display: 'block', width: '100%' }}

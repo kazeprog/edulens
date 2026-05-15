@@ -536,6 +536,7 @@ export default function TextbookIndexPage() {
                             <div className="py-8 flex justify-center border-t border-slate-100 my-8">
                                 <div className="w-full max-w-4xl px-4">
                                     <GoogleAdsense
+                                        placement="mistap-textbook-directory"
                                         style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
                                     />
                                 </div>

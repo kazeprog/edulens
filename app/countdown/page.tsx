@@ -36,6 +36,7 @@ export default function CountdownHubPage() {
 
         {/* AdSense Unit */}
         <GoogleAdsense
+          placement="countdown-index"
           style={{ display: 'block', minHeight: '100px', width: '100%' }}
           format="horizontal"
         />

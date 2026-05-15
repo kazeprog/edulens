@@ -312,7 +312,7 @@ export default async function QualificationCountdownPage({ params }: { params: P
 
         {/* Google AdSense */}
         <div className="flex justify-center w-full text-center mt-12 mb-8">
-          <GoogleAdsense />
+          <GoogleAdsense placement="countdown-exam-session" />
         </div>
 
 

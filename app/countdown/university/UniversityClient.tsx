@@ -211,7 +211,7 @@ export default function UniversityClientPage() {
 
                 {/* Google AdSense */}
                 <div className="flex justify-center w-full text-center mt-8 mb-12">
-                    <GoogleAdsense />
+                    <GoogleAdsense placement="countdown-university-list" />
                 </div>
 
                 {loading ? (

@@ -1274,7 +1274,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
               </button>
               {isTestSetupPage && (
                 <GoogleAdsense
-                  slot="9969163744"
+                  placement="mistap-test-setup-word-stock"
                   className="my-4"
                   style={{ display: 'block', minHeight: '100px' }}
                 />
@@ -1608,7 +1608,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
             {isTestSetupPage && (
               <GoogleAdsense
-                slot="9969163744"
+                placement="mistap-test-setup-normal"
                 className="mt-6 mb-2"
                 style={{ display: 'block', minHeight: '100px' }}
               />
@@ -1976,7 +1976,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
                   {isTestSetupPage && (
                     <GoogleAdsense
-                      slot="9969163744"
+                      placement="mistap-test-setup-review"
                       className="mt-6 mb-2"
                       style={{ display: 'block', minHeight: '100px' }}
                     />

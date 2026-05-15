@@ -97,7 +97,7 @@ export default async function ColumnPage() {
                         </p>
                     </div>
 
-                    <GoogleAdsense />
+                    <GoogleAdsense placement="column-list" />
 
                     {!posts.length && (
                         <div className="text-center py-20 bg-white rounded-3xl border border-slate-100">
