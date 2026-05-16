@@ -919,18 +919,17 @@ export default function HomePage() {
                     {profile.fullName !== 'ゲスト' && (
                         <div className="mb-8 md:mb-12">
                             <div className="relative isolate flex min-h-[300px] items-center overflow-hidden md:min-h-[430px]">
-                                <div className="pointer-events-none absolute right-0 top-1/2 z-0 h-[300px] aspect-[3/4] -translate-y-1/2 sm:h-[350px] md:h-[430px]">
-                                    <video
-                                        className="h-full w-full object-contain object-center mix-blend-multiply"
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        preload="metadata"
+                                <div className="pointer-events-none absolute right-0 top-1/2 z-0 h-[300px] aspect-[464/688] -translate-y-1/2 sm:h-[350px] md:h-[430px]">
+                                    <Image
+                                        src="/mistap/mistap-character-transparent.webp"
+                                        alt=""
+                                        width={464}
+                                        height={688}
+                                        className="h-full w-full object-contain object-center"
+                                        priority
+                                        unoptimized
                                         aria-hidden="true"
-                                    >
-                                        <source src="/mistap/mistap-character.mp4" type="video/mp4" />
-                                    </video>
+                                    />
                                 </div>
                                 <div className="relative z-10 max-w-[72%] md:max-w-[58%]">
                                     <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
