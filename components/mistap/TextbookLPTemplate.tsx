@@ -222,11 +222,6 @@ export default function TextbookLPTemplate({
             audience === 'general' ? "AdultEducation" :
                 "MiddleSchool";
 
-    const badgeLabel =
-        audience === 'senior' ? '大学受験・共通テスト対策に' :
-            audience === 'general' ? '資格試験・英語学習に' :
-                '中学生の定期テスト対策に';
-
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "EducationalApplication",
@@ -293,6 +288,7 @@ export default function TextbookLPTemplate({
     // ローカルJSONからデータを取得
     const localWords = presetTextbook ? getJsonTextbookData(presetTextbook) : null;
     const initialData = localWords ? localWords : undefined;
+    const graphPaperBackground = "bg-white bg-fixed bg-[linear-gradient(rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(rgba(220,38,38,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(220,38,38,0.08)_1px,transparent_1px)] [background-size:24px_24px,24px_24px,120px_120px,120px_120px] [background-position:-1px_-1px,-1px_-1px,-1px_-1px,-1px_-1px]";
 
     return (
         <>
@@ -304,31 +300,24 @@ export default function TextbookLPTemplate({
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
-            <main className="bg-white min-h-screen">
+            <main className={`${graphPaperBackground} min-h-screen`}>
                 {/* Hero Section */}
-                <section className={`relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24 bg-gradient-to-b ${theme.bgGradient}`}>
-                    <div className={`absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l ${theme.bgGradientAccent} skew-x-12 transform origin-top-right z-0 pointer-events-none`} />
+                <section className="relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24">
+                    <div className="absolute inset-0 z-0 bg-white/35 pointer-events-none" />
 
-                    <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-                        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-                            <div className="flex-1 text-center md:text-left space-y-8 animate-in slide-in-from-bottom-5 fade-in duration-700">
-                                <div className={`inline-flex items-center gap-2 px-4 py-2 ${theme.badgeBg} ${theme.badgeText} rounded-full text-sm font-bold mb-2`}>
-                                    <span className="relative flex h-3 w-3">
-                                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${theme.ping} opacity-75`}></span>
-                                        <span className={`relative inline-flex rounded-full h-3 w-3 ${theme.dot}`}></span>
-                                    </span>
-                                    {badgeLabel}
-                                </div>
+                    <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl">
+                        <div className="grid items-center gap-12 md:gap-14 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)] xl:grid-cols-[minmax(0,1.25fr)_minmax(420px,0.9fr)]">
+                            <div className="text-center lg:text-left space-y-8 animate-in slide-in-from-bottom-5 fade-in duration-700">
                                 {seoSettings?.heroTitle || (
-                                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                                        <span className={`block text-xl md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>
+                                    <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
+                                        <span className={`block text-lg md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>
                                             {isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`}完全対応
                                         </span>
                                         {bookType === 'wordbook' ? '収録英単語を' : '教科書の英単語を'}<br />
                                         <span className={theme.textHighlight}>ゲーム感覚で完全攻略</span>
                                     </h1>
                                 )}
-                                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                                     {descriptionText}<br />
                                     {!seoSettings?.heroDescription && (
                                         <>
@@ -337,7 +326,7 @@ export default function TextbookLPTemplate({
                                         </>
                                     )}
                                 </p>
-                                <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
+                                <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
                                     <Link
                                         href="#test-demo"
                                         className={`w-full sm:w-auto px-8 py-4 bg-gradient-to-r ${theme.buttonGradient} text-white rounded-xl font-bold text-lg shadow-xl ${theme.buttonShadow} hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2`}
@@ -351,7 +340,7 @@ export default function TextbookLPTemplate({
                                         {seoSettings.heroSecondaryCta}
                                     </div>
                                 )}
-                                <div className="flex flex-col items-center md:items-start gap-2">
+                                <div className="flex flex-col items-center lg:items-start gap-2">
                                     <AmazonTextbookLink textbookName={textbookNameJa} allowSearchFallback={false} />
                                     <p className="text-sm text-slate-400 font-medium">
                                         ※ 登録不要で試せます
@@ -359,8 +348,8 @@ export default function TextbookLPTemplate({
                                 </div>
                             </div>
 
-                            <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
-                                <div className="pointer-events-none absolute -right-3 -bottom-10 z-20 w-32 sm:w-40 md:-right-6 md:-bottom-20 md:w-52 lg:-bottom-24">
+                            <div className="w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
+                                <div className="pointer-events-none absolute -bottom-10 -right-3 z-20 w-32 sm:-bottom-12 sm:-right-4 sm:w-40 md:-bottom-16 md:-right-5 md:w-52 lg:-bottom-20">
                                     <Image
                                         src="/mistap/mascot/mistap-mascot-pointing.png"
                                         alt=""
@@ -421,8 +410,8 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* Test Demo Section */}
-                <section id="test-demo" className="py-20 bg-slate-50 border-t border-slate-100 border-b">
-                    <div className="container mx-auto px-4 max-w-4xl">
+                <section id="test-demo" className="py-20 bg-white/70 border-t border-slate-100/80 border-b backdrop-blur-[1px]">
+                    <div className="container mx-auto px-2 sm:px-4 max-w-5xl">
                         <div className="text-center mb-10">
                             <h2 className="text-3xl font-bold text-slate-800 mb-4">{seoSettings?.testSectionTitle || '実際のテストを試してみる'}</h2>
                             <div className="text-slate-600">
@@ -458,7 +447,7 @@ export default function TextbookLPTemplate({
                 {seoSettings?.extraContent}
 
                 {/* Features Section */}
-                <section className="py-20 bg-white">
+                <section className="py-20 bg-white/60 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 max-w-6xl">
                         <div className="text-center max-w-3xl mx-auto mb-16">
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">{seoSettings?.featuresTitle || '定期テストの点数が上がる理由'}</h2>
@@ -493,7 +482,7 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* AdSense Section */}
-                <section className="py-8 bg-slate-50 flex justify-center border-t border-slate-100">
+                <section className="py-8 bg-white/65 flex justify-center border-t border-slate-100/80 backdrop-blur-[1px]">
                     <div className="w-full max-w-4xl px-4">
                         <GoogleAdsense
                             placement="mistap-textbook-lp"
@@ -503,7 +492,7 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* FAQ Section */}
-                <section className="py-20 bg-slate-50 border-t border-slate-100">
+                <section className="py-20 bg-white/70 border-t border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <h2 className="text-3xl font-bold text-center text-slate-800 mb-12">よくある質問</h2>
 
@@ -521,16 +510,16 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* CTA Footer */}
-                <section className={`py-20 bg-gradient-to-br ${theme.ctaGradient} text-white text-center`}>
+                <section className="py-20 bg-white/70 text-center border-y border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6">{textbookNameJa}の単語をマスターしよう！</h2>
-                        <p className={`text-xl mb-10 max-w-2xl mx-auto ${theme.ctaText}`}>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">{textbookNameJa}の単語をマスターしよう！</h2>
+                        <p className="text-xl mb-10 max-w-2xl mx-auto text-slate-600">
                             もう、英単語の暗記で悩む必要はありません。<br />
                             Mistapで効率よく、楽しく学習を始めましょう。
                         </p>
                         <Link
                             href="/mistap"
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-800 rounded-full font-bold text-xl shadow-lg hover:shadow-xl hover:bg-slate-50 hover:scale-105 transition-all duration-300"
+                            className={`inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r ${theme.buttonGradient} text-white rounded-full font-bold text-xl shadow-lg ${theme.buttonShadow} hover:shadow-xl hover:scale-105 transition-all duration-300`}
                         >
                             今すぐ始める
                             <ChevronRight className="w-5 h-5" />
@@ -539,7 +528,7 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* Disclaimer */}
-                <div className="py-8 bg-slate-50 text-center px-4 border-t border-slate-200">
+                <div className="py-8 bg-white/70 text-center px-4 border-t border-slate-100/80 backdrop-blur-[1px]">
                     <p className="text-xs text-slate-500 leading-relaxed">
                         本サービスは{publisherName}などの出版社と提携しておらず、独自に作成した学習コンテンツを提供しています。<br />
                         教科書名・出版社名は説明のために使用しています。
@@ -553,7 +542,7 @@ export default function TextbookLPTemplate({
 
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
     return (
-        <div className="bg-white p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+        <div className="bg-white/85 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
             <div className="mb-6 w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center shadow-sm">
                 {icon}
             </div>
@@ -565,7 +554,7 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode, titl
 
 function FAQItem({ question, answer, badgeColor }: { question: string, answer: string, badgeColor: string }) {
     return (
-        <div className="bg-white rounded-xl p-6 border border-slate-200">
+        <div className="bg-white/85 rounded-xl p-6 border border-slate-200">
             <h3 className="font-bold text-slate-800 flex items-start gap-3 mb-3">
                 <span className={`${badgeColor} text-white text-xs px-2 py-1 rounded mt-0.5 shrink-0`}>Q</span>
                 {question}

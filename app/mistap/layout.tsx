@@ -1,5 +1,12 @@
 import { Metadata } from 'next';
+import { Noto_Sans_JP } from 'next/font/google';
 import ClientHeader from '@/components/mistap/ClientHeader';
+
+const notoSansJp = Noto_Sans_JP({
+  weight: ['400', '500', '700', '800', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -78,8 +85,10 @@ export default function MistapLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ClientHeader />
-      {children}
+      <div className={notoSansJp.className}>
+        <ClientHeader />
+        {children}
+      </div>
     </>
   );
 }

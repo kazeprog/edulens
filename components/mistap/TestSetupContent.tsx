@@ -1207,10 +1207,10 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
   const mainContent = (
     <div
-      className="bg-white/40 backdrop-blur-lg shadow-xl rounded-xl p-6 md:p-8 border border-white/50"
+      className="bg-white/40 backdrop-blur-lg shadow-xl rounded-xl p-3 sm:p-5 md:p-8 border border-white/50"
       style={{
         marginTop: embedMode ? '0' : '25px',
-        width: embedMode ? '100%' : 'min(576px, calc(100vw - 32px))',
+        width: embedMode ? '100%' : 'min(672px, calc(100vw - 32px))',
         minHeight: '400px'
       }}
     >
@@ -1248,7 +1248,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-xl border border-white/50 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-4 sm:p-5 md:p-8 shadow-xl border border-white/50 animate-in fade-in slide-in-from-bottom-4 duration-300">
 
         {/* Word Stock Tab */}
         {activeTab === 'word-stock' && (
@@ -1292,9 +1292,9 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         {/* Normal Tab (Corrected from Review) */}
         {activeTab === 'normal' && (
           <>
-            <div className="space-y-8">
+            <div className="space-y-3 mb-6">
               <label className="block text-sm font-bold text-gray-700">学習レベル</label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { id: 'junior', label: '中学' },
                   { id: 'senior', label: '高校' },
@@ -1317,36 +1317,11 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
             {/* Review Tab Form Start */}
 
-            {/* テストモード選択 */}
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">出題モード</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => setTestMode('word-meaning')}
-                  className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
-                    ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                    : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                    }`}
-                >
-                  単語 → 意味
-                </button>
-                <button
-                  onClick={() => setTestMode('meaning-word')}
-                  className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
-                    ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
-                    : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
-                    }`}
-                >
-                  意味 → 単語
-                </button>
-              </div>
-            </div>
-
             {/* 中学の場合のテストタイプ選択 */}
             {level === 'junior' && (
-              <div className="space-y-2 mb-4">
+              <div className="space-y-3 mb-6">
                 <label className="block text-sm font-bold text-gray-700">テストの種類</label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => setJuniorTestType('wordbook')}
                     className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${juniorTestType === 'wordbook'
@@ -1371,7 +1346,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
 
             {/* 教材選択 */}
             {!(level === 'junior' && juniorTestType === 'textbook') ? (
-              <div className="space-y-2 mb-5">
+              <div className="space-y-3 mb-6">
                 <label className="block text-sm font-bold text-gray-700">単語帳</label>
                 <div className="relative">
                   <select
@@ -1440,7 +1415,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 </div>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-4 mb-6">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="block text-xs font-bold text-gray-500 ml-1">教科書</label>
@@ -1505,7 +1480,33 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
             )}
 
             {/* 設定エリア（範囲・出題数） */}
-            <div className="mt-4 bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
+            <div className="bg-gray-50 rounded-2xl p-5 space-y-5 border border-gray-100">
+              {/* テストモード選択 */}
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-gray-700">出題モード</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setTestMode('word-meaning')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'word-meaning'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    単語 → 意味
+                  </button>
+                  <button
+                    onClick={() => setTestMode('meaning-word')}
+                    className={`py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${testMode === 'meaning-word'
+                      ? 'border-red-500 bg-red-50 text-red-700 shadow-sm'
+                      : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+                      }`}
+                  >
+                    意味 → 単語
+                  </button>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-200"></div>
 
               {/* 範囲指定 */}
               {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
@@ -1543,7 +1544,9 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
                 </div>
               )}
 
-              <div className="border-t border-gray-200"></div>
+              {selectedText !== "過去形" && selectedText !== "過去形、過去分詞形" && !(level === 'junior' && juniorTestType === 'textbook') && (
+                <div className="border-t border-gray-200"></div>
+              )}
 
               {/* 出題数 */}
               <div className="space-y-3">

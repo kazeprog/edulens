@@ -92,7 +92,7 @@ function TextbookCard({ group }: { group: TextbookGroup }) {
     const Icon = group.icon;
 
     return (
-        <div className="bg-white rounded-lg p-5 md:p-6 shadow-sm border border-slate-100">
+        <div className="bg-white/85 rounded-lg p-5 md:p-6 shadow-sm border border-slate-100 backdrop-blur-[1px]">
             <div className="flex items-start gap-3 mb-5">
                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${group.accentClassName}`}>
                     <Icon className="w-5 h-5" aria-hidden="true" />
@@ -133,7 +133,7 @@ function TextbookCard({ group }: { group: TextbookGroup }) {
 
 export default function TextbooksSection() {
     return (
-        <section id="textbook-list" className="py-8 md:py-16 bg-gray-50">
+        <section id="textbook-list" className="py-8 md:py-16 bg-white/65 border-y border-slate-100/80 backdrop-blur-[1px]">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="text-center mb-8 md:mb-12">
                     <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
@@ -176,7 +176,7 @@ export default function TextbooksSection() {
                         <Link
                             href="/mistap/contact"
                             prefetch={false}
-                            className="inline-flex items-center justify-center border border-slate-300 bg-white hover:border-blue-300 hover:text-blue-700 text-slate-700 py-2.5 px-6 rounded-lg font-semibold transition-colors"
+                            className="inline-flex items-center justify-center border border-slate-300 bg-white/85 hover:border-blue-300 hover:text-blue-700 text-slate-700 py-2.5 px-6 rounded-lg font-semibold transition-colors"
                         >
                             単語帳リクエスト
                         </Link>

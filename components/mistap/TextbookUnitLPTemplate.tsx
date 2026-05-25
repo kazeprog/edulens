@@ -1,10 +1,6 @@
-import Head from 'next/head';
-import Header from '@/components/mistap/Header';
 import TestSetupContent from '@/components/mistap/TestSetupContent';
 import MistapFooter from '@/components/mistap/Footer';
 import FeaturesSection from '@/components/mistap/FeaturesSection';
-import HeroSection from '@/components/mistap/HeroSection';
-import Background from '@/components/mistap/Background';
 import Link from 'next/link';
 
 interface TextbookUnitLPTemplateProps {
@@ -39,7 +35,6 @@ export default function TextbookUnitLPTemplate({
     initialEndNum,
     initialLesson,
     description,
-    audience = 'junior',
     parentHref,
 }: TextbookUnitLPTemplateProps) {
 
@@ -75,20 +70,50 @@ export default function TextbookUnitLPTemplate({
     );
 
     const heroDescription = description || `${titleText}の英単語テストを無料で実施できます。アプリのインストール不要で、今すぐブラウザから練習を始められます。`;
+    const graphPaperBackground = "bg-white bg-fixed bg-[linear-gradient(rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(rgba(220,38,38,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(220,38,38,0.08)_1px,transparent_1px)] [background-size:24px_24px,24px_24px,120px_120px,120px_120px] [background-position:-1px_-1px,-1px_-1px,-1px_-1px,-1px_-1px]";
 
     return (
-        <Background>
-            <div className="min-h-screen flex flex-col">
-                <main className="flex-grow">
-                    <HeroSection
-                        title={heroTitle}
-                        description={heroDescription}
-                        showButtons={false}
-                    />
+        <div className={`${graphPaperBackground} min-h-screen flex flex-col`}>
+            <main className="flex-grow">
+                <section className="relative overflow-hidden pt-20 pb-12 md:pt-28 md:pb-16">
+                    <div className="absolute inset-0 z-0 bg-white/35 pointer-events-none" />
+                    <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl">
+                        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)] xl:grid-cols-[minmax(0,1.25fr)_minmax(420px,0.9fr)]">
+                            <div className="text-center lg:text-left space-y-6">
+                                <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
+                                    {heroTitle}
+                                </h1>
+                                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                    {heroDescription}
+                                </p>
+                                <div className="flex justify-center lg:justify-start">
+                                    <Link
+                                        href="#test-setup"
+                                        className={`${theme.button} inline-flex items-center justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-[1.02]`}
+                                    >
+                                        テストを開始する
+                                    </Link>
+                                </div>
+                            </div>
 
-                    <section className="py-6 px-4" id="test-setup">
-                        <div className="max-w-2xl mx-auto">
-                            <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">📚 {unitLabel} {unitValue} のテストを開始</h2>
+                            <div className="mx-auto w-full max-w-lg rounded-3xl border border-slate-100 bg-white p-6 shadow-2xl">
+                                <p className={`mb-3 text-sm font-bold ${theme.text}`}>{subTitleText}</p>
+                                <div className="text-2xl font-black text-slate-900 md:text-3xl">{textbookNameJa || textbookName}</div>
+                                <div className="mt-5 rounded-2xl bg-slate-50 p-5 text-center">
+                                    <div className="text-sm font-semibold text-slate-500">{gradeLabel || '範囲指定'}</div>
+                                    <div className="mt-1 text-4xl font-black text-slate-900">
+                                        {unitLabel} {unitValue}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="py-10 px-2 sm:px-4 bg-white/70 border-y border-slate-100/80 backdrop-blur-[1px]" id="test-setup">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">📚 {unitLabel} {unitValue} のテストを開始</h2>
+                        <div className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
                             <TestSetupContent
                                 embedMode={true}
                                 presetTextbook={presetTextbook}
@@ -98,33 +123,35 @@ export default function TextbookUnitLPTemplate({
                                 initialEndNum={initialEndNum}
                             />
                         </div>
-                    </section>
+                    </div>
+                </section>
 
+                <div className="bg-white/60 backdrop-blur-[1px]">
                     <FeaturesSection />
+                </div>
 
-                    <section className="py-12 bg-white/95 backdrop-blur-sm rounded-t-3xl text-gray-800 mt-8">
-                        <div className="max-w-4xl mx-auto px-4">
-                            <div className="prose prose-blue mx-auto bg-slate-50 p-6 rounded-lg text-sm text-gray-700 mb-12 shadow-sm border border-slate-200">
-                                <h3 className="text-base font-bold text-slate-800 mb-2">{titleText} の完全攻略</h3>
-                                <p className="mb-2">
-                                    このページでは、<strong>{textbookNameJa}</strong> の <strong>{unitLabel} {unitValue}</strong> に出てくる重要単語をピンポイントでテストできます。
-                                    間違えた単語だけを効率的に復習し、定期テストや受験に向けて基礎を固めましょう。
-                                </p>
-                            </div>
-
-                            <div className="text-center mt-8">
-                                <Link
-                                    href={parentHref || `/mistap/textbook/${presetTextbook === 'New Crown' ? 'new-crown' : presetTextbook === 'New Horizon' ? 'new-horizon' : presetTextbook === 'Target 1900' ? 'target-1900' : 'system-words'}`}
-                                    className="text-blue-600 hover:text-blue-800 underline"
-                                >
-                                    教科書トップに戻る
-                                </Link>
-                            </div>
+                <section className="py-12 bg-white/70 text-gray-800 border-t border-slate-100/80 backdrop-blur-[1px]">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <div className="prose prose-blue mx-auto bg-white/85 p-6 rounded-lg text-sm text-gray-700 mb-12 shadow-sm border border-slate-200">
+                            <h3 className="text-base font-bold text-slate-800 mb-2">{titleText} の完全攻略</h3>
+                            <p className="mb-2">
+                                このページでは、<strong>{textbookNameJa}</strong> の <strong>{unitLabel} {unitValue}</strong> に出てくる重要単語をピンポイントでテストできます。
+                                間違えた単語だけを効率的に復習し、定期テストや受験に向けて基礎を固めましょう。
+                            </p>
                         </div>
-                    </section>
-                </main>
-                <MistapFooter />
-            </div>
-        </Background>
+
+                        <div className="text-center mt-8">
+                            <Link
+                                href={parentHref || `/mistap/textbook/${presetTextbook === 'New Crown' ? 'new-crown' : presetTextbook === 'New Horizon' ? 'new-horizon' : presetTextbook === 'Target 1900' ? 'target-1900' : 'system-words'}`}
+                                className="text-blue-600 hover:text-blue-800 underline"
+                            >
+                                教科書トップに戻る
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <MistapFooter />
+        </div>
     );
 }

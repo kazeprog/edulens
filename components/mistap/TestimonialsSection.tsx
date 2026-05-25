@@ -45,14 +45,14 @@ export default function TestimonialsSection() {
     ];
 
     return (
-        <section className="py-8 md:py-16">
+        <section className="py-8 md:py-16 bg-white/55 backdrop-blur-[1px]">
             <div className="max-w-6xl mx-auto px-4">
                 <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 md:mb-12">
                     利用者の声
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {testimonials.map((t, i) => (
-                        <div key={i} className="bg-white/40 backdrop-blur-lg rounded-xl p-6 md:p-8 shadow-xl border border-white/50">
+                        <div key={i} className="bg-white/75 backdrop-blur-lg rounded-xl p-6 md:p-8 shadow-xl border border-white/70">
                             <div className="flex items-center mb-3 md:mb-4">
                                 <div className={`w-10 h-10 md:w-12 md:h-12 ${t.color} rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4`}>
                                     {t.initial}

@@ -23,7 +23,7 @@ export default function BlogSection({ blogPosts, blogLoading }: BlogSectionProps
     }
 
     return (
-        <section className="py-8 md:py-16">
+        <section className="py-8 md:py-16 bg-white/55 backdrop-blur-[1px]">
             <div className="max-w-6xl mx-auto px-4">
                 <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 md:mb-12">
                     📝 ブログ記事
@@ -34,7 +34,7 @@ export default function BlogSection({ blogPosts, blogLoading }: BlogSectionProps
                             key={post.id}
                             href={`/mistap/blog/${post.id}`}
                             prefetch={false}
-                            className="bg-white/40 backdrop-blur-lg rounded-xl shadow-xl border border-white/50 overflow-hidden transition-shadow hover:shadow-2xl group"
+                            className="bg-white/75 backdrop-blur-lg rounded-xl shadow-xl border border-white/70 overflow-hidden transition-shadow hover:shadow-2xl group"
                         >
                             {post.eyecatch && (
                                 <div className="relative w-full h-48 overflow-hidden">

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function MistapFooter() {
     return (
-        <footer className="w-full py-8 text-center border-t border-red-100 bg-gradient-to-b from-white to-red-50/30">
+        <footer className="w-full py-8 text-center border-t border-red-100 bg-white/70 backdrop-blur-[1px]">
             <nav className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-gray-500">
                 <Link href="/terms" prefetch={false} className="hover:text-red-600 hover:underline transition-colors">利用規約</Link>
                 <Link href="/privacy" prefetch={false} className="hover:text-red-600 hover:underline transition-colors">プライバシーポリシー</Link>

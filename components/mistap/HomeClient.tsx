@@ -42,21 +42,16 @@ export default function HomeClient() {
     const [isManual, setIsManual] = useState(false);
     const manualResumeTimerRef = useRef<number | null>(null);
 
+    const graphPaperBackground = "bg-white bg-fixed bg-[linear-gradient(rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(rgba(220,38,38,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(220,38,38,0.08)_1px,transparent_1px)] [background-size:24px_24px,24px_24px,120px_120px,120px_120px] [background-position:-1px_-1px,-1px_-1px,-1px_-1px,-1px_-1px]";
+
     // テーマカラー設定 (Rose - 赤/ピンク系)
     const theme = {
-        bgGradient: 'from-rose-50 to-white',
-        bgGradientAccent: 'from-rose-100/50 to-transparent',
         badgeBg: 'bg-rose-100',
-        badgeText: 'text-rose-700',
-        ping: 'bg-rose-400',
-        dot: 'bg-rose-500',
         textAccent: 'text-rose-600',
         textHighlight: 'text-rose-500',
         buttonGradient: 'from-rose-500 to-pink-600',
         buttonShadow: 'shadow-rose-200',
         iconColor: 'text-rose-500',
-        ctaGradient: 'from-rose-600 to-pink-700',
-        ctaText: 'text-rose-100',
     };
 
     // ログイン済みユーザーは自動的にホームへリダイレクト
@@ -161,7 +156,7 @@ export default function HomeClient() {
     }
 
     return (
-        <div className="bg-white min-h-screen font-sans">
+        <div className={`${graphPaperBackground} min-h-screen`}>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -185,22 +180,14 @@ export default function HomeClient() {
 
             <main>
                 {/* === Hero Section === */}
-                <section className={`relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24 bg-gradient-to-b ${theme.bgGradient}`}>
-                    <div className={`absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l ${theme.bgGradientAccent} skew-x-12 transform origin-top-right z-0 pointer-events-none`} />
+                <section className="relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24">
+                    <div className="absolute inset-0 z-0 bg-white/35 pointer-events-none" />
 
-                    <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-                        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-                            <div className="flex-1 text-center md:text-left space-y-8 animate-in slide-in-from-bottom-5 fade-in duration-700">
-                                <div className={`inline-flex items-center gap-2 px-4 py-2 ${theme.badgeBg} ${theme.badgeText} rounded-full text-sm font-bold mb-2`}>
-                                    <span className="relative flex h-3 w-3">
-                                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${theme.ping} opacity-75`}></span>
-                                        <span className={`relative inline-flex rounded-full h-3 w-3 ${theme.dot}`}></span>
-                                    </span>
-                                    間違えた単語だけを自動記録
-                                </div>
-
+                    <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl">
+                        <div className="grid items-center gap-12 md:gap-14 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)] xl:grid-cols-[minmax(0,1.25fr)_minmax(420px,0.9fr)]">
+                            <div className="text-center lg:text-left space-y-8 animate-in slide-in-from-bottom-5 fade-in duration-700">
                                 {/* H1改善: ユーザー訴求とSEOの両立 */}
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
+                                <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                                     <span className={`block text-lg md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>
                                         Mistap｜英単語帳対応の単語テストアプリ
                                     </span>
@@ -208,11 +195,11 @@ export default function HomeClient() {
                                     <span className={theme.textHighlight}>集中する学習システム。</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                                    主要な英単語帳や中学教科書に対応。教材ごとのページから、範囲を指定してすぐにテストできます。<br />
+                                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                    主要な英単語帳や中学教科書に対応。範囲を指定してすぐにテストできます。<br />
                                     知識の穴を埋めて、最短ルートで定着させます。
                                 </p>
-                                <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
+                                <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
                                     <button
                                         onClick={handleSignupClick}
                                         className={`w-full sm:w-auto px-8 py-4 bg-gradient-to-r ${theme.buttonGradient} text-white rounded-xl font-bold text-lg shadow-xl ${theme.buttonShadow} hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2`}
@@ -228,16 +215,11 @@ export default function HomeClient() {
                                         テストを試す
                                     </Link>
                                 </div>
-                                <p className="text-sm text-slate-400 font-medium">
-                                    ※ クレジットカード登録不要・基本無料で利用開始
-                                </p>
                             </div>
 
-                            <div className="flex-1 w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
+                            <div className="w-full max-w-md md:max-w-full relative animate-in slide-in-from-right-5 fade-in duration-1000 delay-150">
                                 {/* メインビジュアル: スマホ画面風 or ロゴ */}
                                 <div className="relative w-full max-w-xl mx-auto pb-12 pr-6 sm:pb-14 sm:pr-10">
-                                    <div className="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-xl animate-pulse"></div>
-                                    <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-rose-400 rounded-full opacity-20 blur-xl animate-pulse delay-700"></div>
                                     <div className="relative bg-white rounded-3xl shadow-2xl p-4 border border-rose-100 transform rotate-1 hover:rotate-0 transition-transform duration-500">
                                         <Image
                                             src="/MistapLP.png"
@@ -249,7 +231,7 @@ export default function HomeClient() {
                                         />
 
                                     </div>
-                                    <div className="absolute bottom-0 right-0 z-20 w-36 sm:w-44 md:w-56 lg:w-64">
+                                    <div className="absolute -bottom-10 -right-3 z-20 w-36 sm:-bottom-12 sm:-right-4 sm:w-44 md:-bottom-16 md:-right-5 md:w-56 lg:-bottom-18 lg:w-64">
                                         <Image
                                             src="/mistap/mascot/mistap-mascot-encourage.png"
                                             alt="Mistapのキャラクター"
@@ -266,8 +248,8 @@ export default function HomeClient() {
                 </section>
 
                 {/* === Test Demo Section === */}
-                <section id="demo-test" className="py-20 bg-slate-50 border-t border-slate-100 border-b relative">
-                    <div className="container mx-auto px-4 max-w-4xl">
+                <section id="demo-test" className="py-20 bg-white/70 border-t border-slate-100/80 border-b relative backdrop-blur-[1px]">
+                    <div className="container mx-auto px-2 sm:px-4 max-w-5xl">
                         <div className="text-center mb-10">
                             <h2 className="text-3xl font-bold text-slate-800 mb-4">実際のテストを体験</h2>
                             <p className="text-slate-600">
@@ -289,7 +271,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* === Screenshot Carousel === */}
-                <section className="py-20 bg-white">
+                <section className="py-20 bg-white/60 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 text-center mb-12">
                         <h2 className="text-3xl font-bold text-slate-800 mb-4">使いやすいインターフェース</h2>
                         <p className="text-slate-600">
@@ -306,7 +288,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* === Features Section (Rich Cards) === */}
-                <section className="py-20 bg-slate-50 border-y border-slate-100">
+                <section className="py-20 bg-white/70 border-y border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 max-w-6xl">
                         <div className="text-center max-w-3xl mx-auto mb-16">
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">Mistapが選ばれる3つの理由</h2>
@@ -317,7 +299,7 @@ export default function HomeClient() {
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {/* Feature 1 */}
-                            <div className="bg-white p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                            <div className="bg-white/85 p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
                                 <div className={`mb-6 w-16 h-16 ${theme.badgeBg} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300`}>
                                     <span className={`text-3xl font-black ${theme.iconColor}`}>01</span>
                                 </div>
@@ -327,7 +309,7 @@ export default function HomeClient() {
                                 </p>
                             </div>
                             {/* Feature 2 */}
-                            <div className="bg-white p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                            <div className="bg-white/85 p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
                                 <div className={`mb-6 w-16 h-16 ${theme.badgeBg} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300`}>
                                     <span className={`text-3xl font-black ${theme.iconColor}`}>02</span>
                                 </div>
@@ -337,7 +319,7 @@ export default function HomeClient() {
                                 </p>
                             </div>
                             {/* Feature 3 */}
-                            <div className="bg-white p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                            <div className="bg-white/85 p-8 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
                                 <div className={`mb-6 w-16 h-16 ${theme.badgeBg} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300`}>
                                     <span className={`text-3xl font-black ${theme.iconColor}`}>03</span>
                                 </div>
@@ -360,16 +342,16 @@ export default function HomeClient() {
                 <BlogSection blogPosts={blogPosts} blogLoading={blogLoading} />
 
                 {/* === CTA Section (Styled) === */}
-                <section className={`py-20 bg-gradient-to-br ${theme.ctaGradient} text-white text-center`}>
+                <section className="py-20 bg-white/70 text-center border-y border-rose-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6">今日から、効率的な学習を始めよう</h2>
-                        <p className={`text-xl mb-10 max-w-2xl mx-auto ${theme.ctaText}`}>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">今日から、効率的な学習を始めよう</h2>
+                        <p className="text-xl mb-10 max-w-2xl mx-auto text-slate-600">
                             登録は無料。クレジットカードも必要ありません。<br />
                             あなたの単語学習を、Mistapがサポートします。
                         </p>
                         <button
                             onClick={handleSignupClick}
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-white text-rose-600 rounded-full font-bold text-xl shadow-lg hover:shadow-xl hover:bg-slate-50 hover:scale-105 transition-all duration-300"
+                            className={`inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r ${theme.buttonGradient} text-white rounded-full font-bold text-xl shadow-lg ${theme.buttonShadow} hover:shadow-xl hover:scale-105 transition-all duration-300`}
                         >
                             無料で始める
                             <ChevronRight className="w-5 h-5" />
@@ -378,7 +360,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* SEO強化ブロック: 非指名検索対策 */}
-                <section className="py-16 bg-slate-50 border-t border-slate-100">
+                <section className="py-16 bg-white/70 border-t border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <div className="prose prose-slate mx-auto text-slate-600">
                             <h3 className="text-2xl font-bold text-slate-800 text-center mb-6">Mistapについて</h3>
