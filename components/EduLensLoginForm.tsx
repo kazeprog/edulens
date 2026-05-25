@@ -123,14 +123,13 @@ export default function EduLensLoginForm({
         setPendingConfirmationEmail(null);
         setConfirmationResendMessage(null);
 
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
             email: normalizedEmail,
             password,
         });
 
-        setLoading(false);
-
         if (error) {
+            setLoading(false);
             if (/confirm/i.test(error.message || '')) {
                 setError('メールアドレスが未確認です。確認メールをご確認ください。');
                 setPendingConfirmationEmail(normalizedEmail);
@@ -139,6 +138,30 @@ export default function EduLensLoginForm({
             setError('ログインに失敗しました: ' + error.message);
             return;
         }
+
+        if (data.user?.id) {
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('account_deleted')
+                .eq('id', data.user.id)
+                .maybeSingle();
+
+            if (profileError) {
+                await supabase.auth.signOut();
+                setLoading(false);
+                setError('アカウント状態の確認に失敗しました。時間をおいて再度お試しください。');
+                return;
+            }
+
+            if (profileData?.account_deleted) {
+                await supabase.auth.signOut();
+                setLoading(false);
+                setError('このアカウントは退会済みのためログインできません。');
+                return;
+            }
+        }
+
+        setLoading(false);
 
         if (onSuccess) {
             onSuccess();

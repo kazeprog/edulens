@@ -12,16 +12,44 @@ function AuthCallbackContent() {
     useEffect(() => {
         const supabase = getSupabase();
         if (!supabase) {
-            setMessage('エラー: 認証サービスを初期化できませんでした');
+            queueMicrotask(() => {
+                setMessage('エラー: 認証サービスを初期化できませんでした');
+            });
             return;
         }
 
         const redirectUrl = searchParams.get('redirect') || '/';
+        let handled = false;
 
         // セッションの確立を監視
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (handled || (event !== 'SIGNED_IN' && event !== 'INITIAL_SESSION')) {
+                return;
+            }
+
             if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
-                if (session) {
+                if (session?.user?.id) {
+                    handled = true;
+                    setMessage('アカウント状態を確認中...');
+
+                    const { data: profileData, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('account_deleted')
+                        .eq('id', session.user.id)
+                        .maybeSingle();
+
+                    if (profileError) {
+                        await supabase.auth.signOut();
+                        setMessage('アカウント状態の確認に失敗しました。もう一度お試しください。');
+                        return;
+                    }
+
+                    if (profileData?.account_deleted) {
+                        await supabase.auth.signOut();
+                        setMessage('このアカウントは退会済みのためログインできません。');
+                        return;
+                    }
+
                     setMessage('認証に成功しました。リダイレクト中...');
                     // 少し待ってからリダイレクト（確実にCookieなどをセットさせるため）
                     setTimeout(() => {

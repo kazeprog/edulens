@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 import { getSupabase } from '@/lib/supabase';
 
 type Profile = {
@@ -21,6 +21,7 @@ type Profile = {
     total_writing_checks?: number; // Total number of writing corrections taken
     exp?: number;
     level?: number;
+    account_deleted?: boolean;
 };
 
 type AuthContextType = {
@@ -28,6 +29,11 @@ type AuthContextType = {
     profile: Profile | null;
     loading: boolean;
     signOut: () => Promise<void>;
+};
+
+type ProfileFetchResult = {
+    data: Profile | null;
+    error: { code?: string; message?: string } | null;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -83,14 +89,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     );
 
                     // 3. 競争
-                    const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as any;
+                    const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as ProfileFetchResult;
 
                     if (!mounted) return null;
 
                     if (error) {
                         // プロフィール未作成(PGRST116)なら作成して終了
                         if (error.code === 'PGRST116') {
-                            const defaultProfile = { id: userId, full_name: null, role: 'student' };
+                            const defaultProfile = { id: userId, full_name: null, role: 'student', account_deleted: false };
                             try {
                                 await supabase.from('profiles').upsert(defaultProfile, {
                                     onConflict: 'id',
@@ -107,7 +113,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     // 成功したら即リターン！
                     return data;
 
-                } catch (err) {
+                } catch {
                     // 最後の1回もダメだったらnullを返す（偽データは返さない）
                     if (i === retries - 1) {
                         return null;
@@ -129,11 +135,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     setTimeout(() => reject(new Error('Session check timeout')), 2000)
                 );
 
-                let session = null;
+                let session: Session | null = null;
                 try {
                     // 競争：2秒待ってダメなら諦めて未ログインとする
-                    const { data } = await Promise.race([sessionPromise, timeoutPromise]) as any;
-                    session = data?.session;
+                    const { data } = await Promise.race([sessionPromise, timeoutPromise]) as {
+                        data?: { session: Session | null };
+                    };
+                    session = data?.session ?? null;
                 } catch (e) {
                     console.warn('Session check timed out:', e);
                     // タイムアウト時はセッションなしとして処理続行
@@ -142,24 +150,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 if (!mounted) return;
 
                 if (session?.user) {
-                    setUser(session.user);
-
                     // プロフィール取得（リトライ付き）
                     const profileData = await fetchProfileWithRetry(session.user.id);
 
                     if (mounted) {
+                        if (profileData?.account_deleted) {
+                            await supabase!.auth.signOut();
+                            setUser(null);
+                            setProfile(null);
+                            return;
+                        }
+
+                        setUser(session.user);
                         setProfile(profileData);
                     }
                 } else {
                     setUser(null);
                     setProfile(null);
                 }
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.warn('Init session critical error:', err);
 
                 // リフレッシュトークンが無効な場合は強制ログアウトして無限ループを防ぐ
-                const msg = err?.message || '';
-                if (msg.includes('Invalid Refresh Token') || msg.includes('Refresh Token Not Found') || (err?.code === 'AuthApiError' && msg.includes('refresh_token_not_found'))) {
+                const msg = err instanceof Error ? err.message : '';
+                const code = typeof err === 'object' && err !== null && 'code' in err
+                    ? String((err as { code?: unknown }).code)
+                    : '';
+                if (msg.includes('Invalid Refresh Token') || msg.includes('Refresh Token Not Found') || (code === 'AuthApiError' && msg.includes('refresh_token_not_found'))) {
                     console.warn('Invalid refresh token detected. Force signing out...');
                     await supabase!.auth.signOut();
                 }
@@ -191,18 +208,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
 
             if (session?.user) {
+                const profileData = await fetchProfileWithRetry(session.user.id);
+
+                if (!mounted) return;
+
+                if (profileData?.account_deleted) {
+                    await supabase.auth.signOut();
+                    setUser(null);
+                    setProfile(null);
+                    setLoading(false);
+                    return;
+                }
+
                 // ユーザーが変わった場合のみ更新
                 setUser(prev => prev?.id === session.user.id ? prev : session.user);
-
-                // プロフィールがない場合のみ裏で取得
-                setProfile(prev => {
-                    if (!prev) {
-                        fetchProfileWithRetry(session.user.id).then(data => {
-                            if (mounted && data) setProfile(data);
-                        });
-                    }
-                    return prev;
-                });
+                setProfile(profileData);
             } else {
                 setUser(null);
                 setProfile(null);
@@ -218,7 +238,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     full_name: e.detail?.full_name ?? prev.full_name,
                     grade: e.detail?.grade !== undefined ? e.detail.grade : prev.grade,
                     exp: e.detail?.exp !== undefined ? e.detail.exp : prev.exp,
-                    level: e.detail?.level !== undefined ? e.detail.level : prev.level
+                    level: e.detail?.level !== undefined ? e.detail.level : prev.level,
+                    account_deleted: e.detail?.account_deleted !== undefined ? e.detail.account_deleted : prev.account_deleted
                 } : null);
             }
         }

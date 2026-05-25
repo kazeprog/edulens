@@ -40,7 +40,7 @@ export default function AccountPage() {
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
     const [deleting, setDeleting] = useState(false);
 
-    const canDelete = deleteConfirmation.trim() === '削除する';
+    const canDelete = deleteConfirmation.trim() === '退会する' || deleteConfirmation.trim() === '削除する';
 
     useEffect(() => {
         if (!loading && !user) {
@@ -107,7 +107,7 @@ export default function AccountPage() {
         if (!canDelete || deleting) return;
 
         const agreed = window.confirm(
-            'アカウントを削除します。学習履歴、プロフィール、保存した単語は復元できません。'
+            '退会すると、このアカウントではログインできなくなります。学習履歴や保存した単語は保持されます。続行しますか。'
         );
 
         if (!agreed) return;
@@ -143,13 +143,13 @@ export default function AccountPage() {
             const data = await response.json().catch(() => ({}));
 
             if (!response.ok) {
-                throw new Error(data.error || 'アカウント削除に失敗しました。');
+                throw new Error(data.error || '退会処理に失敗しました。');
             }
 
             await signOut();
             window.location.href = '/';
         } catch (deleteError) {
-            setError(deleteError instanceof Error ? deleteError.message : 'アカウント削除に失敗しました。');
+            setError(deleteError instanceof Error ? deleteError.message : '退会処理に失敗しました。');
         } finally {
             setDeleting(false);
         }
@@ -285,8 +285,8 @@ export default function AccountPage() {
                                     <Trash2 className="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <h2 className="font-bold text-red-900">アカウント削除</h2>
-                                    <p className="text-sm text-red-700">削除後は復元できません。</p>
+                                    <h2 className="font-bold text-red-900">アカウント退会</h2>
+                                    <p className="text-sm text-red-700">退会後はログインできません。学習データは保持されます。</p>
                                 </div>
                             </div>
 
@@ -296,7 +296,7 @@ export default function AccountPage() {
                                     value={deleteConfirmation}
                                     onChange={(event) => setDeleteConfirmation(event.target.value)}
                                     className="h-11 rounded-lg border border-slate-300 bg-white px-3 text-base outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
-                                    placeholder="削除する"
+                                    placeholder="退会する"
                                 />
                             </label>
 
@@ -306,7 +306,7 @@ export default function AccountPage() {
                                 className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 text-sm font-bold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-slate-300"
                             >
                                 {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                                {deleting ? '削除中...' : 'アカウントを削除'}
+                                {deleting ? '退会処理中...' : 'アカウントを退会'}
                             </button>
                         </section>
                     </aside>

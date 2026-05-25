@@ -47,9 +47,8 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
             password,
         });
 
-        setLoading(false);
-
         if (error) {
+            setLoading(false);
             if (/confirm/i.test(error.message || '')) {
                 setError('メールアドレスが未確認です。確認メールをご確認ください。');
                 setAwaitingConfirmation(true);
@@ -61,6 +60,26 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
         }
 
         if (data?.user?.id) {
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('account_deleted')
+                .eq('id', data.user.id)
+                .maybeSingle();
+
+            if (profileError) {
+                await supabase.auth.signOut();
+                setLoading(false);
+                setError('アカウント状態の確認に失敗しました。時間をおいて再度お試しください。');
+                return;
+            }
+
+            if (profileData?.account_deleted) {
+                await supabase.auth.signOut();
+                setLoading(false);
+                setError('このアカウントは退会済みのためログインできません。');
+                return;
+            }
+
             try {
                 await updateLoginStreak(data.user.id);
             } catch {
@@ -69,7 +88,6 @@ export default function LoginForm({ initialIsSignup = false, redirectUrl }: Logi
         }
 
         // AuthContextの認証状態が反映されるのを少し待ってからリダイレクト
-        // setLoadingはtrue のままにしておき、リダイレクト後にページが表示される
         await new Promise(resolve => setTimeout(resolve, 100));
         router.replace('/mistap/home');
     }
