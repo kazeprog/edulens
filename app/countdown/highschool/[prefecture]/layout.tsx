@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTargetExamYear } from "@/lib/date-utils";
 
 // 都道府県データ
 const REGIONS = [
@@ -86,6 +87,8 @@ export default function PrefectureLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const targetYear = getTargetExamYear();
+
   return (
     <>
       {children}
@@ -109,7 +112,7 @@ export default function PrefectureLayout({
                   {region.prefs.map((pref) => (
                     <li key={pref.slug}>
                       <Link
-                        href={`/countdown/highschool/${pref.slug}/2026`}
+                        href={`/countdown/highschool/${pref.slug}/${targetYear}`}
                         prefetch={false}
                         className="text-slate-300 hover:text-slate-500 transition-colors block"
                         aria-label={`${pref.name}高校入試日程`}
