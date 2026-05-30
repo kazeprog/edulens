@@ -460,7 +460,7 @@ function ResultsContent() {
 
           <GoogleAdsense
             placement="mistap-results-desktop-top"
-            className="hidden lg:block mb-8 w-full overflow-hidden"
+            className="hidden md:block mb-8 w-full overflow-hidden"
             style={{ display: 'block', width: '100%', minHeight: '90px' }}
             format="horizontal"
             responsive="true"

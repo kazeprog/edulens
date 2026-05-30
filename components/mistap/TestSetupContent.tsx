@@ -1250,7 +1250,7 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
       {isTestSetupPage && (
         <GoogleAdsense
           placement="mistap-test-setup-desktop-top"
-          className="hidden lg:block mb-6 w-full overflow-hidden"
+          className="hidden md:block mb-6 w-full overflow-hidden"
           style={{ display: 'block', width: '100%', minHeight: '90px' }}
           format="horizontal"
           responsive="true"

@@ -770,7 +770,7 @@ function TestContent() {
           {/* Desktop AdSense above test cards */}
           <GoogleAdsense
             placement="mistap-test-desktop-top"
-            className="hidden lg:block mb-6 w-full overflow-hidden"
+            className="hidden md:block mb-6 w-full overflow-hidden"
             style={{
               display: 'block',
               width: '100%',

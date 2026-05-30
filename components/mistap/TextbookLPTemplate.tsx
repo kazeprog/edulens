@@ -410,7 +410,7 @@ export default function TextbookLPTemplate({
                 </section>
 
                 {/* Desktop AdSense below hero */}
-                <section className="hidden lg:block bg-white/65 py-6 border-y border-slate-100/80 backdrop-blur-[1px]">
+                <section className="hidden md:block bg-white/65 py-6 border-y border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4 max-w-5xl">
                         <GoogleAdsense
                             placement="mistap-textbook-lp-desktop-top"

@@ -1411,7 +1411,7 @@ export default function HomePage() {
                                 format="rectangle"
                                 responsive="true"
                                 style={{ display: 'block', width: '100%', minHeight: '250px' }}
-                                className="hidden lg:block w-full overflow-hidden"
+                                className="hidden md:block w-full overflow-hidden"
                                 reserveSpace
                                 reserveHeight={280}
                             />
