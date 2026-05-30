@@ -8,6 +8,7 @@ export const NO_ADS_ROUTES_PREFIXES = [
 ];
 
 export const NO_ADS_ROUTES_EXACT = [
+    "/",
     "/mistap",
 ];
 
