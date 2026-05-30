@@ -15,15 +15,20 @@ export type AdsensePlacement =
     | "countdown-highschool-detail"
     | "countdown-highschool-schedule"
     | "mistap-home"
+    | "mistap-home-desktop-sidebar"
+    | "mistap-test-desktop-top"
     | "mistap-test-bottom"
+    | "mistap-test-setup-desktop-top"
     | "mistap-test-setup-word-stock"
     | "mistap-test-setup-normal"
     | "mistap-test-setup-review"
+    | "mistap-results-desktop-top"
     | "mistap-results-before-incorrect"
     | "mistap-results-after-incorrect"
     | "mistap-history-top"
     | "mistap-blog-list"
     | "mistap-blog-article"
+    | "mistap-textbook-lp-desktop-top"
     | "mistap-textbook-lp"
     | "mistap-textbook-directory";
 
@@ -71,15 +76,20 @@ export const ADSENSE_PLACEMENTS: Record<AdsensePlacement, AdsensePlacementConfig
     "countdown-highschool-detail": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_COUNTDOWN_HIGHSCHOOL_DETAIL, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_COUNTDOWN_HIGHSCHOOL_DETAIL, FORMAT_HORIZONTAL),
     "countdown-highschool-schedule": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_COUNTDOWN_HIGHSCHOOL_SCHEDULE, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_COUNTDOWN_HIGHSCHOOL_SCHEDULE, FORMAT_HORIZONTAL),
     "mistap-home": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_HOME, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_HOME, FORMAT_RECTANGLE),
+    "mistap-home-desktop-sidebar": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_HOME_DESKTOP_SIDEBAR, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_HOME_DESKTOP_SIDEBAR, FORMAT_RECTANGLE),
+    "mistap-test-desktop-top": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_DESKTOP_TOP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_DESKTOP_TOP, FORMAT_HORIZONTAL),
     "mistap-test-bottom": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_BOTTOM, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_BOTTOM, FORMAT_RECTANGLE),
+    "mistap-test-setup-desktop-top": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_SETUP_DESKTOP_TOP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_SETUP_DESKTOP_TOP, FORMAT_HORIZONTAL),
     "mistap-test-setup-word-stock": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_SETUP_WORD_STOCK, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_SETUP_WORD_STOCK, FORMAT_RECTANGLE),
     "mistap-test-setup-normal": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_SETUP_NORMAL, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_SETUP_NORMAL, FORMAT_RECTANGLE),
     "mistap-test-setup-review": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEST_SETUP_REVIEW, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEST_SETUP_REVIEW, FORMAT_RECTANGLE),
+    "mistap-results-desktop-top": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_RESULTS_DESKTOP_TOP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_RESULTS_DESKTOP_TOP, FORMAT_HORIZONTAL),
     "mistap-results-before-incorrect": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_RESULTS_BEFORE_INCORRECT, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_RESULTS_BEFORE_INCORRECT, FORMAT_RECTANGLE),
     "mistap-results-after-incorrect": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_RESULTS_AFTER_INCORRECT, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_RESULTS_AFTER_INCORRECT, FORMAT_RECTANGLE),
     "mistap-history-top": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_HISTORY_TOP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_HISTORY_TOP, FORMAT_RECTANGLE),
     "mistap-blog-list": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_BLOG_LIST, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_BLOG_LIST, FORMAT_RECTANGLE_HORIZONTAL),
     "mistap-blog-article": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_BLOG_ARTICLE, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_BLOG_ARTICLE, FORMAT_RECTANGLE_HORIZONTAL),
+    "mistap-textbook-lp-desktop-top": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEXTBOOK_LP_DESKTOP_TOP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEXTBOOK_LP_DESKTOP_TOP, FORMAT_HORIZONTAL),
     "mistap-textbook-lp": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEXTBOOK_LP, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEXTBOOK_LP, FORMAT_RECTANGLE_HORIZONTAL),
     "mistap-textbook-directory": withFallback(process.env.NEXT_PUBLIC_ADSENSE_SLOT_MISTAP_TEXTBOOK_DIRECTORY, process.env.NEXT_PUBLIC_ADSENSE_CHANNEL_MISTAP_TEXTBOOK_DIRECTORY, FORMAT_RECTANGLE_HORIZONTAL),
 };

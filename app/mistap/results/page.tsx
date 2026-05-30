@@ -458,6 +458,16 @@ function ResultsContent() {
             </div>
           </div>
 
+          <GoogleAdsense
+            placement="mistap-results-desktop-top"
+            className="hidden lg:block mb-8 w-full overflow-hidden"
+            style={{ display: 'block', width: '100%', minHeight: '90px' }}
+            format="horizontal"
+            responsive="true"
+            reserveSpace
+            reserveHeight={120}
+          />
+
           {!isLoggedIn && (
             <div className="mb-8 rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-rose-50 p-5 md:p-6 shadow-lg">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">

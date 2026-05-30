@@ -1127,13 +1127,13 @@ export default function HomePage() {
                             </div>
 
 
-                            {/* Mobile: AdSense above Today's Goals */}
+                            {/* AdSense above Today's Goals */}
                             <GoogleAdsense
                                 placement="mistap-home"
                                 format="rectangle"
                                 responsive="true"
                                 style={{ display: 'block', width: '100%' }}
-                                className="lg:hidden mb-6"
+                                className="mb-6"
                             />
 
                             {/* Today's Goals (Visible on both desktop and mobile) */}
@@ -1405,6 +1405,16 @@ export default function HomePage() {
                                     </div>
                                 </button>
                             </div>
+
+                            <GoogleAdsense
+                                placement="mistap-home-desktop-sidebar"
+                                format="rectangle"
+                                responsive="true"
+                                style={{ display: 'block', width: '100%', minHeight: '250px' }}
+                                className="hidden lg:block w-full overflow-hidden"
+                                reserveSpace
+                                reserveHeight={280}
+                            />
 
                         </div>
 

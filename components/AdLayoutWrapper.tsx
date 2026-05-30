@@ -34,23 +34,25 @@ export default function AdLayoutWrapper({
     const isPro = (!loading && !!profile?.is_pro) || isPendingProfile;
 
     const isNoAdPage = isNoAdsRoute(pathname) || isPro;
+    const shouldShowAds = !loading && !isNoAdPage;
 
     return (
         <div className="flex flex-col min-h-screen">
             {/* 上部広告 (横長) - アップグレードページでは非表示 */}
-            {!isNoAdPage && (
+            {shouldShowAds && (
                 <GoogleAdsense
                     placement="site-top"
-                    style={{ display: 'block', width: '100%', textAlign: 'center' }}
-                    className="mx-auto text-center"
+                    format="auto"
+                    style={{ display: 'block', width: '100%', minHeight: '90px', textAlign: 'center' }}
+                    className="w-full mx-auto text-center"
                     reserveSpace
-                    reserveHeight={280}
+                    reserveHeight={120}
                     key={`${pathname}-top`}
                 />
             )}
 
             {/* メインコンテンツ - モバイルで広告がある場合のみ下部に余白を追加 */}
-            <div className={`flex-grow ${!isNoAdPage && isMobile ? 'pb-28' : ''}`}>
+            <div className={`flex-grow ${shouldShowAds && isMobile ? 'pb-28' : ''}`}>
                 {children}
             </div>
 

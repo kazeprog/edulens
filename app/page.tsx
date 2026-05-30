@@ -532,6 +532,8 @@ export default async function Home() {
               <GoogleAdsense
                 placement="home-footer"
                 style={{ display: 'block', minHeight: '280px', textAlign: 'center' }}
+                reserveSpace
+                reserveHeight={280}
               />
             </div>
           </section>

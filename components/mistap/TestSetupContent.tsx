@@ -1247,6 +1247,18 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
         </button>
       </div>
 
+      {isTestSetupPage && (
+        <GoogleAdsense
+          placement="mistap-test-setup-desktop-top"
+          className="hidden lg:block mb-6 w-full overflow-hidden"
+          style={{ display: 'block', width: '100%', minHeight: '90px' }}
+          format="horizontal"
+          responsive="true"
+          reserveSpace
+          reserveHeight={120}
+        />
+      )}
+
       {/* Tab Content */}
       <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-4 sm:p-5 md:p-8 shadow-xl border border-white/50 animate-in fade-in slide-in-from-bottom-4 duration-300">
 

@@ -767,6 +767,22 @@ function TestContent() {
             {testTitle}
           </h1>
 
+          {/* Desktop AdSense above test cards */}
+          <GoogleAdsense
+            placement="mistap-test-desktop-top"
+            className="hidden lg:block mb-6 w-full overflow-hidden"
+            style={{
+              display: 'block',
+              width: '100%',
+              minHeight: '90px',
+              contain: 'layout paint'
+            }}
+            format="horizontal"
+            responsive="true"
+            reserveSpace
+            reserveHeight={120}
+          />
+
           <div className="mb-3 xl:mb-8" translate="no">
             {/* Touch devices and tablets: Flip cards */}
             <div ref={mobileCardsRef} className="block xl:hidden px-3 w-full max-w-md sm:max-w-xl lg:max-w-2xl mx-auto">
@@ -831,7 +847,7 @@ function TestContent() {
           {/* AdSense - contain: layout paint でレイアウト隔離 */}
           <GoogleAdsense
             placement="mistap-test-bottom"
-            className="xl:hidden mb-6 w-full overflow-hidden"
+            className="mb-6 w-full overflow-hidden"
             style={{
               display: 'block',
               width: '100%',

@@ -409,6 +409,21 @@ export default function TextbookLPTemplate({
                     </div>
                 </section>
 
+                {/* Desktop AdSense below hero */}
+                <section className="hidden lg:block bg-white/65 py-6 border-y border-slate-100/80 backdrop-blur-[1px]">
+                    <div className="container mx-auto px-4 max-w-5xl">
+                        <GoogleAdsense
+                            placement="mistap-textbook-lp-desktop-top"
+                            className="w-full"
+                            style={{ display: 'block', width: '100%', minHeight: '90px', textAlign: 'center' }}
+                            format="horizontal"
+                            responsive="true"
+                            reserveSpace
+                            reserveHeight={120}
+                        />
+                    </div>
+                </section>
+
                 {/* Test Demo Section */}
                 <section id="test-demo" className="py-20 bg-white/70 border-t border-slate-100/80 border-b backdrop-blur-[1px]">
                     <div className="container mx-auto px-2 sm:px-4 max-w-5xl">

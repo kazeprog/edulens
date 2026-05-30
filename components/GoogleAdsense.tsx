@@ -113,8 +113,9 @@ const GoogleAdsense = ({
         return () => clearTimeout(timerId);
     }, [pathname, isNoAdPage, loading]);
 
-    // 条件に合致する場合は完全にアンマウントする
-    if (!loading && isNoAdPage) {
+    // 表示可否が確定してからマウントする。
+    // 認証判定中に一度隠した広告要素へ push すると、AdSense が空枠のまま固定されやすい。
+    if (loading || isNoAdPage) {
         return null;
     }
 
