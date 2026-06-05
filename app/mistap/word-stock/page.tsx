@@ -6,7 +6,7 @@ import { supabase } from '@/lib/mistap/supabaseClient';
 import Background from '@/components/mistap/Background';
 import MistapFooter from '@/components/mistap/Footer';
 import { useAuth } from '@/context/AuthContext';
-import { Plus, Trash2, BookOpen, Search, ArrowLeft } from 'lucide-react';
+import { Plus, Trash2, BookOpen, Search, ArrowLeft, Pencil } from 'lucide-react';
 
 const FREE_WORD_STOCK_LIMIT = 30;
 
@@ -23,11 +23,14 @@ export default function WordStockPage() {
     const [words, setWords] = useState<WordStock[]>([]);
     const [isLoadingWords, setIsLoadingWords] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
-    const [showAddModal, setShowAddModal] = useState(false);
-    const [newWord, setNewWord] = useState('');
-    const [newMeaning, setNewMeaning] = useState('');
+    const [wordFormMode, setWordFormMode] = useState<'add' | 'edit' | null>(null);
+    const [editingWord, setEditingWord] = useState<WordStock | null>(null);
+    const [formWord, setFormWord] = useState('');
+    const [formMeaning, setFormMeaning] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const [deletingWordId, setDeletingWordId] = useState<string | null>(null);
     const isFreeLimitReached = !profile?.is_pro && words.length >= FREE_WORD_STOCK_LIMIT;
+    const isWordFormOpen = wordFormMode !== null;
 
     const fetchWords = useCallback(async () => {
         if (!user) return;
@@ -57,44 +60,115 @@ export default function WordStockPage() {
         }
     }, [user, loading, router, fetchWords]);
 
-    const handleAddWord = async () => {
-        if (!newWord.trim()) return;
+    const openAddModal = () => {
         if (isFreeLimitReached) {
             alert(`無料プランでは${FREE_WORD_STOCK_LIMIT}語まで登録できます。`);
             return;
         }
 
+        setEditingWord(null);
+        setFormWord('');
+        setFormMeaning('');
+        setWordFormMode('add');
+    };
+
+    const openEditModal = (item: WordStock) => {
+        setEditingWord(item);
+        setFormWord(item.word);
+        setFormMeaning(item.meaning ?? '');
+        setWordFormMode('edit');
+    };
+
+    const closeWordForm = () => {
+        if (isSaving) return;
+
+        setWordFormMode(null);
+        setEditingWord(null);
+        setFormWord('');
+        setFormMeaning('');
+    };
+
+    const handleSubmitWord = async () => {
+        if (!user || !formWord.trim() || !wordFormMode) return;
+
+        if (wordFormMode === 'add' && isFreeLimitReached) {
+            alert(`無料プランでは${FREE_WORD_STOCK_LIMIT}語まで登録できます。`);
+            return;
+        }
+
+        const trimmedWord = formWord.trim();
+        const trimmedMeaning = formMeaning.trim() || null;
+
         setIsSaving(true);
+
+        if (wordFormMode === 'edit') {
+            if (!editingWord) {
+                setIsSaving(false);
+                return;
+            }
+
+            const { error } = await supabase
+                .from('mistap_word_stocks')
+                .update({
+                    word: trimmedWord,
+                    meaning: trimmedMeaning,
+                    updated_at: new Date().toISOString(),
+                })
+                .eq('id', editingWord.id)
+                .eq('user_id', user.id);
+
+            if (error) {
+                alert('更新に失敗しました。');
+            } else {
+                setWords((currentWords) =>
+                    currentWords.map((item) =>
+                        item.id === editingWord.id
+                            ? { ...item, word: trimmedWord, meaning: trimmedMeaning }
+                            : item
+                    )
+                );
+                closeWordForm();
+            }
+
+            setIsSaving(false);
+            return;
+        }
+
         const { error } = await supabase.from('mistap_word_stocks').insert({
-            user_id: user?.id,
-            word: newWord.trim(),
-            meaning: newMeaning.trim() || null,
+            user_id: user.id,
+            word: trimmedWord,
+            meaning: trimmedMeaning,
         });
 
         if (error) {
             alert('保存に失敗しました。');
         } else {
-            setNewWord('');
-            setNewMeaning('');
-            setShowAddModal(false);
+            closeWordForm();
             fetchWords();
         }
+
         setIsSaving(false);
     };
 
-    const handleDeleteWord = async (id: string) => {
-        if (!confirm('この単語を削除しますか？')) return;
+    const handleDeleteWord = async (item: WordStock) => {
+        if (deletingWordId) return;
+        if (!confirm(`「${item.word}」を削除しますか？`)) return;
+
+        setDeletingWordId(item.id);
 
         const { error } = await supabase
             .from('mistap_word_stocks')
             .delete()
-            .eq('id', id);
+            .eq('id', item.id)
+            .eq('user_id', user?.id);
 
         if (!error) {
-            setWords(words.filter(w => w.id !== id));
+            setWords((currentWords) => currentWords.filter(w => w.id !== item.id));
         } else {
             alert('削除に失敗しました。');
         }
+
+        setDeletingWordId(null);
     };
 
     const handleStartTest = () => {
@@ -144,13 +218,7 @@ export default function WordStockPage() {
                         </div>
                         <div className="flex flex-col gap-3">
                             <button
-                                onClick={() => {
-                                    if (isFreeLimitReached) {
-                                        alert(`無料プランでは${FREE_WORD_STOCK_LIMIT}語まで登録できます。`);
-                                        return;
-                                    }
-                                    setShowAddModal(true);
-                                }}
+                                onClick={openAddModal}
                                 className="flex-1 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-bold p-4 flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 disabled={isFreeLimitReached}
                             >
@@ -199,17 +267,30 @@ export default function WordStockPage() {
                             <div className="text-center py-12 text-gray-500">読み込み中...</div>
                         ) : filteredWords.length > 0 ? (
                             filteredWords.map((item) => (
-                                <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between group">
-                                    <div>
-                                        <p className="font-bold text-lg text-gray-900">{item.word}</p>
-                                        {item.meaning && <p className="text-gray-600 text-sm">{item.meaning}</p>}
+                                <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-start gap-3">
+                                    <div className="min-w-0 flex-1">
+                                        <p className="font-bold text-lg text-gray-900 break-words">{item.word}</p>
+                                        {item.meaning && <p className="text-gray-600 text-sm break-words">{item.meaning}</p>}
                                     </div>
-                                    <button
-                                        onClick={() => handleDeleteWord(item.id)}
-                                        className="p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
-                                    >
-                                        <Trash2 className="w-5 h-5" />
-                                    </button>
+                                    <div className="flex shrink-0 items-center gap-1">
+                                        <button
+                                            onClick={() => openEditModal(item)}
+                                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                            aria-label={`${item.word}を編集`}
+                                            title="編集"
+                                        >
+                                            <Pencil className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteWord(item)}
+                                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                                            disabled={deletingWordId === item.id}
+                                            aria-label={`${item.word}を削除`}
+                                            title="削除"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         ) : (
@@ -221,19 +302,21 @@ export default function WordStockPage() {
                 </div>
             </Background>
 
-            {/* Add Modal */}
-            {showAddModal && (
+            {/* Add/Edit Modal */}
+            {isWordFormOpen && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl animate-in zoom-in-95 duration-200">
-                        <h2 className="text-xl font-bold mb-6">単語を追加</h2>
+                        <h2 className="text-xl font-bold mb-6">
+                            {wordFormMode === 'edit' ? '単語を編集' : '単語を追加'}
+                        </h2>
 
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-bold text-gray-700 mb-1">単語 <span className="text-red-500">*</span></label>
                                 <input
                                     type="text"
-                                    value={newWord}
-                                    onChange={(e) => setNewWord(e.target.value)}
+                                    value={formWord}
+                                    onChange={(e) => setFormWord(e.target.value)}
                                     placeholder="例: apple"
                                     className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
                                     autoFocus
@@ -243,8 +326,8 @@ export default function WordStockPage() {
                                 <label className="block text-sm font-bold text-gray-700 mb-1">意味</label>
                                 <input
                                     type="text"
-                                    value={newMeaning}
-                                    onChange={(e) => setNewMeaning(e.target.value)}
+                                    value={formMeaning}
+                                    onChange={(e) => setFormMeaning(e.target.value)}
                                     placeholder="例: りんご"
                                     className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
                                 />
@@ -253,17 +336,18 @@ export default function WordStockPage() {
 
                         <div className="flex gap-3 mt-8">
                             <button
-                                onClick={() => setShowAddModal(false)}
+                                onClick={closeWordForm}
+                                disabled={isSaving}
                                 className="flex-1 py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-bold transition-colors"
                             >
                                 キャンセル
                             </button>
                             <button
-                                onClick={handleAddWord}
-                                disabled={!newWord.trim() || isSaving}
+                                onClick={handleSubmitWord}
+                                disabled={!formWord.trim() || isSaving}
                                 className="flex-1 py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {isSaving ? '保存中...' : '追加する'}
+                                {isSaving ? '保存中...' : (wordFormMode === 'edit' ? '更新する' : '追加する')}
                             </button>
                         </div>
                     </div>
