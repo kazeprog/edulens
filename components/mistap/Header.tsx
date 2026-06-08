@@ -5,13 +5,53 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { getSupabase } from '@/lib/supabase';
 
 export default function Header() {
   const router = useRouter();
-  const { user, loading, signOut } = useAuth();
+  const { user, profile, loading, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [canViewSchoolAdmin, setCanViewSchoolAdmin] = useState(false);
 
   const isLoggedIn = !loading && !!user;
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function checkSchoolAdminAccess() {
+      if (loading || !user) {
+        setCanViewSchoolAdmin(false);
+        return;
+      }
+
+      const role = profile?.role ?? '';
+      if (['admin', 'teacher', 'school_owner', 'cram_school_owner'].includes(role)) {
+        setCanViewSchoolAdmin(true);
+        return;
+      }
+
+      const supabase = getSupabase();
+      if (!supabase) {
+        setCanViewSchoolAdmin(false);
+        return;
+      }
+
+      const { count, error } = await supabase
+        .from('mistap_schools')
+        .select('id', { count: 'exact', head: true })
+        .eq('owner_id', user.id);
+
+      if (!ignore) {
+        setCanViewSchoolAdmin(!error && (count ?? 0) > 0);
+      }
+    }
+
+    checkSchoolAdminAccess();
+
+    return () => {
+      ignore = true;
+    };
+  }, [loading, profile?.role, user]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -136,8 +176,34 @@ export default function Header() {
                 >
                   お問い合わせ
                 </Link>
+                <Link
+                  href="/mistap/school"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  学習塾向け機能
+                </Link>
                 <div className="border-t border-slate-100 my-1"></div>
 
+                <Link
+                  href="/mistap/profile"
+                  prefetch={false}
+                  className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  プロフィール設定
+                </Link>
+                {canViewSchoolAdmin && (
+                  <Link
+                    href="/mistap/school-admin"
+                    prefetch={false}
+                    className="block py-3 px-4 text-slate-700 hover:bg-slate-50 transition-colors font-medium border-l-4 border-transparent hover:border-red-500"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    塾管理画面
+                  </Link>
+                )}
                 <Link
                   href="/account"
                   prefetch={false}
@@ -163,6 +229,13 @@ export default function Header() {
         <div className="w-20 h-8 bg-slate-100 rounded-lg animate-pulse" />
       ) : (
         <div className="flex items-center gap-3">
+          <Link
+            href="/mistap/school"
+            prefetch={false}
+            className="hidden text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors sm:inline"
+          >
+            学習塾向け機能
+          </Link>
           <Link
             href="/login?redirect=/mistap/home"
             prefetch={false}

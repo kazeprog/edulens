@@ -28,6 +28,7 @@ interface DashboardStats {
     dau: number;
     wau: number;
     mau: number;
+    schoolCount: number;
     engagement?: DashboardEngagementStats;
     naruhodoUsage?: NaruhodoStats;
 }
@@ -97,6 +98,23 @@ interface NaruhodoStats {
     total: number;
 }
 
+interface AdminMistapSchool {
+    school_id: string;
+    school_name: string;
+    school_code: string;
+    owner_id: string;
+    owner_name: string | null;
+    owner_grade: string | null;
+    subscription_status: string | null;
+    subscription_current_period_end: string | null;
+    created_at: string;
+    student_count: number;
+}
+
+type AdminMistapSchoolRpcRow = Omit<AdminMistapSchool, 'student_count'> & {
+    student_count: number | string | null;
+};
+
 
 
 // アクティビティの型定義
@@ -155,8 +173,10 @@ export default function AdminDashboardPage() {
         dau: 0,
         wau: 0,
         mau: 0,
+        schoolCount: 0,
     });
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
+    const [mistapSchools, setMistapSchools] = useState<AdminMistapSchool[]>([]);
     const [monthlyRegistrations, setMonthlyRegistrations] = useState<MonthlyRegistration[]>([]);
     const [dailyRegistrations, setDailyRegistrations] = useState<DailyRegistration[]>([]);
     const [activeUserTrends, setActiveUserTrends] = useState<ActiveUserTrend[]>([]);
@@ -204,6 +224,7 @@ export default function AdminDashboardPage() {
                 { data: engagementStats },
                 { count: naruhodoToday },
                 { count: naruhodoTotal },
+                { data: mistapSchoolRows, error: mistapSchoolsError },
             ] = await Promise.all([
                 supabase.from('profiles').select('*', { count: 'exact', head: true }),
                 supabase.from('exam_schedules').select('*', { count: 'exact', head: true }),
@@ -229,7 +250,22 @@ export default function AdminDashboardPage() {
                 supabase.rpc('get_dashboard_engagement_stats'),
                 supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }).gte('created_at', getStartOfToday()),
                 supabase.from('naruhodo_usage_logs').select('*', { count: 'exact', head: true }),
+                supabase.rpc('get_admin_mistap_schools'),
             ]);
+
+            if (mistapSchoolsError) {
+                console.error('Failed to fetch Mistap schools:', mistapSchoolsError.message);
+            }
+
+            const normalizedMistapSchools: AdminMistapSchool[] = mistapSchoolsError
+                ? []
+                : ((mistapSchoolRows ?? []) as AdminMistapSchoolRpcRow[]).map((school) => ({
+                    ...school,
+                    student_count: Number(school.student_count ?? 0),
+                }));
+
+            setMistapSchools(normalizedMistapSchools);
+
             // 月別登録データを集計（過去12ヶ月）
             if (allProfiles) {
                 const monthlyData: { [key: string]: number } = {};
@@ -294,6 +330,7 @@ export default function AdminDashboardPage() {
                 dau: dauCount || 0,
                 wau: wauCount || 0,
                 mau: mauCount || 0,
+                schoolCount: normalizedMistapSchools.length,
                 engagement: engagementStats || undefined,
                 naruhodoUsage: {
                     today: naruhodoToday || 0,
@@ -371,6 +408,28 @@ export default function AdminDashboardPage() {
         return 'bg-slate-100 text-slate-600';
     };
 
+    const scrollToRegisteredSchools = () => {
+        document.getElementById('registered-schools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    const getSchoolPlanLabel = (status: string | null) => {
+        switch (status) {
+            case 'active':
+                return '有料';
+            case 'trialing':
+                return 'トライアル';
+            case 'past_due':
+                return '支払い確認';
+            case 'canceled':
+                return '解約済み';
+            case 'free':
+            case null:
+                return '無料';
+            default:
+                return status;
+        }
+    };
+
     const saveGeminiModelSettings = async () => {
         const defaultSettings = getDefaultGeminiModelSettings();
         const sanitizedSettings = GEMINI_MODEL_CONFIG_DEFINITIONS.reduce<GeminiModelSettings>((acc, definition) => {
@@ -438,6 +497,73 @@ export default function AdminDashboardPage() {
                     <p className="text-xs text-slate-500 font-medium mb-1">単語テスト数</p>
                     <p className="text-2xl font-bold text-slate-800">{stats.testResultCount}</p>
                 </div>
+                <button
+                    type="button"
+                    onClick={scrollToRegisteredSchools}
+                    className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-200 transition text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    aria-label="登録学習塾の一覧へ移動"
+                >
+                    <p className="text-xs text-slate-500 font-medium mb-1">登録学習塾</p>
+                    <p className="text-2xl font-bold text-blue-600">{stats.schoolCount}</p>
+                    <p className="mt-2 text-xs font-medium text-blue-600">一覧を見る</p>
+                </button>
+            </div>
+
+            {/* 登録学習塾一覧 */}
+            <div id="registered-schools" className="scroll-mt-6 bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 mb-8 min-w-0 overflow-hidden">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between mb-4">
+                    <div>
+                        <h3 className="text-lg font-bold text-slate-800">登録学習塾一覧</h3>
+                        <p className="text-xs text-slate-500">Mistap for School に登録されている学習塾を確認できます。</p>
+                    </div>
+                    <p className="text-sm font-bold text-slate-700">{mistapSchools.length}件</p>
+                </div>
+
+                {mistapSchools.length === 0 ? (
+                    <p className="text-slate-500 text-center py-8">登録学習塾はまだありません</p>
+                ) : (
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[760px] border-separate border-spacing-y-2 text-sm">
+                            <thead>
+                                <tr className="text-left text-xs font-bold text-slate-500">
+                                    <th className="px-3 py-2">学習塾</th>
+                                    <th className="px-3 py-2">塾ID</th>
+                                    <th className="px-3 py-2">管理者</th>
+                                    <th className="px-3 py-2 text-right">連携生徒</th>
+                                    <th className="px-3 py-2">プラン</th>
+                                    <th className="px-3 py-2">登録日</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mistapSchools.map((school) => (
+                                    <tr key={school.school_id} className="bg-slate-50">
+                                        <td className="rounded-l-lg px-3 py-3">
+                                            <p className="font-bold text-slate-800">{school.school_name}</p>
+                                            <p className="text-xs text-slate-500">Owner ID: {school.owner_id}</p>
+                                        </td>
+                                        <td className="px-3 py-3">
+                                            <span className="inline-flex rounded-md bg-white px-2 py-1 font-mono text-xs font-bold text-slate-700 ring-1 ring-slate-200">
+                                                {school.school_code}
+                                            </span>
+                                        </td>
+                                        <td className="px-3 py-3">
+                                            <p className="font-medium text-slate-700">{school.owner_name || '未設定'}</p>
+                                            {school.owner_grade && <p className="text-xs text-slate-500">{school.owner_grade}</p>}
+                                        </td>
+                                        <td className="px-3 py-3 text-right font-bold text-slate-800">{school.student_count}人</td>
+                                        <td className="px-3 py-3">
+                                            <p className="font-medium text-slate-700">{getSchoolPlanLabel(school.subscription_status)}</p>
+                                            {school.subscription_current_period_end && (
+                                                <p className="text-xs text-slate-500">期限 {formatDate(school.subscription_current_period_end)}</p>
+                                            )}
+                                        </td>
+                                        <td className="rounded-r-lg px-3 py-3 text-slate-600">{formatDate(school.created_at)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
 
             {/* アクティブユーザー統計 */}

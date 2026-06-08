@@ -1665,6 +1665,18 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
               </button>
             </div>
 
+            {isTestSetupPage && (
+              <div className="mt-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => router.push('/mistap/school')}
+                  className="w-full rounded-xl border border-red-100 bg-red-50 px-5 py-3 text-sm font-bold text-red-600 transition hover:border-red-200 hover:bg-red-100 md:w-auto"
+                >
+                  学習塾向けの機能はこちら
+                </button>
+              </div>
+            )}
+
             <div className="flex justify-center md:justify-end mt-4">
               <button
                 onClick={() => setShowCopyrightModal(true)}

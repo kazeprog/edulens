@@ -4,6 +4,7 @@ export const NO_ADS_ROUTES_PREFIXES = [
     "/upgrademistap",
     "/admin",
     "/dashboard",
+    "/mistap/school-admin",
     "/pricing",
 ];
 
