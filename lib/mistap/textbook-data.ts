@@ -63,14 +63,13 @@ export const WORDBOOK_CONFIG: Record<string, WordbookConfig> = {
         name: 'System English Word',
         jpName: 'システム英単語',
         unitLabel: 'Chapter',
-        totalUnits: 5,
+        totalUnits: 4,
         getRange: (unit) => {
             const ranges = [
                 { start: 1, end: 600 },
                 { start: 601, end: 1200 },
                 { start: 1201, end: 1685 },
                 { start: 1686, end: 2027 },
-                { start: 2028, end: 2200 },
             ];
             return ranges[unit - 1] || { start: 1, end: 100 };
         },

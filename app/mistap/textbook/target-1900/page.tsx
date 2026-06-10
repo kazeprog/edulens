@@ -5,7 +5,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ターゲット1900 テスト｜無料小テストアプリ - Mistap',
-    description: '英単語ターゲット1900対応の無料テストページ。Sectionや番号範囲を指定して小テストを作成でき、プリント代わりの確認テストや大学受験前の反復に使えます。',
+    description: '英単語ターゲット1900を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ターゲット1900 テスト',
         'ターゲット1900 単語テスト',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'ターゲット1900 テスト｜無料小テストアプリ - Mistap',
-        description: '英単語ターゲット1900の重要単語を、Sectionや番号範囲ごとの無料小テストで復習できます。',
+        description: '英単語ターゲット1900を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1900',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1900 テスト｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1900の単語をSectionや番号範囲ごとの小テストで復習できる無料ページです。',
+        description: '英単語ターゲット1900を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -101,8 +101,8 @@ export default function Target1900Page() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚でターゲットをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通学中の電車やスキマ時間に、ブラウザでターゲットの確認テストを進められます。"
                 },
                 extraFaqs: [
                     {

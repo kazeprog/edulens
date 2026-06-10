@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     return {
         title: `不規則動詞の過去形 テスト｜Mistap`,
-        description: `不規則動詞の過去形に対応した無料単語テスト。基本の活用を完璧にマスター。`,
+        description: `不規則動詞の過去形に対応した無料単語テスト。基本の活用を確認できます。`,
     };
 }
 

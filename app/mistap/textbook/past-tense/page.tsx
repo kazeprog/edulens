@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '不規則動詞 過去形 テスト｜無料小テストアプリ - Mistap',
-    description: '英語の不規則動詞の過去形をマスターするための無料テスト・クイズ。中学・高校入試に必須の動詞活用を効率よく学習できます。',
+    description: '不規則動詞の過去形を無料で学習。問題数・回答方式を選んで活用テストを開始し、苦手な動詞、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         '不規則動詞 過去形',
         '動詞 活用 テスト',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '不規則動詞 過去形 テスト｜無料小テストアプリ - Mistap',
-        description: '不規則動詞の過去形を完璧に。Mistapで効率的な暗記学習。',
+        description: '不規則動詞の過去形を無料で学習。問題数・回答方式を選んで活用テストを開始し、苦手な動詞、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/past-tense',
         type: 'website',
         siteName: 'Mistap 英語テスト',
@@ -38,7 +38,7 @@ export default function PastTensePage() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                         <span className="block text-xl md:text-2xl font-bold text-blue-600 mb-4 tracking-normal">不規則動詞の過去形</span>
                         動詞の活用を<br />
-                        <span className="text-blue-500">完璧にマスター</span>
+                        <span className="text-blue-500">小テストで確認</span>
                     </h1>
                 ),
                 heroDescription: "中学生が必ず覚えるべき不規則動詞の過去形テスト。クイズ形式で繰り返し練習できます。登録不要で今すぐスタート！",

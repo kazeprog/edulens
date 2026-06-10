@@ -50,10 +50,11 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
   const [testMode, setTestMode] = useState<'word-meaning' | 'meaning-word'>('word-meaning');
   const pathname = usePathname();
   const isTestSetupPage = pathname === '/mistap/test-setup';
+  const isPresetSchoolTextbook = !!(presetTextbook && TEXTBOOK_LIST.some(t => t.name === presetTextbook));
 
   // 教科書テスト用の状態
   const [selectedSchoolTextbook, setSelectedSchoolTextbook] = useState<string>(() => {
-    if (presetTextbook && TEXTBOOK_LIST.some(t => t.name === presetTextbook)) {
+    if (presetTextbook && isPresetSchoolTextbook) {
       return presetTextbook;
     }
     return '';
@@ -81,7 +82,12 @@ export default function TestSetupContent({ embedMode = false, presetTextbook, in
     }
     return Array.from(new Set(defaults));
   });
-  const [selectedText, setSelectedText] = useState<string>("ターゲット1900");
+  const [selectedText, setSelectedText] = useState<string>(() => {
+    if (presetTextbook && !isPresetSchoolTextbook) {
+      return presetTextbook;
+    }
+    return "ターゲット1900";
+  });
   const [level, setLevel] = useState<string>("senior");
   const [startNum, setStartNum] = useState<number>(initialStartNum || 1);
   const [endNum, setEndNum] = useState<number>(initialEndNum || 100);

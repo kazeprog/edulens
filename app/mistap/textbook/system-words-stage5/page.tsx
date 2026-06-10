@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
-    description: 'システム英単語（シスタン）Stage5 多義語の英単語テスト。多義語184語を無料でテストできます。共通テスト・難関大対策に最適。',
+    description: 'システム英単語（シス単）Stage5の多義語184語を無料で学習。範囲・問題数・回答方式を選んで多義語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
     keywords: [
         'システム英単語 Stage5',
         'シスタン 多義語',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英単語 Stage5 多義語184語の無料テスト。多義語の裏の意味を完全に覚えよう。',
+        description: 'システム英単語（シス単）Stage5の多義語184語を無料で学習。範囲・問題数・回答方式を選んで多義語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/system-words-stage5',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'システム英単語 Stage5 テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英単語 Stage5 多義語184語の無料テスト。多義語の裏の意味を完全に覚えよう。',
+        description: 'システム英単語（シス単）Stage5の多義語184語を無料で学習。範囲・問題数・回答方式を選んで多義語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/system-words-stage5'
@@ -63,10 +63,10 @@ export default function SystemWordsStage5Page() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                         <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">システム英単語 Stage5 多義語テスト</span>
                         多義語の裏の意味を<br />
-                        <span className="text-sky-500">完全攻略</span>
+                        <span className="text-sky-500">多義語テストで定着確認</span>
                     </h1>
                 ),
-                heroDescription: "大学受験のバイブル「システム英単語（シス単）」Stage5の多義語184語を無料でテストできるアプリ（サイト）。知っている単語でも裏の意味は意外と知らないもの。共通テスト・難関大の英語で差がつくポイントを完全攻略！",
+                heroDescription: "システム英単語（シス単）Stage5の多義語184語を無料でテストできるページ。知っている単語でも見落としやすい別の意味を、共通テスト・難関大対策として確認できます。",
                 testSectionTitle: "システム英単語 Stage5 多義語テストを今すぐ作成",
                 testSectionDescription: (
                     <p>
@@ -82,7 +82,7 @@ export default function SystemWordsStage5Page() {
                     </p>
                 ),
                 feature1: {
-                    title: "184語の多義語を完全網羅",
+                    title: "184語の多義語を範囲別に確認",
                     description: "runは「走る」だけじゃない。「経営する」という意味も出題される。そんな裏の意味を集中的にテストできます。"
                 },
                 feature2: {
@@ -90,8 +90,8 @@ export default function SystemWordsStage5Page() {
                     description: "間違えた多義語は自動的に保存。あなただけの「苦手な多義語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、ゲーム感覚で多義語をマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通学中の電車やスキマ時間に、ブラウザで多義語の確認テストを進められます。"
                 }
             }}
         />

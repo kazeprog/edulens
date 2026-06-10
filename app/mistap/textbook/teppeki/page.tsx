@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
-    description: '東大受験のバイブル「鉄緑会東大英単語熟語 鉄壁」対応の英単語テスト。Sectionごとの重要単語を無料でテストできます。東大・医学部・難関大対策に最適。',
+    description: '鉄緑会東大英単語熟語 鉄壁を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         '鉄壁',
         '鉄緑会',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
-        description: '東大受験のバイブル「鉄壁」の単語テスト。Section別に無料で練習できます。',
+        description: '鉄緑会東大英単語熟語 鉄壁を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/teppeki',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '鉄壁 テスト｜無料小テストアプリ - Mistap',
-        description: '東大受験のバイブル「鉄壁」の単語テスト。Section別に無料で練習できます。',
+        description: '鉄緑会東大英単語熟語 鉄壁を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/teppeki'
@@ -62,7 +62,7 @@ export default function TeppekiPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-rose-600 mb-4 tracking-normal">鉄緑会「鉄壁」完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-rose-600 mb-4 tracking-normal">鉄緑会「鉄壁」対応</span>
                         東大英単語を<br />
                         <span className="text-rose-500">極限まで効率化</span>
                     </h1>
@@ -84,7 +84,7 @@ export default function TeppekiPage() {
                 ),
                 feature1: {
                     title: "Section別小テスト",
-                    description: "鉄壁のSectionごとにテストが可能。毎日の学習進捗に合わせた確認テストとして最適です。"
+                    description: "鉄壁のSectionごとにテストが可能。毎日の学習進捗に合わせた確認テストとして使えます。"
                 },
                 feature2: {
                     title: "派生語・熟語も網羅",

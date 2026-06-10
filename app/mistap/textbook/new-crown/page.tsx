@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'New Crown テスト｜無料小テストアプリ - Mistap',
-    description: '中学英語教科書「ニュークラウン（NEW CROWN）」対応の英単語テスト。中1・中2・中3のLesson別単語を無料で確認できます。定期テスト対策・高校受験対策に最適。',
+    description: 'ニュークラウン（NEW CROWN）の英単語を無料で学習。学年・Lesson・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ニュークラウン 英単語',
         'ニュークラウン 単語テスト',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'New Crown テスト｜無料小テストアプリ - Mistap',
-        description: '中学英語教科書ニュークラウンの単語テスト。Lesson別に無料で練習できます。',
+        description: 'ニュークラウン（NEW CROWN）の英単語を無料で学習。学年・Lesson・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/new-crown',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'New Crown テスト｜無料小テストアプリ - Mistap',
-        description: '中学英語教科書ニュークラウンの単語テスト。Lesson別に無料で練習できます。',
+        description: 'ニュークラウン（NEW CROWN）の英単語を無料で学習。学年・Lesson・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/new-crown'

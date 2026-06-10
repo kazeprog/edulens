@@ -4,6 +4,7 @@ import { mistapClient } from '@/lib/mistap/microcms';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://edulens.jp/mistap';
   const contentUpdatedAt = new Date('2026-05-11');
+  const systemWordsUpdatedAt = new Date('2026-06-10');
 
   // 静的ページ
   const staticPages: MetadataRoute.Sitemap = [
@@ -146,12 +147,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const textbookPages: MetadataRoute.Sitemap = uniqueTextbookPaths.map((path) => {
     const isUnitPage = path.split('/').length > 2;
+    const isSystemWordsRoot = path === 'textbook/system-words';
+    const isSystemWordsPage = path === 'textbook/system-words' || path.startsWith('textbook/system-words/');
 
     return {
       url: `${baseUrl}/${path}`,
-      lastModified: contentUpdatedAt,
+      lastModified: isSystemWordsPage ? systemWordsUpdatedAt : contentUpdatedAt,
       changeFrequency: isUnitPage ? 'monthly' as const : 'weekly' as const,
-      priority: isUnitPage ? 0.6 : 0.75,
+      priority: isSystemWordsRoot ? 0.95 : isUnitPage ? 0.6 : 0.75,
     };
   });
 

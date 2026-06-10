@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
     title: 'ターゲット1900 テストプリント｜無料小テストアプリ - Mistap',
-    description: 'ターゲット1900のテストプリント代わりに使える無料小テストページ。Sectionや番号範囲を指定して確認テストを作成でき、スマホやPCでそのまま反復できます。',
+    description: 'ターゲット1900の確認テストを無料で作成。Section・番号範囲・問題数・回答方式を選び、プリント代わりの小テスト、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ターゲット1900 テストプリント',
         'ターゲット1900 テストプリント 無料',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'ターゲット1900 テストプリント｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1900の範囲指定テストを無料で作成。プリント代わりの確認テストや自習に使えます。',
+        description: 'ターゲット1900の確認テストを無料で作成。Section・番号範囲・問題数・回答方式を選び、プリント代わりの小テスト、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1900/print',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1900 テストプリント｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1900の小テストを範囲指定で作成。プリント代わりに無料で使えます。',
+        description: 'ターゲット1900の確認テストを無料で作成。Section・番号範囲・問題数・回答方式を選び、プリント代わりの小テスト、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {

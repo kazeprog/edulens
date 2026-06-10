@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
-    description: '速読英単語 上級編［改訂第5版］対応の無料英単語テスト。範囲を指定して難関大レベルの語彙を小テスト形式で効率よく復習できます。',
+    description: '速読英単語 上級編［改訂第5版］の難関大語彙を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         '速読英単語 上級編',
         '速読英単語 上級編 改訂第5版',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
-        description: '速読英単語 上級編［改訂第5版］の単語を無料でテスト化。範囲指定と反復で難関大語彙を着実に定着させられます。',
+        description: '速読英単語 上級編［改訂第5版］の難関大語彙を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/sokutan-jokyu-5th',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '速読英単語 上級編 テスト｜無料小テストアプリ - Mistap',
-        description: '速読英単語 上級編［改訂第5版］を範囲指定で小テスト化。スマホでも手早く復習できます。',
+        description: '速読英単語 上級編［改訂第5版］の難関大語彙を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {

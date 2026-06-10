@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
     title: 'システム英単語Basic〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-    description: 'システム英単語Basic〈5訂版〉対応の英単語テスト。高校英語の基礎から受験標準まで、範囲指定で無料小テストを作成できます。',
+    description: 'システム英単語Basic〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'システム英単語Basic〈5訂版〉',
         'システム英単語Basic',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'システム英単語Basic〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英単語Basic〈5訂版〉を範囲指定で無料テスト化。高校英語の基礎固めから受験準備まで使えます。',
+        description: 'システム英単語Basic〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/system-words-basic-5th',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'システム英単語Basic〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英単語Basic〈5訂版〉を無料で小テスト化。覚えたい範囲だけ指定して反復できます。',
+        description: 'システム英単語Basic〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/system-words-basic-5th'

@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
-    description: '英単語ターゲット1400対応の無料英単語テスト。Sectionごとに重要単語を確認でき、共通テストや中堅大対策の語彙定着に役立ちます。',
+    description: '英単語ターゲット1400を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ターゲット1400 単語テスト',
         '英単語ターゲット1400 単語テスト',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
-        description: '英単語ターゲット1400の重要単語を、Sectionごとの無料小テストやアプリ感覚で復習できます。',
+        description: '英単語ターゲット1400を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1400',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1400 テスト｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1400の単語をSectionごとの小テストやアプリ感覚で復習できる無料英単語テストです。',
+        description: '英単語ターゲット1400を無料で学習。Section・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -64,7 +64,7 @@ export default function Target1400Page() {
                         <span className="text-green-500">小テストで効率よく定着</span>
                     </h1>
                 ),
-                heroDescription: "共通テストや中堅大対策に使える「英単語ターゲット1400」対応の無料英単語テスト・学習アプリ感覚ページです。Sectionごとに重要単語を確認でき、登録不要ですぐ復習を始められます。",
+                heroDescription: "共通テストや中堅大対策に使える「英単語ターゲット1400」対応の無料英単語テストページです。Sectionごとに重要単語を確認でき、登録不要ですぐ復習を始められます。",
                 testSectionTitle: "ターゲット1400の英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -76,7 +76,7 @@ export default function Target1400Page() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        大学受験・共通テストで確実な点数を取るための「英単語テスト作成サイト」です。アプリ感覚で反復しやすく作っています。
+                        大学受験・共通テストで確実な点数を取るための「英単語テスト作成サイト」です。スマホのブラウザでも反復しやすく作っています。
                     </p>
                 ),
                 feature1: {
@@ -88,8 +88,8 @@ export default function Target1400Page() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚でターゲットをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通学中の電車やスキマ時間に、ブラウザでターゲットの確認テストを進められます。"
                 }
             }}
         />

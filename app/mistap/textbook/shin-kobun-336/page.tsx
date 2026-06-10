@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '新古文単語336 テスト｜無料小テストアプリ - Mistap',
-    description: '大学入試 新古文単語336対応の無料古文単語テスト。入試頻出の古文単語336語を、範囲指定の小テストやアプリ感覚で効率よく復習できます。',
+    description: '大学入試 新古文単語336を無料で学習。範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         '大学入試 新古文単語336',
         '新古文単語336',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '新古文単語336 テスト｜無料小テストアプリ - Mistap',
-        description: '新古文単語336の入試頻出語を、無料の古文単語テストやアプリ感覚で復習できます。',
+        description: '大学入試 新古文単語336を無料で学習。範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/shin-kobun-336',
         type: 'website',
         siteName: 'Mistap 古文単語テスト',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '新古文単語336 テスト｜無料小テストアプリ - Mistap',
-        description: '新古文単語336の入試頻出語を、無料の古文単語テストやアプリ感覚で復習できます。',
+        description: '大学入試 新古文単語336を無料で学習。範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率までブラウザで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -64,7 +64,7 @@ export default function ShinKobun336Page() {
                         <span className="text-emerald-500">小テストで定着</span>
                     </h1>
                 ),
-                heroDescription: "大学受験の古文対策に使える「大学入試 新古文単語336」対応の無料古文単語テスト・学習アプリ感覚ページです。単語番号ごとに重要語を確認でき、登録不要ですぐ復習を始められます。",
+                heroDescription: "大学受験の古文対策に使える「大学入試 新古文単語336」対応の無料古文単語テストページです。単語番号ごとに重要語を確認でき、登録不要ですぐ復習を始められます。",
                 testSectionTitle: "新古文単語336の古文単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -76,7 +76,7 @@ export default function ShinKobun336Page() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        336語を範囲指定のテストとアプリ感覚の復習で、入試本番まで使える知識として定着させます。
+                        336語を範囲指定テストの反復で、入試本番まで使える知識として定着させます。
                     </p>
                 ),
                 feature1: {
@@ -89,7 +89,7 @@ export default function ShinKobun336Page() {
                 },
                 feature3: {
                     title: "スマホで毎日続けやすい",
-                    description: "スマホ・タブレット完全対応。通学中やスキマ時間に、アプリ感覚で古文単語を復習できます。"
+                    description: "スマホ・タブレットに対応。通学中やスキマ時間に、ブラウザで古文単語を復習できます。"
                 }
             }}
         />

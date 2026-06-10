@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
     title: 'システム英熟語〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-    description: 'システム英熟語〈5訂版〉対応の英熟語テスト。句動詞・前置詞・副詞を含む英熟語を、範囲指定で無料小テスト化できます。',
+    description: 'システム英熟語〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで英熟語テストを開始し、苦手熟語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'システム英熟語〈5訂版〉',
         'システム英熟語',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'システム英熟語〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英熟語〈5訂版〉を範囲指定で無料テスト化。句動詞・前置詞表現をテンポよく反復できます。',
+        description: 'システム英熟語〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで英熟語テストを開始し、苦手熟語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/system-english-idioms-5th',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'システム英熟語〈5訂版〉テスト｜無料小テストアプリ - Mistap',
-        description: 'システム英熟語〈5訂版〉を無料で小テスト化。必要な範囲だけ指定して反復できます。',
+        description: 'システム英熟語〈5訂版〉を無料で学習。範囲・問題数・回答方式を選んで英熟語テストを開始し、苦手熟語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/system-english-idioms-5th'

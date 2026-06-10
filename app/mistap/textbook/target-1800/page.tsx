@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'ターゲット1800 テスト｜無料小テストアプリ - Mistap',
-    description: 'ターゲット1800対応の無料英単語テスト。高校入試に向けて中学重要単語を小テスト形式で確認でき、苦手語彙の復習にも使えます。',
+    description: 'ターゲット1800を無料で学習。Section・番号範囲・問題数・回答方式を選んで高校入試向け小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ターゲット1800',
         '中学英単語 ターゲット1800',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'ターゲット1800 テスト｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1800の単語を無料の小テストやアプリ感覚で復習できます。',
+        description: 'ターゲット1800を無料で学習。Section・番号範囲・問題数・回答方式を選んで高校入試向け小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/target-1800',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'ターゲット1800 テスト｜無料小テストアプリ - Mistap',
-        description: 'ターゲット1800の単語を無料の小テストやアプリ感覚で復習できる英単語テストです。',
+        description: 'ターゲット1800を無料で学習。Section・番号範囲・問題数・回答方式を選んで高校入試向け小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -58,7 +58,7 @@ export default function Target1800Page() {
                         <span className="text-blue-500">小テストで着実に定着</span>
                     </h1>
                 ),
-                heroDescription: "高校入試対策に使える「ターゲット1800」対応の無料英単語テスト・学習アプリ感覚ページです。中学重要単語を小テスト形式で確認でき、登録不要ですぐ復習を始められます。",
+                heroDescription: "高校入試対策に使える「ターゲット1800」対応の無料英単語テストページです。中学重要単語を小テスト形式で確認でき、登録不要ですぐ復習を始められます。",
                 testSectionTitle: "ターゲット1800の英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -70,7 +70,7 @@ export default function Target1800Page() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        「ターゲット1800」の内容を確実に定着させるための機能を備えています。アプリ感覚で毎日の復習に使えます。
+                        「ターゲット1800」の内容を確実に定着させるための機能を備えています。毎日の復習にブラウザで使えます。
                     </p>
                 ),
                 feature1: {
@@ -83,7 +83,7 @@ export default function Target1800Page() {
                 },
                 feature3: {
                     title: "スキマ時間を活用",
-                    description: "スマホ・タブレット完全対応。バスの待ち時間や寝る前の5分を、アプリ感覚で得点アップのための時間に変えられます。"
+                    description: "スマホ・タブレットに対応。バスの待ち時間や寝る前の5分に、ブラウザで確認テストを進められます。"
                 }
             }}
         />

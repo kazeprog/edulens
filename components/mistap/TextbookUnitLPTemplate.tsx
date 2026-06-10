@@ -133,7 +133,7 @@ export default function TextbookUnitLPTemplate({
                 <section className="py-12 bg-white/70 text-gray-800 border-t border-slate-100/80 backdrop-blur-[1px]">
                     <div className="max-w-4xl mx-auto px-4">
                         <div className="prose prose-blue mx-auto bg-white/85 p-6 rounded-lg text-sm text-gray-700 mb-12 shadow-sm border border-slate-200">
-                            <h3 className="text-base font-bold text-slate-800 mb-2">{titleText} の完全攻略</h3>
+                            <h3 className="text-base font-bold text-slate-800 mb-2">{titleText} の確認テスト</h3>
                             <p className="mb-2">
                                 このページでは、<strong>{textbookNameJa}</strong> の <strong>{unitLabel} {unitValue}</strong> に出てくる重要単語をピンポイントでテストできます。
                                 間違えた単語だけを効率的に復習し、定期テストや受験に向けて基礎を固めましょう。

@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '改訂版LEAP テスト｜無料小テストアプリ - Mistap',
-    description: '改訂版 必携英単語LEAP対応の無料テストページ。Partごとの頻出単語を小テスト化でき、スマホでアプリ感覚に反復できます。',
+    description: '改訂版 必携英単語LEAPを無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         '改訂版 必携英単語LEAP',
         'LEAP 改訂版',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '改訂版LEAP テスト｜無料小テストアプリ - Mistap',
-        description: '改訂版 必携英単語LEAPの単語テスト。Part別に無料で練習でき、スマホで反復できます。',
+        description: '改訂版 必携英単語LEAPを無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/reform-leap',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '改訂版LEAP テスト｜無料小テストアプリ - Mistap',
-        description: '改訂版 必携英単語LEAPの単語テスト。Part別に無料で練習でき、スマホで反復できます。',
+        description: '改訂版 必携英単語LEAPを無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/reform-leap'
@@ -67,12 +67,12 @@ export default function ReformLeapPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">改訂版 必携英単語LEAPの無料テストアプリ感覚ページ</span>
+                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">改訂版 必携英単語LEAPの無料テストページ</span>
                         Part別に区切って<br />
                         <span className="text-sky-500">小テストで着実に反復</span>
                     </h1>
                 ),
-                heroDescription: "改訂版 必携英単語LEAPの無料テスト・クイズアプリ感覚ページです。Partごとに小テストを作成でき、SpeakingやWritingにつながる語彙をスマホでも反復できます。登録不要ですぐ使えます。",
+                heroDescription: "改訂版 必携英単語LEAPの無料テスト・クイズページです。Partごとに小テストを作成でき、SpeakingやWritingにつながる語彙をスマホでも反復できます。登録不要ですぐ使えます。",
                 testSectionTitle: "LEAPのテストを今すぐ作成",
                 testSectionDescription: (
                     <p>
@@ -96,8 +96,8 @@ export default function ReformLeapPage() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚で改訂版LEAPをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通学中の電車やスキマ時間に、ブラウザで改訂版LEAPの確認テストを進められます。"
                 }
             }}
         />

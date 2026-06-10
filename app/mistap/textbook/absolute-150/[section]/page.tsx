@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = `絶対覚える英単語150 Part ${section} テスト｜Mistap`;
     return {
         title: title,
-        description: `絶対覚える英単語150のPart ${section} に対応した無料単語テスト。基本単語を完璧にマスターして中学英語の土台作り。`,
+        description: `絶対覚える英単語150のPart ${section} に対応した無料単語テスト。基本単語を確認して中学英語の土台作り。`,
         alternates: {
             canonical: `https://edulens.jp/mistap/textbook/absolute-150/${section}`,
         }

@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '不規則動詞 過去分詞 テスト｜無料小テストアプリ - Mistap',
-    description: '不規則動詞の過去形と過去分詞形をセットでマスター。現在完了形や受け身に必須の活用を効率よく学習できます。',
+    description: '不規則動詞の過去形・過去分詞形を無料で学習。問題数・回答方式を選んで活用テストを開始し、苦手な動詞、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         '不規則動詞 過去分詞',
         '動詞 活用 テスト',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '不規則動詞 過去分詞 テスト｜無料小テストアプリ - Mistap',
-        description: '不規則動詞の過去形・過去分詞形を完璧に。',
+        description: '不規則動詞の過去形・過去分詞形を無料で学習。問題数・回答方式を選んで活用テストを開始し、苦手な動詞、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/past-participle',
         type: 'website',
         siteName: 'Mistap 英語テスト',
@@ -38,7 +38,7 @@ export default function PastParticiplePage() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                         <span className="block text-xl md:text-2xl font-bold text-indigo-600 mb-4 tracking-normal">不規則動詞 過去・過去分詞</span>
                         3つの形を<br />
-                        <span className="text-indigo-500">一度に攻略する</span>
+                        <span className="text-indigo-500">まとめて確認</span>
                     </h1>
                 ),
                 heroDescription: "現在完了形や受け身（受動態）の学習に欠かせない、不規則動詞の過去分詞形テスト。クイズ形式で確実に定着させましょう。",

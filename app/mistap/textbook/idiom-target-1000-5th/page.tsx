@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
     title: '英熟語ターゲット1000 5訂版 テスト｜無料小テストアプリ - Mistap',
-    description: '英熟語ターゲット1000 5訂版対応の英熟語テスト。入試頻出の1000熟語を、範囲指定で無料小テスト化できます。',
+    description: '英熟語ターゲット1000 5訂版の入試頻出1000熟語を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手熟語、学習履歴、正答率まで確認できます。',
     keywords: [
         '英熟語ターゲット1000 5訂版',
         '英熟語ターゲット1000',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '英熟語ターゲット1000 5訂版 テスト｜無料小テストアプリ - Mistap',
-        description: '英熟語ターゲット1000 5訂版を範囲指定で無料テスト化。入試頻出熟語をでる順で反復できます。',
+        description: '英熟語ターゲット1000 5訂版の入試頻出1000熟語を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手熟語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/idiom-target-1000-5th',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '英熟語ターゲット1000 5訂版 テスト｜無料小テストアプリ - Mistap',
-        description: '英熟語ターゲット1000 5訂版を無料で小テスト化。必要な範囲だけ指定して反復できます。',
+        description: '英熟語ターゲット1000 5訂版の入試頻出1000熟語を無料で学習。範囲・問題数・回答方式を選んで小テストを開始し、苦手熟語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/idiom-target-1000-5th'

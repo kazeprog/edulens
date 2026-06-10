@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = `ターゲット1800 Section ${section} 英単語テスト｜Mistap`;
     return {
         title: title,
-        description: `ターゲット1800のSection ${section} に対応した無料単語テスト。範囲を指定して効率よく暗記。中学・高校入試対策に最適。`,
+        description: `ターゲット1800のSection ${section} に対応した無料単語テスト。範囲を指定して効率よく暗記。中学・高校入試対策に役立ちます。`,
         alternates: {
             canonical: `https://edulens.jp/mistap/textbook/target-1800/${section}`,
         }

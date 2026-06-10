@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
-    description: 'LEAP Basic対応の英単語テスト。基礎1400語を無料で小テスト化でき、共通テスト前の語彙固めや高校英語の土台作りに役立ちます。',
+    description: 'LEAP Basicの基礎1400語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'LEAP Basic',
         'LEAP Basic 英単語',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
-        description: 'LEAP Basicの基礎1400語を無料でテスト。高校英語の土台作りや共通テスト対策の最初の1冊に。 ',
+        description: 'LEAP Basicの基礎1400語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/leap-basic',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'LEAP Basic テスト｜無料小テストアプリ - Mistap',
-        description: 'LEAP Basicの基礎1400語を無料で小テスト化。英単語の初周や共通テスト前の語彙固めに使えます。',
+        description: 'LEAP Basicの基礎1400語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/leap-basic'
@@ -55,7 +55,7 @@ export default function LeapBasicPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-emerald-600 mb-4 tracking-normal">LEAP Basic 基礎1400語に完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-emerald-600 mb-4 tracking-normal">LEAP Basic 基礎1400語に対応</span>
                         高校英語の土台を<br />
                         <span className="text-emerald-500">小テストで着実に定着</span>
                     </h1>

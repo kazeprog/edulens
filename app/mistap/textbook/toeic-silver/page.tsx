@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '銀のフレーズ テスト｜無料小テストアプリ - Mistap',
-    description: 'TOEIC L&R TEST 出る単特急 銀のフレーズ（銀フレ）対応の無料英単語テスト。TOEIC600点を目指す基礎語彙を小テスト形式で効率よく復習できます。',
+    description: '銀のフレーズ（銀フレ）のTOEIC基礎語彙を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         '銀のフレーズ 単語テスト',
         '銀フレ 単語テスト',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '銀のフレーズ テスト｜無料小テストアプリ - Mistap',
-        description: 'TOEIC L&R TEST 出る単特急 銀のフレーズ（銀フレ）の単語を、無料の小テストやアプリ感覚で復習できます。',
+        description: '銀のフレーズ（銀フレ）のTOEIC基礎語彙を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/toeic-silver',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '銀のフレーズ テスト｜無料小テストアプリ - Mistap',
-        description: '銀フレの単語を無料の小テストやアプリ感覚で復習できるTOEIC英単語テストです。',
+        description: '銀のフレーズ（銀フレ）のTOEIC基礎語彙を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -62,7 +62,7 @@ export default function ToeicSilverPage() {
                         <span className="text-slate-500">600点への基礎語彙を定着</span>
                     </h1>
                 ),
-                heroDescription: "TOEIC L&R TEST 出る単特急 銀のフレーズ（銀フレ）に対応した無料の英単語テスト・学習アプリ感覚ページです。TOEIC600点を目指す基礎単語を小テスト形式で、登録不要ですぐ復習できます。",
+                heroDescription: "TOEIC L&R TEST 出る単特急 銀のフレーズ（銀フレ）に対応した無料の英単語テストページです。TOEIC600点を目指す基礎単語を小テスト形式で、登録不要ですぐ復習できます。",
                 testSectionTitle: "銀フレの英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -74,7 +74,7 @@ export default function ToeicSilverPage() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        TOEICの土台になる基本語彙を、小テストとアプリ感覚の学習体験で無理なく定着させるための「英単語テスト作成サイト」です。
+                        TOEICの土台になる基本語彙を、短時間の小テストで無理なく定着させるための「英単語テスト作成サイト」です。
                     </p>
                 ),
                 feature1: {
@@ -86,8 +86,8 @@ export default function ToeicSilverPage() {
                     description: "間違えた単語は自動的に保存。あなただけの苦手な英単語帳が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通勤・通学中の電車やスキマ時間に、アプリ感覚で銀フレをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通勤・通学中の電車やスキマ時間に、ブラウザで銀フレの確認テストを進められます。"
                 }
             }}
         />

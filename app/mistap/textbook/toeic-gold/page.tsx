@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
-    description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）対応の無料英単語テスト。TOEIC頻出単語を小テスト形式で効率よく復習できます。',
+    description: '金のフレーズ（金フレ）のTOEIC頻出単語を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         '金のフレーズ 単語テスト',
         '金フレ 単語テスト',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
-        description: 'TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）の単語を、無料の小テストやアプリ感覚で復習できます。',
+        description: '金のフレーズ（金フレ）のTOEIC頻出単語を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/toeic-gold',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '金のフレーズ テスト｜無料小テストアプリ - Mistap',
-        description: '金フレの単語を無料の小テストやアプリ感覚で復習できるTOEIC英単語テストです。',
+        description: '金のフレーズ（金フレ）のTOEIC頻出単語を無料で学習。Level・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -62,7 +62,7 @@ export default function ToeicGoldPage() {
                         <span className="text-orange-500">TOEIC頻出語を効率よく定着</span>
                     </h1>
                 ),
-                heroDescription: "TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）に対応した無料の英単語テスト・学習アプリ感覚ページです。TOEIC頻出単語を小テスト形式で、登録不要ですぐ復習できます。",
+                heroDescription: "TOEIC L&R TEST 出る単特急 金のフレーズ（金フレ）に対応した無料の英単語テストページです。TOEIC頻出単語を小テスト形式で、登録不要ですぐ復習できます。",
                 testSectionTitle: "金フレの英単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -74,7 +74,7 @@ export default function ToeicGoldPage() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        TOEICスコアアップに直結する語彙力を、小テストとアプリ感覚の学習体験で効率よく身につけるための「英単語テスト作成サイト」です。
+                        TOEICスコアアップに直結する語彙力を、短時間の小テストで効率よく身につけるための「英単語テスト作成サイト」です。
                     </p>
                 ),
                 feature1: {
@@ -86,8 +86,8 @@ export default function ToeicGoldPage() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通勤・通学中の電車やスキマ時間に、アプリ感覚で金フレをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通勤・通学中の電車やスキマ時間に、ブラウザで金フレの確認テストを進められます。"
                 }
             }}
         />

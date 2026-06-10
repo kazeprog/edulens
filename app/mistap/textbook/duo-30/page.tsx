@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
-    description: '現代英語の重要単語・熟語を網羅した「DUO 3.0」対応の英単語テスト。Sectionごとの例文頻出単語を無料でテストできます。',
+    description: 'DUO 3.0の重要単語・熟語を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'DUO 3.0',
         'DUO3.0',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
-        description: '現代英語の重要単語・熟語「DUO 3.0」の単語テスト。Section別に無料で練習できます。',
+        description: 'DUO 3.0の重要単語・熟語を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/duo-30',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'DUO 3.0 テスト｜無料小テストアプリ - Mistap',
-        description: '現代英語の重要単語・熟語「DUO 3.0」の単語テスト。Section別に無料で練習できます。',
+        description: 'DUO 3.0の重要単語・熟語を無料で学習。Section・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/duo-30'
@@ -66,12 +66,12 @@ export default function Duo30Page() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-blue-600 mb-4 tracking-normal">DUO 3.0（デュオ）テスト完全対応</span>
+                        <span className="block text-xl md:text-2xl font-bold text-blue-600 mb-4 tracking-normal">DUO 3.0（デュオ）テスト対応</span>
                         重要単語・熟語を<br />
-                        <span className="text-blue-500">ゲーム感覚で完全攻略</span>
+                        <span className="text-blue-500">Section別テストで定着確認</span>
                     </h1>
                 ),
-                heroDescription: "現代英語の重要単語1600+熟語1000を凝縮した「DUO 3.0」の無料テスト・クイズアプリ（サイト）。Sectionごとに小テストを作成でき、例文を通じて効率的に語彙をマスターできます。登録不要で今すぐテスト作成・実施が可能！",
+                heroDescription: "現代英語の重要単語1600+熟語1000を凝縮した「DUO 3.0」の無料テストページ。Sectionごとに小テストを作成でき、例文を通じて効率的に語彙を確認できます。登録不要で今すぐテスト作成・実施が可能です。",
                 testSectionTitle: "DUO 3.0のテストを今すぐ作成",
                 testSectionDescription: (
                     <p>
@@ -95,8 +95,8 @@ export default function Duo30Page() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通勤・通学中の電車やスキマ時間に、ゲーム感覚でDUOをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通勤・通学中の電車やスキマ時間に、ブラウザでDUOの確認テストを進められます。"
                 }
             }}
         />

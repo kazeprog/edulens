@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
     title: 'LEAP アプリ｜無料小テストアプリ - Mistap',
-    description: 'LEAPをスマホで覚えるための無料小テストアプリ。Partごとの単語テストを登録不要で試せて、通学中やスキマ時間にアプリ感覚で反復できます。',
+    description: 'LEAPをスマホで無料学習。Part・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'LEAP アプリ',
         'LEAP 英単語アプリ',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'LEAP アプリ｜無料小テストアプリ - Mistap',
-        description: 'LEAPの単語をスマホで反復。Part別の無料小テストをアプリ感覚で使えます。',
+        description: 'LEAPをスマホで無料学習。Part・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/leap/app',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'LEAP アプリ｜無料小テストアプリ - Mistap',
-        description: 'LEAPの単語をスマホで反復。Part別の無料小テストをアプリ感覚で使えます。',
+        description: 'LEAPをスマホで無料学習。Part・番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -59,10 +59,10 @@ export default function LeapAppPage() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                         <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">LEAPをスマホで覚える無料小テストアプリ</span>
                         Part別に<br />
-                        <span className="text-sky-500">アプリ感覚で反復</span>
+                        <span className="text-sky-500">スマホで反復</span>
                     </h1>
                 ),
-                heroDescription: "必修英単語LEAPを覚えるための無料小テストアプリ感覚ページです。Partごとに範囲を選んで、通学中やスキマ時間にスマホで反復できます。登録不要で今すぐテストを試せます。",
+                heroDescription: "必修英単語LEAPを覚えるための無料小テストページです。Partごとに範囲を選んで、通学中やスキマ時間にスマホで反復できます。登録不要で今すぐテストを試せます。",
                 heroSecondaryCta: (
                     <Link
                         href="/mistap/textbook/leap"
@@ -71,7 +71,7 @@ export default function LeapAppPage() {
                         LEAP通常ページへ
                     </Link>
                 ),
-                testSectionTitle: "LEAPの単語テストをアプリ感覚で始める",
+                testSectionTitle: "LEAPの単語テストをスマホで始める",
                 testSectionDescription: (
                     <p>
                         面倒な会員登録は不要。Partや番号範囲を選ぶだけで、LEAPの小テストをすぐ作れます。<br />
@@ -90,7 +90,7 @@ export default function LeapAppPage() {
                     description: "LEAPのPartごとに範囲を分けて、今進めている範囲だけを反復できます。",
                 },
                 feature2: {
-                    title: "スマホでアプリ感覚に使える",
+                    title: "スマホのブラウザで使える",
                     description: "インストール不要でブラウザから使えます。通学中や休み時間にも、すぐ単語テストを始められます。",
                 },
                 feature3: {
@@ -100,7 +100,7 @@ export default function LeapAppPage() {
                 extraFaqs: [
                     {
                         question: "LEAP専用のアプリとして使えますか？",
-                        answer: "はい、LEAPの範囲を選んで単語テストを作れるため、LEAPを覚えるための無料小テストアプリ感覚で使えます。インストールは不要で、スマホのブラウザから利用できます。",
+                        answer: "はい、LEAPの範囲を選んで単語テストを作れるため、インストール不要の無料小テストとして使えます。スマホのブラウザから利用できます。",
                     },
                     {
                         question: "LEAPをPartごとに練習できますか？",

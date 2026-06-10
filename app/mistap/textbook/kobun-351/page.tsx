@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
-    description: '理解を深める核心古文単語351対応の無料古文単語テスト。入試必修の古文単語を、章ごとの小テストやアプリ感覚で効率よく復習できます。',
+    description: '理解を深める核心古文単語351を無料で学習。章・番号範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
     keywords: [
         '核心古文単語351',
         '理解を深める核心古文単語351',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
-        description: '核心古文単語351の入試必修語を、無料の古文単語テストやアプリ感覚で復習できます。',
+        description: '理解を深める核心古文単語351を無料で学習。章・番号範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/kobun-351',
         type: 'website',
         siteName: 'Mistap 古文単語テスト',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: '核心古文単語351 テスト｜無料小テストアプリ - Mistap',
-        description: '核心古文単語351の入試必修語を、無料の古文単語テストやアプリ感覚で復習できます。',
+        description: '理解を深める核心古文単語351を無料で学習。章・番号範囲・問題数・回答方式を選んで古文単語テストを開始し、苦手語、学習履歴、正答率まで確認できます。',
         images: ['/mistap-icon-v2.png'],
     },
     alternates: {
@@ -61,10 +61,10 @@ export default function Kobun351Page() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                         <span className="block text-xl md:text-2xl font-bold text-blue-600 mb-4 tracking-normal">核心古文単語351対応</span>
                         古文単語を<br />
-                        <span className="text-blue-500">意味のつながりで攻略</span>
+                        <span className="text-blue-500">意味のつながりで確認</span>
                     </h1>
                 ),
-                heroDescription: "大学受験の古文対策に使える「理解を深める核心古文単語351」対応の無料古文単語テスト・学習アプリ感覚ページです。章ごとに重要語を確認でき、登録不要ですぐ復習を始められます。",
+                heroDescription: "大学受験の古文対策に使える「理解を深める核心古文単語351」対応の無料古文単語テストページです。章ごとに重要語を確認でき、登録不要ですぐ復習を始められます。",
                 testSectionTitle: "核心古文単語351の古文単語テストを無料で作成",
                 testSectionDescription: (
                     <p>
@@ -76,7 +76,7 @@ export default function Kobun351Page() {
                 featuresDescription: (
                     <p>
                         Mistapは、ただの単語帳アプリではありません。<br className="hidden md:inline" />
-                        「理解を深める」というコンセプトに合わせ、テストとアプリ感覚の反復で確実に意味を定着させるお手伝いをします。
+                        「理解を深める」というコンセプトに合わせ、章別テストの反復で確実に意味を定着させるお手伝いをします。
                     </p>
                 ),
                 feature1: {
@@ -89,7 +89,7 @@ export default function Kobun351Page() {
                 },
                 feature3: {
                     title: "いつでもどこでも復習",
-                    description: "スマホ・タブレット完全対応。移動中や寝る前のスキマ時間を、アプリ感覚の古文単語学習時間に変えられます。"
+                    description: "スマホ・タブレットに対応。移動中や寝る前のスキマ時間に、ブラウザで古文単語を復習できます。"
                 }
             }}
         />

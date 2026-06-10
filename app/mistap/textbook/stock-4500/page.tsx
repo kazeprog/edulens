@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'Stock4500 テスト｜無料小テストアプリ - Mistap',
-    description: 'Stock4500対応の英単語テスト。範囲を指定して小テスト化できるので、日々の復習から大学受験の総仕上げまで効率よく使えます。',
+    description: 'Stock4500の英単語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'Stock4500',
         'STOCK 4500',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'Stock4500 テスト｜無料小テストアプリ - Mistap',
-        description: 'Stock4500の英単語を無料でテスト化。範囲指定と反復で、受験英語の語彙を着実に定着させられます。',
+        description: 'Stock4500の英単語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/stock-4500',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Stock4500 テスト｜無料小テストアプリ - Mistap',
-        description: 'Stock4500をそのまま小テスト化。覚えたい範囲だけ切り出して、スマホでも手早く復習できます。',
+        description: 'Stock4500の英単語を無料で学習。番号範囲・問題数・回答方式を選んで小テストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/stock-4500'

@@ -4,7 +4,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'New Horizon テスト｜無料小テストアプリ - Mistap',
-    description: '中学英語教科書「ニューホライズン（NEW HORIZON）」対応の英単語テスト。中1・中2・中3のUnit別単語を無料で確認できます。定期テスト対策・高校受験対策に最適。',
+    description: 'ニューホライズン（NEW HORIZON）の英単語を無料で学習。学年・Unit・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     keywords: [
         'ニューホライズン 英単語',
         'ニューホライズン 単語テスト',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'New Horizon テスト｜無料小テストアプリ - Mistap',
-        description: '中学英語教科書ニューホライズンの単語テスト。Unit別に無料で練習できます。',
+        description: 'ニューホライズン（NEW HORIZON）の英単語を無料で学習。学年・Unit・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/new-horizon',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'New Horizon テスト｜無料小テストアプリ - Mistap',
-        description: '中学英語教科書ニューホライズンの単語テスト。Unit別に無料で練習できます。',
+        description: 'ニューホライズン（NEW HORIZON）の英単語を無料で学習。学年・Unit・問題数・回答方式を選んで小テストを開始し、苦手単語、学習履歴、正答率まで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/new-horizon'

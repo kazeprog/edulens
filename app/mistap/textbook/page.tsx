@@ -26,14 +26,14 @@ interface Textbook {
 const universityTextbooks: Textbook[] = [
     {
         name: "鉄緑会 鉄壁",
-        description: "東大受験生のバイブル。鉄緑会のメソッドで難関大英単語を完全攻略。",
+        description: "東大・医学部受験で使われる定番教材。Section別に難関大英単語を確認できます。",
         path: "/mistap/textbook/teppeki",
         color: "rose",
         badge: "東大必須"
     },
     {
         name: "システム英単語",
-        description: "共通テストから難関大まで対応。頻出順に効率よく学習できます。",
+        description: "全2027語をChapter別に無料テスト。共通テストから難関大まで、シス単をブラウザで反復できます。",
         path: "/mistap/textbook/system-words",
         color: "sky",
         badge: "人気No.1"
@@ -54,20 +54,20 @@ const universityTextbooks: Textbook[] = [
     },
     {
         name: "システム英単語 Stage5",
-        description: "多義語184語を集中攻略。知っている単語の「裏の意味」をマスター。",
+        description: "多義語184語を重点確認。知っている単語の別の意味を小テストで反復できます。",
         path: "/mistap/textbook/system-words-stage5",
         color: "sky"
     },
     {
         name: "ターゲット1900",
-        description: "大学受験のド定番。頻出1900語をランク順にマスター。",
+        description: "大学受験の定番。頻出1900語をランク順に確認できます。",
         path: "/mistap/textbook/target-1900",
         color: "blue",
         badge: "定番"
     },
     {
         name: "ターゲット1400",
-        description: "大学受験の必須単語。共通テスト・中堅大対策に最適。",
+        description: "大学受験の必須単語。共通テスト・中堅大対策の確認に使えます。",
         path: "/mistap/textbook/target-1400",
         color: "blue"
     },
@@ -80,7 +80,7 @@ const universityTextbooks: Textbook[] = [
     },
     {
         name: "改訂版 必携英単語LEAP",
-        description: "必修語彙を完璧にマスター。4技能を意識した学習で実戦力を養成。",
+        description: "必修語彙を小テストで確認。4技能を意識した学習で実戦力を養成。",
         path: "/mistap/textbook/reform-leap",
         color: "sky",
         badge: "改訂版"
@@ -93,7 +93,7 @@ const universityTextbooks: Textbook[] = [
     },
     {
         name: "LEAP Basic",
-        description: "LEAPの基礎1400語を厳選。共通テスト前の土台固めや英単語の初周に最適。",
+        description: "LEAPの基礎1400語を厳選。共通テスト前の土台固めや英単語の初周に使えます。",
         path: "/mistap/textbook/leap-basic",
         color: "emerald",
         badge: "基礎1400"
@@ -128,13 +128,13 @@ const universityTextbooks: Textbook[] = [
     },
     {
         name: "DUO 3.0",
-        description: "現代英語の重要単語・熟語を560本の例文で一気に攻略。",
+        description: "現代英語の重要単語・熟語を560本の例文単位で確認できます。",
         path: "/mistap/textbook/duo-30",
         color: "blue"
     },
     {
         name: "ターゲット1200",
-        description: "高校英語の基礎固めに最適。共通テストの土台を作ります。",
+        description: "高校英語の基礎固めに。共通テストの土台を作ります。",
         path: "/mistap/textbook/target-1200",
         color: "emerald"
     }
@@ -171,7 +171,7 @@ const toeicTextbooks: Textbook[] = [
     },
     {
         name: "TOEIC L&R 金のフレーズ",
-        description: "TOEIC対策のバイブル。目標スコア別に頻出単語を攻略。",
+        description: "TOEIC対策の定番教材。目標スコア別に頻出単語を確認できます。",
         path: "/mistap/textbook/toeic-gold",
         color: "orange",
         badge: "TOEIC必須"
@@ -241,40 +241,40 @@ const juniorTextbooks: Textbook[] = [
     },
     {
         name: "New Crown",
-        description: "中学校英語のスタンダード。Lessonごとの予習・復習に最適。",
+        description: "中学校英語のスタンダード。Lessonごとの予習・復習に使えます。",
         path: "/mistap/textbook/new-crown",
         color: "blue",
         badge: "教科書"
     },
     {
         name: "ターゲット1800(5訂版)",
-        description: "ターゲット1800の最新5訂版対応データ。中学から高校入試までの1800語を完全網羅。",
+        description: "ターゲット1800の最新5訂版対応データ。中学から高校入試までの1800語を範囲別に確認できます。",
         path: "/mistap/textbook/target-1800-v5",
         color: "blue",
         badge: "NEW"
     },
     {
         name: "ターゲット1800",
-        description: "中学・高校入試合格のための1800語を完全収録。基礎から応用まで。",
+        description: "中学・高校入試に必要な1800語を収録。基礎から応用まで確認できます。",
         path: "/mistap/textbook/target-1800",
         color: "blue",
         badge: "人気"
     },
     {
         name: "英単語150",
-        description: "中学英語で最初に覚えるべき超重要150語。土台作りに最適。",
+        description: "中学英語で最初に覚えるべき超重要150語。土台作りに使えます。",
         path: "/mistap/textbook/absolute-150",
         color: "emerald"
     },
     {
         name: "不規則動詞（過去形）",
-        description: "中学・高校英語に必須の不規則動詞。過去形を完璧にマスター。",
+        description: "中学・高校英語に必須の不規則動詞。過去形の活用を確認できます。",
         path: "/mistap/textbook/past-tense",
         color: "blue"
     },
     {
         name: "不規則動詞（過去分詞）",
-        description: "完了形や受け身に欠かせない過去分詞形。活用をセットで攻略。",
+        description: "完了形や受け身に欠かせない過去分詞形。活用をセットで確認できます。",
         path: "/mistap/textbook/past-participle",
         color: "indigo"
     }
@@ -470,7 +470,7 @@ export default function TextbookIndexPage() {
                     <Section
                         title="古文単語"
                         icon={<BookOpen className="w-8 h-8 text-rose-500" />}
-                        description="苦手な古文単語も単語カード形式ならサクサク覚えられる。イラスト付きの解説で定着度アップ。"
+                        description="苦手な古文単語も単語カード形式でテンポよく確認。イラスト付きの解説で定着度アップ。"
                     >
                         {kobunTextbooks.map((textbook, idx) => (
                             <TextbookCard key={idx} {...textbook} />
@@ -481,7 +481,7 @@ export default function TextbookIndexPage() {
                     <Section
                         title="中学生・教科書"
                         icon={<School className="w-8 h-8 text-emerald-500" />}
-                        description="New Horizonなど中学校の教科書に対応。定期テスト前のUnit別対策に最適。"
+                        description="New Horizonなど中学校の教科書に対応。定期テスト前のUnit別対策に活用できます。"
                     >
                         {juniorTextbooks.map((textbook, idx) => (
                             <TextbookCard key={idx} {...textbook} />

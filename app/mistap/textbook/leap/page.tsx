@@ -5,7 +5,7 @@ import TextbookLPTemplate from '@/components/mistap/TextbookLPTemplate';
 export const dynamic = "force-static";
 export const metadata: Metadata = {
     title: 'LEAP テスト｜無料小テストアプリ - Mistap',
-    description: '4技能対応英単語帳「LEAP」対応の無料単語テストページ。Partごとの頻出単語を小テスト化でき、スマホでアプリ感覚に反復できます。',
+    description: '4技能対応英単語帳「LEAP」を無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     keywords: [
         'LEAP 英単語',
         'リープ 英単語',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'LEAP テスト｜無料小テストアプリ - Mistap',
-        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習でき、スマホで反復できます。',
+        description: '4技能対応英単語帳「LEAP」を無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
         url: 'https://edulens.jp/mistap/textbook/leap',
         type: 'website',
         siteName: 'Mistap 英単語テスト',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'LEAP テスト｜無料小テストアプリ - Mistap',
-        description: '4技能対応英単語帳「LEAP」の単語テスト。Part別に無料で練習でき、スマホで反復できます。',
+        description: '4技能対応英単語帳「LEAP」を無料で学習。Part・番号範囲・問題数・回答方式を選んでテストを開始し、単語帳確認、苦手単語、学習履歴、正答率までブラウザで確認できます。',
     },
     alternates: {
         canonical: 'https://edulens.jp/mistap/textbook/leap'
@@ -68,19 +68,19 @@ export default function LeapPage() {
             seoSettings={{
                 heroTitle: (
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
-                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">必修英単語LEAP（リープ）の無料テストアプリ感覚ページ</span>
+                        <span className="block text-xl md:text-2xl font-bold text-sky-600 mb-4 tracking-normal">必修英単語LEAP（リープ）の無料テストページ</span>
                         Part別に区切って<br />
                         <span className="text-sky-500">小テストで着実に反復</span>
                     </h1>
                 ),
-                heroDescription: "4技能対応英単語帳「必修英単語LEAP（リープ）」の無料テスト・クイズアプリ感覚ページです。Partごとに小テストを作成でき、SpeakingやWritingにつながる語彙をスマホでも反復できます。登録不要ですぐ使えます。",
+                heroDescription: "4技能対応英単語帳「必修英単語LEAP（リープ）」の無料テスト・クイズページです。Partごとに小テストを作成でき、SpeakingやWritingにつながる語彙をスマホでも反復できます。登録不要ですぐ使えます。",
                 heroSecondaryCta: (
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Link
                             href="/mistap/textbook/leap/app"
                             className="w-full sm:w-auto px-8 py-4 bg-white text-sky-700 border-2 border-sky-200 rounded-xl font-bold text-lg shadow-lg shadow-sky-100 hover:bg-sky-50 hover:border-sky-300 transition-all duration-300 flex items-center justify-center gap-2"
                         >
-                            アプリ感覚で使う
+                            ブラウザで使う
                         </Link>
                         <Link
                             href="/mistap/textbook/reform-leap"
@@ -113,8 +113,8 @@ export default function LeapPage() {
                     description: "間違えた単語は自動的に保存。あなただけの「苦手な英単語帳」が作成され、効率的に穴を埋められます。"
                 },
                 feature3: {
-                    title: "アプリ感覚でサクサク復習",
-                    description: "スマホ・タブレット完全対応。通学中の電車やスキマ時間に、アプリ感覚でLEAPをマスターできます。"
+                    title: "スマホで手軽に復習",
+                    description: "スマホ・タブレットに対応。通学中の電車やスキマ時間に、ブラウザでLEAPの確認テストを進められます。"
                 }
             }}
         />

@@ -311,10 +311,10 @@ export default function TextbookLPTemplate({
                                 {seoSettings?.heroTitle || (
                                     <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-tight tracking-tight">
                                         <span className={`block text-lg md:text-2xl font-bold ${theme.textAccent} mb-4 tracking-normal`}>
-                                            {isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`}完全対応
+                                            {isSameName ? textbookNameJa : `${textbookNameJa}（${textbookName}）`}対応
                                         </span>
                                         {bookType === 'wordbook' ? '収録英単語を' : '教科書の英単語を'}<br />
-                                        <span className={theme.textHighlight}>ゲーム感覚で完全攻略</span>
+                                        <span className={theme.textHighlight}>範囲別テストで定着確認</span>
                                     </h1>
                                 )}
                                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
@@ -396,12 +396,14 @@ export default function TextbookLPTemplate({
                                     ) : (
                                         <div className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 rounded-xl p-3">
                                             <CheckSquare className="w-5 h-5 text-emerald-500" />
-                                            <span>全範囲をカバー</span>
+                                            <span>範囲指定に対応</span>
                                         </div>
                                     )}
 
                                     <div className="mt-6 flex items-center justify-center">
-                                        <p className="text-slate-500 text-sm">全単元・全レッスンを網羅！</p>
+                                        <p className="text-slate-500 text-sm">
+                                            {bookType === 'wordbook' ? '番号範囲を選んで確認できます' : '学年・単元別に確認できます'}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -527,7 +529,7 @@ export default function TextbookLPTemplate({
                 {/* CTA Footer */}
                 <section className="py-20 bg-white/70 text-center border-y border-slate-100/80 backdrop-blur-[1px]">
                     <div className="container mx-auto px-4">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">{textbookNameJa}の単語をマスターしよう！</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">{textbookNameJa}の単語を確認しよう！</h2>
                         <p className="text-xl mb-10 max-w-2xl mx-auto text-slate-600">
                             もう、英単語の暗記で悩む必要はありません。<br />
                             Mistapで効率よく、楽しく学習を始めましょう。
