@@ -425,22 +425,44 @@ export default function ProgressDashboard() {
             </div>
 
             {/* 0. サマリーカード */}
+            <div className="rounded-xl border border-red-100 bg-red-50/60 px-3 py-2 text-xs font-bold text-red-600">
+                カードをタップすると、単語一覧を確認できます
+            </div>
             <div className="grid grid-cols-3 gap-3 md:gap-4">
-                {progressData.map((item, index) => (
-                    <div
-                        key={index}
-                        onClick={() => handleCardClick(item.name)}
-                        className="bg-white rounded-xl p-3 md:p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-md hover:border-red-100 transition-all active:scale-95"
-                    >
-                        <span className="text-xs md:text-sm font-medium text-gray-500 mb-1">{item.name}</span>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-xl md:text-2xl font-bold" style={{ color: item.color }}>
-                                {item.value}
+                {progressData.map((item, index) => {
+                    const isNotLearned = item.name === '覚えていない単語';
+
+                    return (
+                        <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleCardClick(item.name)}
+                            aria-label={`${item.name}の一覧を開く`}
+                            className={`group relative overflow-hidden rounded-xl p-3 md:p-4 shadow-sm border flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-md transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 ${isNotLearned
+                                ? 'bg-red-50/40 border-red-200 hover:border-red-300 hover:bg-red-50/70'
+                                : 'bg-white border-gray-100 hover:border-red-100'
+                                }`}
+                        >
+                            <span className="text-xs md:text-sm font-medium text-gray-500 mb-1">{item.name}</span>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-xl md:text-2xl font-bold" style={{ color: item.color }}>
+                                    {item.value}
+                                </span>
+                                <span className="text-xs text-gray-400">語</span>
+                            </div>
+                            <span className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] md:text-xs font-bold whitespace-nowrap transition-colors ${isNotLearned
+                                ? 'bg-red-100 text-red-600 group-hover:bg-red-600 group-hover:text-white'
+                                : 'bg-gray-50 text-gray-500 group-hover:bg-red-50 group-hover:text-red-600'
+                                }`}
+                            >
+                                単語を見る
+                                <svg className="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                </svg>
                             </span>
-                            <span className="text-xs text-gray-400">語</span>
-                        </div>
-                    </div>
-                ))}
+                        </button>
+                    );
+                })}
             </div>
 
             {/* カウントの定義説明リンク */}

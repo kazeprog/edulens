@@ -15,7 +15,7 @@ import ContributionGrid from '@/components/mistap/ContributionGrid';
 import AddToHomeScreen from '@/components/mistap/AddToHomeScreen';
 import MistapFooter from '@/components/mistap/Footer';
 import GoogleAdsense from '@/components/GoogleAdsense';
-import { BookMarked, CalendarCheck, Headphones, TrendingUp } from 'lucide-react';
+import { BookMarked, CalendarCheck, Camera, Headphones, PenLine, TrendingUp } from 'lucide-react';
 
 type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>;
@@ -909,10 +909,11 @@ export default function HomePage() {
     }
 
     const isProfileIncomplete = profile.fullName === 'ゲスト' || profile.grade === '未設定';
+    const graphPaperBackground = "bg-white bg-fixed bg-[linear-gradient(rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px),linear-gradient(rgba(220,38,38,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(220,38,38,0.08)_1px,transparent_1px)] [background-size:24px_24px,24px_24px,120px_120px,120px_120px] [background-position:-1px_-1px,-1px_-1px,-1px_-1px,-1px_-1px]";
 
     return (
-        <main className="min-h-screen bg-[#faf6fb]">
-            <Background className="min-h-screen !bg-none !bg-[#faf6fb]">
+        <main className={`${graphPaperBackground} min-h-screen`}>
+            <div className="relative z-10 min-h-screen">
                 <div className="max-w-5xl mx-auto px-4 pb-8" style={{ marginTop: '25px' }}>
 
                     {/* Welcome Header */}
@@ -1309,6 +1310,52 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                 </button>
+                                <button
+                                    onClick={() => router.push('/writing')}
+                                    className="md:hidden group relative bg-white hover:bg-indigo-50/50 p-4 rounded-3xl flex items-center justify-between shadow-sm hover:shadow-md border border-gray-100 transition-all active:scale-[0.98] hover:-translate-y-0.5 overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-violet-50 rounded-full -mr-10 -mt-10 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-2xl"></div>
+
+                                    <div className="flex items-center gap-4 relative z-10 w-full">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-2xl text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                                            <PenLine className="w-6 h-6" />
+                                        </div>
+                                        <div className="text-left flex-1">
+                                            <div className="font-extrabold text-lg text-gray-800 flex items-center gap-2 tracking-tight">
+                                                AI英作文添削
+                                            </div>
+                                            <div className="text-xs font-bold text-indigo-500">英検・大学入試のWriting対策</div>
+                                        </div>
+                                        <div className="bg-indigo-50 p-2 rounded-full group-hover:bg-indigo-100 transition-colors group-hover:translate-x-1 duration-300">
+                                            <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/naruhodo-lens')}
+                                    className="md:hidden group relative bg-white hover:bg-blue-50/50 p-4 rounded-3xl flex items-center justify-between shadow-sm hover:shadow-md border border-gray-100 transition-all active:scale-[0.98] hover:-translate-y-0.5 overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100 to-cyan-50 rounded-full -mr-10 -mt-10 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-2xl"></div>
+
+                                    <div className="flex items-center gap-4 relative z-10 w-full">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                                            <Camera className="w-6 h-6" />
+                                        </div>
+                                        <div className="text-left flex-1">
+                                            <div className="font-extrabold text-lg text-gray-800 flex items-center gap-2 tracking-tight">
+                                                ナルホドレンズ
+                                            </div>
+                                            <div className="text-xs font-bold text-blue-500">写真で質問・AIが解説</div>
+                                        </div>
+                                        <div className="bg-blue-50 p-2 rounded-full group-hover:bg-blue-100 transition-colors group-hover:translate-x-1 duration-300">
+                                            <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </button>
                                 <div className="grid grid-cols-2 gap-3">
                                     <button
                                         onClick={() => router.push('/mistap/test-setup')}
@@ -1400,6 +1447,40 @@ export default function HomePage() {
                                     </div>
                                     <div className="relative z-10 bg-sky-50 p-1.5 rounded-full group-hover:bg-sky-100 group-hover:translate-x-1 transition-all">
                                         <svg className="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/writing')}
+                                    className="w-full group relative flex items-center justify-between gap-3 bg-white hover:bg-indigo-50/30 border border-gray-200 p-3 rounded-2xl transition-all shadow-sm hover:shadow hover:-translate-y-0.5 overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-full -mr-8 -mt-8 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-xl"></div>
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform shrink-0">
+                                            <PenLine className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-extrabold text-gray-800 tracking-tight">AI英作文添削</span>
+                                    </div>
+                                    <div className="relative z-10 bg-indigo-50 p-1.5 rounded-full group-hover:bg-indigo-100 group-hover:translate-x-1 transition-all">
+                                        <svg className="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </button>
+                                <button
+                                    onClick={() => router.push('/naruhodo-lens')}
+                                    className="w-full group relative flex items-center justify-between gap-3 bg-white hover:bg-blue-50/30 border border-gray-200 p-3 rounded-2xl transition-all shadow-sm hover:shadow hover:-translate-y-0.5 overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-full -mr-8 -mt-8 opacity-50 group-hover:scale-150 transition-transform duration-500 blur-xl"></div>
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white flex items-center justify-center shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform shrink-0">
+                                            <Camera className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-extrabold text-gray-800 tracking-tight">ナルホドレンズ</span>
+                                    </div>
+                                    <div className="relative z-10 bg-blue-50 p-1.5 rounded-full group-hover:bg-blue-100 group-hover:translate-x-1 transition-all">
+                                        <svg className="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                                         </svg>
                                     </div>
@@ -1538,6 +1619,66 @@ export default function HomePage() {
                                             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-sky-500 to-cyan-500 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-300 ease-out"></div>
                                             <span className="relative z-10 flex items-center gap-2">
                                                 ページを開く
+                                                <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="hidden md:block mb-8 relative group cursor-pointer" onClick={() => router.push('/writing')}>
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-3xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+                                <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-gray-100 overflow-hidden transform group-hover:-translate-y-1 transition-all duration-300">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-indigo-100/50 to-violet-50/50 rounded-full -mr-20 -mt-20 opacity-50 group-hover:scale-150 transition-transform duration-700 blur-3xl"></div>
+
+                                    <div className="relative z-10">
+                                        <h2 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                                            <span className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center text-white shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                                                <PenLine className="w-5 h-5" />
+                                            </span>
+                                            AI英作文添削
+                                        </h2>
+                                        <p className="text-gray-600 mb-5 text-sm font-medium">
+                                            英検や大学入試の英作文をAIが添削します。答案を入力して、論理構成や表現の改善点をすぐに確認できます。
+                                        </p>
+                                        <button
+                                            className="w-full relative overflow-hidden bg-white text-indigo-600 font-bold py-3.5 px-4 rounded-xl border-2 border-indigo-100 group-hover:border-indigo-500 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                        >
+                                            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-500 to-violet-500 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-300 ease-out"></div>
+                                            <span className="relative z-10 flex items-center gap-2">
+                                                添削ページを開く
+                                                <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="hidden md:block mb-8 relative group cursor-pointer" onClick={() => router.push('/naruhodo-lens')}>
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+                                <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 shadow-sm border border-gray-100 overflow-hidden transform group-hover:-translate-y-1 transition-all duration-300">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-blue-100/50 to-cyan-50/50 rounded-full -mr-20 -mt-20 opacity-50 group-hover:scale-150 transition-transform duration-700 blur-3xl"></div>
+
+                                    <div className="relative z-10">
+                                        <h2 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                                            <span className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white shadow-inner shadow-white/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                                                <Camera className="w-5 h-5" />
+                                            </span>
+                                            ナルホドレンズ
+                                        </h2>
+                                        <p className="text-gray-600 mb-5 text-sm font-medium">
+                                            わからない問題を写真で送るだけで、AIが考え方をステップごとに解説します。数学・理科・英語など、つまずいたところをその場で理解できます。
+                                        </p>
+                                        <button
+                                            className="w-full relative overflow-hidden bg-white text-blue-600 font-bold py-3.5 px-4 rounded-xl border-2 border-blue-100 group-hover:border-blue-500 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                        >
+                                            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-cyan-500 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-300 ease-out"></div>
+                                            <span className="relative z-10 flex items-center gap-2">
+                                                質問ページを開く
                                                 <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                                 </svg>
@@ -1706,7 +1847,7 @@ export default function HomePage() {
                         </div>
                     )}
                 </div>
-            </Background>
+            </div>
             <MistapFooter />
         </main>
     );
